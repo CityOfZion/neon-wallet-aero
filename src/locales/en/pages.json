@@ -1,0 +1,34 @@
+{
+  "wallets": {
+    "placeholderWalletSelectButton": "Select a wallet…",
+    "placeholderAccountSelectButton": "Select an account…∂",
+    "labelWalletSelectButton": "Wallet",
+    "labelAccountSelectButton": "Account",
+    "addressLabel": "Address",
+    "balanceLabel": "Balance",
+    "sendButtonLabel": "Send",
+    "ariaLabels": {
+      "menuIconButton": "Menu",
+      "refreshIconButton": "Refresh",
+      "copyIconButton": "Copy"
+    },
+    "claimButton": {
+      "gasAvailableLabel": "<1>Claim</1> {{ amount }} {{ symbol }}",
+      "gasUnavailableLabel": "GAS unavailable"
+    },
+    "tokenTab": {
+      "label": "Tokens",
+      "holdingsLabel": "Holdings",
+      "valueLabel": "Value"
+    },
+    "nftsTab": {
+      "label": "NFTs"
+    },
+    "transactionsTab": {
+      "label": "Transactions"
+    },
+    "connectionsTab": {
+      "label": "Connections"
+    }
+  }
+}

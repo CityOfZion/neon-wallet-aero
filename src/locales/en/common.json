@@ -1,0 +1,17 @@
+{
+  "general": {
+    "default": "Default"
+  },
+  "account": {
+    "defaultName": "Account {{accountNumber}}"
+  },
+  "blockchain": {
+    "neo3": "Neo N3",
+    "neoLegacy": "Neo Legacy",
+    "ethereum": "Ethereum",
+    "neox": "NeoX",
+    "polygon": "Polygon",
+    "base": "Base",
+    "arbitrum": "Arbitrum"
+  }
+}
