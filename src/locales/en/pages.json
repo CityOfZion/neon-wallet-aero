@@ -1,7 +1,7 @@
 {
   "wallets": {
     "placeholderWalletSelectButton": "Select a wallet…",
-    "placeholderAccountSelectButton": "Select an account…∂",
+    "placeholderAccountSelectButton": "Select an account…",
     "labelWalletSelectButton": "Wallet",
     "labelAccountSelectButton": "Account",
     "addressLabel": "Address",
@@ -30,5 +30,63 @@
     "connectionsTab": {
       "label": "Connections"
     }
+  },
+  "login": {
+    "title": "Welcome to",
+    "neonAccountTabLabel": "Neon Account",
+    "hardwareWalletTabLabel": "Hardware Wallet",
+    "addressOrKeyTabLabel": "Address or Key"
+  },
+  "loginNeonAccountPassword": {
+    "description": "Login to your wallet",
+    "passwordInputPlaceholder": "Enter your password…",
+    "passwordInputLabel": "Enter password",
+    "buttonLoginLabel": "Login",
+    "forgotPasswordButtonLabel": "Forgot password?",
+    "error": {
+      "invalidPassword": "Invalid password"
+    }
+  },
+  "loginNeonAccountOnboarding": {
+    "description": "What would you like to do with Neon?",
+    "createNewWalletLink": {
+      "title": "Create a new wallet",
+      "text": "I want to <1>create a new</1> password-protected account so my data is persistent"
+    },
+    "importExternalWalletLink": {
+      "title": "Import an external wallet",
+      "text": "I want to <1>import</1> a wallet and password-protect my data to ensure it’s persistent"
+    },
+    "migrateFromNeon2Link": {
+      "title": "Migrate from Neon 2",
+      "text": "I want to <1>migrate</1> my Neon 2 wallet"
+    }
+  },
+  "loginOnboardingNewWallet": {
+    "description": "Securing your new wallet",
+    "goBackIconButtonLabel": "Go back",
+    "steps": [
+      "Create Password",
+      "Confirm Password",
+      "Complete"
+    ]
+  },
+  "loginOnboardingNewWalletStep1": {
+    "passwordInputLabel": "Enter your new password",
+    "passwordInputPlaceholder": "Create a password…",
+    "errors": {
+      "passwordLength": "Password must be at least {{length}} characters long"
+    }
+  },
+  "loginOnboardingNewWalletStep2": {
+    "confirmPasswordInputLabel": "Enter your password again",
+    "confirmPasswordInputPlaceholder": "Confirm your password…",
+    "errors": {
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
+  "loginOnboardingNewWalletStep3": {
+    "description": "Your wallet is now created!",
+    "buttonContinueLabel": "Open your wallet"
   }
 }

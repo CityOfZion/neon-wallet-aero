@@ -1,6 +1,6 @@
 import { StyleHelper } from '@/helpers/StyleHelper'
 
-import TbLoader2 from '@/assets/icons/tb-loader-2.svg?react'
+import TbLoader2 from '@/assets/images/tb-loader-2.svg?react'
 
 type TProps = {
   containerClassName?: string

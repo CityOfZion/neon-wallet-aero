@@ -18,9 +18,9 @@ import { IAccountState, IWalletState } from '@/types/store'
 import { WalletPageClaimButton } from './WalletsPageClaimButton'
 import { WalletsPageTokensTabContent } from './WalletsPageTokensTabContent'
 
-import TbCopy from '@/assets/icons/tb-copy.svg?react'
-import TbRefresh from '@/assets/icons/tb-refresh.svg?react'
-import TbStepOut from '@/assets/icons/tb-step-out.svg?react'
+import TbCopy from '@/assets/images/tb-copy.svg?react'
+import TbRefresh from '@/assets/images/tb-refresh.svg?react'
+import TbStepOut from '@/assets/images/tb-step-out.svg?react'
 
 type TProps = {
   selectedAccount: IAccountState

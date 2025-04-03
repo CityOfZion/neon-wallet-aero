@@ -68,6 +68,10 @@
     @apply antialiased;
   }
 
+  * {
+    font-family: 'SofiaPro', sans-serif;
+  }
+
   *,
   ::after,
   ::before,

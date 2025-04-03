@@ -1,6 +1,6 @@
 import { Button } from '@/components/Button'
 
-import MdChevronDown from '@/assets/icons/md-keyboard-arrow-down.svg?react'
+import MdChevronDown from '@/assets/images/md-keyboard-arrow-down.svg?react'
 
 type TProps = {
   label: string

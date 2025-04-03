@@ -1,6 +1,11 @@
 {
   "general": {
-    "default": "Default"
+    "continue": "Continue",
+    "default": "Default",
+    "successfullyCopied": "Successfully copied to clipboard"
+  },
+  "wallet": {
+    "firstWalletName": "My First Wallet"
   },
   "account": {
     "defaultName": "Account {{accountNumber}}"

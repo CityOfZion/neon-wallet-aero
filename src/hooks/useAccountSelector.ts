@@ -19,6 +19,17 @@ const selectAccounts = createAppSelector(
   }
 )
 
+const selectAccountsWithWallet = createAppSelector(
+  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+  (applicationDataByLoginType, loginSession) => {
+    const accounts = applicationDataByLoginType[loginSession?.type ?? 'password'].wallets.flatMap(wallet =>
+      wallet.accounts.map(account => ({ ...account, wallet }))
+    )
+
+    return orderAccounts(accounts)
+  }
+)
+
 export const useAccountsSelector = () => {
   const { ref, value } = useAppSelector(selectAccounts)
 
@@ -27,15 +38,6 @@ export const useAccountsSelector = () => {
     accountsRef: ref,
   }
 }
-
-const selectAccountsWithWallet = createAppSelector(
-  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
-  (applicationDataByLoginType, loginSession) => {
-    return applicationDataByLoginType[loginSession?.type ?? 'password'].wallets.flatMap(wallet =>
-      wallet.accounts.map(account => ({ ...account, wallet }))
-    )
-  }
-)
 
 export const useAccountsWithWalletSelector = () => {
   const { ref, value } = useAppSelector(selectAccountsWithWallet)

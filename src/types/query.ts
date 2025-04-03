@@ -27,7 +27,6 @@ export type TTokenBalance = BalanceResponse & {
   exchangeConvertedPrice: number
   exchangeAmount: number
 }
-
 export type TBalance = {
   address: string
   blockchain: TBlockchainServiceKey

@@ -72,13 +72,6 @@ export type TNetworkProfile = {
   networkByBlockchain: TSelectedNetworks
 }
 
-export interface ISettingsState {
-  currency: TCurrency
-  selectedNetworkByBlockchain: TSelectedNetworks
-  networkProfiles: TNetworkProfile[]
-  selectedNetworkProfile: TNetworkProfile
-}
-
 export type TPendingTransaction = TransactionResponse & {
   account: IAccountState
   isClaim?: boolean

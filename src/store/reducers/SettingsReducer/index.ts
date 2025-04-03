@@ -4,12 +4,17 @@ import { PersistConfig } from 'redux-persist'
 import { AVAILABLE_CURRENCIES } from '@/constants/currency'
 import { DEFAULT_NETWORK_BY_BLOCKCHAIN, DEFAULT_NETWORK_PROFILE } from '@/constants/networks'
 import { reduxPersistStorage } from '@/libs/reduxPersist'
-import { ISettingsState } from '@/types/store'
+import { TCurrency, TNetworkProfile, TSelectedNetworks } from '@/types/store'
 
 import { settingsSliceReducers } from './reducers'
 
 export interface ISettingsReducer {
-  data: ISettingsState
+  data: {
+    currency: TCurrency
+    selectedNetworkByBlockchain: TSelectedNetworks
+    networkProfiles: TNetworkProfile[]
+    selectedNetworkProfile: TNetworkProfile
+  }
 }
 
 const settingsReducerInitialState: ISettingsReducer = {

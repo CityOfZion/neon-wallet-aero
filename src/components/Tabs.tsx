@@ -9,7 +9,7 @@ const List = forwardRef<ComponentRef<typeof TabsPrimitive.List>, ComponentPropsW
   ({ className, children, ...props }, ref) => (
     <TabsPrimitive.List
       ref={ref}
-      className={StyleHelper.mergeStyles('flex items-center justify-center gap-2.5', className)}
+      className={StyleHelper.mergeStyles('flex items-center justify-center gap-1.5', className)}
       {...props}
     >
       {children}

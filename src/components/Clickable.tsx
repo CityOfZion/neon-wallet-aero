@@ -25,7 +25,7 @@ const Outline = ({ className, ...props }: TClickableProps) => {
   return (
     <Base
       className={StyleHelper.mergeStyles(
-        'group flex cursor-pointer items-center justify-center gap-x-2.5 rounded-sm border py-3 text-center transition-colors',
+        'group flex cursor-pointer items-center justify-center rounded-sm border py-3 text-center transition-colors',
         'aria-disabled:border-gray-100/50 aria-disabled:text-gray-100/50 aria-disabled:opacity-100',
         'aria-[disabled=false]:hover:bg-gray-300/15',
         {
@@ -47,7 +47,7 @@ const Contained = ({ className, ...props }: TClickableProps) => {
   return (
     <Base
       className={StyleHelper.mergeStyles(
-        'flex min-w-0 items-center justify-center gap-x-2.5 rounded-sm py-3 text-center transition-colors',
+        'flex min-w-0 items-center justify-center rounded-sm py-3 text-center transition-colors',
         'aria-disabled:bg-gray-300/30 aria-disabled:text-gray-100/50 aria-disabled:opacity-100',
         'aria-[disabled=false]:bg-linear-to-t aria-[disabled=false]:from-gray-800 aria-[disabled=false]:to-gray-600 aria-[disabled=false]:shadow-[4px_8px_20px_0px_rgba(18,21,23,0.40),inset_1px_1px_0px_0px_rgba(214,210,210,0.14),inset_-1px_-1px_0px_0px_rgba(0,0,0,0.32)] aria-[disabled=false]:hover:from-gray-600 aria-[disabled=false]:hover:to-gray-600',
         className
@@ -61,7 +61,7 @@ const Text = ({ className, ...props }: TClickableProps) => {
   return (
     <Base
       className={StyleHelper.mergeStyles(
-        'flex min-w-0 items-center justify-center gap-x-1.5 rounded-sm text-center transition-colors aria-[disabled=false]:hover:bg-gray-300/15',
+        'flex min-w-0 items-center justify-center rounded-sm text-center transition-colors aria-[disabled=false]:hover:bg-gray-300/15',
         className
       )}
       {...props}
@@ -73,7 +73,7 @@ const TextSlim = ({ className, ...props }: TClickableProps) => {
   return (
     <Base
       className={StyleHelper.mergeStyles(
-        'flex h-fit min-w-0 items-center justify-center gap-x-1.5 px-0 text-center transition-opacity aria-[disabled=false]:hover:opacity-75 aria-[disabled=false]:focus:opacity-75 aria-[disabled=false]:active:opacity-50',
+        'flex h-fit min-w-0 items-center justify-center px-0 text-center transition-opacity aria-[disabled=false]:hover:opacity-75 aria-[disabled=false]:focus:opacity-75 aria-[disabled=false]:active:opacity-50',
         className
       )}
       {...props}
@@ -85,7 +85,7 @@ const Card = ({ className, ...props }: TClickableProps) => {
   return (
     <Base
       className={StyleHelper.mergeStyles(
-        'flex min-w-0 items-center justify-center gap-x-2.5 rounded-sm py-3 text-center text-white transition-colors',
+        'text-neon flex min-w-0 items-center justify-center rounded-sm py-3 text-center transition-colors',
         'aria-disabled:bg-gray-300/30 aria-disabled:text-gray-100/50 aria-disabled:opacity-100',
         'aria-[disabled=false]:bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30',
         className
@@ -129,7 +129,7 @@ const Base = ({
     <div
       aria-disabled={isDisabled}
       className={StyleHelper.mergeStyles(
-        'w-full aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-[disabled=false]:cursor-pointer',
+        'w-full gap-x-2.5 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-[disabled=false]:cursor-pointer',
         {
           'px-7': wide,
           'h-12 text-sm': !flat,

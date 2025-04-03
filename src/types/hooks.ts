@@ -1,0 +1,18 @@
+export type TUseActionsData = Record<string, any>
+
+export type TUseActionsOptions = {
+  clearErrorsOnChange?: boolean
+}
+
+export type TUseActionsErrors<T> = Record<keyof T, string | undefined>
+
+export type TUseActionsChanged<T> = Record<keyof T, boolean>
+
+export type TUseActionsActionState<T> = {
+  hasChanged: boolean
+  isValid: boolean
+  isActing: boolean
+  errors: TUseActionsErrors<T>
+  changed: TUseActionsChanged<T>
+  hasActed: boolean
+}

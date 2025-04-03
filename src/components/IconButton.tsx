@@ -20,7 +20,6 @@ export const IconButton = forwardRef<HTMLButtonElement, TIconButtonProps>(
           size={size}
           colorSchema={colorSchema}
           loading={loading}
-          {...props}
         />
       </button>
     )
