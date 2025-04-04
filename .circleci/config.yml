@@ -1,0 +1,31 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@7.0.0
+
+jobs:
+  lint_typecheck:
+    docker:
+      - image: cimg/node:current
+    working_directory: ~/neon-wallet-aero
+    steps:
+      - checkout
+      - node/install:
+          node-version: '22.14.0'
+      - run: sudo npm install -g npm
+      - restore_cache:
+          key: nwa-dependency-cache-{{ checksum "package.json" }}
+      - run: sudo apt-get -y update
+      - run: npm ci --timeout 1500000
+      - save_cache:
+          key: nwa-dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+            - ./node_modules
+
+workflows:
+  version: 2
+  verify_commit:
+    jobs:
+      # run test on every commit
+      - lint_typecheck

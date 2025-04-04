@@ -1,0 +1,47 @@
+import { AccountHelper } from '@/helpers/AccountHelper'
+import { IAccountState } from '@/types/store'
+
+import { createAppSelector, useAppSelector } from './useRedux'
+
+const selectHasClaimPendingTransaction = (account: IAccountState) =>
+  createAppSelector([state => state.utility.inMemoryData.pendingTransactions], pendingTransactions => {
+    return pendingTransactions.some(
+      transaction => !!transaction.isClaim && AccountHelper.predicate(account)(transaction.account)
+    )
+  })
+
+export const usePendingTransactionsSelector = () => {
+  const { ref, value } = useAppSelector(state => state.utility.inMemoryData.pendingTransactions)
+
+  return {
+    pendingTransactions: value,
+    pendingTransactionsRef: ref,
+  }
+}
+
+export const useHasClaimPendingTransactionSelector = (account: IAccountState) => {
+  const { ref, value } = useAppSelector(selectHasClaimPendingTransaction(account))
+
+  return {
+    hasClaimPendingTransaction: value,
+    hasClaimPendingTransactionRef: ref,
+  }
+}
+
+export const useLastIndexesByWallet = () => {
+  const { ref, value } = useAppSelector(state => state.utility.data.lastIndexesByWallet)
+
+  return {
+    lastIndexesByWallet: value,
+    lastIndexesByWalletRef: ref,
+  }
+}
+
+export const useHiddenTokensByBlockchainSelector = () => {
+  const { ref, value } = useAppSelector(state => state.utility.data.hiddenTokensByBlockchain)
+
+  return {
+    hiddenTokensByBlockchain: value,
+    hiddenTokensByBlockchainRef: ref,
+  }
+}

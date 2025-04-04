@@ -1,0 +1,19 @@
+{
+  "name": "Neon",
+  "description": "Everything a self-custodial wallet should be with everything you need to explore and make transactions in the Neo N3, Neo Legacy, Neo X, Ethereum, and other networks.",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Open the Neon"
+  },
+  "icons": {
+    "16": "public/icon-16x16.png",
+    "32": "public/icon-32x32.png",
+    "48": "public/icon-48x48.png",
+    "128": "public/icon-128x128.png"
+  },
+  "permissions": [
+    "storage"
+  ]
+}
