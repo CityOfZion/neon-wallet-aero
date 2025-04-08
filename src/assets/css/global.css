@@ -53,6 +53,12 @@
   --text-2xs: 0.5rem;
 
   --leading-2: 0.625rem;
+
+  --spacing-popup-w-screen: 25rem;
+  --spacing-popup-h-screen: 37.5rem;
+
+  --spacing-modal-side-width: 23.75rem;
+  --spacing-modal-bottom-height: 36.25rem;
 }
 
 /*

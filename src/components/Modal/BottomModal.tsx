@@ -1,0 +1,54 @@
+import { useLayoutEffect, useState } from 'react'
+import { motion, useAnimate, usePresence } from 'motion/react'
+
+import { ModalRouterCurrentHistoryProvider } from '@/contexts/ModalRouterCurrentHistoryContext'
+import { StyleHelper } from '@/helpers/StyleHelper'
+import { useModalHistories } from '@/hooks/useModalRouter'
+import { THistory } from '@/types/modal'
+
+import { ModalContainer } from './ModalContainer'
+
+export const BottomModal = () => {
+  const { histories } = useModalHistories()
+  const [isPresent, safeToRemove] = usePresence()
+  const [scope, animate] = useAnimate()
+
+  const [bottomHistories, setBottomHistories] = useState<THistory[]>([])
+
+  useLayoutEffect(() => {
+    if (!isPresent) return
+    setBottomHistories(histories.filter(history => history.route.type === 'bottom'))
+  }, [histories, isPresent])
+
+  useLayoutEffect(() => {
+    if (isPresent) {
+      animate(
+        scope.current,
+        { height: 'var(--spacing-modal-bottom-height)' },
+        { type: 'spring', damping: 27, stiffness: 300 }
+      )
+      return
+    }
+
+    animate(scope.current, { height: 0 }, { duration: 0.2 }).then(safeToRemove)
+  }, [isPresent, animate, scope, safeToRemove])
+
+  return (
+    <ModalContainer className="flex items-end">
+      <motion.div className="relative w-full" ref={scope} initial={{ height: 0 }}>
+        {bottomHistories.map((history, index) => (
+          <div
+            className={StyleHelper.mergeStyles(`min-h-modal-bottom-height h-full w-full`, {
+              'invisible hidden': index !== bottomHistories.length - 1,
+            })}
+            key={history.id}
+          >
+            <ModalRouterCurrentHistoryProvider value={history}>
+              {history.route.element}
+            </ModalRouterCurrentHistoryProvider>
+          </div>
+        ))}
+      </motion.div>
+    </ModalContainer>
+  )
+}

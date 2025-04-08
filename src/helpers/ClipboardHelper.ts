@@ -1,8 +1,7 @@
-import { getI18n } from 'react-i18next'
-
 import { ToastHelper } from '@/helpers/ToastHelper'
+import { getI18next } from '@/libs/i18next'
 
-const { t } = getI18n()
+const { t } = getI18next()
 
 export class ClipboardHelper {
   static async write(text: string) {

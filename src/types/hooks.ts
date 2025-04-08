@@ -1,3 +1,6 @@
+import { TModalRouterContextNavigateOptions, TRouteType } from './modal'
+import { TModalRouterRouteTypes } from './modalRouterTypes'
+
 export type TUseActionsData = Record<string, any>
 
 export type TUseActionsOptions = {
@@ -15,4 +18,19 @@ export type TUseActionsActionState<T> = {
   errors: TUseActionsErrors<T>
   changed: TUseActionsChanged<T>
   hasActed: boolean
+}
+
+type TUseModalNavigateFunction<R = void> = {
+  (name: number): R
+  <T extends keyof TModalRouterRouteTypes>(
+    name: T,
+    options?: TModalRouterContextNavigateOptions<TModalRouterRouteTypes[T]>
+  ): R
+}
+
+export type TUseModalNavigateResponse = {
+  modalNavigate: TUseModalNavigateFunction
+  modalNavigateWrapper: TUseModalNavigateFunction<() => void>
+  modalErase(type: TRouteType): void
+  modalEraseWrapper(type: TRouteType): () => void
 }
