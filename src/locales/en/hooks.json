@@ -4,5 +4,9 @@
       "noKey": "It was not possible to find the key: {{address}}",
       "blockchainIsNotClaimable": "The account blockchain is not claimable: {{address}} {{blockchain}}"
     }
+  },
+  "useLogin": {
+    "controlIsNotSet": "Unexpected error. Login control is not set.",
+    "controlIsNotValid": "Unexpected error. Login control is not valid."
   }
 }

@@ -11,7 +11,7 @@ import { IAccountState, IWalletState } from '@/types/store'
 import { WalletsPageOverview } from './WalletsPageOverview'
 import { WalletsPageSelectButton } from './WalletsPageSelectButton'
 
-import TbMenu2 from '@/assets/icons/tb-menu-2.svg?react'
+import TbMenu2 from '@/assets/images/tb-menu-2.svg?react'
 
 type TLocationState = {
   account?: IAccountState

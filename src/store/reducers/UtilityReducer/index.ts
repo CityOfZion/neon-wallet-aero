@@ -11,6 +11,8 @@ export interface IUtilityReducer {
     pendingTransactions: TPendingTransaction[]
   }
   data: {
+    hasPassword: boolean
+    encryptedLoginControl?: string
     lastIndexesByWallet: TLastIndexesByWallet
     hiddenTokensByBlockchain: THiddenTokenByBlockchain
   }
@@ -21,6 +23,8 @@ const utilityReducerInitialState: IUtilityReducer = {
     pendingTransactions: [],
   },
   data: {
+    hasPassword: false,
+    encryptedLoginControl: undefined,
     lastIndexesByWallet: {},
     hiddenTokensByBlockchain: {},
   },

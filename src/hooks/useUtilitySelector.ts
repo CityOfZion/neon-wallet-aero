@@ -45,3 +45,21 @@ export const useHiddenTokensByBlockchainSelector = () => {
     hiddenTokensByBlockchainRef: ref,
   }
 }
+
+export const useLoginControlSelector = () => {
+  const { ref, value } = useAppSelector(state => state.utility.data.encryptedLoginControl)
+
+  return {
+    encryptedLoginControl: value,
+    encryptedLoginControlRef: ref,
+  }
+}
+
+export const useHasPasswordSelector = () => {
+  const { ref, value } = useAppSelector(state => state.utility.data.hasPassword)
+
+  return {
+    hasPassword: value,
+    hasPasswordRef: ref,
+  }
+}

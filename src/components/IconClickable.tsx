@@ -3,7 +3,7 @@ import { match } from 'ts-pattern'
 
 import { StyleHelper } from '@/helpers/StyleHelper'
 
-import TbLoader2 from '@/assets/icons/tb-loader-2.svg?react'
+import TbLoader2 from '@/assets/images/tb-loader-2.svg?react'
 
 export type TIconClickableCustomProps = {
   variant?: 'contained' | 'normal'
@@ -13,7 +13,7 @@ export type TIconClickableCustomProps = {
   colorSchema?: 'neon' | 'gray' | 'white' | 'yellow' | 'error'
   disabled?: boolean
   loading?: boolean
-} & ComponentProps<'div'>
+}
 
 export type TIconClickableProps = TIconClickableCustomProps & ComponentProps<'div'>
 
