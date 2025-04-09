@@ -23,7 +23,7 @@ export const WalletsPageTokensTabContent = ({ selectedAccount }: TProps) => {
   const rowVirtualizer = useVirtualizer({
     count: tokenBalances.length,
     estimateSize: () => 62,
-    getScrollElement: () => document.querySelector('#parent'),
+    getScrollElement: () => document.querySelector('#popup-root'),
     overscan: 10,
   })
 

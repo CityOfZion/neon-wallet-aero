@@ -1,11 +1,12 @@
-import { useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Location, useLocation, useNavigate } from 'react-router-dom'
 
 import { IconButton } from '@/components/IconButton'
 import { useAccountsWithWalletSelector } from '@/hooks/useAccountSelector'
+import { useModalNavigate } from '@/hooks/useModalRouter'
 import { useWalletsSelector } from '@/hooks/useWalletSelector'
-import { MainLayout } from '@/layouts/MainLayout'
+import { ScreenLayout } from '@/layouts/ScreenLayout'
 import { IAccountState, IWalletState } from '@/types/store'
 
 import { WalletsPageOverview } from './WalletsPageOverview'
@@ -24,16 +25,58 @@ export const WalletsPage = () => {
   const { wallets } = useWalletsSelector()
   const { accountsWithWallet } = useAccountsWithWalletSelector()
   const navigate = useNavigate()
+  const { modalNavigate, modalErase } = useModalNavigate()
 
   const [selectedWallet, setSelectedWallet] = useState<IWalletState | undefined>()
   const [selectedAccount, setSelectedAccount] = useState<IAccountState | undefined>()
+
+  const handleNavigateSelect = useCallback(
+    (wallet: IWalletState, account: IAccountState) => {
+      navigate(`/app/wallets`, { state: { account, wallet }, replace: true })
+    },
+    [navigate]
+  )
+
+  const handleWalletSelect = () => {
+    modalNavigate('wallet-selection', {
+      state: {
+        selectedWallet,
+        shouldGoBackOnSelect: false,
+        onSelect: wallet => {
+          modalNavigate('account-selection', {
+            state: {
+              wallet,
+              selectedAccount,
+              shouldGoBackOnSelect: false,
+              onSelect: account => {
+                handleNavigateSelect(wallet, account)
+                modalErase('bottom')
+              },
+            },
+          })
+        },
+      },
+    })
+  }
+
+  const handleAccountSelect = () => {
+    modalNavigate('account-selection', {
+      state: {
+        wallet: selectedWallet!,
+        selectedAccount,
+        onSelect: (account: IAccountState) => {
+          handleNavigateSelect(selectedWallet!, account)
+        },
+      },
+    })
+  }
 
   useLayoutEffect(() => {
     const navigateToFirstAccount = () => {
       const firstWallet = wallets[0]
       const firstAccount = firstWallet?.accounts[0]
       if (firstAccount) {
-        navigate(`/app/wallets`, { state: { account: firstAccount, wallet: firstWallet }, replace: true })
+        handleNavigateSelect(firstWallet, firstAccount)
       }
     }
 
@@ -46,19 +89,22 @@ export const WalletsPage = () => {
 
     setSelectedAccount(state.account)
     setSelectedWallet(wallet)
-  }, [accountsWithWallet, navigate, state, wallets])
+  }, [accountsWithWallet, handleNavigateSelect, state, wallets])
 
   return (
-    <MainLayout id="parent">
+    <ScreenLayout>
       <div className="flex items-end justify-between">
         <div className="-ml-2 flex gap-9">
           <WalletsPageSelectButton
             label={t('labelWalletSelectButton')}
             selectedLabel={selectedWallet?.name ?? t('placeholderWalletSelectButton')}
+            onClick={handleWalletSelect}
           />
           <WalletsPageSelectButton
             label={t('labelAccountSelectButton')}
             selectedLabel={selectedAccount?.name ?? t('placeholderWalletSelectButton')}
+            onClick={handleAccountSelect}
+            disabled={!selectedWallet}
           />
         </div>
 
@@ -68,6 +114,6 @@ export const WalletsPage = () => {
       {selectedWallet && selectedAccount && (
         <WalletsPageOverview selectedAccount={selectedAccount} selectedWallet={selectedWallet} />
       )}
-    </MainLayout>
+    </ScreenLayout>
   )
 }

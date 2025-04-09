@@ -85,7 +85,7 @@ const Card = ({ className, ...props }: TClickableProps) => {
   return (
     <Base
       className={StyleHelper.mergeStyles(
-        'text-neon flex min-w-0 items-center justify-center rounded-sm py-3 text-center transition-colors',
+        'flex min-w-0 items-center justify-center rounded-sm py-3 text-center transition-colors',
         'aria-disabled:bg-gray-300/30 aria-disabled:text-gray-100/50 aria-disabled:opacity-100',
         'aria-[disabled=false]:bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30',
         className

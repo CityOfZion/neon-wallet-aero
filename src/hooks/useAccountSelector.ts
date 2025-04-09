@@ -1,5 +1,6 @@
 import orderBy from 'lodash/orderBy'
 
+import { SelectorHelper } from '@/helpers/SelectorHelper'
 import { blockchainNames } from '@/libs/blockchainService'
 import { IAccountState } from '@/types/store'
 
@@ -30,6 +31,18 @@ const selectAccountsWithWallet = createAppSelector(
   }
 )
 
+const selectAccountsByWalletId = (walletId: string) =>
+  createAppSelector(
+    [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+    (applicationDataByLoginType, loginSession) => {
+      const wallet = applicationDataByLoginType[loginSession?.type ?? 'password'].wallets.find(
+        wallet => wallet.id === walletId
+      )!
+
+      return SelectorHelper.fallbackToEmptyArray(wallet?.accounts)
+    }
+  )
+
 export const useAccountsSelector = () => {
   const { ref, value } = useAppSelector(selectAccounts)
 
@@ -45,5 +58,13 @@ export const useAccountsWithWalletSelector = () => {
   return {
     accountsWithWallet: value,
     accountsWithWalletRef: ref,
+  }
+}
+export const useAccountsByWalletIdSelector = (walletId: string) => {
+  const { value, ref } = useAppSelector(selectAccountsByWalletId(walletId))
+
+  return {
+    accountsByWalletId: value,
+    accountsByWalletIdRef: ref,
   }
 }

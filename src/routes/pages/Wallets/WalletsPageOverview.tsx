@@ -7,6 +7,7 @@ import { Button } from '@/components/Button'
 import { IconButton } from '@/components/IconButton'
 import { Skeleton } from '@/components/Skeleton'
 import { Tabs } from '@/components/Tabs'
+import { ClipboardHelper } from '@/helpers/ClipboardHelper'
 import { NumberHelper } from '@/helpers/NumberHelper'
 import { StringHelper } from '@/helpers/StringHelper'
 import { useBalance } from '@/hooks/useBalances'
@@ -75,6 +76,7 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
             icon={<TbCopy aria-hidden />}
             colorSchema="neon"
             size="sm"
+            onClick={() => ClipboardHelper.write(selectedAccount.address)}
           />
         </div>
       </div>

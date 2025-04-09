@@ -1,0 +1,13 @@
+{
+  "walletSelectionModal": {
+    "title": "Select a wallet",
+    "subtitle": "All wallets",
+    "reorderButtonLabel": "Reorder",
+    "addButtonLabel": "Add"
+  },
+  "accountSelectionModal": {
+    "title": "Select an account",
+    "reorderButtonLabel": "Reorder",
+    "addButtonLabel": "Add"
+  }
+}
