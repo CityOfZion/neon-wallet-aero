@@ -25,7 +25,7 @@ export const WalletsPage = () => {
   const { wallets } = useWalletsSelector()
   const { accountsWithWallet } = useAccountsWithWalletSelector()
   const navigate = useNavigate()
-  const { modalNavigate, modalErase } = useModalNavigate()
+  const { modalNavigate, modalNavigateWrapper, modalErase } = useModalNavigate()
 
   const [selectedWallet, setSelectedWallet] = useState<IWalletState | undefined>()
   const [selectedAccount, setSelectedAccount] = useState<IAccountState | undefined>()
@@ -108,7 +108,12 @@ export const WalletsPage = () => {
           />
         </div>
 
-        <IconButton aria-label={t('ariaLabels.menuIconButton')} className="mb-0.5" icon={<TbMenu2 aria-hidden />} />
+        <IconButton
+          aria-label={t('ariaLabels.menuIconButton')}
+          className="mb-0.5"
+          icon={<TbMenu2 aria-hidden />}
+          onClick={modalNavigateWrapper('menu')}
+        />
       </div>
 
       {selectedWallet && selectedAccount && (

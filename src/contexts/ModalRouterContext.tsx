@@ -1,5 +1,4 @@
 import { createContext, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import FocusLock from 'react-focus-lock'
 import { AnimatePresence } from 'motion/react'
 
 import { BottomModal } from '@/components/Modal/BottomModal'
@@ -90,14 +89,14 @@ export const ModalRouterProvider = ({ routes, children }: TModalRouterProviderPr
   return (
     <ModalRouterContext.Provider value={{ navigate, erase, histories, historiesRef }}>
       {children}
-      <FocusLock>
-        <AnimatePresence>
-          {typesToRender.map(type => {
-            const Component = modalByRouteType[type]
-            return <Component key={type} />
-          })}
-        </AnimatePresence>
-      </FocusLock>
+
+      <AnimatePresence>
+        {typesToRender.map(type => {
+          const Component = modalByRouteType[type]
+
+          return <Component key={type} />
+        })}
+      </AnimatePresence>
     </ModalRouterContext.Provider>
   )
 }

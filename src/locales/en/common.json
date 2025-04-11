@@ -2,7 +2,9 @@
   "general": {
     "continue": "Continue",
     "default": "Default",
-    "successfullyCopied": "Successfully copied to clipboard"
+    "successfullyCopied": "Successfully copied to clipboard",
+    "close": "Close",
+    "back": "Back"
   },
   "wallet": {
     "firstWalletName": "My First Wallet"

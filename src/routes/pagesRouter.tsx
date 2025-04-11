@@ -54,6 +54,9 @@ export const pagesRouter = createHashRouter([
             path: 'wallets',
             element: <WalletsPage />,
           },
+          {
+            path: 'import',
+          },
         ],
       },
     ],

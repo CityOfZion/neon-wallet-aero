@@ -1,5 +1,6 @@
 import { useLayoutEffect, useState } from 'react'
-import { motion, useAnimate, usePresence } from 'framer-motion'
+import { FocusScope } from '@radix-ui/react-focus-scope'
+import { motion, useAnimate, usePresence } from 'motion/react'
 
 import { ModalRouterCurrentHistoryProvider } from '@/contexts/ModalRouterCurrentHistoryContext'
 import { StyleHelper } from '@/helpers/StyleHelper'
@@ -26,23 +27,24 @@ export const SideModal = () => {
       return
     }
 
-    animate(scope.current, { width: 0 }, { duration: 0.1 }).then(safeToRemove)
+    animate(scope.current, { width: 0 }, { duration: 0.2 }).then(safeToRemove)
   }, [isPresent, animate, scope, safeToRemove])
 
   return (
     <ModalContainer className="flex justify-end">
       <motion.div className="relative h-full" ref={scope} initial={{ width: 0 }}>
         {sideHistories.map((history, index) => (
-          <div
+          <FocusScope
+            key={history.id}
+            loop
             className={StyleHelper.mergeStyles(`min-w-modal-side-width h-full`, {
               'invisible hidden': index !== sideHistories.length - 1,
             })}
-            key={history.id}
           >
             <ModalRouterCurrentHistoryProvider value={history}>
               {history.route.element}
             </ModalRouterCurrentHistoryProvider>
-          </div>
+          </FocusScope>
         ))}
       </motion.div>
     </ModalContainer>

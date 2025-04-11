@@ -1,6 +1,6 @@
 import { ComponentProps, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 import { StyleHelper } from '@/helpers/StyleHelper'
 
@@ -31,5 +31,6 @@ export const ModalContent = ({ children, className }: TModalContainerProps) => (
 
 export const ModalContainer = (props: TModalContainerProps) => {
   const modalRoot = document.querySelector('#popup-root') as HTMLDivElement
+
   return createPortal(<ModalContent {...props} />, modalRoot)
 }
