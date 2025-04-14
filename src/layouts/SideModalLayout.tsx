@@ -10,23 +10,23 @@ import TbX from '@/assets/images/tb-x.svg?react'
 
 type TProps = { heading: string } & ComponentProps<'div'>
 
-export const BottomModalLayout = ({ children, heading, className, ...props }: TProps) => {
+export const SideModalLayout = ({ children, heading, className, ...props }: TProps) => {
   const { t } = useTranslation('common')
   const { modalEraseWrapper, modalNavigateWrapper } = useModalNavigate()
   const { histories } = useModalHistories()
 
-  const withBackButton = histories.filter(history => history.route.type === 'bottom').length > 1
+  const hasBackButton = histories.filter(({ route }) => route.type === 'side').length > 1
 
   return (
     <div
+      {...props}
       className={StyleHelper.mergeStyles(
-        'flex h-full min-h-0 w-full flex-col rounded-t-2xl bg-gray-700 px-4 py-5',
+        'flex h-full min-h-0 w-full flex-col bg-gray-700 px-4 py-5 text-white',
         className
       )}
-      {...props}
     >
-      <header className="relative mb-5 flex w-full items-center justify-center text-white">
-        {withBackButton && (
+      <header className="relative mt-2 mb-5 flex w-full flex-row items-center justify-center">
+        {hasBackButton && (
           <IconButton
             aria-label={t('general.back')}
             className="absolute top-1/2 left-0 -translate-y-1/2"
@@ -41,11 +41,11 @@ export const BottomModalLayout = ({ children, heading, className, ...props }: TP
           aria-label={t('general.close')}
           className="absolute top-1/2 right-0 -translate-y-1/2"
           icon={<TbX aria-hidden />}
-          onClick={modalEraseWrapper('bottom')}
+          onClick={modalEraseWrapper('side')}
         />
       </header>
 
-      {children}
+      <div className="flex w-full flex-col gap-y-2">{children}</div>
     </div>
   )
 }

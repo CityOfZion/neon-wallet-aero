@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from 'react'
+import { FocusScope } from '@radix-ui/react-focus-scope'
 import { motion, useAnimate, usePresence } from 'motion/react'
 
 import { ModalRouterCurrentHistoryProvider } from '@/contexts/ModalRouterCurrentHistoryContext'
@@ -27,6 +28,7 @@ export const BottomModal = () => {
         { height: 'var(--spacing-modal-bottom-height)' },
         { type: 'spring', damping: 27, stiffness: 300 }
       )
+
       return
     }
 
@@ -37,16 +39,17 @@ export const BottomModal = () => {
     <ModalContainer className="flex items-end">
       <motion.div className="relative w-full" ref={scope} initial={{ height: 0 }}>
         {bottomHistories.map((history, index) => (
-          <div
+          <FocusScope
+            key={history.id}
+            loop
             className={StyleHelper.mergeStyles(`min-h-modal-bottom-height h-full w-full`, {
               'invisible hidden': index !== bottomHistories.length - 1,
             })}
-            key={history.id}
           >
             <ModalRouterCurrentHistoryProvider value={history}>
               {history.route.element}
             </ModalRouterCurrentHistoryProvider>
-          </div>
+          </FocusScope>
         ))}
       </motion.div>
     </ModalContainer>

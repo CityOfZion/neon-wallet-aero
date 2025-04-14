@@ -16,4 +16,5 @@ type TAccountSelectionModalState = {
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
+  menu: undefined
 }

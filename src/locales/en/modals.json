@@ -9,5 +9,14 @@
     "title": "Select an account",
     "reorderButtonLabel": "Reorder",
     "addButtonLabel": "Add"
+  },
+  "menuModal": {
+    "title": "Menu",
+    "walletsItemLabel": "Wallets",
+    "importItemLabel": "Import",
+    "exportItemLabel": "Export",
+    "connectHardwareWalletItemLabel": "Connect hardware wallet",
+    "helpItemLabel": "Help",
+    "settingsItemLabel": "Settings"
   }
 }
