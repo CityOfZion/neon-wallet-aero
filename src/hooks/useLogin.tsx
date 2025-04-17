@@ -7,13 +7,11 @@ import { authReducerActions } from '@/store/reducers/AuthReducer'
 
 import { useAppDispatch } from './useRedux'
 import { useLoginControlSelector } from './useUtilitySelector'
-import { useWalletsSelector } from './useWalletSelector'
 
 export const useLogin = () => {
   const { encryptedLoginControlRef } = useLoginControlSelector()
   const dispatch = useAppDispatch()
   const { t } = useTranslation('hooks', { keyPrefix: 'useLogin' })
-  const { walletsRef } = useWalletsSelector()
 
   const loginWithPassword = useCallback(
     async (password: string) => {
@@ -29,29 +27,9 @@ export const useLogin = () => {
         throw new Error(t('controlIsNotValid'))
       }
 
-      const walletPromises = walletsRef.current.map(async wallet => {
-        if (wallet.encryptedMnemonic) {
-          await EncryptionHelper.decrypt(wallet.encryptedMnemonic, encryptedPassword)
-        }
-
-        const accountPromises = wallet.accounts.map(async account => {
-          if (!account.encryptedKey) return
-          await EncryptionHelper.decrypt(account.encryptedKey, encryptedPassword)
-        })
-
-        await Promise.all(accountPromises)
-      })
-
-      await Promise.all(walletPromises)
-
-      dispatch(
-        authReducerActions.setLoginSession({
-          type: 'password',
-          encryptedPassword,
-        })
-      )
+      dispatch(authReducerActions.setLoginSession({ type: 'password', encryptedPassword }))
     },
-    [encryptedLoginControlRef, walletsRef, dispatch, t]
+    [encryptedLoginControlRef, dispatch, t]
   )
 
   const logout = useCallback(async () => {

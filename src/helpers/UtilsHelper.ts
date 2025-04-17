@@ -29,4 +29,22 @@ export class UtilsHelper {
   static normalizeHash(hash: string) {
     return hash.replace('0x', '').toLowerCase()
   }
+
+  static async promiseAll<T, R>(array: T[], callback: (item: T) => Promise<R> | R): Promise<R[]> {
+    const results: R[] = []
+
+    const promises = array.map(async item => {
+      try {
+        const result = await callback(item)
+
+        results.push(result)
+      } catch {
+        /* empty */
+      }
+    })
+
+    await Promise.all(promises)
+
+    return results
+  }
 }

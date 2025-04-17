@@ -49,8 +49,8 @@ export class EncryptionHelper {
 
     const iv = crypto.getRandomValues(new Uint8Array(16))
     const encrypted = await crypto.subtle.encrypt({ name: 'AES-CBC', iv }, cryptoKey, encoder.encode(value))
-    const fullEncrypted = this.arrayBufferToHex(iv) + this.arrayBufferToHex(encrypted)
-    return fullEncrypted
+
+    return this.arrayBufferToHex(iv) + this.arrayBufferToHex(encrypted)
   }
 
   static async decrypt(encryptedValue?: string, encryptedPassword?: string) {
@@ -78,7 +78,6 @@ export class EncryptionHelper {
 
     const decrypted = await crypto.subtle.decrypt({ name: 'AES-CBC', iv: ivArray }, cryptoKey, encryptedArray)
 
-    const decryptedValue = decoder.decode(decrypted)
-    return decryptedValue
+    return decoder.decode(decrypted)
   }
 }

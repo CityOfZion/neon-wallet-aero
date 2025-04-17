@@ -14,9 +14,9 @@ export const useMountUnsafe = (onEffect: TOnEffect, delay = 0) => {
 
     // StrictMode make the effect to run twice, and we want to run the effect only once on the first render
     if (numberOfRenders.current <= 1) {
-      timeoutRef.current = setTimeout(() => {
+      timeoutRef.current = setTimeout(async () => {
         try {
-          onUnmountEffectRef.current = onEffect()
+          onUnmountEffectRef.current = await onEffect()
         } finally {
           setIsMounting(false)
         }

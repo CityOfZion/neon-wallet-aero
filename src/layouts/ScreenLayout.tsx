@@ -25,7 +25,9 @@ export const ScreenLayout = ({
   ...props
 }: TMainLayoutProps): JSX.Element => {
   const ref = useRef<HTMLDivElement>(null)
+
   useRemoveOverflowShift(ref)
+
   const navigate = useNavigate()
 
   const handleBack = () => {
