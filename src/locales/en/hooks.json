@@ -8,5 +8,15 @@
   "useLogin": {
     "controlIsNotSet": "Unexpected error. Login control is not set.",
     "controlIsNotValid": "Unexpected error. Login control is not valid."
+  },
+  "useImportActions": {
+    "errors": {
+      "invalid": "Invalid value or already exists",
+      "empty": "Please enter some value",
+      "invalidMnemonic": "Invalid mnemonic"
+    }
+  },
+  "useWalletUtils": {
+    "beLoggedInError": "You need to be logged in to access wallets"
   }
 }

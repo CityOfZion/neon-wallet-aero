@@ -1,6 +1,7 @@
 import { createHashRouter, Navigate } from 'react-router-dom'
 
 import { AppPage } from './pages/App'
+import { ImportPage } from './pages/Import'
 import { Login } from './pages/Login'
 import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
 import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
@@ -56,6 +57,7 @@ export const pagesRouter = createHashRouter([
           },
           {
             path: 'import',
+            element: <ImportPage />,
           },
         ],
       },

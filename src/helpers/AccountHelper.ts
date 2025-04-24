@@ -42,4 +42,8 @@ export class AccountHelper {
 
     return serviceAccount
   }
+
+  static buildAccountKey({ address, blockchain }: TAccountHelperPredicateParams) {
+    return `${address}-${blockchain}`
+  }
 }

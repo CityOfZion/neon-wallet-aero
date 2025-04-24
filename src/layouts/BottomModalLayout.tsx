@@ -20,12 +20,12 @@ export const BottomModalLayout = ({ children, heading, className, ...props }: TP
   return (
     <div
       className={StyleHelper.mergeStyles(
-        'flex h-full min-h-0 w-full flex-col rounded-t-2xl bg-gray-700 px-4 py-5',
+        'flex h-full min-h-0 w-full flex-col rounded-t-2xl bg-gray-700 px-4 py-5 text-white',
         className
       )}
       {...props}
     >
-      <header className="relative mb-5 flex w-full items-center justify-center text-white">
+      <header className="relative mb-5 flex w-full items-center justify-center">
         {withBackButton && (
           <IconButton
             aria-label={t('general.back')}

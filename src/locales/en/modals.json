@@ -18,5 +18,35 @@
     "connectHardwareWalletItemLabel": "Connect hardware wallet",
     "helpItemLabel": "Help",
     "settingsItemLabel": "Settings"
+  },
+  "importAccountsSelectionModal": {
+    "title": "Import",
+    "subtitle": "Select the address(es) you’d like to import:",
+    "form": {
+      "submitButtonLabel": "Import",
+      "notFoundLabel": "No accounts found or already exist, check your input and try again later, please."
+    },
+    "accordionItem": {
+      "accountsSizeLabel": "{{ size }} address(es) found",
+      "accountAlreadyExistsLabel": "Already exists"
+    },
+    "watch": {
+      "addressInformation": "You're importing a watch account with this address. You won't be able to use the assets in this account!"
+    },
+    "successes": {
+      "accountsImported": "Account(s) imported successfully"
+    },
+    "errors": {
+      "walletAndAccounts": "There is an error with wallet and account(s)"
+    }
+  },
+  "blockchainSelectionModal": {
+    "nextButtonLabel": "Next"
+  },
+  "decryptKeyModal": {
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter the password",
+    "nextButtonLabel": "Next",
+    "decryptKeyError": "Password or blockchain is invalid"
   }
 }

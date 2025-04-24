@@ -3,11 +3,16 @@
     "continue": "Continue",
     "default": "Default",
     "successfullyCopied": "Successfully copied to clipboard",
+    "clear": "Clear",
     "close": "Close",
-    "back": "Back"
+    "back": "Back",
+    "pasteFromClipboard": "Paste from clipboard"
   },
   "wallet": {
-    "firstWalletName": "My First Wallet"
+    "firstWalletName": "My First Wallet",
+    "mnemonicWalletName": "Mnemonic Wallet",
+    "watchWalletName": "Watch Wallet",
+    "importedWalletName": "Imported Wallet"
   },
   "account": {
     "defaultName": "Account {{accountNumber}}"

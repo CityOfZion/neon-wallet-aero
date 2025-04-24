@@ -88,5 +88,23 @@
   "loginOnboardingNewWalletStep3": {
     "description": "Your wallet is now created!",
     "buttonContinueLabel": "Open your wallet"
+  },
+  "import": {
+    "title": "Import",
+    "subtitle": "To import your wallet, enter an address, private key, encrypted key or mnemonic words:",
+    "submitButtonLabel": "Next",
+    "importButtonLabel": "Import",
+    "blockchainSelectionDescription": "Select the desired blockchain for your new account:",
+    "decryptKeyDescription": "Enter the password for your encrypted key:",
+    "form": {
+      "valueLabel": "Address, key or mnemonic",
+      "valuePlaceholder": "Enter an address, key or mnemonic"
+    },
+    "successBanner": {
+      "address": "Address complete!",
+      "key": "Key complete!",
+      "encryptedKey": "Encrypted key complete!",
+      "mnemonic": "Mnemonic complete!"
+    }
   }
 }

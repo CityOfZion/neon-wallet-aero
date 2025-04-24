@@ -42,7 +42,7 @@ export const FieldActionsMenu = ({ value, disabled = false, readOnly = false, on
     try {
       const text = await navigator.clipboard.readText()
 
-      onChange?.(`${value}${text}`)
+      onChange?.(`${value}${text.trim()}`)
     } catch (error) {
       console.error(error)
       ToastHelper.error({ message: t('messages.error') })

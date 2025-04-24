@@ -80,3 +80,5 @@ export type TPendingTransaction = TransactionResponse & {
 export type TLastIndexesByWallet = Partial<Record<TBlockchainServiceKey, Record<string, number>>>
 
 export type THiddenTokenByBlockchain = Partial<Record<TBlockchainServiceKey, string[]>>
+
+export type TImportAccountsSelectionType = 'mnemonic' | 'key' | 'address'
