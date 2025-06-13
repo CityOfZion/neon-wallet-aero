@@ -8,14 +8,14 @@ import { useModalHistories, useModalNavigate } from '@/hooks/useModalRouter'
 import TbArrowLeft from '@/assets/images/tb-arrow-left.svg?react'
 import TbX from '@/assets/images/tb-x.svg?react'
 
-type TProps = { heading: string } & ComponentProps<'div'>
+type TProps = { heading: string; hideBackButton?: boolean } & ComponentProps<'div'>
 
-export const BottomModalLayout = ({ children, heading, className, ...props }: TProps) => {
+export const BottomModalLayout = ({ children, heading, className, hideBackButton = false, ...props }: TProps) => {
   const { t } = useTranslation('common')
   const { modalEraseWrapper, modalNavigateWrapper } = useModalNavigate()
   const { histories } = useModalHistories()
 
-  const withBackButton = histories.filter(history => history.route.type === 'bottom').length > 1
+  const withBackButton = !hideBackButton && histories.filter(history => history.route.type === 'bottom').length > 1
 
   return (
     <div

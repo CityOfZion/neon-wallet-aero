@@ -1,3 +1,5 @@
+import { generateMnemonic } from '@cityofzion/bs-asteroid-sdk'
+
 export class MnemonicHelper {
   private static getWords(words: string | string[]) {
     return Array.isArray(words) ? words : words.trim().split(' ')
@@ -9,5 +11,9 @@ export class MnemonicHelper {
 
   static isValidMnemonic(words: string | string[]) {
     return MnemonicHelper.getWords(words).length === 12
+  }
+
+  static generateMnemonic() {
+    return generateMnemonic()
   }
 }

@@ -14,7 +14,7 @@ export type TCustomClickableProps = {
   loading?: boolean
   flat?: boolean
   wide?: boolean
-  colorSchema?: 'neon' | 'gray' | 'white' | 'error' | 'blue' | 'yellow'
+  colorSchema?: 'neon' | 'gray' | 'white' | 'error' | 'blue' | 'yellow' | 'asphalt'
   iconsOnEdge?: boolean
   textClassName?: string
 }
@@ -35,6 +35,7 @@ const Outline = ({ className, ...props }: TClickableProps) => {
           'border-pink': props.colorSchema === 'error',
           'border-blue': props.colorSchema === 'blue',
           'border-yellow': props.colorSchema === 'yellow',
+          'border-asphalt': props.colorSchema === 'asphalt',
         },
         className
       )}
@@ -142,6 +143,7 @@ const Base = ({
           'text-pink': colorSchema === 'error',
           'text-blue': colorSchema === 'blue',
           'text-yellow': colorSchema === 'yellow',
+          'text-asphalt': colorSchema === 'asphalt',
         },
 
         props.className

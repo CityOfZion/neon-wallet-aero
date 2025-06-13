@@ -48,5 +48,49 @@
     "passwordPlaceholder": "Enter the password",
     "nextButtonLabel": "Next",
     "decryptKeyError": "Password or blockchain is invalid"
+  },
+  "createWalletStep1Modal": {
+    "title": "Create new BIP39 wallet",
+    "subtitle": "Generate security phrase",
+    "secretWordsText": "This set of secret words make it easy to back up and restore your account.",
+    "writeDownText": "Write this phrase down on a piece of paper or record it in a secure digital note. You can also download it below but be sure to keep it safe.",
+    "copyButtonLabel": "Copy",
+    "printButtonLabel": "Print",
+    "alertText": "Anyone with this phrase will be able to access your hard-earned assets and you won’t be able to get them back!",
+    "cancelButtonLabel": "Cancel",
+    "nextButtonLabel": "Next",
+    "message": {
+      "copySuccess": "Security phrase copied to clipboard",
+      "copyError": "Failed to copy security phrase to clipboard. Error: {{ error }}"
+    }
+  },
+  "createWalletStep2Modal": {
+    "title": "Create new BIP39 wallet",
+    "subtitle": "Confirm security phrase",
+    "selectWordsText": "Please select each word <1>in the correct order</1> to make sure you’ve got it right:",
+    "alertText": "If you can’t remember your security phrase, don’t worry, you can find it in the ‘Settings’ section of the wallet",
+    "cancelButtonLabel": "Cancel",
+    "nextButtonLabel": "Next",
+    "errors": {
+      "wordsNotMatch": "Incorrect word order. Please try again."
+    }
+  },
+  "createWalletStep3Modal": {
+    "title": "Create new BIP39 wallet",
+    "subtitle": "Give your new wallet a name",
+    "walletNameText": "Give your wallet a memorable name, it could be helpful to name it with a label related to what you want to use the wallet for (such as ‘Investments’ or ‘Trading Wallet’).",
+    "cancelButtonLabel": "Cancel",
+    "createNewWalletButtonLabel": "Create new wallet",
+    "walletNameLabel": "Wallet name",
+    "errors": {
+      "walletNameEmpty": "Please enter a wallet name"
+    }
+  },
+  "createWalletStep4Modal": {
+    "title": "Create new BIP39 wallet",
+    "subtitle": "Congratulations!",
+    "proudOwnerText": "You’re now the proud owner of a shiny new wallet!",
+    "rememberSecretPhraseText": "Remember to keep your secret phrase safe, having several backups is always a good idea. If you need to find out a wallets secret phrase you can find it in the settings page for that wallet.",
+    "viewNewWalletButtonLabel": "View your new wallet"
   }
 }
