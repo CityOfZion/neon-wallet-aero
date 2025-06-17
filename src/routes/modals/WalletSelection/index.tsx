@@ -17,7 +17,7 @@ export const WalletSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelectionModal' })
   const { wallets } = useWalletsSelector()
   const { onSelect, selectedWallet, shouldGoBackOnSelect = true } = useModalState<TModalState<'wallet-selection'>>()
-  const { modalNavigate } = useModalNavigate()
+  const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
 
   const handleSelect = (wallet: IWalletState) => {
     onSelect?.(wallet)
@@ -65,6 +65,7 @@ export const WalletSelectionModal = () => {
           label={t('addButtonLabel')}
           leftIcon={<TbPlus aria-hidden />}
           iconsOnEdge={false}
+          onClick={modalNavigateWrapper('create-wallet-1', { replace: true })}
         />
       </div>
     </BottomModalLayout>

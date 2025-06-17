@@ -34,6 +34,18 @@ type TDecryptKeyModalState = {
   onSubmit: (key: string) => Promise<void>
 }
 
+type TCreateWalletStep2ModalState = {
+  mnemonic: string[]
+}
+
+type TCreateWalletStep3ModalState = {
+  mnemonic: string[]
+}
+
+type TCreateWalletStep4ModalState = {
+  selectedWallet: IWalletState
+}
+
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
@@ -41,4 +53,8 @@ export type TModalRouterRouteTypes = {
   'import-accounts-selection': TImportAccountsSelectionModalState
   'blockchain-selection': TBlockchainSelectionModalState
   'decrypt-key': TDecryptKeyModalState
+  'create-wallet-1': undefined
+  'create-wallet-2': TCreateWalletStep2ModalState
+  'create-wallet-3': TCreateWalletStep3ModalState
+  'create-wallet-4': TCreateWalletStep4ModalState
 }

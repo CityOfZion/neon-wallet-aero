@@ -47,4 +47,8 @@ export class UtilsHelper {
 
     return results
   }
+
+  static async copyToClipboard(text: string): Promise<void> {
+    return await navigator.clipboard.writeText(text)
+  }
 }
