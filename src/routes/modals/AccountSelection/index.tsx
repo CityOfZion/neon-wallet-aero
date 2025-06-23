@@ -81,6 +81,7 @@ export const AccountSelectionModal = () => {
           label={t('addButtonLabel')}
           leftIcon={<TbPlus aria-hidden />}
           iconsOnEdge={false}
+          onClick={() => modalNavigate('create-account-1', { replace: true })}
         />
       </div>
     </BottomModalLayout>

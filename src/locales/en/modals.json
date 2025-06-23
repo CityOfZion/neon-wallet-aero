@@ -92,5 +92,31 @@
     "proudOwnerText": "You’re now the proud owner of a shiny new wallet!",
     "rememberSecretPhraseText": "Remember to keep your secret phrase safe, having several backups is always a good idea. If you need to find out a wallets secret phrase you can find it in the settings page for that wallet.",
     "viewNewWalletButtonLabel": "View your new wallet"
+  },
+  "createAccountStep1Modal": {
+    "title": "Add new account",
+    "subtitle": "Creating an account is easy, just give it a name and select a chain and you’re done!",
+    "accountNameLabel": "Account name",
+    "accountNamePlaceholder": "Enter the account name…",
+    "alertText": "It could be helpful to name your account with a label related to what you want to use the account for (such as ‘Investments’ or ‘Trading’).",
+    "cancelButtonLabel": "Cancel",
+    "nextButtonLabel": "Next",
+    "errors": {
+      "accountNameEmpty": "Please enter an account name"
+    }
+  },
+  "createAccountStep2Modal": {
+    "title": "Add new account",
+    "selectBlockchainLabel": "Select a blockchain",
+    "selectWalletLabel": "Select a wallet",
+    "cancelButtonLabel": "Cancel",
+    "createAccountButtonLabel": "Create account",
+    "accordionItem": {
+      "defaultWalletLabel": "[Wallet name]",
+      "noWalletSelectable": "No wallets available"
+    },
+    "errors": {
+      "createAccount": "There was an error creating the account, please try again later."
+    }
   }
 }
