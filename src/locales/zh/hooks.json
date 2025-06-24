@@ -1,0 +1,22 @@
+{
+  "useUnclaimedQuery": {
+    "errors": {
+      "noKey": "无法找到密钥：{{address}}",
+      "blockchainIsNotClaimable": "该账户区块链不可领取：{{address}} {{blockchain}}"
+    }
+  },
+  "useLogin": {
+    "controlIsNotSet": "意外错误。登录控制未设置。",
+    "controlIsNotValid": "意外错误。登录控制无效。"
+  },
+  "useImportActions": {
+    "errors": {
+      "invalid": "无效的值或已存在",
+      "empty": "请输入一些内容",
+      "invalidMnemonic": "助记词无效"
+    }
+  },
+  "useWalletUtils": {
+    "beLoggedInError": "您需要登录才能访问钱包"
+  }
+}

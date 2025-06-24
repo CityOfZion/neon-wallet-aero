@@ -1,13 +1,17 @@
 import { initReactI18next } from 'react-i18next'
 import i18n from 'i18next'
 
-import { enResources } from '../locales/en'
+import { enResources } from '@/locales/en'
+import { zhResources } from '@/locales/zh'
+import { zhHantResources } from '@/locales/zh-Hant'
 
 export const setupI18next = () => {
   if (!i18n.isInitialized) {
     i18n.use(initReactI18next).init({
       resources: {
         en: enResources,
+        zh: zhResources, // Chinese simplified
+        'zh-Hant': zhHantResources, // Chinese traditional
       },
       ns: ['common'],
       defaultNS: 'common',

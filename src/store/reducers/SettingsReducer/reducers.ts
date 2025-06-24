@@ -1,7 +1,8 @@
-import { PayloadAction } from '@reduxjs/toolkit'
+import { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash/cloneDeep'
 
 import { TBlockchainServiceKey, TNetwork } from '@/types/blockchain'
+import { TLanguage } from '@/types/language'
 
 import { ISettingsReducer } from './index'
 
@@ -17,6 +18,11 @@ const setSelectNetwork = <T extends TBlockchainServiceKey>(
   state.data.selectedNetworkByBlockchain = cloneSelectedNetworkByBlockchain
 }
 
+const setLanguage: CaseReducer<ISettingsReducer, PayloadAction<TLanguage>> = (state, action) => {
+  state.data.language = action.payload
+}
+
 export const settingsSliceReducers = {
   setSelectNetwork,
+  setLanguage,
 }

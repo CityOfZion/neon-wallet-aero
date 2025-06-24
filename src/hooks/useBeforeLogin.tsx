@@ -1,11 +1,16 @@
 import { useLayoutEffect } from 'react'
+import i18next from 'i18next'
 
 import { bsAggregator } from '@/libs/blockchainService'
 import { settingsReducerActions } from '@/store/reducers/SettingsReducer'
 import { TBlockchainServiceKey } from '@/types/blockchain'
 
 import { useAppDispatch } from './useRedux'
-import { useSelectedNetworkByBlockchainSelector, useSelectedNetworkProfileSelector } from './useSettingsSelector'
+import {
+  useLanguageSelector,
+  useSelectedNetworkByBlockchainSelector,
+  useSelectedNetworkProfileSelector,
+} from './useSettingsSelector'
 
 const useNetworkChange = () => {
   const { selectedNetworkProfile } = useSelectedNetworkProfileSelector()
@@ -26,6 +31,15 @@ const useNetworkChange = () => {
   }, [dispatch, selectedNetworkProfile.networkByBlockchain])
 }
 
+const useLanguageChange = () => {
+  const { language } = useLanguageSelector()
+
+  useLayoutEffect(() => {
+    i18next.changeLanguage(language.value)
+  }, [language])
+}
+
 export const useBeforeLogin = () => {
   useNetworkChange()
+  useLanguageChange()
 }
