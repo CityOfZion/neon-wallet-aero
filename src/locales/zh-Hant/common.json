@@ -8,7 +8,9 @@
     "back": "返回",
     "pasteFromClipboard": "從剪貼簿貼上",
     "menuIconButtonAriaLabel": "選單",
-    "downloadQRCodePassword": "下載密碼 QR 碼"
+    "downloadQRCodePassword": "下載密碼 QR 碼",
+    "remove": "移除",
+    "reset": "重設"
   },
   "wallet": {
     "firstWalletName": "我的第一個錢包",

@@ -29,5 +29,20 @@
     "weak": "弱",
     "good": "良好",
     "strong": "强"
+  },
+  "greyAccountSelect": {
+    "placeholder": "请选择…",
+    "empty": "没有账户"
+  },
+  "greyTokenSelect": {
+    "placeholder": "请选择…",
+    "empty": "没有代币"
+  },
+  "greyAmountInput": {
+    "placeholder": "0.00000000"
+  },
+  "transactionFeeActionStep": {
+    "title": "总费用",
+    "value": "数值"
   }
 }

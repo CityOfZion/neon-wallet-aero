@@ -29,5 +29,20 @@
     "weak": "弱",
     "good": "良好",
     "strong": "強"
+  },
+  "greyAccountSelect": {
+    "placeholder": "選擇…",
+    "empty": "沒有帳戶"
+  },
+  "greyTokenSelect": {
+    "placeholder": "選擇…",
+    "empty": "沒有代幣"
+  },
+  "greyAmountInput": {
+    "placeholder": "0.00000000"
+  },
+  "transactionFeeActionStep": {
+    "title": "總手續費",
+    "value": "數值"
   }
 }

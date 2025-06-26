@@ -82,10 +82,6 @@ export class UtilsHelper {
     return { id: UtilsHelper.getSkinColor(colorIndex), type: 'color' }
   }
 
-  static normalizeHash(hash: string) {
-    return hash.replace('0x', '').toLowerCase()
-  }
-
   static async promiseAll<T, R>(array: T[], callback: (item: T) => Promise<R> | R): Promise<R[]> {
     const results: R[] = []
 

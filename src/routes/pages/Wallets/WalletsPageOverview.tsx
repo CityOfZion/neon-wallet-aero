@@ -1,5 +1,6 @@
 import { Fragment, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import { isClaimable } from '@cityofzion/blockchain-service'
 
 import { BlockchainIcon } from '@/components/BlockchainIcon'
@@ -34,6 +35,7 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
   const { currency } = useCurrencySelector()
   const balanceQuery = useBalance(selectedAccount)
   const unclaimedQuery = useUnclaimed(selectedAccount)
+  const navigate = useNavigate()
 
   const blockchainService = useMemo(() => {
     if (!selectedAccount) return undefined
@@ -44,6 +46,10 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
   const handleRefetch = () => {
     balanceQuery.refetch()
     unclaimedQuery.refetch()
+  }
+
+  const handleSendNavigation = () => {
+    navigate('/app/send', { state: { account: selectedAccount } })
   }
 
   return (
@@ -100,7 +106,12 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
           <WalletPageClaimButton selectAccount={selectedAccount} blockchainService={blockchainService} />
         )}
 
-        <Button label={t('sendButtonLabel')} leftIcon={<TbStepOut aria-hidden />} iconsOnEdge={false} />
+        <Button
+          label={t('sendButtonLabel')}
+          leftIcon={<TbStepOut aria-hidden />}
+          iconsOnEdge={false}
+          onClick={handleSendNavigation}
+        />
       </div>
 
       <Tabs.Root className="mt-10" defaultValue="tokens">

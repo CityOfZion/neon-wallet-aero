@@ -28,4 +28,8 @@ const saveLastIndexByWallet: CaseReducer<
   }
 }
 
-export const utilitySliceReducers = { saveLastIndexByWallet, setEncryptedLoginControl, setHasPassword }
+export const utilitySliceReducers = {
+  saveLastIndexByWallet,
+  setEncryptedLoginControl,
+  setHasPassword,
+}

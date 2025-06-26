@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { useVirtualizer } from '@tanstack/react-virtual'
 
 import { BlockchainIcon } from '@/components/BlockchainIcon'
@@ -75,7 +76,7 @@ export const WalletsPageTokensTabContent = ({ selectedAccount }: TProps) => {
 
               <div className="flex w-20 flex-col gap-0.5">
                 <p className="truncate text-right text-sm leading-5 text-white">
-                  {NumberHelper.formatString(row.amountNumber, row.token.decimals, undefined, true)}
+                  {BSBigNumberHelper.format(row.amountNumber, { decimals: row.token.decimals })}
                 </p>
 
                 <p className="text-neon truncate text-right text-xs leading-4">

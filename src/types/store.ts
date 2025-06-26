@@ -1,4 +1,4 @@
-import { TransactionResponse } from '@cityofzion/blockchain-service'
+import { Token, TransactionResponse } from '@cityofzion/blockchain-service'
 
 import { TBlockchainServiceKey, TNetwork } from './blockchain'
 
@@ -75,6 +75,15 @@ export type TNetworkProfile = {
 export type TPendingTransaction = TransactionResponse & {
   account: IAccountState
   isClaim?: boolean
+  to?: string
+  from?: string
+  assetHash: string
+  token?: Token
+  amount?: string
+  methodName?: string
+  toAccount?: IAccountState
+  fromAccount?: IAccountState
+  asset?: string
 }
 
 export type TLastIndexesByWallet = Partial<Record<TBlockchainServiceKey, Record<string, number>>>

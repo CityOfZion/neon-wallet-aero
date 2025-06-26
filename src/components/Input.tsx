@@ -199,7 +199,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
                   colorSchema="neon"
                   type="button"
                   disabled={props.disabled}
-                  size="sm"
+                  size={compacted ? 'xs' : 'sm'}
                 />
               )}
 

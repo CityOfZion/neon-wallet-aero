@@ -172,5 +172,38 @@
       "subtitle": "您的 NEON 3 密碼已成功更改！",
       "buttonLabel": "返回設定"
     }
+  },
+  "send": {
+    "title": "發送代幣",
+    "sendTokensButtonLabel": "立即發送",
+    "sourceAccountLabel": "來源帳戶",
+    "addRecipientButtonLabel": "新增收件人",
+    "sendRecipient": {
+      "title": "收件人 {{order}}",
+      "addressPlaceholder": "輸入收件人…",
+      "myAccountButtonLabel": "我的帳戶",
+      "tokenToReceiveLabel": "接收的代幣",
+      "receivingAddressLabel": "接收地址",
+      "amountLabel": "金額",
+      "balanceLabel": "餘額",
+      "max": "最大",
+      "errors": {
+        "invalidAddress": "地址無效"
+      }
+    },
+    "totalFee": "總手續費",
+    "errors": {
+      "feeError": "計算手續費時發生錯誤",
+      "insufficientFunds": "資金不足",
+      "calculateMaxAmount": "計算最大金額時發生錯誤",
+      "amountIsLessOrEqualZero": "金額小於或等於零",
+      "hardwareWalletShouldBeValid": "請確保您的硬體錢包已解鎖以繼續操作"
+    },
+    "sendSuccess": {
+      "toast": "交易已成功發送"
+    },
+    "sendFail": {
+      "toast": "交易發送失敗"
+    }
   }
 }

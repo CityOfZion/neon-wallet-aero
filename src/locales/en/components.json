@@ -35,5 +35,20 @@
     "weak": "Weak",
     "good": "Good",
     "strong": "Strong"
+  },
+  "greyAccountSelect": {
+    "placeholder": "Select…",
+    "empty": "No accounts"
+  },
+  "greyTokenSelect": {
+    "placeholder": "Select…",
+    "empty": "No tokens"
+  },
+  "greyAmountInput": {
+    "placeholder": "0.00000000"
+  },
+  "transactionFeeActionStep": {
+    "title": "Total fee",
+    "value": "Value"
   }
 }
