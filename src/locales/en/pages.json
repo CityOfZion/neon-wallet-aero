@@ -65,11 +65,7 @@
   "loginOnboardingNewWallet": {
     "description": "Securing your new wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": [
-      "Create Password",
-      "Confirm Password",
-      "Complete"
-    ]
+    "steps": ["Create Password", "Confirm Password", "Complete"]
   },
   "loginOnboardingNewWalletStep1": {
     "passwordInputLabel": "Enter your new password",
@@ -106,5 +102,18 @@
       "encryptedKey": "Encrypted key complete!",
       "mnemonic": "Mnemonic complete!"
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "changePasswordButtonLabel": "Change password",
+    "networkConfigurationButtonLabel": "Network configuration",
+    "backupAndRestoreButtonLabel": "Backup & Restore",
+    "releaseNotesButtonLabel": "Release notes",
+    "languageButtonLabel": "Language",
+    "menuIconButtonAriaLabel": "Menu"
+  },
+  "language": {
+    "title": "Language",
+    "menuIconButtonAriaLabel": "Menu"
   }
 }

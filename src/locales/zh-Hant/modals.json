@@ -1,0 +1,96 @@
+{
+  "walletSelectionModal": {
+    "title": "選擇錢包",
+    "subtitle": "所有錢包",
+    "reorderButtonLabel": "重新排序",
+    "addButtonLabel": "新增"
+  },
+  "accountSelectionModal": {
+    "title": "選擇帳戶",
+    "reorderButtonLabel": "重新排序",
+    "addButtonLabel": "新增"
+  },
+  "menuModal": {
+    "title": "選單",
+    "walletsItemLabel": "錢包",
+    "importItemLabel": "匯入",
+    "exportItemLabel": "匯出",
+    "connectHardwareWalletItemLabel": "連接硬體錢包",
+    "helpItemLabel": "幫助",
+    "settingsItemLabel": "設定"
+  },
+  "importAccountsSelectionModal": {
+    "title": "匯入",
+    "subtitle": "選擇您想要匯入的地址：",
+    "form": {
+      "submitButtonLabel": "匯入",
+      "notFoundLabel": "未找到帳戶或已存在，請檢查您的輸入並稍後再試。"
+    },
+    "accordionItem": {
+      "accountsSizeLabel": "找到 {{ size }} 個地址",
+      "accountAlreadyExistsLabel": "已存在"
+    },
+    "watch": {
+      "addressInformation": "您正在匯入一個僅觀察帳戶。您將無法使用此帳戶中的資產！"
+    },
+    "successes": {
+      "accountsImported": "帳戶匯入成功"
+    },
+    "errors": {
+      "walletAndAccounts": "錢包和帳戶出現錯誤"
+    }
+  },
+  "blockchainSelectionModal": {
+    "nextButtonLabel": "下一步"
+  },
+  "decryptKeyModal": {
+    "passwordLabel": "密碼",
+    "passwordPlaceholder": "輸入密碼",
+    "nextButtonLabel": "下一步",
+    "decryptKeyError": "密碼或區塊鏈無效"
+  },
+  "createWalletStep1Modal": {
+    "title": "建立新的 BIP39 錢包",
+    "subtitle": "產生安全助記詞",
+    "secretWordsText": "這組助記詞可讓您輕鬆備份和還原您的帳戶。",
+    "writeDownText": "請將這組助記詞寫在紙上或記錄在安全的數位筆記中。您也可以下載，但請務必妥善保管。",
+    "copyButtonLabel": "複製",
+    "printButtonLabel": "列印",
+    "alertText": "任何擁有這組助記詞的人都可以存取您的資產，且您將無法取回！",
+    "cancelButtonLabel": "取消",
+    "nextButtonLabel": "下一步",
+    "message": {
+      "copySuccess": "助記詞已複製到剪貼簿",
+      "copyError": "複製助記詞到剪貼簿失敗。錯誤：{{ error }}"
+    }
+  },
+  "createWalletStep2Modal": {
+    "title": "建立新的 BIP39 錢包",
+    "subtitle": "確認安全助記詞",
+    "selectWordsText": "請依<1>正確順序</1>選擇每個單詞，以確保您記得正確：",
+    "alertText": "如果您忘記了助記詞，別擔心，您可以在錢包的「設定」中找到它",
+    "cancelButtonLabel": "取消",
+    "nextButtonLabel": "下一步",
+    "errors": {
+      "wordsNotMatch": "單詞順序不正確。請再試一次。"
+    }
+  },
+  "createWalletStep3Modal": {
+    "title": "建立新的 BIP39 錢包",
+    "subtitle": "為您的新錢包命名",
+    "walletNameText": "請為您的錢包取一個容易記住的名稱，例如「投資」或「交易錢包」等。",
+    "cancelButtonLabel": "取消",
+    "createNewWalletButtonLabel": "建立新錢包",
+    "walletNameLabel": "錢包名稱",
+    "errors": {
+      "walletNameEmpty": "請輸入錢包名稱"
+    }
+  },
+  "createWalletStep4Modal": {
+    "title": "建立新的 BIP39 錢包",
+    "subtitle": "恭喜！",
+    "proudOwnerText": "您現在擁有一個全新的錢包！",
+    "rememberSecretPhraseText": "請務必妥善保管您的助記詞，建議多做幾份備份。如需查詢錢包的助記詞，可在該錢包的設定頁面找到。",
+    "viewNewWalletButtonLabel": "查看您的新錢包"
+  }
+}

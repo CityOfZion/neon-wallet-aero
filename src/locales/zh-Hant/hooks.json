@@ -1,0 +1,22 @@
+{
+  "useUnclaimedQuery": {
+    "errors": {
+      "noKey": "無法找到金鑰：{{address}}",
+      "blockchainIsNotClaimable": "該帳戶區塊鏈無法領取：{{address}} {{blockchain}}"
+    }
+  },
+  "useLogin": {
+    "controlIsNotSet": "發生意外錯誤。登入控制未設定。",
+    "controlIsNotValid": "發生意外錯誤。登入控制無效。"
+  },
+  "useImportActions": {
+    "errors": {
+      "invalid": "無效的值或已存在",
+      "empty": "請輸入一些內容",
+      "invalidMnemonic": "助記詞無效"
+    }
+  },
+  "useWalletUtils": {
+    "beLoggedInError": "您需要登入才能存取錢包"
+  }
+}

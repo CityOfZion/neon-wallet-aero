@@ -1,0 +1,21 @@
+{
+  "fieldActionsMenu": {
+    "cut": "剪切",
+    "copy": "复制",
+    "paste": "粘贴",
+    "messages": {
+      "copied": "已复制",
+      "error": "执行此操作时出错"
+    }
+  },
+  "baseToast": {
+    "closeIconButtonLabel": "关闭通知"
+  },
+  "input": {
+    "pasteIconButtonLabel": "从剪贴板粘贴",
+    "copyIconButtonLabel": "复制到剪贴板",
+    "clearIconButtonLabel": "清除输入",
+    "hidePasswordIconButtonLabel": "隐藏密码",
+    "showPasswordIconButtonLabel": "显示密码"
+  }
+}

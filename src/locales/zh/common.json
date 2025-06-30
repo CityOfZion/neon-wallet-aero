@@ -1,0 +1,29 @@
+{
+  "general": {
+    "continue": "继续",
+    "default": "默认",
+    "successfullyCopied": "已成功复制到剪贴板",
+    "clear": "清除",
+    "close": "关闭",
+    "back": "返回",
+    "pasteFromClipboard": "从剪贴板粘贴"
+  },
+  "wallet": {
+    "firstWalletName": "我的第一个钱包",
+    "mnemonicWalletName": "助记词钱包",
+    "watchWalletName": "观察钱包",
+    "importedWalletName": "导入钱包"
+  },
+  "account": {
+    "defaultName": "账户 {{accountNumber}}"
+  },
+  "blockchain": {
+    "neo3": "Neo N3",
+    "neoLegacy": "Neo 旧版",
+    "ethereum": "以太坊",
+    "neox": "Neo X",
+    "polygon": "Polygon",
+    "base": "Base",
+    "arbitrum": "Arbitrum"
+  }
+}

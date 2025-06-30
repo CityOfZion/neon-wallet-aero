@@ -23,3 +23,11 @@ export const useCurrencySelector = () => {
     currencyRef: ref,
   }
 }
+
+export const useLanguageSelector = () => {
+  const { ref, value } = useAppSelector(state => state.settings.data.language)
+  return {
+    language: value,
+    languageRef: ref,
+  }
+}

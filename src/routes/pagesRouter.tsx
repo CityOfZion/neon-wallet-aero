@@ -2,6 +2,7 @@ import { createHashRouter, Navigate } from 'react-router-dom'
 
 import { AppPage } from './pages/App'
 import { ImportPage } from './pages/Import'
+import { LanguagePage } from './pages/Language'
 import { Login } from './pages/Login'
 import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
 import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
@@ -10,6 +11,7 @@ import { LoginOnboardingNewWalletStep1 } from './pages/LoginOnboardingNewWalletS
 import { LoginOnboardingNewWalletStep2 } from './pages/LoginOnboardingNewWalletStep2'
 import { LoginOnboardingNewWalletStep3 } from './pages/LoginOnboardingNewWalletStep3'
 import { RootPage } from './pages/Root'
+import { SettingsPage } from './pages/Settings'
 import { WalletsPage } from './pages/Wallets'
 
 export const pagesRouter = createHashRouter([
@@ -58,6 +60,16 @@ export const pagesRouter = createHashRouter([
           {
             path: 'import',
             element: <ImportPage />,
+          },
+          {
+            path: 'settings',
+            children: [
+              { path: '', element: <SettingsPage /> },
+              {
+                path: 'language',
+                element: <LanguagePage />,
+              },
+            ],
           },
         ],
       },

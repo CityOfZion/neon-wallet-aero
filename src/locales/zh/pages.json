@@ -1,0 +1,119 @@
+{
+  "wallets": {
+    "placeholderWalletSelectButton": "选择钱包…",
+    "placeholderAccountSelectButton": "选择账户…",
+    "labelWalletSelectButton": "钱包",
+    "labelAccountSelectButton": "账户",
+    "addressLabel": "地址",
+    "balanceLabel": "余额",
+    "sendButtonLabel": "发送",
+    "ariaLabels": {
+      "menuIconButton": "菜单",
+      "refreshIconButton": "刷新",
+      "copyIconButton": "复制"
+    },
+    "claimButton": {
+      "gasAvailableLabel": "<1>领取</1> {{ amount }} {{ symbol }}",
+      "gasUnavailableLabel": "GAS 不可用"
+    },
+    "tokenTab": {
+      "label": "代币",
+      "holdingsLabel": "持有量",
+      "valueLabel": "价值"
+    },
+    "nftsTab": {
+      "label": "NFT"
+    },
+    "transactionsTab": {
+      "label": "交易"
+    },
+    "connectionsTab": {
+      "label": "连接"
+    }
+  },
+  "login": {
+    "title": "欢迎使用",
+    "neonAccountTabLabel": "Neon 账户",
+    "hardwareWalletTabLabel": "硬件钱包",
+    "addressOrKeyTabLabel": "地址或密钥"
+  },
+  "loginNeonAccountPassword": {
+    "description": "登录到您的钱包",
+    "passwordInputPlaceholder": "请输入您的密码…",
+    "passwordInputLabel": "输入密码",
+    "buttonLoginLabel": "登录",
+    "forgotPasswordButtonLabel": "忘记密码？",
+    "error": {
+      "invalidPassword": "密码无效"
+    }
+  },
+  "loginNeonAccountOnboarding": {
+    "description": "您想用 Neon 做什么？",
+    "createNewWalletLink": {
+      "title": "创建新钱包",
+      "text": "我想<1>创建一个新的</1>受密码保护的账户，以便我的数据持久保存"
+    },
+    "importExternalWalletLink": {
+      "title": "导入外部钱包",
+      "text": "我想<1>导入</1>一个钱包，并用密码保护我的数据以确保其持久性"
+    },
+    "migrateFromNeon2Link": {
+      "title": "从 Neon 2 迁移",
+      "text": "我想<1>迁移</1>我的 Neon 2 钱包"
+    }
+  },
+  "loginOnboardingNewWallet": {
+    "description": "正在保护您的新钱包",
+    "goBackIconButtonLabel": "返回",
+    "steps": ["创建密码", "确认密码", "完成"]
+  },
+  "loginOnboardingNewWalletStep1": {
+    "passwordInputLabel": "输入您的新密码",
+    "passwordInputPlaceholder": "创建密码…",
+    "errors": {
+      "passwordLength": "密码长度至少为 {{length}} 个字符"
+    }
+  },
+  "loginOnboardingNewWalletStep2": {
+    "confirmPasswordInputLabel": "请再次输入您的密码",
+    "confirmPasswordInputPlaceholder": "确认您的密码…",
+    "errors": {
+      "passwordsDoNotMatch": "两次输入的密码不一致"
+    }
+  },
+  "loginOnboardingNewWalletStep3": {
+    "description": "您的钱包已创建！",
+    "buttonContinueLabel": "打开您的钱包"
+  },
+  "import": {
+    "title": "导入",
+    "subtitle": "要导入您的钱包，请输入地址、私钥、加密密钥或助记词：",
+    "submitButtonLabel": "下一步",
+    "importButtonLabel": "导入",
+    "blockchainSelectionDescription": "为您的新账户选择所需的区块链：",
+    "decryptKeyDescription": "请输入您的加密密钥的密码：",
+    "form": {
+      "valueLabel": "地址、密钥或助记词",
+      "valuePlaceholder": "请输入地址、密钥或助记词"
+    },
+    "successBanner": {
+      "address": "地址已完成！",
+      "key": "密钥已完成！",
+      "encryptedKey": "加密密钥已完成！",
+      "mnemonic": "助记词已完成！"
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "changePasswordButtonLabel": "更改密码",
+    "networkConfigurationButtonLabel": "网络配置",
+    "backupAndRestoreButtonLabel": "备份与恢复",
+    "releaseNotesButtonLabel": "发行说明",
+    "languageButtonLabel": "语言",
+    "menuIconButtonAriaLabel": "菜单"
+  },
+  "language": {
+    "title": "语言",
+    "menuIconButtonAriaLabel": "菜单"
+  }
+}
