@@ -2,6 +2,8 @@ import { TRoute } from '@/types/modal'
 
 import { AccountSelectionModal } from './modals/AccountSelection'
 import { BlockchainSelectionModal } from './modals/BlockchainSelection'
+import { CreateAccountStep1Modal } from './modals/CreateAccountStep1'
+import { CreateAccountStep2Modal } from './modals/CreateAccountStep2'
 import { CreateWalletStep1Modal } from './modals/CreateWalletStep1'
 import { CreateWalletStep2Modal } from './modals/CreateWalletStep2'
 import { CreateWalletStep3Modal } from './modals/CreateWalletStep3'
@@ -22,4 +24,6 @@ export const modalsRouter: TRoute[] = [
   { name: 'create-wallet-2', type: 'bottom', element: <CreateWalletStep2Modal /> },
   { name: 'create-wallet-3', type: 'bottom', element: <CreateWalletStep3Modal /> },
   { name: 'create-wallet-4', type: 'bottom', element: <CreateWalletStep4Modal /> },
+  { name: 'create-account-1', type: 'bottom', element: <CreateAccountStep1Modal /> },
+  { name: 'create-account-2', type: 'bottom', element: <CreateAccountStep2Modal /> },
 ]

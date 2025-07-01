@@ -92,5 +92,31 @@
     "proudOwnerText": "您現在擁有一個全新的錢包！",
     "rememberSecretPhraseText": "請務必妥善保管您的助記詞，建議多做幾份備份。如需查詢錢包的助記詞，可在該錢包的設定頁面找到。",
     "viewNewWalletButtonLabel": "查看您的新錢包"
+  },
+  "createAccountStep1Modal": {
+    "title": "新增帳戶",
+    "subtitle": "建立帳戶很簡單，只需給它命名並選擇一條鏈即可完成！",
+    "accountNameLabel": "帳戶名稱",
+    "accountNamePlaceholder": "輸入帳戶名稱…",
+    "alertText": "建議您根據帳戶用途（如「投資」或「交易」）為帳戶命名，方便管理。",
+    "cancelButtonLabel": "取消",
+    "nextButtonLabel": "下一步",
+    "errors": {
+      "accountNameEmpty": "請輸入帳戶名稱"
+    }
+  },
+  "createAccountStep2Modal": {
+    "title": "新增帳戶",
+    "selectBlockchainLabel": "選擇區塊鏈",
+    "selectWalletLabel": "選擇錢包",
+    "cancelButtonLabel": "取消",
+    "createAccountButtonLabel": "建立帳戶",
+    "accordionItem": {
+      "defaultWalletLabel": "[錢包名稱]",
+      "noWalletSelectable": "沒有可用的錢包"
+    },
+    "errors": {
+      "createAccount": "建立帳戶時發生錯誤，請稍後再試。"
+    }
   }
 }

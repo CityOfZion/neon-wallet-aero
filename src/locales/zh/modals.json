@@ -92,5 +92,31 @@
     "proudOwnerText": "您现在拥有一个全新的钱包！",
     "rememberSecretPhraseText": "请务必妥善保管您的安全短语，建议多做几份备份。如需查找钱包的安全短语，可在该钱包的设置页面找到。",
     "viewNewWalletButtonLabel": "查看您的新钱包"
+  },
+  "createAccountStep1Modal": {
+    "title": "添加新账户",
+    "subtitle": "创建账户很简单，只需为其命名并选择一个链即可！",
+    "accountNameLabel": "账户名称",
+    "accountNamePlaceholder": "请输入账户名称…",
+    "alertText": "建议您根据账户用途为其命名（如“投资”或“交易”）。",
+    "cancelButtonLabel": "取消",
+    "nextButtonLabel": "下一步",
+    "errors": {
+      "accountNameEmpty": "请输入账户名称"
+    }
+  },
+  "createAccountStep2Modal": {
+    "title": "添加新账户",
+    "selectBlockchainLabel": "选择区块链",
+    "selectWalletLabel": "选择钱包",
+    "cancelButtonLabel": "取消",
+    "createAccountButtonLabel": "创建账户",
+    "accordionItem": {
+      "defaultWalletLabel": "[钱包名称]",
+      "noWalletSelectable": "没有可用的钱包"
+    },
+    "errors": {
+      "createAccount": "创建账户时出错，请稍后再试。"
+    }
   }
 }
