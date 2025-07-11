@@ -47,6 +47,35 @@
       "invalidPassword": "密碼無效"
     }
   },
+  "forgottenPassword": {
+    "title": "忘記密碼",
+    "text": "如果您忘記了密碼，您需要重設 Neon。",
+    "alertCard": {
+      "text": "此操作將刪除您儲存的資料，您需要重新導入錢包"
+    },
+    "links": {
+      "continueLabel": "繼續"
+    }
+  },
+  "forgottenPasswordConfirm": {
+    "title": "忘記密碼",
+    "text": "您確定嗎？",
+    "alertCard": {
+      "text": "在繼續之前，請確保您擁有私鑰或助記詞以恢復您的錢包"
+    },
+    "auxiliarText": "滑動以確認…",
+    "swipe": {
+      "text": "重設 Neon 並刪除我的資料",
+      "buttonAriaLabel": "重設並刪除資料"
+    },
+    "success": "資料已成功清除"
+  },
+  "forgottenPasswordSuccess": {
+    "title": "成功！",
+    "text": "您已重設 Neon",
+    "description": "所有本地應用資料已被移除，您現在可以重新開始",
+    "goToWelcomeLinkLabel": "前往歡迎畫面"
+  },
   "loginNeonAccountOnboarding": {
     "description": "您想如何使用 Neon？",
     "createNewWalletLink": {

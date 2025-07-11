@@ -40,7 +40,7 @@ export const ForgottenPasswordLayout = ({
         />
       )}
 
-      <NeonWalletFullImage className="mt-16 h-11" />
+      <NeonWalletFullImage className="mt-16 h-11" aria-hidden="true" />
       <h1 className="mt-4 text-center text-lg text-white">{heading}</h1>
 
       {children}

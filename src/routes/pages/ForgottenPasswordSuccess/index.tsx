@@ -12,7 +12,7 @@ export const ForgottenPasswordSuccess = () => {
     <ForgottenPasswordLayout heading={t('title')} withBackButton={false}>
       <div className="flex flex-grow flex-col items-center gap-y-8 text-center">
         <TbRosetteDiscountCheck
-          className="bg-asphalt text-blue mt-8 h-25 w-25 rounded-[50%] stroke-1 p-1.5"
+          className="bg-asphalt text-blue mt-8 h-25 w-25 rounded-full stroke-1 p-1.5"
           aria-hidden
         />
         <p className="text-white">{t('text')}</p>
@@ -20,10 +20,10 @@ export const ForgottenPasswordSuccess = () => {
 
         <Link
           to="/app"
-          label={t('goToWelcome')}
+          label={t('goToWelcomeLinkLabel')}
           colorSchema="neon"
           variant="contained"
-          className="mx-auto w-full max-w-[250px]"
+          className="mx-auto w-full max-w-62.5"
         />
       </div>
     </ForgottenPasswordLayout>

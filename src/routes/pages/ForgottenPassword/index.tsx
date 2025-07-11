@@ -18,10 +18,10 @@ export const ForgottenPassword = () => {
 
         <Link
           to="/forgotten-password-confirm"
-          label={t('links.continue')}
+          label={t('links.continueLabel')}
           colorSchema="error"
           variant="outlined"
-          className="flex w-full max-w-[250px] items-center justify-center"
+          className="flex w-full max-w-62.5 items-center justify-center"
           iconsOnEdge={false}
           rightIcon={<TbArrowLeft aria-hidden className="rotate-180" />}
         />

@@ -54,7 +54,7 @@
       "text": "This process will delete your stored data and you will have to reimport your wallets"
     },
     "links": {
-      "continue": "Continue"
+      "continueLabel": "Continue"
     }
   },
   "forgottenPasswordConfirm": {
@@ -63,7 +63,7 @@
     "alertCard": {
       "text": "Before proceeding, it is vital that you have access to your private keys or mnemonic to reinstate your wallet"
     },
-    "auxiliarText": "Swipe to confirm...",
+    "auxiliarText": "Swipe to confirm…",
     "swipe": {
       "text": "Reset Neon and delete my data",
       "buttonAriaLabel": "Reset and delete data"
@@ -74,7 +74,7 @@
     "title": "Success!",
     "text": "You’ve reset Neon",
     "description": "All local app data has been removed and you’re now ready to start over",
-    "goToWelcome": "Go to welcome screen"
+    "goToWelcomeLinkLabel": "Go to welcome screen"
   },
   "loginNeonAccountOnboarding": {
     "description": "What would you like to do with Neon?",

@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react'
 import { animate, motion, useMotionValue } from 'framer-motion'
 
-import ArrowRightBoldOutlineIcon from '@/assets/images/arrow-right-bold-outline-icon.svg?react'
+import ArrowRightBoldOutlineIcon from '@/assets/images/md-arrow-right-bold-outline-icon.svg?react'
 
 type TProps = {
   text: string
