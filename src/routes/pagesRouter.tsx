@@ -1,6 +1,9 @@
 import { createHashRouter, Navigate } from 'react-router-dom'
 
 import { AppPage } from './pages/App'
+import { ForgottenPassword } from './pages/ForgottenPassword'
+import { ForgottenPasswordConfirm } from './pages/ForgottenPassword/Confirm'
+import { ForgottenPasswordSuccess } from './pages/ForgottenPassword/Success'
 import { ImportPage } from './pages/Import'
 import { LanguagePage } from './pages/Language'
 import { Login } from './pages/Login'
@@ -35,6 +38,15 @@ export const pagesRouter = createHashRouter([
           { path: 'address-or-key' },
           { path: '', element: <Navigate to="/login/neon-account/password" replace /> },
         ],
+      },
+      { path: 'forgotten-password', element: <ForgottenPassword /> },
+      {
+        path: 'forgotten-password-confirm',
+        element: <ForgottenPasswordConfirm />,
+      },
+      {
+        path: 'forgotten-password-success',
+        element: <ForgottenPasswordSuccess />,
       },
       {
         path: 'login-onboarding-new-wallet',
