@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 import { EnvHelper } from '@/helpers/EnvHelper'
 import { StyleHelper } from '@/helpers/StyleHelper'
+import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { useBeforeLogin } from '@/hooks/useBeforeLogin'
 
 // It should be a different component because the contexts are in the parent component
@@ -11,7 +12,15 @@ export const Child = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    navigate('/login/neon-account/password', { replace: true })
+    const handle = async () => {
+      navigate('/splash', { replace: true })
+
+      await UtilsHelper.sleep(2000)
+
+      navigate('/login/neon-account/password', { replace: true })
+    }
+
+    handle()
   }, [navigate])
 
   return (
