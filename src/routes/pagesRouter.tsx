@@ -15,6 +15,7 @@ import { LoginOnboardingNewWalletStep2 } from './pages/LoginOnboardingNewWalletS
 import { LoginOnboardingNewWalletStep3 } from './pages/LoginOnboardingNewWalletStep3'
 import { RootPage } from './pages/Root'
 import { SettingsPage } from './pages/Settings'
+import { SplashScreen } from './pages/SplashScreen'
 import { WalletsPage } from './pages/Wallets'
 
 export const pagesRouter = createHashRouter([
@@ -22,6 +23,10 @@ export const pagesRouter = createHashRouter([
     path: '/',
     element: <RootPage />,
     children: [
+      {
+        path: '/splash',
+        element: <SplashScreen />,
+      },
       {
         path: 'login',
         element: <Login />,
