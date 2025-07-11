@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { PersistConfig } from 'redux-persist'
+import { PersistConfig, PURGE } from 'redux-persist'
 
 import { reduxPersistStorage } from '@/libs/reduxPersist'
 import { THiddenTokenByBlockchain, TLastIndexesByWallet, TPendingTransaction } from '@/types/store'
@@ -40,6 +40,9 @@ const utilitySlice = createSlice({
   name: 'utilityReducer',
   initialState: utilityReducerInitialState,
   reducers: utilitySliceReducers,
+  extraReducers: builder => {
+    builder.addCase(PURGE, () => utilityReducerInitialState)
+  },
 })
 
 export const utilityReducerActions = utilitySlice.actions

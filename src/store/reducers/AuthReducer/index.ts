@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { PersistConfig } from 'redux-persist'
+import { PersistConfig, PURGE } from 'redux-persist'
 
 import { reduxPersistStorage } from '@/libs/reduxPersist'
 import { IWalletState, TLoginSession, TLoginSessionType } from '@/types/store'
@@ -42,6 +42,9 @@ const authSlice = createSlice({
   name: authReducerConfig.key,
   initialState: authReducerInitialState,
   reducers: authSliceReducers,
+  extraReducers: builder => {
+    builder.addCase(PURGE, () => authReducerInitialState)
+  },
 })
 
 export const authReducerActions = authSlice.actions

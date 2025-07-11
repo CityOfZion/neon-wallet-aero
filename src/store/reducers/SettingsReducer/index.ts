@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createMigrate, PersistConfig } from 'redux-persist'
+import { createMigrate, PersistConfig, PURGE } from 'redux-persist'
 
 import { AVAILABLE_CURRENCIES } from '@/constants/currency'
 import { DEFAULT_LANGUAGE } from '@/constants/language'
@@ -51,6 +51,15 @@ const settingsSlice = createSlice({
   name: settingsReducerConfig.key,
   initialState: settingsReducerInitialState,
   reducers: settingsSliceReducers,
+  extraReducers: builder => {
+    builder.addCase(PURGE, state => ({
+      ...settingsReducerInitialState,
+      data: {
+        ...settingsReducerInitialState.data,
+        language: state.data.language,
+      },
+    }))
+  },
 })
 
 export const settingsReducerActions = settingsSlice.actions
