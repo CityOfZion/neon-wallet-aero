@@ -17,13 +17,22 @@ export const useLogin = () => {
   const { createWallet, importAccounts } = useBlockchainActions()
   const { t } = useTranslation('hooks', { keyPrefix: 'useLogin' })
 
-  const loginWithPassword = useCallback(
+  const encryptPassword = useCallback(
     async (password: string) => {
       if (!encryptedLoginControlRef.current) {
         throw new Error(t('controlIsNotSet'))
       }
 
       const encryptedPassword = await EncryptionHelper.encryptedPassword(password)
+
+      return encryptedPassword
+    },
+    [encryptedLoginControlRef, t]
+  )
+
+  const loginWithPassword = useCallback(
+    async (password: string) => {
+      const encryptedPassword = await encryptPassword(password)
 
       const decryptedLoginControl = await EncryptionHelper.decrypt(encryptedLoginControlRef.current, encryptedPassword)
 
@@ -33,7 +42,7 @@ export const useLogin = () => {
 
       dispatch(authReducerActions.setLoginSession({ type: 'password', encryptedPassword }))
     },
-    [encryptedLoginControlRef, dispatch, t]
+    [encryptPassword, encryptedLoginControlRef, dispatch, t]
   )
 
   const loginWithKey = useCallback(
@@ -61,5 +70,6 @@ export const useLogin = () => {
     loginWithPassword,
     logout,
     loginWithKey,
+    encryptPassword,
   }
 }

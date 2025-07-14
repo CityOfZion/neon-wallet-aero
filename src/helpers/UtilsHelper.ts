@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import * as uuid from 'uuid'
 
 import { ACCOUNT_COLOR_SKINS } from '@/constants/skins'
@@ -16,6 +17,55 @@ export class UtilsHelper {
 
   static uuid() {
     return uuid.v4()
+  }
+
+  static downloadSVGToPng(elementId: string, suggestedFileName?: string) {
+    return new Promise<void>((resolve, reject) => {
+      const svg = document.getElementById(elementId)
+      if (!svg) {
+        reject()
+        return
+      }
+
+      const svgData = new XMLSerializer().serializeToString(svg)
+      const canvas = document.createElement('canvas')
+
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        reject()
+        return
+      }
+
+      const img = new Image()
+
+      const fileName = suggestedFileName || `neon3-qr-code-${format(new Date(), 'yyyy-MM-dd')}.png`
+
+      img.onload = () => {
+        canvas.width = img.width
+        canvas.height = img.height
+
+        ctx.drawImage(img, 0, 0)
+
+        const pngFile = canvas.toDataURL('image/png')
+        const downloadLink = document.createElement('a')
+
+        downloadLink.download = fileName
+        downloadLink.href = pngFile
+        downloadLink.click()
+
+        canvas.remove()
+        downloadLink.remove()
+        img.remove()
+
+        resolve()
+      }
+
+      img.onerror = () => {
+        reject()
+      }
+
+      img.src = `data:image/svg+xml;base64,${btoa(svgData)}`
+    })
   }
 
   static getRandomNumber(max: number) {

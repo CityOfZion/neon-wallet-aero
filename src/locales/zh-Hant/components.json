@@ -21,5 +21,13 @@
   "temporaryLimitsBox": {
     "description": "這是一個觀察帳戶，將限制您對以下功能的訪問：",
     "limits": ["備份和恢復", "錢包自定義", "匯入/匯出功能", "建立新錢包", "以及其他功能…"]
+  },
+  "passwordStrength": {
+    "label": "密碼強度",
+    "none": "-",
+    "tooShort": "太短",
+    "weak": "弱",
+    "good": "良好",
+    "strong": "強"
   }
 }

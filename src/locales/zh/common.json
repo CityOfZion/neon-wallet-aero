@@ -6,7 +6,9 @@
     "clear": "清除",
     "close": "关闭",
     "back": "返回",
-    "pasteFromClipboard": "从剪贴板粘贴"
+    "pasteFromClipboard": "从剪贴板粘贴",
+    "menuIconButtonAriaLabel": "菜单",
+    "downloadQRCodePassword": "下载密码二维码"
   },
   "wallet": {
     "firstWalletName": "我的第一个钱包",

@@ -27,5 +27,13 @@
       "Create New Wallet",
       "Among other features…"
     ]
+  },
+  "passwordStrength": {
+    "label": "Password strength",
+    "none": "-",
+    "tooShort": "Too short",
+    "weak": "Weak",
+    "good": "Good",
+    "strong": "Strong"
   }
 }
