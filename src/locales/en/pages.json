@@ -96,28 +96,56 @@
       "text": "I want to <1>migrate</1> my Neon 2 wallet"
     }
   },
-  "loginOnboardingNewWallet": {
+  "onboardingLoginNewWallet": {
     "description": "Securing your new wallet",
     "goBackIconButtonLabel": "Go back",
     "steps": ["Create Password", "Confirm Password", "Complete"]
   },
-  "loginOnboardingNewWalletStep1": {
-    "passwordInputLabel": "Enter your new password",
+  "onboardingLoginNewWalletStep1": {
+    "passwordInputLabel": "Enter password",
     "passwordInputPlaceholder": "Create a password…",
     "errors": {
       "passwordLength": "Password must be at least {{length}} characters long"
     }
   },
-  "loginOnboardingNewWalletStep2": {
+  "onboardingLoginNewWalletStep2": {
     "confirmPasswordInputLabel": "Enter your password again",
     "confirmPasswordInputPlaceholder": "Confirm your password…",
     "errors": {
       "passwordsDoNotMatch": "Passwords do not match"
     }
   },
-  "loginOnboardingNewWalletStep3": {
+  "onboardingLoginNewWalletStep3": {
     "description": "Your wallet is now created!",
     "buttonContinueLabel": "Open your wallet"
+  },
+  "onboardingImportWallet": {
+    "title": "Import a wallet",
+    "description": "Please create a password to secure your wallet",
+    "goBackIconButtonLabel": "Go back",
+    "steps": ["Create Password", "Confirm Password", "Add details or locate file", "Import", "Complete"],
+    "migrationLabel": "Locate your migration file",
+    "step3": {
+      "formTitle": "Enter an address, encrypted key, private key, mnemonic or locate backup file",
+      "migrationFormTitle": "Browse your computer to find a migration file",
+      "inputPlaceholder": "Enter an address, key or mnemonic…",
+      "importEncryptedDescription": "Select the desired blockchain for your new account",
+      "importEncryptedTitle": "Import a wallet",
+      "importEncryptedSubtitle": "Your encrypted key has been recognised, please complete the below fields to continue.",
+      "invalidAddress": "Invalid address",
+      "unexpectedError": "Unexpected error",
+      "locateFileButtonLabel": "Locate file…",
+      "neon2Warning": "This file is created during the migration process in your Neon 2 wallet. Start the process in Neon 2 to create the file.",
+      "importSuccess": "Compatible file identified!",
+      "importError": "Compatible file not recognised"
+    },
+    "step4": {
+      "title": "Please be patient, we are now setting up your wallet"
+    },
+    "step5": {
+      "title": "Wallet imported successfully!",
+      "openWalletButtonLabel": "Open your wallet"
+    }
   },
   "import": {
     "title": "Import",

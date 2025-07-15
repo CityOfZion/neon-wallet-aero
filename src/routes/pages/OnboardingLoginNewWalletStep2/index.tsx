@@ -18,8 +18,12 @@ type TLocationState = {
   password: string
 }
 
-export const LoginOnboardingNewWalletStep2 = () => {
-  const { t } = useTranslation('pages', { keyPrefix: 'loginOnboardingNewWalletStep2' })
+type TProps = {
+  onSubmit?: (password: string) => void
+}
+
+export const OnboardingLoginNewWalletStep2 = ({ onSubmit }: TProps) => {
+  const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep2' })
   const { t: commonT } = useTranslation('common')
   const { state } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
@@ -38,6 +42,11 @@ export const LoginOnboardingNewWalletStep2 = () => {
   }
 
   const handleSubmit = async (data: TFormData) => {
+    if (onSubmit) {
+      onSubmit(state.password)
+      return
+    }
+
     await setNewPassword(data.confirmPassword)
 
     const words = generateMnemonic()
@@ -57,7 +66,7 @@ export const LoginOnboardingNewWalletStep2 = () => {
 
     await Promise.allSettled(promises)
 
-    navigate('/login-onboarding-new-wallet/3', { replace: true })
+    navigate('/onboarding-login-new-wallet/3', { replace: true })
   }
 
   return (

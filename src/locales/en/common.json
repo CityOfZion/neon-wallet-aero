@@ -1,6 +1,7 @@
 {
   "general": {
     "continue": "Continue",
+    "next": "Next",
     "default": "Default",
     "successfullyCopied": "Successfully copied to clipboard",
     "clear": "Clear",
@@ -17,7 +18,8 @@
     "mnemonicWalletName": "Mnemonic Wallet",
     "watchAccount": "Watch Account",
     "watchWalletName": "Watch Wallet",
-    "importedWalletName": "Imported Wallet"
+    "importedWalletName": "Imported Wallet",
+    "encryptedName": "Encrypted Wallet"
   },
   "account": {
     "defaultName": "Account {{accountNumber}}"

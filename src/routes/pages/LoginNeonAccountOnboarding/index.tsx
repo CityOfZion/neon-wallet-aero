@@ -16,7 +16,7 @@ export const LoginNeonAccountOnboarding = () => {
       <ul className="mt-5 flex flex-col gap-y-2">
         <li>
           <LoginNeonAccountOnboardingLink
-            to="/login-onboarding-new-wallet"
+            to="/onboarding-login-new-wallet"
             title={t('createNewWalletLink.title')}
             icon={<TbWallet aria-hidden={true} />}
             text={
@@ -31,7 +31,7 @@ export const LoginNeonAccountOnboarding = () => {
 
         <li>
           <LoginNeonAccountOnboardingLink
-            to="#"
+            to="/onboarding-import-wallet"
             title={t('importExternalWalletLink.title')}
             icon={<TbFileImport aria-hidden={true} />}
             text={
@@ -46,7 +46,7 @@ export const LoginNeonAccountOnboarding = () => {
 
         <li>
           <LoginNeonAccountOnboardingLink
-            to="#"
+            to="/onboarding-import-wallet"
             state={{ isMigration: true }}
             title={t('migrateFromNeon2Link.title')}
             icon={<TbPackageExport aria-hidden={true} />}

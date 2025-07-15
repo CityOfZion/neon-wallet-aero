@@ -14,10 +14,16 @@ import { Login } from './pages/Login'
 import { LoginKey } from './pages/LoginKey'
 import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
 import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
-import { LoginOnboardingNewWallet } from './pages/LoginOnboardingNewWallet'
-import { LoginOnboardingNewWalletStep1 } from './pages/LoginOnboardingNewWalletStep1'
-import { LoginOnboardingNewWalletStep2 } from './pages/LoginOnboardingNewWalletStep2'
-import { LoginOnboardingNewWalletStep3 } from './pages/LoginOnboardingNewWalletStep3'
+import { OnboardingImportWallet } from './pages/OnboardingImportWallet'
+import { OnboardingImportWalletStep1 } from './pages/OnboardingImportWalletStep1'
+import { OnboardingImportWalletStep2 } from './pages/OnboardingImportWalletStep2'
+import { OnboardingImportWalletStep3 } from './pages/OnboardingImportWalletStep3'
+import { OnboardingImportWalletStep4 } from './pages/OnboardingImportWalletStep4'
+import { OnboardingImportWalletStep5 } from './pages/OnboardingImportWalletStep5'
+import { OnboardingLoginNewWallet } from './pages/OnboardingLoginNewWallet'
+import { OnboardingLoginNewWalletStep1 } from './pages/OnboardingLoginNewWalletStep1'
+import { OnboardingLoginNewWalletStep2 } from './pages/OnboardingLoginNewWalletStep2'
+import { OnboardingLoginNewWalletStep3 } from './pages/OnboardingLoginNewWalletStep3'
 import { RootPage } from './pages/Root'
 import { SendPage } from './pages/Send'
 import { SettingsPage } from './pages/Settings'
@@ -60,12 +66,23 @@ export const pagesRouter = createHashRouter([
         element: <ForgottenPasswordSuccess />,
       },
       {
-        path: 'login-onboarding-new-wallet',
-        element: <LoginOnboardingNewWallet />,
+        path: 'onboarding-login-new-wallet',
+        element: <OnboardingLoginNewWallet />,
         children: [
-          { path: '1?', element: <LoginOnboardingNewWalletStep1 /> },
-          { path: '2', element: <LoginOnboardingNewWalletStep2 /> },
-          { path: '3', element: <LoginOnboardingNewWalletStep3 /> },
+          { path: '1?', element: <OnboardingLoginNewWalletStep1 /> },
+          { path: '2', element: <OnboardingLoginNewWalletStep2 /> },
+          { path: '3', element: <OnboardingLoginNewWalletStep3 /> },
+        ],
+      },
+      {
+        path: 'onboarding-import-wallet',
+        element: <OnboardingImportWallet />,
+        children: [
+          { path: '1?', element: <OnboardingImportWalletStep1 /> },
+          { path: '2', element: <OnboardingImportWalletStep2 /> },
+          { path: '3', element: <OnboardingImportWalletStep3 /> },
+          { path: '4', element: <OnboardingImportWalletStep4 /> },
+          { path: '5', element: <OnboardingImportWalletStep5 /> },
         ],
       },
       {
