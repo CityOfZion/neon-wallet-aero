@@ -7,6 +7,8 @@ export type TUseActionsOptions = {
   clearErrorsOnChange?: boolean
 }
 
+export type TUseImportActionInputType = 'key' | 'mnemonic' | 'encrypted' | 'address'
+
 export type TUseActionsErrors<T> = Record<keyof T, string | undefined>
 
 export type TUseActionsChanged<T> = Record<keyof T, boolean>

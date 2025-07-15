@@ -47,6 +47,11 @@
       "invalidPassword": "密碼無效"
     }
   },
+  "loginKey": {
+    "description": "輸入地址、金鑰或助記詞：",
+    "inputPlaceholder": "輸入地址、金鑰或助記詞…",
+    "buttonContinueLabel": "繼續"
+  },
   "forgottenPassword": {
     "title": "忘記密碼",
     "text": "如果您忘記了密碼，您需要重設 Neon。",
@@ -54,7 +59,7 @@
       "text": "此操作將刪除您儲存的資料，您需要重新導入錢包"
     },
     "links": {
-      "continueLabel": "繼續"
+      "buttonContinueLabel": "繼續"
     }
   },
   "forgottenPasswordConfirm": {

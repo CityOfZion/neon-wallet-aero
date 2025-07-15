@@ -1,9 +1,10 @@
-import { Fragment, useMemo } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { isClaimable } from '@cityofzion/blockchain-service'
 
 import { BlockchainIcon } from '@/components/BlockchainIcon'
 import { Button } from '@/components/Button'
+import ConnectionEmptyState from '@/components/EmptyStates/ConnectionEmptyState'
 import { IconButton } from '@/components/IconButton'
 import { Skeleton } from '@/components/Skeleton'
 import { Tabs } from '@/components/Tabs'
@@ -35,9 +36,10 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
   const balanceQuery = useBalance(selectedAccount)
   const unclaimedQuery = useUnclaimed(selectedAccount)
 
+  const [activeTab, setActiveTab] = useState<'tokens' | 'nfts' | 'transactions' | 'connections'>('tokens')
+
   const blockchainService = useMemo(() => {
     if (!selectedAccount) return undefined
-
     return bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
   }, [selectedAccount])
 
@@ -51,10 +53,8 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
       <div className="mt-4 flex justify-between">
         <div className="flex items-center gap-2.5">
           <BlockchainIcon blockchain={selectedAccount.blockchain} className="text-green" />
-
           <span className="text-sm text-white uppercase">{commonT(`blockchain.${selectedAccount.blockchain}`)}</span>
         </div>
-
         <IconButton
           aria-label={t('ariaLabels.refreshIconButton')}
           icon={<TbRefresh aria-hidden />}
@@ -68,7 +68,6 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
 
       <div>
         <p className="text-sm text-gray-300 uppercase">{t('addressLabel')}</p>
-
         <div className="gap- flex items-center gap-2">
           <p className="text-blue text-sm">{StringHelper.truncateStringMiddle(selectedAccount.address, 35)}</p>
           <IconButton
@@ -83,7 +82,6 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
 
       <div className="mt-3.5">
         <p className="text-sm text-gray-300 uppercase">{t('balanceLabel')}</p>
-
         <Skeleton.Root
           loading={balanceQuery.isLoading}
           className="mt-1.5"
@@ -99,20 +97,30 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
         {blockchainService && isClaimable(blockchainService) && selectedAccount.type !== 'watch' && (
           <WalletPageClaimButton selectAccount={selectedAccount} blockchainService={blockchainService} />
         )}
-
         <Button label={t('sendButtonLabel')} leftIcon={<TbStepOut aria-hidden />} iconsOnEdge={false} />
       </div>
 
-      <Tabs.Root className="mt-10" defaultValue="tokens">
+      <Tabs.Root className="mt-6" value={activeTab}>
         <Tabs.List>
-          <Tabs.Trigger value="tokens">{t('tokenTab.label')}</Tabs.Trigger>
-          <Tabs.Trigger value="nfts">{t('nftsTab.label')}</Tabs.Trigger>
-          <Tabs.Trigger value="transactions">{t('transactionsTab.label')}</Tabs.Trigger>
-          <Tabs.Trigger value="connections">{t('connectionsTab.label')}</Tabs.Trigger>
+          <Tabs.Trigger value="tokens" onClick={() => setActiveTab('tokens')}>
+            {t('tokenTab.label')}
+          </Tabs.Trigger>
+          <Tabs.Trigger value="nfts" onClick={() => setActiveTab('nfts')}>
+            {t('nftsTab.label')}
+          </Tabs.Trigger>
+          <Tabs.Trigger value="transactions" onClick={() => setActiveTab('transactions')}>
+            {t('transactionsTab.label')}
+          </Tabs.Trigger>
+          <Tabs.Trigger value="connections" onClick={() => setActiveTab('connections')}>
+            {t('connectionsTab.label')}
+          </Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value="tokens">
           <WalletsPageTokensTabContent selectedAccount={selectedAccount} />
+        </Tabs.Content>
+        <Tabs.Content value="connections">
+          <ConnectionEmptyState />
         </Tabs.Content>
       </Tabs.Root>
     </Fragment>

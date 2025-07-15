@@ -1,10 +1,12 @@
-import { useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
 import i18next from 'i18next'
 
 import { bsAggregator } from '@/libs/blockchainService'
+import { authReducerActions } from '@/store/reducers/AuthReducer'
 import { settingsReducerActions } from '@/store/reducers/SettingsReducer'
 import { TBlockchainServiceKey } from '@/types/blockchain'
 
+import { useCurrentLoginSessionSelector } from './useAuthSelector'
 import { useAppDispatch } from './useRedux'
 import {
   useLanguageSelector,
@@ -31,6 +33,18 @@ const useNetworkChange = () => {
   }, [dispatch, selectedNetworkProfile.networkByBlockchain])
 }
 
+const useRemoveTemporaryApplicationData = () => {
+  const dispatch = useAppDispatch()
+  const { currentLoginSession } = useCurrentLoginSessionSelector()
+
+  useEffect(() => {
+    // If the user is logged in, we don't want to reset the temporary application data
+    if (currentLoginSession) return
+
+    dispatch(authReducerActions.resetTemporaryApplicationData())
+  }, [currentLoginSession, dispatch])
+}
+
 const useLanguageChange = () => {
   const { language } = useLanguageSelector()
 
@@ -42,4 +56,5 @@ const useLanguageChange = () => {
 export const useBeforeLogin = () => {
   useNetworkChange()
   useLanguageChange()
+  useRemoveTemporaryApplicationData()
 }

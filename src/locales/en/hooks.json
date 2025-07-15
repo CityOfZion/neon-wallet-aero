@@ -13,7 +13,8 @@
     "errors": {
       "invalid": "Invalid value or already exists",
       "empty": "Please enter some value",
-      "invalidMnemonic": "Invalid mnemonic"
+      "invalidMnemonic": "Invalid mnemonic",
+      "mnemonicIncomplete": "Mnemonic incomplete"
     }
   },
   "useWalletUtils": {

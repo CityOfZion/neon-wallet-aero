@@ -11,6 +11,7 @@
   "wallet": {
     "firstWalletName": "我的第一個錢包",
     "mnemonicWalletName": "助記詞錢包",
+    "watchAccount": "觀察帳戶",
     "watchWalletName": "觀察錢包",
     "importedWalletName": "導入錢包"
   },

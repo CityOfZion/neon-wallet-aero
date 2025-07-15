@@ -18,7 +18,7 @@ export const ForgottenPassword = () => {
 
         <Link
           to="/forgotten-password-confirm"
-          label={t('links.continueLabel')}
+          label={t('links.buttonContinueLabel')}
           colorSchema="error"
           variant="outlined"
           className="flex w-full max-w-62.5 items-center justify-center"
