@@ -1,3 +1,5 @@
+import { Account } from '@cityofzion/blockchain-service'
+
 import { TBlockchainServiceKey } from '@/types/blockchain'
 
 import { IAccountState, IWalletState, TImportAccountsSelectionType } from './store'
@@ -18,6 +20,7 @@ type TAccountSelectionModalState = {
 type TImportAccountsSelectionModalState = {
   value: string
   type: TImportAccountsSelectionType
+  onSubmit: (selectedAccounts: Account<TBlockchainServiceKey>[]) => Promise<void>
 }
 
 type TBlockchainSelectionModalState = {

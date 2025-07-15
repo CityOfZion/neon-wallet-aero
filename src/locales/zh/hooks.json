@@ -13,7 +13,8 @@
     "errors": {
       "invalid": "无效的值或已存在",
       "empty": "请输入一些内容",
-      "invalidMnemonic": "助记词无效"
+      "invalidMnemonic": "助记词无效",
+      "mnemonicIncomplete": "助记词不完整"
     }
   },
   "useWalletUtils": {

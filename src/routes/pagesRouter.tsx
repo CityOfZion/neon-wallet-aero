@@ -7,6 +7,7 @@ import { ForgottenPasswordSuccess } from './pages/ForgottenPasswordSuccess'
 import { ImportPage } from './pages/Import'
 import { LanguagePage } from './pages/Language'
 import { Login } from './pages/Login'
+import { LoginKey } from './pages/LoginKey'
 import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
 import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
 import { LoginOnboardingNewWallet } from './pages/LoginOnboardingNewWallet'
@@ -40,7 +41,7 @@ export const pagesRouter = createHashRouter([
             ],
           },
           { path: 'hardware-wallet' },
-          { path: 'address-or-key' },
+          { path: 'address-or-key', element: <LoginKey /> },
           { path: '', element: <Navigate to="/login/neon-account/password" replace /> },
         ],
       },
