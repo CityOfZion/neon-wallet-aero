@@ -29,7 +29,6 @@ const authReducerInitialState: IAuthReducer = {
     applicationDataByLoginType: {
       password: { wallets: [] },
       key: { wallets: [] },
-      hardware: { wallets: [] },
     },
   },
 }
