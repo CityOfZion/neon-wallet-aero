@@ -48,6 +48,10 @@
     "nextButtonLabel": "下一步"
   },
   "decryptKeyModal": {
+    "title": "导入",
+    "description": "为您的加密密钥输入密码：",
+    "inputPlaceholder": "输入您的密码…",
+    "buttonContinueLabel": "导入",
     "passwordLabel": "密码",
     "passwordPlaceholder": "请输入密码",
     "nextButtonLabel": "下一步",
@@ -146,5 +150,31 @@
     "printButtonLabel": "打印",
     "warningDescription": "请妥善保管您的密钥！它们完全控制您的钱包和资产",
     "error": "导出密钥时出现问题，请稍后再试。"
+  },
+  "migrateWallets": {
+    "title": "从 NEON 2 迁移",
+    "instructionTitle": "说明",
+    "step3": {
+      "title": "选择要迁移的账户",
+      "selectTitle": "选择您要导入的账户",
+      "selectLabel": "账户",
+      "selectAllButtonLabel": "全选",
+      "selectedQuantity": "已选择 {{selected}} / {{total}} 个账户",
+      "alreadyImportedLabel": "已导入",
+      "buttonLabel": "选择所选账户"
+    },
+    "step4": {
+      "title": "输入您的账户密码",
+      "description": "为您要导入的每个账户输入密码",
+      "inputLabel": "密码",
+      "inputPlaceholder": "输入账户密码…",
+      "buttonLabel": "迁移账户",
+      "passwordError": "密码不正确！",
+      "migrateError": "迁移时出错。请重试。",
+      "success": {
+        "subtitle": "您的 NEON 2 账户已成功迁移！",
+        "buttonLabel": "查看您的投资组合"
+      }
+    }
   }
 }

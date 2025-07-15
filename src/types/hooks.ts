@@ -1,5 +1,5 @@
 import { TModalRouterContextNavigateOptions, TRouteType } from './modal'
-import { TModalRouterRouteTypes } from './modalRouterTypes'
+import { TModalRouterRouteTypes } from './modal-router-types'
 
 export type TUseActionsData = Record<string, any>
 

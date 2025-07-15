@@ -19,7 +19,8 @@
     "watchAccount": "Watch Account",
     "watchWalletName": "Watch Wallet",
     "importedWalletName": "Imported Wallet",
-    "encryptedName": "Encrypted Wallet"
+    "encryptedName": "Encrypted Wallet",
+    "migratedWalletName": "Migrated Wallet"
   },
   "account": {
     "defaultName": "Account {{accountNumber}}"

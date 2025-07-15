@@ -17,6 +17,14 @@
       "mnemonicIncomplete": "助记词不完整"
     }
   },
+  "useBackupOrMigrate": {
+    "neon3BackupFileDetected": "检测到 NEON3 备份文件",
+    "neon2MigrateFileDetected": "检测到 NEON2 迁移文件",
+    "filterName": "Neon 备份或迁移文件",
+    "error": "无法识别的文件",
+    "defaultAccountLabel": "已迁移账户",
+    "defaultContactName": "已迁移联系人"
+  },
   "useWalletUtils": {
     "beLoggedInError": "您需要登录才能访问钱包"
   }

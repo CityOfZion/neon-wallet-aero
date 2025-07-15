@@ -1,6 +1,59 @@
-import { Token, TransactionResponse } from '@cityofzion/blockchain-service'
+import { SwapServiceStatusResponse, SwapServiceToken, Token, TransactionResponse } from '@cityofzion/blockchain-service'
+import {
+  CalculateNeo3MigrationAmountsResponse,
+  CalculateNeoLegacyMigrationAmountsResponse,
+} from '@cityofzion/bs-neo-legacy'
 
 import { TBlockchainServiceKey, TNetwork } from './blockchain'
+
+export type TContactEncryptedAddress = {
+  encryptedAddress: string
+  blockchain: TBlockchainServiceKey
+}
+
+export type TContactAddress = {
+  address: string
+  blockchain: TBlockchainServiceKey
+}
+
+export type TContactState<A = TContactAddress> = {
+  id: string
+  name: string
+  addresses: A[]
+}
+
+export type TSwapRecord = {
+  account: IAccountState
+  txFrom?: string
+  txTo?: string
+  swapProvider: 'simpleswap'
+  swapId?: string
+  swapStatus: SwapServiceStatusResponse['status']
+  tokenFrom: SwapServiceToken<TBlockchainServiceKey>
+  tokenTo: SwapServiceToken<TBlockchainServiceKey>
+  amountFrom: string
+  amountTo: string
+  addressTo: string
+  extraIdTo?: string
+  fee?: string
+  log?: string
+}
+
+export type TMigrationNeo3Status = 'done' | 'pending' | 'failure' | 'failure-neo3'
+
+export type TMigrationNeo3 = {
+  hash: string
+  neoLegacyAccount: IAccountState
+  neo3Address: string
+  status: TMigrationNeo3Status
+  neo3MigrationAmounts: CalculateNeo3MigrationAmountsResponse
+  neoLegacyMigrationAmounts: CalculateNeoLegacyMigrationAmountsResponse
+  time: number
+}
+
+export type TMigrationsNeo3 = {
+  [hash: string]: TMigrationNeo3
+}
 
 export type TAccountType = 'standard' | 'watch' | 'hardware'
 

@@ -1,5 +1,10 @@
 import { Account } from '@cityofzion/blockchain-service'
 
+import {
+  TUseNeonMigrateAccountsSchema,
+  TUseNeonMigrateGeneratedData,
+  TUseNeonMigrateSchema,
+} from '@/hooks/useNeonMigrate'
 import { TBlockchainServiceKey } from '@/types/blockchain'
 
 import { IAccountState, IWalletState, TImportAccountsSelectionType } from './store'
@@ -58,12 +63,23 @@ type TExportPasswordModalState = {
   onSubmitPassword: (password: string) => void
 }
 
+type TExportKeyModalState = {
+  account: IAccountState
+}
+
 type TExportMnemonicModalState = {
   wallet: IWalletState
 }
 
-type TExportKeyModalState = {
-  account: IAccountState
+type TMigrateAccountsStep3ModalState = {
+  content: TUseNeonMigrateSchema
+  onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
+}
+
+type TMigrateAccountsStep4ModalState = {
+  selectedAccountsToMigrate: TUseNeonMigrateAccountsSchema[]
+  content: TUseNeonMigrateSchema
+  onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
 }
 
 export type TModalRouterRouteTypes = {
@@ -80,6 +96,8 @@ export type TModalRouterRouteTypes = {
   'create-account-1': undefined
   'create-account-2': TCreateAccountStep2ModalState
   'confirm-password-export': TExportPasswordModalState
-  'export-wallet': TExportMnemonicModalState
   'export-account': TExportKeyModalState
+  'export-wallet': TExportMnemonicModalState
+  'migrate-accounts-3': TMigrateAccountsStep3ModalState
+  'migrate-accounts-4': TMigrateAccountsStep4ModalState
 }

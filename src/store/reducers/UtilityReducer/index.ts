@@ -2,7 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 import { PersistConfig, PURGE } from 'redux-persist'
 
 import { reduxPersistStorage } from '@/libs/reduxPersist'
-import { THiddenTokenByBlockchain, TLastIndexesByWallet, TPendingTransaction } from '@/types/store'
+import {
+  THiddenTokenByBlockchain,
+  TLastIndexesByWallet,
+  TMigrationsNeo3,
+  TPendingTransaction,
+  TSwapRecord,
+} from '@/types/store'
 
 import { utilitySliceReducers } from './reducers'
 
@@ -13,8 +19,10 @@ export interface IUtilityReducer {
   data: {
     hasPassword: boolean
     encryptedLoginControl?: string
+    swapRecords: TSwapRecord[]
     lastIndexesByWallet: TLastIndexesByWallet
     hiddenTokensByBlockchain: THiddenTokenByBlockchain
+    migrationsNeo3: TMigrationsNeo3
   }
 }
 
@@ -25,8 +33,10 @@ const utilityReducerInitialState: IUtilityReducer = {
   data: {
     hasPassword: false,
     encryptedLoginControl: undefined,
+    swapRecords: [],
     lastIndexesByWallet: {},
     hiddenTokensByBlockchain: {},
+    migrationsNeo3: {},
   },
 }
 

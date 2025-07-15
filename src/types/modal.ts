@@ -1,6 +1,6 @@
 import { JSX } from 'react'
 
-import { TModalRouterRouteTypes } from './modalRouterTypes'
+import { TModalRouterRouteTypes } from './modal-router-types'
 
 export type TRouteType = 'side' | 'bottom'
 

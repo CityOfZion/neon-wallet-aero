@@ -48,6 +48,10 @@
     "nextButtonLabel": "Next"
   },
   "decryptKeyModal": {
+    "title": "Import",
+    "description": "Enter a pass phrase for your encrypted key:",
+    "inputPlaceholder": "Enter your pass phrase…",
+    "buttonContinueLabel": "Import",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Enter the password",
     "nextButtonLabel": "Next",
@@ -146,5 +150,31 @@
     "printButtonLabel": "Print",
     "warningDescription": "Keep your keys safe! They grant complete control over your wallet and assets",
     "error": "There was an error exporting the key, please try again later."
+  },
+  "migrateWallets": {
+    "title": "Migrate from NEON 2",
+    "instructionTitle": "Instructions",
+    "step3": {
+      "title": "Choose the accounts to migrate",
+      "selectTitle": "Select which accounts you want to import",
+      "selectLabel": "Accounts",
+      "selectAllButtonLabel": "Select all",
+      "selectedQuantity": "{{selected}} of {{total}} accounts selected",
+      "alreadyImportedLabel": "Imported",
+      "buttonLabel": "Choose selected accounts"
+    },
+    "step4": {
+      "title": "Enter your account passwords",
+      "description": "Enter your passwords for each account you want to import",
+      "inputLabel": "Password",
+      "inputPlaceholder": "Enter account password…",
+      "buttonLabel": "Migrate accounts",
+      "passwordError": "Password not recognised!",
+      "migrateError": "There was an error trying to migrate. Please, try again.",
+      "success": {
+        "subtitle": "Your NEON 2 accounts have been successfully migrated!",
+        "buttonLabel": "View your portfolio"
+      }
+    }
   }
 }
