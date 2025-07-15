@@ -8,6 +8,11 @@ const setLoginSession: CaseReducer<IAuthReducer, PayloadAction<TLoginSession | u
   state.inMemoryData.loginSession = action.payload
 }
 
+const resetTemporaryApplicationData: CaseReducer<IAuthReducer> = state => {
+  state.data.applicationDataByLoginType.hardware = { wallets: [] }
+  state.data.applicationDataByLoginType.key = { wallets: [] }
+}
+
 // Wallet Reducers
 const saveWallet: CaseReducer<IAuthReducer, PayloadAction<IWalletState>> = (state, action) => {
   if (!state.inMemoryData.loginSession) {
@@ -91,4 +96,5 @@ export const authSliceReducers = {
   saveAccount,
   deleteAccount,
   setLoginSession,
+  resetTemporaryApplicationData,
 }

@@ -17,5 +17,9 @@
     "clearIconButtonLabel": "清除輸入",
     "hidePasswordIconButtonLabel": "隱藏密碼",
     "showPasswordIconButtonLabel": "顯示密碼"
+  },
+  "temporaryLimitsBox": {
+    "description": "這是一個觀察帳戶，將限制您對以下功能的訪問：",
+    "limits": ["備份和恢復", "錢包自定義", "匯入/匯出功能", "建立新錢包", "以及其他功能…"]
   }
 }

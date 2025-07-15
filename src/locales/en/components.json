@@ -17,5 +17,15 @@
     "clearIconButtonLabel": "Clear input",
     "hidePasswordIconButtonLabel": "Hide password",
     "showPasswordIconButtonLabel": "Show password"
+  },
+  "temporaryLimitsBox": {
+    "description": "This is a watch account and will limit your access to:",
+    "limits": [
+      "Backup and restore",
+      "Wallet customizations",
+      "Import/Export features",
+      "Create New Wallet",
+      "Among other features…"
+    ]
   }
 }

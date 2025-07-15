@@ -2,7 +2,7 @@ import CoZLogo from '@/assets/images/coz-logo.svg?react'
 import NeonWalletFull from '@/assets/images/neon-wallet-full.svg?react'
 import NeonWalletIcon from '@/assets/images/neon-wallet-icon.svg?react'
 
-export function SplashScreen() {
+export const SplashScreen = () => {
   return (
     <div className="flex h-full flex-col items-center justify-between bg-gradient-to-b from-gray-800 to-gray-900 p-11">
       <div className="flex h-full flex-col items-center justify-center">

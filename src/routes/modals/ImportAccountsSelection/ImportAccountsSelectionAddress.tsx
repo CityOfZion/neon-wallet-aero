@@ -1,16 +1,14 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 import { Account } from '@cityofzion/blockchain-service'
 
 import { Banner } from '@/components/Banner'
 import { ToastHelper } from '@/helpers/ToastHelper'
 import { useAccountUtils } from '@/hooks/useAccountUtils'
 import { useActions } from '@/hooks/useActions'
-import { useBlockchainActions } from '@/hooks/useBlockchainActions'
 import { useModalNavigate } from '@/hooks/useModalRouter'
 import { useMountUnsafe } from '@/hooks/useMountUnsafe'
 import { bsAggregator } from '@/libs/blockchainService'
-import { TAccountsToImport, TBlockchainServiceKey } from '@/types/blockchain'
+import { TBlockchainServiceKey } from '@/types/blockchain'
 
 import { ImportAccountsSelectionForm } from './ImportAccountsSelectionForm'
 import { TBlockchainAccounts } from '.'
@@ -22,15 +20,13 @@ type TActionsData = {
 
 type TProps = {
   value: string
+  onSubmit: (selectedAccounts: Account<TBlockchainServiceKey>[]) => Promise<void>
 }
 
-export const ImportAccountsSelectionWatch = ({ value }: TProps) => {
+export const ImportAccountsSelectionAddress = ({ value, onSubmit }: TProps) => {
   const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelectionModal' })
-  const { t: tCommonWallet } = useTranslation('common', { keyPrefix: 'wallet' })
   const { modalErase } = useModalNavigate()
-  const navigate = useNavigate()
   const { doesAccountExist } = useAccountUtils()
-  const { importAccounts, createWallet } = useBlockchainActions()
 
   const {
     actionData: { blockchainAccounts, selectedAccounts },
@@ -49,19 +45,11 @@ export const ImportAccountsSelectionWatch = ({ value }: TProps) => {
     if (isDisabled) return
 
     try {
-      const accountsToImport: TAccountsToImport = selectedAccounts.map(({ address, blockchain }) => ({
-        address,
-        blockchain,
-        type: 'watch',
-      }))
-
-      const wallet = await createWallet({ name: tCommonWallet('watchWalletName') })
-      const accounts = await importAccounts({ accounts: accountsToImport, wallet })
+      await onSubmit(selectedAccounts)
 
       ToastHelper.success({ message: t('successes.accountsImported') })
 
       modalErase('bottom')
-      navigate('/app/wallets', { state: { wallet, account: accounts[0] }, replace: true })
     } catch (error) {
       console.error(error)
 

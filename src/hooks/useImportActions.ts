@@ -2,31 +2,40 @@ import { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { MnemonicHelper } from '@/helpers/MnemonicHelper'
-import { StringHelper } from '@/helpers/StringHelper'
+import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { bsAggregator } from '@/libs/blockchainService'
+import { TUseImportActionInputType } from '@/types/hooks'
 
 import { useAccountUtils } from './useAccountUtils'
 import { useActions } from './useActions'
 
-type TType = 'key' | 'mnemonic' | 'encryptedKey' | 'address'
-
-type TActionsData = {
-  value: string
-  type?: TType
+type TFormData = {
+  text: string
+  inputType?: TUseImportActionInputType
 }
 
-type TOptions = {
-  submitByType: Record<TType, (value: string) => Promise<void>>
+type TImportActionOptions = {
   verifyIfAddressAlreadyExists?: boolean
 }
 
-export const useImportActions = ({ submitByType, verifyIfAddressAlreadyExists = true }: TOptions) => {
+export const useImportActions = (
+  submitByInputType: Partial<
+    Record<TUseImportActionInputType, (value: string, inputType: TUseImportActionInputType) => Promise<void>>
+  >,
+  options: TImportActionOptions = {}
+) => {
+  const { verifyIfAddressAlreadyExists = true } = options
   const { t } = useTranslation('hooks', { keyPrefix: 'useImportActions' })
   const { doesAccountExist } = useAccountUtils()
-
-  const { actionData, actionState, setData, setError, clearErrors, handleAct } = useActions<TActionsData>({
-    value: '',
+  const { handleAct, setError, actionState, actionData, setData, clearErrors, reset } = useActions<TFormData>({
+    text: '',
   })
+
+  const validateMnemonic = (value: string) => {
+    const isValid = MnemonicHelper.isValidMnemonic(value)
+
+    if (!isValid) throw new Error(t('errors.mnemonicIncomplete'))
+  }
 
   const isValidAddress = (address: string) =>
     Object.values(bsAggregator.blockchainServicesByName).some(service => {
@@ -36,66 +45,63 @@ export const useImportActions = ({ submitByType, verifyIfAddressAlreadyExists = 
       return true
     })
 
-  const validateMnemonic = (value: string) => {
-    const isValid = MnemonicHelper.isValidMnemonic(value)
-
-    if (!isValid) throw new Error(t('errors.invalidMnemonic'))
-  }
-
-  const handleChange = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = StringHelper.removeSpecialCharacters(target.value)
-
-    setData({ value, type: undefined })
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = UtilsHelper.removeSpecialCharacters(event.target.value)
+    setData({ text: value, inputType: undefined })
 
     try {
-      const checkFunctionsByInputType: Record<TType, (value: string) => boolean> = {
-        address: isValidAddress,
+      const checkFunctionsByInputType: Record<TUseImportActionInputType, (value: string) => boolean> = {
         key: bsAggregator.validateKeyAllBlockchains.bind(bsAggregator),
-        encryptedKey: bsAggregator.validateEncryptedAllBlockchains.bind(bsAggregator),
         mnemonic: MnemonicHelper.isMnemonic,
+        encrypted: bsAggregator.validateEncryptedAllBlockchains.bind(bsAggregator),
+        address: isValidAddress,
       }
 
-      const functionsByType = Object.entries(checkFunctionsByInputType).find(([, checkFunction]) => {
+      const functionsByInputType = Object.entries(checkFunctionsByInputType).find(([, checkFunc]) => {
         try {
-          return checkFunction(value)
+          return checkFunc(value)
         } catch {
           return false
         }
       })
 
-      if (!functionsByType) throw new Error()
+      if (!functionsByInputType) throw new Error()
+      const inputType = functionsByInputType[0] as TUseImportActionInputType
 
-      const type = functionsByType[0] as TType
+      setData({ inputType })
 
-      setData({ type })
-
-      const validationsByType: Partial<Record<TType, (value: string) => void>> = { mnemonic: validateMnemonic }
-      const validate = validationsByType[type]
-
-      validate?.(value)
+      const validationByInputType: Partial<Record<TUseImportActionInputType, (value: string) => void>> = {
+        mnemonic: validateMnemonic,
+      }
+      const validateFunc = validationByInputType[inputType]
+      validateFunc?.(value)
 
       clearErrors()
     } catch (error: any) {
-      setError('value', error.message || t('errors.invalid'))
+      setError('text', error.message || t('errors.invalid'))
     }
   }
 
-  const handleSubmit = async ({ value, type }: TActionsData) => {
+  const handleSubmit = async (data: TFormData) => {
     try {
-      if (!value.length) throw new Error(t('errors.empty'))
-      if (!type) throw new Error(t('errors.invalid'))
+      if (!data.text.length) {
+        throw new Error(t('errors.empty'))
+      }
 
-      const fixedValue = StringHelper.removeSpecialCharacters(value, { trimText: true })
+      if (!data.inputType) {
+        throw new Error(t('errors.invalid'))
+      }
 
-      const submit = submitByType[type]
+      const fixedText = UtilsHelper.removeSpecialCharacters(data.text, { trimText: true })
+      const submit = submitByInputType[data.inputType]
 
       if (!submit) throw new Error(t('errors.invalid'))
 
-      await submit(fixedValue)
+      await submit(fixedText, data.inputType)
     } catch (error: any) {
-      setError('value', error.message)
+      setError('text', error.message)
     }
   }
 
-  return { actionData, actionState, handleAct, handleChange, handleSubmit }
+  return { actionData, actionState, handleAct, handleChange, handleSubmit, reset }
 }

@@ -3,6 +3,12 @@ import * as uuid from 'uuid'
 import { ACCOUNT_COLOR_SKINS } from '@/constants/skins'
 import { TColorSkin } from '@/types/store'
 
+type TRemoveSpecialCharacterOptions = {
+  allowSpaces?: boolean
+  allowDots?: boolean
+  trimText?: boolean
+}
+
 export class UtilsHelper {
   static sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -50,5 +56,23 @@ export class UtilsHelper {
 
   static async copyToClipboard(text: string): Promise<void> {
     return await navigator.clipboard.writeText(text)
+  }
+
+  static removeSpecialCharacters(text: string, options?: TRemoveSpecialCharacterOptions) {
+    options = { allowSpaces: true, trimText: false, ...options }
+
+    let regex = 'a-zA-Z0-9'
+    if (options.allowDots) {
+      regex += '.'
+    }
+
+    if (options.allowSpaces) {
+      regex += ' '
+    }
+    text = text.replace(new RegExp(`[^${regex}]`, 'g'), '')
+
+    if (options.trimText) text = text.trim()
+
+    return text
   }
 }

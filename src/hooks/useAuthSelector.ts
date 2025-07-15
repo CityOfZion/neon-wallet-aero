@@ -7,3 +7,11 @@ export const useLoginSessionSelector = () => {
     loginSessionRef: ref,
   }
 }
+
+export const useCurrentLoginSessionSelector = () => {
+  const { ref, value } = useAppSelector(state => state.auth.inMemoryData.loginSession)
+  return {
+    currentLoginSession: value,
+    currentLoginSessionRef: ref,
+  }
+}
