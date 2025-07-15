@@ -3,7 +3,9 @@
     "title": "Select a wallet",
     "subtitle": "All wallets",
     "reorderButtonLabel": "Reorder",
-    "addButtonLabel": "Add"
+    "addButtonLabel": "Add",
+    "exportButtonLabel": "Export",
+    "exportWalletTitle": "Export wallet"
   },
   "accountSelectionModal": {
     "title": "Select an account",
@@ -118,5 +120,20 @@
     "errors": {
       "createAccount": "There was an error creating the account, please try again later."
     }
+  },
+  "confirmPasswordExport": {
+    "description": "To protect access to your assets, please confirm your password",
+    "inputPlaceholder": "Enter password…",
+    "error": "Password not recognised!",
+    "buttonContinueLabel": "Continue"
+  },
+  "exportMnemonic": {
+    "title": "Export wallet",
+    "description": "Write this phrase down on a piece of paper or record it in a secure digital note. You can also download it below but be sure to keep it safe.",
+    "yourMnemonic": "Your mnemonic",
+    "copyButtonLabel": "Copy",
+    "printButtonLabel": "Print",
+    "warning": "Anyone with this phrase will be able to access your hard-earned assets and you won't be able to get them back!",
+    "error": "There was a problem exporting the mnemonic"
   }
 }

@@ -5,7 +5,6 @@ import { SideModalLayout } from '@/layouts/SideModalLayout'
 import { MenuItem } from './MenuItem'
 
 import TbDeviceUsb from '@/assets/images/tb-device-usb.svg?react'
-import TbFileExport from '@/assets/images/tb-file-export.svg?react'
 import TbFileImport from '@/assets/images/tb-file-import.svg?react'
 import TbHelp from '@/assets/images/tb-help.svg?react'
 import TbSettings from '@/assets/images/tb-settings.svg?react'
@@ -20,8 +19,6 @@ export const MenuModal = () => {
         <MenuItem label={t('walletsItemLabel')} to="/app/wallets" icon={<Wallet aria-hidden={true} />} />
 
         <MenuItem label={t('importItemLabel')} to="/app/import" icon={<TbFileImport aria-hidden={true} />} />
-
-        <MenuItem label={t('exportItemLabel')} to="/app/export" icon={<TbFileExport aria-hidden={true} />} />
 
         <MenuItem
           label={t('connectHardwareWalletItemLabel')}
