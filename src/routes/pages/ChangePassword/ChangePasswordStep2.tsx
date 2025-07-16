@@ -1,0 +1,108 @@
+import { useTranslation } from 'react-i18next'
+import { Location, useLocation, useNavigate } from 'react-router-dom'
+import { cloneDeep } from 'lodash'
+
+import { DownloadQRCodePasswordButton } from '@/components/DownloadQRCodePasswordButton'
+import { EncryptionHelper } from '@/helpers/EncryptionHelper'
+import { ToastHelper } from '@/helpers/ToastHelper'
+import { useAccountsSelector } from '@/hooks/useAccountSelector'
+import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
+import { useNewPassword } from '@/hooks/useHasPasswordSelector'
+import { useLogin } from '@/hooks/useLogin'
+import { usePressOnce } from '@/hooks/usePressOnce'
+import { useAppDispatch } from '@/hooks/useRedux'
+import { useWalletsSelector } from '@/hooks/useWalletSelector'
+import { authReducerActions } from '@/store/reducers/AuthReducer'
+
+import TbDownload from '@/assets/images/tb-download.svg?react'
+import TbQrCode from '@/assets/images/tb-qrcode.svg?react'
+
+type TLocationState = {
+  newPassword: string
+}
+
+export const ChangePasswordStep2 = () => {
+  const { t } = useTranslation('pages', { keyPrefix: 'changePassword.step2' })
+  const { t: tHookUseLogin } = useTranslation('hooks', { keyPrefix: 'useLogin' })
+  const { loginSessionRef } = useLoginSessionSelector()
+  const { wallets } = useWalletsSelector()
+  const { accounts } = useAccountsSelector()
+  const { setNewPassword } = useNewPassword()
+  const { encryptPassword } = useLogin()
+  const dispatch = useAppDispatch()
+  const {
+    state: { newPassword },
+  } = useLocation() as Location<TLocationState>
+  const navigate = useNavigate()
+
+  const { handlePress, isPressing } = usePressOnce(async () => {
+    try {
+      const loginSession = loginSessionRef.current
+
+      if (!loginSession) throw new Error(tHookUseLogin('controlIsNotSet'))
+
+      const encryptedNewPassword = await encryptPassword(newPassword)
+
+      const walletPromises = wallets.map(async wallet => {
+        const clonedWallet = cloneDeep(wallet)
+
+        const accountPromises = accounts
+          .filter(({ idWallet }) => idWallet === clonedWallet.id)
+          .map(async account => {
+            const { encryptedKey } = account
+
+            if (!encryptedKey) return account
+
+            const key = await EncryptionHelper.decrypt(encryptedKey, loginSession.encryptedPassword)
+
+            const newEncryptedKey = await EncryptionHelper.encrypt(key, encryptedNewPassword)
+
+            return { ...account, encryptedKey: newEncryptedKey }
+          })
+
+        const newAccounts = await Promise.all(accountPromises)
+        const encryptedMnemonic = clonedWallet.encryptedMnemonic
+
+        if (encryptedMnemonic) {
+          const mnemonic = await EncryptionHelper.decrypt(encryptedMnemonic, loginSession.encryptedPassword)
+
+          clonedWallet.encryptedMnemonic = await EncryptionHelper.encrypt(mnemonic, encryptedNewPassword)
+        }
+
+        dispatch(authReducerActions.saveWallet({ ...clonedWallet, accounts: newAccounts }))
+      })
+
+      await Promise.all(walletPromises)
+
+      await setNewPassword(newPassword)
+
+      navigate('/app/settings/change-password/3')
+    } catch (error) {
+      console.error(error)
+      ToastHelper.error({ message: t('error') })
+    }
+  })
+
+  return (
+    <div className="flex h-full w-full flex-col items-center justify-between px-5 pb-10">
+      <div className="flex flex-col items-center gap-5 pt-9">
+        <div className="flex items-center justify-center rounded-full">
+          <TbQrCode aria-hidden={true} className="text-blue h-20 w-20" />
+        </div>
+        <span className="max-w-[16.8rem] text-center text-[1.2rem]">{t('subtitle')}</span>
+        <span className="text-center text-xs text-gray-100">{t('description')}</span>
+      </div>
+
+      <DownloadQRCodePasswordButton
+        label={t('buttonDownload')}
+        type="button"
+        variant="card"
+        className="w-full"
+        password={newPassword}
+        loading={isPressing}
+        rightIcon={<TbDownload aria-hidden={true} />}
+        onDownload={handlePress()}
+      />
+    </div>
+  )
+}

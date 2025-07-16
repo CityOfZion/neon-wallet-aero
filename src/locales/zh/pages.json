@@ -149,5 +149,28 @@
   "language": {
     "title": "语言",
     "menuIconButtonAriaLabel": "菜单"
+  },
+  "changePassword": {
+    "title": "更改密码",
+    "step1": {
+      "subtitle": "如果您想创建新密码，只需在此更改并用当前密码确认即可！",
+      "titleInput1": "新密码",
+      "inputNewPasswordPlaceholder": "输入新密码…",
+      "titleInput2": "当前 Neon 密码",
+      "inputCurrentPasswordPlaceholder": "输入当前密码…",
+      "generatePassword": "生成密码",
+      "buttonContinue": "继续",
+      "error": "密码无法识别！"
+    },
+    "step2": {
+      "subtitle": "如果您丢失密码，将无法找回。",
+      "description": "要完成密码更改，您需要备份新密码。点击下方按钮获取可下载并妥善保存的二维码。",
+      "buttonDownload": "下载二维码并保存更改",
+      "error": "保存更改时出现问题"
+    },
+    "step3": {
+      "subtitle": "您的 NEON 3 密码已成功更改！",
+      "buttonLabel": "返回设置"
+    }
   }
 }

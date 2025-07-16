@@ -149,5 +149,28 @@
   "language": {
     "title": "語言",
     "menuIconButtonAriaLabel": "選單"
+  },
+  "changePassword": {
+    "title": "更改密碼",
+    "step1": {
+      "subtitle": "如果您想建立新密碼，只需在此更改並使用您目前的密碼確認變更！",
+      "titleInput1": "新密碼",
+      "inputNewPasswordPlaceholder": "輸入新密碼…",
+      "titleInput2": "目前 Neon 密碼",
+      "inputCurrentPasswordPlaceholder": "輸入您目前的密碼…",
+      "generatePassword": "產生密碼",
+      "buttonContinue": "繼續",
+      "error": "密碼未被識別！"
+    },
+    "step2": {
+      "subtitle": "如果您遺失密碼，將無法找回。",
+      "description": "要完成密碼變更，您需要備份新密碼。點擊下方按鈕以取得可下載並安全保存的 QR 碼。",
+      "buttonDownload": "下載 QR 並儲存變更",
+      "error": "儲存變更時發生問題"
+    },
+    "step3": {
+      "subtitle": "您的 NEON 3 密碼已成功更改！",
+      "buttonLabel": "返回設定"
+    }
   }
 }

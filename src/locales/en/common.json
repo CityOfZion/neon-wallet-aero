@@ -6,7 +6,9 @@
     "clear": "Clear",
     "close": "Close",
     "back": "Back",
-    "pasteFromClipboard": "Paste from clipboard"
+    "pasteFromClipboard": "Paste from clipboard",
+    "menuIconButtonAriaLabel": "Menu",
+    "downloadQRCodePassword": "Download password QR code"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",

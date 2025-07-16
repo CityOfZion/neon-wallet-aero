@@ -1,6 +1,10 @@
 import { createHashRouter, Navigate } from 'react-router-dom'
 
 import { AppPage } from './pages/App'
+import { ChangePasswordPage } from './pages/ChangePassword'
+import { ChangePasswordStep1 } from './pages/ChangePassword/ChangePasswordStep1'
+import { ChangePasswordStep2 } from './pages/ChangePassword/ChangePasswordStep2'
+import { ChangePasswordStep3 } from './pages/ChangePassword/ChangePasswordStep3'
 import { ForgottenPassword } from './pages/ForgottenPassword'
 import { ForgottenPasswordConfirm } from './pages/ForgottenPasswordConfirm'
 import { ForgottenPasswordSuccess } from './pages/ForgottenPasswordSuccess'
@@ -86,6 +90,15 @@ export const pagesRouter = createHashRouter([
               {
                 path: 'language',
                 element: <LanguagePage />,
+              },
+              {
+                path: 'change-password',
+                element: <ChangePasswordPage />,
+                children: [
+                  { path: '1?', element: <ChangePasswordStep1 /> },
+                  { path: '2', element: <ChangePasswordStep2 /> },
+                  { path: '3', element: <ChangePasswordStep3 /> },
+                ],
               },
             ],
           },

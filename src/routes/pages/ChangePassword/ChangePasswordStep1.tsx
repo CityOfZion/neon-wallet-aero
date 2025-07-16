@@ -1,0 +1,112 @@
+import { ChangeEvent, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+
+import { AlertErrorBanner } from '@/components/AlertErrorBanner'
+import { Button } from '@/components/Button'
+import { Input } from '@/components/Input'
+import { PasswordStrength } from '@/components/PasswordStrength'
+import { Separator } from '@/components/Separator'
+import { PasswordHelper } from '@/helpers/PasswordHelper'
+import { useActions } from '@/hooks/useActions'
+import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
+import { useLogin } from '@/hooks/useLogin'
+
+import TbArrowLeft from '@/assets/images/tb-arrow-left.svg?react'
+
+type TFormData = {
+  newPassword: string
+  currentPassword: string
+}
+
+export const ChangePasswordStep1 = () => {
+  const { loginSessionRef } = useLoginSessionSelector()
+  const { t } = useTranslation('pages', { keyPrefix: 'changePassword.step1' })
+  const navigate = useNavigate()
+  const [isPasswordValid, setIsPasswordValid] = useState(false)
+  const { encryptPassword } = useLogin()
+
+  const { handleAct, actionState, actionData, setData, setDataFromEventWrapper, setError } = useActions<TFormData>({
+    newPassword: '',
+    currentPassword: '',
+  })
+
+  const handleSubmit = async (data: TFormData) => {
+    if (!loginSessionRef.current) {
+      throw new Error('Login session not defined')
+    }
+
+    const encryptedCurrentPassword = await encryptPassword(data.currentPassword)
+
+    if (loginSessionRef.current.encryptedPassword !== encryptedCurrentPassword) {
+      setError('currentPassword', t('error'))
+      return
+    }
+
+    navigate('/app/settings/change-password/2', { state: { newPassword: data.newPassword } })
+  }
+
+  const handlePassword = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+    setData({ newPassword: value })
+
+    setIsPasswordValid(PasswordHelper.isWeakPassword(value))
+  }
+
+  return (
+    <div className="flex h-full w-full flex-col items-center px-3">
+      <form className="flex h-full flex-grow flex-col items-center" onSubmit={handleAct(handleSubmit)}>
+        <span className="mb-6 text-sm">{t('subtitle')}</span>
+        <div className="flex h-full w-full flex-col justify-between">
+          <div className="flex h-full flex-col">
+            <span className="mb-2 text-xs font-bold text-gray-100 uppercase">{t('titleInput1')}</span>
+            <div className="mb-5 flex flex-col items-center">
+              <Input
+                type="password"
+                placeholder={t('inputNewPasswordPlaceholder')}
+                onChange={handlePassword}
+                value={actionData.newPassword}
+                errorMessage={actionState.errors.newPassword}
+                compacted
+                containerClassName="bg-gray-800"
+              />
+              <PasswordStrength password={actionData.newPassword} />
+            </div>
+            <Separator />
+            <div className="mt-5 mb-2 flex w-full">
+              <span className="text-xs font-bold text-gray-100 uppercase">{t('titleInput2')}</span>
+            </div>
+            <div className="mb-5 flex flex-col items-center">
+              <Input
+                type="password"
+                placeholder={t('inputCurrentPasswordPlaceholder')}
+                onChange={setDataFromEventWrapper('currentPassword')}
+                value={actionData.currentPassword}
+                errorMessage={actionState.errors.currentPassword}
+                compacted
+                containerClassName="bg-gray-800"
+              />
+              <div className="mt-3 w-full">
+                {actionState.errors.currentPassword && (
+                  <AlertErrorBanner message={actionState.errors.currentPassword} />
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="mb-8 flex w-full justify-center">
+            <Button
+              clickableProps={{ className: 'w-full h-12' }}
+              type="submit"
+              label={t('buttonContinue')}
+              loading={actionState.isActing}
+              disabled={!isPasswordValid || !actionData.currentPassword}
+              rightIcon={<TbArrowLeft aria-hidden={true} className="rotate-180" />}
+              iconsOnEdge={false}
+              className="w-full"
+              variant="card"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  )
+}
