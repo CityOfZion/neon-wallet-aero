@@ -19,6 +19,7 @@ import { LoginOnboardingNewWalletStep1 } from './pages/LoginOnboardingNewWalletS
 import { LoginOnboardingNewWalletStep2 } from './pages/LoginOnboardingNewWalletStep2'
 import { LoginOnboardingNewWalletStep3 } from './pages/LoginOnboardingNewWalletStep3'
 import { RootPage } from './pages/Root'
+import { SendPage } from './pages/Send'
 import { SettingsPage } from './pages/Settings'
 import { SplashScreen } from './pages/SplashScreen'
 import { WalletsPage } from './pages/Wallets'
@@ -101,6 +102,10 @@ export const pagesRouter = createHashRouter([
                 ],
               },
             ],
+          },
+          {
+            path: 'send',
+            element: <SendPage />,
           },
         ],
       },

@@ -2,6 +2,7 @@ import { Network } from '@cityofzion/blockchain-service'
 import { BSEthereumConstants, BSEthereumNetworkId } from '@cityofzion/bs-ethereum'
 import { BSNeoLegacyConstants } from '@cityofzion/bs-neo-legacy'
 import { BSNeo3Constants } from '@cityofzion/bs-neo3'
+import { BSNeoXConstants } from '@cityofzion/bs-neox'
 
 import { getI18next } from '@/libs/i18next'
 import { TBlockchainServiceKey, TNetwork } from '@/types/blockchain'
@@ -24,7 +25,7 @@ const BASE_NETWORK_IDS = [...BASE_MAINNET_NETWORK_IDS, ...BASE_TESTNET_NETWORK_I
 const BASE_NETWORKS = BSEthereumConstants.ALL_NETWORKS.filter(({ id }) => BASE_NETWORK_IDS.includes(id))
 
 const NETWORK_IDS_BASED_ON_ETHEREUM = [
-  ...BSEthereumConstants.NEOX_NETWORK_IDS,
+  ...BSEthereumConstants.ALL_NETWORK_IDS,
   ...POLYGON_NETWORK_IDS,
   ...BASE_NETWORK_IDS,
   ...ARBITRUM_NETWORK_IDS,
@@ -57,9 +58,9 @@ export const NETWORK_OPTIONS_BY_BLOCKCHAIN: Record<
     testnet: getOnlyEthereumNetworks(BSEthereumConstants.TESTNET_NETWORKS),
   },
   neox: {
-    all: BSEthereumConstants.NEOX_NETWORKS,
-    mainnet: [BSEthereumConstants.NEOX_MAINNET_NETWORK],
-    testnet: [BSEthereumConstants.NEOX_TESTNET_NETWORK],
+    all: BSNeoXConstants.ALL_NETWORK,
+    mainnet: BSNeoXConstants.MAINNET_NETWORKS,
+    testnet: BSNeoXConstants.TESTNET_NETWORKS,
   },
   polygon: {
     all: POLYGON_NETWORKS,

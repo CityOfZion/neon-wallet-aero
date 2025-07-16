@@ -172,5 +172,38 @@
       "subtitle": "Your NEON 3 password has been successfully changed!",
       "buttonLabel": "Return to settings"
     }
+  },
+  "send": {
+    "title": "Send tokens",
+    "sendTokensButtonLabel": "Send now",
+    "sourceAccountLabel": "Source account",
+    "addRecipientButtonLabel": "Add recipient",
+    "sendRecipient": {
+      "title": "Recipient {{order}}",
+      "addressPlaceholder": "Enter recipient…",
+      "myAccountButtonLabel": "My account",
+      "tokenToReceiveLabel": "Token to receive",
+      "receivingAddressLabel": "Receiving address",
+      "amountLabel": "Amount",
+      "balanceLabel": "Balance",
+      "max": "Max",
+      "errors": {
+        "invalidAddress": "Invalid address"
+      }
+    },
+    "totalFee": "Total fee",
+    "errors": {
+      "feeError": "Error to calculate fee",
+      "insufficientFunds": "Insufficient funds",
+      "calculateMaxAmount": "Error to calculate the maximum amount",
+      "amountIsLessOrEqualZero": "The amount is less than or equal to zero",
+      "hardwareWalletShouldBeValid": "To proceed with this operation, please make sure your hardware wallet is unlocked"
+    },
+    "sendSuccess": {
+      "toast": "Transaction sent successfully"
+    },
+    "sendFail": {
+      "toast": "Transaction failed to send"
+    }
   }
 }

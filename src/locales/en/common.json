@@ -8,7 +8,9 @@
     "back": "Back",
     "pasteFromClipboard": "Paste from clipboard",
     "menuIconButtonAriaLabel": "Menu",
-    "downloadQRCodePassword": "Download password QR code"
+    "downloadQRCodePassword": "Download password QR code",
+    "remove": "Remove",
+    "reset": "Reset"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",
