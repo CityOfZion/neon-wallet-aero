@@ -24,12 +24,7 @@ const BASE_TESTNET_NETWORK_IDS = ['84532']
 const BASE_NETWORK_IDS = [...BASE_MAINNET_NETWORK_IDS, ...BASE_TESTNET_NETWORK_IDS]
 const BASE_NETWORKS = BSEthereumConstants.ALL_NETWORKS.filter(({ id }) => BASE_NETWORK_IDS.includes(id))
 
-const NETWORK_IDS_BASED_ON_ETHEREUM = [
-  ...BSEthereumConstants.ALL_NETWORK_IDS,
-  ...POLYGON_NETWORK_IDS,
-  ...BASE_NETWORK_IDS,
-  ...ARBITRUM_NETWORK_IDS,
-]
+const NETWORK_IDS_BASED_ON_ETHEREUM = [...POLYGON_NETWORK_IDS, ...BASE_NETWORK_IDS, ...ARBITRUM_NETWORK_IDS]
 
 const getOnlyEthereumNetworks = (allEthereumNetworks: Network<BSEthereumNetworkId>[]) =>
   allEthereumNetworks.filter(({ id }) => !NETWORK_IDS_BASED_ON_ETHEREUM.includes(id))

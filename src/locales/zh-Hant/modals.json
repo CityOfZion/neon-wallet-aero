@@ -3,7 +3,9 @@
     "title": "選擇錢包",
     "subtitle": "所有錢包",
     "reorderButtonLabel": "重新排序",
-    "addButtonLabel": "新增"
+    "addButtonLabel": "新增",
+    "exportButtonLabel": "導出",
+    "exportWalletTitle": "導出錢包"
   },
   "accountSelectionModal": {
     "title": "選擇帳戶",
@@ -118,5 +120,20 @@
     "errors": {
       "createAccount": "建立帳戶時發生錯誤，請稍後再試。"
     }
+  },
+  "confirmPasswordExport": {
+    "description": "為了保護您的資產存取，請確認您的密碼",
+    "inputPlaceholder": "輸入密碼…",
+    "error": "密碼不正確！",
+    "buttonContinueLabel": "繼續"
+  },
+  "exportMnemonic": {
+    "title": "導出錢包",
+    "description": "請將這組助記詞寫在紙上或記錄在安全的數位筆記中。您也可以下載，但請務必妥善保管。",
+    "yourMnemonic": "您的助記詞",
+    "copyButtonLabel": "複製",
+    "printButtonLabel": "列印",
+    "warning": "任何擁有這組助記詞的人都可以存取您的資產，且您將無法取回！",
+    "error": "導出助記詞時發生問題"
   }
 }

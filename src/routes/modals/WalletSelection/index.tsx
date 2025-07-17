@@ -9,6 +9,7 @@ import { TModalState } from '@/types/modal'
 import { IWalletState } from '@/types/store'
 
 import TbChevronRight from '@/assets/images/tb-chevron-right.svg?react'
+import TbFileExport from '@/assets/images/tb-file-export.svg?react'
 import TbPlus from '@/assets/images/tb-plus.svg?react'
 import TbReorder from '@/assets/images/tb-reorder.svg?react'
 import TbWallet from '@/assets/images/tb-wallet.svg?react'
@@ -25,6 +26,23 @@ export const WalletSelectionModal = () => {
     if (shouldGoBackOnSelect) {
       modalNavigate(-1)
     }
+  }
+
+  const handleGoToConfirmPasswordExportModal = () => {
+    modalNavigate('confirm-password-export', {
+      state: {
+        title: t('exportWalletTitle'),
+        onSubmitPassword: () => {
+          modalNavigate('export-wallet', {
+            state: {
+              wallet: selectedWallet ?? wallets[0],
+            },
+            replace: true,
+          })
+        },
+      },
+      replace: true,
+    })
   }
 
   return (
@@ -66,6 +84,14 @@ export const WalletSelectionModal = () => {
           leftIcon={<TbPlus aria-hidden />}
           iconsOnEdge={false}
           onClick={modalNavigateWrapper('create-wallet-1', { replace: true })}
+        />
+        <Button
+          variant="card"
+          label={t('exportButtonLabel')}
+          colorSchema="gray"
+          leftIcon={<TbFileExport aria-hidden />}
+          iconsOnEdge={false}
+          onClick={handleGoToConfirmPasswordExportModal}
         />
       </div>
     </BottomModalLayout>
