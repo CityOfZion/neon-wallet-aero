@@ -34,7 +34,7 @@ export function buildQueryKeyBalance(
   const key: any[] = ['balance', address, blockchain]
 
   if (network) {
-    key.push(network.id)
+    key.push(network)
   }
 
   if (currency) {
