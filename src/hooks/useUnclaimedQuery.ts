@@ -19,7 +19,7 @@ export const buildQueryKeyUnclaimed = (account: IAccountState, network?: TNetwor
   const key: any[] = ['unclaimed', account.address]
 
   if (network) {
-    key.push(network.id)
+    key.push(network)
   }
 
   return key

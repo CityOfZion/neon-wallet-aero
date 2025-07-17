@@ -14,14 +14,10 @@ import { useCurrencySelector, useSelectedNetworkByBlockchainSelector } from './u
 function buildQueryKey(
   blockchain: TBlockchainServiceKey,
   currency: TCurrency,
-  network?: TNetwork<TBlockchainServiceKey>,
+  network: TNetwork<TBlockchainServiceKey>,
   token?: Token
 ) {
-  const queryKey = ['exchange', blockchain, currency]
-
-  if (network) {
-    queryKey.push(network.id)
-  }
+  const queryKey = ['exchange', blockchain, currency, network]
 
   if (token) {
     queryKey.push(BSTokenHelper.normalizeHash(token.hash))
@@ -35,7 +31,7 @@ function buildExchangeByBlockchainQueryKey(
   network: TNetwork<TBlockchainServiceKey>,
   currency: TCurrency
 ) {
-  return ['exchange-by-blockchain', blockchain, network.id, currency]
+  return ['exchange-by-blockchain', blockchain, network, currency]
 }
 
 export async function fetchExchange(
@@ -60,24 +56,36 @@ export async function fetchExchange(
   if (tokensToFetch.length > 0) {
     try {
       const service = bsAggregator.blockchainServicesByName[blockchain]
+      const newTokenPrices = await service.exchangeDataService.getTokenPrices({ tokens: tokensToFetch })
 
-      tokenPrices = await service.exchangeDataService.getTokenPrices({ tokens: tokensToFetch })
+      tokenPrices = lodash.uniqBy(newTokenPrices, 'token.hash')
     } catch {
       /* empty */
     }
   }
 
   tokensToFetch.forEach(token => {
+    const queryKey = buildQueryKey(blockchain, currency, network, token)
     const normalizedHash = BSTokenHelper.normalizeHash(token.hash)
     const tokenPrice = tokenPrices.find(price => BSTokenHelper.normalizeHash(price.token.hash) === normalizedHash)
+    const currentQuery = queryCache.find<TExchange>({ queryKey, exact: true })
+    const currentUsdPrice = currentQuery?.state?.data?.usdPrice
+    let nextUsdPrice = tokenPrice?.usdPrice
 
-    const queryData: TExchange = {
-      usdPrice: tokenPrice?.usdPrice ?? 0,
-      token: tokenPrice?.token ?? token,
-      convertedPrice: (tokenPrice?.usdPrice ?? 0) * currencyRatio,
+    if (typeof currentUsdPrice === 'number' && currentUsdPrice !== 0 && nextUsdPrice === undefined) {
+      return
     }
 
-    const queryKey = buildQueryKey(blockchain, currency, network, token)
+    if (!nextUsdPrice) {
+      nextUsdPrice = 0
+    }
+
+    const queryData: TExchange = {
+      usdPrice: nextUsdPrice,
+      token: tokenPrice?.token ?? token,
+      convertedPrice: nextUsdPrice * currencyRatio,
+    }
+
     const defaultedOptions = queryClient.defaultQueryOptions({ queryKey })
 
     queryCache.build(queryClient, defaultedOptions).setData(queryData, { manual: true })
@@ -89,7 +97,7 @@ export async function fetchExchange(
 
   return {
     [blockchain]: new Map(
-      allQueries.map(({ state, queryKey: [_key, _blockchain, _networkId, _currency, token] }) => [
+      allQueries.map(({ state, queryKey: [_key, _blockchain, _currency, _network, token] }) => [
         token as string,
         state.data,
       ])
@@ -126,18 +134,11 @@ export function useExchange(params: TUseExchangeParams[]): TUseExchangeResult {
   return useQueries({
     queries: Object.entries(tokensToFetchByBlockchain ?? {}).map(([key, tokens]) => {
       const blockchain = key as TBlockchainServiceKey
+      const network = selectedNetworkByBlockchain[blockchain]
 
       return {
-        queryKey: buildExchangeByBlockchainQueryKey(blockchain, selectedNetworkByBlockchain[blockchain], currency),
-        queryFn: fetchExchange.bind(
-          null,
-          blockchain,
-          tokens,
-          selectedNetworkByBlockchain[blockchain],
-          queryClient,
-          currency,
-          currencyRatio ?? 0
-        ),
+        queryKey: buildExchangeByBlockchainQueryKey(blockchain, network, currency),
+        queryFn: fetchExchange.bind(null, blockchain, tokens, network, queryClient, currency, currencyRatio ?? 0),
         enabled: !isCurrencyRatioLoading && typeof currencyRatio === 'number',
       }
     }),
