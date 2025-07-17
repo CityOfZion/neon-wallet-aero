@@ -10,7 +10,9 @@
   "accountSelectionModal": {
     "title": "选择账户",
     "reorderButtonLabel": "重新排序",
-    "addButtonLabel": "添加"
+    "addButtonLabel": "添加",
+    "exportButtonLabel": "导出",
+    "exportAccountTitle": "导出账户"
   },
   "menuModal": {
     "title": "菜单",
@@ -135,5 +137,14 @@
     "printButtonLabel": "打印",
     "warning": "任何拥有此短语的人都可以访问您的资产，且您无法找回！",
     "error": "导出助记词时出现问题"
+  },
+  "exportKey": {
+    "title": "导出密钥",
+    "subtitle": "使用您的密钥备份账户或在钱包之间移动资产",
+    "keyDetailsTitle": "密钥详情",
+    "copyButtonLabel": "复制",
+    "printButtonLabel": "打印",
+    "warningDescription": "请妥善保管您的密钥！它们完全控制您的钱包和资产",
+    "error": "导出密钥时出现问题，请稍后再试。"
   }
 }

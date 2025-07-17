@@ -10,7 +10,9 @@
   "accountSelectionModal": {
     "title": "Select an account",
     "reorderButtonLabel": "Reorder",
-    "addButtonLabel": "Add"
+    "addButtonLabel": "Add",
+    "exportButtonLabel": "Export",
+    "exportAccountTitle": "Export account"
   },
   "menuModal": {
     "title": "Menu",
@@ -135,5 +137,14 @@
     "printButtonLabel": "Print",
     "warning": "Anyone with this phrase will be able to access your hard-earned assets and you won't be able to get them back!",
     "error": "There was a problem exporting the mnemonic"
+  },
+  "exportKey": {
+    "title": "Export key",
+    "subtitle": "Use your key to backup your account or move your assets between wallets",
+    "keyDetailsTitle": "Key details",
+    "copyButtonLabel": "Copy",
+    "printButtonLabel": "Print",
+    "warningDescription": "Keep your keys safe! They grant complete control over your wallet and assets",
+    "error": "There was an error exporting the key, please try again later."
   }
 }

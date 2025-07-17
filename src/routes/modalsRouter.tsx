@@ -10,6 +10,7 @@ import { CreateWalletStep2Modal } from './modals/CreateWalletStep2'
 import { CreateWalletStep3Modal } from './modals/CreateWalletStep3'
 import { CreateWalletStep4Modal } from './modals/CreateWalletStep4'
 import { DecryptKeyModal } from './modals/DecryptKey'
+import { ExportKeyModal } from './modals/ExportKey'
 import { ExportMnemonicModal } from './modals/ExportMnemonic'
 import { ImportAccountsSelectionModal } from './modals/ImportAccountsSelection'
 import { MenuModal } from './modals/Menu'
@@ -30,4 +31,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'create-account-2', type: 'bottom', element: <CreateAccountStep2Modal /> },
   { name: 'confirm-password-export', type: 'bottom', element: <ConfirmPasswordExportModal /> },
   { name: 'export-wallet', type: 'bottom', element: <ExportMnemonicModal /> },
+  { name: 'export-account', type: 'bottom', element: <ExportKeyModal /> },
 ]
