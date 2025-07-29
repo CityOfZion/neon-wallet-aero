@@ -10,7 +10,8 @@ export class MnemonicHelper {
   }
 
   static isValidMnemonic(words: string | string[]) {
-    return MnemonicHelper.getWords(words).length === 12
+    const wordArray = MnemonicHelper.getWords(words)
+    return wordArray.length === 12 || wordArray.length === 24
   }
 
   static generateMnemonic() {
