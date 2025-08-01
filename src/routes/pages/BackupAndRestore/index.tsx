@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { Tabs } from '@/components/Tabs'
 import { SettingsLayout } from '@/layouts/Settings'
@@ -9,13 +9,16 @@ type TTab = 'backup' | 'restore'
 export const BackupAndRestorePage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings' })
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleTabChange = (tab: TTab) => {
     navigate(`${tab}/1`, { replace: true })
   }
 
+  const hideBackButton = location.pathname.endsWith('/backup/2')
+
   return (
-    <SettingsLayout title={t('backupAndRestoreButtonLabel')}>
+    <SettingsLayout title={t('backupAndRestoreButtonLabel')} hideBackButton={hideBackButton}>
       <Tabs.Root
         className="flex h-full flex-col"
         defaultValue="backup"

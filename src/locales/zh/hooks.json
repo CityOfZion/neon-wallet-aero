@@ -34,5 +34,11 @@
   },
   "useWalletUtils": {
     "beLoggedInError": "您需要登录才能访问钱包"
+  },
+  "useNeonBackup": {
+    "errors": {
+      "unexpectedError": "意外错误。请重启应用程序。",
+      "backupError": "备份时发生错误。请重试。"
+    }
   }
 }

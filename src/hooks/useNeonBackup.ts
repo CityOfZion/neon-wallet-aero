@@ -2,7 +2,9 @@ import { useTranslation } from 'react-i18next'
 import zod from 'zod'
 
 import { BACKUP_FILE_EXTENSION, BACKUP_VERSION } from '@/constants/backup'
-import { BackupMigrateHelper } from '@/helpers/BackupMigrateHelper'
+import { DateHelper } from '@/helpers/DateHelper'
+import { EncryptionHelper } from '@/helpers/EncryptionHelper'
+import { FileHelper } from '@/helpers/FileHelper'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { isValidBlockchainKey } from '@/libs/blockchainService'
 import { utilityReducerActions } from '@/store/reducers/UtilityReducer'
@@ -18,9 +20,12 @@ import {
   TSwapRecord,
 } from '@/types/store'
 
+import { useAccountsSelector } from './useAccountSelector'
 import { useAccountUtils } from './useAccountUtils'
+import { useCurrentLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useAppDispatch } from './useRedux'
+import { useWalletsSelector } from './useWalletSelector'
 
 export type TUseNeonBackupSchema = zod.infer<typeof backupFileSchema>
 export type TUseNeonBackupDataSchema = zod.infer<typeof backupDataSchema>
@@ -207,7 +212,7 @@ export const useNeonImportBackup = () => {
     password: string
   ): Promise<TUseNeonBackupDataSchema> => {
     try {
-      const decrypted = BackupMigrateHelper.decrypt(data.content.data, password)
+      const decrypted = EncryptionHelper.decryptBackupOrMigrate(data.content.data, password)
       const parsedData = JSON.parse(decrypted)
 
       return await backupDataSchema.parseAsync(parsedData)
@@ -327,11 +332,107 @@ export const useNeonImportBackup = () => {
       throw new Error(t('errors.importData'))
     }
   }
-
   return {
     validateAndParseFile,
     handleImportBackupData,
     handleTryDecryptData,
     handleGenerateData,
+  }
+}
+
+export const useNeonCreateBackup = () => {
+  const { t } = useTranslation('hooks', { keyPrefix: 'useNeonBackup' })
+  const { wallets } = useWalletsSelector()
+  const { accounts } = useAccountsSelector()
+  const { currentLoginSessionRef } = useCurrentLoginSessionSelector()
+
+  const handleCreateBackupFormat = async () => {
+    if (!currentLoginSessionRef.current) {
+      throw new Error(t('errors.unexpectedError'))
+    }
+
+    const encryptedPassword = currentLoginSessionRef.current.encryptedPassword
+
+    const backupFile: zod.infer<typeof backupDataSchema> = {
+      wallets: [],
+      contacts: [],
+    }
+
+    const backupAccountsByWalletId = new Map<string, zod.infer<typeof backupAccountSchema>[]>()
+
+    const accountPromises = accounts.map(async account => {
+      let key: string | undefined
+
+      if (account.encryptedKey) {
+        key = await EncryptionHelper.decrypt(account.encryptedKey, encryptedPassword)
+      }
+
+      const backupAccount: zod.infer<typeof backupAccountSchema> = {
+        id: account.id,
+        idWallet: account.idWallet,
+        address: account.address,
+        blockchain: account.blockchain,
+        name: account.name,
+        order: account.order,
+        type: account.type,
+        key: key ?? undefined,
+        skin: account.skin,
+      }
+
+      const walletAccounts = backupAccountsByWalletId.get(backupAccount.idWallet) ?? []
+      backupAccountsByWalletId.set(backupAccount.idWallet, [...walletAccounts, backupAccount])
+    })
+
+    await Promise.all(accountPromises)
+
+    const promises = wallets.map(async wallet => {
+      let mnemonic: string | undefined
+
+      if (wallet.encryptedMnemonic)
+        mnemonic = await EncryptionHelper.decrypt(wallet.encryptedMnemonic, encryptedPassword)
+
+      const walletAccounts = backupAccountsByWalletId.get(wallet.id) ?? []
+
+      backupFile.wallets.push({
+        id: wallet.id,
+        name: wallet.name,
+        type: wallet.type,
+        mnemonic: mnemonic ?? undefined,
+        accounts: walletAccounts,
+      })
+    })
+
+    await Promise.all(promises)
+
+    return backupFile
+  }
+
+  const handleCreateBackup = async (password: string) => {
+    try {
+      const backupFileData = await handleCreateBackupFormat()
+      const backupFileDataString = JSON.stringify(backupFileData)
+
+      const encryptedPassword = await EncryptionHelper.encryptedPassword(password)
+
+      const backupFileDataStringEncrypted = EncryptionHelper.encryptBackupOrMigrate(
+        backupFileDataString,
+        encryptedPassword
+      )
+
+      const backupFile: zod.infer<typeof backupFileSchema> = {
+        version: BACKUP_VERSION,
+        data: backupFileDataStringEncrypted,
+      }
+
+      const fileName = `Neon-Backup-${DateHelper.getNowUnix()}.${BACKUP_FILE_EXTENSION}`
+
+      FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
+    } catch {
+      throw new Error(t('errors.backupError'))
+    }
+  }
+
+  return {
+    handleCreateBackup,
   }
 }

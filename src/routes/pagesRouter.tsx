@@ -2,6 +2,8 @@ import { createHashRouter, Navigate } from 'react-router-dom'
 
 import { AppPage } from './pages/App'
 import { BackupAndRestorePage } from './pages/BackupAndRestore'
+import { BackupStep1 } from './pages/BackupAndRestore/BackupStep1'
+import { BackupStep2 } from './pages/BackupAndRestore/BackupStep2'
 import { ChangePasswordPage } from './pages/ChangePassword'
 import { ChangePasswordStep1 } from './pages/ChangePassword/ChangePasswordStep1'
 import { ChangePasswordStep2 } from './pages/ChangePassword/ChangePasswordStep2'
@@ -121,7 +123,11 @@ export const pagesRouter = createHashRouter([
                 children: [
                   {
                     path: 'backup?',
-                    children: [{ path: '1?', element: <div>Backup 1</div> }],
+                    children: [
+                      { path: '1?', element: <BackupStep1 /> },
+                      { path: '2', element: <BackupStep2 /> },
+                      { path: '', element: <Navigate to="/app/settings/backup-and-restore/backup/1" replace /> },
+                    ],
                   },
                   {
                     path: 'restore',
@@ -131,6 +137,7 @@ export const pagesRouter = createHashRouter([
                       { path: '3', element: <RestoreBackupStep3 /> },
                     ],
                   },
+                  { path: '', element: <Navigate to="/app/settings/backup-and-restore/backup/1" replace /> },
                 ],
               },
               {

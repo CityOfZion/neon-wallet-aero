@@ -34,5 +34,11 @@
   },
   "useWalletUtils": {
     "beLoggedInError": "You need to be logged in to access wallets"
+  },
+  "useNeonBackup": {
+    "errors": {
+      "unexpectedError": "Unexpected error. Restart the application.",
+      "backupError": "There was an error trying to backup. Please, try again."
+    }
   }
 }

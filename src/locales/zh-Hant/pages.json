@@ -253,6 +253,29 @@
       "buttonLabel": "返回設定"
     }
   },
+  "backupAndRestore": {
+    "title": "備份與還原",
+    "backupLabel": "備份",
+    "restoreLabel": "還原",
+    "backup": {
+      "step1": {
+        "description": "為了保護您的備份檔案，請為備份建立一組密碼：",
+        "backupPasswordLabel": "建立備份密碼",
+        "confirmBackupPasswordLabel": "確認您的備份密碼",
+        "backup": "備份",
+        "warning": "您需要此密碼來還原您的錢包。<1>請妥善保管！</1>",
+        "error": {
+          "confirmPassword": "確認備份密碼不一致",
+          "backupPassword": "必須輸入備份密碼",
+          "unexpectedError": "發生未知錯誤"
+        }
+      },
+      "step2": {
+        "subtitle": "備份建立成功！",
+        "returnToSettingsButtonLabel": "返回設定"
+      }
+    }
+  },
   "send": {
     "title": "發送代幣",
     "sendTokensButtonLabel": "立即發送",
