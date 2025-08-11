@@ -11,8 +11,12 @@ type TFormData = {
   password: string
 }
 
-export const LoginOnboardingNewWalletStep1 = () => {
-  const { t } = useTranslation('pages', { keyPrefix: 'loginOnboardingNewWalletStep1' })
+type TProps = {
+  onSubmit?: (password: string) => void
+}
+
+export const OnboardingLoginNewWalletStep1 = ({ onSubmit }: TProps) => {
+  const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep1' })
   const { t: commonT } = useTranslation('common')
 
   const navigate = useNavigate()
@@ -29,7 +33,12 @@ export const LoginOnboardingNewWalletStep1 = () => {
   }
 
   const handleSubmit = (data: TFormData) => {
-    navigate('/login-onboarding-new-wallet/2', { state: { password: data.password }, replace: true })
+    if (onSubmit) {
+      onSubmit(data.password)
+      return
+    }
+
+    navigate('/onboarding-login-new-wallet/2', { state: { password: data.password }, replace: true })
   }
 
   return (

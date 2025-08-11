@@ -96,28 +96,56 @@
       "text": "我想<1>迁移</1>我的 Neon 2 钱包"
     }
   },
-  "loginOnboardingNewWallet": {
+  "onboardingLoginNewWallet": {
     "description": "正在保护您的新钱包",
     "goBackIconButtonLabel": "返回",
     "steps": ["创建密码", "确认密码", "完成"]
   },
-  "loginOnboardingNewWalletStep1": {
+  "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "输入您的新密码",
     "passwordInputPlaceholder": "创建密码…",
     "errors": {
       "passwordLength": "密码长度至少为 {{length}} 个字符"
     }
   },
-  "loginOnboardingNewWalletStep2": {
+  "onboardingLoginNewWalletStep2": {
     "confirmPasswordInputLabel": "请再次输入您的密码",
     "confirmPasswordInputPlaceholder": "确认您的密码…",
     "errors": {
       "passwordsDoNotMatch": "两次输入的密码不一致"
     }
   },
-  "loginOnboardingNewWalletStep3": {
+  "onboardingLoginNewWalletStep3": {
     "description": "您的钱包已创建！",
     "buttonContinueLabel": "打开您的钱包"
+  },
+  "onboardingImportWallet": {
+    "title": "导入钱包",
+    "description": "请创建密码以保护您的钱包",
+    "goBackIconButtonLabel": "返回",
+    "steps": ["创建密码", "确认密码", "添加详情或定位文件", "导入", "完成"],
+    "migrationLabel": "定位您的迁移文件",
+    "step3": {
+      "formTitle": "输入地址、加密密钥、私钥、助记词或定位备份文件",
+      "migrationFormTitle": "浏览您的计算机以查找迁移文件",
+      "inputPlaceholder": "输入地址、密钥或助记词…",
+      "importEncryptedDescription": "为您的新账户选择所需的区块链",
+      "importEncryptedTitle": "导入钱包",
+      "importEncryptedSubtitle": "您的加密密钥已被识别，请完成以下字段以继续。",
+      "invalidAddress": "无效地址",
+      "unexpectedError": "意外错误",
+      "locateFileButtonLabel": "定位文件…",
+      "neon2Warning": "此文件是在 Neon 2 钱包的迁移过程中创建的。在 Neon 2 中启动该过程以创建文件。",
+      "importSuccess": "兼容文件已识别！",
+      "importError": "未识别兼容文件"
+    },
+    "step4": {
+      "title": "请耐心等待，我们正在设置您的钱包"
+    },
+    "step5": {
+      "title": "钱包导入成功！",
+      "openWalletButtonLabel": "打开您的钱包"
+    }
   },
   "import": {
     "title": "导入",

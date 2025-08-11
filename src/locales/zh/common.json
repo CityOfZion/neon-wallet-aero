@@ -1,6 +1,7 @@
 {
   "general": {
     "continue": "继续",
+    "next": "下一步",
     "default": "默认",
     "successfullyCopied": "已成功复制到剪贴板",
     "clear": "清除",
@@ -17,7 +18,8 @@
     "mnemonicWalletName": "助记词钱包",
     "watchAccount": "观察账户",
     "watchWalletName": "观察钱包",
-    "importedWalletName": "导入钱包"
+    "importedWalletName": "导入钱包",
+    "encryptedName": "加密钱包"
   },
   "account": {
     "defaultName": "账户 {{accountNumber}}"

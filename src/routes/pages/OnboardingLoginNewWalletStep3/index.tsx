@@ -5,8 +5,8 @@ import { Link } from '@/components/Link'
 import MdOutlineAutoAwesome from '@/assets/images/md-outline-auto-awesome.svg?react'
 import TbRosetteDiscountCheck from '@/assets/images/tb-rosette-discount-check.svg?react'
 
-export const LoginOnboardingNewWalletStep3 = () => {
-  const { t } = useTranslation('pages', { keyPrefix: 'loginOnboardingNewWalletStep3' })
+export const OnboardingLoginNewWalletStep3 = () => {
+  const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep3' })
 
   return (
     <div className="flex w-full flex-grow flex-col items-center">

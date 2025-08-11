@@ -7,8 +7,8 @@ import { LoginLayout } from '@/layouts/LoginLayout'
 
 import TbArrowLeft from '@/assets/images/tb-arrow-left.svg?react'
 
-export const LoginOnboardingNewWallet = () => {
-  const { t } = useTranslation('pages', { keyPrefix: 'loginOnboardingNewWallet' })
+export const OnboardingLoginNewWallet = () => {
+  const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWallet' })
   const navigate = useNavigate()
 
   const match = useMatch('/:path/:currentStep')
