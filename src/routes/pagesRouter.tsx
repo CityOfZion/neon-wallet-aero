@@ -1,6 +1,7 @@
 import { createHashRouter, Navigate } from 'react-router-dom'
 
 import { AppPage } from './pages/App'
+import { BackupAndRestorePage } from './pages/BackupAndRestore'
 import { ChangePasswordPage } from './pages/ChangePassword'
 import { ChangePasswordStep1 } from './pages/ChangePassword/ChangePasswordStep1'
 import { ChangePasswordStep2 } from './pages/ChangePassword/ChangePasswordStep2'
@@ -24,6 +25,9 @@ import { OnboardingLoginNewWallet } from './pages/OnboardingLoginNewWallet'
 import { OnboardingLoginNewWalletStep1 } from './pages/OnboardingLoginNewWalletStep1'
 import { OnboardingLoginNewWalletStep2 } from './pages/OnboardingLoginNewWalletStep2'
 import { OnboardingLoginNewWalletStep3 } from './pages/OnboardingLoginNewWalletStep3'
+import { RestoreBackupStep1 } from './pages/RestoreBackupStep1'
+import { RestoreBackupStep2 } from './pages/RestoreBackupStep2'
+import { RestoreBackupStep3 } from './pages/RestoreBackupStep3'
 import { RootPage } from './pages/Root'
 import { SendPage } from './pages/Send'
 import { SettingsPage } from './pages/Settings'
@@ -108,6 +112,24 @@ export const pagesRouter = createHashRouter([
               {
                 path: 'language',
                 element: <LanguagePage />,
+              },
+              {
+                path: 'backup-and-restore',
+                element: <BackupAndRestorePage />,
+                children: [
+                  {
+                    path: 'backup?',
+                    children: [{ path: '1?', element: <div>Backup 1</div> }],
+                  },
+                  {
+                    path: 'restore',
+                    children: [
+                      { path: '1?', element: <RestoreBackupStep1 /> },
+                      { path: '2', element: <RestoreBackupStep2 /> },
+                      { path: '3', element: <RestoreBackupStep3 /> },
+                    ],
+                  },
+                ],
               },
               {
                 path: 'change-password',

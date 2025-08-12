@@ -4,54 +4,42 @@ import { AlertErrorBanner } from '@/components/AlertErrorBanner'
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { useActions } from '@/hooks/useActions'
-import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
-import { useLogin } from '@/hooks/useLogin'
 import { useModalState } from '@/hooks/useModalRouter'
 import { BottomModalLayout } from '@/layouts/BottomModalLayout'
+import { TModalState } from '@/types/modal'
 
 type TFormData = {
   password: string
 }
 
-type TLocationState = {
-  title: string
-  onSubmitPassword: () => void
-}
+export const ConfirmPasswordModal = () => {
+  const { onSubmit, heading, description, inputLabel, buttonLabel, inputPlaceholder } =
+    useModalState<TModalState<'confirm-password'>>()
 
-export const ConfirmPasswordExportModal = () => {
-  const { onSubmitPassword, title } = useModalState<TLocationState>()
-  const { loginSessionRef } = useLoginSessionSelector()
   const { t } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
-  const { encryptPassword } = useLogin()
 
   const { actionData, actionState, handleAct, setDataFromEventWrapper, setError } = useActions<TFormData>({
     password: '',
   })
 
-  const handleSubmit = async ({ password }: TFormData) => {
-    if (!loginSessionRef.current) {
-      throw new Error('Login session not defined')
-    }
-
-    const encryptedPassword = await encryptPassword(password)
-
-    if (loginSessionRef.current.encryptedPassword !== encryptedPassword) {
+  const handleSubmit = async () => {
+    try {
+      await onSubmit(actionData.password)
+    } catch {
       setError('password', t('error'))
-      return
     }
-
-    onSubmitPassword()
   }
 
   return (
-    <BottomModalLayout heading={title} className="overflow-y-auto">
+    <BottomModalLayout heading={heading} className="overflow-y-auto">
       <div className="flex h-full flex-col px-3.5">
-        <p className="mb-5 text-sm">{t('description')}</p>
+        <p className="mb-5 text-sm">{description}</p>
 
         <form className="flex flex-grow flex-col justify-between" onSubmit={handleAct(handleSubmit)}>
           <div>
             <Input
-              placeholder={t('inputPlaceholder')}
+              placeholder={inputPlaceholder}
+              label={inputLabel}
               error={!!actionState.errors.password}
               value={actionData.password}
               onChange={setDataFromEventWrapper('password')}
@@ -68,8 +56,9 @@ export const ConfirmPasswordExportModal = () => {
               variant="card"
               className="w-full"
               type="submit"
-              label={t('buttonContinueLabel')}
+              label={buttonLabel}
               loading={actionState.isActing}
+              disabled={!actionData.password || !actionState.isValid}
             />
           </div>
         </form>

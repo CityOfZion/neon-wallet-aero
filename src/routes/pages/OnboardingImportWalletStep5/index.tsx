@@ -24,13 +24,13 @@ export const OnboardingImportWalletStep5 = () => {
         <TbRosetteDiscountCheck aria-hidden={true} className="text-blue mt-3 h-[6.25rem] w-[6.25rem] stroke-1" />
       </div>
 
-      <div className="flex flex-col gap-4">
-        <DownloadQRCodePasswordButton password={state.password} />
+      <div className="flex w-full flex-col items-center gap-4">
+        <DownloadQRCodePasswordButton password={state.password} className="w-fit" />
         <Link
           to="/app/wallets"
           label={t('openWalletButtonLabel')}
           rightIcon={<MdOutlineAutoAwesome aria-hidden />}
-          variant="contained"
+          variant="card"
           className="w-full"
           iconsOnEdge={false}
         />

@@ -17,3 +17,6 @@ export const bsAggregator = new BSAggregator<TBlockchainServiceKey>([
 ])
 
 export const blockchainNames = Object.values(bsAggregator.blockchainServicesByName).map(({ name }) => name)
+
+export const isValidBlockchainKey = (blockchain: string): blockchain is TBlockchainServiceKey =>
+  blockchainNames.includes(blockchain as TBlockchainServiceKey)
