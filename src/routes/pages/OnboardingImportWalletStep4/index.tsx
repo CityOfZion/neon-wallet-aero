@@ -8,12 +8,18 @@ import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { useBlockchainActions } from '@/hooks/useBlockchainActions'
 import { useNewPassword } from '@/hooks/useHasPasswordSelector'
 import { useMountUnsafe } from '@/hooks/useMountUnsafe'
+import { useAppDispatch } from '@/hooks/useRedux'
+import { utilityReducerActions } from '@/store/reducers/UtilityReducer'
 import { TCreateWalletAndAccountParam } from '@/types/blockchain'
+import { TContactState, TMigrationsNeo3, TSwapRecord } from '@/types/store'
 
 import NeonWalletIcon from '@/assets/images/neon-wallet-icon.svg?react'
 
 type TLocationState = {
   wallets: TCreateWalletAndAccountParam[]
+  swapRecords?: TSwapRecord[]
+  migrationsNeo3?: TMigrationsNeo3
+  contacts?: TContactState[]
   password: string
 }
 
@@ -21,8 +27,9 @@ export const OnboardingImportWalletStep4 = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step4' })
   const { state } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
-  const { createWallet, importAccounts } = useBlockchainActions()
+  const { createWallet, importAccounts, createContacts } = useBlockchainActions()
   const { setNewPassword } = useNewPassword()
+  const dispatch = useAppDispatch()
 
   const [progress, setProgress] = useState(0)
 
@@ -33,12 +40,16 @@ export const OnboardingImportWalletStep4 = () => {
     isImporting.current = true
 
     try {
-      const { wallets, password } = state
+      const { wallets, contacts, password, swapRecords, migrationsNeo3 } = state
       const progressByStep = 100 / (wallets.length + 3)
 
       await setNewPassword(password)
 
       setProgress(progress => progress + progressByStep)
+
+      if (swapRecords) swapRecords.forEach(swapRecord => dispatch(utilityReducerActions.persistSwapRecord(swapRecord)))
+      if (migrationsNeo3) dispatch(utilityReducerActions.mergeMigrationsNeo3(migrationsNeo3))
+      if (contacts) createContacts(contacts)
 
       await UtilsHelper.sleep(250)
 

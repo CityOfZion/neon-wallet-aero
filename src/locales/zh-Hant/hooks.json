@@ -17,6 +17,14 @@
       "mnemonicIncomplete": "助記詞不完整"
     }
   },
+  "useBackupOrMigrate": {
+    "neon3BackupFileDetected": "偵測到 NEON3 備份檔案",
+    "neon2MigrateFileDetected": "偵測到 NEON2 遷移檔案",
+    "filterName": "Neon 備份或遷移檔案",
+    "error": "檔案無法識別",
+    "defaultAccountLabel": "已遷移帳戶",
+    "defaultContactName": "已遷移聯絡人"
+  },
   "useWalletUtils": {
     "beLoggedInError": "您需要登入才能存取錢包"
   }

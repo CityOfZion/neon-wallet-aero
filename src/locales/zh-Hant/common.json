@@ -19,7 +19,8 @@
     "watchAccount": "觀察帳戶",
     "watchWalletName": "觀察錢包",
     "importedWalletName": "導入錢包",
-    "encryptedName": "加密錢包"
+    "encryptedName": "加密錢包",
+    "migratedWalletName": "已遷移錢包"
   },
   "account": {
     "defaultName": "帳戶 {{accountNumber}}"

@@ -14,6 +14,8 @@ import { ExportKeyModal } from './modals/ExportKey'
 import { ExportMnemonicModal } from './modals/ExportMnemonic'
 import { ImportAccountsSelectionModal } from './modals/ImportAccountsSelection'
 import { MenuModal } from './modals/Menu'
+import { MigrateAccountsStep3Modal } from './modals/MigrateAccountsStep3'
+import { MigrateAccountsStep4Modal } from './modals/MigrateAccountsStep4'
 import { WalletSelectionModal } from './modals/WalletSelection'
 
 export const modalsRouter: TRoute[] = [
@@ -32,4 +34,6 @@ export const modalsRouter: TRoute[] = [
   { name: 'confirm-password-export', type: 'bottom', element: <ConfirmPasswordExportModal /> },
   { name: 'export-wallet', type: 'bottom', element: <ExportMnemonicModal /> },
   { name: 'export-account', type: 'bottom', element: <ExportKeyModal /> },
+  { name: 'migrate-accounts-3', type: 'bottom', element: <MigrateAccountsStep3Modal /> },
+  { name: 'migrate-accounts-4', type: 'bottom', element: <MigrateAccountsStep4Modal /> },
 ]

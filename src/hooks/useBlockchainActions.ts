@@ -3,10 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { cloneDeep } from 'lodash'
 
 import { AccountHelper } from '@/helpers/AccountHelper'
+import { ContactsHelper } from '@/helpers/ContactsHelper'
 import { EncryptionHelper } from '@/helpers/EncryptionHelper'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { bsAggregator } from '@/libs/blockchainService'
 import { authReducerActions } from '@/store/reducers/AuthReducer'
+import { contactReducerActions } from '@/store/reducers/ContactReducer'
 import { utilityReducerActions } from '@/store/reducers/UtilityReducer'
 import {
   TAccountToCreate,
@@ -16,7 +18,7 @@ import {
   TWalletToCreate,
   TWalletToEdit,
 } from '@/types/blockchain'
-import { IAccountState, IWalletState } from '@/types/store'
+import { IAccountState, IWalletState, TContactState } from '@/types/store'
 
 import { useLoginSessionSelector } from './useAuthSelector'
 import { useAppDispatch } from './useRedux'
@@ -25,6 +27,15 @@ export function useBlockchainActions() {
   const dispatch = useAppDispatch()
   const { loginSessionRef } = useLoginSessionSelector()
   const { t } = useTranslation('common', { keyPrefix: 'account' })
+
+  const createContacts = async (contacts: TContactState[]) => {
+    if (!loginSessionRef.current?.encryptedPassword) return
+
+    for (const contact of contacts) {
+      const encryptedContact = await ContactsHelper.encryptContact(contact, loginSessionRef.current.encryptedPassword)
+      dispatch(contactReducerActions.saveContact(encryptedContact))
+    }
+  }
 
   const createWallet = useCallback(
     async ({ name, mnemonic, id, type = 'standard' }: TWalletToCreate) => {
@@ -220,6 +231,7 @@ export function useBlockchainActions() {
   )
 
   return {
+    createContacts,
     createWallet,
     createStandardAccount,
     importAccount,
