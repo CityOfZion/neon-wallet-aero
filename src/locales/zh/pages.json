@@ -161,7 +161,7 @@
     "successBanner": {
       "address": "地址已完成！",
       "key": "密钥已完成！",
-      "encryptedKey": "加密密钥已完成！",
+      "encrypted": "加密密钥已完成！",
       "mnemonic": "助记词已完成！"
     }
   },
@@ -173,6 +173,7 @@
     "releaseNotesButtonLabel": "发行说明",
     "languageButtonLabel": "语言",
     "menuIconButtonAriaLabel": "菜单",
+    "migrateFromNeon2ButtonLabel": "从 Neon 2 迁移",
     "settingsBackupWallet": {
       "title": "备份"
     },
@@ -195,6 +196,34 @@
       "passwordError": "密码不被识别！",
       "importSuccess": "备份导入成功！",
       "returnToSettings": "返回设置"
+    },
+    "migrateFromNeon2": {
+      "title": "从 NEON 2.0 迁移",
+      "subtitleWhy": "为什么要迁移到 NEON 3？",
+      "descriptionWhy": "迁移您的 NEON 2 钱包将让您访问更广泛的支持资产，以及更时尚、改进的用户体验，让您的资产管理变得轻而易举！",
+      "subtitleHow": "如何从 Neon 2 迁移？",
+      "importButtonLabel": "导入您的 NEON 2 钱包",
+      "migrateSteps": {
+        "inNeon2": {
+          "label": "在 NEON 2 中",
+          "step1": "导出您的 NEON 2 钱包"
+        },
+        "inNeon3": {
+          "label": "在 NEON 3 中",
+          "step2": "导入您的 NEON 2 账户",
+          "step3": "选择要迁移的账户",
+          "step4": "输入您的账户密码"
+        }
+      },
+      "step2": {
+        "title": "导入您的 NEON 2 账户",
+        "description": "为了完成 NEON 2 迁移过程，请找到您的 NEON 2 钱包迁移文件：",
+        "inputLabel": "找到您的 NEON 2 迁移文件",
+        "buttonBrowseLabel": "浏览…",
+        "buttonImportLabel": "导入",
+        "buttonPlaceholder": "浏览文件…",
+        "compatibleFile": "已识别兼容文件！"
+      }
     }
   },
   "language": {

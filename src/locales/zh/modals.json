@@ -173,9 +173,11 @@
       "buttonLabel": "迁移账户",
       "passwordError": "密码不正确！",
       "migrateError": "迁移时出错。请重试。",
+      "returnToSettings": "返回设置",
       "success": {
+        "title": "迁移成功",
         "subtitle": "您的 NEON 2 账户已成功迁移！",
-        "buttonLabel": "查看您的投资组合"
+        "viewButtonLabel": "查看您的投资组合"
       }
     }
   }

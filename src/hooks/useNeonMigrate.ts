@@ -8,9 +8,10 @@ import { getI18next } from '@/libs/i18next'
 import { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@/types/blockchain'
 import { TContactAddress, TContactState } from '@/types/store'
 
+import { useBlockchainActions } from './useBlockchainActions'
 import { useContactsSelector } from './useContactSelector'
 
-export type TUseNeonMigrateAccountsSchema = {
+export type TUseNeonMigrateFromNeon2Schema = {
   address: string
   label: string
   key: string
@@ -26,7 +27,7 @@ export type TUseNeonMigrateSchema = zod.infer<typeof migrateSchema>
 
 export type TUseNeonMigrateData = { content: TUseNeonMigrateSchema; type: 'migrate' }
 
-export type TUseNeonMigrateDecryptedAccountSchema = TUseNeonMigrateAccountsSchema & {
+export type TUseNeonMigrateDecryptedAccountSchema = TUseNeonMigrateFromNeon2Schema & {
   decryptedKey: string
 }
 
@@ -38,7 +39,7 @@ export type TUseNeonMigrateGeneratedData = {
 
 const { t } = getI18next()
 
-const migrateAccountsSchema = zod.object({
+const migrateFromNeon2Schema = zod.object({
   address: zod.string().nullish(),
   label: zod.string().nullish(),
   key: zod.string().nullish(),
@@ -48,11 +49,11 @@ const migrateContactsSchema = zod.object({ name: zod.string().nullish(), address
 
 const migrateSchema = zod
   .object({
-    accounts: zod.array(migrateAccountsSchema),
+    accounts: zod.array(migrateFromNeon2Schema),
     contacts: zod.array(migrateContactsSchema),
   })
   .transform(data => {
-    const transformedAccounts: TUseNeonMigrateAccountsSchema[] = []
+    const transformedAccounts: TUseNeonMigrateFromNeon2Schema[] = []
 
     data.accounts.forEach(({ label, address, key }) => {
       if (!address || !key || transformedAccounts.some(account => account.address === address || account.key === key))
@@ -98,6 +99,7 @@ const migrateSchema = zod
 export const useNeonImportMigrate = () => {
   const { t: commonT } = useTranslation('common', { keyPrefix: 'wallet' })
   const { contactsRef } = useContactsSelector()
+  const { createContacts, createWallet, importAccounts } = useBlockchainActions()
 
   const validateAndParseFile = async (fileContent: string): Promise<TUseNeonMigrateData | undefined> => {
     try {
@@ -113,7 +115,7 @@ export const useNeonImportMigrate = () => {
   }
 
   const handleTryDecryptAccount = async (
-    accountToMigrate: TUseNeonMigrateAccountsSchema,
+    accountToMigrate: TUseNeonMigrateFromNeon2Schema,
     password: string
   ): Promise<TUseNeonMigrateDecryptedAccountSchema> => {
     const service = bsAggregator.blockchainServicesByName[accountToMigrate.blockchain]
@@ -161,9 +163,19 @@ export const useNeonImportMigrate = () => {
     }
   }
 
+  const handleImportBackupData = async (data: TUseNeonMigrateGeneratedData) => {
+    createContacts(data.contactsToCreate)
+
+    const wallet = await createWallet(data.walletToCreate)
+    const accounts = await importAccounts({ wallet, accounts: data.accountsToCreate })
+
+    return { wallet, accounts }
+  }
+
   return {
     validateAndParseFile,
     handleTryDecryptAccount,
     handleGenerateData,
+    handleImportBackupData,
   }
 }

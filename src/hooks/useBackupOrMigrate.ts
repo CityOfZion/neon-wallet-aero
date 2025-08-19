@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { FileHelper } from '@/helpers/FileHelper'
+import { ToastHelper } from '@/helpers/ToastHelper'
 
 import { useActions } from './useActions'
 import { TUseNeonBackupData, useNeonImportBackup } from './useNeonBackup'
@@ -33,17 +34,22 @@ export const useBackupOrMigrate = () => {
     const backupContent = await importBackupActions.validateAndParseFile(file.name, file.content)
 
     if (backupContent) {
+      ToastHelper.success({ message: t('neon3BackupFileDetected') })
+
       setData({ path: file.name, ...backupContent })
       return
     }
 
     const migrateContent = await importMigrateActions.validateAndParseFile(file.content)
     if (migrateContent) {
+      ToastHelper.success({ message: t('neon2MigrateFileDetected') })
+
       setData({ path: file.name, ...migrateContent })
       return
     }
 
     setError('path', t('error'))
+    ToastHelper.error({ message: t('error'), id: 'file-backup-or-migrate-error' })
   }
 
   return {

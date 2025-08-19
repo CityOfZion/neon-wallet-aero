@@ -7,19 +7,19 @@ import { Checkbox } from '@/components/Checkbox'
 import { Separator } from '@/components/Separator'
 import { useAccountUtils } from '@/hooks/useAccountUtils'
 import { useModalNavigate, useModalState } from '@/hooks/useModalRouter'
-import { TUseNeonMigrateAccountsSchema } from '@/hooks/useNeonMigrate'
+import { TUseNeonMigrateFromNeon2Schema } from '@/hooks/useNeonMigrate'
 import { BottomModalLayout } from '@/layouts/BottomModalLayout'
 import { TModalState } from '@/types/modal'
 
-export const MigrateAccountsStep3Modal = () => {
+export const MigrateFromNeon2Step3Modal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'migrateWallets.step3' })
-  const { content, onDecrypt } = useModalState<TModalState<'migrate-accounts-3'>>()
+  const { content, onDecrypt } = useModalState<TModalState<'migrate-from-neon2-3'>>()
   const { modalNavigateWrapper } = useModalNavigate()
   const { doesAccountExist } = useAccountUtils()
 
-  const [selectedAccountsToMigrate, setSelectedAccountsToMigrate] = useState<TUseNeonMigrateAccountsSchema[]>([])
+  const [selectedAccountsToMigrate, setSelectedAccountsToMigrate] = useState<TUseNeonMigrateFromNeon2Schema[]>([])
 
-  const handleSelect = (account: TUseNeonMigrateAccountsSchema) => {
+  const handleSelect = (account: TUseNeonMigrateFromNeon2Schema) => {
     setSelectedAccountsToMigrate(prev => {
       const index = prev.findIndex(prevAccount => prevAccount.address === account.address)
 
@@ -91,8 +91,9 @@ export const MigrateAccountsStep3Modal = () => {
       </div>
       <Button
         label={t('buttonLabel')}
+        variant="card"
         disabled={selectedAccountsToMigrate.length <= 0}
-        onClick={modalNavigateWrapper('migrate-accounts-4', {
+        onClick={modalNavigateWrapper('migrate-from-neon2-4', {
           state: { selectedAccountsToMigrate, content, onDecrypt },
         })}
       />
