@@ -172,7 +172,30 @@
     "backupAndRestoreButtonLabel": "備份與還原",
     "releaseNotesButtonLabel": "版本資訊",
     "languageButtonLabel": "語言",
-    "menuIconButtonAriaLabel": "選單"
+    "menuIconButtonAriaLabel": "選單",
+    "settingsBackupWallet": {
+      "title": "備份"
+    },
+    "settingsRestoreWallet": {
+      "title": "恢復",
+      "description": "如果您失去對錢包的存取權限，可以從本機備份檔案匯入錢包。只需找到您的本機備份檔案，輸入建立備份檔案時使用的密碼，您的存取權限將被恢復。",
+      "saveBackupLabel": "尋找您的備份檔案",
+      "browse": "瀏覽…",
+      "backup": "匯入備份",
+      "compatibleFile": "已識別相容檔案！",
+      "nameExtension": "NEON 備份檔案"
+    },
+    "confirmPasswordRecover": {
+      "title": "匯入 NEON 備份",
+      "description": "為了匯入您的備份檔案，請提供您用於建立備份的密碼：",
+      "subtitle": "備份密碼",
+      "passwordInputLabel": "提供您的備份密碼",
+      "inputPlaceholder": "輸入您的備份密碼…",
+      "buttonContinueLabel": "匯入此備份",
+      "passwordError": "密碼不被識別！",
+      "importSuccess": "備份匯入成功！",
+      "returnToSettings": "返回設定"
+    }
   },
   "language": {
     "title": "語言",

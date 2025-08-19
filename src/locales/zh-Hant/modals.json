@@ -5,14 +5,16 @@
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "新增",
     "exportButtonLabel": "導出",
-    "exportWalletTitle": "導出錢包"
+    "exportWalletTitle": "導出錢包",
+    "exportError": "導出錢包時出錯"
   },
   "accountSelectionModal": {
     "title": "選擇帳戶",
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "新增",
     "exportButtonLabel": "導出",
-    "exportAccountTitle": "導出帳戶"
+    "exportAccountTitle": "導出帳戶",
+    "exportError": "導出帳戶時出錯"
   },
   "menuModal": {
     "title": "選單",

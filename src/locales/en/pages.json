@@ -172,7 +172,30 @@
     "backupAndRestoreButtonLabel": "Backup & Restore",
     "releaseNotesButtonLabel": "Release notes",
     "languageButtonLabel": "Language",
-    "menuIconButtonAriaLabel": "Menu"
+    "menuIconButtonAriaLabel": "Menu",
+    "settingsBackupWallet": {
+      "title": "Backup"
+    },
+    "settingsRestoreWallet": {
+      "title": "Restore",
+      "description": "In the event that you lose access to you wallet, you can import it from a local backup file. Simply locate your local backup file and enter the password you used when you created the backup file and your access will be restored.",
+      "saveBackupLabel": "Locate your backup file",
+      "browse": "Browse…",
+      "backup": "Import backup",
+      "compatibleFile": "Compatible file identified!",
+      "nameExtension": "NEON Backup Files"
+    },
+    "confirmPasswordRecover": {
+      "title": "Import NEON Backup",
+      "description": "In order to import your backup file, please provide the password you used to create the backup:",
+      "subtitle": "Backup Password",
+      "passwordInputLabel": "Provide your backup password",
+      "inputPlaceholder": "Enter your backup password…",
+      "buttonContinueLabel": "Import this backup",
+      "passwordError": "Password not recognised!",
+      "importSuccess": "Backup imported successfully!",
+      "returnToSettings": "Return to Settings"
+    }
   },
   "language": {
     "title": "Language",

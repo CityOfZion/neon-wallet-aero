@@ -2,6 +2,9 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/Button'
 import { Separator } from '@/components/Separator'
+import { ToastHelper } from '@/helpers/ToastHelper'
+import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
+import { useLogin } from '@/hooks/useLogin'
 import { useModalNavigate, useModalState } from '@/hooks/useModalRouter'
 import { useWalletsSelector } from '@/hooks/useWalletSelector'
 import { BottomModalLayout } from '@/layouts/BottomModalLayout'
@@ -16,7 +19,10 @@ import TbWallet from '@/assets/images/tb-wallet.svg?react'
 
 export const WalletSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelectionModal' })
+  const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
   const { wallets } = useWalletsSelector()
+  const { loginSessionRef } = useLoginSessionSelector()
+  const { encryptPassword } = useLogin()
   const { onSelect, selectedWallet, shouldGoBackOnSelect = true } = useModalState<TModalState<'wallet-selection'>>()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
 
@@ -28,17 +34,33 @@ export const WalletSelectionModal = () => {
     }
   }
 
-  const handleGoToConfirmPasswordExportModal = () => {
-    modalNavigate('confirm-password-export', {
+  const handleGoToConfirmPasswordModal = () => {
+    modalNavigate('confirm-password', {
       state: {
-        title: t('exportWalletTitle'),
-        onSubmitPassword: () => {
-          modalNavigate('export-wallet', {
-            state: {
-              wallet: selectedWallet ?? wallets[0],
-            },
-            replace: true,
-          })
+        heading: t('exportWalletTitle'),
+        description: modalT('description'),
+        inputPlaceholder: modalT('inputPlaceholder'),
+        buttonLabel: modalT('buttonContinueLabel'),
+        onSubmit: async (password: string) => {
+          try {
+            if (!loginSessionRef.current) {
+              throw new Error('Login session not defined')
+            }
+
+            const encryptedPassword = await encryptPassword(password)
+
+            if (loginSessionRef.current.encryptedPassword !== encryptedPassword) {
+              throw new Error('Invalid password')
+            }
+            modalNavigate('export-wallet', {
+              state: {
+                wallet: selectedWallet ?? wallets[0],
+              },
+              replace: true,
+            })
+          } catch {
+            ToastHelper.error({ message: t('exportError') })
+          }
         },
       },
       replace: true,
@@ -91,7 +113,7 @@ export const WalletSelectionModal = () => {
           colorSchema="gray"
           leftIcon={<TbFileExport aria-hidden />}
           iconsOnEdge={false}
-          onClick={handleGoToConfirmPasswordExportModal}
+          onClick={handleGoToConfirmPasswordModal}
         />
       </div>
     </BottomModalLayout>

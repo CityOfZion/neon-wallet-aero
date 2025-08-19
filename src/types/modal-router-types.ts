@@ -58,9 +58,13 @@ type TCreateAccountStep2ModalState = {
   accountName: string
 }
 
-type TExportPasswordModalState = {
-  title: string
-  onSubmitPassword: (password: string) => void
+type TConfirmPasswordModalState = {
+  heading: string
+  description?: string
+  inputLabel?: string
+  buttonLabel?: string
+  inputPlaceholder?: string
+  onSubmit: (password: string) => Promise<void>
 }
 
 type TExportKeyModalState = {
@@ -95,7 +99,7 @@ export type TModalRouterRouteTypes = {
   'create-wallet-4': TCreateWalletStep4ModalState
   'create-account-1': undefined
   'create-account-2': TCreateAccountStep2ModalState
-  'confirm-password-export': TExportPasswordModalState
+  'confirm-password': TConfirmPasswordModalState
   'export-account': TExportKeyModalState
   'export-wallet': TExportMnemonicModalState
   'migrate-accounts-3': TMigrateAccountsStep3ModalState

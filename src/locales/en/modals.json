@@ -5,14 +5,16 @@
     "reorderButtonLabel": "Reorder",
     "addButtonLabel": "Add",
     "exportButtonLabel": "Export",
-    "exportWalletTitle": "Export wallet"
+    "exportWalletTitle": "Export wallet",
+    "exportError": "Error exporting wallet"
   },
   "accountSelectionModal": {
     "title": "Select an account",
     "reorderButtonLabel": "Reorder",
     "addButtonLabel": "Add",
     "exportButtonLabel": "Export",
-    "exportAccountTitle": "Export account"
+    "exportAccountTitle": "Export account",
+    "exportError": "Error exporting account"
   },
   "menuModal": {
     "title": "Menu",

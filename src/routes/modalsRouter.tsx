@@ -2,7 +2,7 @@ import { TRoute } from '@/types/modal'
 
 import { AccountSelectionModal } from './modals/AccountSelection'
 import { BlockchainSelectionModal } from './modals/BlockchainSelection'
-import { ConfirmPasswordExportModal } from './modals/ConfirmPasswordExport'
+import { ConfirmPasswordModal } from './modals/ConfirmPassword'
 import { CreateAccountStep1Modal } from './modals/CreateAccountStep1'
 import { CreateAccountStep2Modal } from './modals/CreateAccountStep2'
 import { CreateWalletStep1Modal } from './modals/CreateWalletStep1'
@@ -31,7 +31,7 @@ export const modalsRouter: TRoute[] = [
   { name: 'create-wallet-4', type: 'bottom', element: <CreateWalletStep4Modal /> },
   { name: 'create-account-1', type: 'bottom', element: <CreateAccountStep1Modal /> },
   { name: 'create-account-2', type: 'bottom', element: <CreateAccountStep2Modal /> },
-  { name: 'confirm-password-export', type: 'bottom', element: <ConfirmPasswordExportModal /> },
+  { name: 'confirm-password', type: 'bottom', element: <ConfirmPasswordModal /> },
   { name: 'export-wallet', type: 'bottom', element: <ExportMnemonicModal /> },
   { name: 'export-account', type: 'bottom', element: <ExportKeyModal /> },
   { name: 'migrate-accounts-3', type: 'bottom', element: <MigrateAccountsStep3Modal /> },

@@ -11,6 +11,7 @@ import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { TUseBackupOrMigrateActionsData, useBackupOrMigrate } from '@/hooks/useBackupOrMigrate'
 import { useImportActions } from '@/hooks/useImportActions'
 import { useModalNavigate } from '@/hooks/useModalRouter'
+import { useNeonImportBackup } from '@/hooks/useNeonBackup'
 import { TUseNeonMigrateGeneratedData } from '@/hooks/useNeonMigrate'
 import { useLastIndexesByWallet } from '@/hooks/useUtilitySelector'
 import { bsAggregator } from '@/libs/blockchainService'
@@ -24,10 +25,13 @@ type TLocationState = {
 export const OnboardingImportWalletStep3 = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step3' })
   const { t: commonT } = useTranslation('common')
-  const { t: modalT } = useTranslation('modals', { keyPrefix: 'decryptKeyModal' })
+  const { t: decryptKeyModalT } = useTranslation('modals', { keyPrefix: 'decryptKeyModal' })
+  const { t: confirmPasswordT } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const navigate = useNavigate()
   const { state } = useLocation() as Location<TLocationState>
   const { lastIndexesByWalletRef } = useLastIndexesByWallet()
+  const { handleTryDecryptData, handleGenerateData } = useNeonImportBackup()
+
   const { modalNavigate, modalErase } = useModalNavigate()
 
   const submitAddress = async (address: string) => {
@@ -93,8 +97,8 @@ export const OnboardingImportWalletStep3 = () => {
         onSubmit: (blockchain: TBlockchainServiceKey) => {
           modalNavigate('decrypt-key', {
             state: {
-              heading: modalT('title'),
-              description: modalT('description'),
+              heading: decryptKeyModalT('title'),
+              description: decryptKeyModalT('description'),
               encryptedKey,
               blockchain,
               onSubmit: async (key: string) => {
@@ -133,6 +137,45 @@ export const OnboardingImportWalletStep3 = () => {
       })
       return
     }
+
+    modalNavigate('confirm-password', {
+      state: {
+        heading: confirmPasswordT('title'),
+        description: confirmPasswordT('description'),
+        inputLabel: confirmPasswordT('subtitle'),
+        buttonLabel: confirmPasswordT('buttonContinueLabel'),
+        inputPlaceholder: confirmPasswordT('inputPlaceholder'),
+        onSubmit: async (backupPassword: string) => {
+          try {
+            const decryptedData = await handleTryDecryptData(data, backupPassword)
+            const generatedData = handleGenerateData(decryptedData)
+
+            const wallets: TWalletToCreate[] = generatedData.wallets.map(wallet => ({
+              name: wallet.name,
+              mnemonic: wallet.mnemonic,
+              accounts: wallet.accounts.map(account => ({
+                address: account.address,
+                blockchain: account.blockchain as TBlockchainServiceKey,
+                key: account.key,
+                type: account.type as 'standard' | 'watch' | 'hardware' | 'ledger',
+              })),
+            }))
+
+            navigate('/onboarding-import-wallet/4', {
+              state: {
+                wallets,
+                password: state.password,
+                contacts: decryptedData.contacts,
+              },
+            })
+
+            modalErase('bottom')
+          } catch {
+            throw new Error('Invalid password')
+          }
+        },
+      },
+    })
   }
 
   const importActions = useImportActions({
@@ -169,50 +212,57 @@ export const OnboardingImportWalletStep3 = () => {
 
   return (
     <Fragment>
-      <p className="mt-10 text-center text-sm text-white">
-        {!state.isMigration ? t('formTitle') : t('migrationFormTitle')}
-      </p>
-      <form className="mt-6 flex w-full flex-grow flex-col items-center" onSubmit={handleSubmit}>
-        {!state.isMigration && (
-          <Textarea
-            aria-label={t('inputPlaceholder')}
-            placeholder={t('inputPlaceholder')}
-            containerClassName="mb-2.5"
-            value={importActions.actionData.text}
-            onChange={importActions.handleChange}
-            pastable
-            clearable
-            multiline={importActions.actionData.inputType === 'mnemonic'}
-            errorMessage={importActions.actionState.errors.text}
+      <p className="text-center text-sm text-white">{!state.isMigration ? t('formTitle') : t('migrationFormTitle')}</p>
+      <form className="mt-4 flex w-full grow-1 flex-col items-center justify-between" onSubmit={handleSubmit}>
+        <div className="flex w-full flex-col items-center gap-2">
+          {!state.isMigration && (
+            <Textarea
+              aria-label={t('inputPlaceholder')}
+              placeholder={t('inputPlaceholder')}
+              containerClassName="mb-2.5"
+              value={importActions.actionData.text}
+              onChange={importActions.handleChange}
+              pastable
+              clearable
+              multiline={importActions.actionData.inputType === 'mnemonic'}
+              errorMessage={importActions.actionState.errors.text}
+            />
+          )}
+
+          <Button
+            label={t('locateFileButtonLabel')}
+            type="button"
+            className="w-64"
+            variant="outlined"
+            clickableProps={{
+              className: 'px-5',
+            }}
+            onClick={fileActions.handleBrowse}
           />
-        )}
+        </div>
 
-        <Button
-          label={t('locateFileButtonLabel')}
-          type="button"
-          className="w-64"
-          variant="outlined"
-          clickableProps={{
-            className: 'px-5',
-          }}
-          onClick={fileActions.handleBrowse}
-        />
-
-        {state.isMigration &&
-          match({ hasPath: !!fileActions.actionData.path, hasError: !!fileActions.actionState.errors.path })
+        {state &&
+          match({
+            hasPath: !!fileActions.actionData.path,
+            hasError: !!fileActions.actionState.errors.path,
+            isMigration: !!state.isMigration,
+          })
             .with({ hasPath: true, hasError: false }, () => (
-              <Banner type="success" message={t('importSuccess')} className="mt-4" />
+              <Banner type="success" message={t('importSuccess')} className="mt-2" textClassName="py-4" />
             ))
-            .with({ hasPath: false, hasError: false }, () => (
-              <Banner type="warning" message={t('neon2Warning')} className="mt-4" />
+            .with({ hasPath: false, hasError: false, isMigration: true }, () => (
+              <Banner type="warning" message={t('neon2Warning')} className="mt-2" textClassName="py-4" />
             ))
-            .with({ hasError: true }, () => <Banner type="warning" message={t('importError')} className="mt-4" />)
+            .with({ hasError: true }, () => (
+              <Banner type="warning" message={t('importError')} className="mt-2" textClassName="py-4" />
+            ))
             .otherwise(() => null)}
 
         <Button
           label={commonT('general.next')}
-          className="mt-auto w-64"
+          className="mt-2 w-full"
           type="submit"
+          variant="card"
           disabled={importActions.actionData.text ? !importActions.actionState.isValid : !fileActions.actionData.path}
           loading={importActions.actionState.isActing}
         />
