@@ -20,7 +20,7 @@
     "@cityofzion/blockchain-service": "1.19.1",
     "@cityofzion/bs-asteroid-sdk": "0.9.1",
     "@cityofzion/bs-ethereum": "2.12.6",
-    "@cityofzion/bs-neo-legacy": "1.12.6",
+    "@cityofzion/bs-neo-legacy": "1.12.8",
     "@cityofzion/bs-neo3": "1.15.2",
     "@cityofzion/bs-neox": "1.2.3",
     "@radix-ui/react-accordion": "^1.2.4",
