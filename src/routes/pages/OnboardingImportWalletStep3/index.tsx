@@ -120,7 +120,7 @@ export const OnboardingImportWalletStep3 = () => {
     if (!data.content || !data.path || !data.type) return
 
     if (data.type === 'migrate') {
-      modalNavigate('migrate-accounts-3', {
+      modalNavigate('migrate-from-neon2-3', {
         state: {
           content: data.content,
           onDecrypt: ({ accountsToCreate, contactsToCreate, walletToCreate }: TUseNeonMigrateGeneratedData) => {

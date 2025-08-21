@@ -161,7 +161,7 @@
     "successBanner": {
       "address": "地址完成！",
       "key": "金鑰完成！",
-      "encryptedKey": "加密金鑰完成！",
+      "encrypted": "加密金鑰完成！",
       "mnemonic": "助記詞完成！"
     }
   },
@@ -173,6 +173,7 @@
     "releaseNotesButtonLabel": "版本資訊",
     "languageButtonLabel": "語言",
     "menuIconButtonAriaLabel": "選單",
+    "migrateFromNeon2ButtonLabel": "從 Neon 2 遷移",
     "settingsBackupWallet": {
       "title": "備份"
     },
@@ -195,6 +196,34 @@
       "passwordError": "密碼不被識別！",
       "importSuccess": "備份匯入成功！",
       "returnToSettings": "返回設定"
+    },
+    "migrateFromNeon2": {
+      "title": "從 NEON 2.0 遷移",
+      "subtitleWhy": "為什麼要遷移到 NEON 3？",
+      "descriptionWhy": "遷移您的 NEON 2 錢包將讓您存取更廣泛的支援資產，以及更時尚、改進的使用者體驗，讓您的資產管理變得輕而易舉！",
+      "subtitleHow": "如何從 Neon 2 遷移？",
+      "importButtonLabel": "匯入您的 NEON 2 錢包",
+      "migrateSteps": {
+        "inNeon2": {
+          "label": "在 NEON 2 中",
+          "step1": "匯出您的 NEON 2 錢包"
+        },
+        "inNeon3": {
+          "label": "在 NEON 3 中",
+          "step2": "匯入您的 NEON 2 帳戶",
+          "step3": "選擇要遷移的帳戶",
+          "step4": "輸入您的帳戶密碼"
+        }
+      },
+      "step2": {
+        "title": "匯入您的 NEON 2 帳戶",
+        "description": "為了完成 NEON 2 遷移過程，請找到您的 NEON 2 錢包遷移檔案：",
+        "inputLabel": "找到您的 NEON 2 遷移檔案",
+        "buttonBrowseLabel": "瀏覽…",
+        "buttonImportLabel": "匯入",
+        "buttonPlaceholder": "瀏覽檔案…",
+        "compatibleFile": "已識別相容檔案！"
+      }
     }
   },
   "language": {

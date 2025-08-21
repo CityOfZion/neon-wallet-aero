@@ -15,6 +15,8 @@ import { Login } from './pages/Login'
 import { LoginKey } from './pages/LoginKey'
 import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
 import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
+import { MigrateFromNeon2 } from './pages/MigrateFromNeon2'
+import { MigrateFromNeon2Step2 } from './pages/MigrateromNeon2Step2'
 import { OnboardingImportWallet } from './pages/OnboardingImportWallet'
 import { OnboardingImportWalletStep1 } from './pages/OnboardingImportWalletStep1'
 import { OnboardingImportWalletStep2 } from './pages/OnboardingImportWalletStep2'
@@ -138,6 +140,13 @@ export const pagesRouter = createHashRouter([
                   { path: '1?', element: <ChangePasswordStep1 /> },
                   { path: '2', element: <ChangePasswordStep2 /> },
                   { path: '3', element: <ChangePasswordStep3 /> },
+                ],
+              },
+              {
+                path: 'migrate-from-neon2',
+                children: [
+                  { path: '1?', element: <MigrateFromNeon2 /> },
+                  { path: '2', element: <MigrateFromNeon2Step2 /> },
                 ],
               },
             ],

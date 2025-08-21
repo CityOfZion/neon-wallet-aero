@@ -173,9 +173,11 @@
       "buttonLabel": "Migrate accounts",
       "passwordError": "Password not recognised!",
       "migrateError": "There was an error trying to migrate. Please, try again.",
+      "returnToSettingsButtonLabel": "Return to Settings",
       "success": {
+        "title": "Migration successful!",
         "subtitle": "Your NEON 2 accounts have been successfully migrated!",
-        "buttonLabel": "View your portfolio"
+        "viewButtonLabel": "View your portfolio"
       }
     }
   }

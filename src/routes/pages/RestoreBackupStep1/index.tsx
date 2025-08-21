@@ -5,8 +5,8 @@ import { match } from 'ts-pattern'
 import { Banner } from '@/components/Banner'
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
-import { ToastHelper } from '@/helpers/ToastHelper'
 import { TUseBackupOrMigrateActionsData, useBackupOrMigrate } from '@/hooks/useBackupOrMigrate'
+import { useModalNavigate } from '@/hooks/useModalRouter'
 
 import TbArrowLeft from '@/assets/images/tb-arrow-left.svg?react'
 
@@ -15,14 +15,14 @@ export const RestoreBackupStep1 = () => {
   const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
   const { actionData, actionState, handleBrowse, handleAct } = useBackupOrMigrate()
   const navigate = useNavigate()
+  const { modalNavigate } = useModalNavigate()
   const isDisabled = !actionData.path || !!actionState.errors.path
 
   const handleSubmit = async (data: TUseBackupOrMigrateActionsData) => {
     if (!data.content || !data.path || !data.type || isDisabled) return
 
     if (data.type === 'migrate') {
-      // TODO: Redirect to settings/migration
-      ToastHelper.error({ message: "Migration from Neon 2 isn't supported yet" })
+      modalNavigate('migrate-from-neon2-3', { state: { content: data.content } })
       return
     }
 

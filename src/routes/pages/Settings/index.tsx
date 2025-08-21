@@ -12,6 +12,7 @@ import TbLock from '@/assets/images/tb-lock.svg?react'
 import TbMenu2 from '@/assets/images/tb-menu-2.svg?react'
 import TbMessage from '@/assets/images/tb-message.svg?react'
 import TbNotes from '@/assets/images/tb-notes.svg?react'
+import TbPackageImport from '@/assets/images/tb-package-import.svg?react'
 
 export const SettingsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings' })
@@ -60,6 +61,12 @@ export const SettingsPage = () => {
           icon={<TbNotes aria-hidden className="text-neon w-6" />}
           label={t('releaseNotesButtonLabel')}
           to="/app/settings/release-notes"
+        />
+
+        <SettingsLinkNavigation
+          icon={<TbPackageImport aria-hidden className="text-neon w-6" />}
+          label={t('migrateFromNeon2ButtonLabel')}
+          to="/app/settings/migrate-from-neon2"
           hideSeparator
         />
       </div>

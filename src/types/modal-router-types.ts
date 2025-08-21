@@ -1,7 +1,8 @@
+import { JSX } from 'react'
 import { Account } from '@cityofzion/blockchain-service'
 
 import {
-  TUseNeonMigrateAccountsSchema,
+  TUseNeonMigrateFromNeon2Schema,
   TUseNeonMigrateGeneratedData,
   TUseNeonMigrateSchema,
 } from '@/hooks/useNeonMigrate'
@@ -75,15 +76,22 @@ type TExportMnemonicModalState = {
   wallet: IWalletState
 }
 
-type TMigrateAccountsStep3ModalState = {
+type TMigrateFromNeon2Step3ModalState = {
   content: TUseNeonMigrateSchema
   onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
 }
 
-type TMigrateAccountsStep4ModalState = {
-  selectedAccountsToMigrate: TUseNeonMigrateAccountsSchema[]
+type TMigrateFromNeon2Step4ModalState = {
+  selectedAccountsToMigrate: TUseNeonMigrateFromNeon2Schema[]
   content: TUseNeonMigrateSchema
   onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
+}
+
+type SuccessModalState = {
+  heading: string
+  subtitle?: string
+  content?: JSX.Element
+  footer?: JSX.Element
 }
 
 export type TModalRouterRouteTypes = {
@@ -102,6 +110,7 @@ export type TModalRouterRouteTypes = {
   'confirm-password': TConfirmPasswordModalState
   'export-account': TExportKeyModalState
   'export-wallet': TExportMnemonicModalState
-  'migrate-accounts-3': TMigrateAccountsStep3ModalState
-  'migrate-accounts-4': TMigrateAccountsStep4ModalState
+  'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState
+  'migrate-from-neon2-4': TMigrateFromNeon2Step4ModalState
+  success: SuccessModalState
 }

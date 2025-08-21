@@ -18,7 +18,7 @@ export const RestoreBackupStep3 = () => {
         to="/app/settings"
         label={t('returnToSettings')}
         colorSchema="neon"
-        variant="contained"
+        variant="card"
         className="mx-auto w-full"
       />
     </div>

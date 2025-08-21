@@ -14,8 +14,9 @@ import { ExportKeyModal } from './modals/ExportKey'
 import { ExportMnemonicModal } from './modals/ExportMnemonic'
 import { ImportAccountsSelectionModal } from './modals/ImportAccountsSelection'
 import { MenuModal } from './modals/Menu'
-import { MigrateAccountsStep3Modal } from './modals/MigrateAccountsStep3'
-import { MigrateAccountsStep4Modal } from './modals/MigrateAccountsStep4'
+import { MigrateFromNeon2Step3Modal } from './modals/MigrateFromNeon2Step3'
+import { MigrateFromNeon2Step4Modal } from './modals/MigrateFromNeon2Step4'
+import { SuccessModal } from './modals/Success'
 import { WalletSelectionModal } from './modals/WalletSelection'
 
 export const modalsRouter: TRoute[] = [
@@ -34,6 +35,7 @@ export const modalsRouter: TRoute[] = [
   { name: 'confirm-password', type: 'bottom', element: <ConfirmPasswordModal /> },
   { name: 'export-wallet', type: 'bottom', element: <ExportMnemonicModal /> },
   { name: 'export-account', type: 'bottom', element: <ExportKeyModal /> },
-  { name: 'migrate-accounts-3', type: 'bottom', element: <MigrateAccountsStep3Modal /> },
-  { name: 'migrate-accounts-4', type: 'bottom', element: <MigrateAccountsStep4Modal /> },
+  { name: 'migrate-from-neon2-3', type: 'bottom', element: <MigrateFromNeon2Step3Modal /> },
+  { name: 'migrate-from-neon2-4', type: 'bottom', element: <MigrateFromNeon2Step4Modal /> },
+  { name: 'success', type: 'bottom', element: <SuccessModal /> },
 ]
