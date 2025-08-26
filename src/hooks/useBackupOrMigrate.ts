@@ -1,19 +1,18 @@
 import { useTranslation } from 'react-i18next'
 
+import { BACKUP_FILE_EXTENSION, DEPRECATED_BACKUP_FILE_EXTENSION } from '@/constants/backup'
 import { FileHelper } from '@/helpers/FileHelper'
 import { ToastHelper } from '@/helpers/ToastHelper'
 
 import { useActions } from './useActions'
-import { TUseNeonBackupData, useNeonImportBackup } from './useNeonBackup'
 import { TUseNeonMigrateData, useNeonImportMigrate } from './useNeonMigrate'
 
 export type TUseBackupOrMigrateActionsData = {
   path?: string
-} & (TUseNeonMigrateData | TUseNeonBackupData | { content: undefined; type: undefined })
+} & (TUseNeonMigrateData | { content: undefined; type: undefined })
 
 export const useBackupOrMigrate = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useBackupOrMigrate' })
-  const importBackupActions = useNeonImportBackup()
   const importMigrateActions = useNeonImportMigrate()
 
   const { actionData, actionState, handleAct, setData, setError, reset } = useActions<TUseBackupOrMigrateActionsData>({
@@ -24,19 +23,10 @@ export const useBackupOrMigrate = () => {
 
   const handleBrowse = async () => {
     const file = await FileHelper.pickFiles({
-      accept: '.json',
+      accept: `.${BACKUP_FILE_EXTENSION},.${DEPRECATED_BACKUP_FILE_EXTENSION},.json`,
     })
 
     if (!file) {
-      return
-    }
-
-    const backupContent = await importBackupActions.validateAndParseFile(file.name, file.content)
-
-    if (backupContent) {
-      ToastHelper.success({ message: t('neon3BackupFileDetected') })
-
-      setData({ path: file.name, ...backupContent })
       return
     }
 

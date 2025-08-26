@@ -5,16 +5,14 @@
     "reorderButtonLabel": "Reorder",
     "addButtonLabel": "Add",
     "exportButtonLabel": "Export",
-    "exportWalletTitle": "Export wallet",
-    "exportError": "Error exporting wallet"
+    "exportWalletTitle": "Export wallet"
   },
   "accountSelectionModal": {
     "title": "Select an account",
     "reorderButtonLabel": "Reorder",
     "addButtonLabel": "Add",
     "exportButtonLabel": "Export",
-    "exportAccountTitle": "Export account",
-    "exportError": "Error exporting account"
+    "exportAccountTitle": "Export account"
   },
   "menuModal": {
     "title": "Menu",
@@ -173,11 +171,9 @@
       "buttonLabel": "Migrate accounts",
       "passwordError": "Password not recognised!",
       "migrateError": "There was an error trying to migrate. Please, try again.",
-      "returnToSettingsButtonLabel": "Return to Settings",
       "success": {
-        "title": "Migration successful!",
         "subtitle": "Your NEON 2 accounts have been successfully migrated!",
-        "viewButtonLabel": "View your portfolio"
+        "buttonLabel": "View your portfolio"
       }
     }
   }

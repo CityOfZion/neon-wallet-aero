@@ -161,7 +161,7 @@
     "successBanner": {
       "address": "地址完成！",
       "key": "金鑰完成！",
-      "encrypted": "加密金鑰完成！",
+      "encryptedKey": "加密金鑰完成！",
       "mnemonic": "助記詞完成！"
     }
   },
@@ -172,59 +172,7 @@
     "backupAndRestoreButtonLabel": "備份與還原",
     "releaseNotesButtonLabel": "版本資訊",
     "languageButtonLabel": "語言",
-    "menuIconButtonAriaLabel": "選單",
-    "migrateFromNeon2ButtonLabel": "從 Neon 2 遷移",
-    "settingsBackupWallet": {
-      "title": "備份"
-    },
-    "settingsRestoreWallet": {
-      "title": "恢復",
-      "description": "如果您失去對錢包的存取權限，可以從本機備份檔案匯入錢包。只需找到您的本機備份檔案，輸入建立備份檔案時使用的密碼，您的存取權限將被恢復。",
-      "saveBackupLabel": "尋找您的備份檔案",
-      "browse": "瀏覽…",
-      "backup": "匯入備份",
-      "compatibleFile": "已識別相容檔案！",
-      "nameExtension": "NEON 備份檔案"
-    },
-    "confirmPasswordRecover": {
-      "title": "匯入 NEON 備份",
-      "description": "為了匯入您的備份檔案，請提供您用於建立備份的密碼：",
-      "subtitle": "備份密碼",
-      "passwordInputLabel": "提供您的備份密碼",
-      "inputPlaceholder": "輸入您的備份密碼…",
-      "buttonContinueLabel": "匯入此備份",
-      "passwordError": "密碼不被識別！",
-      "importSuccess": "備份匯入成功！",
-      "returnToSettings": "返回設定"
-    },
-    "migrateFromNeon2": {
-      "title": "從 NEON 2.0 遷移",
-      "subtitleWhy": "為什麼要遷移到 NEON 3？",
-      "descriptionWhy": "遷移您的 NEON 2 錢包將讓您存取更廣泛的支援資產，以及更時尚、改進的使用者體驗，讓您的資產管理變得輕而易舉！",
-      "subtitleHow": "如何從 Neon 2 遷移？",
-      "importButtonLabel": "匯入您的 NEON 2 錢包",
-      "migrateSteps": {
-        "inNeon2": {
-          "label": "在 NEON 2 中",
-          "step1": "匯出您的 NEON 2 錢包"
-        },
-        "inNeon3": {
-          "label": "在 NEON 3 中",
-          "step2": "匯入您的 NEON 2 帳戶",
-          "step3": "選擇要遷移的帳戶",
-          "step4": "輸入您的帳戶密碼"
-        }
-      },
-      "step2": {
-        "title": "匯入您的 NEON 2 帳戶",
-        "description": "為了完成 NEON 2 遷移過程，請找到您的 NEON 2 錢包遷移檔案：",
-        "inputLabel": "找到您的 NEON 2 遷移檔案",
-        "buttonBrowseLabel": "瀏覽…",
-        "buttonImportLabel": "匯入",
-        "buttonPlaceholder": "瀏覽檔案…",
-        "compatibleFile": "已識別相容檔案！"
-      }
-    }
+    "menuIconButtonAriaLabel": "選單"
   },
   "language": {
     "title": "語言",

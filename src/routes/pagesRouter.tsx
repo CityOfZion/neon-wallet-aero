@@ -1,7 +1,6 @@
 import { createHashRouter, Navigate } from 'react-router-dom'
 
 import { AppPage } from './pages/App'
-import { BackupAndRestorePage } from './pages/BackupAndRestore'
 import { ChangePasswordPage } from './pages/ChangePassword'
 import { ChangePasswordStep1 } from './pages/ChangePassword/ChangePasswordStep1'
 import { ChangePasswordStep2 } from './pages/ChangePassword/ChangePasswordStep2'
@@ -15,8 +14,6 @@ import { Login } from './pages/Login'
 import { LoginKey } from './pages/LoginKey'
 import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
 import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
-import { MigrateFromNeon2 } from './pages/MigrateFromNeon2'
-import { MigrateFromNeon2Step2 } from './pages/MigrateromNeon2Step2'
 import { OnboardingImportWallet } from './pages/OnboardingImportWallet'
 import { OnboardingImportWalletStep1 } from './pages/OnboardingImportWalletStep1'
 import { OnboardingImportWalletStep2 } from './pages/OnboardingImportWalletStep2'
@@ -27,9 +24,6 @@ import { OnboardingLoginNewWallet } from './pages/OnboardingLoginNewWallet'
 import { OnboardingLoginNewWalletStep1 } from './pages/OnboardingLoginNewWalletStep1'
 import { OnboardingLoginNewWalletStep2 } from './pages/OnboardingLoginNewWalletStep2'
 import { OnboardingLoginNewWalletStep3 } from './pages/OnboardingLoginNewWalletStep3'
-import { RestoreBackupStep1 } from './pages/RestoreBackupStep1'
-import { RestoreBackupStep2 } from './pages/RestoreBackupStep2'
-import { RestoreBackupStep3 } from './pages/RestoreBackupStep3'
 import { RootPage } from './pages/Root'
 import { SendPage } from './pages/Send'
 import { SettingsPage } from './pages/Settings'
@@ -116,37 +110,12 @@ export const pagesRouter = createHashRouter([
                 element: <LanguagePage />,
               },
               {
-                path: 'backup-and-restore',
-                element: <BackupAndRestorePage />,
-                children: [
-                  {
-                    path: 'backup?',
-                    children: [{ path: '1?', element: <div>Backup 1</div> }],
-                  },
-                  {
-                    path: 'restore',
-                    children: [
-                      { path: '1?', element: <RestoreBackupStep1 /> },
-                      { path: '2', element: <RestoreBackupStep2 /> },
-                      { path: '3', element: <RestoreBackupStep3 /> },
-                    ],
-                  },
-                ],
-              },
-              {
                 path: 'change-password',
                 element: <ChangePasswordPage />,
                 children: [
                   { path: '1?', element: <ChangePasswordStep1 /> },
                   { path: '2', element: <ChangePasswordStep2 /> },
                   { path: '3', element: <ChangePasswordStep3 /> },
-                ],
-              },
-              {
-                path: 'migrate-from-neon2',
-                children: [
-                  { path: '1?', element: <MigrateFromNeon2 /> },
-                  { path: '2', element: <MigrateFromNeon2Step2 /> },
                 ],
               },
             ],

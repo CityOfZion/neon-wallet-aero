@@ -44,5 +44,11 @@
   "transactionFeeActionStep": {
     "title": "总费用",
     "value": "数值"
+  },
+  "dappConnections": {
+    "emptyState": {
+      "title": "未连接任何 dApp",
+      "connectButtonLabel": "连接 dApp"
+    }
   }
 }

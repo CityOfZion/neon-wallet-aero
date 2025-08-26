@@ -5,16 +5,14 @@
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "添加",
     "exportButtonLabel": "导出",
-    "exportWalletTitle": "导出钱包",
-    "exportError": "导出钱包时出错"
+    "exportWalletTitle": "导出钱包"
   },
   "accountSelectionModal": {
     "title": "选择账户",
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "添加",
     "exportButtonLabel": "导出",
-    "exportAccountTitle": "导出账户",
-    "exportError": "导出账户时出错"
+    "exportAccountTitle": "导出账户"
   },
   "menuModal": {
     "title": "菜单",
@@ -173,11 +171,9 @@
       "buttonLabel": "迁移账户",
       "passwordError": "密码不正确！",
       "migrateError": "迁移时出错。请重试。",
-      "returnToSettings": "返回设置",
       "success": {
-        "title": "迁移成功",
         "subtitle": "您的 NEON 2 账户已成功迁移！",
-        "viewButtonLabel": "查看您的投资组合"
+        "buttonLabel": "查看您的投资组合"
       }
     }
   }

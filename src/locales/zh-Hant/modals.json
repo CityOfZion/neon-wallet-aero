@@ -5,16 +5,14 @@
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "新增",
     "exportButtonLabel": "導出",
-    "exportWalletTitle": "導出錢包",
-    "exportError": "導出錢包時出錯"
+    "exportWalletTitle": "導出錢包"
   },
   "accountSelectionModal": {
     "title": "選擇帳戶",
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "新增",
     "exportButtonLabel": "導出",
-    "exportAccountTitle": "導出帳戶",
-    "exportError": "導出帳戶時出錯"
+    "exportAccountTitle": "導出帳戶"
   },
   "menuModal": {
     "title": "選單",
@@ -173,11 +171,9 @@
       "buttonLabel": "遷移帳戶",
       "passwordError": "密碼無法識別！",
       "migrateError": "遷移時出現錯誤，請重試。",
-      "returnToSettings": "返回設定",
       "success": {
-        "title": "遷移成功",
         "subtitle": "您的 NEON 2 帳戶已成功遷移！",
-        "viewButtonLabel": "檢視您的投資組合"
+        "buttonLabel": "檢視您的投資組合"
       }
     }
   }

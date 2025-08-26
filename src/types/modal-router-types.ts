@@ -1,8 +1,7 @@
-import { JSX } from 'react'
 import { Account } from '@cityofzion/blockchain-service'
 
 import {
-  TUseNeonMigrateFromNeon2Schema,
+  TUseNeonMigrateAccountsSchema,
   TUseNeonMigrateGeneratedData,
   TUseNeonMigrateSchema,
 } from '@/hooks/useNeonMigrate'
@@ -59,13 +58,9 @@ type TCreateAccountStep2ModalState = {
   accountName: string
 }
 
-type TConfirmPasswordModalState = {
-  heading: string
-  description?: string
-  inputLabel?: string
-  buttonLabel?: string
-  inputPlaceholder?: string
-  onSubmit: (password: string) => Promise<void>
+type TExportPasswordModalState = {
+  title: string
+  onSubmitPassword: (password: string) => void
 }
 
 type TExportKeyModalState = {
@@ -76,22 +71,15 @@ type TExportMnemonicModalState = {
   wallet: IWalletState
 }
 
-type TMigrateFromNeon2Step3ModalState = {
+type TMigrateAccountsStep3ModalState = {
   content: TUseNeonMigrateSchema
   onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
 }
 
-type TMigrateFromNeon2Step4ModalState = {
-  selectedAccountsToMigrate: TUseNeonMigrateFromNeon2Schema[]
+type TMigrateAccountsStep4ModalState = {
+  selectedAccountsToMigrate: TUseNeonMigrateAccountsSchema[]
   content: TUseNeonMigrateSchema
   onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
-}
-
-type SuccessModalState = {
-  heading: string
-  subtitle?: string
-  content?: JSX.Element
-  footer?: JSX.Element
 }
 
 export type TModalRouterRouteTypes = {
@@ -107,10 +95,9 @@ export type TModalRouterRouteTypes = {
   'create-wallet-4': TCreateWalletStep4ModalState
   'create-account-1': undefined
   'create-account-2': TCreateAccountStep2ModalState
-  'confirm-password': TConfirmPasswordModalState
+  'confirm-password-export': TExportPasswordModalState
   'export-account': TExportKeyModalState
   'export-wallet': TExportMnemonicModalState
-  'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState
-  'migrate-from-neon2-4': TMigrateFromNeon2Step4ModalState
-  success: SuccessModalState
+  'migrate-accounts-3': TMigrateAccountsStep3ModalState
+  'migrate-accounts-4': TMigrateAccountsStep4ModalState
 }

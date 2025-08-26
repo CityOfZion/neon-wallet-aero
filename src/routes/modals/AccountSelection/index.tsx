@@ -4,10 +4,7 @@ import { BlockchainIcon } from '@/components/BlockchainIcon'
 import { Button } from '@/components/Button'
 import { Separator } from '@/components/Separator'
 import { StringHelper } from '@/helpers/StringHelper'
-import { ToastHelper } from '@/helpers/ToastHelper'
 import { useAccountsByWalletIdSelector } from '@/hooks/useAccountSelector'
-import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
-import { useLogin } from '@/hooks/useLogin'
 import { useModalNavigate, useModalState } from '@/hooks/useModalRouter'
 import { BottomModalLayout } from '@/layouts/BottomModalLayout'
 import { TModalState } from '@/types/modal'
@@ -21,9 +18,6 @@ import TbWallet from '@/assets/images/tb-wallet.svg?react'
 
 export const AccountSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'accountSelectionModal' })
-  const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
-  const { loginSessionRef } = useLoginSessionSelector()
-  const { encryptPassword } = useLogin()
   const {
     wallet,
     selectedAccount,
@@ -41,34 +35,17 @@ export const AccountSelectionModal = () => {
     }
   }
 
-  const handleGoToConfirmPasswordModal = () => {
-    modalNavigate('confirm-password', {
+  const handleGoToConfirmPasswordExportModal = () => {
+    modalNavigate('confirm-password-export', {
       state: {
-        heading: t('exportAccountTitle'),
-        description: modalT('description'),
-        buttonLabel: modalT('buttonContinueLabel'),
-        inputPlaceholder: modalT('inputPlaceholder'),
-        onSubmit: async (password: string) => {
-          try {
-            if (!loginSessionRef.current) {
-              throw new Error('Login session not defined')
-            }
-
-            const encryptedPassword = await encryptPassword(password)
-
-            if (loginSessionRef.current.encryptedPassword !== encryptedPassword) {
-              throw new Error('Invalid password')
-            }
-
-            modalNavigate('export-account', {
-              state: {
-                account: selectedAccount ?? accountsByWalletId[0],
-              },
-              replace: true,
-            })
-          } catch {
-            ToastHelper.error({ message: t('exportError') })
-          }
+        title: t('exportAccountTitle'),
+        onSubmitPassword: () => {
+          modalNavigate('export-account', {
+            state: {
+              account: selectedAccount ?? accountsByWalletId[0],
+            },
+            replace: true,
+          })
         },
       },
       replace: true,
@@ -130,7 +107,7 @@ export const AccountSelectionModal = () => {
           colorSchema="gray"
           leftIcon={<TbFileExport aria-hidden />}
           iconsOnEdge={false}
-          onClick={handleGoToConfirmPasswordModal}
+          onClick={handleGoToConfirmPasswordExportModal}
         />
       </div>
     </BottomModalLayout>

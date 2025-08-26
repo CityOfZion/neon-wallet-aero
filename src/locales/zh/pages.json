@@ -161,7 +161,7 @@
     "successBanner": {
       "address": "地址已完成！",
       "key": "密钥已完成！",
-      "encrypted": "加密密钥已完成！",
+      "encryptedKey": "加密密钥已完成！",
       "mnemonic": "助记词已完成！"
     }
   },
@@ -172,59 +172,7 @@
     "backupAndRestoreButtonLabel": "备份与恢复",
     "releaseNotesButtonLabel": "发行说明",
     "languageButtonLabel": "语言",
-    "menuIconButtonAriaLabel": "菜单",
-    "migrateFromNeon2ButtonLabel": "从 Neon 2 迁移",
-    "settingsBackupWallet": {
-      "title": "备份"
-    },
-    "settingsRestoreWallet": {
-      "title": "恢复",
-      "description": "如果您失去对钱包的访问权限，可以从本地备份文件导入钱包。只需找到您的本地备份文件，输入创建备份文件时使用的密码，您的访问权限将被恢复。",
-      "saveBackupLabel": "找到您的备份文件",
-      "browse": "浏览…",
-      "backup": "导入备份",
-      "compatibleFile": "已识别兼容文件！",
-      "nameExtension": "NEON 备份文件"
-    },
-    "confirmPasswordRecover": {
-      "title": "导入 NEON 备份",
-      "description": "为了导入您的备份文件，请提供您用于创建备份的密码：",
-      "subtitle": "备份密码",
-      "passwordInputLabel": "提供您的备份密码",
-      "inputPlaceholder": "输入您的备份密码…",
-      "buttonContinueLabel": "导入此备份",
-      "passwordError": "密码不被识别！",
-      "importSuccess": "备份导入成功！",
-      "returnToSettings": "返回设置"
-    },
-    "migrateFromNeon2": {
-      "title": "从 NEON 2.0 迁移",
-      "subtitleWhy": "为什么要迁移到 NEON 3？",
-      "descriptionWhy": "迁移您的 NEON 2 钱包将让您访问更广泛的支持资产，以及更时尚、改进的用户体验，让您的资产管理变得轻而易举！",
-      "subtitleHow": "如何从 Neon 2 迁移？",
-      "importButtonLabel": "导入您的 NEON 2 钱包",
-      "migrateSteps": {
-        "inNeon2": {
-          "label": "在 NEON 2 中",
-          "step1": "导出您的 NEON 2 钱包"
-        },
-        "inNeon3": {
-          "label": "在 NEON 3 中",
-          "step2": "导入您的 NEON 2 账户",
-          "step3": "选择要迁移的账户",
-          "step4": "输入您的账户密码"
-        }
-      },
-      "step2": {
-        "title": "导入您的 NEON 2 账户",
-        "description": "为了完成 NEON 2 迁移过程，请找到您的 NEON 2 钱包迁移文件：",
-        "inputLabel": "找到您的 NEON 2 迁移文件",
-        "buttonBrowseLabel": "浏览…",
-        "buttonImportLabel": "导入",
-        "buttonPlaceholder": "浏览文件…",
-        "compatibleFile": "已识别兼容文件！"
-      }
-    }
+    "menuIconButtonAriaLabel": "菜单"
   },
   "language": {
     "title": "语言",

@@ -5,22 +5,22 @@ import { AlertErrorBanner } from '@/components/AlertErrorBanner'
 import { Input } from '@/components/Input'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { useActions } from '@/hooks/useActions'
-import { TUseNeonMigrateFromNeon2Schema } from '@/hooks/useNeonMigrate'
+import { TUseNeonMigrateAccountsSchema } from '@/hooks/useNeonMigrate'
 
 import MdCheck from '@/assets/images/md-check.svg?react'
 import MdChevronRight from '@/assets/images/md-chevron-right.svg?react'
 import TbAlertTriangle from '@/assets/images/tb-alert-triangle.svg?react'
 
 type TProps = {
-  accountToMigrate: TUseNeonMigrateFromNeon2Schema
-  onSubmit: (accountToMigrate: TUseNeonMigrateFromNeon2Schema, password: string) => Promise<void>
+  accountToMigrate: TUseNeonMigrateAccountsSchema
+  onSubmit: (accountToMigrate: TUseNeonMigrateAccountsSchema, password: string) => Promise<void>
 }
 
 type TActionData = {
   password: string
 }
 
-export const MigrateFromNeon2Password = ({ accountToMigrate, onSubmit }: TProps) => {
+export const MigrateAccountsPassword = ({ accountToMigrate, onSubmit }: TProps) => {
   const { t } = useTranslation('modals', { keyPrefix: 'migrateWallets.step4' })
 
   const { actionData, actionState, setDataFromEventWrapper, setError, handleAct, clearErrors } =

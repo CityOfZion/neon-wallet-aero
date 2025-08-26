@@ -128,7 +128,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
         <div
           aria-disabled={props.disabled}
           className={StyleHelper.mergeStyles(
-            'flex w-full cursor-text items-center gap-x-2 rounded bg-gray-800 px-5 font-medium text-white ring-2 ring-transparent transition-colors outline-none placeholder:text-white/50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
+            'bg-asphalt flex w-full cursor-text items-center gap-x-2 rounded px-5 font-medium text-white ring-2 ring-transparent transition-colors outline-none placeholder:text-white/50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
             {
               'h-8.5 py-1.5 text-xs': compacted,
               'h-12 py-2 text-sm': !compacted,

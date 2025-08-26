@@ -82,10 +82,6 @@ export class UtilsHelper {
     return { id: UtilsHelper.getSkinColor(colorIndex), type: 'color' }
   }
 
-  static isHexadecimal(hexadecimal: string) {
-    return /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hexadecimal)
-  }
-
   static async promiseAll<T, R>(array: T[], callback: (item: T) => Promise<R> | R): Promise<R[]> {
     const results: R[] = []
 
