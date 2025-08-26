@@ -44,5 +44,11 @@
   "transactionFeeActionStep": {
     "title": "總手續費",
     "value": "數值"
+  },
+  "dappConnections": {
+    "emptyState": {
+      "title": "未連接任何 dApp",
+      "connectButtonLabel": "連接 dApp"
+    }
   }
 }
