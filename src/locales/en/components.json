@@ -50,5 +50,11 @@
   "transactionFeeActionStep": {
     "title": "Total fee",
     "value": "Value"
+  },
+  "dappConnections": {
+    "emptyState": {
+      "title": "No dApps connected",
+      "connectButtonLabel": "Connect a dApp"
+    }
   }
 }
