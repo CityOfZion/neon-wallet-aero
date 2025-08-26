@@ -1,13 +1,16 @@
 import { useTranslation } from 'react-i18next'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import { SettingsLayout } from '@/layouts/Settings'
 
 export const ChangePasswordPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'changePassword' })
+  const location = useLocation()
+
+  const hideBackButton = location.pathname.endsWith('/change-password/3')
 
   return (
-    <SettingsLayout title={t('title')}>
+    <SettingsLayout title={t('title')} hideBackButton={hideBackButton}>
       <Outlet />
     </SettingsLayout>
   )

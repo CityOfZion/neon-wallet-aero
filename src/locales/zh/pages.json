@@ -253,6 +253,29 @@
       "buttonLabel": "返回设置"
     }
   },
+  "backupAndRestore": {
+    "title": "备份与恢复",
+    "backupLabel": "备份",
+    "restoreLabel": "恢复",
+    "backup": {
+      "step1": {
+        "description": "为了保护您的备份文件，请为您的备份创建一个密码：",
+        "backupPasswordLabel": "创建备份密码",
+        "confirmBackupPasswordLabel": "确认您的备份密码",
+        "backup": "备份",
+        "warning": "您需要此密码才能恢复钱包。<1>请妥善保管！</1>",
+        "error": {
+          "confirmPassword": "确认备份密码不匹配",
+          "backupPasswordLength": "备份密码长度必须至少为 {{minLength}} 个字符",
+          "unexpectedError": "发生意外错误"
+        }
+      },
+      "step2": {
+        "subtitle": "备份创建成功！",
+        "returnToSettingsButtonLabel": "返回设置"
+      }
+    }
+  },
   "send": {
     "title": "发送代币",
     "sendTokensButtonLabel": "立即发送",

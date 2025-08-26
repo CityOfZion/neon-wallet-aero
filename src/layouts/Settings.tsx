@@ -13,14 +13,13 @@ import TbMenu2 from '@/assets/images/tb-menu-2.svg?react'
 type TProps = {
   title: string
   children: React.ReactNode
+  hideBackButton?: boolean
 }
 
-export const SettingsLayout = ({ children, title }: TProps) => {
+export const SettingsLayout = ({ children, title, hideBackButton }: TProps) => {
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { modalNavigateWrapper } = useModalNavigate()
   const navigate = useNavigate()
-
-  const hideBackButton = location.hash.endsWith('/change-password/3')
 
   const handleBack = () => {
     navigate(-1)

@@ -253,6 +253,29 @@
       "buttonLabel": "Return to settings"
     }
   },
+  "backupAndRestore": {
+    "title": "Backup & Restore",
+    "backupLabel": "Backup",
+    "restoreLabel": "Restore",
+    "backup": {
+      "step1": {
+        "description": "In order to secure your backup file, please create a password for your backup:",
+        "backupPasswordLabel": "Create a backup Password",
+        "confirmBackupPasswordLabel": "Confirm your backup Password",
+        "backup": "Backup",
+        "warning": "You’ll need this password to restore your wallet. <1>Please keep it safe!</1>",
+        "error": {
+          "confirmPassword": "Confirm backup password does not match",
+          "backupPasswordLength": "Backup password must be at least {{minLength}} characters long",
+          "unexpectedError": "Unexpected error occurred"
+        }
+      },
+      "step2": {
+        "subtitle": "Backup created successfully!",
+        "returnToSettingsButtonLabel": "Return to settings"
+      }
+    }
+  },
   "send": {
     "title": "Send tokens",
     "sendTokensButtonLabel": "Send now",

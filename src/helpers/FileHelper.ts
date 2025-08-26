@@ -43,4 +43,33 @@ export class FileHelper {
       input.click()
     })
   }
+
+  static download(content: string, options: BlobPropertyBag, fileName: string) {
+    const blob = new Blob([JSON.stringify(content)], options)
+
+    const url = URL.createObjectURL(blob)
+
+    try {
+      if (typeof chrome === 'undefined' && !chrome?.downloads) {
+        throw new Error()
+      }
+
+      chrome.downloads.download({
+        url: url,
+        filename: fileName,
+        saveAs: true,
+      })
+    } catch (downloadError) {
+      console.error('Download failed:', downloadError)
+      // Fallback to anchor element
+      const a = document.createElement('a')
+      a.href = url
+      a.download = fileName
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    }
+
+    setTimeout(() => URL.revokeObjectURL(url), 100)
+  }
 }
