@@ -41,6 +41,7 @@ export const ScreenLayout = ({
         className
       )}
       ref={ref}
+      id="screen-layout-container"
       {...props}
     >
       {heading && (
@@ -58,7 +59,10 @@ export const ScreenLayout = ({
         </header>
       )}
 
-      <main className={StyleHelper.mergeStyles('flex min-h-0 w-full flex-grow flex-col', contentClassName)}>
+      <main
+        className={StyleHelper.mergeStyles('flex min-h-0 w-full flex-grow flex-col', contentClassName)}
+        id="screen-layout-content"
+      >
         {children}
       </main>
     </div>

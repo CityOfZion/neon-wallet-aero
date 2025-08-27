@@ -2,9 +2,24 @@ import { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import { cloneDeep } from 'lodash'
 
 import { TBlockchainServiceKey } from '@/types/blockchain'
-import { TMigrationsNeo3, TSwapRecord } from '@/types/store'
+import { TUseTransactionsTransfer } from '@/types/hooks'
+import { TMigrationNeo3, TMigrationsNeo3, TSwapRecord } from '@/types/store'
 
 import { IUtilityReducer } from '.'
+
+// Pending Transaction Reducers
+const addPendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<TUseTransactionsTransfer>> = (
+  state,
+  action
+) => {
+  state.inMemoryData.pendingTransactions = [...state.inMemoryData.pendingTransactions, action.payload]
+}
+
+const removePendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<string>> = (state, action) => {
+  state.inMemoryData.pendingTransactions = state.inMemoryData.pendingTransactions.filter(
+    transaction => transaction.hash !== action.payload
+  )
+}
 
 const setEncryptedLoginControl: CaseReducer<IUtilityReducer, PayloadAction<string | undefined>> = (state, action) => {
   state.data.encryptedLoginControl = action.payload
@@ -52,13 +67,23 @@ const persistSwapRecord: CaseReducer<IUtilityReducer, PayloadAction<TSwapRecord>
 // Migration Neo3 Reducers
 const mergeMigrationsNeo3: CaseReducer<IUtilityReducer, PayloadAction<TMigrationsNeo3>> = (state, action) => {
   const migrationsNeo3 = cloneDeep(action.payload)
+
   state.data.migrationsNeo3 = { ...state.data.migrationsNeo3, ...migrationsNeo3 }
 }
 
+const saveMigrationNeo3: CaseReducer<IUtilityReducer, PayloadAction<TMigrationNeo3>> = (state, action) => {
+  const migrationNeo3 = cloneDeep(action.payload)
+
+  state.data.migrationsNeo3[migrationNeo3.hash] = migrationNeo3
+}
+
 export const utilitySliceReducers = {
+  addPendingTransaction,
+  removePendingTransaction,
   saveLastIndexByWallet,
   setEncryptedLoginControl,
   setHasPassword,
+  saveMigrationNeo3,
   mergeMigrationsNeo3,
   persistSwapRecord,
 }

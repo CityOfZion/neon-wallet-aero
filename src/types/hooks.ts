@@ -1,5 +1,15 @@
+import {
+  FullTransactionAssetEvent,
+  FullTransactionNftEvent,
+  FullTransactionsByAddressResponse,
+  FullTransactionsItem,
+  Token,
+} from '@cityofzion/blockchain-service'
+
+import { TBlockchainServiceKey } from './blockchain'
 import { TModalRouterContextNavigateOptions, TRouteType } from './modal'
 import { TModalRouterRouteTypes } from './modal-router-types'
+import { IAccountState } from './store'
 
 export type TUseActionsData = Record<string, any>
 
@@ -35,4 +45,49 @@ export type TUseModalNavigateResponse = {
   modalNavigateWrapper: TUseModalNavigateFunction<() => void>
   modalErase(type: TRouteType): void
   modalEraseWrapper(type: TRouteType): () => void
+}
+
+type TFullTransactionCommonEvent = {
+  fromAccount?: IAccountState
+  toAccount?: IAccountState
+}
+
+export type TFullTransactionNftEvent = TFullTransactionCommonEvent & FullTransactionNftEvent
+
+export type TFullTransactionAssetEvent = TFullTransactionCommonEvent & FullTransactionAssetEvent
+
+export type TFullTransactionEvent = TFullTransactionAssetEvent | TFullTransactionNftEvent
+
+export type TFullTransactionsItem = Omit<FullTransactionsItem, 'events'> & {
+  blockchain: TBlockchainServiceKey
+  isPending: boolean
+  events: TFullTransactionEvent[]
+}
+
+export type TFullTransactionsByAddressResponse = Omit<FullTransactionsByAddressResponse, 'data'> & {
+  data: Map<string, TFullTransactionsItem>
+}
+
+export type TFullTransactionsGroupedDataByDate = {
+  date: string
+  items: TFullTransactionsItem[]
+}
+
+export type TUseTransactionsTransfer = {
+  time: number
+  hash: string
+  account: IAccountState
+  fromAccount?: IAccountState
+  toAccount?: IAccountState
+  methodName?: string
+  isPending?: boolean
+  isClaim?: boolean
+  isMigrate?: boolean
+  amount: string
+  from?: string
+  to?: string
+  asset: string
+  assetHash: string
+  token?: Token
+  explorerUrl?: string
 }

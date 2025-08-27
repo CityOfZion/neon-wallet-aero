@@ -97,7 +97,7 @@ export const AccountSelectionModal = () => {
                 </div>
 
                 <p className="mt-0.5 ml-9 truncate text-xs text-gray-400">
-                  {StringHelper.truncateStringMiddle(account.address, 10)}
+                  {StringHelper.truncateMiddle(account.address, 10)}
                 </p>
               </div>
 

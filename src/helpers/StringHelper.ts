@@ -4,7 +4,25 @@ type TRemoveSpecialCharacterOptions = {
 }
 
 export class StringHelper {
-  static truncateStringMiddle(text: string, maxLength: number) {
+  static truncate(text: string, maxLength: number) {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '…'
+    }
+
+    return text
+  }
+
+  static truncateStart(text: string, maxLength: number) {
+    if (text.length > maxLength) {
+      const half = maxLength / 2
+
+      return '…' + text.substring(text.length - half)
+    }
+
+    return text
+  }
+
+  static truncateMiddle(text: string, maxLength: number) {
     if (text.length > maxLength) {
       const half = maxLength / 2
 

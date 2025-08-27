@@ -1,3 +1,5 @@
+import { BSTokenHelper } from '@cityofzion/blockchain-service'
+
 import { AccountHelper } from '@/helpers/AccountHelper'
 import { IAccountState } from '@/types/store'
 
@@ -44,6 +46,24 @@ export const useHiddenTokensByBlockchainSelector = () => {
     hiddenTokensByBlockchain: value,
     hiddenTokensByBlockchainRef: ref,
   }
+}
+
+export const useSwapRecordSelector = (hash: string) => {
+  const normalizedHash = BSTokenHelper.normalizeHash(hash)
+
+  const { value: swapRecord, ref: swapRecordRef } = useAppSelector(({ utility }) =>
+    utility.data.swapRecords.find(({ txFrom }) => !!txFrom && BSTokenHelper.normalizeHash(txFrom) === normalizedHash)
+  )
+
+  return { swapRecord, swapRecordRef }
+}
+
+export const useMigrationNeo3Selector = (hash: string) => {
+  const { value: migrationNeo3, ref: migrationNeo3Ref } = useAppSelector(
+    ({ utility }) => utility.data.migrationsNeo3[BSTokenHelper.normalizeHash(hash)]
+  )
+
+  return { migrationNeo3, migrationNeo3Ref }
 }
 
 export const useLoginControlSelector = () => {

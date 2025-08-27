@@ -13,7 +13,9 @@ type TProps = {
   children: ReactNode
 }
 
-export const Tooltip = ({ title, icon, open, delayDuration, contentProps, arrowProps, children }: TProps) => {
+export const Tooltip = ({ title, icon, open, delayDuration, arrowProps, children, ...props }: TProps) => {
+  const { className: contentClassName, ...contentProps } = props.contentProps ?? {}
+
   if (!title) return children
 
   return (
@@ -25,7 +27,7 @@ export const Tooltip = ({ title, icon, open, delayDuration, contentProps, arrowP
             side="bottom"
             className={StyleHelper.mergeStyles(
               'z-[1010] flex items-center gap-x-2 rounded bg-gray-700 p-2 text-xs font-bold text-white shadow-lg',
-              contentProps?.className
+              contentClassName
             )}
             {...contentProps}
           >

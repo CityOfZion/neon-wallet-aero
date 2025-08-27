@@ -1,8 +1,11 @@
+import { getI18n } from 'react-i18next'
 import { format } from 'date-fns'
 import * as uuid from 'uuid'
 
 import { ACCOUNT_COLOR_SKINS } from '@/constants/skins'
 import { TColorSkin } from '@/types/store'
+
+import { ToastHelper } from './ToastHelper'
 
 type TRemoveSpecialCharacterOptions = {
   allowSpaces?: boolean
@@ -105,6 +108,9 @@ export class UtilsHelper {
   }
 
   static async copyToClipboard(text: string): Promise<void> {
+    const { t } = getI18n()
+
+    ToastHelper.success({ message: t('common:general.successfullyCopied') })
     return await navigator.clipboard.writeText(text)
   }
 

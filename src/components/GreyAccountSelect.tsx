@@ -89,7 +89,7 @@ export const GreyAccountSelect = ({
                 <BlockchainIcon blockchain={selectedAccount!.blockchain} type="gray" />
 
                 <span className="text-start text-white">
-                  {StringHelper.truncateStringMiddle(selectedAccount!.address, 8)}
+                  {StringHelper.truncateMiddle(selectedAccount!.address, 8)}
                 </span>
               </div>
             ))
@@ -111,7 +111,7 @@ export const GreyAccountSelect = ({
                     <BlockchainIcon className="h-4 min-h-4 w-4 min-w-4" blockchain={account.blockchain} type="gray" />
 
                     <div className="flex min-w-0 flex-grow flex-col gap-0.5">
-                      <Select.ItemText>{StringHelper.truncateStringMiddle(account.address, 8)}</Select.ItemText>
+                      <Select.ItemText>{StringHelper.truncateMiddle(account.address, 8)}</Select.ItemText>
 
                       <span className="text-1xs truncate text-left text-gray-100">
                         {`${account.name} | ${wallet?.name}`}

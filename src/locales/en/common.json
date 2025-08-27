@@ -11,7 +11,10 @@
     "menuIconButtonAriaLabel": "Menu",
     "downloadQRCodePassword": "Download password QR code",
     "remove": "Remove",
-    "reset": "Reset"
+    "reset": "Reset",
+    "emptyColumn": "--",
+    "migrationNeo3": "Migration",
+    "swap": "Swap"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",

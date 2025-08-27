@@ -2,19 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 import { PersistConfig, PURGE } from 'redux-persist'
 
 import { reduxPersistStorage } from '@/libs/reduxPersist'
-import {
-  THiddenTokenByBlockchain,
-  TLastIndexesByWallet,
-  TMigrationsNeo3,
-  TPendingTransaction,
-  TSwapRecord,
-} from '@/types/store'
+import { TUseTransactionsTransfer } from '@/types/hooks'
+import { THiddenTokenByBlockchain, TLastIndexesByWallet, TMigrationsNeo3, TSwapRecord } from '@/types/store'
 
 import { utilitySliceReducers } from './reducers'
 
 export interface IUtilityReducer {
   inMemoryData: {
-    pendingTransactions: TPendingTransaction[]
+    pendingTransactions: TUseTransactionsTransfer[]
   }
   data: {
     hasPassword: boolean

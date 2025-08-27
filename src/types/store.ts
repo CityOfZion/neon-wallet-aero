@@ -5,6 +5,7 @@ import {
 } from '@cityofzion/bs-neo-legacy'
 
 import { TBlockchainServiceKey, TNetwork } from './blockchain'
+import { Optional } from './generics'
 
 export type TContactEncryptedAddress = {
   encryptedAddress: string
@@ -38,6 +39,68 @@ export type TSwapRecord = {
   fee?: string
   log?: string
 }
+
+type TNotificationNavigateActionHideFraudulentTokenPayload = {
+  to: 'hide-fraudulent-token'
+  address: string
+  blockchain: TBlockchainServiceKey
+  tokenHash?: string
+}
+
+type TNotificationNavigateAction = {
+  type: 'navigate'
+  payload:
+    | {
+        to: 'account'
+        address: string
+        blockchain: TBlockchainServiceKey
+      }
+    | {
+        to: 'account-transaction'
+        address: string
+        blockchain: TBlockchainServiceKey
+      }
+    | {
+        to: 'account-tokens'
+        address: string
+        blockchain: TBlockchainServiceKey
+      }
+    | TNotificationNavigateActionHideFraudulentTokenPayload
+    | {
+        to: 'migration-neo3'
+        address: string
+        blockchain: TBlockchainServiceKey
+      }
+    | {
+        to: 'vote-neo3'
+        address: string
+        blockchain: TBlockchainServiceKey
+      }
+}
+
+type TNotificationAction = TNotificationNavigateAction
+
+type TNotificationPriority = 'low' | 'medium' | 'high'
+
+export type TNotification = {
+  id: string
+  title: string
+  titleValue?: string
+  previewBody: string
+  previewBodyValue?: string
+  date: number
+  body?: string
+  read: boolean
+  priority: TNotificationPriority
+  provider: 'system'
+  action?: TNotificationAction
+  related?: {
+    blockchain: TBlockchainServiceKey
+    address?: string
+  }
+}
+
+export type TSaveNotification = Optional<TNotification, 'id' | 'date' | 'provider' | 'read' | 'priority'>
 
 export type TMigrationNeo3Status = 'done' | 'pending' | 'failure' | 'failure-neo3'
 

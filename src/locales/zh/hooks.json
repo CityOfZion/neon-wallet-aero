@@ -40,5 +40,8 @@
       "unexpectedError": "意外错误。请重启应用程序。",
       "backupError": "备份时发生错误。请重试。"
     }
+  },
+  "useGetFullTransactions": {
+    "formatExtendedDate": "yyyy年MM月dd日"
   }
 }
