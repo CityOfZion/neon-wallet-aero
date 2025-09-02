@@ -31,10 +31,9 @@ export const Child = () => {
     >
       <div
         id="popup-root"
-        className={StyleHelper.mergeStyles(
-          'max-h-popup-h-screen min-h-popup-h-screen h-popup-h-screen w-popup-w-screen max-w-popup-w-screen min-w-popup-w-screen relative overflow-hidden',
-          { 'rounded-lg': EnvHelper.DEV }
-        )}
+        className={StyleHelper.mergeStyles('h-popup-h-screen w-popup-w-screen relative overflow-hidden', {
+          'rounded-lg': EnvHelper.DEV,
+        })}
       >
         <Outlet />
       </div>

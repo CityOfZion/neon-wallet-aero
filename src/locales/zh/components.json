@@ -50,5 +50,32 @@
       "title": "未连接任何 dApp",
       "connectButtonLabel": "连接 dApp"
     }
+  },
+  "transactionActivityList": {
+    "empty": {
+      "notFoundTitle": "没有交易记录可显示",
+      "notFoundDescription": "进行交易后，记录将会显示在这里"
+    },
+    "item": {
+      "txIdLabel": "交易ID",
+      "copyTxIdLabel": "复制交易ID",
+      "pendingDataLabel": "处理中…",
+      "pendingTooltipLabel": "您的交易正在处理中 — 请稍候",
+      "formatHourMinutes": "HH:mm",
+      "formatFullDateTime": "yyyy年MM月dd日 (HH:mm)"
+    },
+    "event": {
+      "nftImageAltWithNameLabel": "NFT图片: {{ name }}",
+      "nftImageAltLabel": "NFT图片",
+      "columns": {
+        "fromLabel": "发送方",
+        "toLabel": "接收方",
+        "tokenLabel": "代币",
+        "tokenIdLabel": "代币ID",
+        "amountLabel": "数量",
+        "collectionNameLabel": "合集",
+        "nameLabel": "名称"
+      }
+    }
   }
 }

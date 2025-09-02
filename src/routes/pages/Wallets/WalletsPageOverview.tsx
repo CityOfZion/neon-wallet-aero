@@ -9,6 +9,7 @@ import { DappConnectionsEmptyState } from '@/components/DappConnections/DappConn
 import { IconButton } from '@/components/IconButton'
 import { Skeleton } from '@/components/Skeleton'
 import { Tabs } from '@/components/Tabs'
+import { TransactionActivityList } from '@/components/TransactionActivityList'
 import { ClipboardHelper } from '@/helpers/ClipboardHelper'
 import { NumberHelper } from '@/helpers/NumberHelper'
 import { StringHelper } from '@/helpers/StringHelper'
@@ -32,7 +33,7 @@ type TProps = {
 
 type TTab = 'tokens' | 'nfts' | 'transactions' | 'dappConnections'
 
-export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
+export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'wallets' })
   const { t: commonT } = useTranslation('common')
   const { currency } = useCurrencySelector()
@@ -57,7 +58,7 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
   }
 
   return (
-    <Fragment>
+    <Fragment key={`${selectedWallet.id}-${selectedAccount.id}`}>
       <div className="mt-4 flex justify-between">
         <div className="flex items-center gap-2.5">
           <BlockchainIcon blockchain={selectedAccount.blockchain} className="text-green" />
@@ -77,7 +78,7 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
       <div>
         <p className="text-sm text-gray-300 uppercase">{t('addressLabel')}</p>
         <div className="gap- flex items-center gap-2">
-          <p className="text-blue text-sm">{StringHelper.truncateStringMiddle(selectedAccount.address, 35)}</p>
+          <p className="text-blue text-sm">{StringHelper.truncateMiddle(selectedAccount.address, 35)}</p>
           <IconButton
             aria-label={t('ariaLabels.copyIconButton')}
             icon={<TbCopy aria-hidden />}
@@ -92,8 +93,8 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
         <p className="text-sm text-gray-300 uppercase">{t('balanceLabel')}</p>
         <Skeleton.Root
           loading={balanceQuery.isLoading}
-          className="mt-1.5"
-          items={<Skeleton.Item className="h-14 w-64" />}
+          className="relative top-1.5"
+          items={<Skeleton.Item className="h-12 w-64" />}
         >
           <p className="text-5xl text-white">
             {NumberHelper.currency(balanceQuery.data?.exchangeTotal ?? 0, currency)}
@@ -124,9 +125,11 @@ export const WalletsPageOverview = ({ selectedAccount }: TProps) => {
         <Tabs.Content value="tokens">
           <WalletsPageTokensTabContent selectedAccount={selectedAccount} />
         </Tabs.Content>
-
         <Tabs.Content value="dappConnections">
           <DappConnectionsEmptyState />
+        </Tabs.Content>
+        <Tabs.Content value="transactions">
+          <TransactionActivityList selectedAccount={selectedAccount} />
         </Tabs.Content>
       </Tabs.Root>
     </Fragment>

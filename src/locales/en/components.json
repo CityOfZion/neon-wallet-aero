@@ -56,5 +56,32 @@
       "title": "No dApps connected",
       "connectButtonLabel": "Connect a dApp"
     }
+  },
+  "transactionActivityList": {
+    "empty": {
+      "notFoundTitle": "No transactions to display",
+      "notFoundDescription": "Make a transaction and it'll appear here"
+    },
+    "item": {
+      "txIdLabel": "Tx ID",
+      "copyTxIdLabel": "Copy tx ID",
+      "pendingDataLabel": "Pending",
+      "pendingTooltipLabel": "Your transaction is being processed — please wait",
+      "formatHourMinutes": "HH:mm",
+      "formatFullDateTime": "dd MMM yyyy (HH:mm)"
+    },
+    "event": {
+      "nftImageAltWithNameLabel": "NFT image: {{ name }}",
+      "nftImageAltLabel": "NFT image",
+      "columns": {
+        "fromLabel": "From",
+        "toLabel": "To",
+        "tokenLabel": "Token",
+        "tokenIdLabel": "Token ID",
+        "amountLabel": "Amount",
+        "collectionNameLabel": "Collection",
+        "nameLabel": "Name"
+      }
+    }
   }
 }

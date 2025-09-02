@@ -1,6 +1,8 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 
-import { IAccountState, IWalletState, TLoginSession } from '@/types/store'
+import { DateHelper } from '@/helpers/DateHelper'
+import { UtilsHelper } from '@/helpers/UtilsHelper'
+import { IAccountState, IWalletState, TLoginSession, TNotification, TSaveNotification } from '@/types/store'
 
 import { IAuthReducer } from '.'
 
@@ -9,7 +11,7 @@ const setLoginSession: CaseReducer<IAuthReducer, PayloadAction<TLoginSession | u
 }
 
 const resetTemporaryApplicationData: CaseReducer<IAuthReducer> = state => {
-  state.data.applicationDataByLoginType.key = { wallets: [] }
+  state.data.applicationDataByLoginType.key = { wallets: [], notifications: [] }
 }
 
 // Wallet Reducers
@@ -30,6 +32,30 @@ const saveWallet: CaseReducer<IAuthReducer, PayloadAction<IWalletState>> = (stat
   }
 
   applicationData.wallets[walletIndex] = wallet
+}
+
+const saveNotification: CaseReducer<IAuthReducer, PayloadAction<TSaveNotification>> = (state, action) => {
+  const loginSessionType = state.inMemoryData.loginSession?.type ?? 'password'
+
+  const notification: TNotification = {
+    id: UtilsHelper.uuid(),
+    date: DateHelper.getNowUnix(),
+    read: false,
+    priority: 'low',
+    provider: 'system',
+    ...action.payload,
+  }
+
+  const applicationData = state.data.applicationDataByLoginType[loginSessionType]
+  const foundIndex = applicationData.notifications.findIndex(item => item.id === notification.id)
+
+  if (foundIndex < 0) {
+    applicationData.notifications = [...applicationData.notifications, notification]
+
+    return
+  }
+
+  applicationData.notifications[foundIndex] = notification
 }
 
 const deleteWallet: CaseReducer<IAuthReducer, PayloadAction<string>> = (state, action) => {
@@ -94,6 +120,7 @@ export const authSliceReducers = {
   deleteWallet,
   saveAccount,
   deleteAccount,
+  saveNotification,
   setLoginSession,
   resetTemporaryApplicationData,
 }

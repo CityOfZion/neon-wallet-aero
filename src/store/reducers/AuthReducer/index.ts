@@ -2,13 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 import { PersistConfig, PURGE } from 'redux-persist'
 
 import { reduxPersistStorage } from '@/libs/reduxPersist'
-import { IWalletState, TLoginSession, TLoginSessionType } from '@/types/store'
+import { IWalletState, TLoginSession, TLoginSessionType, TNotification } from '@/types/store'
 
 import { authSliceReducers } from './reducers'
 
 type TApplicationDataByLoginType = {
   [K in TLoginSessionType]: {
     wallets: IWalletState[]
+    notifications: TNotification[]
   }
 }
 
@@ -27,8 +28,8 @@ const authReducerInitialState: IAuthReducer = {
   },
   data: {
     applicationDataByLoginType: {
-      password: { wallets: [] },
-      key: { wallets: [] },
+      password: { wallets: [], notifications: [] },
+      key: { wallets: [], notifications: [] },
     },
   },
 }

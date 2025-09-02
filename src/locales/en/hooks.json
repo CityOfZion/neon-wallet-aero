@@ -40,5 +40,8 @@
       "unexpectedError": "Unexpected error. Restart the application.",
       "backupError": "There was an error trying to backup. Please, try again."
     }
+  },
+  "useGetFullTransactions": {
+    "formatExtendedDate": "dd MMM yyyy"
   }
 }

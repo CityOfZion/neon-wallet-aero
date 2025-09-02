@@ -72,7 +72,7 @@ export const ExportKeyModal = () => {
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
       <div className="mb-5 flex w-full flex-col items-center justify-between">
         <div className="bg-asphalt flex h-8 w-full items-center justify-center rounded">
-          {StringHelper.truncateStringMiddle(account.name, 45)}
+          {StringHelper.truncateMiddle(account.name, 45)}
         </div>
 
         <p className="pt-4 text-center text-sm text-gray-100 print:hidden">{t('subtitle')}</p>
