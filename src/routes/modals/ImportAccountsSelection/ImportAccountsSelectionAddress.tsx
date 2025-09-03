@@ -59,20 +59,27 @@ export const ImportAccountsSelectionAddress = ({ value, onSubmit }: TProps) => {
 
   const { isMounting } = useMountUnsafe(async () => {
     const services = Object.values(bsAggregator.blockchainServicesByName)
-    const serviceFromAddress = services.find(service => service.validateAddress(value))
 
-    if (!serviceFromAddress || doesAccountExist({ address: value, blockchain: serviceFromAddress.name })) return
+    const servicesFromAddress = services.filter(
+      service => service.validateAddress(value) && !doesAccountExist({ address: value, blockchain: service.name })
+    )
 
-    const newBlockchainAccounts: TBlockchainAccounts = {
-      [serviceFromAddress.name]: [
-        {
-          address: value,
-          key: '',
-          type: 'publicKey',
-          blockchain: serviceFromAddress.name,
-        },
-      ],
-    }
+    if (servicesFromAddress.length === 0) return
+
+    const newBlockchainAccounts: TBlockchainAccounts = servicesFromAddress.reduce(
+      (accumulator, current) => ({
+        ...accumulator,
+        [current.name]: [
+          {
+            address: value,
+            key: '',
+            type: 'publicKey',
+            blockchain: current.name,
+          },
+        ],
+      }),
+      {} as TBlockchainAccounts
+    )
 
     setData({ blockchainAccounts: newBlockchainAccounts })
 

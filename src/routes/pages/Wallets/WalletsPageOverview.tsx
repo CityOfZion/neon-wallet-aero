@@ -7,6 +7,7 @@ import { BlockchainIcon } from '@/components/BlockchainIcon'
 import { Button } from '@/components/Button'
 import { DappConnectionsEmptyState } from '@/components/DappConnections/DappConnectionsEmptyState'
 import { IconButton } from '@/components/IconButton'
+import { NftList } from '@/components/NftsList'
 import { Skeleton } from '@/components/Skeleton'
 import { Tabs } from '@/components/Tabs'
 import { TransactionActivityList } from '@/components/TransactionActivityList'
@@ -125,9 +126,15 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
         <Tabs.Content value="tokens">
           <WalletsPageTokensTabContent selectedAccount={selectedAccount} />
         </Tabs.Content>
+
+        <Tabs.Content value="nfts">
+          <NftList selectedAccount={selectedAccount} />
+        </Tabs.Content>
+
         <Tabs.Content value="dappConnections">
           <DappConnectionsEmptyState />
         </Tabs.Content>
+
         <Tabs.Content value="transactions">
           <TransactionActivityList selectedAccount={selectedAccount} />
         </Tabs.Content>

@@ -12,6 +12,9 @@
       "refreshIconButton": "刷新",
       "copyIconButton": "复制"
     },
+    "nftsList": {
+      "empty": "没有NFT可显示"
+    },
     "claimButton": {
       "gasAvailableLabel": "<1>领取</1> {{ amount }} {{ symbol }}",
       "gasUnavailableLabel": "GAS 不可用"
