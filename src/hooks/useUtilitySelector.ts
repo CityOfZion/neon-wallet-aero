@@ -1,6 +1,5 @@
-import { BSTokenHelper } from '@cityofzion/blockchain-service'
-
 import { AccountHelper } from '@/helpers/AccountHelper'
+import { bsAggregator } from '@/libs/blockchainService'
 import { IAccountState } from '@/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
@@ -49,18 +48,22 @@ export const useHiddenTokensByBlockchainSelector = () => {
 }
 
 export const useSwapRecordSelector = (hash: string) => {
-  const normalizedHash = BSTokenHelper.normalizeHash(hash)
-
   const { value: swapRecord, ref: swapRecordRef } = useAppSelector(({ utility }) =>
-    utility.data.swapRecords.find(({ txFrom }) => !!txFrom && BSTokenHelper.normalizeHash(txFrom) === normalizedHash)
+    utility.data.swapRecords.find(({ txFrom, account }) => {
+      const service = account ? bsAggregator.blockchainServicesByName[account.blockchain] : undefined
+
+      return !!txFrom && !!service && service.tokenService.predicateByHash(hash, txFrom)
+    })
   )
 
   return { swapRecord, swapRecordRef }
 }
 
 export const useMigrationNeo3Selector = (hash: string) => {
+  const neoLegacyService = bsAggregator.blockchainServicesByName.neoLegacy
+
   const { value: migrationNeo3, ref: migrationNeo3Ref } = useAppSelector(
-    ({ utility }) => utility.data.migrationsNeo3[BSTokenHelper.normalizeHash(hash)]
+    ({ utility }) => utility.data.migrationsNeo3[neoLegacyService.tokenService.normalizeHash(hash)]
   )
 
   return { migrationNeo3, migrationNeo3Ref }

@@ -97,11 +97,7 @@
   "onboardingLoginNewWallet": {
     "description": "Securing your new wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": [
-      "Create Password",
-      "Confirm Password",
-      "Complete"
-    ]
+    "steps": ["Create Password", "Confirm Password", "Complete"]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Enter password",
@@ -125,13 +121,7 @@
     "title": "Import a wallet",
     "description": "Please create a password to secure your wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": [
-      "Create Password",
-      "Confirm Password",
-      "Add details or locate file",
-      "Import",
-      "Complete"
-    ],
+    "steps": ["Create Password", "Confirm Password", "Add details or locate file", "Import", "Complete"],
     "migrationLabel": "Locate your migration file",
     "step3": {
       "formTitle": "Enter an address, encrypted key, private key, mnemonic or locate backup file",
@@ -322,5 +312,45 @@
     "searchContactsPlaceholder": "Search contacts…",
     "searchContactsLabel": "Search contacts",
     "addContactButtonLabel": "Add contact"
+  },
+  "swap": {
+    "title": "Swap tokens",
+    "infoTooltip": "Swap info",
+    "form": {
+      "title": "What tokens do you want to swap?",
+      "restart": "Restart",
+      "assets": "Assets",
+      "source": "Account details",
+      "amounts": "Amounts",
+      "balanceLabel": "Balance",
+      "balancePlaceholder": "0.00",
+      "tokenToUseTitle": "Swap this",
+      "accountToUseTitle": "Send from here",
+      "amountToUseTitle": "Amount",
+      "amountToUseTooltipLabel": "Exchange rates get better with higher swap amounts!",
+      "minimumAmountToUseLabel": "Minimum {{amount}}",
+      "minimumAmountToUsePlaceholder": "0.00000000",
+      "tokenToReceiveTitle": "Receive this",
+      "receiveHere": "Receive here",
+      "addressToReceivePlaceholder": "Enter address…",
+      "myAccountButtonLabel": "My account",
+      "extraIdToReceive": "Destination tag/memo",
+      "extraIdToReceivePlaceholder": "Enter tag/memo…",
+      "openSwapAboutExtraIdToReceiveModal": "Open destination tag/memo about modal",
+      "amountToReceiveTitle": "Amount you'll get",
+      "amountToReceiveTitleComplement": "(after fees)",
+      "submitLabel": "Swap now",
+      "errors": {
+        "invalidAddress": "Invalid address",
+        "invalidExtraIdToReceive": "Invalid destination tag/memo",
+        "amountMin": "Amount is too low. Minimum amount is {{amount}}",
+        "amountMax": "Amount is too high. Maximum amount is {{amount}}",
+        "insufficientFunds": "You don't have enough balance",
+        "insufficientFundsFee": "You don't have enough balance to pay the fee"
+      },
+      "hints": {
+        "enterValidAddress": "Enter a valid address"
+      }
+    }
   }
 }

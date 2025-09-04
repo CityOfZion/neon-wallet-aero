@@ -8,6 +8,7 @@
     "close": "關閉",
     "back": "返回",
     "pasteFromClipboard": "從剪貼簿貼上",
+    "pasteFromClipboardError": "無法從剪貼簿讀取",
     "menuIconButtonAriaLabel": "選單",
     "downloadQRCodePassword": "下載密碼二維碼",
     "remove": "移除",

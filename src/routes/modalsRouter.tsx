@@ -23,6 +23,9 @@ import { MigrateFromNeon2Step3Modal } from './modals/MigrateFromNeon2Step3'
 import { MigrateFromNeon2Step4Modal } from './modals/MigrateFromNeon2Step4'
 import { SaveContactModal } from './modals/SaveContact'
 import { SuccessModal } from './modals/Success'
+import { SwapAboutExtraIdToReceiveModal } from './modals/SwapAboutExtraIdToReceive'
+import { SwapDetailsModal } from './modals/SwapDetails'
+import { SwapInfoModal } from './modals/SwapInfo'
 import { WalletSelectionModal } from './modals/WalletSelection'
 
 export const modalsRouter: TRoute[] = [
@@ -50,4 +53,7 @@ export const modalsRouter: TRoute[] = [
   { name: 'dapp-disconnection', type: 'bottom', element: <DappDisconnectionModal /> },
   { name: 'save-contact', type: 'bottom', element: <SaveContactModal /> },
   { name: 'contact-address-form', type: 'bottom', element: <ContactAddressFormModal /> },
+  { name: 'swap-about-extra-id-to-receive', type: 'bottom', element: <SwapAboutExtraIdToReceiveModal /> },
+  { name: 'swap-info', type: 'bottom', element: <SwapInfoModal /> },
+  { name: 'swap-details', type: 'bottom', element: <SwapDetailsModal /> },
 ]

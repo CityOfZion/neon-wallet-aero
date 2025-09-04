@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { BSTokenHelper, Token, TokenPricesResponse } from '@cityofzion/blockchain-service'
+import { Token, TokenPricesResponse } from '@cityofzion/blockchain-service'
 import { Query, QueryClient, useQueries, useQueryClient } from '@tanstack/react-query'
 import lodash from 'lodash'
 
@@ -20,7 +20,9 @@ function buildQueryKey(
   const queryKey = ['exchange', blockchain, currency, network]
 
   if (token) {
-    queryKey.push(BSTokenHelper.normalizeHash(token.hash))
+    const service = bsAggregator.blockchainServicesByName[blockchain]
+
+    queryKey.push(service.tokenService.normalizeHash(token.hash))
   }
 
   return queryKey
@@ -43,6 +45,7 @@ export async function fetchExchange(
   currencyRatio: number
 ) {
   const queryCache = queryClient.getQueryCache()
+  const service = bsAggregator.blockchainServicesByName[blockchain]
 
   const tokensToFetch = tokens.filter(token => {
     const queryKey = buildQueryKey(blockchain, currency, network, token)
@@ -66,8 +69,7 @@ export async function fetchExchange(
 
   tokensToFetch.forEach(token => {
     const queryKey = buildQueryKey(blockchain, currency, network, token)
-    const normalizedHash = BSTokenHelper.normalizeHash(token.hash)
-    const tokenPrice = tokenPrices.find(price => BSTokenHelper.normalizeHash(price.token.hash) === normalizedHash)
+    const tokenPrice = tokenPrices.find(price => service.tokenService.predicateByHash(price.token, token))
     const currentQuery = queryCache.find<TExchange>({ queryKey, exact: true })
     const currentUsdPrice = currentQuery?.state?.data?.usdPrice
     let nextUsdPrice = tokenPrice?.usdPrice

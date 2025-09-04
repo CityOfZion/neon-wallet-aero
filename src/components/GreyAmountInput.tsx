@@ -13,7 +13,7 @@ type TProps = {
   loading?: boolean
   className?: string
   inputClassName?: string
-  children: ReactNode
+  children?: ReactNode
 }
 
 export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(

@@ -9,7 +9,14 @@ import {
 } from '@/hooks/useNeonMigrate'
 import { TBlockchainServiceKey } from '@/types/blockchain'
 
-import { IAccountState, IWalletState, TContactAddress, TContactState, TImportAccountsSelectionType } from './store'
+import {
+  IAccountState,
+  IWalletState,
+  TContactAddress,
+  TContactState,
+  TImportAccountsSelectionType,
+  TSwapRecord,
+} from './store'
 
 type TWalletSelectionModalState = {
   selectedWallet?: IWalletState
@@ -121,6 +128,10 @@ type TContactAddressFormModalState = {
   onSaveAddress: (address: TContactAddress) => void
 }
 
+type TSwapDetailsModalState = {
+  swapRecord: TSwapRecord
+}
+
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
@@ -146,4 +157,7 @@ export type TModalRouterRouteTypes = {
   'contact-details': TContactDetailsModalState
   'save-contact': TSaveContactModalState
   'contact-address-form': TContactAddressFormModalState
+  'swap-about-extra-id-to-receive': undefined
+  'swap-info': undefined
+  'swap-details': TSwapDetailsModalState
 }

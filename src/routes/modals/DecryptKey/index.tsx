@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
+import { hasEncryption } from '@cityofzion/blockchain-service'
 
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
@@ -36,6 +37,12 @@ export const DecryptKeyModal = () => {
 
     try {
       const service = bsAggregator.blockchainServicesByName[blockchain]
+
+      if (!hasEncryption(service)) {
+        ToastHelper.error({ message: t('errors.noEncryptionInterfaceError') })
+
+        return
+      }
 
       const { key } = await service.decrypt(encryptedKey, password)
 

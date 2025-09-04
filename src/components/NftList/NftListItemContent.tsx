@@ -48,9 +48,9 @@ export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
         </Tooltip>
 
         <div className="flex items-center gap-1.5">
-          {nft.collectionImage && (
+          {nft.collection?.image && (
             <div className="h-[1rem] min-h-[1rem] w-[1rem] min-w-[1rem] overflow-hidden rounded-full bg-gray-300/30">
-              <img className="h-full w-full object-cover" src={nft.collectionImage} alt={nft.collectionName} />
+              <img className="h-full w-full object-cover" src={nft.collection.image} alt={nft.collection.name} />
             </div>
           )}
 
@@ -60,12 +60,12 @@ export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
       <div className="flex items-center gap-5">
         <div className="flex w-18 flex-col items-end gap-2.5">
           <Tooltip
-            title={nft.id}
+            title={nft.hash}
             contentProps={{ className: 'bg-asphalt' }}
             arrowProps={{ className: 'fill-asphalt' }}
             delayDuration={0}
           >
-            <p className="text-blue">{StringHelper.truncateMiddle(nft.id, 8)}</p>
+            <p className="text-blue">{StringHelper.truncateMiddle(nft.hash, 8)}</p>
           </Tooltip>
 
           <div className="flex items-center gap-1.5">

@@ -1,5 +1,4 @@
-import { BSTokenHelper } from '@cityofzion/blockchain-service'
-
+import { bsAggregator } from '@/libs/blockchainService'
 import { TBlockchainServiceKey } from '@/types/blockchain'
 import { TExchange } from '@/types/query'
 
@@ -16,7 +15,9 @@ export class ExchangeHelper {
     const blockchainExchange = multiExchange[blockchain]
     if (!blockchainExchange) return 0
 
-    const exchange = blockchainExchange.get(BSTokenHelper.normalizeHash(hash))
+    const service = bsAggregator.blockchainServicesByName[blockchain]
+
+    const exchange = blockchainExchange.get(service.tokenService.normalizeHash(hash))
 
     return exchange?.convertedPrice ?? 0
   }

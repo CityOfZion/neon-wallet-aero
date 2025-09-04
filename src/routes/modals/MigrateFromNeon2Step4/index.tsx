@@ -32,6 +32,9 @@ export const MigrateFromNeon2Step4Modal = () => {
 
   const handlePasswordSubmit = async (accountToMigrate: TUseNeonMigrateFromNeon2Schema, password: string) => {
     const decryptedAccount = await handleTryDecryptAccount(accountToMigrate, password)
+
+    if (!decryptedAccount) return
+
     setData(prev => ({ ...prev, decryptedAccounts: [...prev.decryptedAccounts, decryptedAccount] }))
   }
 

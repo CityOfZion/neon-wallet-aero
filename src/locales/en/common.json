@@ -8,6 +8,7 @@
     "close": "Close",
     "back": "Back",
     "pasteFromClipboard": "Paste from clipboard",
+    "pasteFromClipboardError": "Failed to read from clipboard",
     "menuIconButtonAriaLabel": "Menu",
     "downloadQRCodePassword": "Download password QR code",
     "remove": "Remove",

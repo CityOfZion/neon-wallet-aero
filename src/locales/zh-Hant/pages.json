@@ -312,5 +312,45 @@
     "searchContactsPlaceholder": "搜尋聯絡人…",
     "searchContactsLabel": "搜尋聯絡人",
     "addContactButtonLabel": "新增聯絡人"
+  },
+  "swap": {
+    "title": "交換代幣",
+    "infoTooltip": "交換資訊",
+    "form": {
+      "title": "您想交換哪些代幣？",
+      "restart": "重新開始",
+      "assets": "資產",
+      "source": "帳戶詳情",
+      "amounts": "金額",
+      "balanceLabel": "餘額",
+      "balancePlaceholder": "0.00",
+      "tokenToUseTitle": "交換此代幣",
+      "accountToUseTitle": "從此帳戶發送",
+      "amountToUseTitle": "金額",
+      "amountToUseTooltipLabel": "更高的交換金額可以獲得更好的匯率！",
+      "minimumAmountToUseLabel": "最低 {{amount}}",
+      "minimumAmountToUsePlaceholder": "0.00000000",
+      "tokenToReceiveTitle": "接收此代幣",
+      "receiveHere": "在此接收",
+      "addressToReceivePlaceholder": "輸入地址…",
+      "myAccountButtonLabel": "我的帳戶",
+      "extraIdToReceive": "目的地標籤/備註",
+      "extraIdToReceivePlaceholder": "輸入標籤/備註…",
+      "openSwapAboutExtraIdToReceiveModal": "打開目的地標籤/備註說明",
+      "amountToReceiveTitle": "您將獲得的金額",
+      "amountToReceiveTitleComplement": "(扣除手續費後)",
+      "submitLabel": "立即交換",
+      "errors": {
+        "invalidAddress": "無效地址",
+        "invalidExtraIdToReceive": "無效的目的地標籤/備註",
+        "amountMin": "金額過低。最低金額為 {{amount}}",
+        "amountMax": "金額過高。最高金額為 {{amount}}",
+        "insufficientFunds": "餘額不足",
+        "insufficientFundsFee": "餘額不足以支付手續費"
+      },
+      "hints": {
+        "enterValidAddress": "輸入有效地址"
+      }
+    }
   }
 }
