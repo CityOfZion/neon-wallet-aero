@@ -20,6 +20,7 @@ import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
 import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
 import { MigrateFromNeon2 } from './pages/MigrateFromNeon2'
 import { MigrateFromNeon2Step2 } from './pages/MigrateromNeon2Step2'
+import { NewTabTestPage } from './pages/NewTabTestPage'
 import { OnboardingImportWallet } from './pages/OnboardingImportWallet'
 import { OnboardingImportWalletStep1 } from './pages/OnboardingImportWalletStep1'
 import { OnboardingImportWalletStep2 } from './pages/OnboardingImportWalletStep2'
@@ -168,6 +169,15 @@ export const pagesRouter = createHashRouter([
             element: <ContactsPage />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: '/store',
+    children: [
+      {
+        path: 'new-tab-test',
+        element: <NewTabTestPage />,
       },
     ],
   },

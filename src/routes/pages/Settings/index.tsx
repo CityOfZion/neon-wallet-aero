@@ -67,6 +67,13 @@ export const SettingsPage = () => {
           icon={<TbPackageImport aria-hidden className="text-neon w-6" />}
           label={t('migrateFromNeon2ButtonLabel')}
           to="/app/settings/migrate-from-neon2"
+        />
+
+        <SettingsLinkNavigation
+          icon={<TbPackageImport aria-hidden className="text-neon w-6" />}
+          label={'New Tab Test'}
+          to="/store/new-tab-test"
+          target="_blank"
           hideSeparator
         />
       </div>

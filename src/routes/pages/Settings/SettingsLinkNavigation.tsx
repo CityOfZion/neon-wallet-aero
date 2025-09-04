@@ -1,4 +1,4 @@
-import { cloneElement, JSX } from 'react'
+import { cloneElement, HTMLAttributeAnchorTarget, JSX } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Separator } from '@/components/Separator'
@@ -11,12 +11,14 @@ type TProps = {
   to: string
   icon: JSX.Element
   hideSeparator?: boolean
+  target?: HTMLAttributeAnchorTarget
 }
 
-export const SettingsLinkNavigation = ({ label, to, icon, hideSeparator = false }: TProps) => {
+export const SettingsLinkNavigation = ({ label, to, icon, target, hideSeparator = false }: TProps) => {
   return (
     <div className="flex flex-col">
       <NavLink
+        target={target}
         to={to}
         className={({ isActive }) =>
           StyleHelper.mergeStyles(
