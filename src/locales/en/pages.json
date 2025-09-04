@@ -12,6 +12,9 @@
       "refreshIconButton": "Refresh",
       "copyIconButton": "Copy"
     },
+    "nftsList": {
+      "empty": "No NFTs to display"
+    },
     "claimButton": {
       "gasAvailableLabel": "<1>Claim</1> {{ amount }} {{ symbol }}",
       "gasUnavailableLabel": "GAS unavailable"
