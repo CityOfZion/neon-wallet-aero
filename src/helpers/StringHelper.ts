@@ -41,4 +41,11 @@ export class StringHelper {
 
     return text
   }
+
+  static getInitials(text: string) {
+    const splitName = text.trim().split(' ')
+    const initials = `${splitName[0][0]}${splitName[splitName.length - 1][0]}`
+
+    return initials.toUpperCase()
+  }
 }

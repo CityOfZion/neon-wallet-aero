@@ -77,5 +77,8 @@
         "nameLabel": "名稱"
       }
     }
+  },
+  "contactsList": {
+    "noContactAddresses": "未找到聯絡人地址"
   }
 }

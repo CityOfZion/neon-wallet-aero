@@ -8,6 +8,7 @@ import { ChangePasswordPage } from './pages/ChangePassword'
 import { ChangePasswordStep1 } from './pages/ChangePassword/ChangePasswordStep1'
 import { ChangePasswordStep2 } from './pages/ChangePassword/ChangePasswordStep2'
 import { ChangePasswordStep3 } from './pages/ChangePassword/ChangePasswordStep3'
+import { ContactsPage } from './pages/Contacts'
 import { ForgottenPassword } from './pages/ForgottenPassword'
 import { ForgottenPasswordConfirm } from './pages/ForgottenPasswordConfirm'
 import { ForgottenPasswordSuccess } from './pages/ForgottenPasswordSuccess'
@@ -161,6 +162,10 @@ export const pagesRouter = createHashRouter([
           {
             path: 'send',
             element: <SendPage />,
+          },
+          {
+            path: 'contacts',
+            element: <ContactsPage />,
           },
         ],
       },

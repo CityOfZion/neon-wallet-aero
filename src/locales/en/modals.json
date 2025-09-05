@@ -23,6 +23,7 @@
     "exportItemLabel": "Export",
     "connectHardwareWalletItemLabel": "Connect hardware wallet",
     "helpItemLabel": "Help",
+    "contactsItemLabel": "Contacts",
     "settingsItemLabel": "Settings"
   },
   "importAccountsSelectionModal": {
@@ -180,5 +181,10 @@
         "viewButtonLabel": "View your portfolio"
       }
     }
+  },
+  "contactDetailsModal": {
+    "title": "Contact",
+    "walletAddresses": "Wallet addresses",
+    "copyAddressButtonLabel": "Copy address"
   }
 }

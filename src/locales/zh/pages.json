@@ -311,5 +311,10 @@
     "sendFail": {
       "toast": "交易发送失败"
     }
+  },
+  "contacts": {
+    "title": "联系人",
+    "searchContactsPlaceholder": "搜索联系人…",
+    "searchContactsLabel": "搜索联系人"
   }
 }

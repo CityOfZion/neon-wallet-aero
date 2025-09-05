@@ -83,5 +83,8 @@
         "nameLabel": "Name"
       }
     }
+  },
+  "contactsList": {
+    "noContactAddresses": "No contact addresses found"
   }
 }

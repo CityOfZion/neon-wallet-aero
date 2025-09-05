@@ -3,6 +3,7 @@ import { TRoute } from '@/types/modal'
 import { AccountSelectionModal } from './modals/AccountSelection'
 import { BlockchainSelectionModal } from './modals/BlockchainSelection'
 import { ConfirmPasswordModal } from './modals/ConfirmPassword'
+import { ContactDetailsModal } from './modals/ContactDetails'
 import { CreateAccountStep1Modal } from './modals/CreateAccountStep1'
 import { CreateAccountStep2Modal } from './modals/CreateAccountStep2'
 import { CreateWalletStep1Modal } from './modals/CreateWalletStep1'
@@ -38,4 +39,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'migrate-from-neon2-3', type: 'bottom', element: <MigrateFromNeon2Step3Modal /> },
   { name: 'migrate-from-neon2-4', type: 'bottom', element: <MigrateFromNeon2Step4Modal /> },
   { name: 'success', type: 'bottom', element: <SuccessModal /> },
+  { name: 'contact-details', type: 'bottom', element: <ContactDetailsModal /> },
 ]
