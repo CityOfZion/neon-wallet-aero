@@ -44,7 +44,7 @@ export const NftsListItemContent = ({ selectedAccount, nft, link }: TProps) => {
           arrowProps={{ className: 'fill-asphalt' }}
           delayDuration={0}
         >
-          <span className="w-fit truncate text-white capitalize">{nft.name}</span>
+          <span className="w-fit max-w-32 truncate text-white capitalize">{nft.name}</span>
         </Tooltip>
 
         <div className="flex items-center gap-1.5">
