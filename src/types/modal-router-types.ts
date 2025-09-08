@@ -8,7 +8,7 @@ import {
 } from '@/hooks/useNeonMigrate'
 import { TBlockchainServiceKey } from '@/types/blockchain'
 
-import { IAccountState, IWalletState, TImportAccountsSelectionType } from './store'
+import { IAccountState, IWalletState, TContactState, TImportAccountsSelectionType } from './store'
 
 type TWalletSelectionModalState = {
   selectedWallet?: IWalletState
@@ -94,6 +94,10 @@ type SuccessModalState = {
   footer?: JSX.Element
 }
 
+type TContactDetailsModalState = {
+  contact: TContactState
+}
+
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
@@ -113,4 +117,5 @@ export type TModalRouterRouteTypes = {
   'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState
   'migrate-from-neon2-4': TMigrateFromNeon2Step4ModalState
   success: SuccessModalState
+  'contact-details': TContactDetailsModalState
 }

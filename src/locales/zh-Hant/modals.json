@@ -23,6 +23,7 @@
     "exportItemLabel": "匯出",
     "connectHardwareWalletItemLabel": "連接硬體錢包",
     "helpItemLabel": "幫助",
+    "contactsItemLabel": "聯絡人",
     "settingsItemLabel": "設定"
   },
   "importAccountsSelectionModal": {
@@ -180,5 +181,10 @@
         "viewButtonLabel": "檢視您的投資組合"
       }
     }
+  },
+  "contactDetailsModal": {
+    "title": "查看聯絡人",
+    "walletAddresses": "錢包地址",
+    "copyAddressButtonLabel": "複製地址"
   }
 }

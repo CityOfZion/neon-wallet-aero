@@ -311,5 +311,10 @@
     "sendFail": {
       "toast": "Transaction failed to send"
     }
+  },
+  "contacts": {
+    "title": "Contacts",
+    "searchContactsPlaceholder": "Search contacts…",
+    "searchContactsLabel": "Search contacts"
   }
 }
