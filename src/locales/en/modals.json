@@ -186,5 +186,40 @@
     "title": "Contact",
     "walletAddresses": "Wallet addresses",
     "copyAddressButtonLabel": "Copy address"
+  },
+  "dappConnectionModal": {
+    "title": "Connect with a dApp",
+    "description": "All transactions requested by a connected dApp will <strong>require your permission before being broadcast</strong> to the blockchain.",
+    "disclaimer": "No actions that are initiated by the dApp will happen without your direct approval.",
+    "inputPlaceholder": "Enter your URL here…",
+    "buttonConnectLabel": "Connect",
+    "errors": {
+      "errorToConnect": "Oops! we’ve encountered an error. Try to generate a new uri and try again.",
+      "invalidUri": "The URI is not valid. Please check and try again."
+    }
+  },
+  "dappConnectionRequestModal": {
+    "title": "Dapp connection",
+    "description": "<strong>{{name}}</strong> wants to connect to your wallet",
+    "connectionDetailsTitle": "Connection details",
+    "acceptButtonLabel": "Accept",
+    "rejectButtonLabel": "Reject",
+    "messages": {
+      "connected": "{{dappName}} is now connected to your wallet"
+    },
+    "errors": {
+      "accountProposalError": "The dApp is trying to connect to a different blockchain than the selected account's blockchain.",
+      "differentNetworkError": "The dApp is trying to connect to a different network than the one you are currently connected to. Please change your network to connect to this dApp."
+    }
+  },
+  "dappDisconnectionModal": {
+    "title": "Connection details",
+    "disconnectAllApps": "Disconnect all applications?",
+    "disconnectApp": "Disconnect application?",
+    "totalDapps": "{{totalDapps}} applications",
+    "willRemove": "will be permanently removed",
+    "warning": "Are you sure you want to continue?",
+    "disconnect": "Disconnect",
+    "cancel": "Cancel"
   }
 }

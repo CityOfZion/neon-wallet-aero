@@ -1,15 +1,16 @@
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useLayoutEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { isClaimable } from '@cityofzion/blockchain-service'
 
 import { BlockchainIcon } from '@/components/BlockchainIcon'
 import { Button } from '@/components/Button'
-import { DappConnectionsEmptyState } from '@/components/DappConnections/DappConnectionsEmptyState'
+import { DappConnectionList } from '@/components/DappConnectionList'
 import { IconButton } from '@/components/IconButton'
-import { NftList } from '@/components/NftsList'
+import { NftList } from '@/components/NftList'
 import { Skeleton } from '@/components/Skeleton'
 import { Tabs } from '@/components/Tabs'
+import { TokenList } from '@/components/TokenList'
 import { TransactionActivityList } from '@/components/TransactionActivityList'
 import { ClipboardHelper } from '@/helpers/ClipboardHelper'
 import { NumberHelper } from '@/helpers/NumberHelper'
@@ -21,7 +22,6 @@ import { bsAggregator } from '@/libs/blockchainService'
 import { IAccountState, IWalletState } from '@/types/store'
 
 import { WalletPageClaimButton } from './WalletsPageClaimButton'
-import { WalletsPageTokensTabContent } from './WalletsPageTokensTabContent'
 
 import TbCopy from '@/assets/images/tb-copy.svg?react'
 import TbRefresh from '@/assets/images/tb-refresh.svg?react'
@@ -49,6 +49,8 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
     return bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
   }, [selectedAccount])
 
+  const isWatchAccount = selectedAccount.type === 'watch'
+
   const handleRefetch = () => {
     balanceQuery.refetch()
     unclaimedQuery.refetch()
@@ -58,6 +60,11 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
     navigate('/app/send', { state: { account: selectedAccount } })
   }
 
+  useLayoutEffect(() => {
+    if (!isWatchAccount || tab !== 'dappConnections') return
+    setTab('tokens')
+  }, [isWatchAccount, tab])
+
   return (
     <Fragment key={`${selectedWallet.id}-${selectedAccount.id}`}>
       <div className="mt-4 flex justify-between">
@@ -65,6 +72,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
           <BlockchainIcon blockchain={selectedAccount.blockchain} className="text-green" />
           <span className="text-sm text-white uppercase">{commonT(`blockchain.${selectedAccount.blockchain}`)}</span>
         </div>
+
         <IconButton
           aria-label={t('ariaLabels.refreshIconButton')}
           icon={<TbRefresh aria-hidden />}
@@ -104,39 +112,43 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
       </div>
 
       <div className="mt-7 flex flex-col gap-2.5">
-        {blockchainService && isClaimable(blockchainService) && selectedAccount.type !== 'watch' && (
+        {blockchainService && isClaimable(blockchainService) && !isWatchAccount && (
           <WalletPageClaimButton selectAccount={selectedAccount} blockchainService={blockchainService} />
         )}
+
         <Button
           label={t('sendButtonLabel')}
           leftIcon={<TbStepOut aria-hidden />}
           iconsOnEdge={false}
           onClick={handleSendNavigation}
+          disabled={isWatchAccount}
         />
       </div>
 
-      <Tabs.Root className="mt-10" value={tab} onValueChange={newTab => setTab(newTab as TTab)}>
+      <Tabs.Root className="mt-7.5" value={tab} onValueChange={newTab => setTab(newTab as TTab)}>
         <Tabs.List>
           <Tabs.Trigger value="tokens">{t('tokenTab.label')}</Tabs.Trigger>
           <Tabs.Trigger value="nfts">{t('nftsTab.label')}</Tabs.Trigger>
           <Tabs.Trigger value="transactions">{t('transactionsTab.label')}</Tabs.Trigger>
-          <Tabs.Trigger value="dappConnections">{t('connectionsTab.label')}</Tabs.Trigger>
+          <Tabs.Trigger value="dappConnections" disabled={isWatchAccount}>
+            {t('connectionsTab.label')}
+          </Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value="tokens">
-          <WalletsPageTokensTabContent selectedAccount={selectedAccount} />
+          <TokenList selectedAccount={selectedAccount} />
         </Tabs.Content>
 
         <Tabs.Content value="nfts">
           <NftList selectedAccount={selectedAccount} />
         </Tabs.Content>
 
-        <Tabs.Content value="dappConnections">
-          <DappConnectionsEmptyState />
-        </Tabs.Content>
-
         <Tabs.Content value="transactions">
           <TransactionActivityList selectedAccount={selectedAccount} />
+        </Tabs.Content>
+
+        <Tabs.Content value="dappConnections">
+          <DappConnectionList selectedAccount={selectedAccount} />
         </Tabs.Content>
       </Tabs.Root>
     </Fragment>

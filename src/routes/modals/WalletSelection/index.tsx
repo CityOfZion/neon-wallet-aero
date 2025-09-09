@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/Button'
@@ -23,15 +24,14 @@ export const WalletSelectionModal = () => {
   const { wallets } = useWalletsSelector()
   const { loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
-  const { onSelect, selectedWallet, shouldGoBackOnSelect = true } = useModalState<TModalState<'wallet-selection'>>()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
+  const { onSelect, selectedWallet } = useModalState<TModalState<'wallet-selection'>>()
+
+  const [selectedWalletInternal, setSelectedWalletInternal] = useState<IWalletState | undefined>(selectedWallet)
 
   const handleSelect = (wallet: IWalletState) => {
+    setSelectedWalletInternal(wallet)
     onSelect?.(wallet)
-
-    if (shouldGoBackOnSelect) {
-      modalNavigate(-1)
-    }
   }
 
   const handleGoToConfirmPasswordModal = () => {
@@ -54,7 +54,7 @@ export const WalletSelectionModal = () => {
             }
             modalNavigate('export-wallet', {
               state: {
-                wallet: selectedWallet ?? wallets[0],
+                wallet: selectedWalletInternal ?? wallets[0],
               },
               replace: true,
             })
@@ -78,7 +78,7 @@ export const WalletSelectionModal = () => {
         {wallets.map((wallet, index, array) => (
           <li key={wallet.id}>
             <button
-              aria-selected={selectedWallet?.id === wallet.id}
+              aria-selected={selectedWalletInternal?.id === wallet.id}
               onClick={handleSelect.bind(null, wallet)}
               className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
             >

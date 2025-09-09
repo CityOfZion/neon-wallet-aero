@@ -41,7 +41,7 @@ export const SideModal = () => {
               'invisible hidden': index !== sideHistories.length - 1,
             })}
           >
-            <ModalRouterCurrentHistoryProvider value={history}>
+            <ModalRouterCurrentHistoryProvider value={history} isFocused={index === histories.length - 1}>
               {history.route.element}
             </ModalRouterCurrentHistoryProvider>
           </FocusScope>

@@ -41,13 +41,11 @@ export const WalletsPage = () => {
     modalNavigate('wallet-selection', {
       state: {
         selectedWallet,
-        shouldGoBackOnSelect: false,
         onSelect: wallet => {
           modalNavigate('account-selection', {
             state: {
               wallet,
               selectedAccount,
-              shouldGoBackOnSelect: false,
               onSelect: account => {
                 handleNavigateSelect(wallet, account)
                 modalErase('bottom')
@@ -66,6 +64,7 @@ export const WalletsPage = () => {
         selectedAccount,
         onSelect: (account: IAccountState) => {
           handleNavigateSelect(selectedWallet!, account)
+          modalErase('bottom')
         },
       },
     })

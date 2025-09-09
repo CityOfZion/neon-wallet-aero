@@ -1,5 +1,6 @@
 import { JSX } from 'react'
 import { Account } from '@cityofzion/blockchain-service'
+import { TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-core'
 
 import {
   TUseNeonMigrateFromNeon2Schema,
@@ -13,14 +14,12 @@ import { IAccountState, IWalletState, TContactState, TImportAccountsSelectionTyp
 type TWalletSelectionModalState = {
   selectedWallet?: IWalletState
   onSelect?(wallet: IWalletState): void
-  shouldGoBackOnSelect?: boolean
 }
 
 type TAccountSelectionModalState = {
   wallet: IWalletState
   selectedAccount?: IAccountState
   onSelect?(account: IAccountState): void
-  shouldGoBackOnSelect?: boolean
 }
 
 type TImportAccountsSelectionModalState = {
@@ -87,7 +86,7 @@ type TMigrateFromNeon2Step4ModalState = {
   onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
 }
 
-type SuccessModalState = {
+type TSuccessModalState = {
   heading: string
   subtitle?: string
   content?: JSX.Element
@@ -96,6 +95,19 @@ type SuccessModalState = {
 
 type TContactDetailsModalState = {
   contact: TContactState
+}
+
+type TDappConnectionModalState = {
+  account: IAccountState
+}
+
+type TDappDisconnectionModalState = {
+  sessions: TSession[]
+}
+
+type TDappConnectionRequestModalState = {
+  proposal: TSessionProposal
+  account: IAccountState
 }
 
 export type TModalRouterRouteTypes = {
@@ -116,6 +128,9 @@ export type TModalRouterRouteTypes = {
   'export-wallet': TExportMnemonicModalState
   'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState
   'migrate-from-neon2-4': TMigrateFromNeon2Step4ModalState
-  success: SuccessModalState
+  success: TSuccessModalState
   'contact-details': TContactDetailsModalState
+  'dapp-connection': TDappConnectionModalState
+  'dapp-connection-request': TDappConnectionRequestModalState
+  'dapp-disconnection': TDappDisconnectionModalState
 }

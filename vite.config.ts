@@ -13,7 +13,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     nodePolyfills({
-      include: ['crypto', 'stream', 'buffer'],
+      include: ['crypto', 'stream', 'buffer', 'querystring'],
     }),
     react(),
     tsconfigPaths(),

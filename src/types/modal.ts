@@ -33,10 +33,12 @@ export type TModalRouterProviderProps = {
 
 export type TModalRouterCurrentHistoryContextValue<T = any> = {
   value: THistory<T>
+  isFocused: boolean
 }
 
 export type TModalRouterCurrentHistoryProviderProps<T = any> = {
   value: THistory<T>
+  isFocused: boolean
   children: React.ReactNode
 }
 

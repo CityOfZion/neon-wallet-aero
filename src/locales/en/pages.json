@@ -12,17 +12,12 @@
       "refreshIconButton": "Refresh",
       "copyIconButton": "Copy"
     },
-    "nftsList": {
-      "empty": "No NFTs to display"
-    },
     "claimButton": {
       "gasAvailableLabel": "<1>Claim</1> {{ amount }} {{ symbol }}",
       "gasUnavailableLabel": "GAS unavailable"
     },
     "tokenTab": {
-      "label": "Tokens",
-      "holdingsLabel": "Holdings",
-      "valueLabel": "Value"
+      "label": "Tokens"
     },
     "nftsTab": {
       "label": "NFTs"
@@ -102,7 +97,11 @@
   "onboardingLoginNewWallet": {
     "description": "Securing your new wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": ["Create Password", "Confirm Password", "Complete"]
+    "steps": [
+      "Create Password",
+      "Confirm Password",
+      "Complete"
+    ]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Enter password",
@@ -126,7 +125,13 @@
     "title": "Import a wallet",
     "description": "Please create a password to secure your wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": ["Create Password", "Confirm Password", "Add details or locate file", "Import", "Complete"],
+    "steps": [
+      "Create Password",
+      "Confirm Password",
+      "Add details or locate file",
+      "Import",
+      "Complete"
+    ],
     "migrationLabel": "Locate your migration file",
     "step3": {
       "formTitle": "Enter an address, encrypted key, private key, mnemonic or locate backup file",
