@@ -185,7 +185,8 @@
   "contactDetailsModal": {
     "title": "Contact",
     "walletAddresses": "Wallet addresses",
-    "copyAddressButtonLabel": "Copy address"
+    "copyAddressButtonLabel": "Copy address",
+    "contactNotFound": "Could not open contact information"
   },
   "dappConnectionModal": {
     "title": "Connect with a dApp",
@@ -221,5 +222,32 @@
     "warning": "Are you sure you want to continue?",
     "disconnect": "Disconnect",
     "cancel": "Cancel"
+  },
+  "saveContactModal": {
+    "addContact": "Add contact",
+    "editContact": "Edit contact",
+    "nameInputLabel": "Name",
+    "nameInputPlaceholder": "Enter a name…",
+    "addAddressButtonLabel": "Add address",
+    "addressesInputLabel": "Addresses",
+    "noAddressesFound": "No addresses found",
+    "saveContactButtonLabel": "Save contact",
+    "errors": {
+      "invalidName": "Invalid name"
+    }
+  },
+  "contactAddressFormModal": {
+    "addAddress": "Add address",
+    "editAddress": "Edit address",
+    "name": "Name",
+    "blockchain": "Blockchain",
+    "addressOrDomain": "Address or domain",
+    "saveAddressButtonLabel": "Save address",
+    "updateAddressButtonLabel": "Update address",
+    "messages": {
+      "addressComplete": "Address complete!",
+      "nnsComplete": "NS domain found!",
+      "invalidAddress": "Invalid address or NS domain"
+    }
   }
 }

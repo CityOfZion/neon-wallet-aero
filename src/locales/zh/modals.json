@@ -185,7 +185,8 @@
   "contactDetailsModal": {
     "title": "查看联系人",
     "walletAddresses": "钱包地址",
-    "copyAddressButtonLabel": "复制地址"
+    "copyAddressButtonLabel": "复制地址",
+    "contactNotFound": "联系人未找到"
   },
   "dappConnectionModal": {
     "title": "连接到 dApp",
@@ -221,5 +222,32 @@
     "warning": "您确定要继续吗？",
     "disconnect": "断开",
     "cancel": "取消"
+  },
+  "saveContactModal": {
+    "addContact": "添加联系人",
+    "editContact": "编辑联系人",
+    "nameInputLabel": "姓名",
+    "nameInputPlaceholder": "输入姓名…",
+    "addAddressButtonLabel": "添加地址",
+    "addressesInputLabel": "地址",
+    "noAddressesFound": "未找到地址",
+    "saveContactButtonLabel": "保存联系人",
+    "errors": {
+      "invalidName": "无效姓名"
+    }
+  },
+  "contactAddressFormModal": {
+    "addAddress": "添加地址",
+    "editAddress": "编辑地址",
+    "name": "姓名",
+    "blockchain": "区块链",
+    "addressOrDomain": "地址或域名",
+    "saveAddressButtonLabel": "保存地址",
+    "updateAddressButtonLabel": "更新地址",
+    "messages": {
+      "addressComplete": "地址输入完成！",
+      "nnsComplete": "找到NS域名！",
+      "invalidAddress": "无效地址或NS域名"
+    }
   }
 }

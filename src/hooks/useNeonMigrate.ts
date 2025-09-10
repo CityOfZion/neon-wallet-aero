@@ -99,7 +99,7 @@ const migrateSchema = zod
 export const useNeonImportMigrate = () => {
   const { t: commonT } = useTranslation('common', { keyPrefix: 'wallet' })
   const { contactsRef } = useContactsSelector()
-  const { createContacts, createWallet, importAccounts } = useBlockchainActions()
+  const { saveContacts, createWallet, importAccounts } = useBlockchainActions()
 
   const validateAndParseFile = async (fileContent: string): Promise<TUseNeonMigrateData | undefined> => {
     try {
@@ -164,7 +164,7 @@ export const useNeonImportMigrate = () => {
   }
 
   const handleImportBackupData = async (data: TUseNeonMigrateGeneratedData) => {
-    createContacts(data.contactsToCreate)
+    saveContacts(data.contactsToCreate)
 
     const wallet = await createWallet(data.walletToCreate)
     const accounts = await importAccounts({ wallet, accounts: data.accountsToCreate })

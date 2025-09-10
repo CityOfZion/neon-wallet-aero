@@ -3,16 +3,22 @@ import { useTranslation } from 'react-i18next'
 import { cloneDeep } from 'lodash'
 
 import { ContactsList } from '@/components/ContactsList'
+import { IconButton } from '@/components/IconButton'
 import { Input } from '@/components/Input'
+import { Tooltip } from '@/components/Tooltip'
 import { useContactsSelector } from '@/hooks/useContactSelector'
+import { useModalNavigate } from '@/hooks/useModalRouter'
 import { ScreenLayout } from '@/layouts/ScreenLayout'
 import { TContactState } from '@/types/store'
+
+import TbPlus from '@/assets/images/tb-plus.svg?react'
 
 export const ContactsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'contacts' })
   const { contacts } = useContactsSelector()
   const [search, setSearch] = useState<string | null>(null)
   const hasAlreadySelectedContact = useRef(false)
+  const { modalNavigateWrapper } = useModalNavigate()
 
   const groupedContactsByFirstLetter = useMemo(() => {
     let filteredContacts = cloneDeep(contacts)
@@ -51,7 +57,19 @@ export const ContactsPage = () => {
   }, [hasAlreadySelectedContact, groupedContactsByFirstLetter])
 
   return (
-    <ScreenLayout heading={t('title')} className="text-white">
+    <ScreenLayout
+      heading={t('title')}
+      className="text-white"
+      rightComponent={
+        <Tooltip title={t('addContactButtonLabel')} delayDuration={200}>
+          <IconButton
+            icon={<TbPlus aria-hidden />}
+            aria-label={t('addContactButtonLabel')}
+            onClick={modalNavigateWrapper('save-contact')}
+          />
+        </Tooltip>
+      }
+    >
       <div className="flex flex-grow flex-col gap-y-4">
         <Input
           aria-label={t('searchContactsLabel')}

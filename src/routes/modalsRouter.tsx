@@ -3,6 +3,7 @@ import { TRoute } from '@/types/modal'
 import { AccountSelectionModal } from './modals/AccountSelection'
 import { BlockchainSelectionModal } from './modals/BlockchainSelection'
 import { ConfirmPasswordModal } from './modals/ConfirmPassword'
+import { ContactAddressFormModal } from './modals/ContactAddressForm'
 import { ContactDetailsModal } from './modals/ContactDetails'
 import { CreateAccountStep1Modal } from './modals/CreateAccountStep1'
 import { CreateAccountStep2Modal } from './modals/CreateAccountStep2'
@@ -20,6 +21,7 @@ import { ImportAccountsSelectionModal } from './modals/ImportAccountsSelection'
 import { MenuModal } from './modals/Menu'
 import { MigrateFromNeon2Step3Modal } from './modals/MigrateFromNeon2Step3'
 import { MigrateFromNeon2Step4Modal } from './modals/MigrateFromNeon2Step4'
+import { SaveContactModal } from './modals/SaveContact'
 import { SuccessModal } from './modals/Success'
 import { WalletSelectionModal } from './modals/WalletSelection'
 
@@ -46,4 +48,6 @@ export const modalsRouter: TRoute[] = [
   { name: 'dapp-connection', type: 'bottom', element: <DappConnectionModal /> },
   { name: 'dapp-connection-request', type: 'bottom', element: <DappConnectionRequestModal /> },
   { name: 'dapp-disconnection', type: 'bottom', element: <DappDisconnectionModal /> },
+  { name: 'save-contact', type: 'bottom', element: <SaveContactModal /> },
+  { name: 'contact-address-form', type: 'bottom', element: <ContactAddressFormModal /> },
 ]

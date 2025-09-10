@@ -9,7 +9,7 @@ import {
 } from '@/hooks/useNeonMigrate'
 import { TBlockchainServiceKey } from '@/types/blockchain'
 
-import { IAccountState, IWalletState, TContactState, TImportAccountsSelectionType } from './store'
+import { IAccountState, IWalletState, TContactAddress, TContactState, TImportAccountsSelectionType } from './store'
 
 type TWalletSelectionModalState = {
   selectedWallet?: IWalletState
@@ -93,10 +93,6 @@ type TSuccessModalState = {
   footer?: JSX.Element
 }
 
-type TContactDetailsModalState = {
-  contact: TContactState
-}
-
 type TDappConnectionModalState = {
   account: IAccountState
 }
@@ -108,6 +104,21 @@ type TDappDisconnectionModalState = {
 type TDappConnectionRequestModalState = {
   proposal: TSessionProposal
   account: IAccountState
+}
+
+type TContactDetailsModalState = {
+  contactId: TContactState['id']
+}
+
+type TSaveContactModalState = {
+  contact?: TContactState
+  addresses?: TContactAddress[]
+}
+
+type TContactAddressFormModalState = {
+  name: string
+  initialAddress?: TContactAddress
+  onSaveAddress: (address: TContactAddress) => void
 }
 
 export type TModalRouterRouteTypes = {
@@ -129,8 +140,10 @@ export type TModalRouterRouteTypes = {
   'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState
   'migrate-from-neon2-4': TMigrateFromNeon2Step4ModalState
   success: TSuccessModalState
-  'contact-details': TContactDetailsModalState
   'dapp-connection': TDappConnectionModalState
   'dapp-connection-request': TDappConnectionRequestModalState
   'dapp-disconnection': TDappDisconnectionModalState
+  'contact-details': TContactDetailsModalState
+  'save-contact': TSaveContactModalState
+  'contact-address-form': TContactAddressFormModalState
 }

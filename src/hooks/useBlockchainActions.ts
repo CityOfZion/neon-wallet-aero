@@ -28,7 +28,7 @@ export function useBlockchainActions() {
   const { loginSessionRef } = useLoginSessionSelector()
   const { t } = useTranslation('common', { keyPrefix: 'account' })
 
-  const createContacts = async (contacts: TContactState[]) => {
+  const saveContacts = async (contacts: TContactState[]) => {
     if (!loginSessionRef.current?.encryptedPassword) return
 
     for (const contact of contacts) {
@@ -231,7 +231,7 @@ export function useBlockchainActions() {
   )
 
   return {
-    createContacts,
+    saveContacts,
     createWallet,
     createStandardAccount,
     importAccount,

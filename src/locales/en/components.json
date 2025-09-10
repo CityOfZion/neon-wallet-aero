@@ -95,5 +95,8 @@
     "connectNewDappButtonLabel": "New connection",
     "disconnectionAllButtonLabel": "Disconnect all",
     "disconnectButtonLabel": "Disconnect"
+  },
+  "blockchainSelect": {
+    "selectPlaceholder": "Select a blockchain…"
   }
 }
