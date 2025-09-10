@@ -186,5 +186,40 @@
     "title": "查看联系人",
     "walletAddresses": "钱包地址",
     "copyAddressButtonLabel": "复制地址"
+  },
+  "dappConnectionModal": {
+    "title": "连接到 dApp",
+    "description": "所有由已连接 dApp 请求的交易在广播到区块链之前都<strong>需要您的许可</strong>。",
+    "disclaimer": "没有您的直接批准，dApp 发起的任何操作都不会发生。",
+    "inputPlaceholder": "在此输入您的 URL…",
+    "buttonConnectLabel": "连接",
+    "errors": {
+      "errorToConnect": "糟糕！我们遇到了一个错误。请尝试生成新的 URI 并重试。",
+      "invalidUri": "该 URI 无效。请检查后重试。"
+    }
+  },
+  "dappConnectionRequestModal": {
+    "title": "dApp 连接",
+    "description": "<strong>{{name}}</strong> 想要连接到您的钱包",
+    "connectionDetailsTitle": "连接详情",
+    "acceptButtonLabel": "接受",
+    "rejectButtonLabel": "拒绝",
+    "messages": {
+      "connected": "{{dappName}} 已连接到您的钱包"
+    },
+    "errors": {
+      "accountProposalError": "该 dApp 正尝试连接到与所选账户区块链不同的区块链。",
+      "differentNetworkError": "该 dApp 正尝试连接到与您当前连接的网络不同的网络。请切换网络以连接到此 dApp。"
+    }
+  },
+  "dappDisconnectionModal": {
+    "title": "连接详情",
+    "disconnectAllApps": "断开所有应用？",
+    "disconnectApp": "断开应用？",
+    "totalDapps": "{{totalDapps}} 个应用",
+    "willRemove": "将被永久移除",
+    "warning": "您确定要继续吗？",
+    "disconnect": "断开",
+    "cancel": "取消"
   }
 }

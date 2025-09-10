@@ -36,5 +36,9 @@
     "polygon": "Polygon",
     "base": "Base",
     "arbitrum": "Arbitrum"
+  },
+  "walletConnect": {
+    "name": "Neon 錢包",
+    "description": "建立和管理錢包，或輕鬆匯入現有錢包，透過 Neon 流暢的介面，在多個帳戶之間安全地管理和轉移您的資產。"
   }
 }

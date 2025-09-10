@@ -1,4 +1,4 @@
-import { ComponentProps, JSX, ReactNode, useRef } from 'react'
+import { ComponentProps, JSX, ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { IconButton } from '@/components/IconButton'
@@ -24,9 +24,7 @@ export const ScreenLayout = ({
   rightComponent,
   ...props
 }: TMainLayoutProps): JSX.Element => {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useRemoveOverflowShift(ref)
+  const { ref } = useRemoveOverflowShift<HTMLDivElement>()
 
   const navigate = useNavigate()
 

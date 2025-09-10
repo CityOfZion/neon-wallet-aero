@@ -12,17 +12,12 @@
       "refreshIconButton": "刷新",
       "copyIconButton": "复制"
     },
-    "nftsList": {
-      "empty": "没有NFT可显示"
-    },
     "claimButton": {
       "gasAvailableLabel": "<1>领取</1> {{ amount }} {{ symbol }}",
       "gasUnavailableLabel": "GAS 不可用"
     },
     "tokenTab": {
-      "label": "代币",
-      "holdingsLabel": "持有量",
-      "valueLabel": "价值"
+      "label": "代币"
     },
     "nftsTab": {
       "label": "NFT"
@@ -102,7 +97,11 @@
   "onboardingLoginNewWallet": {
     "description": "正在保护您的新钱包",
     "goBackIconButtonLabel": "返回",
-    "steps": ["创建密码", "确认密码", "完成"]
+    "steps": [
+      "创建密码",
+      "确认密码",
+      "完成"
+    ]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "输入您的新密码",
@@ -126,7 +125,13 @@
     "title": "导入钱包",
     "description": "请创建密码以保护您的钱包",
     "goBackIconButtonLabel": "返回",
-    "steps": ["创建密码", "确认密码", "添加详情或定位文件", "导入", "完成"],
+    "steps": [
+      "创建密码",
+      "确认密码",
+      "添加详情或定位文件",
+      "导入",
+      "完成"
+    ],
     "migrationLabel": "定位您的迁移文件",
     "step3": {
       "formTitle": "输入地址、加密密钥、私钥、助记词或定位备份文件",

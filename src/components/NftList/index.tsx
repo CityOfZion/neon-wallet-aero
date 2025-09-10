@@ -7,9 +7,9 @@ import { useInfiniteScrollVirtualization, useVirtualization } from '@/hooks/useV
 import { bsAggregator } from '@/libs/blockchainService'
 import { IAccountState } from '@/types/store'
 
-import { NftsListEmpty } from './NftsListEmpty'
-import { NftsListItem } from './NftsListItem'
-import { NftsListSkeleton } from './NftsListSkeleton'
+import { NftListEmpty } from './NftListEmpty'
+import { NftListItem } from './NftListItem'
+import { NftListSkeleton } from './NftListSkeleton'
 
 type TProps = {
   selectedAccount: IAccountState
@@ -52,8 +52,8 @@ export const NftList = ({ selectedAccount }: TProps) => {
   })
 
   return match({ isLoading, nfts })
-    .with({ isLoading: true }, () => <NftsListSkeleton />)
-    .with({ nfts: [] }, () => <NftsListEmpty />)
+    .with({ isLoading: true }, () => <NftListSkeleton />)
+    .with({ nfts: [] }, () => <NftListEmpty />)
     .otherwise(() => (
       <ul className="flex min-w-0 flex-col gap-1" ref={contentRef}>
         {virtualizer.getVirtualItems().map(virtualItem => {
@@ -61,7 +61,7 @@ export const NftList = ({ selectedAccount }: TProps) => {
           const link = getHref(nft)
 
           return (
-            <NftsListItem
+            <NftListItem
               key={virtualItem.key}
               nft={nft}
               selectedAccount={selectedAccount}

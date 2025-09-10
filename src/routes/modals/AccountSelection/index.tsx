@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainIcon } from '@/components/BlockchainIcon'
@@ -24,21 +25,15 @@ export const AccountSelectionModal = () => {
   const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
   const { loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
-  const {
-    wallet,
-    selectedAccount,
-    onSelect,
-    shouldGoBackOnSelect = true,
-  } = useModalState<TModalState<'account-selection'>>()
+  const { wallet, selectedAccount, onSelect } = useModalState<TModalState<'account-selection'>>()
   const { modalNavigate } = useModalNavigate()
   const { accountsByWalletId } = useAccountsByWalletIdSelector(wallet.id)
 
-  const handleSelect = (account: IAccountState) => {
-    onSelect?.(account)
+  const [selectedAccountInternal, setSelectedAccountInternal] = useState<IAccountState | undefined>(selectedAccount)
 
-    if (shouldGoBackOnSelect) {
-      modalNavigate(-1)
-    }
+  const handleSelect = (account: IAccountState) => {
+    setSelectedAccountInternal(account)
+    onSelect?.(account)
   }
 
   const handleGoToConfirmPasswordModal = () => {
@@ -62,7 +57,7 @@ export const AccountSelectionModal = () => {
 
             modalNavigate('export-account', {
               state: {
-                account: selectedAccount ?? accountsByWalletId[0],
+                account: selectedAccountInternal ?? accountsByWalletId[0],
               },
               replace: true,
             })
@@ -86,7 +81,7 @@ export const AccountSelectionModal = () => {
         {accountsByWalletId.map((account, index, array) => (
           <li key={account.id}>
             <button
-              aria-selected={selectedAccount?.id === account.id}
+              aria-selected={selectedAccountInternal?.id === account.id}
               onClick={handleSelect.bind(null, account)}
               className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
             >

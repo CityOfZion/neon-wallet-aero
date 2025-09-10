@@ -46,7 +46,7 @@ export const BottomModal = () => {
               'invisible hidden': index !== bottomHistories.length - 1,
             })}
           >
-            <ModalRouterCurrentHistoryProvider value={history}>
+            <ModalRouterCurrentHistoryProvider value={history} isFocused={index === histories.length - 1}>
               {history.route.element}
             </ModalRouterCurrentHistoryProvider>
           </FocusScope>

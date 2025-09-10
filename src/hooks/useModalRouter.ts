@@ -43,3 +43,8 @@ export const useModalHistories = () => {
   const { histories, historiesRef } = useContext(ModalRouterContext)
   return { histories, historiesRef }
 }
+
+export const useModalFocused = () => {
+  const { isFocused } = useContext(ModalRouterCurrentHistoryContext)
+  return isFocused
+}

@@ -36,5 +36,9 @@
     "polygon": "Polygon",
     "base": "Base",
     "arbitrum": "Arbitrum"
+  },
+  "walletConnect": {
+    "name": "Neon Wallet",
+    "description": "Create and organize wallets, or easily import your existing ones, to safely manage and transfer your assets across accounts with Neon’s slick interface."
   }
 }

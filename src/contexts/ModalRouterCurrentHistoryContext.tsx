@@ -6,8 +6,14 @@ export const ModalRouterCurrentHistoryContext = createContext<TModalRouterCurren
   {} as TModalRouterCurrentHistoryContextValue
 )
 
-export const ModalRouterCurrentHistoryProvider = ({ value, children }: TModalRouterCurrentHistoryProviderProps) => {
+export const ModalRouterCurrentHistoryProvider = ({
+  value,
+  isFocused,
+  children,
+}: TModalRouterCurrentHistoryProviderProps) => {
   return (
-    <ModalRouterCurrentHistoryContext.Provider value={{ value }}>{children}</ModalRouterCurrentHistoryContext.Provider>
+    <ModalRouterCurrentHistoryContext.Provider value={{ value, isFocused }}>
+      {children}
+    </ModalRouterCurrentHistoryContext.Provider>
   )
 }

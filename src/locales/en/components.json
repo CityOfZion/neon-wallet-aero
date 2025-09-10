@@ -51,12 +51,6 @@
     "title": "Total fee",
     "value": "Value"
   },
-  "dappConnections": {
-    "emptyState": {
-      "title": "No dApps connected",
-      "connectButtonLabel": "Connect a dApp"
-    }
-  },
   "transactionActivityList": {
     "empty": {
       "notFoundTitle": "No transactions to display",
@@ -86,5 +80,20 @@
   },
   "contactsList": {
     "noContactAddresses": "No contact addresses found"
+  },
+  "nftList": {
+    "empty": "No NFTs to display"
+  },
+  "tokenList": {
+    "holdingsLabel": "Holdings",
+    "valueLabel": "Value",
+    "empty": "No token balances to display"
+  },
+  "dappConnectionList": {
+    "empty": "No connections to display",
+    "dappApprovedDate": "dd/MM/yyyy HH:mm",
+    "connectNewDappButtonLabel": "New connection",
+    "disconnectionAllButtonLabel": "Disconnect all",
+    "disconnectButtonLabel": "Disconnect"
   }
 }

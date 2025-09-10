@@ -1,14 +1,11 @@
-import { RefObject, useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 
-export const useRemoveOverflowShift = (ref: RefObject<HTMLElement | null>) => {
+export const useRemoveOverflowShift = <T extends HTMLElement = HTMLElement>(isFocused?: boolean) => {
   const initialPaddingRight = useRef<number>(undefined)
+  const ref = useRef<T>(null)
 
   useLayoutEffect(() => {
-    const getInitialPaddingRight = () => {
-      if (!ref.current) return
-      const computedStyle = window.getComputedStyle(ref.current)
-      initialPaddingRight.current = parseFloat(computedStyle.paddingRight)
-    }
+    if (isFocused === false || !ref.current) return
 
     const trigger = () => {
       if (!ref.current || !initialPaddingRight.current) return
@@ -22,11 +19,18 @@ export const useRemoveOverflowShift = (ref: RefObject<HTMLElement | null>) => {
       }
     }
 
-    if (ref.current) {
-      new ResizeObserver(trigger).observe(ref.current)
-    }
+    const computedStyle = window.getComputedStyle(ref.current)
+    initialPaddingRight.current = parseFloat(computedStyle.paddingRight)
 
-    getInitialPaddingRight()
+    const observer = new MutationObserver(trigger)
+    observer.observe(ref.current, { attributes: true, childList: true, subtree: true })
+
     trigger()
-  }, [ref])
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [isFocused])
+
+  return { ref }
 }

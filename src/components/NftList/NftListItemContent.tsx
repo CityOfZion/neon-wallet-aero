@@ -17,7 +17,7 @@ type TProps = {
   link: string
 }
 
-export const NftsListItemContent = ({ selectedAccount, nft, link }: TProps) => {
+export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'blockchain' })
   const [imageError, setImageError] = useState(false)
 

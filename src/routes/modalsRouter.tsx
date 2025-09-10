@@ -10,6 +10,9 @@ import { CreateWalletStep1Modal } from './modals/CreateWalletStep1'
 import { CreateWalletStep2Modal } from './modals/CreateWalletStep2'
 import { CreateWalletStep3Modal } from './modals/CreateWalletStep3'
 import { CreateWalletStep4Modal } from './modals/CreateWalletStep4'
+import { DappConnectionModal } from './modals/DappConnection'
+import { DappConnectionRequestModal } from './modals/DappConnectionRequest'
+import { DappDisconnectionModal } from './modals/DappDisconnection'
 import { DecryptKeyModal } from './modals/DecryptKey'
 import { ExportKeyModal } from './modals/ExportKey'
 import { ExportMnemonicModal } from './modals/ExportMnemonic'
@@ -40,4 +43,7 @@ export const modalsRouter: TRoute[] = [
   { name: 'migrate-from-neon2-4', type: 'bottom', element: <MigrateFromNeon2Step4Modal /> },
   { name: 'success', type: 'bottom', element: <SuccessModal /> },
   { name: 'contact-details', type: 'bottom', element: <ContactDetailsModal /> },
+  { name: 'dapp-connection', type: 'bottom', element: <DappConnectionModal /> },
+  { name: 'dapp-connection-request', type: 'bottom', element: <DappConnectionRequestModal /> },
+  { name: 'dapp-disconnection', type: 'bottom', element: <DappDisconnectionModal /> },
 ]
