@@ -14,7 +14,9 @@
     "reset": "重設",
     "emptyColumn": "--",
     "migrationNeo3": "遷移",
-    "swap": "兌換"
+    "swap": "兌換",
+    "save": "儲存",
+    "edit": "編輯"
   },
   "wallet": {
     "firstWalletName": "我的第一個錢包",

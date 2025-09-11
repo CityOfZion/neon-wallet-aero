@@ -14,7 +14,9 @@
     "reset": "Reset",
     "emptyColumn": "--",
     "migrationNeo3": "Migration",
-    "swap": "Swap"
+    "swap": "Swap",
+    "save": "Save",
+    "edit": "Edit"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",

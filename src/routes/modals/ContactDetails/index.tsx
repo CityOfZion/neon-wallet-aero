@@ -6,23 +6,41 @@ import { Separator } from '@/components/Separator'
 import { StringHelper } from '@/helpers/StringHelper'
 import { StyleHelper } from '@/helpers/StyleHelper'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
-import { useModalState } from '@/hooks/useModalRouter'
+import { useContactsSelector } from '@/hooks/useContactSelector'
+import { useModalNavigate, useModalState } from '@/hooks/useModalRouter'
 import { BottomModalLayout } from '@/layouts/BottomModalLayout'
 import { TModalState } from '@/types/modal'
 
 import TbCopy from '@/assets/images/tb-copy.svg?react'
+import TbPencil from '@/assets/images/tb-pencil.svg?react'
 
 export const ContactDetailsModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'contactDetailsModal' })
-  const { contact } = useModalState<TModalState<'contact-details'>>()
+  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { contactId } = useModalState<TModalState<'contact-details'>>()
+  const { modalNavigateWrapper } = useModalNavigate()
+
+  const { contacts } = useContactsSelector()
+
+  const contact = contacts.find(({ id }) => id === contactId)
 
   const handleCopyAddress = (address: string) => {
     UtilsHelper.copyToClipboard(address)
   }
 
+  if (!contact) {
+    return (
+      <BottomModalLayout heading={t('title')}>
+        <div className="flex items-center justify-center p-4">
+          <p className="text-gray-400">{t('contactNotFound')}</p>
+        </div>
+      </BottomModalLayout>
+    )
+  }
+
   return (
     <BottomModalLayout heading={t('title')}>
-      <div className="flex min-h-0 flex-grow flex-col items-center gap-4 pt-4">
+      <div className="flex min-h-0 flex-grow flex-col items-center gap-4 pt-2">
         <div
           className={StyleHelper.mergeStyles(
             'flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-gray-300/30 text-xs text-gray-100'
@@ -31,6 +49,15 @@ export const ContactDetailsModal = () => {
           <p className="text-2xl">{StringHelper.getInitials(contact.name)}</p>
         </div>
         <p className="text-center text-lg">{contact.name}</p>
+
+        <Button
+          leftIcon={<TbPencil aria-hidden className="text-neon" />}
+          label={commonT('edit')}
+          variant="outlined"
+          colorSchema="neon"
+          onClick={modalNavigateWrapper('save-contact', { state: { contact } })}
+          flat
+        />
 
         <Separator />
 

@@ -320,6 +320,7 @@
   "contacts": {
     "title": "联系人",
     "searchContactsPlaceholder": "搜索联系人…",
-    "searchContactsLabel": "搜索联系人"
+    "searchContactsLabel": "搜索联系人",
+    "addContactButtonLabel": "添加联系人"
   }
 }

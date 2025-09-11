@@ -182,7 +182,7 @@ const fixWalletProperties = (
 export const useNeonImportBackup = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useNeonImportBackup' })
   const dispatch = useAppDispatch()
-  const { createWallet, importAccounts, createContacts } = useBlockchainActions()
+  const { createWallet, importAccounts, saveContacts } = useBlockchainActions()
   const { doesAccountExist } = useAccountUtils()
 
   const validateAndParseFile = async (
@@ -320,7 +320,7 @@ export const useNeonImportBackup = () => {
       if (generatedData.migrationsNeo3)
         dispatch(utilityReducerActions.mergeMigrationsNeo3(generatedData.migrationsNeo3))
 
-      if (generatedData.contacts) await createContacts(generatedData.contacts)
+      if (generatedData.contacts) await saveContacts(generatedData.contacts)
 
       const promises = generatedData.wallets.map(async walletData => {
         const newWallet = await createWallet(walletData)

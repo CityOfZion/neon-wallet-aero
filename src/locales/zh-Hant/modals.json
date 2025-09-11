@@ -185,7 +185,8 @@
   "contactDetailsModal": {
     "title": "查看聯絡人",
     "walletAddresses": "錢包地址",
-    "copyAddressButtonLabel": "複製地址"
+    "copyAddressButtonLabel": "複製地址",
+    "contactNotFound": "聯絡人未找到"
   },
   "dappConnectionModal": {
     "title": "連接到 dApp",
@@ -221,5 +222,32 @@
     "warning": "您確定要繼續嗎？",
     "disconnect": "斷開",
     "cancel": "取消"
+  },
+  "saveContactModal": {
+    "addContact": "新增聯絡人",
+    "editContact": "編輯聯絡人",
+    "nameInputLabel": "姓名",
+    "nameInputPlaceholder": "輸入姓名…",
+    "addAddressButtonLabel": "新增地址",
+    "addressesInputLabel": "地址",
+    "noAddressesFound": "未找到地址",
+    "saveContactButtonLabel": "儲存聯絡人",
+    "errors": {
+      "invalidName": "無效姓名"
+    }
+  },
+  "contactAddressFormModal": {
+    "addAddress": "新增地址",
+    "editAddress": "編輯地址",
+    "name": "姓名",
+    "blockchain": "區塊鏈",
+    "addressOrDomain": "地址或網域名稱",
+    "saveAddressButtonLabel": "儲存地址",
+    "updateAddressButtonLabel": "更新地址",
+    "messages": {
+      "addressComplete": "地址輸入完成！",
+      "nnsComplete": "找到NS網域名稱！",
+      "invalidAddress": "無效地址或NS網域名稱"
+    }
   }
 }

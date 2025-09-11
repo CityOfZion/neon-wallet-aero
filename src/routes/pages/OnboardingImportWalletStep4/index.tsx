@@ -27,7 +27,7 @@ export const OnboardingImportWalletStep4 = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step4' })
   const { state } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
-  const { createWallet, importAccounts, createContacts } = useBlockchainActions()
+  const { createWallet, importAccounts, saveContacts } = useBlockchainActions()
   const { setNewPassword } = useNewPassword()
   const dispatch = useAppDispatch()
 
@@ -49,7 +49,7 @@ export const OnboardingImportWalletStep4 = () => {
 
       if (swapRecords) swapRecords.forEach(swapRecord => dispatch(utilityReducerActions.persistSwapRecord(swapRecord)))
       if (migrationsNeo3) dispatch(utilityReducerActions.mergeMigrationsNeo3(migrationsNeo3))
-      if (contacts) createContacts(contacts)
+      if (contacts) saveContacts(contacts)
 
       await UtilsHelper.sleep(250)
 

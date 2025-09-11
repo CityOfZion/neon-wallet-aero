@@ -320,6 +320,7 @@
   "contacts": {
     "title": "Contacts",
     "searchContactsPlaceholder": "Search contacts…",
-    "searchContactsLabel": "Search contacts"
+    "searchContactsLabel": "Search contacts",
+    "addContactButtonLabel": "Add contact"
   }
 }

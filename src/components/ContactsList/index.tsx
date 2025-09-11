@@ -38,7 +38,7 @@ export const ContactsList = ({ groupedContacts }: TProps) => {
                   colorSchema="white"
                   onClick={modalNavigateWrapper('contact-details', {
                     state: {
-                      contact,
+                      contactId: contact.id,
                     },
                   })}
                   className={StyleHelper.mergeStyles(
