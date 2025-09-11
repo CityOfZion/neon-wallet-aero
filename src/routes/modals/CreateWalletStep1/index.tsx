@@ -50,7 +50,6 @@ export const CreateWalletStep1Modal = () => {
   const handleCopy = () => {
     try {
       UtilsHelper.copyToClipboard(mnemonic.join(' '))
-      ToastHelper.success({ message: t('message.copySuccess') })
     } catch (err) {
       ToastHelper.error({ message: t('message.copyError', { error: err }) })
     }
