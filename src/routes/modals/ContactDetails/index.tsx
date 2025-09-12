@@ -8,17 +8,21 @@ import { StyleHelper } from '@/helpers/StyleHelper'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { useContactsSelector } from '@/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@/hooks/useModalRouter'
+import { useAppDispatch } from '@/hooks/useRedux'
 import { BottomModalLayout } from '@/layouts/BottomModalLayout'
+import { contactReducerActions } from '@/store/reducers/ContactReducer'
 import { TModalState } from '@/types/modal'
+import { TContactState } from '@/types/store'
 
 import TbCopy from '@/assets/images/tb-copy.svg?react'
 import TbPencil from '@/assets/images/tb-pencil.svg?react'
+import TbTrash from '@/assets/images/tb-trash.svg?react'
 
 export const ContactDetailsModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'contactDetailsModal' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t } = useTranslation('modals', { keyPrefix: 'contactDetails' })
   const { contactId } = useModalState<TModalState<'contact-details'>>()
-  const { modalNavigateWrapper } = useModalNavigate()
+  const { modalNavigate, modalErase, modalNavigateWrapper } = useModalNavigate()
+  const dispatch = useAppDispatch()
 
   const { contacts } = useContactsSelector()
 
@@ -26,6 +30,22 @@ export const ContactDetailsModal = () => {
 
   const handleCopyAddress = (address: string) => {
     UtilsHelper.copyToClipboard(address)
+  }
+
+  const handleOpenDeleteContactModal = () => {
+    if (!contact) return
+
+    modalNavigate('delete-contact', {
+      state: {
+        name: contact.name,
+        onDelete: () => handleDeleteContact(contact),
+      },
+    })
+  }
+
+  const handleDeleteContact = (contact: TContactState) => {
+    dispatch(contactReducerActions.deleteContact(contact.id))
+    modalErase('bottom')
   }
 
   if (!contact) {
@@ -48,23 +68,34 @@ export const ContactDetailsModal = () => {
         >
           <p className="text-2xl">{StringHelper.getInitials(contact.name)}</p>
         </div>
-        <p className="text-center text-lg">{contact.name}</p>
+        <p className="max-w-sm truncate text-center text-lg">{contact.name}</p>
 
-        <Button
-          leftIcon={<TbPencil aria-hidden className="text-neon" />}
-          label={commonT('edit')}
-          variant="outlined"
-          colorSchema="neon"
-          onClick={modalNavigateWrapper('save-contact', { state: { contact } })}
-          flat
-        />
+        <div className="flex w-full justify-center gap-4">
+          <Button
+            leftIcon={<TbPencil aria-hidden className="text-neon" />}
+            label={t('editContactButtonLabel')}
+            variant="outlined"
+            colorSchema="neon"
+            onClick={modalNavigateWrapper('save-contact', { state: { contact } })}
+            flat
+          />
+
+          <Button
+            leftIcon={<TbTrash aria-hidden className="text-pink" />}
+            label={t('deleteContactButtonLabel')}
+            variant="outlined"
+            colorSchema="error"
+            flat
+            onClick={handleOpenDeleteContactModal}
+          />
+        </div>
 
         <Separator />
 
         <div className="flex min-h-0 w-full flex-grow flex-col space-y-4">
           <p className="text-center text-sm tracking-wide text-gray-400 uppercase">{t('walletAddresses')}</p>
 
-          <ul className="space-y-3 overflow-y-auto">
+          <ul className="max-h-60 space-y-3 overflow-y-auto">
             {contact.addresses.map((addressItem, index) => {
               const { blockchain, address } = addressItem
 

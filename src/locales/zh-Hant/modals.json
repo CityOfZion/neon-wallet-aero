@@ -186,12 +186,6 @@
       }
     }
   },
-  "contactDetailsModal": {
-    "title": "查看聯絡人",
-    "walletAddresses": "錢包地址",
-    "copyAddressButtonLabel": "複製地址",
-    "contactNotFound": "聯絡人未找到"
-  },
   "dappConnectionModal": {
     "title": "連接到 dApp",
     "description": "所有由已連接 dApp 請求的交易在廣播到區塊鏈之前都<strong>需要您的許可</strong>。",
@@ -227,15 +221,27 @@
     "disconnect": "斷開",
     "cancel": "取消"
   },
+  "contactDetails": {
+    "title": "聯絡人",
+    "walletAddresses": "錢包地址",
+    "copyAddressButtonLabel": "複製地址",
+    "contactNotFound": "無法開啟聯絡人資訊",
+    "editContactButtonLabel": "編輯聯絡人",
+    "deleteContactButtonLabel": "刪除聯絡人"
+  },
   "saveContactModal": {
     "addContact": "新增聯絡人",
     "editContact": "編輯聯絡人",
+    "deleteContact": "刪除聯絡人",
     "nameInputLabel": "姓名",
     "nameInputPlaceholder": "輸入姓名…",
     "addAddressButtonLabel": "新增地址",
     "addressesInputLabel": "地址",
-    "noAddressesFound": "未找到地址",
     "saveContactButtonLabel": "儲存聯絡人",
+    "warnings": {
+      "emptyContactList": "您需要至少新增一個地址才能儲存聯絡人",
+      "noAddressesFound": "未找到地址"
+    },
     "errors": {
       "invalidName": "無效姓名"
     }
@@ -253,6 +259,19 @@
       "nnsComplete": "找到NS網域名稱！",
       "invalidAddress": "無效地址或NS網域名稱"
     }
+  },
+  "deleteContact": {
+    "title": "刪除聯絡人",
+    "warningText": "刪除此聯絡人？",
+    "warningDescription": "所有儲存的地址將與此聯絡人取消關聯",
+    "buttonDeleteLabel": "刪除此聯絡人"
+  },
+  "deleteContactAddress": {
+    "title": "刪除地址",
+    "warningText": "刪除此地址？",
+    "warningDescription": "此地址將與聯絡人取消關聯",
+    "buttonDeleteLabel": "刪除此地址",
+    "fromContact": "聯絡人"
   },
   "swapAboutExtraIdToReceiveModal": {
     "title": "關於目的地標籤/備註",

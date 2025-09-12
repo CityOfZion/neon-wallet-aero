@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
+import { AlertErrorBanner } from '@/components/AlertErrorBanner'
 import { Banner } from '@/components/Banner'
 import { BlockchainIcon } from '@/components/BlockchainIcon'
 import { Button } from '@/components/Button'
@@ -17,6 +18,7 @@ import { TContactAddress, TContactState } from '@/types/store'
 
 import TbPencil from '@/assets/images/tb-pencil.svg?react'
 import TbPlus from '@/assets/images/tb-plus.svg?react'
+import TbTrash from '@/assets/images/tb-trash.svg?react'
 
 type TFormData = {
   name: string
@@ -25,7 +27,6 @@ type TFormData = {
 
 export const SaveContactModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'saveContactModal' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
   const { contact, addresses } = useModalState<TModalState<'save-contact'>>()
   const { modalNavigate } = useModalNavigate()
   const { saveContacts } = useBlockchainActions()
@@ -49,6 +50,24 @@ export const SaveContactModal = () => {
                 ? addresses.map((addr, idx) => (idx === editIndex ? newAddress : addr))
                 : [...addresses, newAddress],
           }))
+        },
+      },
+    })
+  }
+
+  const handleOpenDeleteAddressModal = (address: TContactAddress, addressIndex: number) => {
+    modalNavigate('delete-contact-address', {
+      state: {
+        name: actionData.name,
+        address: address.address,
+        onDelete: () => {
+          setData(prev => ({ addresses: prev.addresses.filter((_, idx) => idx !== addressIndex) }))
+
+          if (actionData.addresses.length <= 1) {
+            setError('addresses', t('warnings.emptyContactList'))
+          }
+
+          modalNavigate(-1)
         },
       },
     })
@@ -95,7 +114,7 @@ export const SaveContactModal = () => {
             <div className="flex flex-col">
               <div className="flex flex-col gap-y-2 pb-2 font-bold text-gray-100">
                 <p className="uppercase">{t('addressesInputLabel')}</p>
-                <ul className="max-h-56 overflow-y-auto">
+                <ul className="max-h-54 overflow-y-auto">
                   {actionData.addresses.map((address, index) => (
                     <li
                       key={index}
@@ -123,6 +142,20 @@ export const SaveContactModal = () => {
                           className="items-center"
                         />
                       </Tooltip>
+                      <Tooltip
+                        title={t('deleteContact')}
+                        delayDuration={200}
+                        contentProps={{ className: 'bg-asphalt' }}
+                        arrowProps={{ className: 'fill-asphalt' }}
+                      >
+                        <IconButton
+                          aria-label={t('deleteContact')}
+                          icon={<TbTrash aria-hidden={true} className="text-pink h-5 w-5" />}
+                          type="button"
+                          onClick={() => handleOpenDeleteAddressModal(address, index)}
+                          className="items-center"
+                        />
+                      </Tooltip>
                     </li>
                   ))}
                 </ul>
@@ -130,37 +163,37 @@ export const SaveContactModal = () => {
 
               <div className="flex flex-col gap-y-6">
                 {actionData.addresses.length <= 0 && (
-                  <Banner type="error" message={t('noAddressesFound')} className="mt-2" />
+                  <Banner type="error" message={t('warnings.noAddressesFound')} className="mt-2" />
                 )}
 
-                {actionState.errors.addresses && <p className="text-pink py-1">{actionState.errors.addresses}</p>}
+                {actionState.errors.addresses && <AlertErrorBanner message={actionState.errors.addresses} />}
 
                 <Separator />
-
-                <div className="flex justify-center">
-                  <Button
-                    type="button"
-                    leftIcon={<TbPlus aria-hidden />}
-                    label={t('addAddressButtonLabel')}
-                    variant="outlined"
-                    disabled={!actionData.name}
-                    className="w-full"
-                    onClick={() => openAddressModal()}
-                    iconsOnEdge={false}
-                  />
-                </div>
               </div>
             </div>
           </div>
 
-          <Button
-            variant="contained"
-            className="w-full"
-            label={contact ? commonT('save') : t('saveContactButtonLabel')}
-            disabled={isDisabled}
-            type="submit"
-            iconsOnEdge={false}
-          />
+          <div className="flex flex-col justify-center gap-4">
+            <Button
+              type="button"
+              leftIcon={<TbPlus aria-hidden />}
+              label={t('addAddressButtonLabel')}
+              variant="outlined"
+              disabled={!actionData.name}
+              className="w-full"
+              onClick={() => openAddressModal()}
+              iconsOnEdge={false}
+            />
+
+            <Button
+              variant="contained"
+              className="w-full"
+              label={t('saveContactButtonLabel')}
+              disabled={isDisabled}
+              type="submit"
+              iconsOnEdge={false}
+            />
+          </div>
         </div>
       </form>
     </BottomModalLayout>

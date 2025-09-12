@@ -15,6 +15,8 @@ import { DappConnectionModal } from './modals/DappConnection'
 import { DappConnectionRequestModal } from './modals/DappConnectionRequest'
 import { DappDisconnectionModal } from './modals/DappDisconnection'
 import { DecryptKeyModal } from './modals/DecryptKey'
+import { DeleteContactModal } from './modals/DeleteContact'
+import { DeleteContactAddressModal } from './modals/DeleteContactAddress'
 import { ExportKeyModal } from './modals/ExportKey'
 import { ExportMnemonicModal } from './modals/ExportMnemonic'
 import { ImportAccountsSelectionModal } from './modals/ImportAccountsSelection'
@@ -53,6 +55,8 @@ export const modalsRouter: TRoute[] = [
   { name: 'dapp-disconnection', type: 'bottom', element: <DappDisconnectionModal /> },
   { name: 'save-contact', type: 'bottom', element: <SaveContactModal /> },
   { name: 'contact-address-form', type: 'bottom', element: <ContactAddressFormModal /> },
+  { name: 'delete-contact', type: 'bottom', element: <DeleteContactModal /> },
+  { name: 'delete-contact-address', type: 'bottom', element: <DeleteContactAddressModal /> },
   { name: 'swap-about-extra-id-to-receive', type: 'bottom', element: <SwapAboutExtraIdToReceiveModal /> },
   { name: 'swap-info', type: 'bottom', element: <SwapInfoModal /> },
   { name: 'swap-details', type: 'bottom', element: <SwapDetailsModal /> },
