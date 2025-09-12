@@ -23,8 +23,8 @@ export const NftList = ({ selectedAccount }: TProps) => {
       const service = bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
       if (!hasExplorerService(service)) return ''
       return service.explorerService.buildNftUrl({
-        contractHash: nft.contractHash,
-        tokenId: nft.id,
+        tokenHash: nft.hash,
+        collectionHash: nft.collection.hash,
       })
     } catch (error) {
       console.error('Error building NFT URL:', { nft, error })

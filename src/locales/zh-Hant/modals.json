@@ -24,7 +24,8 @@
     "connectHardwareWalletItemLabel": "連接硬體錢包",
     "helpItemLabel": "幫助",
     "contactsItemLabel": "聯絡人",
-    "settingsItemLabel": "設定"
+    "settingsItemLabel": "設定",
+    "swapItemLabel": "交換"
   },
   "importAccountsSelectionModal": {
     "title": "匯入",
@@ -58,7 +59,10 @@
     "passwordLabel": "密碼",
     "passwordPlaceholder": "輸入密碼",
     "nextButtonLabel": "下一步",
-    "decryptKeyError": "密碼或區塊鏈無效"
+    "decryptKeyError": "密碼或區塊鏈無效",
+    "errors": {
+      "noEncryptionInterfaceError": "所選區塊鏈不支持加密密鑰"
+    }
   },
   "createWalletStep1Modal": {
     "title": "建立新的 BIP39 錢包",
@@ -249,5 +253,25 @@
       "nnsComplete": "找到NS網域名稱！",
       "invalidAddress": "無效地址或NS網域名稱"
     }
+  },
+  "swapAboutExtraIdToReceiveModal": {
+    "title": "關於目的地標籤/備註",
+    "what": {
+      "title": "什麼是目的地標籤或備註？",
+      "description": "目的地標籤或備註是唯一標識符，有助於確保加密貨幣存款正確記入收款人。通常在向使用共享錢包地址的服務或交易所發送資金時需要提供。"
+    },
+    "why": {
+      "title": "我為什麼需要一個？",
+      "description": "目的地標籤被識別為需要額外的識別信息，以便正確交付。請確保提供此額外信息，以保證成功交換。"
+    },
+    "where": {
+      "title": "我在哪裡可以找到我的目的地標籤/備註？",
+      "description": "它通常是一个唯一的标识字符串，可以在您的收款人账户信息中找到。"
+    }
+  },
+  "swapInfoModal": {
+    "title": "這是如何運作的？",
+    "description1": "在不使用交易所的情況下，跨鏈交換代幣。",
+    "description2": "在 NEON 中直接和立即交換代幣非常方便，並且可以節省時間和支付更低的費用。"
   }
 }

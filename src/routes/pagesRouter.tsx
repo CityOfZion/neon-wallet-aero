@@ -37,6 +37,7 @@ import { RootPage } from './pages/Root'
 import { SendPage } from './pages/Send'
 import { SettingsPage } from './pages/Settings'
 import { SplashScreen } from './pages/SplashScreen'
+import { SwapPage } from './pages/Swap'
 import { WalletsPage } from './pages/Wallets'
 
 export const pagesRouter = createHashRouter([
@@ -166,6 +167,10 @@ export const pagesRouter = createHashRouter([
           {
             path: 'contacts',
             element: <ContactsPage />,
+          },
+          {
+            path: 'swap',
+            element: <SwapPage />,
           },
         ],
       },

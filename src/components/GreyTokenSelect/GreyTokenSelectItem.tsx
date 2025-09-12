@@ -1,7 +1,8 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 
-import { BlockchainIcon } from '../BlockchainIcon'
+import defaultTokenLogo from '@/assets/images/default-token-logo.png'
+
 import { Tooltip } from '../Tooltip'
 
 import { TGreyTokenSelectToken } from '.'
@@ -11,12 +12,22 @@ type TProps = {
 }
 
 export const GreyTokenSelectItem = ({ token }: TProps) => {
+  const [img, setImg] = useState(token.imageUrl ?? defaultTokenLogo)
+
+  useEffect(() => {
+    setImg(token.imageUrl ?? defaultTokenLogo)
+  }, [token])
+
   return (
     <Fragment>
-      {/* TODO: Replace by token icon  */}
-      <BlockchainIcon
-        blockchain={token.blockchain ?? 'neo3'}
-        className="text-green mt-1 h-3.5 min-h-3.5 w-3.5 min-w-3.5"
+      <img
+        src={img}
+        className="h-4 w-4 rounded-full"
+        onError={() => {
+          setImg(defaultTokenLogo)
+          token.imageUrl = defaultTokenLogo
+        }}
+        alt={token.symbol}
       />
       <Tooltip title={token.network ? `${token.symbol} | ${token.network}` : ''}>
         <span className="flex min-w-0 flex-grow items-center gap-1">

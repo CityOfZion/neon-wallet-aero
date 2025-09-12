@@ -24,7 +24,8 @@
     "connectHardwareWalletItemLabel": "Connect hardware wallet",
     "helpItemLabel": "Help",
     "contactsItemLabel": "Contacts",
-    "settingsItemLabel": "Settings"
+    "settingsItemLabel": "Settings",
+    "swapItemLabel": "Swap"
   },
   "importAccountsSelectionModal": {
     "title": "Import",
@@ -58,7 +59,10 @@
     "passwordLabel": "Password",
     "passwordPlaceholder": "Enter the password",
     "nextButtonLabel": "Next",
-    "decryptKeyError": "Password or blockchain is invalid"
+    "decryptKeyError": "Password or blockchain is invalid",
+    "errors": {
+      "noEncryptionInterfaceError": "The selected blockchain does not support encrypted keys"
+    }
   },
   "createWalletStep1Modal": {
     "title": "Create new BIP39 wallet",
@@ -249,5 +253,25 @@
       "nnsComplete": "NS domain found!",
       "invalidAddress": "Invalid address or NS domain"
     }
+  },
+  "swapAboutExtraIdToReceiveModal": {
+    "title": "About a destination tag/memo",
+    "what": {
+      "title": "What is a destination tag or memo?",
+      "description": "A destination tag or memo is a unique identifier that helps ensure a cryptocurrency deposit is credited to the correct recipient. It's usually required when sending funds to services or exchanges that use shared wallet addresses."
+    },
+    "why": {
+      "title": "Why do I need one?",
+      "description": "The destination token is identified as requiring additional identifying information in order to be properly delivered. Please make sure you provide this additional information to guarantee a successful swap."
+    },
+    "where": {
+      "title": "Where can I find my destination tag/memo?",
+      "description": "It is typically a unique identifying string that can be found in your recipient account information."
+    }
+  },
+  "swapInfoModal": {
+    "title": "How does it work?",
+    "description1": "Exchange tokens for other token, across chains, without using an exchange.",
+    "description2": "Directly and immediately exchanging tokens in NEON is convenient and allows you to save time and pay lower fees."
   }
 }

@@ -7,6 +7,7 @@ import { MenuItem } from './MenuItem'
 import TbDeviceUsb from '@/assets/images/tb-device-usb.svg?react'
 import TbFileImport from '@/assets/images/tb-file-import.svg?react'
 import TbHelp from '@/assets/images/tb-help.svg?react'
+import TbReplace from '@/assets/images/tb-replace.svg?react'
 import TbSettings from '@/assets/images/tb-settings.svg?react'
 import TbUsers from '@/assets/images/tb-users.svg?react'
 import Wallet from '@/assets/images/wallet.svg?react'
@@ -28,6 +29,8 @@ export const MenuModal = () => {
         />
 
         <MenuItem label={t('contactsItemLabel')} to="/app/contacts" icon={<TbUsers aria-hidden={true} />} />
+
+        <MenuItem label={t('swapItemLabel')} to="/app/swap" icon={<TbReplace aria-hidden />} />
 
         <MenuItem
           label={t('helpItemLabel')}

@@ -66,12 +66,12 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
 
       {match(eventType)
         .with('nft', () => {
-          const { tokenId, nftImageUrl, nftUrl, name, collectionName } = event as TFullTransactionNftEvent
+          const { tokenHash, nftImageUrl, nftUrl, name, collectionName } = event as TFullTransactionNftEvent
           const nftImageLabel = name ? t('nftImageAltWithNameLabel', { name }) : t('nftImageAltLabel')
 
           return (
             <Fragment>
-              {!!tokenId && <TransactionActivityListEventColumn label={t('columns.tokenIdLabel')} data={tokenId} />}
+              {!!tokenHash && <TransactionActivityListEventColumn label={t('columns.tokenIdLabel')} data={tokenHash} />}
 
               {!!collectionName && (
                 <TransactionActivityListEventColumn label={t('columns.collectionNameLabel')} data={collectionName} />

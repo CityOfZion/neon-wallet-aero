@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Location, useLocation } from 'react-router-dom'
-import { BSBigNumberHelper, BSTokenHelper, IntentTransferParam, isCalculableFee } from '@cityofzion/blockchain-service'
+import { BSBigNumberHelper, IntentTransferParam, isCalculableFee } from '@cityofzion/blockchain-service'
 import { lte } from 'lodash'
 
 import { ActionStep } from '@/components/ActionStep'
@@ -128,9 +128,9 @@ export const SendPage = () => {
       }
 
       const amountNumber = NumberHelper.number(recipient.amount)
-      const tokenHash = BSTokenHelper.normalizeHash(recipient.token?.token?.hash ?? '')
-      const tokenBalance = balance.data?.tokensBalances?.find(
-        tokenBalance => BSTokenHelper.normalizeHash(tokenBalance.token.hash) === tokenHash
+      const tokenHash = recipient.token?.token?.hash ?? ''
+      const tokenBalance = balance.data?.tokensBalances?.find(tokenBalance =>
+        service?.tokenService.predicateByHash(tokenBalance.token, tokenHash)
       )
 
       if (!tokenBalance || amountNumber > tokenBalance.amountNumber) {
@@ -193,10 +193,7 @@ export const SendPage = () => {
     )
       return
 
-    if (
-      BSTokenHelper.normalizeHash(recipient.token.token?.hash ?? '') !==
-      BSTokenHelper.normalizeHash(service.feeToken.hash)
-    ) {
+    if (!service.tokenService.predicateByHash(recipient.token.token.hash, service.feeToken.hash)) {
       handleUpdateRecipientAmount(recipient.id, recipient.token.amountNumber)
 
       return
@@ -301,18 +298,14 @@ export const SendPage = () => {
         let totalFeeAmount = NumberHelper.number(fee)
 
         fields.intents.forEach(intent => {
-          if (
-            BSTokenHelper.normalizeHash(intent.tokenHash) !== BSTokenHelper.normalizeHash(fields.service.feeToken.hash)
-          )
-            return
+          if (!service?.tokenService.predicateByHash(intent.tokenHash, fields.service.feeToken)) return
 
           totalFeeAmount += NumberHelper.number(intent.amount)
         })
 
         const feeBalanceNumber =
-          balance.data?.tokensBalances.find(
-            ({ token }) =>
-              BSTokenHelper.normalizeHash(token.hash) === BSTokenHelper.normalizeHash(fields.service.feeToken.hash)
+          balance.data?.tokensBalances?.find(({ token }) =>
+            service?.tokenService.predicateByHash(token, fields.service.feeToken)
           )?.amountNumber ?? 0
 
         if (totalFeeAmount > feeBalanceNumber) {

@@ -24,7 +24,8 @@
     "connectHardwareWalletItemLabel": "连接硬件钱包",
     "helpItemLabel": "帮助",
     "contactsItemLabel": "联系人",
-    "settingsItemLabel": "设置"
+    "settingsItemLabel": "设置",
+    "swapItemLabel": "交换"
   },
   "importAccountsSelectionModal": {
     "title": "导入",
@@ -58,7 +59,10 @@
     "passwordLabel": "密码",
     "passwordPlaceholder": "请输入密码",
     "nextButtonLabel": "下一步",
-    "decryptKeyError": "密码或区块链无效"
+    "decryptKeyError": "密码或区块链无效",
+    "errors": {
+      "noEncryptionInterfaceError": "所选区块链不支持加密密钥"
+    }
   },
   "createWalletStep1Modal": {
     "title": "创建新的 BIP39 钱包",
@@ -249,5 +253,25 @@
       "nnsComplete": "找到NS域名！",
       "invalidAddress": "无效地址或NS域名"
     }
+  },
+  "swapAboutExtraIdToReceiveModal": {
+    "title": "关于目的地标签/备注",
+    "what": {
+      "title": "什么是目的地标签或备注？",
+      "description": "目的地标签或备注是一个唯一标识符，有助于确保加密货币存款正确记入收款人。通常在向使用共享钱包地址的服务或交易所发送资金时需要提供。"
+    },
+    "why": {
+      "title": "我为什么需要一个？",
+      "description": "目的地标签被识别为需要额外的识别信息，以便正确交付。请确保提供此额外信息，以保证成功交换。"
+    },
+    "where": {
+      "title": "我在哪里可以找到我的目的地标签/备注？",
+      "description": "它通常是一个唯一的标识字符串，可以在您的收款人账户信息中找到。"
+    }
+  },
+  "swapInfoModal": {
+    "title": "它是如何工作的？",
+    "description1": "跨链交换代币，无需使用交易所。",
+    "description2": "在 NEON 中直接且即时交换代币既方便又能节省时间和降低手续费。"
   }
 }

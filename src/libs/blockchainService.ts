@@ -1,5 +1,5 @@
-import { BSAggregator } from '@cityofzion/blockchain-service'
 import { BSEthereum } from '@cityofzion/bs-ethereum'
+import { BSAggregator } from '@cityofzion/bs-multichain'
 import { BSNeoLegacy } from '@cityofzion/bs-neo-legacy'
 import { BSNeo3 } from '@cityofzion/bs-neo3'
 import { BSNeoX } from '@cityofzion/bs-neox'

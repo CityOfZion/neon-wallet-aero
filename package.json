@@ -17,12 +17,13 @@
     "icon": "svg-icons"
   },
   "dependencies": {
-    "@cityofzion/blockchain-service": "1.19.1",
+    "@cityofzion/blockchain-service": "1.21.1",
     "@cityofzion/bs-asteroid-sdk": "0.9.1",
-    "@cityofzion/bs-ethereum": "2.12.6",
-    "@cityofzion/bs-neo-legacy": "1.12.8",
-    "@cityofzion/bs-neo3": "1.15.2",
-    "@cityofzion/bs-neox": "1.2.3",
+    "@cityofzion/bs-ethereum": "2.13.2",
+    "@cityofzion/bs-multichain": "1.0.10",
+    "@cityofzion/bs-neo-legacy": "1.13.3",
+    "@cityofzion/bs-neo3": "1.16.2",
+    "@cityofzion/bs-neox": "1.3.3",
     "@cityofzion/wallet-connect-sdk-wallet-core": "4.4.2",
     "@cityofzion/wallet-connect-sdk-wallet-react": "4.0.20",
     "@radix-ui/react-accordion": "^1.2.4",

@@ -59,6 +59,7 @@ export type TFullTransactionAssetEvent = TFullTransactionCommonEvent & FullTrans
 export type TFullTransactionEvent = TFullTransactionAssetEvent | TFullTransactionNftEvent
 
 export type TFullTransactionsItem = Omit<FullTransactionsItem, 'events'> & {
+  account: IAccountState
   blockchain: TBlockchainServiceKey
   isPending: boolean
   events: TFullTransactionEvent[]
