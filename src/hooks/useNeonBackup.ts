@@ -24,6 +24,7 @@ import { useAccountsSelector } from './useAccountSelector'
 import { useAccountUtils } from './useAccountUtils'
 import { useCurrentLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
+import { useContactsSelector } from './useContactSelector'
 import { useAppDispatch } from './useRedux'
 import { useWalletsSelector } from './useWalletSelector'
 
@@ -344,6 +345,7 @@ export const useNeonCreateBackup = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useNeonBackup' })
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
+  const { contacts } = useContactsSelector()
   const { currentLoginSessionRef } = useCurrentLoginSessionSelector()
 
   const handleCreateBackupFormat = async () => {
@@ -357,6 +359,12 @@ export const useNeonCreateBackup = () => {
       wallets: [],
       contacts: [],
     }
+
+    backupFile.contacts = contacts.map(contact => ({
+      id: contact.id,
+      name: contact.name,
+      addresses: contact.addresses.map(address => ({ address: address.address, blockchain: address.blockchain })),
+    }))
 
     const backupAccountsByWalletId = new Map<string, zod.infer<typeof backupAccountSchema>[]>()
 
