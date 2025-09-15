@@ -412,12 +412,7 @@ export const useNeonCreateBackup = () => {
       const backupFileData = await handleCreateBackupFormat()
       const backupFileDataString = JSON.stringify(backupFileData)
 
-      const encryptedPassword = await EncryptionHelper.encryptedPassword(password)
-
-      const backupFileDataStringEncrypted = EncryptionHelper.encryptBackupOrMigrate(
-        backupFileDataString,
-        encryptedPassword
-      )
+      const backupFileDataStringEncrypted = EncryptionHelper.encryptBackupOrMigrate(backupFileDataString, password)
 
       const backupFile: zod.infer<typeof backupFileSchema> = {
         version: BACKUP_VERSION,
@@ -425,7 +420,6 @@ export const useNeonCreateBackup = () => {
       }
 
       const fileName = `Neon-Backup-${DateHelper.getNowUnix()}.${BACKUP_FILE_EXTENSION}`
-
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
     } catch {
       throw new Error(t('errors.backupError'))

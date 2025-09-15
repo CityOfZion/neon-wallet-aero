@@ -128,6 +128,17 @@ type TContactAddressFormModalState = {
   onSaveAddress: (address: TContactAddress) => void
 }
 
+type TDeleteContactModalState = {
+  name: string
+  onDelete: () => void
+}
+
+type TDeleteContactAddressModalState = {
+  name: string
+  address: string
+  onDelete: () => void
+}
+
 type TSwapDetailsModalState = {
   swapRecord: TSwapRecord
 }
@@ -157,6 +168,8 @@ export type TModalRouterRouteTypes = {
   'contact-details': TContactDetailsModalState
   'save-contact': TSaveContactModalState
   'contact-address-form': TContactAddressFormModalState
+  'delete-contact': TDeleteContactModalState
+  'delete-contact-address': TDeleteContactAddressModalState
   'swap-about-extra-id-to-receive': undefined
   'swap-info': undefined
   'swap-details': TSwapDetailsModalState

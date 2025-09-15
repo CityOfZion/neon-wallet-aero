@@ -45,7 +45,7 @@ export class FileHelper {
   }
 
   static download(content: string, options: BlobPropertyBag, fileName: string) {
-    const blob = new Blob([JSON.stringify(content)], options)
+    const blob = new Blob([content], options)
 
     const url = URL.createObjectURL(blob)
 

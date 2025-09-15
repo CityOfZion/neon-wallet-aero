@@ -186,12 +186,6 @@
       }
     }
   },
-  "contactDetailsModal": {
-    "title": "Contact",
-    "walletAddresses": "Wallet addresses",
-    "copyAddressButtonLabel": "Copy address",
-    "contactNotFound": "Could not open contact information"
-  },
   "dappConnectionModal": {
     "title": "Connect with a dApp",
     "description": "All transactions requested by a connected dApp will <strong>require your permission before being broadcast</strong> to the blockchain.",
@@ -199,7 +193,7 @@
     "inputPlaceholder": "Enter your URL here…",
     "buttonConnectLabel": "Connect",
     "errors": {
-      "errorToConnect": "Oops! we’ve encountered an error. Try to generate a new uri and try again.",
+      "errorToConnect": "Oops! We've encountered an error. Try to generate a new URI and try again.",
       "invalidUri": "The URI is not valid. Please check and try again."
     }
   },
@@ -227,15 +221,27 @@
     "disconnect": "Disconnect",
     "cancel": "Cancel"
   },
+  "contactDetails": {
+    "title": "Contact",
+    "walletAddresses": "Wallet addresses",
+    "copyAddressButtonLabel": "Copy address",
+    "contactNotFound": "Could not open contact information",
+    "editContactButtonLabel": "Edit contact",
+    "deleteContactButtonLabel": "Delete contact"
+  },
   "saveContactModal": {
     "addContact": "Add contact",
     "editContact": "Edit contact",
+    "deleteContact": "Delete contact",
     "nameInputLabel": "Name",
     "nameInputPlaceholder": "Enter a name…",
     "addAddressButtonLabel": "Add address",
     "addressesInputLabel": "Addresses",
-    "noAddressesFound": "No addresses found",
     "saveContactButtonLabel": "Save contact",
+    "warnings": {
+      "emptyContactList": "You need to add at least one address to save the contact",
+      "noAddressesFound": "No addresses found"
+    },
     "errors": {
       "invalidName": "Invalid name"
     }
@@ -253,6 +259,19 @@
       "nnsComplete": "NS domain found!",
       "invalidAddress": "Invalid address or NS domain"
     }
+  },
+  "deleteContact": {
+    "title": "Delete contact",
+    "warningText": "Delete this contact?",
+    "warningDescription": "All saved addresses will be unlinked from this contact",
+    "buttonDeleteLabel": "Delete this contact"
+  },
+  "deleteContactAddress": {
+    "title": "Delete address",
+    "warningText": "Delete this address?",
+    "warningDescription": "This address will be unlinked from",
+    "buttonDeleteLabel": "Delete this address",
+    "fromContact": "Contact"
   },
   "swapAboutExtraIdToReceiveModal": {
     "title": "About a destination tag/memo",
