@@ -1,5 +1,6 @@
 import { JSX } from 'react'
 import { Account } from '@cityofzion/blockchain-service'
+import { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
 import { TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-core'
 
 import {
@@ -140,7 +141,12 @@ type TDeleteContactAddressModalState = {
 }
 
 type TSwapDetailsModalState = {
+  swapRecord?: TSwapRecord
+}
+
+type TSwapConfirmationModalState = {
   swapRecord: TSwapRecord
+  swapOrchestrator: SimpleSwapOrchestrator<TBlockchainServiceKey>
 }
 
 export type TModalRouterRouteTypes = {
@@ -173,4 +179,5 @@ export type TModalRouterRouteTypes = {
   'swap-about-extra-id-to-receive': undefined
   'swap-info': undefined
   'swap-details': TSwapDetailsModalState
+  'swap-confirmation': TSwapConfirmationModalState
 }

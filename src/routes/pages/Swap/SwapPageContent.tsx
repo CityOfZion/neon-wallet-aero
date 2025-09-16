@@ -35,10 +35,8 @@ import { useCurrentLoginSessionSelector } from '@/hooks/useAuthSelector'
 import { useBalance } from '@/hooks/useBalances'
 import { useIsFocused } from '@/hooks/useIsFocused'
 import { useModalNavigate } from '@/hooks/useModalRouter'
-import { useAppDispatch } from '@/hooks/useRedux'
 import { useSelectedNetworkByBlockchainSelector } from '@/hooks/useSettingsSelector'
 import { bsAggregator, isValidBlockchainKey } from '@/libs/blockchainService'
-import { utilityReducerActions } from '@/store/reducers/UtilityReducer'
 import { TBlockchainServiceKey } from '@/types/blockchain'
 import { IAccountState, TSwapRecord } from '@/types/store'
 
@@ -78,7 +76,6 @@ export const SwapPageContent = ({ account }: TProps) => {
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { currentLoginSessionRef } = useCurrentLoginSessionSelector()
   const { accountsRef } = useAccountsSelector()
-  const dispatch = useAppDispatch()
   const { ref: amountInputRef, isFocused: isAmountInputFocused } = useIsFocused<HTMLInputElement>()
 
   const swapChainsByServiceName = useMemo(() => {
@@ -337,27 +334,12 @@ export const SwapPageContent = ({ account }: TProps) => {
       fee: actionData.fee,
     }
 
-    try {
-      const swapResponse = await swapOrchestratorRef.current.swap()
-
-      swapRecord.swapId = swapResponse.id
-      swapRecord.txFrom = swapResponse.txFrom
-      swapRecord.log = swapResponse.log
-    } catch (error: any) {
-      console.error(error)
-    } finally {
-      if (!swapRecord.txFrom) swapRecord.swapStatus = 'refunded'
-
-      dispatch(utilityReducerActions.persistSwapRecord(swapRecord))
-
-      modalNavigate('swap-details', {
-        state: {
-          swapRecord,
-        },
-      })
-
-      initializeOrRestartSwapService()
-    }
+    modalNavigate('swap-confirmation', {
+      state: {
+        swapRecord,
+        swapOrchestrator: swapOrchestratorRef.current,
+      },
+    })
   }
 
   useEffect(() => {

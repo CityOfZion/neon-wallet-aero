@@ -292,5 +292,16 @@
     "title": "這是如何運作的？",
     "description1": "在不使用交易所的情況下，跨鏈交換代幣。",
     "description2": "在 NEON 中直接和立即交換代幣非常方便，並且可以節省時間和支付更低的費用。"
+  },
+  "swapConfirmationModal": {
+    "heading": "交換確認",
+    "description": "請在繼續交換前確認以下詳細資訊。",
+    "swapFromTo": "從 {{tokenFrom}} 交換到 {{tokenTo}}",
+    "accountFrom": "發送帳戶",
+    "accountTo": "接收帳戶",
+    "amountToSend": "發送金額",
+    "amountToReceive": "接收金額",
+    "cancelButtonLabel": "取消",
+    "confirmButtonLabel": "確認交換"
   }
 }

@@ -292,5 +292,16 @@
     "title": "How does it work?",
     "description1": "Exchange tokens for other token, across chains, without using an exchange.",
     "description2": "Directly and immediately exchanging tokens in NEON is convenient and allows you to save time and pay lower fees."
+  },
+  "swapConfirmationModal": {
+    "heading": "Swap Confirmation",
+    "description": "Please confirm the details below before proceeding with the swap.",
+    "swapFromTo": "Swap from {{tokenFrom}} to {{tokenTo}}",
+    "accountFrom": "Account from",
+    "accountTo": "Account to",
+    "amountToSend": "Amount to send",
+    "amountToReceive": "Amount to receive",
+    "cancelButtonLabel": "Cancel",
+    "confirmButtonLabel": "Confirm Swap"
   }
 }
