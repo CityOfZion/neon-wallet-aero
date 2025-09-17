@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { IconButton } from '@/components/IconButton'
 import { StringHelper } from '@/helpers/StringHelper'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
+import { useModalNavigate } from '@/hooks/useModalRouter'
 import { useSwapRecordSelector } from '@/hooks/useUtilitySelector'
 import { TFullTransactionsItem } from '@/types/hooks'
 import { TMigrationNeo3 } from '@/types/store'
@@ -31,6 +32,7 @@ export const TransactionActivityListItemHeaderContent = ({
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.item' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { swapRecord } = useSwapRecordSelector(txId)
+  const { modalNavigate } = useModalNavigate()
 
   const handleCancelBubbleEvent = (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
@@ -42,9 +44,8 @@ export const TransactionActivityListItemHeaderContent = ({
     // modalNavigate('migration-neo3-status', { state: { hash: txId } })
   }
 
-  // TODO: Implement navigate
   const handleGoToSwapDetails = () => {
-    // modalNavigate('swap-details', { state: { swapRecord } })
+    modalNavigate('swap-details', { state: { swapRecord } })
   }
 
   const handleKeyDownWrapper = (callback: () => void) => {

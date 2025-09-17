@@ -26,6 +26,7 @@ import { MigrateFromNeon2Step4Modal } from './modals/MigrateFromNeon2Step4'
 import { SaveContactModal } from './modals/SaveContact'
 import { SuccessModal } from './modals/Success'
 import { SwapAboutExtraIdToReceiveModal } from './modals/SwapAboutExtraIdToReceive'
+import { SwapConfirmationModal } from './modals/SwapConfirmation'
 import { SwapDetailsModal } from './modals/SwapDetails'
 import { SwapInfoModal } from './modals/SwapInfo'
 import { WalletSelectionModal } from './modals/WalletSelection'
@@ -60,4 +61,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'swap-about-extra-id-to-receive', type: 'bottom', element: <SwapAboutExtraIdToReceiveModal /> },
   { name: 'swap-info', type: 'bottom', element: <SwapInfoModal /> },
   { name: 'swap-details', type: 'bottom', element: <SwapDetailsModal /> },
+  { name: 'swap-confirmation', type: 'bottom', element: <SwapConfirmationModal /> },
 ]

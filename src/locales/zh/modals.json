@@ -292,5 +292,16 @@
     "title": "它是如何工作的？",
     "description1": "跨链交换代币，无需使用交易所。",
     "description2": "在 NEON 中直接且即时交换代币既方便又能节省时间和降低手续费。"
+  },
+  "swapConfirmationModal": {
+    "heading": "交换确认",
+    "description": "请在继续交换前确认以下详情。",
+    "swapFromTo": "从 {{tokenFrom}} 交换到 {{tokenTo}}",
+    "accountFrom": "发送账户",
+    "accountTo": "接收账户",
+    "amountToSend": "发送金额",
+    "amountToReceive": "接收金额",
+    "cancelButtonLabel": "取消",
+    "confirmButtonLabel": "确认交换"
   }
 }
