@@ -70,6 +70,9 @@
         "collectionNameLabel": "合集",
         "nameLabel": "名称"
       }
+    },
+    "dateRange": {
+      "formatExtendedDate": "yyyy年MM月dd日"
     }
   },
   "contactsList": {
@@ -92,5 +95,9 @@
   },
   "blockchainSelect": {
     "selectPlaceholder": "选择区块链…"
+  },
+  "calendar": {
+    "previousYearButtonLabel": "前往前几年",
+    "nextYearButtonLabel": "前往后几年"
   }
 }
