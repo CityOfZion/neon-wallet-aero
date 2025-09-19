@@ -76,6 +76,9 @@
         "collectionNameLabel": "Collection",
         "nameLabel": "Name"
       }
+    },
+    "dateRange": {
+      "formatExtendedDate": "dd MMM yyyy"
     }
   },
   "contactsList": {
@@ -98,5 +101,9 @@
   },
   "blockchainSelect": {
     "selectPlaceholder": "Select a blockchain…"
+  },
+  "calendar": {
+    "previousYearButtonLabel": "Go to the previous years",
+    "nextYearButtonLabel": "Go to the next years"
   }
 }

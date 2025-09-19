@@ -4,13 +4,21 @@ import { match } from 'ts-pattern'
 
 import { Separator } from '@/components/Separator'
 import { StyleHelper } from '@/helpers/StyleHelper'
+import { useActions } from '@/hooks/useActions'
 import { useGetFullTransactions } from '@/hooks/useGetFullTransactions'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@/hooks/useVirtualization'
 import { IAccountState } from '@/types/store'
 
+import { TransactionActivityListDateRange } from './TransactionActivityListDateRange'
 import { TransactionActivityListEmpty } from './TransactionActivityListEmpty'
 import { TransactionActivityListItem } from './TransactionActivityListItem'
 import { TransactionActivityListSkeleton } from './TransactionActivityListSkeleton'
+
+type TActionsData = {
+  accounts: IAccountState[]
+  dateFrom: Date
+  dateTo: Date
+}
 
 type TProps = {
   selectedAccount: IAccountState
@@ -29,11 +37,17 @@ const heights = {
 export const TransactionActivityList = ({ selectedAccount }: TProps) => {
   const dateNow = new Date()
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetFullTransactions({
+  const { actionData, setData } = useActions<TActionsData>({
     accounts: [selectedAccount],
-    dateFrom: dateFns.subMonths(dateNow, 1),
+    dateFrom: dateFns.startOfMonth(dateNow),
     dateTo: dateNow,
   })
+
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetFullTransactions(actionData)
+
+  const { dateFrom, dateTo } = actionData
+
+  const isDateDisabled = isLoading ? true : { after: dateNow }
 
   const contentRef = useRef<HTMLUListElement>(null)
 
@@ -67,6 +81,45 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
     },
   })
 
+  const handleSelectDateFrom = async (date: Date) => {
+    const newDateFrom = dateFns.startOfDay(date)
+
+    setData({ dateFrom: newDateFrom })
+
+    if (dateTo && dateFns.isAfter(newDateFrom, dateTo)) {
+      const dateNow = new Date()
+      const newDateTo = dateFns.endOfDay(dateFns.min([dateNow, dateFns.add(newDateFrom, { weeks: 1 })]))
+
+      setData({ dateTo: dateFns.isSameDay(dateNow, newDateTo) ? dateNow : newDateTo })
+
+      return
+    }
+
+    if (dateTo && dateFns.differenceInYears(dateTo, newDateFrom) > 0) {
+      const dateNow = new Date()
+      const newDateTo = dateFns.endOfDay(dateFns.add(newDateFrom, { years: 1, days: -1 }))
+
+      setData({ dateTo: dateFns.isSameDay(dateNow, newDateTo) ? dateNow : newDateTo })
+    }
+  }
+
+  const handleSelectDateTo = async (date: Date) => {
+    const dateNow = new Date()
+    const newDateTo = dateFns.isSameDay(dateNow, date) ? dateNow : dateFns.endOfDay(date)
+
+    setData({ dateTo: newDateTo })
+
+    if (dateFrom && dateFns.isBefore(newDateTo, dateFrom)) {
+      setData({ dateFrom: dateFns.startOfDay(dateFns.sub(newDateTo, { weeks: 1 })) })
+
+      return
+    }
+
+    if (dateFrom && dateFns.differenceInYears(newDateTo, dateFrom) > 0) {
+      setData({ dateFrom: dateFns.startOfDay(dateFns.sub(newDateTo, { years: 1, days: -1 })) })
+    }
+  }
+
   useInfiniteScrollVirtualization({
     virtualizer,
     fetchNextPage,
@@ -77,6 +130,16 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
 
   return (
     <div className="flex min-h-0 w-full flex-col text-sm">
+      <div className="flex justify-end">
+        <TransactionActivityListDateRange
+          dateFrom={dateFrom}
+          dateTo={dateTo}
+          isDisabled={isDateDisabled}
+          onSelectDateFrom={handleSelectDateFrom}
+          onSelectDateTo={handleSelectDateTo}
+        />
+      </div>
+
       {match({ isLoading, data })
         .with({ isLoading: true }, () => <TransactionActivityListSkeleton />)
         .with({ data: [] }, () => <TransactionActivityListEmpty />)
