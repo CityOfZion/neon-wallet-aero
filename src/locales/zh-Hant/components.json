@@ -99,5 +99,8 @@
   "calendar": {
     "previousYearButtonLabel": "前往前幾年",
     "nextYearButtonLabel": "前往後幾年"
+  },
+  "networkBanner": {
+    "testnetLabel": "測試網絡"
   }
 }

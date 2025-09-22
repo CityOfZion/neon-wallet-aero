@@ -3,10 +3,10 @@ import { createMigrate, PersistConfig, PURGE } from 'redux-persist'
 
 import { AVAILABLE_CURRENCIES } from '@/constants/currency'
 import { DEFAULT_LANGUAGE } from '@/constants/language'
-import { DEFAULT_NETWORK_BY_BLOCKCHAIN, DEFAULT_NETWORK_PROFILE } from '@/constants/networks'
+import { DEFAULT_NETWORK_BY_BLOCKCHAIN } from '@/constants/networks'
 import { reduxPersistStorage } from '@/libs/reduxPersist'
 import { TLanguage } from '@/types/language'
-import { TCurrency, TNetworkProfile, TSelectedNetworks } from '@/types/store'
+import { TCurrency, TSelectedNetworks } from '@/types/store'
 
 import { settingsSliceReducers } from './reducers'
 
@@ -15,8 +15,6 @@ export interface ISettingsReducer {
     currency: TCurrency
     language: TLanguage
     selectedNetworkByBlockchain: TSelectedNetworks
-    networkProfiles: TNetworkProfile[]
-    selectedNetworkProfile: TNetworkProfile
   }
 }
 
@@ -25,8 +23,6 @@ const settingsReducerInitialState: ISettingsReducer = {
     currency: AVAILABLE_CURRENCIES[0],
     language: DEFAULT_LANGUAGE,
     selectedNetworkByBlockchain: DEFAULT_NETWORK_BY_BLOCKCHAIN,
-    networkProfiles: [DEFAULT_NETWORK_PROFILE],
-    selectedNetworkProfile: DEFAULT_NETWORK_PROFILE,
   },
 }
 

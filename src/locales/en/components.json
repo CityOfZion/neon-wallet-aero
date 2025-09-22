@@ -105,5 +105,8 @@
   "calendar": {
     "previousYearButtonLabel": "Go to the previous years",
     "nextYearButtonLabel": "Go to the next years"
+  },
+  "networkBanner": {
+    "testnetLabel": "Testnet network"
   }
 }

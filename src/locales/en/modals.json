@@ -303,5 +303,18 @@
     "amountToReceive": "Amount to receive",
     "cancelButtonLabel": "Cancel",
     "confirmButtonLabel": "Confirm Swap"
+  },
+  "networkSelection": {
+    "title": "Network",
+    "selectNetwork": "Select a network"
+  },
+  "networkNodeSelection": {
+    "title": "Node Selection",
+    "description": "If you're experiencing performance issues, try selecting a custom node below",
+    "listLabel": "Top 10 nodes listed by latency",
+    "refreshButtonLabel": "Refresh",
+    "selectAutomaticallyLabel": "Select automatically",
+    "blockHeight": "Block height: {{height}}",
+    "latency": "{{latency}}ms"
   }
 }

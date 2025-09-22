@@ -1,23 +1,22 @@
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import i18next from 'i18next'
 
 import { bsAggregator } from '@/libs/blockchainService'
 import { authReducerActions } from '@/store/reducers/AuthReducer'
 import { settingsReducerActions } from '@/store/reducers/SettingsReducer'
-import { TBlockchainServiceKey } from '@/types/blockchain'
 
 import { useCurrentLoginSessionSelector } from './useAuthSelector'
+import { useMountUnsafe } from './useMountUnsafe'
+import { useAllNodes } from './useNodes'
 import { useAppDispatch } from './useRedux'
-import {
-  useLanguageSelector,
-  useSelectedNetworkByBlockchainSelector,
-  useSelectedNetworkProfileSelector,
-} from './useSettingsSelector'
+import { useLanguageSelector, useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'
 
 const useNetworkChange = () => {
-  const { selectedNetworkProfile } = useSelectedNetworkProfileSelector()
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
+  const allNodesQuery = useAllNodes()
   const dispatch = useAppDispatch()
+
+  const nodesAlreadyChecked = useRef(false)
 
   useLayoutEffect(() => {
     Object.values(bsAggregator.blockchainServicesByName).forEach(service => {
@@ -26,11 +25,34 @@ const useNetworkChange = () => {
     })
   }, [selectedNetworkByBlockchain])
 
-  useLayoutEffect(() => {
-    Object.entries(selectedNetworkProfile.networkByBlockchain).forEach(([blockchain, network]) => {
-      dispatch(settingsReducerActions.setSelectNetwork({ blockchain: blockchain as TBlockchainServiceKey, network }))
+  useMountUnsafe(async () => {
+    const allNodes = allNodesQuery.data
+
+    if (allNodesQuery.isLoading || !allNodes || nodesAlreadyChecked.current) return
+
+    nodesAlreadyChecked.current = true
+
+    const services = Object.values(bsAggregator.blockchainServicesByName)
+
+    const promises = services.map(async service => {
+      const currentNetwork = selectedNetworkByBlockchain[service.name]
+
+      try {
+        await service.testNetwork(currentNetwork)
+        return
+      } catch (error) {
+        console.error('Error testing network:', error)
+      }
+
+      const newNode = allNodes[service.name].find(node => node.latency !== undefined && node.height !== undefined)
+
+      if (!newNode) return
+
+      dispatch(settingsReducerActions.setSelectedNetworkUrl({ blockchain: service.name, url: newNode.url }))
     })
-  }, [dispatch, selectedNetworkProfile.networkByBlockchain])
+
+    await Promise.allSettled(promises)
+  })
 }
 
 const useRemoveTemporaryApplicationData = () => {

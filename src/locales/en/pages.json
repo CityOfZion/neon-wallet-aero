@@ -224,6 +224,12 @@
       }
     }
   },
+  "networkConfiguration": {
+    "title": "Network Configuration",
+    "connectedNeoAndEthLabel": "You are connected to both the Neo and Ethereum networks",
+    "currentNetwork": "Network",
+    "nodeSelection": "Node"
+  },
   "language": {
     "title": "Language",
     "menuIconButtonAriaLabel": "Menu"

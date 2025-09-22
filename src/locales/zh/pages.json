@@ -224,6 +224,12 @@
       }
     }
   },
+  "networkConfiguration": {
+    "title": "网络配置",
+    "connectedNeoAndEthLabel": "您已连接到Neo和以太坊网络",
+    "currentNetwork": "网络",
+    "nodeSelection": "节点"
+  },
   "language": {
     "title": "语言",
     "menuIconButtonAriaLabel": "菜单"
