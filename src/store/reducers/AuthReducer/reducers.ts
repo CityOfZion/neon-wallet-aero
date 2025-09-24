@@ -22,12 +22,12 @@ const saveWallet: CaseReducer<IAuthReducer, PayloadAction<IWalletState>> = (stat
 
   const loginSessionType = state.inMemoryData.loginSession.type
   const wallet = action.payload
-
   const applicationData = state.data.applicationDataByLoginType[loginSessionType]
-
   const walletIndex = applicationData.wallets.findIndex(it => it.id === wallet.id)
+
   if (walletIndex < 0) {
     applicationData.wallets = [...applicationData.wallets, wallet]
+
     return
   }
 
@@ -79,17 +79,18 @@ const saveAccount: CaseReducer<IAuthReducer, PayloadAction<IAccountState>> = (st
   const loginSessionType = state.inMemoryData.loginSession.type
   const account = action.payload
   const walletId = account.idWallet
-
   const applicationData = state.data.applicationDataByLoginType[loginSessionType]
-
   const wallet = applicationData.wallets.find(it => it.id === walletId)
+
   if (!wallet) {
     throw new Error('Error to save account: Wallet not found')
   }
 
   const accountIndex = wallet.accounts.findIndex(it => it.id === account.id)
+
   if (accountIndex < 0) {
     wallet.accounts = [...wallet.accounts, account]
+
     return
   }
 
@@ -104,10 +105,9 @@ const deleteAccount: CaseReducer<IAuthReducer, PayloadAction<IAccountState>> = (
   const loginSessionType = state.inMemoryData.loginSession.type
   const accountToRemove = action.payload
   const walletId = accountToRemove.idWallet
-
   const applicationData = state.data.applicationDataByLoginType[loginSessionType]
-
   const wallet = applicationData.wallets.find(it => it.id === walletId)
+
   if (!wallet) {
     throw new Error('Error to delete account: Wallet not found')
   }

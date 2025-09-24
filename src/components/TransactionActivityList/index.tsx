@@ -129,7 +129,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
   })
 
   return (
-    <div className="flex min-h-0 w-full flex-col text-sm">
+    <div className="flex min-h-0 w-full flex-col gap-y-2 text-sm">
       <div className="flex justify-end">
         <TransactionActivityListDateRange
           dateFrom={dateFrom}
@@ -152,6 +152,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
           >
             {virtualizer.getVirtualItems().map(virtualItem => {
               const { date, items } = data[virtualItem.index]
+
               return (
                 <li
                   key={virtualItem.key}

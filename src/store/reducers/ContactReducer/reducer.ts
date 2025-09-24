@@ -14,6 +14,7 @@ const saveContact: CaseReducer<IContactReducer, PayloadAction<TContactState<TCon
 
   if (index < 0) {
     state.data = [...state.data, encryptedContact]
+
     return
   }
 
@@ -21,8 +22,9 @@ const saveContact: CaseReducer<IContactReducer, PayloadAction<TContactState<TCon
 }
 
 const deleteContact: CaseReducer<IContactReducer, PayloadAction<string>> = (state, action) => {
-  const idContact = action.payload
-  state.data = state.data.filter(contact => contact.id !== idContact)
+  const contactId = action.payload
+
+  state.data = state.data.filter(contact => contact.id !== contactId)
 }
 
 export const contactSliceReducers = {

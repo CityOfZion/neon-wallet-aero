@@ -5,7 +5,7 @@ import { StyleHelper } from '@/helpers/StyleHelper'
 
 import FiCheck from '@/assets/images/fi-check.svg?react'
 
-export type TProps = Omit<RadixCheckbox.CheckboxProps, 'onCheckedChange'> & {
+type TProps = Omit<RadixCheckbox.CheckboxProps, 'onCheckedChange'> & {
   onCheckedChange?(checked: boolean): void
 }
 

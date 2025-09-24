@@ -1,19 +1,26 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
 import { NetworkBanner } from '@/components/NetworkBanner'
 import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
+import { useLogin } from '@/hooks/useLogin'
+import { useWalletsSelector } from '@/hooks/useWalletSelector'
 
 export const AppPage = () => {
   const { loginSession } = useLoginSessionSelector()
+  const { wallets } = useWalletsSelector()
+  const { logout } = useLogin()
 
-  if (!loginSession) {
-    return <Navigate to="/login" />
-  }
+  useEffect(() => {
+    if (wallets.length === 0) logout()
+  }, [logout, wallets])
+
+  if (!loginSession) return <Navigate to="/login" />
 
   return (
     <Fragment>
       <NetworkBanner />
+
       <Outlet />
     </Fragment>
   )

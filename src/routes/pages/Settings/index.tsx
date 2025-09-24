@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@/components/IconButton'
+import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
 import { useModalNavigate } from '@/hooks/useModalRouter'
 import { ScreenLayout } from '@/layouts/ScreenLayout'
 
@@ -17,6 +18,9 @@ import TbPackageImport from '@/assets/images/tb-package-import.svg?react'
 export const SettingsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings' })
   const { modalNavigateWrapper } = useModalNavigate()
+  const { loginSession } = useLoginSessionSelector()
+
+  const isLoginSessionPassword = loginSession?.type === 'password'
 
   return (
     <ScreenLayout className="bg-asphalt text-white">
@@ -37,6 +41,7 @@ export const SettingsPage = () => {
           icon={<TbLock aria-hidden className="text-neon w-6" />}
           label={t('changePasswordButtonLabel')}
           to="/app/settings/change-password"
+          isDisabled={!isLoginSessionPassword}
         />
 
         <SettingsLinkNavigation
@@ -55,6 +60,7 @@ export const SettingsPage = () => {
           icon={<TbDeviceFloppy aria-hidden className="text-neon w-6" />}
           label={t('backupAndRestoreButtonLabel')}
           to="/app/settings/backup-and-restore"
+          isDisabled={!isLoginSessionPassword}
         />
 
         <SettingsLinkNavigation
@@ -68,6 +74,7 @@ export const SettingsPage = () => {
           label={t('migrateFromNeon2ButtonLabel')}
           to="/app/settings/migrate-from-neon2"
           hideSeparator
+          isDisabled={!isLoginSessionPassword}
         />
       </div>
     </ScreenLayout>

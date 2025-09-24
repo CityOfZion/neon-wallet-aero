@@ -358,5 +358,8 @@
         "enterValidAddress": "Enter a valid address"
       }
     }
+  },
+  "buyAndSellTokens": {
+    "title": "Buy & Sell Tokens"
   }
 }

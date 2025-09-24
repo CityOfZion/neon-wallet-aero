@@ -22,7 +22,7 @@ import {
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useAccountUtils } from './useAccountUtils'
-import { useCurrentLoginSessionSelector } from './useAuthSelector'
+import { useLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useContactsSelector } from './useContactSelector'
 import { useAppDispatch } from './useRedux'
@@ -343,17 +343,17 @@ export const useNeonImportBackup = () => {
 
 export const useNeonCreateBackup = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useNeonBackup' })
+  const { loginSessionRef } = useLoginSessionSelector()
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
   const { contacts } = useContactsSelector()
-  const { currentLoginSessionRef } = useCurrentLoginSessionSelector()
 
   const handleCreateBackupFormat = async () => {
-    if (!currentLoginSessionRef.current) {
+    if (!loginSessionRef.current) {
       throw new Error(t('errors.unexpectedError'))
     }
 
-    const encryptedPassword = currentLoginSessionRef.current.encryptedPassword
+    const encryptedPassword = loginSessionRef.current.encryptedPassword
 
     const backupFile: zod.infer<typeof backupDataSchema> = {
       wallets: [],
@@ -428,6 +428,7 @@ export const useNeonCreateBackup = () => {
       }
 
       const fileName = `Neon-Backup-${DateHelper.getNowUnix()}.${BACKUP_FILE_EXTENSION}`
+
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
     } catch {
       throw new Error(t('errors.backupError'))

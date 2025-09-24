@@ -1,15 +1,38 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import i18next from 'i18next'
 
+import { TabsHelper } from '@/helpers/TabsHelper'
+import { WorkerHelper } from '@/helpers/WorkerHelper'
 import { bsAggregator } from '@/libs/blockchainService'
 import { authReducerActions } from '@/store/reducers/AuthReducer'
 import { settingsReducerActions } from '@/store/reducers/SettingsReducer'
+import { TWorkerGetLoginSessionMessage, TWorkerGetLoginSessionResponse } from '@/types/worker-events'
 
-import { useCurrentLoginSessionSelector } from './useAuthSelector'
+import { useLoginSessionSelector } from './useAuthSelector'
 import { useMountUnsafe } from './useMountUnsafe'
 import { useAllNodes } from './useNodes'
 import { useAppDispatch } from './useRedux'
 import { useLanguageSelector, useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'
+
+const useGetLoginSessionFromWorker = () => {
+  const dispatch = useAppDispatch()
+  const { loginSessionRef } = useLoginSessionSelector()
+
+  useLayoutEffect(() => {
+    if (loginSessionRef.current) return
+
+    const get = async () => {
+      const response = await WorkerHelper.send<TWorkerGetLoginSessionMessage, TWorkerGetLoginSessionResponse>({
+        type: 'get-login-session',
+      })
+
+      dispatch(authReducerActions.setLoginSession(response.loginSession))
+    }
+
+    get()
+  }, [dispatch, loginSessionRef])
+}
 
 const useNetworkChange = () => {
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
@@ -21,6 +44,7 @@ const useNetworkChange = () => {
   useLayoutEffect(() => {
     Object.values(bsAggregator.blockchainServicesByName).forEach(service => {
       const network = selectedNetworkByBlockchain[service.name]
+
       service.setNetwork(network)
     })
   }, [selectedNetworkByBlockchain])
@@ -57,14 +81,15 @@ const useNetworkChange = () => {
 
 const useRemoveTemporaryApplicationData = () => {
   const dispatch = useAppDispatch()
-  const { currentLoginSession } = useCurrentLoginSessionSelector()
+  const { loginSession } = useLoginSessionSelector()
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    // If the user is logged in, we don't want to reset the temporary application data
-    if (currentLoginSession) return
+    // If the user is logging in or logged in, we don't want to reset the temporary application data
+    if (loginSession || pathname === '/splash' || pathname === '/' || TabsHelper.isInTab(window.location.href)) return
 
     dispatch(authReducerActions.resetTemporaryApplicationData())
-  }, [currentLoginSession, dispatch])
+  }, [loginSession, dispatch, pathname])
 }
 
 const useLanguageChange = () => {
@@ -76,6 +101,7 @@ const useLanguageChange = () => {
 }
 
 export const useBeforeLogin = () => {
+  useGetLoginSessionFromWorker()
   useNetworkChange()
   useLanguageChange()
   useRemoveTemporaryApplicationData()

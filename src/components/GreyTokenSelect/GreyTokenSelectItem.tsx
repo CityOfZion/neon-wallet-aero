@@ -29,15 +29,16 @@ export const GreyTokenSelectItem = ({ token }: TProps) => {
         }}
         alt={token.symbol}
       />
+
       <Tooltip title={token.network ? `${token.symbol} | ${token.network}` : ''}>
-        <span className="flex min-w-0 flex-grow items-center gap-1">
+        <span className="flex flex-grow items-center gap-1">
           <span className="text-left text-sm text-white uppercase">{token.symbol}</span>
           {token.network && <span className="truncate text-sm text-gray-100 uppercase">{` | ${token.network}`}</span>}
         </span>
       </Tooltip>
 
       {token.amount && (
-        <span className="text-1xs text-neon">
+        <span className="text-1xs text-neon truncate">
           {BSBigNumberHelper.format(token.amount, { decimals: token.decimals })}
         </span>
       )}

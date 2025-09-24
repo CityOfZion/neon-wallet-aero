@@ -7,7 +7,7 @@ import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { useActions } from '@/hooks/useActions'
 import { useBlockchainActions } from '@/hooks/useBlockchainActions'
-import { useNewPassword } from '@/hooks/useHasPasswordSelector'
+import { useNewPassword } from '@/hooks/useNewPassword'
 import { blockchainNames } from '@/libs/blockchainService'
 
 type TFormData = {

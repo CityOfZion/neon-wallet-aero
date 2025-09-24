@@ -22,7 +22,7 @@ export const WalletSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelectionModal' })
   const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
   const { wallets } = useWalletsSelector()
-  const { loginSessionRef } = useLoginSessionSelector()
+  const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const { onSelect, selectedWallet } = useModalState<TModalState<'wallet-selection'>>()
@@ -99,6 +99,7 @@ export const WalletSelectionModal = () => {
           colorSchema="gray"
           leftIcon={<TbReorder aria-hidden />}
         />
+
         <Button
           className="w-full"
           variant="card"
@@ -107,14 +108,17 @@ export const WalletSelectionModal = () => {
           iconsOnEdge={false}
           onClick={modalNavigateWrapper('create-wallet-1', { replace: true })}
         />
-        <Button
-          variant="card"
-          label={t('exportButtonLabel')}
-          colorSchema="gray"
-          leftIcon={<TbFileExport aria-hidden />}
-          iconsOnEdge={false}
-          onClick={handleGoToConfirmPasswordModal}
-        />
+
+        {!!selectedWalletInternal?.encryptedMnemonic && loginSession?.type === 'password' && (
+          <Button
+            label={t('exportButtonLabel')}
+            variant="card"
+            colorSchema="gray"
+            iconsOnEdge={false}
+            leftIcon={<TbFileExport aria-hidden />}
+            onClick={handleGoToConfirmPasswordModal}
+          />
+        )}
       </div>
     </BottomModalLayout>
   )

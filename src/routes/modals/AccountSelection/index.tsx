@@ -23,7 +23,7 @@ import TbWallet from '@/assets/images/tb-wallet.svg?react'
 export const AccountSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'accountSelectionModal' })
   const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
-  const { loginSessionRef } = useLoginSessionSelector()
+  const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
   const { wallet, selectedAccount, onSelect } = useModalState<TModalState<'account-selection'>>()
   const { modalNavigate } = useModalNavigate()
@@ -111,6 +111,7 @@ export const AccountSelectionModal = () => {
           colorSchema="gray"
           leftIcon={<TbReorder aria-hidden />}
         />
+
         <Button
           className="w-full"
           variant="card"
@@ -119,14 +120,17 @@ export const AccountSelectionModal = () => {
           iconsOnEdge={false}
           onClick={() => modalNavigate('create-account-1', { replace: true })}
         />
-        <Button
-          variant="card"
-          label={t('exportButtonLabel')}
-          colorSchema="gray"
-          leftIcon={<TbFileExport aria-hidden />}
-          iconsOnEdge={false}
-          onClick={handleGoToConfirmPasswordModal}
-        />
+
+        {!!selectedAccountInternal?.encryptedKey && loginSession?.type === 'password' && (
+          <Button
+            label={t('exportButtonLabel')}
+            variant="card"
+            colorSchema="gray"
+            iconsOnEdge={false}
+            leftIcon={<TbFileExport aria-hidden />}
+            onClick={handleGoToConfirmPasswordModal}
+          />
+        )}
       </div>
     </BottomModalLayout>
   )

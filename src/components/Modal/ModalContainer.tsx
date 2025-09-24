@@ -4,18 +4,15 @@ import { motion } from 'motion/react'
 
 import { StyleHelper } from '@/helpers/StyleHelper'
 
-export type TModalContainerProps = {
+type TProps = {
   children: ReactNode
 } & ComponentProps<'div'>
 
-export const ModalContent = ({ children, className }: TModalContainerProps) => (
+export const ModalContent = ({ children, className }: TProps) => (
   <div
     role="dialog"
     aria-modal="true"
-    className={StyleHelper.mergeStyles(
-      `w-popup-w-screen h-popup-h-screen absolute top-0 left-0 z-[1000] overflow-hidden`,
-      className
-    )}
+    className={StyleHelper.mergeStyles('absolute top-0 left-0 z-[1000] h-full w-full overflow-hidden', className)}
   >
     <motion.div
       className="absolute top-0 left-0 h-full w-full bg-gray-900/50 backdrop-blur-sm"
@@ -29,8 +26,8 @@ export const ModalContent = ({ children, className }: TModalContainerProps) => (
   </div>
 )
 
-export const ModalContainer = (props: TModalContainerProps) => {
-  const modalRoot = document.querySelector('#popup-root') as HTMLDivElement
+export const ModalContainer = (props: TProps) => {
+  const rootElement = document.querySelector('#neon-root')!
 
-  return createPortal(<ModalContent {...props} />, modalRoot)
+  return createPortal(<ModalContent {...props} />, rootElement)
 }

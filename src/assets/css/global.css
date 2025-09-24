@@ -70,8 +70,16 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+  html {
+    @apply h-full overflow-hidden bg-gray-950;
+  }
+
   body {
-    @apply antialiased;
+    @apply antialiased h-full overflow-hidden bg-gray-950;
+  }
+
+  #neon-root {
+    @apply overflow-hidden
   }
 
   * {

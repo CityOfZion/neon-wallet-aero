@@ -12,6 +12,7 @@ Run:
 ```
 npm run dev
 ```
+_Load the `dist` folder on extensions management._
 
 ## Build
 Run:
