@@ -4,10 +4,7 @@ import { BSNeoLegacyConstants } from '@cityofzion/bs-neo-legacy'
 import { BSNeo3Constants } from '@cityofzion/bs-neo3'
 import { BSNeoXConstants } from '@cityofzion/bs-neox'
 
-import { getI18next } from '@/libs/i18next'
 import { TBlockchainServiceKey, TNetwork } from '@/types/blockchain'
-
-const { t } = getI18next()
 
 const ARBITRUM_MAINNET_NETWORK_IDS = ['42161']
 const ARBITRUM_TESTNET_NETWORK_IDS = ['421614']
@@ -82,10 +79,4 @@ export const DEFAULT_NETWORK_BY_BLOCKCHAIN: Record<TBlockchainServiceKey, TNetwo
   polygon: NETWORK_OPTIONS_BY_BLOCKCHAIN.polygon.mainnet[0],
   base: NETWORK_OPTIONS_BY_BLOCKCHAIN.base.mainnet[0],
   arbitrum: NETWORK_OPTIONS_BY_BLOCKCHAIN.arbitrum.mainnet[0],
-}
-
-export const DEFAULT_NETWORK_PROFILE = {
-  name: t('common:general.default'),
-  id: 'default',
-  networkByBlockchain: DEFAULT_NETWORK_BY_BLOCKCHAIN,
 }

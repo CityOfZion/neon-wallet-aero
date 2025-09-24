@@ -1,0 +1,56 @@
+import { useTranslation } from 'react-i18next'
+
+import { Accordion } from '@/components/Accordion'
+import { BlockchainIcon } from '@/components/BlockchainIcon'
+import { useModalNavigate } from '@/hooks/useModalRouter'
+import { useSelectedNetworkSelector } from '@/hooks/useSettingsSelector'
+import { TBlockchainServiceKey } from '@/types/blockchain'
+
+import { NetworkConfigurationBlockchainButton } from './NetworkConfigurationBlockchainButton'
+
+type TProps = {
+  blockchain: TBlockchainServiceKey
+}
+
+export const NetworkConfigurationBlockchainAccordion = ({ blockchain }: TProps) => {
+  const { t } = useTranslation('pages', { keyPrefix: 'networkConfiguration' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'blockchain' })
+  const { modalNavigateWrapper } = useModalNavigate()
+  const { network } = useSelectedNetworkSelector(blockchain)
+
+  return (
+    <Accordion.Item value={blockchain}>
+      <Accordion.Trigger>
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-4 w-4 items-center justify-center">
+            <BlockchainIcon blockchain={blockchain} className="text-blue" />
+          </div>
+          <span className="text-sm text-white">{tCommon(blockchain)}</span>
+        </div>
+      </Accordion.Trigger>
+
+      <Accordion.Content className="pb-2">
+        <NetworkConfigurationBlockchainButton
+          label={t('currentNetwork')}
+          subLabel={network.name}
+          onClick={modalNavigateWrapper('network-selection', {
+            state: {
+              blockchain,
+            },
+          })}
+        />
+
+        <NetworkConfigurationBlockchainButton
+          className="border-none"
+          label={t('nodeSelection')}
+          subLabel={network.url}
+          onClick={modalNavigateWrapper('network-node-selection', {
+            state: {
+              blockchain,
+            },
+          })}
+        />
+      </Accordion.Content>
+    </Accordion.Item>
+  )
+}

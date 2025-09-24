@@ -149,6 +149,14 @@ type TSwapConfirmationModalState = {
   swapOrchestrator: SimpleSwapOrchestrator<TBlockchainServiceKey>
 }
 
+type TNetworkSelectionModalState = {
+  blockchain: TBlockchainServiceKey
+}
+
+type TNetworkNodeSelectionModalState = {
+  blockchain: TBlockchainServiceKey
+}
+
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
@@ -180,4 +188,6 @@ export type TModalRouterRouteTypes = {
   'swap-info': undefined
   'swap-details': TSwapDetailsModalState
   'swap-confirmation': TSwapConfirmationModalState
+  'network-selection': TNetworkSelectionModalState
+  'network-node-selection': TNetworkNodeSelectionModalState
 }

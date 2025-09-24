@@ -6,7 +6,7 @@ import { TLanguage } from '@/types/language'
 
 import { ISettingsReducer } from './index'
 
-const setSelectNetwork = <T extends TBlockchainServiceKey>(
+const setSelectedNetwork = <T extends TBlockchainServiceKey>(
   state: ISettingsReducer,
   action: PayloadAction<{ blockchain: T; network: TNetwork<T> }>
 ) => {
@@ -18,11 +18,25 @@ const setSelectNetwork = <T extends TBlockchainServiceKey>(
   state.data.selectedNetworkByBlockchain = cloneSelectedNetworkByBlockchain
 }
 
+const setSelectedNetworkUrl: CaseReducer<
+  ISettingsReducer,
+  PayloadAction<{ blockchain: TBlockchainServiceKey; url: string; isAutomatic?: boolean }>
+> = (state, action) => {
+  const { blockchain, url, isAutomatic } = action.payload
+
+  const cloneSelectedNetworkByBlockchain = cloneDeep(state.data.selectedNetworkByBlockchain)
+  cloneSelectedNetworkByBlockchain[blockchain].url = url
+  cloneSelectedNetworkByBlockchain[blockchain].isAutomatic = isAutomatic
+
+  state.data.selectedNetworkByBlockchain = cloneSelectedNetworkByBlockchain
+}
+
 const setLanguage: CaseReducer<ISettingsReducer, PayloadAction<TLanguage>> = (state, action) => {
   state.data.language = action.payload
 }
 
 export const settingsSliceReducers = {
-  setSelectNetwork,
+  setSelectedNetwork,
   setLanguage,
+  setSelectedNetworkUrl,
 }

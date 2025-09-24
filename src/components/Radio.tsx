@@ -20,7 +20,7 @@ const Item = forwardRef<ComponentRef<typeof RadixRadio.Item>, ItemProps>(
       {...props}
       ref={ref}
       className={StyleHelper.mergeStyles(
-        'group hover:bg-asphalt focus:bg-asphalt flex h-11 w-full cursor-pointer flex-col bg-transparent transition-colors',
+        'group hover:bg-asphalt flex h-11 w-full cursor-pointer flex-col bg-transparent transition-colors',
         className
       )}
     >

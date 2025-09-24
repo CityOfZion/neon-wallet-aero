@@ -303,5 +303,18 @@
     "amountToReceive": "接收金额",
     "cancelButtonLabel": "取消",
     "confirmButtonLabel": "确认交换"
+  },
+  "networkSelection": {
+    "title": "网络",
+    "selectNetwork": "选择网络"
+  },
+  "networkNodeSelection": {
+    "title": "节点选择",
+    "description": "如果您遇到性能问题，请尝试选择下面的自定义节点",
+    "listLabel": "按延迟排序的前10个节点",
+    "refreshButtonLabel": "刷新",
+    "selectAutomaticallyLabel": "自动选择",
+    "blockHeight": "区块高度：{{height}}",
+    "latency": "{{latency}}毫秒"
   }
 }

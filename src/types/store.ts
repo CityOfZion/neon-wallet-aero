@@ -182,12 +182,6 @@ export type TSelectedNetworks = {
   [K in TBlockchainServiceKey]: TNetwork<K>
 }
 
-export type TNetworkProfile = {
-  id: string
-  name: string
-  networkByBlockchain: TSelectedNetworks
-}
-
 export type TPendingTransaction = TransactionResponse & {
   account: IAccountState
   isClaim?: boolean

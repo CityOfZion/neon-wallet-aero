@@ -1,5 +1,7 @@
+import { Fragment } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 
+import { NetworkBanner } from '@/components/NetworkBanner'
 import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
 
 export const AppPage = () => {
@@ -9,5 +11,10 @@ export const AppPage = () => {
     return <Navigate to="/login" />
   }
 
-  return <Outlet />
+  return (
+    <Fragment>
+      <NetworkBanner />
+      <Outlet />
+    </Fragment>
+  )
 }

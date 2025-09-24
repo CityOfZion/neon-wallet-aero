@@ -23,6 +23,8 @@ import { ImportAccountsSelectionModal } from './modals/ImportAccountsSelection'
 import { MenuModal } from './modals/Menu'
 import { MigrateFromNeon2Step3Modal } from './modals/MigrateFromNeon2Step3'
 import { MigrateFromNeon2Step4Modal } from './modals/MigrateFromNeon2Step4'
+import { NetworkNodeSelectionModal } from './modals/NetworkNodeSelection'
+import { NetworkSelectionModal } from './modals/NetworkSelection'
 import { SaveContactModal } from './modals/SaveContact'
 import { SuccessModal } from './modals/Success'
 import { SwapAboutExtraIdToReceiveModal } from './modals/SwapAboutExtraIdToReceive'
@@ -62,4 +64,6 @@ export const modalsRouter: TRoute[] = [
   { name: 'swap-info', type: 'bottom', element: <SwapInfoModal /> },
   { name: 'swap-details', type: 'bottom', element: <SwapDetailsModal /> },
   { name: 'swap-confirmation', type: 'bottom', element: <SwapConfirmationModal /> },
+  { name: 'network-selection', type: 'bottom', element: <NetworkSelectionModal /> },
+  { name: 'network-node-selection', type: 'bottom', element: <NetworkNodeSelectionModal /> },
 ]

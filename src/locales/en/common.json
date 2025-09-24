@@ -17,7 +17,8 @@
     "migrationNeo3": "Migration",
     "swap": "Swap",
     "save": "Save",
-    "edit": "Edit"
+    "edit": "Edit",
+    "cancel": "Cancel"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",
