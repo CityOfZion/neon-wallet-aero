@@ -25,10 +25,6 @@ const setEncryptedLoginControl: CaseReducer<IUtilityReducer, PayloadAction<strin
   state.data.encryptedLoginControl = action.payload
 }
 
-const setHasPassword: CaseReducer<IUtilityReducer, PayloadAction<boolean>> = (state, action) => {
-  state.data.hasPassword = action.payload
-}
-
 // Last Indexes By Wallet Reducers
 const saveLastIndexByWallet: CaseReducer<
   IUtilityReducer,
@@ -82,7 +78,6 @@ export const utilitySliceReducers = {
   removePendingTransaction,
   saveLastIndexByWallet,
   setEncryptedLoginControl,
-  setHasPassword,
   saveMigrationNeo3,
   mergeMigrationsNeo3,
   persistSwapRecord,

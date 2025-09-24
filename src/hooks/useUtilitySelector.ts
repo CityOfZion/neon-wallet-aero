@@ -75,11 +75,8 @@ export const useLoginControlSelector = () => {
   }
 }
 
-export const useHasPasswordSelector = () => {
-  const { ref, value } = useAppSelector(state => state.utility.data.hasPassword)
+export const useHasLoginControlSelector = () => {
+  const { ref, value } = useAppSelector(state => !!state.utility.data.encryptedLoginControl)
 
-  return {
-    hasPassword: value,
-    hasPasswordRef: ref,
-  }
+  return { hasLoginControl: value, hasLoginControlRef: ref }
 }

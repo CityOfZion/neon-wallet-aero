@@ -322,5 +322,8 @@
     "searchContactsPlaceholder": "搜索联系人…",
     "searchContactsLabel": "搜索联系人",
     "addContactButtonLabel": "添加联系人"
+  },
+  "buyAndSellTokens": {
+    "title": "买卖代币"
   }
 }

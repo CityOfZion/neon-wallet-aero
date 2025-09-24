@@ -16,7 +16,8 @@
     "migrationNeo3": "遷移",
     "swap": "兌換",
     "save": "儲存",
-    "edit": "編輯"
+    "edit": "編輯",
+    "internalPageWarningMessage": "使用構建版本訪問此頁面"
   },
   "wallet": {
     "firstWalletName": "我的第一個錢包",

@@ -4,6 +4,7 @@ import { AppPage } from './pages/App'
 import { BackupAndRestorePage } from './pages/BackupAndRestore'
 import { BackupStep1 } from './pages/BackupAndRestore/BackupStep1'
 import { BackupStep2 } from './pages/BackupAndRestore/BackupStep2'
+import { BuyAndSellTokens } from './pages/BuyAndSellTokens'
 import { ChangePasswordPage } from './pages/ChangePassword'
 import { ChangePasswordStep1 } from './pages/ChangePassword/ChangePasswordStep1'
 import { ChangePasswordStep2 } from './pages/ChangePassword/ChangePasswordStep2'
@@ -114,6 +115,7 @@ export const pagesRouter = createHashRouter([
             path: 'settings',
             children: [
               { path: '', element: <SettingsPage /> },
+              { path: 'buy-and-sell-tokens', element: <BuyAndSellTokens /> },
               {
                 path: 'language',
                 element: <LanguagePage />,

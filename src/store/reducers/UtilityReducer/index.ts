@@ -12,7 +12,6 @@ export interface IUtilityReducer {
     pendingTransactions: TUseTransactionsTransfer[]
   }
   data: {
-    hasPassword: boolean
     encryptedLoginControl?: string
     swapRecords: TSwapRecord[]
     lastIndexesByWallet: TLastIndexesByWallet
@@ -26,7 +25,6 @@ const utilityReducerInitialState: IUtilityReducer = {
     pendingTransactions: [],
   },
   data: {
-    hasPassword: false,
     encryptedLoginControl: undefined,
     swapRecords: [],
     lastIndexesByWallet: {},

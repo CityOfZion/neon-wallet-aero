@@ -8,8 +8,14 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 import manifest from './manifest.json'
 
-// https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        internal: 'internal.html',
+      },
+    },
+  },
   plugins: [
     tailwindcss(),
     nodePolyfills({

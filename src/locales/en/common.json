@@ -16,7 +16,8 @@
     "migrationNeo3": "Migration",
     "swap": "Swap",
     "save": "Save",
-    "edit": "Edit"
+    "edit": "Edit",
+    "internalPageWarningMessage": "Use built version to access this page"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",

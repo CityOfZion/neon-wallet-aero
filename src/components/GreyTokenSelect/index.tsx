@@ -69,6 +69,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
 
         return {
           ...token,
+          blockchain: tokenBalance?.blockchain ?? blockchain,
           amount: tokenBalance?.amount,
         }
       })
@@ -132,7 +133,9 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
       >
         {match({ loading, isTokenSelected: !!selectedToken })
           .with({ loading: true }, () => <Loader />)
-          .with({ isTokenSelected: true }, () => <GreyTokenSelectItem token={selectedToken!} />)
+          .with({ isTokenSelected: true }, () => (
+            <GreyTokenSelectItem token={{ ...selectedToken!, blockchain: balance?.blockchain ?? blockchain }} />
+          ))
           .otherwise(() => (
             <span className="text-neon w-full text-center font-medium">{t('placeholder')}</span>
           ))}

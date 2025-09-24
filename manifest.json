@@ -1,11 +1,11 @@
 {
-  "name": "Neon",
-  "description": "Everything a self-custodial wallet should be with everything you need to explore and make transactions in the Neo N3, Neo Legacy, Neo X, Ethereum, and other networks.",
+  "name": "Neon Wallet",
+  "description": "Your self-custodial and open-source blockchain wallet as browser extension.",
   "version": "1.0.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "index.html",
-    "default_title": "Open the Neon"
+    "default_title": "Neon Wallet"
   },
   "icons": {
     "16": "public/icon-16x16.png",
@@ -13,10 +13,17 @@
     "48": "public/icon-48x48.png",
     "128": "public/icon-128x128.png"
   },
+  "background": {
+    "service_worker": "src/worker.ts",
+    "type": "module"
+  },
   "permissions": [
     "storage",
+    "unlimitedStorage",
     "downloads",
     "clipboardRead",
-    "clipboardWrite"
+    "clipboardWrite",
+    "tabs",
+    "activeTab"
   ]
 }

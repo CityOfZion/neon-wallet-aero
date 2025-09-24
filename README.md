@@ -18,6 +18,7 @@ Run:
 ```
 npm run build
 ```
+_Test some pages using developer mode on extensions management and load the `dist` folder on extensions._
 
 ## Lint and typecheck
 Run:

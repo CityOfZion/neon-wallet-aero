@@ -13,6 +13,7 @@ export type TMainLayoutProps = {
   rightComponent?: JSX.Element
   contentClassName?: string
   headerClassName?: string
+  hasBack?: boolean
 } & ComponentProps<'div'>
 
 export const ScreenLayout = ({
@@ -22,6 +23,7 @@ export const ScreenLayout = ({
   headerClassName,
   className,
   rightComponent,
+  hasBack = true,
   ...props
 }: TMainLayoutProps): JSX.Element => {
   const { ref } = useRemoveOverflowShift<HTMLDivElement>()
@@ -49,7 +51,7 @@ export const ScreenLayout = ({
             headerClassName
           )}
         >
-          <IconButton type="button" icon={<TbArrowLeft aria-hidden />} onClick={handleBack} />
+          {hasBack && <IconButton type="button" icon={<TbArrowLeft aria-hidden />} onClick={handleBack} />}
 
           {<h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-bold">{heading}</h1>}
 

@@ -93,12 +93,13 @@ export const WalletsPage = () => {
   return (
     <ScreenLayout>
       <div className="flex items-end justify-between">
-        <div className="-ml-2 flex gap-9">
+        <div className="-ml-2 flex gap-2">
           <WalletsPageSelectButton
             label={t('labelWalletSelectButton')}
             selectedLabel={selectedWallet?.name ?? t('placeholderWalletSelectButton')}
             onClick={handleWalletSelect}
           />
+
           <WalletsPageSelectButton
             label={t('labelAccountSelectButton')}
             selectedLabel={selectedAccount?.name ?? t('placeholderWalletSelectButton')}

@@ -322,5 +322,8 @@
     "searchContactsPlaceholder": "Search contacts…",
     "searchContactsLabel": "Search contacts",
     "addContactButtonLabel": "Add contact"
+  },
+  "buyAndSellTokens": {
+    "title": "Buy & Sell Tokens"
   }
 }

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { PersistConfig, PURGE } from 'redux-persist'
-import storage from 'redux-persist/es/storage'
 
+import { reduxPersistStorage } from '@/libs/reduxPersist'
 import { TContactEncryptedAddress, TContactState } from '@/types/store'
 
 import { contactSliceReducers } from './reducer'
@@ -16,7 +16,7 @@ const contactReducerInitialState = {
 
 export const contactReducerConfig: PersistConfig<IContactReducer> = {
   key: 'contactReducer',
-  storage,
+  storage: reduxPersistStorage,
 }
 
 const contactSlice = createSlice({

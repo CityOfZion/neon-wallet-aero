@@ -20,11 +20,13 @@
     "title": "選單",
     "walletsItemLabel": "錢包",
     "importItemLabel": "匯入",
+    "buyAndSellTokensItemLabel": "買賣",
     "exportItemLabel": "匯出",
     "connectHardwareWalletItemLabel": "連接硬體錢包",
     "helpItemLabel": "幫助",
     "contactsItemLabel": "聯絡人",
-    "settingsItemLabel": "設定"
+    "settingsItemLabel": "設定",
+    "logoutItemLabel": "註銷"
   },
   "importAccountsSelectionModal": {
     "title": "匯入",

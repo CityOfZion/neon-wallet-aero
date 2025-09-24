@@ -1,42 +1,46 @@
-import { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
-import { EnvHelper } from '@/helpers/EnvHelper'
-import { StyleHelper } from '@/helpers/StyleHelper'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
+import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
 import { useBeforeLogin } from '@/hooks/useBeforeLogin'
 
 // It should be a different component because the contexts are in the parent component
 export const Child = () => {
   useBeforeLogin()
+
   const navigate = useNavigate()
+  const { loginSession, loginSessionRef } = useLoginSessionSelector()
+  const { pathname, search } = useLocation()
+  const [nextUrl, setNextUrl] = useState('')
+
+  const isIndex = window.location.pathname === '/index.html'
+
+  useEffect(() => {
+    if (!loginSession || pathname !== '/splash' || !nextUrl) return
+
+    navigate(isIndex ? '/app/wallets' : nextUrl, { replace: true })
+    setNextUrl('')
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginSession, pathname, nextUrl, isIndex])
 
   useEffect(() => {
     const handle = async () => {
+      setNextUrl(`${pathname}${search}`)
       navigate('/splash', { replace: true })
 
       await UtilsHelper.sleep(2000)
 
-      navigate('/login/neon-account/password', { replace: true })
+      if (loginSessionRef.current) return
+
+      navigate('/login', { replace: true })
     }
 
     handle()
-  }, [navigate])
 
-  return (
-    <div
-      className={StyleHelper.mergeStyles('flex h-full w-full items-center justify-center bg-gray-950', {
-        'h-screen w-screen': EnvHelper.DEV,
-      })}
-    >
-      <div
-        id="popup-root"
-        className={StyleHelper.mergeStyles('h-popup-h-screen w-popup-w-screen relative overflow-hidden', {
-          'rounded-lg': EnvHelper.DEV,
-        })}
-      >
-        <Outlet />
-      </div>
-    </div>
-  )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return <Outlet />
 }

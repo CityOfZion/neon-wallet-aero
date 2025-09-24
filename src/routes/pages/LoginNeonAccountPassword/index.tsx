@@ -7,7 +7,7 @@ import { Input } from '@/components/Input'
 import { Link } from '@/components/Link'
 import { useActions } from '@/hooks/useActions'
 import { useLogin } from '@/hooks/useLogin'
-import { useHasPasswordSelector } from '@/hooks/useUtilitySelector'
+import { useHasLoginControlSelector } from '@/hooks/useUtilitySelector'
 
 type TFormData = {
   password: string
@@ -17,7 +17,7 @@ export const LoginNeonAccountPassword = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'loginNeonAccountPassword' })
   const navigate = useNavigate()
   const { loginWithPassword } = useLogin()
-  const { hasPasswordRef } = useHasPasswordSelector()
+  const { hasLoginControlRef } = useHasLoginControlSelector()
 
   const { actionData, actionState, setData, setError, handleAct } = useActions<TFormData>({
     password: '',
@@ -36,19 +36,18 @@ export const LoginNeonAccountPassword = () => {
   const handleSubmit = async (data: TFormData) => {
     try {
       await loginWithPassword(data.password)
-      navigate('/app', { replace: true })
+
+      navigate('/app/wallets', { replace: true })
     } catch {
       setError('password', t('error.invalidPassword'))
     }
   }
 
   useEffect(() => {
-    if (hasPasswordRef.current) {
-      return
-    }
+    if (hasLoginControlRef.current) return
 
     navigate('/login/neon-account/onboarding', { replace: true })
-  })
+  }, [hasLoginControlRef, navigate])
 
   return (
     <form className="flex w-full flex-grow flex-col items-center justify-between" onSubmit={handleAct(handleSubmit)}>

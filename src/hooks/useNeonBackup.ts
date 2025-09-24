@@ -22,7 +22,7 @@ import {
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useAccountUtils } from './useAccountUtils'
-import { useCurrentLoginSessionSelector } from './useAuthSelector'
+import { useLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useAppDispatch } from './useRedux'
 import { useWalletsSelector } from './useWalletSelector'
@@ -344,14 +344,14 @@ export const useNeonCreateBackup = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useNeonBackup' })
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
-  const { currentLoginSessionRef } = useCurrentLoginSessionSelector()
+  const { loginSessionRef } = useLoginSessionSelector()
 
   const handleCreateBackupFormat = async () => {
-    if (!currentLoginSessionRef.current) {
+    if (!loginSessionRef.current) {
       throw new Error(t('errors.unexpectedError'))
     }
 
-    const encryptedPassword = currentLoginSessionRef.current.encryptedPassword
+    const encryptedPassword = loginSessionRef.current.encryptedPassword
 
     const backupFile: zod.infer<typeof backupDataSchema> = {
       wallets: [],
