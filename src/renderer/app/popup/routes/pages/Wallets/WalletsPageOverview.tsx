@@ -24,6 +24,7 @@ import { WalletPageClaimButton } from './WalletsPageClaimButton'
 
 import TbCopy from '@renderer/assets/images/tb-copy.svg?react'
 import TbRefresh from '@renderer/assets/images/tb-refresh.svg?react'
+import TbReplace from '@renderer/assets/images/tb-replace.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
 type TProps = {
@@ -57,6 +58,10 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
 
   const handleSendNavigation = () => {
     navigate('/app/send', { state: { account: selectedAccount } })
+  }
+
+  const handleSwapNavigation = () => {
+    navigate('/app/swap', { state: { account: selectedAccount } })
   }
 
   useLayoutEffect(() => {
@@ -114,14 +119,24 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
         {blockchainService && isClaimable(blockchainService) && !isWatchAccount && (
           <WalletPageClaimButton selectAccount={selectedAccount} blockchainService={blockchainService} />
         )}
+        <div className="flex w-full gap-2.5">
+          <Button
+            label={t('swapButtonLabel')}
+            onClick={handleSwapNavigation}
+            leftIcon={<TbReplace aria-hidden />}
+            disabled={isWatchAccount}
+            iconsOnEdge={false}
+          />
 
-        <Button
-          label={t('sendButtonLabel')}
-          leftIcon={<TbStepOut aria-hidden />}
-          iconsOnEdge={false}
-          onClick={handleSendNavigation}
-          disabled={isWatchAccount}
-        />
+          <Button
+            label={t('sendButtonLabel')}
+            leftIcon={<TbStepOut aria-hidden />}
+            iconsOnEdge={false}
+            onClick={handleSendNavigation}
+            disabled={isWatchAccount}
+            className="w-full"
+          />
+        </div>
       </div>
 
       <Tabs.Root className="mt-7.5" value={tab} onValueChange={newTab => setTab(newTab as TTab)}>

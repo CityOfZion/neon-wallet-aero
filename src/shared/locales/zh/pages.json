@@ -7,6 +7,7 @@
     "addressLabel": "地址",
     "balanceLabel": "余额",
     "sendButtonLabel": "发送",
+    "swapButtonLabel": "交换",
     "ariaLabels": {
       "menuIconButton": "菜单",
       "refreshIconButton": "刷新",
@@ -321,9 +322,8 @@
   },
   "swap": {
     "title": "交换代币",
-    "infoTooltip": "交换信息",
+    "howDoesItWorkButtonLabel": "How does it work?",
     "form": {
-      "title": "您想交换哪些代币？",
       "restart": "重新开始",
       "assets": "资产",
       "source": "账户详情",
@@ -347,6 +347,8 @@
       "amountToReceiveTitle": "您将获得的数量",
       "amountToReceiveTitleComplement": "（扣除手续费后）",
       "submitLabel": "立即交换",
+      "max": "最大",
+      "receiverAddressPlaceholder": "选择…",
       "errors": {
         "invalidAddress": "地址无效",
         "invalidExtraIdToReceive": "目标标签/备注无效",

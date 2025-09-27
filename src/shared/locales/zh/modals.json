@@ -26,7 +26,6 @@
     "helpItemLabel": "帮助",
     "contactsItemLabel": "联系人",
     "settingsItemLabel": "设置",
-    "swapItemLabel": "交换",
     "neo3NeoXBridgeItemLabel": "桥接",
     "logoutItemLabel": "注销"
   },
@@ -257,6 +256,8 @@
     "addressOrDomain": "地址或域名",
     "saveAddressButtonLabel": "保存地址",
     "updateAddressButtonLabel": "更新地址",
+    "searchContactsLabel": "搜索联系人",
+    "addContactButtonLabel": "添加联系人",
     "messages": {
       "addressComplete": "地址输入完成！",
       "nnsComplete": "找到NS域名！",
@@ -326,5 +327,20 @@
     "description2": "区块链彼此独立，无法相互交互 - 这就是跨链桥的作用所在。其原理类似于在不同国家旅行时兑换货币，跨链桥允许您在各种区块链之间转移资产。",
     "description3": "在NEON中直接即时桥接代币既方便又能节省时间和费用。",
     "alert": "COZ不是此桥接过程的维护者 - Neo全球开发是维护者。"
+  },
+  "accountReceiveSelection": {
+    "title": "选择接收账户",
+    "enterAddressLabel": "输入地址",
+    "myAccountsLabel": "我的账户",
+    "myContactsLabel": "我的联系人",
+    "enterRecipientAddressPlaceholder": "请输入收款地址…",
+    "noContactsFound": "未找到联系人",
+    "noAccountsFound": "未找到账户",
+    "useThisAddressButtonLabel": "使用此地址",
+    "messages": {
+      "addressComplete": "地址输入完成！",
+      "nsComplete": "找到NS域名！",
+      "invalidAddress": "无效地址或NS域名"
+    }
   }
 }

@@ -156,6 +156,15 @@ type TNetworkNodeSelectionModalState = {
   blockchain: TBlockchainServiceKey
 }
 
+type TAccountReceiveSelectionModalState = {
+  handleChangeAddress: (address: string) => void
+  handleChangeAccount: (account: IAccountState) => void
+  accountTypes?: 'standard' | 'hardware'
+  blockchain?: TBlockchainServiceKey
+  selectedAccount?: IAccountState
+  selectedAddress?: string
+}
+
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
@@ -190,4 +199,5 @@ export type TModalRouterRouteTypes = {
   'network-selection': TNetworkSelectionModalState
   'network-node-selection': TNetworkNodeSelectionModalState
   'neo3-neox-bridge-info': undefined
+  'account-receive-selection': TAccountReceiveSelectionModalState
 }

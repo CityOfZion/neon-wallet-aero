@@ -10,7 +10,6 @@ import TbDeviceUsb from '@renderer/assets/images/tb-device-usb.svg?react'
 import TbDoorExit from '@renderer/assets/images/tb-door-exit.svg?react'
 import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 import TbHelp from '@renderer/assets/images/tb-help.svg?react'
-import TbReplace from '@renderer/assets/images/tb-replace.svg?react'
 import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbSettings from '@renderer/assets/images/tb-settings.svg?react'
 import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
@@ -48,8 +47,6 @@ export const MenuModal = () => {
         />
 
         <MenuItemLink label={t('contactsItemLabel')} to="/app/contacts" icon={<TbUsers aria-hidden={true} />} />
-
-        <MenuItemLink label={t('swapItemLabel')} to="/app/swap" icon={<TbReplace aria-hidden />} />
 
         <MenuItemLink
           label={t('helpItemLabel')}

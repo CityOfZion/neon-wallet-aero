@@ -26,7 +26,6 @@
     "helpItemLabel": "Help",
     "contactsItemLabel": "Contacts",
     "settingsItemLabel": "Settings",
-    "swapItemLabel": "Swap",
     "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Logout"
   },
@@ -326,5 +325,22 @@
     "description2": "Blockchains are independent of each other, and can’t interact with each other - That's where bridges come in. It’s similar in principle to exchanging money while traveling to different countries, a bridge allows you to transfer assets across various blockchains.",
     "description3": "Directly and immediately bridging tokens in NEON is convenient and allows you to save time and pay lower fees.",
     "alert": "COZ are not maintainers of this bridging process - Neo Global Development is the maintainer."
+  },
+  "accountReceiveSelection": {
+    "title": "Select a receiving account",
+    "enterAddressLabel": "Enter address",
+    "myAccountsLabel": "My accounts",
+    "myContactsLabel": "My contacts",
+    "enterRecipientAddressPlaceholder": "Enter recipient address…",
+    "noContactsFound": "No contacts found",
+    "noAccountsFound": "No accounts found",
+    "useThisAddressButtonLabel": "Use this address",
+    "searchContactsLabel": "Search contacts",
+    "searchContactsPlaceholder": "Search contacts…",
+    "messages": {
+      "addressComplete": "Address complete!",
+      "nsComplete": "NS domain found!",
+      "invalidAddress": "Invalid address or NS domain"
+    }
   }
 }

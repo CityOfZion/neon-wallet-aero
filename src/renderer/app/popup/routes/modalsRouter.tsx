@@ -1,5 +1,6 @@
 import { TRoute } from '@shared/types/modal'
 
+import { AccountReceiveSelectionModal } from './modals/AccountReceiveSelectionModal'
 import { AccountSelectionModal } from './modals/AccountSelection'
 import { BlockchainSelectionModal } from './modals/BlockchainSelection'
 import { ConfirmPasswordModal } from './modals/ConfirmPassword'
@@ -68,4 +69,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'network-selection', type: 'bottom', element: <NetworkSelectionModal /> },
   { name: 'network-node-selection', type: 'bottom', element: <NetworkNodeSelectionModal /> },
   { name: 'neo3-neox-bridge-info', type: 'bottom', element: <Neo3NeoXBridgeInfoModal /> },
+  { name: 'account-receive-selection', type: 'bottom', element: <AccountReceiveSelectionModal /> },
 ]
