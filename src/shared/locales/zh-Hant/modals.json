@@ -297,13 +297,14 @@
   },
   "swapConfirmationModal": {
     "heading": "交換確認",
-    "description": "請在繼續交換前確認以下詳細資訊。",
-    "swapFromTo": "從 {{tokenFrom}} 交換到 {{tokenTo}}",
-    "accountFrom": "發送帳戶",
-    "accountTo": "接收帳戶",
-    "amountToSend": "發送金額",
-    "amountToReceive": "接收金額",
-    "cancelButtonLabel": "取消",
+    "transactionDetails": "交易詳情",
+    "description": "請在繼續交換前確認以下詳細資訊：",
+    "youWantToSwap": "您想要交換",
+    "swapFrom": "從",
+    "sendingAddress": "發送地址",
+    "amount": "金額",
+    "swapTo": "交換至",
+    "receivingAddress": "接收地址",
     "confirmButtonLabel": "確認交換"
   },
   "networkSelection": {
