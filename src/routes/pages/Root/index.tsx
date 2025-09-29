@@ -20,6 +20,7 @@ export const RootPage = () => {
           <WalletConnectWalletProvider options={walletConnectOptions}>
             <ModalRouterProvider routes={modalsRouter}>
               <Child />
+
               <ToastProvider />
             </ModalRouterProvider>
           </WalletConnectWalletProvider>

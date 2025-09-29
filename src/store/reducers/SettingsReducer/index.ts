@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { createMigrate, PersistConfig, PURGE } from 'redux-persist'
+import { PersistConfig, PURGE } from 'redux-persist'
 
 import { AVAILABLE_CURRENCIES } from '@/constants/currency'
 import { DEFAULT_LANGUAGE } from '@/constants/language'
@@ -26,21 +26,9 @@ const settingsReducerInitialState: ISettingsReducer = {
   },
 }
 
-const settingsReducerMigrations = {
-  0: ({ _persist, ...state }: any) => ({
-    ...state,
-    data: {
-      ...state.data,
-      language: DEFAULT_LANGUAGE,
-    },
-  }),
-}
-
 export const settingsReducerConfig: PersistConfig<ISettingsReducer> = {
   key: 'settingsReducer',
   storage: reduxPersistStorage,
-  version: 0,
-  migrate: createMigrate(settingsReducerMigrations),
 }
 
 const settingsSlice = createSlice({

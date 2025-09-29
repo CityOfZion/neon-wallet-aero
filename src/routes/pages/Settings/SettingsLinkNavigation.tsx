@@ -11,19 +11,23 @@ type TProps = {
   to: string
   icon: JSX.Element
   hideSeparator?: boolean
+  isDisabled?: boolean
 }
 
-export const SettingsLinkNavigation = ({ label, to, icon, hideSeparator = false }: TProps) => {
+export const SettingsLinkNavigation = ({ label, to, icon, hideSeparator = false, isDisabled = false }: TProps) => {
   return (
     <div className="flex flex-col">
       <NavLink
         to={to}
+        aria-disabled={isDisabled}
+        tabIndex={isDisabled ? -1 : undefined}
         className={({ isActive }) =>
           StyleHelper.mergeStyles(
             'relative flex w-full cursor-pointer flex-col px-3 transition-opacity duration-200 hover:opacity-75 focus:opacity-75 active:opacity-60',
             {
               'bg-asphalt after:bg-neon after:absolute after:top-0 after:left-0 after:block after:h-full after:w-1 after:content-[""]':
                 isActive,
+              'pointer-events-none cursor-default opacity-40': isDisabled,
             }
           )
         }
@@ -35,7 +39,7 @@ export const SettingsLinkNavigation = ({ label, to, icon, hideSeparator = false 
               className: StyleHelper.mergeStyles('text-neon ml-2 w-6 h-6', icon.props.className),
             })}
 
-            <p className="text-md text-white">{label}</p>
+            <p className="text-sm text-white">{label}</p>
           </div>
           <TbChevronRight aria-hidden className="h-6 w-6 text-gray-300" />
         </div>

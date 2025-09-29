@@ -31,7 +31,7 @@ import { ToastHelper } from '@/helpers/ToastHelper'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
 import { useAccountsSelector } from '@/hooks/useAccountSelector'
 import { useActions } from '@/hooks/useActions'
-import { useCurrentLoginSessionSelector } from '@/hooks/useAuthSelector'
+import { useLoginSessionSelector } from '@/hooks/useAuthSelector'
 import { useBalance } from '@/hooks/useBalances'
 import { useIsFocused } from '@/hooks/useIsFocused'
 import { useModalNavigate } from '@/hooks/useModalRouter'
@@ -74,7 +74,7 @@ export const SwapPageContent = ({ account }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'swap' })
   const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
-  const { currentLoginSessionRef } = useCurrentLoginSessionSelector()
+  const { loginSessionRef } = useLoginSessionSelector()
   const { accountsRef } = useAccountsSelector()
   const { ref: amountInputRef, isFocused: isAmountInputFocused } = useIsFocused<HTMLInputElement>()
 
@@ -270,9 +270,9 @@ export const SwapPageContent = ({ account }: TProps) => {
   }
 
   const handleSelectAccountToUse = async (account: IAccountState) => {
-    if (!currentLoginSessionRef.current || !account.encryptedKey) return
+    if (!loginSessionRef.current || !account.encryptedKey) return
 
-    const key = await EncryptionHelper.decrypt(account.encryptedKey, currentLoginSessionRef.current.encryptedPassword)
+    const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
 
     const serviceAccount = AccountHelper.getServiceAccount({ account, key })
 

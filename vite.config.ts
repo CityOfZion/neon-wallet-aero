@@ -8,8 +8,19 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 import manifest from './manifest.json'
 
-// https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        tab: 'src/tab.html',
+      },
+    },
+  },
+  server: {
+    cors: {
+      origin: [/chrome-extension:\/\//],
+    },
+  },
   plugins: [
     tailwindcss(),
     nodePolyfills({

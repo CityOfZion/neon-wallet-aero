@@ -358,5 +358,8 @@
         "enterValidAddress": "輸入有效地址"
       }
     }
+  },
+  "buyAndSellTokens": {
+    "title": "買賣代幣"
   }
 }

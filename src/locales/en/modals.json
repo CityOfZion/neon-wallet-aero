@@ -20,12 +20,14 @@
     "title": "Menu",
     "walletsItemLabel": "Wallets",
     "importItemLabel": "Import",
+    "buyAndSellTokensItemLabel": "Buy & Sell",
     "exportItemLabel": "Export",
     "connectHardwareWalletItemLabel": "Connect hardware wallet",
     "helpItemLabel": "Help",
     "contactsItemLabel": "Contacts",
     "settingsItemLabel": "Settings",
-    "swapItemLabel": "Swap"
+    "swapItemLabel": "Swap",
+    "logoutItemLabel": "Logout"
   },
   "importAccountsSelectionModal": {
     "title": "Import",

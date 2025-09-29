@@ -1,21 +1,26 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import { LOGIN_CONTROL_VALUE } from '@/constants/password'
 import { EncryptionHelper } from '@/helpers/EncryptionHelper'
 import { UtilsHelper } from '@/helpers/UtilsHelper'
+import { WorkerHelper } from '@/helpers/WorkerHelper'
 import { authReducerActions } from '@/store/reducers/AuthReducer'
 import { TAccountsToImport, TWalletToCreate } from '@/types/blockchain'
+import { TLoginSession } from '@/types/store'
+import { TWorkerCloseAllTabsMessage, TWorkerSaveLoginSessionMessage } from '@/types/worker-events'
 
 import { useBlockchainActions } from './useBlockchainActions'
 import { useAppDispatch } from './useRedux'
 import { useLoginControlSelector } from './useUtilitySelector'
 
 export const useLogin = () => {
-  const { encryptedLoginControlRef } = useLoginControlSelector()
-  const dispatch = useAppDispatch()
-  const { createWallet, importAccounts } = useBlockchainActions()
   const { t } = useTranslation('hooks', { keyPrefix: 'useLogin' })
+  const dispatch = useAppDispatch()
+  const { encryptedLoginControlRef } = useLoginControlSelector()
+  const { createWallet, importAccounts } = useBlockchainActions()
+  const navigate = useNavigate()
 
   const encryptPassword = useCallback(
     async (password: string) => {
@@ -23,9 +28,7 @@ export const useLogin = () => {
         throw new Error(t('controlIsNotSet'))
       }
 
-      const encryptedPassword = await EncryptionHelper.encryptedPassword(password)
-
-      return encryptedPassword
+      return await EncryptionHelper.encryptedPassword(password)
     },
     [encryptedLoginControlRef, t]
   )
@@ -40,7 +43,17 @@ export const useLogin = () => {
         throw new Error(t('controlIsNotValid'))
       }
 
-      dispatch(authReducerActions.setLoginSession({ type: 'password', encryptedPassword }))
+      const loginSession: TLoginSession = {
+        type: 'password',
+        encryptedPassword,
+      }
+
+      await WorkerHelper.send<TWorkerSaveLoginSessionMessage>({
+        type: 'save-login-session',
+        payload: { loginSession },
+      })
+
+      dispatch(authReducerActions.setLoginSession(loginSession))
     },
     [encryptPassword, encryptedLoginControlRef, dispatch, t]
   )
@@ -50,7 +63,17 @@ export const useLogin = () => {
       const randomPassword = UtilsHelper.uuid()
       const encryptedPassword = await EncryptionHelper.encryptedPassword(randomPassword)
 
-      dispatch(authReducerActions.setLoginSession({ type: 'key', encryptedPassword }))
+      const loginSession: TLoginSession = {
+        type: 'key',
+        encryptedPassword,
+      }
+
+      await WorkerHelper.send<TWorkerSaveLoginSessionMessage>({
+        type: 'save-login-session',
+        payload: { loginSession },
+      })
+
+      dispatch(authReducerActions.setLoginSession(loginSession))
 
       const wallet = await createWallet(walletToCreate)
 
@@ -63,13 +86,24 @@ export const useLogin = () => {
   )
 
   const logout = useCallback(async () => {
-    dispatch(authReducerActions.setLoginSession(undefined))
-  }, [dispatch])
+    const loginSession = undefined
+
+    await WorkerHelper.send<TWorkerCloseAllTabsMessage>({ type: 'close-all-tabs' })
+
+    await WorkerHelper.send<TWorkerSaveLoginSessionMessage>({
+      type: 'save-login-session',
+      payload: { loginSession },
+    })
+
+    dispatch(authReducerActions.setLoginSession(loginSession))
+
+    navigate('/login', { replace: true })
+  }, [dispatch, navigate])
 
   return {
     loginWithPassword,
-    logout,
     loginWithKey,
     encryptPassword,
+    logout,
   }
 }

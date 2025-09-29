@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import i18next from 'i18next'
 
@@ -8,6 +7,7 @@ import { Radio } from '@/components/Radio'
 import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE } from '@/constants/language'
 import { useActions } from '@/hooks/useActions'
 import { useModalNavigate } from '@/hooks/useModalRouter'
+import { useAppDispatch } from '@/hooks/useRedux'
 import { useLanguageSelector } from '@/hooks/useSettingsSelector'
 import { ScreenLayout } from '@/layouts/ScreenLayout'
 import { settingsReducerActions } from '@/store/reducers/SettingsReducer'
@@ -24,7 +24,7 @@ export const LanguagePage = () => {
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { modalNavigateWrapper } = useModalNavigate()
   const { language } = useLanguageSelector()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const {
@@ -79,7 +79,7 @@ export const LanguagePage = () => {
               withSeparator={false}
               value={item.value}
             >
-              <span className="flex-grow text-left">{item.label}</span>
+              <span className="flex-grow text-left text-sm">{item.label}</span>
 
               <Radio.Indicator />
             </Radio.Item>
