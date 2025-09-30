@@ -4,15 +4,17 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import svgr from 'vite-plugin-svgr'
+import zip from 'vite-plugin-zip-pack'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-import manifest from './manifest.json'
+import manifest from './manifest.config'
+import { name, version } from './package.json'
 
 export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        tab: 'src/tab.html',
+        tab: 'src/renderer/app/tab/index.html',
       },
     },
   },
@@ -30,5 +32,6 @@ export default defineConfig({
     tsconfigPaths(),
     svgr(),
     crx({ manifest }),
+    zip({ outDir: 'release', outFileName: `crx-${name}-${version}.zip` }),
   ],
 })
