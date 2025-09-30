@@ -1,0 +1,34 @@
+import { ComponentProps, ReactEventHandler, useState } from 'react'
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
+import { Loader } from './Loader'
+
+type TProps = ComponentProps<'img'> & {
+  fallbackSrc?: string
+}
+
+export const ImageWithFallback = ({ fallbackSrc, className, ...props }: TProps) => {
+  const [isLoading, setIsLoading] = useState(true)
+
+  const handleError: ReactEventHandler<HTMLImageElement> = event => {
+    event.currentTarget.onerror = null
+
+    if (fallbackSrc) {
+      event.currentTarget.src = fallbackSrc
+    }
+  }
+
+  return (
+    <div className={className}>
+      {isLoading && <Loader className="h-4 w-4 text-gray-600" />}
+
+      <img
+        alt=""
+        {...props}
+        className={StyleHelper.mergeStyles({ hidden: isLoading }, 'h-full w-full object-contain')}
+        onError={handleError}
+        onLoad={() => setIsLoading(false)}
+      />
+    </div>
+  )
+}
