@@ -1,9 +1,12 @@
+import { useRef } from 'react'
+import { useSelector } from 'react-redux'
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
 import { blockchainNames } from '@renderer/libs/blockchainService'
-import { IAccountState } from '@shared/types/store'
+import { IAccountState, TAccountWithWallet } from '@shared/types/store'
 import orderBy from 'lodash/orderBy'
 
-import { createAppSelector, useAppSelector } from './useRedux'
+import { createAppSelector, TRootState, useAppSelector } from './useRedux'
 
 const orderAccounts = (accounts: IAccountState[]) =>
   orderBy([...accounts], [({ blockchain }) => blockchainNames.indexOf(blockchain), 'order'], ['asc', 'asc'])
@@ -59,11 +62,30 @@ export const useAccountsWithWalletSelector = () => {
     accountsWithWalletRef: ref,
   }
 }
+
 export const useAccountsByWalletIdSelector = (walletId: string) => {
   const { value, ref } = useAppSelector(selectAccountsByWalletId(walletId))
 
   return {
     accountsByWalletId: value,
     accountsByWalletIdRef: ref,
+  }
+}
+
+export const useAccountMapSelector = () => {
+  const accountsMapRef = useRef<Map<string, TAccountWithWallet>>(new Map())
+
+  useSelector((state: TRootState) => {
+    const result = selectAccountsWithWallet(state)
+
+    accountsMapRef.current = new Map<string, TAccountWithWallet>()
+
+    result.forEach(account => {
+      accountsMapRef.current.set(AccountHelper.buildAccountKey(account), account as TAccountWithWallet)
+    })
+  })
+
+  return {
+    accountsMapRef,
   }
 }

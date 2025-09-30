@@ -27,6 +27,7 @@
     "contactsItemLabel": "Contacts",
     "settingsItemLabel": "Settings",
     "swapItemLabel": "Swap",
+    "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Logout"
   },
   "importAccountsSelectionModal": {
@@ -318,5 +319,12 @@
     "selectAutomaticallyLabel": "Select automatically",
     "blockHeight": "Block height: {{height}}",
     "latency": "{{latency}}ms"
+  },
+  "neo3NeoXBridgeInfo": {
+    "title": "How does it work?",
+    "description1": "Easily bridge your crypto assets between networks, without ever leaving your wallet.",
+    "description2": "Blockchains are independent of each other, and can’t interact with each other - That's where bridges come in. It’s similar in principle to exchanging money while traveling to different countries, a bridge allows you to transfer assets across various blockchains.",
+    "description3": "Directly and immediately bridging tokens in NEON is convenient and allows you to save time and pay lower fees.",
+    "alert": "COZ are not maintainers of this bridging process - Neo Global Development is the maintainer."
   }
 }

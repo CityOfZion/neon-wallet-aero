@@ -328,6 +328,7 @@
       "assets": "資產",
       "source": "帳戶詳情",
       "amounts": "金額",
+      "max": "最大",
       "balanceLabel": "餘額",
       "balancePlaceholder": "0.00",
       "tokenToUseTitle": "交換此代幣",
@@ -361,5 +362,49 @@
   },
   "buyAndSellTokens": {
     "title": "買賣代幣"
+  },
+  "neo3NeoXBridge": {
+    "title": "跨鏈橋",
+    "explanation": {
+      "title": "工作原理？",
+      "description1": "輕鬆在網路之間橋接您的加密資產，無需離開您的錢包。",
+      "description2": "區塊鏈彼此獨立，無法相互交互 - 這就是跨鏈橋的作用所在。其原理類似於在不同國家旅行時兌換貨幣，跨鏈橋允許您在各種區塊鏈之間轉移資產。",
+      "description3": "在NEON中直接即時橋接代幣既方便又能節省時間和費用。",
+      "alert": "COZ不是此橋接過程的維護者 - Neo全球開發是維護者。"
+    },
+    "form": {
+      "restartButtonLabel": "重新開始",
+      "assets": "資產",
+      "tokenToUseTitle": "從此橋接",
+      "tokenToReceiveTitle": "橋接到此",
+      "source": "帳戶詳情",
+      "accountToUseTitle": "從此處橋接",
+      "receiveHere": "在此接收",
+      "amounts": "金額",
+      "amountToUseTitle": "金額",
+      "amountToUseMinimumLabel": "最小值 {{amount}}",
+      "amountToUseMinimumPlaceholder": "0.00000000",
+      "amountToReceiveTitle": "您將獲得的金額",
+      "amountToReceiveTitleComplement": "（扣除費用後）",
+      "switchTokensButtonLabel": "切換代幣",
+      "tokenToUseBalanceStepTitle": "餘額",
+      "tokenToUseBalancePlaceholder": "0.00",
+      "amountToReceivePlaceholder": "0.00000000",
+      "bridgeButtonLabel": "立即橋接"
+    },
+    "errorsByCode": {
+      "UNEXPECTED_ERROR": "意外錯誤，請重試",
+      "NO_AVAILABLE_TOKENS": "沒有可用於橋接的代幣",
+      "TOKEN_NOT_AVAILABLE": "所選代幣不可用於橋接",
+      "PAIR_TOKEN_NOT_FOUND": "未找到配對代幣",
+      "ACCOUNT_NOT_COMPATIBLE_WITH_TOKEN": "所選帳戶與所選代幣不相容",
+      "AMOUNT_BELOW_MINIMUM": "金額低於最小值",
+      "AMOUNT_ABOVE_MAXIMUM": "金額超過最大值",
+      "INSUFFICIENT_FEE_TOKEN_BALANCE": "餘額不足以支付橋接費用",
+      "BRIDGE_NOT_READY": "跨鏈橋尚未準備就緒，請填寫所有欄位"
+    },
+    "messages": {
+      "networksShouldBeMainnet": "Neo 3和Neo X橋接應使用主網"
+    }
   }
 }
