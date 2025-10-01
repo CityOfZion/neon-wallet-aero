@@ -11,6 +11,7 @@ import TbDoorExit from '@renderer/assets/images/tb-door-exit.svg?react'
 import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 import TbHelp from '@renderer/assets/images/tb-help.svg?react'
 import TbReplace from '@renderer/assets/images/tb-replace.svg?react'
+import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbSettings from '@renderer/assets/images/tb-settings.svg?react'
 import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbUsers from '@renderer/assets/images/tb-users.svg?react'
@@ -33,6 +34,12 @@ export const MenuModal = () => {
         />
 
         <MenuItemLink label={t('importItemLabel')} to="/app/import" icon={<TbFileImport aria-hidden={true} />} />
+
+        <MenuItemLink
+          label={t('neo3NeoXBridgeItemLabel')}
+          to="/app/neo3-neox-bridge"
+          icon={<TbReplace2 aria-hidden />}
+        />
 
         <MenuItemLink
           label={t('connectHardwareWalletItemLabel')}

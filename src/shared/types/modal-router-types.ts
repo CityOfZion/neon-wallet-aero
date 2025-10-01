@@ -189,4 +189,5 @@ export type TModalRouterRouteTypes = {
   'swap-confirmation': TSwapConfirmationModalState
   'network-selection': TNetworkSelectionModalState
   'network-node-selection': TNetworkNodeSelectionModalState
+  'neo3-neox-bridge-info': undefined
 }

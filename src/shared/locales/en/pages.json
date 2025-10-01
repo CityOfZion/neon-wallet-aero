@@ -361,5 +361,50 @@
   },
   "buyAndSellTokens": {
     "title": "Buy & Sell Tokens"
+  },
+  "neo3NeoXBridge": {
+    "title": "Bridge",
+    "explanation": {
+      "title": "How does it work?",
+      "description1": "Easily bridge your crypto assets between networks, without ever leaving your wallet.",
+      "description2": "Blockchains are independent of each other, and can’t interact with each other - That's where bridges come in. It’s similar in principle to exchanging money while traveling to different countries, a bridge allows you to transfer assets across various blockchains.",
+      "description3": "Directly and immediately bridging tokens in NEON is convenient and allows you to save time and pay lower fees.",
+      "alert": "COZ are not maintainers of this bridging process - Neo Global Development is the maintainer."
+    },
+    "form": {
+      "restartButtonLabel": "Restart",
+      "assets": "Assets",
+      "tokenToUseTitle": "Bridge from this",
+      "tokenToReceiveTitle": "Bridge to this",
+      "source": "Account details",
+      "accountToUseTitle": "Bridge from here",
+      "receiveHere": "Receive here",
+      "amounts": "Amounts",
+      "max": "Max",
+      "amountToUseTitle": "Amount",
+      "amountToUseMinimumLabel": "Minimum {{amount}}",
+      "amountToUseMinimumPlaceholder": "0.00000000",
+      "amountToReceiveTitle": "Amount you'll get",
+      "amountToReceiveTitleComplement": "(after fees)",
+      "switchTokensButtonLabel": "Switch tokens",
+      "tokenToUseBalanceStepTitle": "Balance",
+      "tokenToUseBalancePlaceholder": "0.00",
+      "amountToReceivePlaceholder": "0.00000000",
+      "bridgeButtonLabel": "Bridge now"
+    },
+    "errorsByCode": {
+      "UNEXPECTED_ERROR": "Unexpected error, please try again",
+      "NO_AVAILABLE_TOKENS": "No available tokens to bridge",
+      "TOKEN_NOT_AVAILABLE": "The selected token is not available to bridge",
+      "PAIR_TOKEN_NOT_FOUND": "The pair token was not found",
+      "ACCOUNT_NOT_COMPATIBLE_WITH_TOKEN": "The selected account is not compatible with the selected token",
+      "AMOUNT_BELOW_MINIMUM": "The amount is below the minimum",
+      "AMOUNT_ABOVE_MAXIMUM": "The amount is above the maximum",
+      "INSUFFICIENT_FEE_TOKEN_BALANCE": "Insufficient balance to cover the bridge fee",
+      "BRIDGE_NOT_READY": "The bridge is not ready yet, please fill all the fields"
+    },
+    "messages": {
+      "networksShouldBeMainnet": "Neo 3 and Neo X bridge should use Mainnet"
+    }
   }
 }

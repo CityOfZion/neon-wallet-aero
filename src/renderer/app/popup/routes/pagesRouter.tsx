@@ -20,6 +20,7 @@ import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
 import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
 import { MigrateFromNeon2 } from './pages/MigrateFromNeon2'
 import { MigrateFromNeon2Step2 } from './pages/MigrateromNeon2Step2'
+import { Neo3NeoXBridgePage } from './pages/Neo3NeoXBridge'
 import { NetworkConfigurationPage } from './pages/NetworkConfiguration'
 import { OnboardingImportWallet } from './pages/OnboardingImportWallet'
 import { OnboardingImportWalletStep1 } from './pages/OnboardingImportWalletStep1'
@@ -176,6 +177,10 @@ export const pagesRouter = createHashRouter([
           {
             path: 'swap',
             element: <SwapPage />,
+          },
+          {
+            path: 'neo3-neox-bridge',
+            element: <Neo3NeoXBridgePage />,
           },
         ],
       },

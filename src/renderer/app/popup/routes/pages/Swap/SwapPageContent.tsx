@@ -11,6 +11,7 @@ import {
 } from '@cityofzion/blockchain-service'
 import { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
 import { ActionStep } from '@renderer/components/ActionStep'
+import { ActionStepSeparator } from '@renderer/components/ActionStepSeparator'
 import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Button } from '@renderer/components/Button'
 import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
@@ -38,8 +39,6 @@ import { bsAggregator, isValidBlockchainKey } from '@renderer/libs/blockchainSer
 import { SWAP_NETWORK_BY_BLOCKCHAIN_AND_NETWORK_ID } from '@shared/constants/swap'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
 import { IAccountState, TSwapRecord } from '@shared/types/store'
-
-import { ActionStepSeparator } from '../Send/ActionStepSeparator'
 
 import MdRestartAlt from '@renderer/assets/images/md-restart-alt.svg?react'
 import TbCoin from '@renderer/assets/images/tb-coin.svg?react'

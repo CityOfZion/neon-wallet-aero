@@ -27,6 +27,7 @@
     "contactsItemLabel": "联系人",
     "settingsItemLabel": "设置",
     "swapItemLabel": "交换",
+    "neo3NeoXBridgeItemLabel": "桥接",
     "logoutItemLabel": "注销"
   },
   "importAccountsSelectionModal": {
@@ -318,5 +319,12 @@
     "selectAutomaticallyLabel": "自动选择",
     "blockHeight": "区块高度：{{height}}",
     "latency": "{{latency}}毫秒"
+  },
+  "neo3NeoXBridgeInfo": {
+    "title": "工作原理？",
+    "description1": "轻松在网络之间桥接您的加密资产，无需离开您的钱包。",
+    "description2": "区块链彼此独立，无法相互交互 - 这就是跨链桥的作用所在。其原理类似于在不同国家旅行时兑换货币，跨链桥允许您在各种区块链之间转移资产。",
+    "description3": "在NEON中直接即时桥接代币既方便又能节省时间和费用。",
+    "alert": "COZ不是此桥接过程的维护者 - Neo全球开发是维护者。"
   }
 }
