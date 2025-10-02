@@ -299,13 +299,14 @@
   },
   "swapConfirmationModal": {
     "heading": "交换确认",
-    "description": "请在继续交换前确认以下详情。",
-    "swapFromTo": "从 {{tokenFrom}} 交换到 {{tokenTo}}",
-    "accountFrom": "发送账户",
-    "accountTo": "接收账户",
-    "amountToSend": "发送金额",
-    "amountToReceive": "接收金额",
-    "cancelButtonLabel": "取消",
+    "transactionDetails": "交易详情",
+    "description": "请在继续交换前确认以下详情：",
+    "youWantToSwap": "您想要交换",
+    "swapFrom": "从",
+    "sendingAddress": "发送地址",
+    "amount": "金额",
+    "swapTo": "交换至",
+    "receivingAddress": "接收地址",
     "confirmButtonLabel": "确认交换"
   },
   "networkSelection": {

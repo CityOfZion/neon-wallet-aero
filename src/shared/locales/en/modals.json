@@ -297,14 +297,15 @@
   },
   "swapConfirmationModal": {
     "heading": "Swap Confirmation",
-    "description": "Please confirm the details below before proceeding with the swap.",
-    "swapFromTo": "Swap from {{tokenFrom}} to {{tokenTo}}",
-    "accountFrom": "Account from",
-    "accountTo": "Account to",
-    "amountToSend": "Amount to send",
-    "amountToReceive": "Amount to receive",
-    "cancelButtonLabel": "Cancel",
-    "confirmButtonLabel": "Confirm Swap"
+    "transactionDetails": "Transaction details",
+    "description": "Please confirm the details below before proceeding with your swap:",
+    "youWantToSwap": "You want to swap",
+    "swapFrom": "Swap from",
+    "sendingAddress": "Sending address",
+    "amount": "Amount",
+    "swapTo": "Swap to",
+    "receivingAddress": "Receiving address",
+    "confirmButtonLabel": "Confirm swap"
   },
   "networkSelection": {
     "title": "Network",
