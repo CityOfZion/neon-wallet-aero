@@ -30,7 +30,7 @@ export const GreyTokenSelectItem = ({ token }: TProps) => {
         }}
         alt={token.symbol}
       />
-      <Tooltip title={network ? `${token.symbol} | ${network}` : ''}>
+      <Tooltip title={network ? `${token.symbol} | ${network}` : ''} contentProps={{ className: 'uppercase' }}>
         <span className="flex min-w-0 flex-grow items-center gap-1">
           <span className="text-left text-sm text-white uppercase">{token.symbol}</span>
           {network && <span className="truncate text-sm text-gray-100 uppercase">{` | ${network}`}</span>}

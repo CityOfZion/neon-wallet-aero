@@ -1,7 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { BalanceResponse, TBridgeToken, TBridgeValidateValue, TBridgeValue } from '@cityofzion/blockchain-service'
+import {
+  BalanceResponse,
+  BSBigNumberHelper,
+  TBridgeToken,
+  TBridgeValidateValue,
+  TBridgeValue,
+} from '@cityofzion/blockchain-service'
 import { Neo3NeoXBridgeOrchestrator } from '@cityofzion/bs-multichain'
 import { BSNeo3 } from '@cityofzion/bs-neo3'
 import { BSNeoX } from '@cityofzion/bs-neox'
@@ -38,6 +44,7 @@ import TbArrowsSort from '@renderer/assets/images/tb-arrows-sort.svg?react'
 import TbCoin from '@renderer/assets/images/tb-coin.svg?react'
 import TbDiamond from '@renderer/assets/images/tb-diamond.svg?react'
 import TbLock from '@renderer/assets/images/tb-lock.svg?react'
+import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
@@ -63,7 +70,8 @@ const isBridgeValueValid = (value: TBridgeValue<any> | TBridgeValidateValue<any>
 
 export const Neo3NeoXBridgePage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'neo3NeoXBridge' })
-  const { modalNavigateWrapper } = useModalNavigate()
+  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
   const { accountsMapRef } = useAccountsMapSelector()
   const { getBalance } = useLazyBalance()
   const { loginSessionRef } = useLoginSessionSelector()
@@ -249,7 +257,33 @@ export const Neo3NeoXBridgePage = () => {
   const handleSubmit = async () => {
     if (!isBridgeValid) return
 
-    // TODO: add submit method here
+    modalNavigate('neo3-neox-bridge-confirmation', {
+      state: {
+        tokenToUse: actionData.tokenToUse.value,
+        tokenToReceive: actionData.tokenToReceive.value,
+        accountToUse: actionData.accountToUse.value,
+        addressToReceive: actionData.addressToReceive.value,
+        amountToUse: actionData.amountToUse.value,
+        amountToReceive: actionData.amountToReceive.value,
+        fromService,
+
+        onConfirm: async () => {
+          // let transactionHash: string | undefined
+          // TODO: ^ To be uncommented when details page is implemented
+
+          try {
+            // transactionHash = await bridgeOrchestratorRef.current.bridge()
+            // TODO: ^ To be uncommented when details page is implemented
+          } catch (error) {
+            console.error(error)
+          } finally {
+            // TODO: Implement details page
+
+            initializeOrRestartSwapService()
+          }
+        },
+      },
+    })
   }
 
   useMountUnsafe(() => {
@@ -284,6 +318,14 @@ export const Neo3NeoXBridgePage = () => {
       heading={t('title')}
       rightComponent={
         <IconButton
+          aria-label={commonT('menuIconButtonAriaLabel')}
+          className="mb-0.5"
+          icon={<TbMenu2 aria-hidden />}
+          onClick={modalNavigateWrapper('menu')}
+        />
+      }
+      leftComponent={
+        <IconButton
           aria-label={t('form.restartButtonLabel')}
           icon={<MdRestartAlt aria-hidden={true} />}
           colorSchema={isRestartDisabled ? 'gray' : 'neon'}
@@ -307,7 +349,7 @@ export const Neo3NeoXBridgePage = () => {
             <Separator />
 
             <div className="flex w-full flex-grow flex-col items-center py-2">
-              <div className="mx-auto flex w-full max-w-[36rem] flex-col items-center pt-2 pb-8">
+              <div className="mx-auto flex w-full max-w-[36rem] flex-col items-center pt-2 pb-4">
                 <div className="flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
                   <ActionStep title={t('form.assets')} leftIcon={<TbDiamond aria-hidden />} className="font-bold" />
 
@@ -444,7 +486,9 @@ export const Neo3NeoXBridgePage = () => {
                   <div className="flex w-full justify-between pt-2 pb-4 pl-6.5">
                     <span className="text-xs text-gray-200 italic">{t('form.tokenToUseBalanceStepTitle')}</span>
                     <span className="text-xs text-gray-100 italic">
-                      {actionData.tokenToUseBalance.value?.amount ?? t('form.tokenToUseBalancePlaceholder')}
+                      {actionData.tokenToUseBalance.value?.amount
+                        ? BSBigNumberHelper.fromNumber(actionData.tokenToUseBalance.value?.amount).toFixed()
+                        : t('form.tokenToUseBalancePlaceholder')}
                     </span>
                   </div>
 

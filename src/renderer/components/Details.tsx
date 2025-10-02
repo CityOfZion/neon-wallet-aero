@@ -1,7 +1,10 @@
 import { cloneElement, ComponentProps, JSX, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+import { TBlockchainServiceKey } from '@shared/types/blockchain'
 
+import { BlockchainIcon } from './BlockchainIcon'
 import { IconButton } from './IconButton'
 import { Separator } from './Separator'
 
@@ -66,9 +69,14 @@ const Panel = ({ className, children, label, ...props }: TPanelProps) => {
   )
 }
 
-type TItemProps = { label?: ReactNode; copyable?: string; contentClassName?: string } & ComponentProps<'div'>
+type TItemProps = {
+  label?: ReactNode
+  copyable?: string
+  contentClassName?: string
+  rightElement?: ReactNode
+} & ComponentProps<'div'>
 
-const Item = ({ label, children, copyable, className, contentClassName, ...props }: TItemProps) => {
+const Item = ({ label, children, copyable, className, contentClassName, rightElement, ...props }: TItemProps) => {
   const handleCopy = () => {
     if (copyable) UtilsHelper.copyToClipboard(copyable)
   }
@@ -76,7 +84,17 @@ const Item = ({ label, children, copyable, className, contentClassName, ...props
   return (
     <div className="group flex flex-col">
       <div className={StyleHelper.mergeStyles('flex flex-col gap-2.5 px-3 py-4', className)} {...props}>
-        {typeof label === 'string' ? <p className="text-xs text-gray-100 uppercase">{label}</p> : label}
+        {label && (
+          <div className="flex justify-between">
+            {typeof label === 'string' ? <p className="text-xs text-gray-100 uppercase">{label}</p> : label}
+
+            {typeof rightElement === 'string' ? (
+              <p className="text-xs text-gray-100 uppercase">{rightElement}</p>
+            ) : (
+              rightElement
+            )}
+          </div>
+        )}
 
         <div className={StyleHelper.mergeStyles('flex items-center gap-2.5', contentClassName)}>
           {typeof children === 'string' ? <p className="text-sm break-all text-white">{children}</p> : children}
@@ -96,4 +114,26 @@ const Item = ({ label, children, copyable, className, contentClassName, ...props
   )
 }
 
-export const Details = { Root, Header, Body, Panel, Item }
+type TTokenProps = {
+  blockchain?: TBlockchainServiceKey
+  symbol: string
+  amount?: string
+} & ComponentProps<'div'>
+
+const Token = ({ amount, blockchain, symbol, className, ...props }: TTokenProps) => {
+  const { t: commonT } = useTranslation('common')
+
+  return (
+    <div className={StyleHelper.mergeStyles('flex w-full items-center gap-2.5', className)} {...props}>
+      {blockchain && <BlockchainIcon blockchain={blockchain} />}
+      <span className="uppercase">
+        {symbol}
+        {blockchain && <span className="text-gray-100"> | {commonT(`blockchain.${blockchain}`)}</span>}
+      </span>
+
+      {amount && <span className="flex-grow text-end">{amount}</span>}
+    </div>
+  )
+}
+
+export const Details = { Root, Header, Body, Panel, Item, Token }

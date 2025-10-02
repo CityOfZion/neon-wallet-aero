@@ -322,13 +322,6 @@
     "blockHeight": "区块高度：{{height}}",
     "latency": "{{latency}}毫秒"
   },
-  "neo3NeoXBridgeInfo": {
-    "title": "工作原理？",
-    "description1": "轻松在网络之间桥接您的加密资产，无需离开您的钱包。",
-    "description2": "区块链彼此独立，无法相互交互 - 这就是跨链桥的作用所在。其原理类似于在不同国家旅行时兑换货币，跨链桥允许您在各种区块链之间转移资产。",
-    "description3": "在NEON中直接即时桥接代币既方便又能节省时间和费用。",
-    "alert": "COZ不是此桥接过程的维护者 - Neo全球开发是维护者。"
-  },
   "accountReceiveSelection": {
     "title": "选择接收账户",
     "enterAddressLabel": "输入地址",
@@ -343,5 +336,25 @@
       "nsComplete": "找到NS域名！",
       "invalidAddress": "无效地址或NS域名"
     }
+  },
+  "neo3NeoXBridgeInfo": {
+    "title": "工作原理？",
+    "description1": "轻松在网络之间桥接您的加密资产，无需离开您的钱包。",
+    "description2": "区块链彼此独立，无法相互交互 - 这就是跨链桥的作用所在。其原理类似于在不同国家旅行时兑换货币，跨链桥允许您在各种区块链之间转移资产。",
+    "description3": "在NEON中直接即时桥接代币既方便又能节省时间和费用。",
+    "alert": "COZ不是此桥接过程的维护者 - Neo全球开发是维护者。"
+  },
+  "neo3NeoXBridgeConfirmation": {
+    "title": "桥接确认",
+    "description": "在继续桥接之前，请确认以下信息：",
+    "transactionDetailsHeaderLabel": "交易详情",
+    "bridgeDetailsItemLabel": "您要桥接",
+    "fromDetailsPanelLabel": "桥接来源",
+    "fromAddressDetailsItemLabel": "发送地址",
+    "fromTokenDetailsItemLabel": "数量",
+    "toDetailsPanelLabel": "桥接目标",
+    "toAddressDetailsItemLabel": "接收地址",
+    "toTokenDetailsItemLabel": "数量",
+    "confirmButtonLabel": "立即桥接"
   }
 }

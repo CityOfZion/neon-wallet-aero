@@ -320,13 +320,6 @@
     "blockHeight": "區塊高度：{{height}}",
     "latency": "{{latency}}毫秒"
   },
-  "neo3NeoXBridgeInfo": {
-    "title": "工作原理？",
-    "description1": "輕鬆在網路之間橋接您的加密資產，無需離開您的錢包。",
-    "description2": "區塊鏈彼此獨立，無法相互交互 - 這就是跨鏈橋的作用所在。其原理類似於在不同國家旅行時兌換貨幣，跨鏈橋允許您在各種區塊鏈之間轉移資產。",
-    "description3": "在NEON中直接即時橋接代幣既方便又能節省時間和費用。",
-    "alert": "COZ不是此橋接過程的維護者 - Neo全球開發是維護者。"
-  },
   "accountReceiveSelection": {
     "title": "選擇接收帳戶",
     "enterAddressLabel": "輸入地址",
@@ -343,5 +336,25 @@
       "nsComplete": "找到NS網域名稱！",
       "invalidAddress": "無效地址或NS網域名稱"
     }
+  },
+  "neo3NeoXBridgeInfo": {
+    "title": "工作原理？",
+    "description1": "輕鬆在網路之間橋接您的加密資產，無需離開您的錢包。",
+    "description2": "區塊鏈彼此獨立，無法相互交互 - 這就是跨鏈橋的作用所在。其原理類似於在不同國家旅行時兌換貨幣，跨鏈橋允許您在各種區塊鏈之間轉移資產。",
+    "description3": "在NEON中直接即時橋接代幣既方便又能節省時間和費用。",
+    "alert": "COZ不是此橋接過程的維護者 - Neo全球開發是維護者。"
+  },
+  "neo3NeoXBridgeConfirmation": {
+    "title": "橋接確認",
+    "description": "在繼續橋接之前，請確認以下資訊：",
+    "transactionDetailsHeaderLabel": "交易詳情",
+    "bridgeDetailsItemLabel": "您要橋接",
+    "fromDetailsPanelLabel": "橋接來源",
+    "fromAddressDetailsItemLabel": "發送位址",
+    "fromTokenDetailsItemLabel": "數量",
+    "toDetailsPanelLabel": "橋接目標",
+    "toAddressDetailsItemLabel": "接收位址",
+    "toTokenDetailsItemLabel": "數量",
+    "confirmButtonLabel": "立即橋接"
   }
 }

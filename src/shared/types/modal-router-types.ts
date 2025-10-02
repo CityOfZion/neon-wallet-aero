@@ -1,5 +1,5 @@
 import { JSX } from 'react'
-import { Account } from '@cityofzion/blockchain-service'
+import { Account, BlockchainService, TBridgeToken } from '@cityofzion/blockchain-service'
 import { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
 import { TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-core'
 import {
@@ -157,12 +157,23 @@ type TNetworkNodeSelectionModalState = {
 }
 
 type TAccountReceiveSelectionModalState = {
-  handleChangeAddress: (address: string) => void
-  handleChangeAccount: (account: IAccountState) => void
   accountTypes?: 'standard' | 'hardware'
   blockchain?: TBlockchainServiceKey
   selectedAccount?: IAccountState
   selectedAddress?: string
+  handleChangeAccount: (account: IAccountState) => void
+  handleChangeAddress: (address: string) => void
+}
+
+type TNeo3NeoXBridgeConfirmationModalState = {
+  tokenToUse: TBridgeToken<TBlockchainServiceKey> | null
+  tokenToReceive: TBridgeToken<TBlockchainServiceKey> | null
+  accountToUse: IAccountState | null
+  amountToUse: string | null
+  amountToReceive: string | null
+  addressToReceive: string | null
+  fromService: BlockchainService<TBlockchainServiceKey>
+  onConfirm(): Promise<void>
 }
 
 export type TModalRouterRouteTypes = {
@@ -198,6 +209,7 @@ export type TModalRouterRouteTypes = {
   'swap-confirmation': TSwapConfirmationModalState
   'network-selection': TNetworkSelectionModalState
   'network-node-selection': TNetworkNodeSelectionModalState
-  'neo3-neox-bridge-info': undefined
   'account-receive-selection': TAccountReceiveSelectionModalState
+  'neo3-neox-bridge-info': undefined
+  'neo3-neox-bridge-confirmation': TNeo3NeoXBridgeConfirmationModalState
 }
