@@ -7,6 +7,7 @@
     "addressLabel": "地址",
     "balanceLabel": "餘額",
     "sendButtonLabel": "發送",
+    "swapButtonLabel": "交換",
     "ariaLabels": {
       "menuIconButton": "選單",
       "refreshIconButton": "重新整理",
@@ -321,9 +322,8 @@
   },
   "swap": {
     "title": "交換代幣",
-    "infoTooltip": "交換資訊",
+    "howDoesItWorkButtonLabel": "它是如何工作的？",
     "form": {
-      "title": "您想交換哪些代幣？",
       "restart": "重新開始",
       "assets": "資產",
       "source": "帳戶詳情",
@@ -347,6 +347,8 @@
       "amountToReceiveTitle": "您將獲得的金額",
       "amountToReceiveTitleComplement": "(扣除手續費後)",
       "submitLabel": "立即交換",
+      "max": "最大",
+      "receiverAddressPlaceholder": "選擇…",
       "errors": {
         "invalidAddress": "無效地址",
         "invalidExtraIdToReceive": "無效的目的地標籤/備註",

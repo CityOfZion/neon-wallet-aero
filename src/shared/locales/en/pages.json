@@ -7,6 +7,7 @@
     "addressLabel": "Address",
     "balanceLabel": "Balance",
     "sendButtonLabel": "Send",
+    "swapButtonLabel": "Swap",
     "ariaLabels": {
       "menuIconButton": "Menu",
       "refreshIconButton": "Refresh",
@@ -321,9 +322,8 @@
   },
   "swap": {
     "title": "Swap tokens",
-    "infoTooltip": "Swap info",
+    "howDoesItWorkButtonLabel": "How does it work?",
     "form": {
-      "title": "What tokens do you want to swap?",
       "restart": "Restart",
       "assets": "Assets",
       "source": "Account details",
@@ -346,6 +346,8 @@
       "amountToReceiveTitle": "Amount you'll get",
       "amountToReceiveTitleComplement": "(after fees)",
       "submitLabel": "Swap now",
+      "max": "Max",
+      "receiverAddressPlaceholder": "Select…",
       "errors": {
         "invalidAddress": "Invalid address",
         "invalidExtraIdToReceive": "Invalid destination tag/memo",
