@@ -319,13 +319,6 @@
     "blockHeight": "Block height: {{height}}",
     "latency": "{{latency}}ms"
   },
-  "neo3NeoXBridgeInfo": {
-    "title": "How does it work?",
-    "description1": "Easily bridge your crypto assets between networks, without ever leaving your wallet.",
-    "description2": "Blockchains are independent of each other, and can’t interact with each other - That's where bridges come in. It’s similar in principle to exchanging money while traveling to different countries, a bridge allows you to transfer assets across various blockchains.",
-    "description3": "Directly and immediately bridging tokens in NEON is convenient and allows you to save time and pay lower fees.",
-    "alert": "COZ are not maintainers of this bridging process - Neo Global Development is the maintainer."
-  },
   "accountReceiveSelection": {
     "title": "Select a receiving account",
     "enterAddressLabel": "Enter address",
@@ -342,5 +335,25 @@
       "nsComplete": "NS domain found!",
       "invalidAddress": "Invalid address or NS domain"
     }
+  },
+  "neo3NeoXBridgeInfo": {
+    "title": "How does it work?",
+    "description1": "Easily bridge your crypto assets between networks, without ever leaving your wallet.",
+    "description2": "Blockchains are independent of each other, and can’t interact with each other - That's where bridges come in. It’s similar in principle to exchanging money while traveling to different countries, a bridge allows you to transfer assets across various blockchains.",
+    "description3": "Directly and immediately bridging tokens in NEON is convenient and allows you to save time and pay lower fees.",
+    "alert": "COZ are not maintainers of this bridging process - Neo Global Development is the maintainer."
+  },
+  "neo3NeoXBridgeConfirmation": {
+    "title": "Bridge Confirmation",
+    "description": "Please confirm the details below before proceeding with the bridge:",
+    "transactionDetailsHeaderLabel": "Transaction details",
+    "bridgeDetailsItemLabel": "You want to bridge",
+    "fromDetailsPanelLabel": "Bridge from",
+    "fromAddressDetailsItemLabel": "Sending address",
+    "fromTokenDetailsItemLabel": "Amount",
+    "toDetailsPanelLabel": "Bridge to",
+    "toAddressDetailsItemLabel": "Receiving address",
+    "toTokenDetailsItemLabel": "Amount",
+    "confirmButtonLabel": "Bridge now"
   }
 }

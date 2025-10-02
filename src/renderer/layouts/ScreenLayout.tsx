@@ -10,6 +10,7 @@ export type TMainLayoutProps = {
   children?: ReactNode
   heading?: string
   rightComponent?: JSX.Element
+  leftComponent?: JSX.Element
   contentClassName?: string
   headerClassName?: string
   withBackButton?: boolean
@@ -22,6 +23,7 @@ export const ScreenLayout = ({
   headerClassName,
   className,
   rightComponent,
+  leftComponent,
   withBackButton = true,
   ...props
 }: TMainLayoutProps): JSX.Element => {
@@ -50,7 +52,14 @@ export const ScreenLayout = ({
             headerClassName
           )}
         >
-          {withBackButton && <IconButton type="button" icon={<TbArrowLeft aria-hidden />} onClick={handleBack} />}
+          {leftComponent || (
+            <IconButton
+              type="button"
+              icon={<TbArrowLeft aria-hidden />}
+              className={StyleHelper.mergeStyles({ invisible: !withBackButton })}
+              onClick={handleBack}
+            />
+          )}
 
           {<h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-bold">{heading}</h1>}
 
