@@ -25,6 +25,7 @@ import { MenuModal } from './modals/Menu'
 import { MigrateFromNeon2Step3Modal } from './modals/MigrateFromNeon2Step3'
 import { MigrateFromNeon2Step4Modal } from './modals/MigrateFromNeon2Step4'
 import { Neo3NeoXBridgeConfirmationModal } from './modals/Neo3NeoXBridgeConfirmationModal'
+import { Neo3NeoXBridgeDetailsModal } from './modals/Neo3NeoXBridgeDetailsModal'
 import { Neo3NeoXBridgeInfoModal } from './modals/Neo3NeoXBridgeInfo'
 import { NetworkNodeSelectionModal } from './modals/NetworkNodeSelection'
 import { NetworkSelectionModal } from './modals/NetworkSelection'
@@ -72,4 +73,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'account-receive-selection', type: 'bottom', element: <AccountReceiveSelectionModal /> },
   { name: 'neo3-neox-bridge-info', type: 'bottom', element: <Neo3NeoXBridgeInfoModal /> },
   { name: 'neo3-neox-bridge-confirmation', type: 'bottom', element: <Neo3NeoXBridgeConfirmationModal /> },
+  { name: 'neo3-neox-bridge-details', type: 'bottom', element: <Neo3NeoXBridgeDetailsModal /> },
 ]

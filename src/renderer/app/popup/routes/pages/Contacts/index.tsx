@@ -10,10 +10,12 @@ import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 import { TContactState } from '@shared/types/store'
 import { cloneDeep } from 'lodash'
 
+import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 
 export const ContactsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'contacts' })
+  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
   const { contacts } = useContactsSelector()
   const [search, setSearch] = useState<string | null>(null)
   const hasAlreadySelectedContact = useRef(false)
@@ -60,9 +62,17 @@ export const ContactsPage = () => {
       heading={t('title')}
       className="text-white"
       rightComponent={
+        <IconButton
+          aria-label={commonT('menuIconButtonAriaLabel')}
+          className="mb-0.5"
+          icon={<TbMenu2 aria-hidden />}
+          onClick={modalNavigateWrapper('menu')}
+        />
+      }
+      leftComponent={
         <Tooltip title={t('addContactButtonLabel')} delayDuration={200}>
           <IconButton
-            icon={<TbPlus aria-hidden />}
+            icon={<TbPlus aria-hidden className="text-neon" />}
             aria-label={t('addContactButtonLabel')}
             onClick={modalNavigateWrapper('save-contact')}
           />
