@@ -166,14 +166,25 @@ type TAccountReceiveSelectionModalState = {
 }
 
 type TNeo3NeoXBridgeConfirmationModalState = {
-  tokenToUse: TBridgeToken<TBlockchainServiceKey> | null
-  tokenToReceive: TBridgeToken<TBlockchainServiceKey> | null
-  accountToUse: IAccountState | null
-  amountToUse: string | null
-  amountToReceive: string | null
-  addressToReceive: string | null
+  tokenToUse?: TBridgeToken<TBlockchainServiceKey>
+  tokenToReceive?: TBridgeToken<TBlockchainServiceKey>
+  accountToUse?: IAccountState
+  amountToUse?: string
+  amountToReceive?: string
+  addressToReceive?: string
   fromService: BlockchainService<TBlockchainServiceKey>
   onConfirm(): Promise<void>
+}
+
+type TNeo3NeoXBridgeDetailsModalState = {
+  tokenToUse: TBridgeToken<TBlockchainServiceKey>
+  tokenToReceive: TBridgeToken<TBlockchainServiceKey>
+  accountToUse: IAccountState
+  amountToUse: string
+  amountToReceive: string
+  addressToReceive: string
+  transactionHash?: string
+  confirmed?: boolean
 }
 
 export type TModalRouterRouteTypes = {
@@ -212,4 +223,5 @@ export type TModalRouterRouteTypes = {
   'account-receive-selection': TAccountReceiveSelectionModalState
   'neo3-neox-bridge-info': undefined
   'neo3-neox-bridge-confirmation': TNeo3NeoXBridgeConfirmationModalState
+  'neo3-neox-bridge-details': TNeo3NeoXBridgeDetailsModalState
 }

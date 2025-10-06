@@ -13,6 +13,7 @@ import { BSNeo3 } from '@cityofzion/bs-neo3'
 import { BSNeoX } from '@cityofzion/bs-neox'
 import { ActionStep } from '@renderer/components/ActionStep'
 import { ActionStepSeparator } from '@renderer/components/ActionStepSeparator'
+import { AddressSelectionButton } from '@renderer/components/AddressSelectionButton'
 import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Button } from '@renderer/components/Button'
 import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
@@ -25,6 +26,7 @@ import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { NetworkHelper } from '@renderer/helpers/NetworkHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useAccountsMapSelector } from '@renderer/hooks/useAccountsMapSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
@@ -246,6 +248,13 @@ export const Neo3NeoXBridgePage = () => {
     bridgeOrchestratorRef.current.setAddressToReceive(account.address)
   }
 
+  const handleChangeAddressToReceive = (address: string) => {
+    setData({ accountToReceive: { value: null, loading: false, error: null } })
+    bridgeOrchestratorRef.current?.setAddressToReceive(
+      UtilsHelper.removeSpecialCharacters(address, { allowSpaces: false })
+    )
+  }
+
   const handleMaxAmount = async () => {
     try {
       bridgeOrchestratorRef.current?.setAmountToUse(actionData.amountToUseMax.value ?? '0')
@@ -257,27 +266,48 @@ export const Neo3NeoXBridgePage = () => {
   const handleSubmit = async () => {
     if (!isBridgeValid) return
 
+    const tokenToUse = actionData.tokenToUse.value
+    const tokenToReceive = actionData.tokenToReceive.value
+    const accountToUse = actionData.accountToUse.value
+    const addressToReceive = actionData.addressToReceive.value
+    const amountToUse = actionData.amountToUse.value
+    const amountToReceive = actionData.amountToReceive.value
+
+    if (!tokenToUse || !tokenToReceive || !accountToUse || !addressToReceive || !amountToReceive || !amountToUse) {
+      return
+    }
+
     modalNavigate('neo3-neox-bridge-confirmation', {
       state: {
-        tokenToUse: actionData.tokenToUse.value,
-        tokenToReceive: actionData.tokenToReceive.value,
-        accountToUse: actionData.accountToUse.value,
-        addressToReceive: actionData.addressToReceive.value,
-        amountToUse: actionData.amountToUse.value,
-        amountToReceive: actionData.amountToReceive.value,
+        tokenToUse,
+        tokenToReceive,
+        accountToUse,
+        addressToReceive,
+        amountToUse,
+        amountToReceive,
         fromService,
 
         onConfirm: async () => {
-          // let transactionHash: string | undefined
-          // TODO: ^ To be uncommented when details page is implemented
+          let transactionHash: string | undefined
 
           try {
-            // transactionHash = await bridgeOrchestratorRef.current.bridge()
-            // TODO: ^ To be uncommented when details page is implemented
+            transactionHash = await bridgeOrchestratorRef.current.bridge()
           } catch (error) {
             console.error(error)
           } finally {
-            // TODO: Implement details page
+            modalNavigate('neo3-neox-bridge-details', {
+              replace: true,
+              state: {
+                tokenToUse,
+                tokenToReceive,
+                accountToUse,
+                addressToReceive,
+                amountToUse,
+                amountToReceive,
+                transactionHash,
+                confirmed: !transactionHash ? false : undefined,
+              },
+            })
 
             initializeOrRestartSwapService()
           }
@@ -425,13 +455,20 @@ export const Neo3NeoXBridgePage = () => {
                     title={t('form.receiveHere')}
                     leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
                   >
-                    <GreyAccountSelect
-                      selectedAccount={actionData.accountToReceive.value}
-                      blockchains={
-                        actionData.tokenToReceive.value ? [actionData.tokenToReceive.value.blockchain] : undefined
-                      }
-                      disabled={!actionData.tokenToReceive.value}
-                      onSelect={handleSelectAccountToReceive}
+                    <AddressSelectionButton
+                      blockchain={actionData.tokenToReceive.value?.blockchain}
+                      address={actionData.accountToReceive.value?.address ?? actionData.addressToReceive.value}
+                      disabled={isAddressesDisabled}
+                      placeholder={t('form.receiverAddressPlaceholder')}
+                      onClick={modalNavigateWrapper('account-receive-selection', {
+                        state: {
+                          selectedAccount: actionData.accountToReceive.value ?? undefined,
+                          selectedAddress: actionData.addressToReceive.value ?? undefined,
+                          handleChangeAccount: handleSelectAccountToReceive,
+                          handleChangeAddress: handleChangeAddressToReceive,
+                          blockchain: actionData.tokenToReceive.value?.blockchain,
+                        },
+                      })}
                     />
                   </ActionStep>
                 </div>

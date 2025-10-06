@@ -383,6 +383,7 @@
       "receiveHere": "Receive here",
       "amounts": "Amounts",
       "max": "Max",
+      "receiverAddressPlaceholder": "Select…",
       "amountToUseTitle": "Amount",
       "amountToUseMinimumLabel": "Minimum {{amount}}",
       "amountToUseMinimumPlaceholder": "0.00000000",

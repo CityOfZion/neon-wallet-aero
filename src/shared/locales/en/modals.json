@@ -356,5 +356,27 @@
     "toAddressDetailsItemLabel": "Receiving address",
     "toTokenDetailsItemLabel": "Amount",
     "confirmButtonLabel": "Bridge now"
+  },
+  "neo3NeoXBridgeDetails": {
+    "title": "Your bridge",
+    "bridgeDetailsHeaderLabel": "Details",
+    "bridgeStatusPanelLabel": "Status",
+    "bridgeStatusPanelSteps": ["Sent", "Complete"],
+    "fromDetailsPanelLabel": "From",
+    "fromAddressDetailsItemLabel": "Sending address",
+    "fromTokenDetailsItemLabel": "Token",
+    "toDetailsPanelLabel": "To",
+    "toAddressDetailsItemLabel": "Receiving address",
+    "toTokenDetailsItemLabel": "Token",
+    "saveContactButtonLabel": "Save contact",
+    "helpButtonLabel": "Need help? Chat with us",
+    "errorsByCode": {
+      "FAILED_TO_GET_NONCE": "Failed to get nonce for that transaction",
+      "INVALID_TRANSACTION": "Transaction was not successfully confirmed by the network",
+      "NONCE_NOT_FOUND": "Nonce not found for the transaction",
+      "TXID_NOT_FOUND": "Transaction ID not found",
+      "FAILED_TO_GET_TRANSACTION_BY_NONCE": "Failed to get transaction by nonce",
+      "UNEXPECTED_ERROR": "Unexpected error occurred. Please contact support if the issue persists."
+    }
   }
 }

@@ -256,8 +256,6 @@
     "addressOrDomain": "地址或域名",
     "saveAddressButtonLabel": "保存地址",
     "updateAddressButtonLabel": "更新地址",
-    "searchContactsLabel": "搜索联系人",
-    "addContactButtonLabel": "添加联系人",
     "messages": {
       "addressComplete": "地址输入完成！",
       "nnsComplete": "找到NS域名！",
@@ -331,6 +329,8 @@
     "noContactsFound": "未找到联系人",
     "noAccountsFound": "未找到账户",
     "useThisAddressButtonLabel": "使用此地址",
+    "searchContactsLabel": "搜索联系人",
+    "searchContactsPlaceholder": "搜索联系人…",
     "messages": {
       "addressComplete": "地址输入完成！",
       "nsComplete": "找到NS域名！",
@@ -356,5 +356,27 @@
     "toAddressDetailsItemLabel": "接收地址",
     "toTokenDetailsItemLabel": "数量",
     "confirmButtonLabel": "立即桥接"
+  },
+  "neo3NeoXBridgeDetails": {
+    "title": "您的跨链桥",
+    "bridgeDetailsHeaderLabel": "详情",
+    "bridgeStatusPanelLabel": "状态",
+    "bridgeStatusPanelSteps": ["已发送", "完成"],
+    "fromDetailsPanelLabel": "来源",
+    "fromAddressDetailsItemLabel": "发送地址",
+    "fromTokenDetailsItemLabel": "代币",
+    "toDetailsPanelLabel": "目标",
+    "toAddressDetailsItemLabel": "接收地址",
+    "toTokenDetailsItemLabel": "代币",
+    "saveContactButtonLabel": "保存联系人",
+    "helpButtonLabel": "需要帮助？与我们聊天",
+    "errorsByCode": {
+      "FAILED_TO_GET_NONCE": "无法获取该交易的随机数",
+      "INVALID_TRANSACTION": "交易未被网络成功确认",
+      "NONCE_NOT_FOUND": "未找到交易的随机数",
+      "TXID_NOT_FOUND": "未找到交易ID",
+      "FAILED_TO_GET_TRANSACTION_BY_NONCE": "无法通过随机数获取交易",
+      "UNEXPECTED_ERROR": "发生意外错误。如果问题持续存在，请联系客服。"
+    }
   }
 }

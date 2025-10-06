@@ -15,7 +15,7 @@ type TRootProps = ComponentProps<'div'>
 const Root = ({ className, children, ...props }: TRootProps) => {
   return (
     <div
-      className={StyleHelper.mergeStyles('bg-asphalt flex w-full flex-col rounded px-4 py-2.5', className)}
+      className={StyleHelper.mergeStyles('bg-asphalt flex w-full flex-col rounded px-4 py-2.5 text-sm', className)}
       {...props}
     >
       {children}
@@ -62,7 +62,7 @@ type TPanelProps = { label?: string } & ComponentProps<'div'>
 const Panel = ({ className, children, label, ...props }: TPanelProps) => {
   return (
     <div className={StyleHelper.mergeStyles('flex flex-col', className)} {...props}>
-      {label && <div className="text-blue bg-gray-300/15 px-3.5 py-1.5 text-xs">{label}</div>}
+      {label && <div className="text-blue bg-gray-300/15 px-3.5 py-1.5">{label}</div>}
 
       {children}
     </div>
@@ -89,7 +89,7 @@ const Item = ({ label, children, copyable, className, contentClassName, rightEle
             {typeof label === 'string' ? <p className="text-xs text-gray-100 uppercase">{label}</p> : label}
 
             {typeof rightElement === 'string' ? (
-              <p className="text-xs text-gray-100 uppercase">{rightElement}</p>
+              <p className="text-gray-100 uppercase">{rightElement}</p>
             ) : (
               rightElement
             )}

@@ -68,6 +68,8 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
           <Details.Body>
             <Details.Panel>
               <Details.Item label={t('bridgeDetailsItemLabel')}>
+                <Details.Token symbol={tokenToUse.symbol} blockchain={tokenToUse.blockchain} className="w-fit" />
+
                 <TbArrowRight aria-hidden className="text-orange min-h-6 min-w-6" />
 
                 <Details.Token

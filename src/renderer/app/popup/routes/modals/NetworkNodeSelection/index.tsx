@@ -15,7 +15,7 @@ import { TModalState } from '@shared/types/modal'
 import { match, P } from 'ts-pattern'
 
 import TbCheck from '@renderer/assets/images/tb-check.svg?react'
-import TbRefresh from '@renderer/assets/images/tb-refresh.svg?react'
+import TbReload from '@renderer/assets/images/tb-reload.svg?react'
 
 export const NetworkNodeSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'networkNodeSelection' })
@@ -57,7 +57,7 @@ export const NetworkNodeSelectionModal = () => {
         <div className="bg-asphalt mb-2 flex flex-shrink-0 justify-between px-4 py-4">
           <Button
             label={t('refreshButtonLabel')}
-            leftIcon={<TbRefresh aria-hidden={true} className="text-neon" />}
+            leftIcon={<TbReload aria-hidden={true} className="text-neon" />}
             variant="text-slim"
             flat
             colorSchema="white"

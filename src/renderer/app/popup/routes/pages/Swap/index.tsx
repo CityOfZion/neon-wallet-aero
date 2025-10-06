@@ -13,8 +13,8 @@ import {
 import { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
 import { ActionStep } from '@renderer/components/ActionStep'
 import { ActionStepSeparator } from '@renderer/components/ActionStepSeparator'
+import { AddressSelectionButton } from '@renderer/components/AddressSelectionButton'
 import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
-import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
 import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
 import { GreyAmountInput } from '@renderer/components/GreyAmountInput'
@@ -27,7 +27,6 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
@@ -615,34 +614,13 @@ export const SwapPage = () => {
                   <VscCircleFilled aria-hidden={true} className="mx-1 h-2 w-2 text-gray-300" />
                   <span className="text-sm text-white">{t('form.receiveHere')}</span>
                 </div>
-                <Button
-                  clickableProps={{
-                    className: StyleHelper.mergeStyles(
-                      'aria-disabled:bg-transparent aria-[disabled=false]:bg-transparent aria-[disabled=false]:hover:bg-transparent w-32 aria-disabled:text-neon aria-disabled:cursor-default px-1',
-                      {
-                        'aria-[disabled=false]:text-neon':
-                          !actionData.selectedAccountToReceive.value && !actionData.selectedAddressToReceive.value,
-                      }
-                    ),
-                  }}
-                  className={StyleHelper.mergeStyles(
-                    'bg-asphalt flex h-12 w-32 items-center gap-2 rounded px-2 not-disabled:hover:bg-gray-300/30',
-                    {
-                      'opacity-50': isAccountsSelectionDisabled,
-                      'not-disabled:bg-gray-300/20':
-                        !isAccountsSelectionDisabled &&
-                        (actionData.selectedAccountToReceive.value || actionData.selectedAddressToReceive.value),
-                    }
-                  )}
-                  leftIcon={
-                    !isAccountsSelectionDisabled &&
-                    (actionData.selectedAccountToReceive.value || actionData.selectedAddressToReceive.value) ? (
-                      <BlockchainIcon blockchain={tokenToReceiveBlockchain!} className="h-4 min-h-4 w-4 min-w-4" />
-                    ) : undefined
+                <AddressSelectionButton
+                  blockchain={tokenToReceiveBlockchain}
+                  address={
+                    actionData.selectedAccountToReceive.value?.address ?? actionData.selectedAddressToReceive.value
                   }
-                  iconsOnEdge
-                  variant="card"
                   disabled={isAccountsSelectionDisabled}
+                  placeholder={t('form.receiverAddressPlaceholder')}
                   onClick={modalNavigateWrapper('account-receive-selection', {
                     state: {
                       selectedAccount: actionData.selectedAccountToReceive.value ?? undefined,
@@ -652,17 +630,6 @@ export const SwapPage = () => {
                       blockchain: tokenToReceiveBlockchain,
                     },
                   })}
-                  colorSchema="white"
-                  label={
-                    actionData.selectedAccountToReceive.value || actionData.selectedAddressToReceive.value
-                      ? StringHelper.truncateMiddle(
-                          actionData.selectedAccountToReceive.value?.address ??
-                            actionData.selectedAddressToReceive.value ??
-                            '0',
-                          8
-                        )
-                      : t('form.receiverAddressPlaceholder')
-                  }
                 />
               </div>
 
@@ -767,7 +734,9 @@ export const SwapPage = () => {
               <div className="flex w-full justify-between pb-4 pl-6">
                 <span className="text-sm text-gray-200 italic">{t('form.balanceLabel')}</span>
                 <span className="text-sm text-gray-100 italic">
-                  {selectedTokenBalance?.amount ?? t('form.balancePlaceholder')}
+                  {selectedTokenBalance?.amount
+                    ? BSBigNumberHelper.fromNumber(selectedTokenBalance?.amount).toFixed()
+                    : t('form.balancePlaceholder')}
                 </span>
               </div>
 

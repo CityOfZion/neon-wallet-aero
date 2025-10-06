@@ -61,7 +61,7 @@ export const BottomModalLayout = ({
           />
         )}
 
-        <h2 className="text-md w-full max-w-[75%] truncate text-center font-bold">{heading}</h2>
+        <h2 className="w-full max-w-[75%] truncate text-center text-sm font-bold">{heading}</h2>
 
         <IconButton
           aria-label={t('general.close')}
