@@ -9,15 +9,20 @@ import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
 import { IconButton } from '@renderer/components/IconButton'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountsMapSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 import { bsAggregator } from '@renderer/libs/blockchainService'
+import { thunks } from '@renderer/store/thunks'
+import { TTransactionsTransfer } from '@shared/types/hooks'
 import { IAccountState } from '@shared/types/store'
 import { lte } from 'lodash'
 
@@ -49,6 +54,9 @@ export const SendPage = () => {
   const { t: tCommon } = useTranslation('common')
   const { state } = useLocation() as Location<TLocationState>
   const { loginSessionRef } = useLoginSessionSelector()
+  const { accountsMapRef } = useAccountsMapSelector()
+  const dispatch = useAppDispatch()
+
   const currentRecipientAddress = useRef(undefined)
   const isDisabledMaxAmountRef = useRef(false)
 
@@ -248,12 +256,39 @@ export const SendPage = () => {
   const handleSubmit = async () => {
     const fields = await getSendFields()
 
-    if (!fields || isCalculatingForm) return
+    if (!fields || isCalculatingForm || actionState.isActing) return
 
     try {
-      await fields.service.transfer({
+      const transactionHashes = await fields.service.transfer({
         senderAccount: fields.serviceAccount,
         intents: fields.intents,
+      })
+
+      transactionHashes.forEach((hash, index) => {
+        if (!hash) return
+
+        const recipient = actionData.recipients[index]
+        const address = recipient.address!
+        const token = recipient.token!.token
+
+        const transaction: TTransactionsTransfer = {
+          account: fields.selectedAccount,
+          amount: recipient.amount!,
+          asset: token.symbol,
+          assetHash: token.hash,
+          token,
+          to: address,
+          from: fields.selectedAccount.address,
+          hash,
+          time: DateHelper.getNowUnix(),
+          fromAccount: fields.selectedAccount,
+          toAccount: accountsMapRef.current.get(
+            AccountHelper.buildAccountKey({ address, blockchain: fields.service.name })
+          ),
+          isPending: true,
+        }
+
+        dispatch(thunks.waitTransaction({ transaction }))
       })
 
       ToastHelper.success({ message: t('sendSuccess.toast') })
@@ -355,9 +390,10 @@ export const SendPage = () => {
             leftIcon={<TbStepOut aria-hidden={true} />}
           >
             <GreyAccountSelect
-              onSelect={handleSelectAccount}
-              disabled={isCalculatingForm}
               selectedAccount={actionData.selectedAccount}
+              triggerClassName="text-xs"
+              disabled={isCalculatingForm}
+              onSelect={handleSelectAccount}
             />
           </ActionStep>
 
@@ -413,8 +449,10 @@ export const SendPage = () => {
             !!actionState.errors.recipients ||
             !service ||
             isCalculatingForm ||
-            (isCalculableFee(service) && !actionData.fee)
+            (isCalculableFee(service) && !actionData.fee) ||
+            actionState.isActing
           }
+          loading={actionState.isActing}
           className="mt-8 mb-5 w-full rounded bg-gray-300/15"
           leftIcon={<TbSend className="text-neon" />}
           label={t('sendTokensButtonLabel')}

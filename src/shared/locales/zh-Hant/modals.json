@@ -378,5 +378,54 @@
       "FAILED_TO_GET_TRANSACTION_BY_NONCE": "無法透過隨機數取得交易",
       "UNEXPECTED_ERROR": "發生意外錯誤。如果問題持續存在，請聯絡客服。"
     }
+  },
+  "buyAndSellTokensAbout": {
+    "title": "關於您的資料",
+    "description": "我們的上下車合作夥伴僅保留您的資料身份參考，並使用您提供的電子郵件來通知您的買賣情況。",
+    "alertLabel": "COZ 不會儲存您的任何資料！",
+    "sumbsubText": "您的 KYC 資料已加密，並由我們的 KYC 合作夥伴使用：",
+    "sumbsubLinkLabel": "關於 Sumsub 的服務",
+    "unlimitText": "所有其他資料由我們的上下車合作夥伴處理：",
+    "unlimitLinkLabel": "關於 Unlimit 的服務"
+  },
+  "sellTokensDeposit": {
+    "title": "進行存款",
+    "description": "為了推進您數位資產的出售，您需要將資產轉移給我們的下車服務提供商。",
+    "observation": "交易確認後，您可以返回“出售代幣”流程。",
+    "form": {
+      "title": "您的存款詳情",
+      "sourceLabel": "來源帳戶",
+      "receiveLabel": "存款接收人",
+      "tokenLabel": "發送的代幣",
+      "addressLabel": "存款地址",
+      "addressPlaceholder": "輸入地址…",
+      "amountLabel": "金額",
+      "fiatLabel": "法幣價值（預估 {{currencyLabel}}）",
+      "feeLabel": "總費用",
+      "submitButtonLabel": "發送代幣"
+    },
+    "messages": {
+      "feeError": "計算費用時發生錯誤",
+      "insufficientFunds": "資金不足",
+      "invalidAddress": "無效地址"
+    }
+  },
+  "sellTokensDepositSuccess": {
+    "title": "進行存款",
+    "subtitle": "您的存款已成功",
+    "details": "交易詳情",
+    "transactionLabel": "交易",
+    "recipientLabel": "接收人",
+    "amountLabel": "金額",
+    "transactionHashLabel": "交易雜湊",
+    "copyAddressLabel": "複製地址",
+    "copyTransactionHashLabel": "複製交易雜湊"
+  },
+  "sellTokensDepositError": {
+    "title": "進行存款",
+    "subtitle": "交易失敗",
+    "text": "很抱歉，您的交易無法處理。",
+    "errorMessageLabel": "錯誤訊息",
+    "unknownError": "未知錯誤"
   }
 }

@@ -1,18 +1,20 @@
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
+import { IWalletState } from '@shared/types/store'
+
 import { createAppSelector, useAppSelector } from './useRedux'
 
 const selectWallets = createAppSelector(
   [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
-    return applicationDataByLoginType[loginSession?.type ?? 'password'].wallets
+    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IWalletState>()
+
+    return applicationDataByLoginType[loginSession.type].wallets.map(wallet => ({
+      ...wallet,
+      accounts: AccountHelper.orderAccounts(wallet.accounts),
+    }))
   }
 )
-
-const selectWalletById = (id: string) =>
-  createAppSelector(
-    [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
-    (applicationDataByLoginType, loginSession) =>
-      applicationDataByLoginType[loginSession?.type ?? 'password'].wallets.find(wallet => wallet.id === id)
-  )
 
 export const useWalletsSelector = () => {
   const { ref, value } = useAppSelector(selectWallets)
@@ -21,9 +23,4 @@ export const useWalletsSelector = () => {
     wallets: value,
     walletsRef: ref,
   }
-}
-
-export const useWalletByIdSelector = (id: string) => {
-  const { value, ref } = useAppSelector(selectWalletById(id))
-  return { wallet: value, walletRef: ref }
 }

@@ -1,8 +1,9 @@
 import { Account, BlockchainService, hasLedger } from '@cityofzion/blockchain-service'
-import { bsAggregator } from '@renderer/libs/blockchainService'
+import { blockchainNames, bsAggregator } from '@renderer/libs/blockchainService'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
 import { TAccountHelperGetServiceAccountParams, TAccountHelperPredicateParams } from '@shared/types/helpers'
 import { IAccountState } from '@shared/types/store'
+import orderBy from 'lodash/orderBy'
 
 export class AccountHelper {
   static predicate({ address, blockchain }: TAccountHelperPredicateParams) {
@@ -44,5 +45,9 @@ export class AccountHelper {
 
   static buildAccountKey({ address, blockchain }: TAccountHelperPredicateParams) {
     return `${address}-${blockchain}`
+  }
+
+  static orderAccounts<T extends IAccountState = IAccountState>(accounts: T[]) {
+    return orderBy([...accounts], [({ blockchain }) => blockchainNames.indexOf(blockchain), 'order'], ['asc', 'asc'])
   }
 }

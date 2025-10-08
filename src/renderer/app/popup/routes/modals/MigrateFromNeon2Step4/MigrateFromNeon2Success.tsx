@@ -18,7 +18,7 @@ export const MigrateFromNeon2Success = ({ accounts }: TProps) => {
 
   const handleView = () => {
     modalErase('bottom')
-    navigate(`/app/wallets`)
+    navigate('/app/wallets')
   }
 
   return (

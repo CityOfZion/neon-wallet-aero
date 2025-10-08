@@ -98,7 +98,10 @@ export const SendRecipient = ({
 
   const handleChangeAmount = (value: string) => {
     try {
+      value = UtilsHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
+
       onUpdateRecipient({ amount: value, isAmountLoading: true })
+
       debounceAmount(() => {
         onUpdateRecipient({
           amount: BSBigNumberHelper.format(value, { decimals: recipient.token?.token?.decimals }),
@@ -111,7 +114,12 @@ export const SendRecipient = ({
   }
 
   const handleSelectAccount = (account: IAccountState) => {
-    onUpdateRecipient({ addressInput: account.address, address: undefined })
+    const newAddress = account.address
+
+    onUpdateRecipient({
+      addressInput: newAddress,
+      address: !!validatedAddress && newAddress === validatedAddress ? validatedAddress : undefined,
+    })
   }
 
   useEffect(() => {
@@ -237,7 +245,7 @@ export const SendRecipient = ({
           </GreyAmountInput>
         </ActionStep>
 
-        <div className="flex w-full justify-between pb-3 pl-8">
+        <div className="flex w-full justify-between pb-3 pl-6.5">
           <span className="text-xs text-gray-200 italic">{t('balanceLabel')}</span>
           <span className="text-xs text-gray-100 italic">
             {NumberHelper.currency(
@@ -247,8 +255,7 @@ export const SendRecipient = ({
                     .toNumber()
                 : 0,
               currency,
-              2,
-              6
+              { minimumFractionDigits: 2, maximumFractionDigits: 6 }
             )}
           </span>
         </div>

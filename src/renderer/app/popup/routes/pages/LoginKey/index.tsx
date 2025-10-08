@@ -85,8 +85,12 @@ export const LoginKey = () => {
   )
 
   return (
-    <form onSubmit={handleAct(handleSubmit)} className="flex w-full flex-grow flex-col items-center justify-between">
-      <h2 className="text-lg text-white">{t('description')}</h2>
+    <form
+      onSubmit={handleAct(handleSubmit)}
+      className="flex w-full flex-grow flex-col items-center justify-between pb-10"
+    >
+      <h2 className="mb-2 text-lg text-white">{t('description')}</h2>
+
       <div className="flex w-full flex-col items-center">
         <Textarea
           placeholder={t('inputPlaceholder')}
@@ -100,7 +104,7 @@ export const LoginKey = () => {
 
       <Button
         label={t('buttonContinueLabel')}
-        className="w-full"
+        className="mt-4 w-full"
         variant="card"
         type="submit"
         disabled={!actionState.isValid || actionState.isActing}

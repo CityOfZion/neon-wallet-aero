@@ -72,7 +72,7 @@ export const GreyAccountSelect = ({
         <Select.Trigger
           disabled={isDisabled}
           className={StyleHelper.mergeStyles(
-            'bg-asphalt aria-expanded:bg-asphalt aria-[disabled=false]:hover:bg-asphalt/60 h-12 w-32 max-w-36 min-w-32',
+            'bg-asphalt aria-expanded:bg-asphalt aria-[disabled=false]:hover:bg-asphalt/60 flex h-12 w-32 max-w-36 min-w-32 items-center px-2',
             {
               'aria-[disabled=false]:hover:bg-asphalt/60': !selectedAccount && !open && !isDisabled,
               'bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30': !isDisabled && !open && selectedAccount,
@@ -84,7 +84,7 @@ export const GreyAccountSelect = ({
           {match({ loading, isSelectedAccount: !!selectedAccount })
             .with({ loading: true }, () => <Loader />)
             .with({ isSelectedAccount: true }, () => (
-              <div className="flex min-w-0 items-center gap-2.5">
+              <div className="flex min-w-0 items-center gap-x-2 whitespace-nowrap">
                 <BlockchainIcon blockchain={selectedAccount!.blockchain} type="gray" />
 
                 <span className="text-start text-white">
@@ -104,10 +104,15 @@ export const GreyAccountSelect = ({
           .otherwise(() =>
             filteredAccounts.map((account, index) => {
               const wallet = walletsRef.current?.find(wallet => wallet.id === account.idWallet)
+
               return (
-                <Fragment key={account.id}>
+                <Fragment key={`grey-account-select-item-${account.id}`}>
                   <Select.Item value={account.id} className="justify-start gap-2.5">
-                    <BlockchainIcon className="h-4 min-h-4 w-4 min-w-4" blockchain={account.blockchain} type="gray" />
+                    <BlockchainIcon
+                      className="h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4"
+                      blockchain={account.blockchain}
+                      type="gray"
+                    />
 
                     <div className="flex min-w-0 flex-grow flex-col gap-0.5">
                       <Select.ItemText>{StringHelper.truncateMiddle(account.address, 8)}</Select.ItemText>

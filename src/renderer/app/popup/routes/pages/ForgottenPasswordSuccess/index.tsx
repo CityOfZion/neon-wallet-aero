@@ -17,7 +17,13 @@ export const ForgottenPasswordSuccess = () => {
         <p className="text-white">{t('text')}</p>
         <p className="flex-grow text-sm text-gray-300">{t('description')}</p>
 
-        <Link to="/app" label={t('goToWelcomeLinkLabel')} colorSchema="neon" variant="card" className="w-full" />
+        <Link
+          to="/login/neon-account/onboarding"
+          label={t('goToWelcomeLinkLabel')}
+          colorSchema="neon"
+          variant="card"
+          className="w-full"
+        />
       </div>
     </ForgottenPasswordLayout>
   )

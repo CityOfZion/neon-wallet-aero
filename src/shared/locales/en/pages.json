@@ -8,13 +8,14 @@
     "balanceLabel": "Balance",
     "sendButtonLabel": "Send",
     "swapButtonLabel": "Swap",
+    "buyAndSellTokensButtonLabel": "Buy + Sell",
     "ariaLabels": {
       "menuIconButton": "Menu",
       "refreshIconButton": "Refresh",
       "copyIconButton": "Copy"
     },
     "claimButton": {
-      "gasAvailableLabel": "<1>Claim</1> {{ amount }} {{ symbol }}",
+      "gasAvailableLabel": "Claim {{ amount }} {{ symbol }}",
       "gasUnavailableLabel": "GAS unavailable"
     },
     "tokenTab": {
@@ -361,9 +362,6 @@
       }
     }
   },
-  "buyAndSellTokens": {
-    "title": "Buy & Sell Tokens"
-  },
   "neo3NeoXBridge": {
     "title": "Bridge",
     "explanation": {
@@ -408,6 +406,46 @@
     },
     "messages": {
       "networksShouldBeMainnet": "Neo 3 and Neo X bridge should use Mainnet"
+    }
+  },
+  "buyAndSellTokens": {
+    "title": "Buy & Sell Tokens",
+    "aboutButtonLabel": "About your data",
+    "howItWorks": {
+      "title": "How does it work?",
+      "description": "Buy and sell tokens without relying on an exchange! Neon provides an effortless and secure way to buy and sell digital assets using fiat money.",
+      "observation": "After the transfer has been completed, your new tokens will take a few moments to arrive.",
+      "helpButtonLabel": "Need help? Chat with us",
+      "processBuyTokens": {
+        "text": "<1>This process uses an embedded widget.</1> When buying tokens, some personal data might be requested for KYC purposes. <2>Larger sales require a greater amount of KYC data.</2>",
+        "kyc": "<1>Once the KYC process is complete:</1> You will need to provide a destination address for your tokens. From the 'Wallets & Accounts' panel, copy the destination address of your desired Neon account.",
+        "alert": "Ensure that the account you select is compatible with the network of your purchased token!"
+      },
+      "processSellTokens": {
+        "text": "<1>This process uses an embedded widget.</1> When selling tokens, some personal data might be requested for KYC purposes. <2>Larger sales require a greater amount of KYC data.</2>",
+        "kyc": "<1>Once the KYC process is complete:</1> You will need to send your tokens to the deposit address using the ‘Make a Deposit’ button.  Please ensure that you transfer the correct amount of tokens to the deposit address! You can also copy a destination address of your desired Neon account, from the 'Wallets & Accounts' panel.",
+        "alert": "Deposit transactions need to be sent from the <1>same address</1> used in the widget!"
+      }
+    },
+    "wrapperContent": {
+      "tabBuyTokensLabel": "Buy tokens",
+      "tabSellTokensLabel": "Sell tokens",
+      "notConfiguredLabel": "The Buy & Sell Tokens aren't configured, contact support, please.",
+      "walletsAndAccountsButtonLabel": "Wallets & Accounts",
+      "walletsAndAccountsOpenedLabel": "Wallets & accounts accordion is opened",
+      "walletsAndAccountsClosedLabel": "Wallets & accounts accordion is closed",
+      "restartButtonLabel": "Restart"
+    },
+    "sellContent": {
+      "depositButtonLabel": "Make deposit",
+      "iframeError": "There is an error with Sell Tokens, please, try again."
+    },
+    "accordionAccounts": {
+      "title": "Your wallet(s) & account(s)",
+      "noDataFoundLabel": "No wallets and accounts found"
+    },
+    "accordionAccountItem": {
+      "copyAddressButtonLabel": "Copy address"
     }
   }
 }

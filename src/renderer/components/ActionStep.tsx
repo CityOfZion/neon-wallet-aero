@@ -1,7 +1,7 @@
 import { cloneElement, JSX, ReactNode } from 'react'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-type TAccountParams = {
+type TProps = {
   title: ReactNode
   disabled?: boolean
   leftIcon?: JSX.Element
@@ -9,6 +9,7 @@ type TAccountParams = {
   className?: string
   titleClassName?: string
   headerClassName?: string
+  footer?: ReactNode
   children?: ReactNode
 }
 
@@ -20,38 +21,46 @@ export const ActionStep = ({
   titleClassName,
   headerClassName,
   leftIconContainerClassName,
+  footer,
   children,
-}: TAccountParams) => {
+}: TProps) => {
   return (
-    <div className={StyleHelper.mergeStyles('flex min-h-14 w-full items-center justify-between gap-3', className)}>
-      <div
-        className={StyleHelper.mergeStyles(
-          'flex min-w-0 flex-grow items-center gap-1.5',
-          {
-            'opacity-50': disabled,
-          },
-          headerClassName
-        )}
-      >
-        {leftIcon && (
-          <div
-            className={StyleHelper.mergeStyles('flex h-5 w-5 items-center justify-center', leftIconContainerClassName)}
-          >
-            {cloneElement(leftIcon, {
-              ...leftIcon.props,
-              className: StyleHelper.mergeStyles('text-blue w-full h-full', leftIcon.props.className),
-            })}
-          </div>
-        )}
+    <div className="flex w-full flex-col">
+      <div className={StyleHelper.mergeStyles('flex min-h-14 w-full items-center justify-between gap-3', className)}>
+        <div
+          className={StyleHelper.mergeStyles(
+            'flex min-w-0 flex-grow items-center gap-1.5',
+            {
+              'opacity-50': disabled,
+            },
+            headerClassName
+          )}
+        >
+          {leftIcon && (
+            <div
+              className={StyleHelper.mergeStyles(
+                'flex h-5 w-5 items-center justify-center',
+                leftIconContainerClassName
+              )}
+            >
+              {cloneElement(leftIcon, {
+                ...leftIcon.props,
+                className: StyleHelper.mergeStyles('text-blue w-full h-full', leftIcon.props.className),
+              })}
+            </div>
+          )}
 
-        {typeof title === 'string' ? (
-          <span className={StyleHelper.mergeStyles('truncate text-sm text-white', titleClassName)}>{title}</span>
-        ) : (
-          title
-        )}
+          {typeof title === 'string' ? (
+            <span className={StyleHelper.mergeStyles('truncate text-sm text-white', titleClassName)}>{title}</span>
+          ) : (
+            title
+          )}
+        </div>
+
+        {children}
       </div>
 
-      {children}
+      {footer}
     </div>
   )
 }

@@ -34,7 +34,9 @@ const saveWallet: CaseReducer<IAuthReducer, PayloadAction<IWalletState>> = (stat
 }
 
 const saveNotification: CaseReducer<IAuthReducer, PayloadAction<TSaveNotification>> = (state, action) => {
-  const loginSessionType = state.inMemoryData.loginSession?.type ?? 'password'
+  const loginSessionType = state.inMemoryData.loginSession?.type
+
+  if (!loginSessionType) return
 
   const notification: TNotification = {
     id: UtilsHelper.uuid(),

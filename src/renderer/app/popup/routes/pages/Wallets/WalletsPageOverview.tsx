@@ -11,9 +11,11 @@ import { Skeleton } from '@renderer/components/Skeleton'
 import { Tabs } from '@renderer/components/Tabs'
 import { TokenList } from '@renderer/components/TokenList'
 import { TransactionActivityList } from '@renderer/components/TransactionActivityList'
-import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
+import { TabsHelper } from '@renderer/helpers/TabsHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 import { useUnclaimed } from '@renderer/hooks/useUnclaimedQuery'
@@ -22,9 +24,11 @@ import { IAccountState, IWalletState } from '@shared/types/store'
 
 import { WalletPageClaimButton } from './WalletsPageClaimButton'
 
-import TbCopy from '@renderer/assets/images/tb-copy.svg?react'
+import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
+import TbExternalLink from '@renderer/assets/images/tb-external-link.svg?react'
 import TbRefresh from '@renderer/assets/images/tb-refresh.svg?react'
 import TbReplace from '@renderer/assets/images/tb-replace.svg?react'
+import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
 type TProps = {
@@ -64,6 +68,13 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
     navigate('/app/swap', { state: { account: selectedAccount } })
   }
 
+  const handleBuyAndSellTokensNavigation = async () => {
+    await TabsHelper.openTab('/buy-and-sell-tokens', {
+      'account-address': selectedAccount.address,
+      'account-blockchain': selectedAccount.blockchain,
+    })
+  }
+
   useLayoutEffect(() => {
     if (!isWatchAccount || tab !== 'dappConnections') return
     setTab('tokens')
@@ -94,10 +105,10 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
           <p className="text-blue text-sm">{StringHelper.truncateMiddle(selectedAccount.address, 35)}</p>
           <IconButton
             aria-label={t('ariaLabels.copyIconButton')}
-            icon={<TbCopy aria-hidden />}
+            icon={<MdContentCopy aria-hidden />}
             colorSchema="neon"
             size="sm"
-            onClick={() => ClipboardHelper.write(selectedAccount.address)}
+            onClick={() => UtilsHelper.copyToClipboard(selectedAccount.address)}
           />
         </div>
       </div>
@@ -116,25 +127,41 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
       </div>
 
       <div className="mt-7 flex flex-col gap-2.5">
-        {blockchainService && isClaimable(blockchainService) && !isWatchAccount && (
-          <WalletPageClaimButton selectAccount={selectedAccount} blockchainService={blockchainService} />
-        )}
-        <div className="flex w-full gap-2.5">
+        <div className="flex w-full items-center gap-2.5">
+          <Button
+            label={t('sendButtonLabel')}
+            className="w-full"
+            iconsOnEdge={false}
+            disabled={isWatchAccount}
+            leftIcon={<TbStepOut aria-hidden />}
+            onClick={handleSendNavigation}
+          />
+
+          {blockchainService && isClaimable(blockchainService) && !isWatchAccount && (
+            <WalletPageClaimButton selectAccount={selectedAccount} blockchainService={blockchainService} />
+          )}
+        </div>
+
+        <div className="flex w-full items-center gap-2.5">
           <Button
             label={t('swapButtonLabel')}
-            onClick={handleSwapNavigation}
-            leftIcon={<TbReplace aria-hidden />}
-            disabled={isWatchAccount}
+            className="w-full"
             iconsOnEdge={false}
+            disabled={isWatchAccount}
+            leftIcon={<TbReplace aria-hidden />}
+            onClick={handleSwapNavigation}
           />
 
           <Button
-            label={t('sendButtonLabel')}
-            leftIcon={<TbStepOut aria-hidden />}
-            iconsOnEdge={false}
-            onClick={handleSendNavigation}
-            disabled={isWatchAccount}
+            label={t('buyAndSellTokensButtonLabel')}
             className="w-full"
+            iconsOnEdge={false}
+            disabled={isWatchAccount}
+            leftIcon={<TbShoppingBag aria-hidden />}
+            rightIcon={
+              <TbExternalLink aria-hidden className={StyleHelper.mergeStyles({ 'text-gray-100': !isWatchAccount })} />
+            }
+            onClick={handleBuyAndSellTokensNavigation}
           />
         </div>
       </div>
@@ -165,6 +192,9 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
           <DappConnectionList selectedAccount={selectedAccount} />
         </Tabs.Content>
       </Tabs.Root>
+
+      <div className="relative -bottom-0 left-0 -z-1 w-full pb-10" />
+      <div className="absolute -bottom-10 left-0 -z-1 w-full pb-20" />
     </Fragment>
   )
 }

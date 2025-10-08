@@ -9,6 +9,7 @@ import { ToastHelper } from './ToastHelper'
 type TRemoveSpecialCharacterOptions = {
   allowSpaces?: boolean
   allowDots?: boolean
+  allowCommas?: boolean
   trimText?: boolean
 }
 
@@ -119,6 +120,10 @@ export class UtilsHelper {
     let regex = 'a-zA-Z0-9'
     if (options.allowDots) {
       regex += '.'
+    }
+
+    if (options.allowCommas) {
+      regex += ','
     }
 
     if (options.allowSpaces) {

@@ -15,9 +15,9 @@ export const Button = forwardRef<HTMLButtonElement, TButtonProps>(
       rightIcon,
       leftIcon,
       flat,
-      loading,
       colorSchema,
       iconsOnEdge,
+      loading,
       disabled,
       wide,
       textClassName,
@@ -29,7 +29,7 @@ export const Button = forwardRef<HTMLButtonElement, TButtonProps>(
     const isDisabled = disabled || loading
 
     return (
-      <button {...props} disabled={isDisabled} ref={ref}>
+      <button {...props} aria-disabled={isDisabled} disabled={isDisabled} ref={ref}>
         <Clickable
           {...clickableProps}
           label={label}

@@ -97,6 +97,7 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
           const tokenSymbol = token?.symbol ?? ''
           const tokenName = token?.name ?? ''
           const hasTokenLabel = !!tokenSymbol || !!tokenName
+          const blockchainName = tCommon(`blockchain.${blockchain}`)
 
           return (
             <TransactionActivityListEventColumn
@@ -106,11 +107,12 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
                   <span className="inline-block">{tCommon('general.emptyColumn')}</span>
                 ) : (
                   <TransactionActivityListTooltip
-                    data={`${tokenName || tokenSymbol} | ${tCommon(`blockchain.${blockchain}`)}`}
+                    className="uppercase"
+                    data={`${tokenName || tokenSymbol} | ${blockchainName}`}
                   >
-                    <div className="inline-block truncate">
+                    <div className="inline-block truncate uppercase">
                       {tokenSymbol || tokenName}
-                      <span className="text-gray-300 uppercase"> | {tCommon(`blockchain.${blockchain}`)}</span>
+                      <span className="text-gray-300"> | {blockchainName}</span>
                     </div>
                   </TransactionActivityListTooltip>
                 )

@@ -112,8 +112,6 @@ const Base = ({
   const { className: leftIconClassName = '', ...leftIconProps } = leftIcon ? leftIcon.props : {}
   const { className: rightIconClassName = '', ...rightIconProps } = rightIcon ? rightIcon.props : {}
 
-  const isDisabled = disabled || loading
-
   const buildIconClassName = (className: string) => {
     return StyleHelper.mergeStyles(
       'object-contain',
@@ -127,9 +125,9 @@ const Base = ({
 
   return (
     <div
-      aria-disabled={isDisabled}
+      aria-disabled={disabled}
       className={StyleHelper.mergeStyles(
-        'w-full gap-x-2.5 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-[disabled=false]:cursor-pointer',
+        'relative w-full gap-x-2.5 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-[disabled=false]:cursor-pointer',
         {
           'px-7': wide,
           'h-12 text-sm': !flat,
@@ -144,49 +142,48 @@ const Base = ({
           'text-yellow': colorSchema === 'yellow',
           'text-asphalt': colorSchema === 'asphalt',
         },
-
-        props.className
+        props.className,
+        { '[&>*:not(.loader)]:invisible': loading }
       )}
     >
-      {!loading ? (
-        <>
-          {leftIcon &&
-            cloneElement(leftIcon, {
-              className: buildIconClassName(leftIconClassName),
-              ...leftIconProps,
-            })}
+      {leftIcon &&
+        cloneElement(leftIcon, {
+          className: buildIconClassName(leftIconClassName),
+          ...leftIconProps,
+        })}
 
-          {match({ label, children })
-            .with({ children: P.nonNullable }, () => children)
-            .with({ label: P.string }, () => (
-              <span
-                className={StyleHelper.mergeStyles(
-                  'truncate font-medium',
-                  {
-                    grow: iconsOnEdge,
-                  },
-                  textClassName
-                )}
-              >
-                {label}
-              </span>
-            ))
-            .otherwise(() => label)}
+      {match({ label, children })
+        .with({ children: P.nonNullable }, () => (typeof children === 'string' ? <span>{children}</span> : children))
+        .with({ label: P.string }, () => (
+          <span
+            className={StyleHelper.mergeStyles(
+              'truncate font-medium',
+              {
+                grow: iconsOnEdge,
+              },
+              textClassName
+            )}
+          >
+            {label}
+          </span>
+        ))
+        .otherwise(() => label)}
 
-          {rightIcon &&
-            cloneElement(rightIcon, {
-              className: buildIconClassName(rightIconClassName),
-              ...rightIconProps,
-            })}
-        </>
-      ) : (
-        <Loader
-          className={StyleHelper.mergeStyles({
-            'h-6 w-6': !flat,
-            'h-5 w-5': flat,
-          })}
-        />
-      )}
+      {rightIcon &&
+        cloneElement(rightIcon, {
+          className: buildIconClassName(rightIconClassName),
+          ...rightIconProps,
+        })}
+
+      <Loader
+        className={StyleHelper.mergeStyles({
+          'h-6 w-6': !flat,
+          'h-5 w-5': flat,
+        })}
+        containerClassName={StyleHelper.mergeStyles('absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', {
+          hidden: !loading,
+        })}
+      />
     </div>
   )
 }

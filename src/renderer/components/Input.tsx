@@ -1,7 +1,7 @@
 import { cloneElement, forwardRef, MouseEvent, useImperativeHandle, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { match, P } from 'ts-pattern'
 
 import { FieldActionsMenu } from './FieldActionsMenu'
@@ -81,7 +81,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
     }
 
     const handleCopyInput = () => {
-      ClipboardHelper.write(internalRef.current?.value ?? '')
+      UtilsHelper.copyToClipboard(internalRef.current?.value ?? '')
     }
 
     const handlePaste = async () => {

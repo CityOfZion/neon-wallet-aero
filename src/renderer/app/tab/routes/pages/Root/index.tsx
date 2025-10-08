@@ -1,5 +1,5 @@
 import { Provider as StoreProvider } from 'react-redux'
-import { modalsRouter } from '@renderer/app/popup/routes/modalsRouter'
+import { modalsRouter } from '@renderer/app/tab/routes/modalsRouter'
 import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
 import { queryClient } from '@renderer/libs/query'
 import { ToastProvider } from '@renderer/libs/sonner'

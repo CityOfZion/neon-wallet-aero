@@ -122,7 +122,7 @@ export const AccountReceiveSelectionModal = () => {
     const newSearch = search?.toLowerCase()?.trim()
 
     if (newSearch)
-      filteredContacts = contacts.filter(contact =>
+      filteredContacts = filteredContacts.filter(contact =>
         contact.name
           .toLowerCase()
           .trim()
@@ -202,6 +202,7 @@ export const AccountReceiveSelectionModal = () => {
                   filteredAccounts.map((account, index) => {
                     const wallet = walletsRef.current?.find(wallet => wallet.id === account.idWallet)
                     const isSelected = actionData.account?.id === account.id
+
                     return (
                       <Button
                         key={`account-button-${account.id}`}
@@ -218,7 +219,7 @@ export const AccountReceiveSelectionModal = () => {
                           })}
                         >
                           <div className="flex h-full items-center justify-between gap-2.5 text-sm">
-                            <div className="flex w-full">
+                            <div className="flex w-full items-center">
                               <BlockchainIcon
                                 className="mr-3.5 h-6 min-h-6 w-6 min-w-6"
                                 blockchain={account.blockchain}
@@ -256,10 +257,12 @@ export const AccountReceiveSelectionModal = () => {
                       <Separator />
                       {letterContacts.map((contact, index) => {
                         const addressesForBlockchain = contact.addresses.filter(addr => addr.blockchain === blockchain)
+
                         return (
                           <Fragment key={`contact-list-item-${contact.id}-${index}`}>
                             {addressesForBlockchain.map((address, addressIndex) => {
                               const isSelected = actionData.contactAddress === address.address
+
                               return (
                                 <Fragment key={`address-${address.address}-${addressIndex}`}>
                                   <Button
@@ -282,13 +285,11 @@ export const AccountReceiveSelectionModal = () => {
                                       />
 
                                       <Tooltip title={contact.name}>
-                                        <p className="ml-3.5 truncate text-sm" title={contact.name}>
-                                          {contact.name}
-                                        </p>
+                                        <p className="ml-3.5 max-w-40 truncate text-sm">{contact.name}</p>
                                       </Tooltip>
                                     </div>
 
-                                    <p className="w-full truncate text-right text-sm text-gray-100">
+                                    <p className="w-full text-right text-sm text-gray-100">
                                       {StringHelper.truncateMiddle(address.address, 8)}
                                     </p>
                                   </Button>

@@ -3,24 +3,20 @@ import { Separator } from '@radix-ui/react-context-menu'
 import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
-import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useModalState } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
-import { IWalletState } from '@shared/types/store'
+import { TModalState } from '@shared/types/modal'
 
-import TbCopy from '@renderer/assets/images/tb-copy.svg?react'
+import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import TbPrinter from '@renderer/assets/images/tb-printer.svg?react'
 
-type TLocationState = {
-  wallet: IWalletState
-}
-
 export const ExportMnemonicModal = () => {
-  const { wallet } = useModalState<TLocationState>()
+  const { wallet } = useModalState<TModalState<'export-mnemonic'>>()
   const { t } = useTranslation('modals', { keyPrefix: 'exportMnemonic' })
   const { loginSessionRef } = useLoginSessionSelector()
   const {
@@ -72,7 +68,7 @@ export const ExportMnemonicModal = () => {
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
       <div className="flex h-[84%] w-full flex-col items-center justify-between">
-        <div className="flex w-full flex-col gap-6">
+        <div className="flex w-full flex-col gap-6 pb-8">
           <div className="bg-asphalt flex h-[34px] items-center justify-center rounded">{wallet.name}</div>
           <div className="text-center text-sm text-gray-100 print:hidden">{t('description')}</div>
           <div className="bg-asphalt flex min-h-[6rem] flex-col rounded p-2">
@@ -88,7 +84,7 @@ export const ExportMnemonicModal = () => {
               ) : (
                 walletMnemonic.split(' ').map((word, index) => (
                   <span className="text-lg text-white" key={`${word}-${index}`}>
-                    {word}
+                    {index + 1}. {word}
                   </span>
                 ))
               )}
@@ -98,10 +94,10 @@ export const ExportMnemonicModal = () => {
             <Button
               iconsOnEdge={false}
               variant="text"
-              leftIcon={<TbCopy aria-hidden={true} />}
+              leftIcon={<MdContentCopy aria-hidden={true} />}
               label={t('copyButtonLabel')}
               disabled={isDisabled}
-              onClick={() => ClipboardHelper.write(walletMnemonic)}
+              onClick={() => UtilsHelper.copyToClipboard(walletMnemonic)}
               flat
             />
 

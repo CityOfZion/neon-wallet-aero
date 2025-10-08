@@ -1,7 +1,17 @@
+import { Fragment } from 'react'
 import { Outlet } from 'react-router-dom'
+import { NetworkBanner } from '@renderer/components/NetworkBanner'
+import { useBeforeTabLogin } from '@renderer/hooks/useBeforeTabLogin'
 
 // It should be a different component because the contexts are in the parent component
 export const Child = () => {
-  //TODO: Implement login session checks and close tab if not logged in
-  return <Outlet />
+  useBeforeTabLogin()
+
+  return (
+    <Fragment>
+      <NetworkBanner />
+
+      <Outlet />
+    </Fragment>
+  )
 }

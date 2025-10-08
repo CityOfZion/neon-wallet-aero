@@ -9,6 +9,7 @@ export type TIconButtonProps = TIconClickableCustomProps & {
 export const IconButton = forwardRef<HTMLButtonElement, TIconButtonProps>(
   ({ clickableProps, variant, icon, text, size, colorSchema, disabled, loading, ...props }, ref) => {
     const isDisabled = disabled || loading
+
     return (
       <button {...props} disabled={isDisabled} ref={ref}>
         <IconClickable
