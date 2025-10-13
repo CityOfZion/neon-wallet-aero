@@ -12,6 +12,7 @@ import { ContactsPage } from './pages/Contacts'
 import { ForgottenPassword } from './pages/ForgottenPassword'
 import { ForgottenPasswordConfirm } from './pages/ForgottenPasswordConfirm'
 import { ForgottenPasswordSuccess } from './pages/ForgottenPasswordSuccess'
+import { HelpPage } from './pages/Help'
 import { ImportPage } from './pages/Import'
 import { LanguagePage } from './pages/Language'
 import { Login } from './pages/Login'
@@ -113,6 +114,7 @@ export const pagesRouter = createHashRouter([
             path: 'import',
             element: <ImportPage />,
           },
+          { path: 'help', element: <HelpPage /> },
           {
             path: 'settings',
             children: [
