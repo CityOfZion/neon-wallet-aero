@@ -5,6 +5,23 @@
       "blockchainIsNotClaimable": "The account blockchain is not claimable: {{address}} {{blockchain}}"
     }
   },
+  "useUnclaimedMutation": {
+    "messages": {
+      "claimedSuccess": "Successfully claimed"
+    },
+    "errors": {
+      "loginSessionIsNotDefined": "Unknown error. Login session is not defined.",
+      "claimError": "There was an error trying to claim. Please, try again."
+    },
+    "successNotification": {
+      "title": "Claim successful",
+      "previewBody": "You have successfully claimed your unclaimed tokens."
+    },
+    "failureNotification": {
+      "title": "Claim error",
+      "previewBody": "We couldn't verify the completion of your claim"
+    }
+  },
   "useLogin": {
     "controlIsNotSet": "Unexpected error. Login control is not set.",
     "controlIsNotValid": "Unexpected error. Login control is not valid."

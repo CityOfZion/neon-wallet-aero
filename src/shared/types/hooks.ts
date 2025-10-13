@@ -74,7 +74,7 @@ export type TFullTransactionsGroupedDataByDate = {
   items: TFullTransactionsItem[]
 }
 
-export type TUseTransactionsTransfer = {
+export type TTransactionsTransfer = {
   time: number
   hash: string
   account: IAccountState

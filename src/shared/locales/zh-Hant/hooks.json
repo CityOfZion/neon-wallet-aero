@@ -5,6 +5,23 @@
       "blockchainIsNotClaimable": "該帳戶區塊鏈無法領取：{{address}} {{blockchain}}"
     }
   },
+  "useUnclaimedMutation": {
+    "messages": {
+      "claimedSuccess": "領取成功"
+    },
+    "errors": {
+      "loginSessionIsNotDefined": "未知錯誤。登入會話未定義。",
+      "claimError": "嘗試領取時發生錯誤。請再試一次。"
+    },
+    "successNotification": {
+      "title": "領取成功",
+      "previewBody": "您已成功領取未領取的代幣。"
+    },
+    "failureNotification": {
+      "title": "領取錯誤",
+      "previewBody": "我們無法驗證領取是否完成"
+    }
+  },
   "useLogin": {
     "controlIsNotSet": "發生意外錯誤。登入控制未設定。",
     "controlIsNotValid": "發生意外錯誤。登入控制無效。"

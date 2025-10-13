@@ -5,6 +5,23 @@
       "blockchainIsNotClaimable": "该账户区块链不可领取：{{address}} {{blockchain}}"
     }
   },
+  "useUnclaimedMutation": {
+    "messages": {
+      "claimedSuccess": "领取成功"
+    },
+    "errors": {
+      "loginSessionIsNotDefined": "未知错误。登录会话未定义。",
+      "claimError": "尝试领取时发生错误。请重试。"
+    },
+    "successNotification": {
+      "title": "领取成功",
+      "previewBody": "您已成功领取未领取的代币。"
+    },
+    "failureNotification": {
+      "title": "领取错误",
+      "previewBody": "我们无法验证领取是否完成"
+    }
+  },
   "useLogin": {
     "controlIsNotSet": "意外错误。登录控制未设置。",
     "controlIsNotValid": "意外错误。登录控制无效。"

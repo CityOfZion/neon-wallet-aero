@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { reduxPersistStorage } from '@renderer/libs/reduxPersist'
-import { TUseTransactionsTransfer } from '@shared/types/hooks'
+import { TTransactionsTransfer } from '@shared/types/hooks'
 import { THiddenTokenByBlockchain, TLastIndexesByWallet, TMigrationsNeo3, TSwapRecord } from '@shared/types/store'
 import { PersistConfig, PURGE } from 'redux-persist'
 
@@ -8,7 +8,7 @@ import { utilitySliceReducers } from './reducers'
 
 export interface IUtilityReducer {
   inMemoryData: {
-    pendingTransactions: TUseTransactionsTransfer[]
+    pendingTransactions: TTransactionsTransfer[]
   }
   data: {
     encryptedLoginControl?: string
