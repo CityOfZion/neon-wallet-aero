@@ -3,7 +3,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { BlockchainService, BSClaimable } from '@cityofzion/blockchain-service'
 import { Button } from '@renderer/components/Button'
 import { useBalance } from '@renderer/hooks/useBalances'
-import { useUnclaimed } from '@renderer/hooks/useUnclaimedQuery'
+import { useUnclaimed, useUnclaimedMutation } from '@renderer/hooks/useUnclaimedQuery'
 import { IAccountState } from '@shared/types/store'
 import { match, P } from 'ts-pattern'
 
@@ -16,6 +16,7 @@ export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TPro
   const { t } = useTranslation('pages', { keyPrefix: 'wallets.claimButton' })
   const balanceQuery = useBalance(selectAccount)
   const unclaimedQuery = useUnclaimed(selectAccount)
+  const unclaimedMutation = useUnclaimedMutation()
 
   const feeIsLessThanBalance = useMemo(() => {
     if (!balanceQuery.data || !unclaimedQuery.data || unclaimedQuery.data.unclaimedNumber <= 0) return undefined
@@ -58,5 +59,13 @@ export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TPro
       disabled: false,
     }))
 
-  return <Button variant="outlined" label={label} disabled={disabled} />
+  return (
+    <Button
+      variant="outlined"
+      label={label}
+      disabled={disabled}
+      onClick={() => unclaimedMutation.mutate(selectAccount)}
+      loading={unclaimedMutation.isPending}
+    />
+  )
 }

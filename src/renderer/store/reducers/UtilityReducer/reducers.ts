@@ -1,16 +1,13 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TUseTransactionsTransfer } from '@shared/types/hooks'
+import { TTransactionsTransfer } from '@shared/types/hooks'
 import { TMigrationNeo3, TMigrationsNeo3, TSwapRecord } from '@shared/types/store'
 import { cloneDeep } from 'lodash'
 
 import { IUtilityReducer } from '.'
 
 // Pending Transaction Reducers
-const addPendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<TUseTransactionsTransfer>> = (
-  state,
-  action
-) => {
+const addPendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<TTransactionsTransfer>> = (state, action) => {
   state.inMemoryData.pendingTransactions = [...state.inMemoryData.pendingTransactions, action.payload]
 }
 

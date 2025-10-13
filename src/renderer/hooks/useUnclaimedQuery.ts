@@ -1,14 +1,20 @@
+import { useTranslation } from 'react-i18next'
 import { isCalculableFee, isClaimable } from '@cityofzion/blockchain-service'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { bsAggregator } from '@renderer/libs/blockchainService'
 import { getI18next } from '@renderer/libs/i18next'
+import { thunks } from '@renderer/store/thunks'
 import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import { TTransactionsTransfer } from '@shared/types/hooks'
 import { TUseUnclaimedResult } from '@shared/types/query'
 import { IAccountState } from '@shared/types/store'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useLoginSessionSelector } from './useAuthSelector'
+import { useAppDispatch } from './useRedux'
 import { useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'
 import { useHasClaimPendingTransactionSelector } from './useUtilitySelector'
 
@@ -91,5 +97,80 @@ export const useUnclaimed = (account: IAccountState) => {
       hasClaimPendingTransactionRef.current,
       loginSessionRef.current?.encryptedPassword
     ),
+  })
+}
+
+export const useUnclaimedMutation = () => {
+  const { loginSessionRef } = useLoginSessionSelector()
+  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
+  const { t: unclaimedT } = useTranslation('hooks', { keyPrefix: 'useUnclaimedMutation' })
+  const queryClient = useQueryClient()
+  const dispatch = useAppDispatch()
+
+  return useMutation({
+    mutationFn: async (account: IAccountState) => {
+      if (!loginSessionRef.current) {
+        throw new Error(unclaimedT('errors.loginSessionIsNotDefined'))
+      }
+
+      const blockchainService = bsAggregator.blockchainServicesByName[account.blockchain]
+      if (!isClaimable(blockchainService)) {
+        throw new Error(
+          t('hooks:useUnclaimedQuery.errors.blockchainIsNotClaimable', {
+            address: account.address,
+            blockchain: account.blockchain,
+          })
+        )
+      }
+
+      const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
+
+      const serviceAccount = AccountHelper.getServiceAccount({ account, key })
+      const transactionHash = await blockchainService.claim(serviceAccount)
+      const token = blockchainService.burnToken
+
+      const transaction: TTransactionsTransfer = {
+        hash: transactionHash,
+        time: DateHelper.getNowUnix(),
+        account: account,
+        toAccount: account,
+        isPending: true,
+        isClaim: true,
+        amount: '0',
+        to: account.address,
+        from: account.address,
+        asset: token.symbol,
+        assetHash: token.hash,
+        token,
+        fromAccount: account,
+      }
+
+      dispatch(
+        thunks.waitTransaction({
+          transaction,
+          successNotification: {
+            title: 'hooks:useUnclaimedMutation.successNotification.title',
+            previewBody: 'hooks:useUnclaimedMutation.successNotification.previewBody',
+          },
+          failureNotification: {
+            title: 'hooks:useUnclaimedMutation.failureNotification.title',
+            previewBody: 'hooks:useUnclaimedMutation.failureNotification.previewBody',
+          },
+        })
+      )
+    },
+    onError: error => {
+      console.error(error)
+      ToastHelper.error({ message: unclaimedT('errors.claimError') })
+    },
+    onSuccess: (_data, account) => {
+      queryClient.setQueryData(buildQueryKeyUnclaimed(account, selectedNetworkByBlockchain[account.blockchain]), {
+        unclaimed: '0',
+        unclaimedNumber: 0,
+        fee: '0',
+        feeNumber: 0,
+      })
+      ToastHelper.success({ message: unclaimedT('messages.claimedSuccess') })
+    },
   })
 }
