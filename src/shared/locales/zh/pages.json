@@ -146,6 +146,10 @@
       "openWalletButtonLabel": "打开您的钱包"
     }
   },
+  "help": {
+    "title": "帮助",
+    "chatWithUsItemLabel": "与我们聊天"
+  },
   "import": {
     "title": "导入",
     "subtitle": "要导入您的钱包，请输入地址、私钥、加密密钥或助记词：",

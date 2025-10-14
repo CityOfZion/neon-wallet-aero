@@ -146,6 +146,10 @@
       "openWalletButtonLabel": "Open your wallet"
     }
   },
+  "help": {
+    "title": "Help",
+    "chatWithUsItemLabel": "Chat with us"
+  },
   "import": {
     "title": "Import",
     "subtitle": "To import your wallet, enter an address, private key, encrypted key or mnemonic words:",
