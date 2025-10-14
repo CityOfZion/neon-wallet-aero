@@ -96,6 +96,7 @@ export abstract class WalletConnectHelper {
     }
 
     const blockchainSupportedChains = this.supportedChainIds[account.blockchain]
+
     if (!blockchainSupportedChains) return []
 
     const proposalInformation: TWalletConnectHelperProposalInformation[] = []

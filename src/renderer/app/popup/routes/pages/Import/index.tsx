@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Textarea } from '@renderer/components/Textarea'
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useImportActions } from '@renderer/hooks/useImportActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
@@ -31,7 +32,10 @@ export const ImportPage = () => {
           const wallet = await createWallet({ name: tCommonWallet('watchWalletName') })
           const accounts = await importAccounts({ accounts: accountsToImport, wallet })
 
-          navigate('/app/wallets', { state: { wallet, account: accounts[0] }, replace: true })
+          navigate('/app/wallets', {
+            state: { wallet, account: AccountHelper.orderAccounts(accounts)[0] },
+            replace: true,
+          })
         },
       },
     })
@@ -53,7 +57,10 @@ export const ImportPage = () => {
           const wallet = await createWallet({ name: tCommonWallet('importedWalletName') })
           const accounts = await importAccounts({ accounts: accountsToImport, wallet })
 
-          navigate('/app/wallets', { state: { wallet, account: accounts[0] }, replace: true })
+          navigate('/app/wallets', {
+            state: { wallet, account: AccountHelper.orderAccounts(accounts)[0] },
+            replace: true,
+          })
         },
       },
     })
@@ -95,7 +102,10 @@ export const ImportPage = () => {
           const wallet = await createWallet({ name: tCommonWallet('mnemonicWalletName'), mnemonic: value })
           const accounts = await importAccounts({ accounts: accountsToImport, wallet })
 
-          navigate('/app/wallets', { state: { wallet, account: accounts[0] }, replace: true })
+          navigate('/app/wallets', {
+            state: { wallet, account: AccountHelper.orderAccounts(accounts)[0] },
+            replace: true,
+          })
         },
       },
     })

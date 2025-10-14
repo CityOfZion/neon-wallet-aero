@@ -265,19 +265,26 @@ export const SwapPage = () => {
     swapService.init()
   }
 
-  const handleSelectTokenToUse = (token: TSwapToken<TBlockchainServiceKey>) => {
-    swapOrchestratorRef.current?.setAmountToUse(null)
-    swapOrchestratorRef.current?.setTokenToUse(token)
-  }
-
-  const handleSelectTokenToReceive = (token: TSwapToken<TBlockchainServiceKey>) => {
+  const clearReceiverData = () => {
     setData({
       selectedAccountToReceive: { value: null, loading: false, valid: null },
       selectedAddressToReceive: { value: null, loading: false, valid: null },
     })
+
     swapOrchestratorRef.current?.setAddressToReceive(null)
     swapOrchestratorRef.current?.setExtraIdToReceive(null)
     swapOrchestratorRef.current?.setAmountToUse(null)
+  }
+
+  const handleSelectTokenToUse = (token: TSwapToken<TBlockchainServiceKey>) => {
+    clearReceiverData()
+
+    swapOrchestratorRef.current?.setTokenToUse(token)
+  }
+
+  const handleSelectTokenToReceive = (token: TSwapToken<TBlockchainServiceKey>) => {
+    clearReceiverData()
+
     swapOrchestratorRef.current?.setTokenToReceive(token)
   }
 
@@ -309,6 +316,8 @@ export const SwapPage = () => {
 
   const handleChangeAmountToUse = (value: string) => {
     try {
+      value = UtilsHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
+
       swapOrchestratorRef.current?.setAmountToUse(value)
     } catch (error) {
       console.error(error)
@@ -518,7 +527,7 @@ export const SwapPage = () => {
       heading={t('title')}
       rightComponent={
         <IconButton
-          className="pr-3.5"
+          className="pr-2"
           onClick={initializeOrRestartSwapService}
           colorSchema={isRestartDisabled ? 'gray' : 'neon'}
           disabled={isRestartDisabled}
@@ -526,7 +535,7 @@ export const SwapPage = () => {
         />
       }
     >
-      <div className="flex min-h-0 flex-grow flex-col items-center pr-3.5 text-sm text-white">
+      <div className="flex min-h-0 flex-grow flex-col items-center pr-2 text-sm text-white">
         <div className="flex w-full items-center justify-between gap-2 pb-3">
           <Button
             leftIcon={
@@ -542,8 +551,8 @@ export const SwapPage = () => {
           />
         </div>
 
-        <div className="flex w-full flex-grow flex-col items-center py-2">
-          <div className="mx-auto flex w-full max-w-[36rem] flex-col items-center pt-2 pb-8">
+        <div className="flex w-full flex-grow flex-col items-center pt-2">
+          <div className="mx-auto flex w-full max-w-[36rem] flex-col items-center pt-2 pb-12">
             <div className="flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
               <ActionStep title={t('form.assets')} leftIcon={<TbDiamond aria-hidden={true} />} className="font-bold" />
 
@@ -731,7 +740,7 @@ export const SwapPage = () => {
                 </div>
               </ActionStep>
 
-              <div className="flex w-full justify-between pb-4 pl-6">
+              <div className="flex w-full justify-between pb-4 pl-6.5">
                 <span className="text-sm text-gray-200 italic">{t('form.balanceLabel')}</span>
                 <span className="text-sm text-gray-100 italic">
                   {selectedTokenBalance?.amount

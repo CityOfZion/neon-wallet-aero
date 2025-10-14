@@ -1,35 +1,30 @@
-import { useRef } from 'react'
-import { useSelector } from 'react-redux'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
-import { blockchainNames } from '@renderer/libs/blockchainService'
 import { IAccountState, TAccountWithWallet } from '@shared/types/store'
-import orderBy from 'lodash/orderBy'
 
-import { createAppSelector, TRootState, useAppSelector } from './useRedux'
-
-const orderAccounts = (accounts: IAccountState[]) =>
-  orderBy([...accounts], [({ blockchain }) => blockchainNames.indexOf(blockchain), 'order'], ['asc', 'asc'])
+import { createAppSelector, useAppSelector } from './useRedux'
 
 const selectAccounts = createAppSelector(
   [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
-    const accounts = applicationDataByLoginType[loginSession?.type ?? 'password'].wallets.flatMap(
-      wallet => wallet.accounts
-    )
+    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
 
-    return orderAccounts(accounts)
+    const accounts = applicationDataByLoginType[loginSession.type].wallets.flatMap(wallet => wallet.accounts)
+
+    return AccountHelper.orderAccounts(accounts)
   }
 )
 
 const selectAccountsWithWallet = createAppSelector(
   [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
-    const accounts = applicationDataByLoginType[loginSession?.type ?? 'password'].wallets.flatMap(wallet =>
+    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TAccountWithWallet>()
+
+    const accounts = applicationDataByLoginType[loginSession.type].wallets.flatMap(wallet =>
       wallet.accounts.map(account => ({ ...account, wallet }))
     )
 
-    return orderAccounts(accounts)
+    return AccountHelper.orderAccounts<TAccountWithWallet>(accounts)
   }
 )
 
@@ -37,11 +32,11 @@ const selectAccountsByWalletId = (walletId: string) =>
   createAppSelector(
     [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
     (applicationDataByLoginType, loginSession) => {
-      const wallet = applicationDataByLoginType[loginSession?.type ?? 'password'].wallets.find(
-        wallet => wallet.id === walletId
-      )!
+      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
 
-      return SelectorHelper.fallbackToEmptyArray(wallet?.accounts)
+      const wallet = applicationDataByLoginType[loginSession.type].wallets.find(wallet => wallet.id === walletId)
+
+      return AccountHelper.orderAccounts(SelectorHelper.fallbackToEmptyArray<IAccountState>(wallet?.accounts))
     }
   )
 
@@ -69,23 +64,5 @@ export const useAccountsByWalletIdSelector = (walletId: string) => {
   return {
     accountsByWalletId: value,
     accountsByWalletIdRef: ref,
-  }
-}
-
-export const useAccountMapSelector = () => {
-  const accountsMapRef = useRef<Map<string, TAccountWithWallet>>(new Map())
-
-  useSelector((state: TRootState) => {
-    const result = selectAccountsWithWallet(state)
-
-    accountsMapRef.current = new Map<string, TAccountWithWallet>()
-
-    result.forEach(account => {
-      accountsMapRef.current.set(AccountHelper.buildAccountKey(account), account as TAccountWithWallet)
-    })
-  })
-
-  return {
-    accountsMapRef,
   }
 }

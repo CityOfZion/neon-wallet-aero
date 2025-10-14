@@ -54,6 +54,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
   const amountToReceiveFiatPrice = BSBigNumberHelper.fromNumber(amountToReceive)
     .times(tokenToReceiveFiatPrice)
     .toString()
+
   const formattedTokenToReceiveFiat = NumberHelper.currency(amountToReceiveFiatPrice, currency)
 
   return (

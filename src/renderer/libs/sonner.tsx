@@ -18,10 +18,11 @@ export type TBaseToastProps = {
 
 const BaseToast = ({ message, className, sonnerId, icon, closeable = true }: TBaseToastProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'baseToast' })
+
   return (
     <div
       className={StyleHelper.mergeStyles(
-        'flex w-[var(--width)] items-center gap-5 rounded p-5 text-sm font-medium shadow-lg',
+        'mx-auto flex w-[var(--width)] items-center gap-5 rounded p-5 text-sm font-medium shadow-lg',
         className
       )}
     >

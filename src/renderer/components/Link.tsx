@@ -15,6 +15,7 @@ export const Link = ({
   colorSchema,
   iconsOnEdge,
   className,
+  loading,
   disabled,
   onClick,
   wide,
@@ -22,6 +23,8 @@ export const Link = ({
   children,
   ...props
 }: TLinkProps) => {
+  const isDisabled = disabled || loading
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (disabled) {
       e.preventDefault()
@@ -31,7 +34,12 @@ export const Link = ({
   }
 
   return (
-    <RRDLink className={StyleHelper.mergeStyles('cursor-default', className)} onClick={handleClick} {...props}>
+    <RRDLink
+      aria-disabled={isDisabled}
+      className={StyleHelper.mergeStyles('cursor-default', className)}
+      onClick={handleClick}
+      {...props}
+    >
       <Clickable
         {...clickableProps}
         label={label}
@@ -39,7 +47,8 @@ export const Link = ({
         rightIcon={rightIcon}
         flat={flat}
         leftIcon={leftIcon}
-        disabled={disabled}
+        loading={loading}
+        disabled={isDisabled}
         colorSchema={colorSchema}
         iconsOnEdge={iconsOnEdge}
         wide={wide}

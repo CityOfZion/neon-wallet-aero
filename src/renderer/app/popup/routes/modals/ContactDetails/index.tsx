@@ -3,7 +3,6 @@ import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
 import { StringHelper } from '@renderer/helpers/StringHelper'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useContactsSelector } from '@renderer/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -13,7 +12,7 @@ import { contactReducerActions } from '@renderer/store/reducers/ContactReducer'
 import { TModalState } from '@shared/types/modal'
 import { TContactState } from '@shared/types/store'
 
-import TbCopy from '@renderer/assets/images/tb-copy.svg?react'
+import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import TbPencil from '@renderer/assets/images/tb-pencil.svg?react'
 import TbTrash from '@renderer/assets/images/tb-trash.svg?react'
 
@@ -60,11 +59,7 @@ export const ContactDetailsModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="flex min-h-0 flex-grow flex-col items-center gap-4 pt-2">
-        <div
-          className={StyleHelper.mergeStyles(
-            'flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-gray-300/30 text-xs text-gray-100'
-          )}
-        >
+        <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-gray-300/30 text-xs text-gray-100">
           <p className="text-2xl">{StringHelper.getInitials(contact.name)}</p>
         </div>
         <p className="max-w-sm truncate text-center text-lg">{contact.name}</p>
@@ -101,7 +96,7 @@ export const ContactDetailsModal = () => {
               return (
                 <li key={index} className="flex items-center gap-3 rounded bg-gray-800/50 p-3">
                   <div className="flex-shrink-0">
-                    <BlockchainIcon blockchain={blockchain} className="h-6 w-6" />
+                    <BlockchainIcon blockchain={blockchain} className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6" />
                   </div>
 
                   <div className="min-w-0 flex-grow">
@@ -118,7 +113,7 @@ export const ContactDetailsModal = () => {
                         className="flex-shrink-0 p-2"
                         title={t('copyAddressButtonLabel')}
                       >
-                        <TbCopy aria-hidden className="h-5 w-5" />
+                        <MdContentCopy aria-hidden className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />
                       </Button>
                     </div>
                   </div>

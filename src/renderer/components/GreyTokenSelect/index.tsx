@@ -34,6 +34,9 @@ type TProps<T extends TGreyTokenSelectToken> = {
   balance?: TBalance
   disabled?: boolean
   blockchain?: TBlockchainServiceKey
+  className?: string
+  textClassName?: string
+  sideOffset?: number
 }
 
 export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
@@ -44,6 +47,9 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
   balance,
   disabled = false,
   blockchain,
+  className,
+  textClassName,
+  sideOffset = -48,
 }: TProps<T>) => {
   const [filter, setFilter] = useState('')
   const [open, setOpen] = useState(false)
@@ -129,20 +135,24 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
             'aria-[disabled=false]:hover:bg-asphalt/60': !selectedToken && !isDisabled,
             'bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30': !isDisabled && selectedToken,
             'opacity-50': isDisabled,
-          }
+          },
+          className
         )}
       >
         {match({ loading, isTokenSelected: !!selectedToken })
           .with({ loading: true }, () => <Loader />)
           .with({ isTokenSelected: true }, () => (
-            <GreyTokenSelectItem token={{ ...selectedToken!, blockchain: balance?.blockchain ?? blockchain }} />
+            <GreyTokenSelectItem
+              token={{ ...selectedToken!, blockchain: balance?.blockchain ?? blockchain }}
+              textClassName={textClassName}
+            />
           ))
           .otherwise(() => (
             <span className="text-neon w-full text-center font-medium">{t('placeholder')}</span>
           ))}
       </Popover.Trigger>
 
-      <Popover.Content className="max-w-48 bg-transparent" align="end" sideOffset={-48}>
+      <Popover.Content className="max-w-48 bg-transparent" align="end" sideOffset={sideOffset}>
         <RemoveScroll>
           <Command.Root shouldFilter={false}>
             <Command.Input value={filter} onValueChange={setFilter} />
@@ -173,7 +183,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
                       }}
                     >
                       <div className="flex h-full w-full items-center gap-2">
-                        <GreyTokenSelectItem token={row} />
+                        <GreyTokenSelectItem token={row} textClassName={textClassName} />
                       </div>
 
                       {virtualItem.index + 1 !== array.length && <Separator />}

@@ -14,7 +14,7 @@ export const LoginLayout = ({ contentClassName, children, ...props }: TProps) =>
     <ScreenLayout contentClassName={StyleHelper.mergeStyles('items-center', contentClassName)} {...props}>
       <h1 className="mt-7 text-sm font-bold text-white">{t('title')}</h1>
 
-      <NeonWalletFullImage className="mt-4 h-11" />
+      <NeonWalletFullImage aria-hidden className="mt-4 h-11 max-h-11 min-h-11" />
 
       {children}
     </ScreenLayout>

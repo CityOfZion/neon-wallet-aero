@@ -8,13 +8,14 @@
     "balanceLabel": "餘額",
     "sendButtonLabel": "發送",
     "swapButtonLabel": "交換",
+    "buyAndSellTokensButtonLabel": "買入 + 賣出",
     "ariaLabels": {
       "menuIconButton": "選單",
       "refreshIconButton": "重新整理",
       "copyIconButton": "複製"
     },
     "claimButton": {
-      "gasAvailableLabel": "<1>領取</1> {{ amount }} {{ symbol }}",
+      "gasAvailableLabel": "領取 {{ amount }} {{ symbol }}",
       "gasUnavailableLabel": "GAS 不可用"
     },
     "tokenTab": {
@@ -365,9 +366,6 @@
       }
     }
   },
-  "buyAndSellTokens": {
-    "title": "買賣代幣"
-  },
   "neo3NeoXBridge": {
     "title": "跨鏈橋",
     "explanation": {
@@ -412,6 +410,46 @@
     },
     "messages": {
       "networksShouldBeMainnet": "Neo 3和Neo X橋接應使用主網"
+    }
+  },
+  "buyAndSellTokens": {
+    "title": "買入與賣出代幣",
+    "aboutButtonLabel": "關於您的資料",
+    "howItWorks": {
+      "title": "它是如何運作的？",
+      "description": "無需依賴交易所即可買賣代幣！Neon 提供了一種輕鬆且安全的方式，使用法幣買賣數位資產。",
+      "observation": "轉帳完成後，新代幣將在短時間內到達。",
+      "helpButtonLabel": "需要幫助？與我們聊天",
+      "processBuyTokens": {
+        "text": "<1>此流程使用嵌入式小工具。</1> 在購買代幣時，可能會要求提供一些個人資料以進行 KYC 認證。<2>金額較大的交易需要更多的 KYC 資料。</2>",
+        "kyc": "<1>完成 KYC 認證後：</1> 您需要提供一個代幣的接收地址。請從「錢包與帳戶」面板中，複製您想使用的 Neon 帳戶地址。",
+        "alert": "請確保您選擇的帳戶與所購代幣的網路相容！"
+      },
+      "processSellTokens": {
+        "text": "<1>此流程使用嵌入式小工具。</1> 在出售代幣時，可能會要求提供一些個人資料以進行 KYC 認證。<2>金額較大的交易需要更多的 KYC 資料。</2>",
+        "kyc": "<1>完成 KYC 認證後：</1> 您需要使用「進行存款」按鈕將代幣發送至存款地址。請確保您傳送的是正確數量的代幣！您也可以從「錢包與帳戶」面板中複製您希望使用的 Neon 帳戶地址。",
+        "alert": "存款交易必須從<1>與小工具中相同的地址</1>發送！"
+      }
+    },
+    "wrapperContent": {
+      "tabBuyTokensLabel": "購買代幣",
+      "tabSellTokensLabel": "出售代幣",
+      "notConfiguredLabel": "買入與賣出代幣尚未配置，請聯繫客服。",
+      "walletsAndAccountsButtonLabel": "錢包與帳戶",
+      "walletsAndAccountsOpenedLabel": "錢包與帳戶面板已展開",
+      "walletsAndAccountsClosedLabel": "錢包與帳戶面板已收起",
+      "restartButtonLabel": "重新開始"
+    },
+    "sellContent": {
+      "depositButtonLabel": "進行存款",
+      "iframeError": "出售代幣時出錯，請重試。"
+    },
+    "accordionAccounts": {
+      "title": "您的錢包與帳戶",
+      "noDataFoundLabel": "找不到錢包與帳戶"
+    },
+    "accordionAccountItem": {
+      "copyAddressButtonLabel": "複製地址"
     }
   }
 }

@@ -16,21 +16,25 @@ export const AlertErrorBanner = ({ className, message, messageClassName, icon, i
   return (
     <div
       className={StyleHelper.mergeStyles(
-        'bg-magenta-700 flex items-center gap-5 rounded px-5 py-2.5 text-xs text-white',
+        'bg-magenta-700 flex items-center gap-3 rounded p-3 text-xs text-white',
         className
       )}
       {...props}
     >
       {icon ? (
         cloneElement(icon, {
-          className: StyleHelper.mergeStyles('text-magenta h-6 w-6', icon.props.className),
+          className: StyleHelper.mergeStyles(
+            'text-magenta h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6',
+            icon.props.className
+          ),
         })
       ) : (
         <TbAlertTriangle
           aria-hidden={true}
-          className={StyleHelper.mergeStyles('text-magenta h-6 min-h-6 w-6 min-w-6', iconClassName)}
+          className={StyleHelper.mergeStyles('text-magenta h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6', iconClassName)}
         />
       )}
+
       <p className={messageClassName}>{message}</p>
     </div>
   )

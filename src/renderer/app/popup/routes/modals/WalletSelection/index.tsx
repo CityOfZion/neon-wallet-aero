@@ -51,7 +51,7 @@ export const WalletSelectionModal = () => {
             if (loginSessionRef.current.encryptedPassword !== encryptedPassword) {
               throw new Error('Invalid password')
             }
-            modalNavigate('export-wallet', {
+            modalNavigate('export-mnemonic', {
               state: {
                 wallet: selectedWalletInternal ?? wallets[0],
               },
@@ -83,7 +83,7 @@ export const WalletSelectionModal = () => {
             >
               <p className="truncate text-sm text-white">{wallet.name}</p>
 
-              <TbChevronRight className="h-6 min-h-6 w-6 min-w-6 text-gray-300" aria-hidden />
+              <TbChevronRight className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6 text-gray-300" aria-hidden />
             </button>
 
             {index + 1 !== array.length && <Separator />}

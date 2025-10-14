@@ -2,7 +2,6 @@ import { useCallback, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Location, useLocation, useNavigate } from 'react-router-dom'
 import { IconButton } from '@renderer/components/IconButton'
-import { useAccountsWithWalletSelector } from '@renderer/hooks/useAccountSelector'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
@@ -22,7 +21,6 @@ export const WalletsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'wallets' })
   const { state } = useLocation() as Location<TLocationState>
   const { wallets } = useWalletsSelector()
-  const { accountsWithWallet } = useAccountsWithWalletSelector()
   const navigate = useNavigate()
   const { modalNavigate, modalNavigateWrapper, modalErase } = useModalNavigate()
 
@@ -87,7 +85,7 @@ export const WalletsPage = () => {
 
     setSelectedAccount(state.account)
     setSelectedWallet(wallet)
-  }, [accountsWithWallet, handleNavigateSelect, state, wallets])
+  }, [handleNavigateSelect, state, wallets])
 
   return (
     <ScreenLayout>

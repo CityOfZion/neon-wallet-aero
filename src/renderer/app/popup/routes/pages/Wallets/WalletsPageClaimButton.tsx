@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { BlockchainService, BSClaimable } from '@cityofzion/blockchain-service'
 import { Button } from '@renderer/components/Button'
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -43,19 +43,10 @@ export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TPro
       disabled: true,
     }))
     .otherwise(() => ({
-      label: (
-        <Trans
-          t={t}
-          i18nKey="gasAvailableLabel"
-          values={{
-            symbol: blockchainService.claimToken.symbol,
-            amount: unclaimedQuery.data?.unclaimed,
-          }}
-        >
-          end
-          <span className="text-neon">start</span>
-        </Trans>
-      ),
+      label: t('gasAvailableLabel', {
+        symbol: blockchainService.claimToken.symbol,
+        amount: unclaimedQuery.data?.unclaimed,
+      }),
       disabled: false,
     }))
 
@@ -63,9 +54,10 @@ export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TPro
     <Button
       variant="outlined"
       label={label}
-      disabled={disabled}
-      onClick={() => unclaimedMutation.mutate(selectAccount)}
       loading={unclaimedMutation.isPending}
+      disabled={disabled}
+      clickableProps={{ className: 'whitespace-nowrap gap-x-2' }}
+      onClick={() => unclaimedMutation.mutate(selectAccount)}
     />
   )
 }

@@ -17,7 +17,7 @@ const SuccessFooter = () => {
 
   const handleView = () => {
     modalErase('bottom')
-    navigate(`/app/wallets`)
+    navigate('/app/wallets')
   }
 
   return (

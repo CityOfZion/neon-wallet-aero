@@ -13,7 +13,7 @@ import { TransactionActivityListItemHeaderDetails } from './TransactionActivityL
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 import MdCoffee from '@renderer/assets/images/md-coffee.svg?react'
-import MdOutlineContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
+import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import TbArrowsExchange from '@renderer/assets/images/tb-arrows-exchange.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbClock from '@renderer/assets/images/tb-clock.svg?react'
@@ -121,7 +121,7 @@ export const TransactionActivityListItemHeaderContent = ({
             <IconButton
               aria-label={t('copyTxIdLabel')}
               size="xs"
-              icon={<MdOutlineContentCopy aria-hidden={true} className="text-neon" />}
+              icon={<MdContentCopy aria-hidden={true} className="text-neon" />}
               onClick={handleCopyTxId}
             />
           </TransactionActivityListTooltip>

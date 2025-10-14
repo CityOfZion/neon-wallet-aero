@@ -2,12 +2,14 @@ import { JSX } from 'react'
 import { Account, BlockchainService, TBridgeToken } from '@cityofzion/blockchain-service'
 import { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
 import { TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-core'
+import { TBuyAndSellTokensDepositActions } from '@renderer/app/tab/routes/pages/BuyAndSellTokens'
 import {
   TUseNeonMigrateFromNeon2Schema,
   TUseNeonMigrateGeneratedData,
   TUseNeonMigrateSchema,
 } from '@renderer/hooks/useNeonMigrate'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
+import { TTransactionsTransfer } from '@shared/types/hooks'
 
 import {
   IAccountState,
@@ -187,7 +189,20 @@ type TNeo3NeoXBridgeDetailsModalState = {
   confirmed?: boolean
 }
 
-export type TModalRouterRouteTypes = {
+type TSellTokensDepositModalState = {
+  account?: IAccountState
+  depositActions: TBuyAndSellTokensDepositActions
+}
+
+type TSellTokensDepositSuccessModalState = {
+  transaction: TTransactionsTransfer
+}
+
+type TSellTokensDepositErrorModalState = {
+  errorMessage?: string
+}
+
+type TModalRouterPopupRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
   menu: undefined
@@ -201,8 +216,8 @@ export type TModalRouterRouteTypes = {
   'create-account-1': undefined
   'create-account-2': TCreateAccountStep2ModalState
   'confirm-password': TConfirmPasswordModalState
-  'export-account': TExportKeyModalState
-  'export-wallet': TExportMnemonicModalState
+  'export-key': TExportKeyModalState
+  'export-mnemonic': TExportMnemonicModalState
   'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState
   'migrate-from-neon2-4': TMigrateFromNeon2Step4ModalState
   success: TSuccessModalState
@@ -225,3 +240,12 @@ export type TModalRouterRouteTypes = {
   'neo3-neox-bridge-confirmation': TNeo3NeoXBridgeConfirmationModalState
   'neo3-neox-bridge-details': TNeo3NeoXBridgeDetailsModalState
 }
+
+type TModalRouterTabRouteTypes = {
+  'buy-and-sell-tokens-about': undefined
+  'sell-tokens-deposit': TSellTokensDepositModalState
+  'sell-tokens-deposit-success': TSellTokensDepositSuccessModalState
+  'sell-tokens-deposit-error': TSellTokensDepositErrorModalState
+}
+
+export type TModalRouterRouteTypes = TModalRouterPopupRouteTypes & TModalRouterTabRouteTypes

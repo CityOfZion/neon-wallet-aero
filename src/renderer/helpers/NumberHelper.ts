@@ -1,5 +1,12 @@
 import { TCurrency } from '@shared/types/store'
 
+type TCurrencyOptions = {
+  minimumFractionDigits?: number
+  maximumFractionDigits?: number
+  showZero?: boolean
+  showApproximatedSymbol?: boolean
+}
+
 export class NumberHelper {
   static number(input: string | number) {
     if (typeof input === 'number') {
@@ -9,17 +16,19 @@ export class NumberHelper {
     return parseFloat(input) || 0
   }
 
-  static currency(
-    input: string | number,
-    currency: TCurrency,
-    minimumFractionDigits = 2,
-    maximumFractionDigits = 2,
-    showZero = true
-  ) {
+  static currency(input: string | number, currency: TCurrency, options?: TCurrencyOptions) {
+    const {
+      minimumFractionDigits = 2,
+      maximumFractionDigits = 2,
+      showZero = true,
+      showApproximatedSymbol = false,
+    } = options ?? {}
+
     const num = Number(input)
+    let result = '0'
 
     try {
-      const result = new Intl.NumberFormat('en-US', {
+      result = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: currency.label,
         minimumFractionDigits,
@@ -29,14 +38,14 @@ export class NumberHelper {
         .replace(/^(\D+)/, '$1 ')
         .replace(/\s+/, ' ')
 
-      if (!showZero && num === 0) {
-        return result.replace('0', '--').replaceAll('0', '-')
-      }
-
-      return result
-    } catch {
-      return '0'
+      if (!showZero && num === 0) result = result.replace('0', '--').replaceAll('0', '-')
+    } catch (error) {
+      console.error(error)
     }
+
+    if (showApproximatedSymbol) result = `~${result}`
+
+    return result
   }
 
   private static countDecimals(value: string | number) {

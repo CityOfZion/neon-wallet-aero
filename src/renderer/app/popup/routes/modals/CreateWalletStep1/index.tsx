@@ -9,10 +9,10 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import MdiRhombusOutline from '@renderer/assets/images/mdi-alert-rhombus-outline.svg?react'
 import MdiNumeric1Box from '@renderer/assets/images/mdi-numeric-1-box.svg?react'
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
-import TbCopy from '@renderer/assets/images/tb-copy.svg?react'
 import TbPrinter from '@renderer/assets/images/tb-printer.svg?react'
 
 type TActionData = {
@@ -86,7 +86,7 @@ export const CreateWalletStep1Modal = () => {
       <div className="flex w-full items-center justify-center gap-7 py-3">
         <Button
           variant="text-slim"
-          leftIcon={<TbCopy aria-hidden className="w-4" />}
+          leftIcon={<MdContentCopy aria-hidden className="w-4" />}
           label={t('copyButtonLabel')}
           onClick={handleCopy}
         />

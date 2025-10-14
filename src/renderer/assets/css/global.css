@@ -93,6 +93,18 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
+  iframe {
+    @apply rounded;
+  }
+
+  .buy-and-sell-tokens-iframe-container {
+    @apply mx-auto;
+  }
+
+  .buy-and-sell-tokens-iframe-container iframe {
+    @apply !w-[420px] !h-[720px] !border-none;
+  }
 }
 
 @font-face {

@@ -3,26 +3,22 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
 import { Separator } from '@renderer/components/Separator'
-import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useModalState } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
-import { IAccountState } from '@shared/types/store'
+import { TModalState } from '@shared/types/modal'
 import { QRCodeSVG } from 'qrcode.react'
 
-import TbCopy from '@renderer/assets/images/tb-copy.svg?react'
+import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import TbPrinter from '@renderer/assets/images/tb-printer.svg?react'
 
-type TLocationState = {
-  account: IAccountState
-}
-
 export const ExportKeyModal = () => {
-  const { account } = useModalState<TLocationState>()
+  const { account } = useModalState<TModalState<'export-key'>>()
   const { loginSessionRef } = useLoginSessionSelector()
   const { t } = useTranslation('modals', { keyPrefix: 'exportKey' })
   const {
@@ -102,9 +98,9 @@ export const ExportKeyModal = () => {
         <div className="mt-2.5 flex justify-center gap-3 print:hidden">
           <Button
             variant="text"
-            leftIcon={<TbCopy aria-hidden={true} />}
+            leftIcon={<MdContentCopy aria-hidden={true} />}
             label={t('copyButtonLabel')}
-            onClick={() => ClipboardHelper.write(decryptedKey)}
+            onClick={() => UtilsHelper.copyToClipboard(decryptedKey)}
             clickableProps={{ className: 'px-4' }}
             flat
             disabled={isDisabled}

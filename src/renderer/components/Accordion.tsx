@@ -14,7 +14,7 @@ const Trigger = forwardRef<ComponentRef<typeof RadixAccordion.Trigger>, TTrigger
       <RadixAccordion.Trigger
         ref={ref}
         className={StyleHelper.mergeStyles(
-          'flex flex-1 cursor-pointer items-center justify-between border-b border-gray-100/50 px-2.5 py-2.5 text-sm font-medium transition-all [&[data-state=open]>svg]:rotate-180',
+          'flex flex-1 cursor-pointer items-center justify-between border-b border-gray-100/50 px-2.5 py-2.5 text-sm font-medium transition-all [&[data-state=open]>.accordion-trigger-icon]:rotate-180',
           className
         )}
         {...props}
@@ -24,7 +24,7 @@ const Trigger = forwardRef<ComponentRef<typeof RadixAccordion.Trigger>, TTrigger
         <MdExpandMore
           aria-hidden={true}
           className={StyleHelper.mergeStyles(
-            'h-6 w-6 shrink-0 text-gray-100 transition-transform duration-200',
+            'accordion-trigger-icon h-6 w-6 shrink-0 text-gray-100 transition-transform duration-200',
             iconClassName
           )}
         />

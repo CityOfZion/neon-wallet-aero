@@ -378,5 +378,54 @@
       "FAILED_TO_GET_TRANSACTION_BY_NONCE": "Failed to get transaction by nonce",
       "UNEXPECTED_ERROR": "Unexpected error occurred. Please contact support if the issue persists."
     }
+  },
+  "buyAndSellTokensAbout": {
+    "title": "About your data",
+    "description": "Our on/off ramp partner only keeps an ID reference to your data and uses the email you provide to update you about your sales and purchases.",
+    "alertLabel": "COZ doesn't store any of your data!",
+    "sumbsubText": "Your KYC data is encrypted and used by our KYC partner:",
+    "sumbsubLinkLabel": "About Sumsub's service",
+    "unlimitText": "All other data is handled by our on/off ramp partner:",
+    "unlimitLinkLabel": "About Unlimit's service"
+  },
+  "sellTokensDeposit": {
+    "title": "Make deposit",
+    "description": "In order to progress the sale of your digital assets, you need to transfer your assets to our off-ramp provider.",
+    "observation": "When the transaction is confirmed, you can return to the ‘Sell tokens’ process.",
+    "form": {
+      "title": "Your deposit details",
+      "sourceLabel": "Source account",
+      "receiveLabel": "Deposit recipient",
+      "tokenLabel": "Token to send",
+      "addressLabel": "Deposit address",
+      "addressPlaceholder": "Enter address…",
+      "amountLabel": "Amount",
+      "fiatLabel": "Fiat value ({{currencyLabel}} estimated)",
+      "feeLabel": "Total fee",
+      "submitButtonLabel": "Send tokens"
+    },
+    "messages": {
+      "feeError": "Error to calculate fee",
+      "insufficientFunds": "Insufficient funds",
+      "invalidAddress": "Invalid address"
+    }
+  },
+  "sellTokensDepositSuccess": {
+    "title": "Make deposit",
+    "subtitle": "Your deposit was successful",
+    "details": "Transaction details",
+    "transactionLabel": "Transaction",
+    "recipientLabel": "Recipient",
+    "amountLabel": "Amount",
+    "transactionHashLabel": "Transaction hash",
+    "copyAddressLabel": "Copy address",
+    "copyTransactionHashLabel": "Copy transaction hash"
+  },
+  "sellTokensDepositError": {
+    "title": "Make deposit",
+    "subtitle": "Transaction failed",
+    "text": "I'm sorry but your transaction could not be processed.",
+    "errorMessageLabel": "Error message",
+    "unknownError": "Unknown error"
   }
 }
