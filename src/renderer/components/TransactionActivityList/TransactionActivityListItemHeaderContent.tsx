@@ -65,7 +65,7 @@ export const TransactionActivityListItemHeaderContent = ({
         <TransactionActivityListItemHeaderDetails
           label={format(date, t('formatFullDateTime'))}
           data={format(date, t('formatHourMinutes'))}
-          icon={<TbClock aria-hidden={true} />}
+          icon={<TbClock aria-hidden />}
         />
 
         {isPending && (
@@ -76,7 +76,7 @@ export const TransactionActivityListItemHeaderContent = ({
                 <span className="text-orange">{t('pendingDataLabel')}</span>
               </TransactionActivityListTooltip>
             }
-            icon={<MdCoffee aria-hidden={true} className="text-orange" />}
+            icon={<MdCoffee aria-hidden className="text-orange" />}
           />
         )}
       </div>
@@ -90,7 +90,7 @@ export const TransactionActivityListItemHeaderContent = ({
                 tabIndex={0}
                 className="hover:opacity-90 focus:opacity-90 active:opacity-80"
                 data={<p className="text-yellow">{tCommonGeneral('migrationNeo3')}</p>}
-                icon={<TbArrowsExchange aria-hidden={true} className="text-yellow" />}
+                icon={<TbArrowsExchange aria-hidden className="text-yellow" />}
                 onKeyDown={handleKeyDownWrapper(handleGoToMigrationNeo3Status)}
                 onClick={handleGoToMigrationNeo3Status}
               />
@@ -102,7 +102,7 @@ export const TransactionActivityListItemHeaderContent = ({
                 tabIndex={0}
                 className="hover:opacity-90 focus:opacity-90 active:opacity-80"
                 data={<p className="text-blue">{tCommonGeneral('swap')}</p>}
-                icon={<TbTransform aria-hidden={true} className="text-blue" />}
+                icon={<TbTransform aria-hidden className="text-blue" />}
                 onKeyDown={handleKeyDownWrapper(handleGoToSwapDetails)}
                 onClick={handleGoToSwapDetails}
               />
@@ -121,7 +121,7 @@ export const TransactionActivityListItemHeaderContent = ({
             <IconButton
               aria-label={t('copyTxIdLabel')}
               size="xs"
-              icon={<MdContentCopy aria-hidden={true} className="text-neon" />}
+              icon={<MdContentCopy aria-hidden className="text-neon" />}
               onClick={handleCopyTxId}
             />
           </TransactionActivityListTooltip>

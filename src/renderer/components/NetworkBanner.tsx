@@ -1,17 +1,13 @@
 import { useTranslation } from 'react-i18next'
-import { NetworkHelper } from '@renderer/helpers/NetworkHelper'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 export const NetworkBanner = () => {
   const { t } = useTranslation('components', { keyPrefix: 'networkBanner' })
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
 
-  const isTestnetActive = Object.entries(selectedNetworkByBlockchain).some(([blockchain, network]) =>
-    NetworkHelper.isTestnet(blockchain as TBlockchainServiceKey, network)
-  )
+  const isTestnetSelected = Object.values(selectedNetworkByBlockchain).some(network => network.type === 'testnet')
 
-  if (!isTestnetActive) return null
+  if (!isTestnetSelected) return null
 
   return (
     <div className="border-purple absolute top-0 left-0 z-50 flex w-full justify-center border-t-3">
@@ -25,3 +21,5 @@ export const NetworkBanner = () => {
     </div>
   )
 }
+
+export default NetworkBanner

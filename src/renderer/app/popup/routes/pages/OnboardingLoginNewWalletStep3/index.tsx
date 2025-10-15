@@ -4,7 +4,7 @@ import { Link } from '@renderer/components/Link'
 import MdOutlineAutoAwesome from '@renderer/assets/images/md-outline-auto-awesome.svg?react'
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
 
-export const OnboardingLoginNewWalletStep3 = () => {
+export const OnboardingLoginNewWalletStep3Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep3' })
 
   return (
@@ -16,7 +16,7 @@ export const OnboardingLoginNewWalletStep3 = () => {
 
       <Link
         label={t('buttonContinueLabel')}
-        to="/app"
+        to="/wallets"
         variant="card"
         className="w-full"
         rightIcon={<MdOutlineAutoAwesome aria-hidden />}
@@ -25,3 +25,5 @@ export const OnboardingLoginNewWalletStep3 = () => {
     </div>
   )
 }
+
+export default OnboardingLoginNewWalletStep3Page

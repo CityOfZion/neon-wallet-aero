@@ -35,7 +35,7 @@ const Step = ({ icon, colorSchema, label, className, ...props }: TStepProps) => 
   )
 }
 
-export const MigrateFromNeon2 = () => {
+export const MigrateFromNeon2Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings.migrateFromNeon2' })
   const navigate = useNavigate()
 
@@ -49,7 +49,7 @@ export const MigrateFromNeon2 = () => {
           <span className="text-neon mb-1 block text-sm font-light">{t('migrateSteps.inNeon2.label')}</span>
 
           <Step
-            icon={<MdLooksOne aria-hidden={true} />}
+            icon={<MdLooksOne aria-hidden />}
             colorSchema="green"
             label={t('migrateSteps.inNeon2.step1')}
             aria-hidden
@@ -87,3 +87,5 @@ export const MigrateFromNeon2 = () => {
     </SettingsLayout>
   )
 }
+
+export default MigrateFromNeon2Page

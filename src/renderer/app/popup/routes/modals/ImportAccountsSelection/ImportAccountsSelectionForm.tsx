@@ -1,6 +1,6 @@
 import { FormEvent, ReactNode, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Account } from '@cityofzion/blockchain-service'
+import { TBSAccount } from '@cityofzion/blockchain-service'
 import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
@@ -16,8 +16,8 @@ export type TImportAccountsSelectionFormProps = {
   isSubmitting: boolean
   isDisabled: boolean
   blockchainAccounts: TBlockchainAccounts
-  selectedAccounts: Account<TBlockchainServiceKey>[]
-  onSelect(newSelectedAccounts: Account<TBlockchainServiceKey>[]): void
+  selectedAccounts: TBSAccount<TBlockchainServiceKey>[]
+  onSelect(newSelectedAccounts: TBSAccount<TBlockchainServiceKey>[]): void
   onSubmit(event: FormEvent | MouseEvent): void
   children?: ReactNode
 }
@@ -58,7 +58,7 @@ export const ImportAccountsSelectionForm = ({
             disabled={isDisabled}
             loading={isSubmitting}
             iconsOnEdge={false}
-            leftIcon={<TbFileImport aria-hidden={true} />}
+            leftIcon={<TbFileImport aria-hidden />}
           />
         </div>
       </form>

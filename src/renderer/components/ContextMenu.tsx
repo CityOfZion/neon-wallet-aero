@@ -40,7 +40,7 @@ const SubTrigger = forwardRef<
     )}
     {...props}
   >
-    {children} <TbChevronRight aria-hidden={true} className="ml-auto h-4 w-4" />
+    {children} <TbChevronRight aria-hidden className="ml-auto h-4 w-4" />
   </ContextMenuPrimitive.SubTrigger>
 ))
 
@@ -112,7 +112,7 @@ const CheckboxItem = forwardRef<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <ContextMenuPrimitive.ItemIndicator>
-        <TbCheck aria-hidden={true} className="h-4 w-4" />
+        <TbCheck aria-hidden className="h-4 w-4" />
       </ContextMenuPrimitive.ItemIndicator>
     </span>
 
@@ -136,7 +136,7 @@ const RadioItem = forwardRef<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <ContextMenuPrimitive.ItemIndicator>
-        <TbCircleFilled aria-hidden={true} className="h-2 w-2 fill-current" />
+        <TbCircleFilled aria-hidden className="h-2 w-2 fill-current" />
       </ContextMenuPrimitive.ItemIndicator>
     </span>
 

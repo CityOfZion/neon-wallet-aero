@@ -14,7 +14,7 @@ type TProps = {
   onSubmit?: (password: string) => void
 }
 
-export const OnboardingLoginNewWalletStep1 = ({ onSubmit }: TProps) => {
+export const OnboardingLoginNewWalletStep1Page = ({ onSubmit }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep1' })
   const { t: commonT } = useTranslation('common')
 
@@ -62,3 +62,5 @@ export const OnboardingLoginNewWalletStep1 = ({ onSubmit }: TProps) => {
     </form>
   )
 }
+
+export default OnboardingLoginNewWalletStep1Page

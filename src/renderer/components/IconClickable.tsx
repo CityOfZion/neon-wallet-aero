@@ -37,7 +37,7 @@ const Base = ({
   const isYellow = colorSchema === 'yellow'
   const isError = colorSchema === 'error'
 
-  const fixedIcon = loading ? <TbLoader2 aria-hidden={true} className="animate-spin text-gray-300" /> : icon
+  const fixedIcon = loading ? <TbLoader2 aria-hidden className="animate-spin text-gray-300" /> : icon
 
   const { className: iconClassName, ...iconProps } = fixedIcon.props
 

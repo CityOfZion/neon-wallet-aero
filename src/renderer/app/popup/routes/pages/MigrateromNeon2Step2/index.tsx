@@ -17,7 +17,7 @@ const SuccessFooter = () => {
 
   const handleView = () => {
     modalErase('bottom')
-    navigate('/app/wallets')
+    navigate('/wallets')
   }
 
   return (
@@ -28,7 +28,7 @@ const SuccessFooter = () => {
   )
 }
 
-export const MigrateFromNeon2Step2 = () => {
+export const MigrateFromNeon2Step2Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings.migrateFromNeon2.step2' })
   const { t: confirmPasswordT } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const { modalNavigate } = useModalNavigate()
@@ -109,3 +109,5 @@ export const MigrateFromNeon2Step2 = () => {
     </SettingsLayout>
   )
 }
+
+export default MigrateFromNeon2Step2Page

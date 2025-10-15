@@ -114,3 +114,5 @@ export const ContactAddressFormModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default ContactAddressFormModal

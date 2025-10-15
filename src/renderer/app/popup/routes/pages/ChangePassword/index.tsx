@@ -14,3 +14,5 @@ export const ChangePasswordPage = () => {
     </SettingsLayout>
   )
 }
+
+export default ChangePasswordPage

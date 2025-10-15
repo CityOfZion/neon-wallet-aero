@@ -39,39 +39,39 @@ export const SettingsPage = () => {
         <SettingsLinkNavigation
           icon={<TbLock aria-hidden className="text-neon w-6" />}
           label={t('changePasswordButtonLabel')}
-          to="/app/settings/change-password"
+          to="/settings/change-password"
           isDisabled={!isLoginSessionPassword}
         />
 
         <SettingsLinkNavigation
           icon={<Tb3dCubeSphere aria-hidden className="text-neon w-6" />}
           label={t('networkConfigurationButtonLabel')}
-          to="/app/settings/network-configuration"
+          to="/settings/network-configuration"
         />
 
         <SettingsLinkNavigation
           icon={<TbMessage aria-hidden className="text-neon w-6" />}
           label={t('languageButtonLabel')}
-          to="/app/settings/language"
+          to="/settings/language"
         />
 
         <SettingsLinkNavigation
           icon={<TbDeviceFloppy aria-hidden className="text-neon w-6" />}
           label={t('backupAndRestoreButtonLabel')}
-          to="/app/settings/backup-and-restore"
+          to="/settings/backup-and-restore"
           isDisabled={!isLoginSessionPassword}
         />
 
         <SettingsLinkNavigation
           icon={<TbNotes aria-hidden className="text-neon w-6" />}
           label={t('releaseNotesButtonLabel')}
-          to="/app/settings/release-notes"
+          to="/settings/release-notes"
         />
 
         <SettingsLinkNavigation
           icon={<TbPackageImport aria-hidden className="text-neon w-6" />}
           label={t('migrateFromNeon2ButtonLabel')}
-          to="/app/settings/migrate-from-neon2"
+          to="/settings/migrate-from-neon2"
           hideSeparator
           isDisabled={!isLoginSessionPassword}
         />
@@ -79,3 +79,5 @@ export const SettingsPage = () => {
     </ScreenLayout>
   )
 }
+
+export default SettingsPage

@@ -2,9 +2,9 @@ import { ChangeEvent, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Location, useLocation } from 'react-router-dom'
 import {
-  Account,
   BSBigNumberHelper,
   isCalculableFee,
+  TBSAccount,
   TSwapLoadableValue,
   TSwapMinMaxAmount,
   TSwapToken,
@@ -37,7 +37,7 @@ import { useIsFocused } from '@renderer/hooks/useIsFocused'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
-import { bsAggregator, isValidBlockchainKey } from '@renderer/libs/blockchainService'
+import { bsAggregator } from '@renderer/libs/blockchainService'
 import { SWAP_NETWORK_BY_BLOCKCHAIN_AND_NETWORK_ID } from '@shared/constants/swap'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
 import { IAccountState, TSwapRecord } from '@shared/types/store'
@@ -137,14 +137,7 @@ export const SwapPage = () => {
     !actionData.selectedAddressToReceive.value ||
     actionData.selectedAddressToReceive.valid === false
 
-  const isContactsAndAccountsSelectionDisabled = tokenToReceiveBlockchain
-    ? !isValidBlockchainKey(tokenToReceiveBlockchain) || !actionData.selectedAccountToUse.value
-    : true
-
-  const isAccountsSelectionDisabled = !tokenToReceiveBlockchain
-    ? true
-    : isContactsAndAccountsSelectionDisabled ||
-      !accountsRef.current.some(({ blockchain }) => blockchain === tokenToReceiveBlockchain)
+  const isAccountsSelectionDisabled = !tokenToReceiveBlockchain ? true : !actionData.selectedAccountToUse.value
 
   const hasExtraIdToReceive = !!actionData.selectedTokenToReceive.value?.hasExtraId
 
@@ -206,15 +199,18 @@ export const SwapPage = () => {
       }
     )
 
-    swapService.eventEmitter.on('accountToUse', (accountToUse?: TSwapValidateValue<Account<TBlockchainServiceKey>>) => {
-      if (!accountToUse) accountToUse = { value: null, loading: false, valid: null }
+    swapService.eventEmitter.on(
+      'accountToUse',
+      (accountToUse?: TSwapValidateValue<TBSAccount<TBlockchainServiceKey>>) => {
+        if (!accountToUse) accountToUse = { value: null, loading: false, valid: null }
 
-      const account = accountToUse.value
-        ? accountsRef.current.find(AccountHelper.predicate(accountToUse.value!))
-        : undefined
+        const account = accountToUse.value
+          ? accountsRef.current.find(AccountHelper.predicate(accountToUse.value!))
+          : undefined
 
-      setData({ selectedAccountToUse: { ...accountToUse, value: account ?? null } })
-    })
+        setData({ selectedAccountToUse: { ...accountToUse, value: account ?? null } })
+      }
+    )
 
     swapService.eventEmitter.on('amountToUse', (amountToUse?: TSwapLoadableValue<string | null>) => {
       if (!amountToUse) amountToUse = { loading: false, value: null }
@@ -531,7 +527,7 @@ export const SwapPage = () => {
           onClick={initializeOrRestartSwapService}
           colorSchema={isRestartDisabled ? 'gray' : 'neon'}
           disabled={isRestartDisabled}
-          icon={<MdRestartAlt aria-hidden={true} className="text-neon h-6 w-6" />}
+          icon={<MdRestartAlt aria-hidden className="text-neon h-6 w-6" />}
         />
       }
     >
@@ -540,12 +536,12 @@ export const SwapPage = () => {
           <Button
             leftIcon={
               <div className="flex w-full items-center gap-1.5">
-                <MdInfoOutline aria-hidden={true} className="text-neon" />
+                <MdInfoOutline aria-hidden className="text-neon" />
                 {t('howDoesItWorkButtonLabel')}
               </div>
             }
             colorSchema="white"
-            rightIcon={<TbChevronRight aria-hidden={true} className="text-gray-300" />}
+            rightIcon={<TbChevronRight aria-hidden className="text-gray-300" />}
             onClick={modalNavigateWrapper('swap-info')}
             className="w-full"
           />
@@ -554,13 +550,13 @@ export const SwapPage = () => {
         <div className="flex w-full flex-grow flex-col items-center pt-2">
           <div className="mx-auto flex w-full max-w-[36rem] flex-col items-center pt-2 pb-12">
             <div className="flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
-              <ActionStep title={t('form.assets')} leftIcon={<TbDiamond aria-hidden={true} />} className="font-bold" />
+              <ActionStep title={t('form.assets')} leftIcon={<TbDiamond aria-hidden />} className="font-bold" />
 
               <Separator />
 
               <ActionStep
                 title={t('form.tokenToUseTitle')}
-                leftIcon={<VscCircleFilled aria-hidden={true} className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
               >
                 <GreyTokenSelect
                   tokens={actionData.availableTokensToUse.value ?? []}
@@ -576,7 +572,7 @@ export const SwapPage = () => {
 
               <ActionStep
                 title={t('form.tokenToReceiveTitle')}
-                leftIcon={<VscCircleFilled aria-hidden={true} className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
                 className="mb-2"
               >
                 <GreyTokenSelect
@@ -594,7 +590,7 @@ export const SwapPage = () => {
             <div className="mt-2.5 flex w-full flex-col items-center rounded bg-gray-300/15 px-4 pb-4">
               <ActionStep
                 title={t('form.source')}
-                leftIcon={<TbWallet aria-hidden={true} className="h-6 min-h-6 w-6 min-w-6" />}
+                leftIcon={<TbWallet aria-hidden className="h-6 min-h-6 w-6 min-w-6" />}
                 className="font-bold"
               />
 
@@ -602,7 +598,7 @@ export const SwapPage = () => {
 
               <ActionStep
                 title={t('form.accountToUseTitle')}
-                leftIcon={<VscCircleFilled aria-hidden={true} className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
               >
                 <GreyAccountSelect
                   selectedAccount={actionData.selectedAccountToUse.value}
@@ -620,9 +616,10 @@ export const SwapPage = () => {
 
               <div className="mt-1 ml-1 flex w-full pr-0.5">
                 <div className="flex w-full items-center gap-1.5">
-                  <VscCircleFilled aria-hidden={true} className="mx-1 h-2 w-2 text-gray-300" />
+                  <VscCircleFilled aria-hidden className="mx-1 h-2 w-2 text-gray-300" />
                   <span className="text-sm text-white">{t('form.receiveHere')}</span>
                 </div>
+
                 <AddressSelectionButton
                   blockchain={tokenToReceiveBlockchain}
                   address={
@@ -655,12 +652,12 @@ export const SwapPage = () => {
                           aria-label={t('form.openSwapAboutExtraIdToReceiveModal')}
                           colorSchema="neon"
                           type="button"
-                          icon={<TbHelp aria-hidden={true} className="h-5 min-h-5 w-5 min-w-5" />}
+                          icon={<TbHelp aria-hidden className="h-5 min-h-5 w-5 min-w-5" />}
                           onClick={modalNavigateWrapper('swap-about-extra-id-to-receive')}
                         />
                       </div>
                     }
-                    leftIcon={<VscCircleFilled aria-hidden={true} className="h-2 w-2 text-gray-300" />}
+                    leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
                   >
                     <Input
                       aria-label={t('form.extraIdToReceive')}
@@ -671,7 +668,7 @@ export const SwapPage = () => {
                       containerClassName="w-42"
                       error={actionData.selectedExtraIdToReceive.valid === false}
                       value={actionData.selectedExtraIdToReceive.value ?? ''}
-                      required={true}
+                      required
                       disabled={!actionData.selectedAccountToUse.value || isAddressesDisabled}
                       onChange={handleChangeExtraIdToReceive}
                     />
@@ -686,7 +683,7 @@ export const SwapPage = () => {
               <ActionStep
                 title={t('form.amounts')}
                 className="font-bold"
-                leftIcon={<TbStepInto aria-hidden={true} className="h-6 min-h-6 w-6 min-w-6" />}
+                leftIcon={<TbStepInto aria-hidden className="h-6 min-h-6 w-6 min-w-6" />}
               />
 
               <Separator />
@@ -707,7 +704,7 @@ export const SwapPage = () => {
                     </div>
                   </Tooltip>
                 }
-                leftIcon={<VscCircleFilled aria-hidden={true} className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
               >
                 <div className="flex items-center gap-2.5">
                   <Tooltip
@@ -758,7 +755,7 @@ export const SwapPage = () => {
                     <span className="text-gray-100">{` ${t('form.amountToReceiveTitleComplement')}`}</span>
                   </div>
                 }
-                leftIcon={<VscCircleFilled aria-hidden={true} className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
               >
                 <p className="text-right text-sm text-white">{actionData.selectedAmountToReceive.value ?? 0}</p>
               </ActionStep>
@@ -781,7 +778,7 @@ export const SwapPage = () => {
               onClick={handleAct(handleSubmit)}
               label={t('form.submitLabel')}
               loading={actionState.isActing}
-              leftIcon={<TbReplace aria-hidden={true} />}
+              leftIcon={<TbReplace aria-hidden />}
               disabled={
                 !actionState.isValid ||
                 !actionData.selectAmountToUseMinMax.value ||
@@ -802,3 +799,5 @@ export const SwapPage = () => {
     </ScreenLayout>
   )
 }
+
+export default SwapPage

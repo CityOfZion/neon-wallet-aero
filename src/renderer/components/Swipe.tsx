@@ -60,7 +60,7 @@ export const Swipe = ({ text, buttonAriaLabel, onComplete, ...props }: TProps) =
         {...props}
       >
         <div style={{ width: `${DRAG_WIDTH}px` }} className="flex h-full cursor-pointer items-center justify-center">
-          <ArrowRightBoldOutlineIcon aria-hidden={true} className="pointer-events-none h-6 w-6" />
+          <ArrowRightBoldOutlineIcon aria-hidden className="pointer-events-none h-6 w-6" />
         </div>
       </motion.div>
       <p

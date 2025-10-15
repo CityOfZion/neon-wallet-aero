@@ -1,5 +1,5 @@
 import { JSX } from 'react'
-import { Account, BlockchainService, TBridgeToken } from '@cityofzion/blockchain-service'
+import { IBlockchainService, TBridgeToken, TBSAccount } from '@cityofzion/blockchain-service'
 import { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
 import { TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-core'
 import { TBuyAndSellTokensDepositActions } from '@renderer/app/tab/routes/pages/BuyAndSellTokens'
@@ -34,7 +34,7 @@ type TAccountSelectionModalState = {
 type TImportAccountsSelectionModalState = {
   value: string
   type: TImportAccountsSelectionType
-  onSubmit: (selectedAccounts: Account<TBlockchainServiceKey>[]) => Promise<void>
+  onSubmit: (selectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => Promise<void>
 }
 
 type TBlockchainSelectionModalState = {
@@ -174,7 +174,7 @@ type TNeo3NeoXBridgeConfirmationModalState = {
   amountToUse?: string
   amountToReceive?: string
   addressToReceive?: string
-  fromService: BlockchainService<TBlockchainServiceKey>
+  fromService: IBlockchainService<TBlockchainServiceKey>
   onConfirm(): Promise<void>
 }
 

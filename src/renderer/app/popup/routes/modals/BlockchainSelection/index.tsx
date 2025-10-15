@@ -71,3 +71,5 @@ export const BlockchainSelectionModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default BlockchainSelectionModal

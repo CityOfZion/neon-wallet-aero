@@ -3,8 +3,8 @@ import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
-import { isValidBlockchainKey } from '@renderer/libs/blockchainService'
-import { utilityReducerActions } from '@renderer/store/reducers/UtilityReducer'
+import { doesBlockchainSupported } from '@renderer/libs/blockchainService'
+import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { BACKUP_FILE_EXTENSION, BACKUP_VERSION } from '@shared/constants/backup'
 import { TAccountsToImport, TCreateWalletAndAccountParam } from '@shared/types/blockchain'
 import {
@@ -147,7 +147,7 @@ export const backupFileSchema = zod.object({
 const fixAccountProperties = (
   backupAccount: zod.infer<typeof backupAccountSchema>
 ): Omit<IAccountState, 'encryptedKey'> | undefined => {
-  if (!isValidBlockchainKey(backupAccount.blockchain)) return
+  if (!doesBlockchainSupported(backupAccount.blockchain)) return
 
   const type: TAccountType =
     backupAccount.type === 'ledger' || backupAccount.type === 'hardware' ? 'watch' : backupAccount.type
@@ -271,7 +271,7 @@ export const useNeonImportBackup = () => {
       const addresses: TContactAddress[] = []
 
       contact.addresses.forEach(address => {
-        if (!isValidBlockchainKey(address.blockchain)) return
+        if (!doesBlockchainSupported(address.blockchain)) return
         addresses.push({ address: address.address, blockchain: address.blockchain })
       })
 

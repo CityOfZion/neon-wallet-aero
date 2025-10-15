@@ -134,3 +134,5 @@ export const AccountSelectionModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default AccountSelectionModal

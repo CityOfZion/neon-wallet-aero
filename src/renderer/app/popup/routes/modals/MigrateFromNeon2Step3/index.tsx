@@ -99,3 +99,5 @@ export const MigrateFromNeon2Step3Modal = () => {
     </BottomModalLayout>
   )
 }
+
+export default MigrateFromNeon2Step3Modal

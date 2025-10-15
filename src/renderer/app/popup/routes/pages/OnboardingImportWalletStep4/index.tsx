@@ -8,7 +8,7 @@ import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
 import { useNewPassword } from '@renderer/hooks/useNewPassword'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
-import { utilityReducerActions } from '@renderer/store/reducers/UtilityReducer'
+import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { TCreateWalletAndAccountParam } from '@shared/types/blockchain'
 import { TContactState, TMigrationsNeo3, TSwapRecord } from '@shared/types/store'
 
@@ -22,7 +22,7 @@ type TLocationState = {
   password: string
 }
 
-export const OnboardingImportWalletStep4 = () => {
+export const OnboardingImportWalletStep4Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step4' })
   const { state } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
@@ -89,10 +89,9 @@ export const OnboardingImportWalletStep4 = () => {
 
       <Progress value={progress} className="mt-7" />
 
-      <NeonWalletIcon
-        aria-hidden={true}
-        className="absolute -bottom-11 -left-11 h-[12.5rem] w-[13.75rem] fill-gray-700/30"
-      />
+      <NeonWalletIcon aria-hidden className="absolute -bottom-11 -left-11 h-[12.5rem] w-[13.75rem] fill-gray-700/30" />
     </Fragment>
   )
 }
+
+export default OnboardingImportWalletStep4Page

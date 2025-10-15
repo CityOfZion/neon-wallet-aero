@@ -1,11 +1,11 @@
-import { NftResponse } from '@cityofzion/blockchain-service'
+import { TNftResponse } from '@cityofzion/blockchain-service'
 import { IAccountState } from '@shared/types/store'
 import { VirtualItem } from '@tanstack/react-virtual'
 
 import { NftListItemContent } from './NftListItemContent'
 
 type TProps = {
-  nft: NftResponse
+  nft: TNftResponse
   selectedAccount: IAccountState
   link: string
   virtualItem: VirtualItem

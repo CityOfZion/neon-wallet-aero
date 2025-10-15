@@ -12,7 +12,7 @@ type TFormData = {
   password: string
 }
 
-export const LoginNeonAccountPassword = () => {
+export const LoginNeonAccountPasswordPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'loginNeonAccountPassword' })
   const navigate = useNavigate()
   const { loginWithPassword } = useLogin()
@@ -36,7 +36,7 @@ export const LoginNeonAccountPassword = () => {
     try {
       await loginWithPassword(data.password)
 
-      navigate('/app/wallets', { replace: true })
+      navigate('/wallets', { replace: true })
     } catch {
       setError('password', t('error.invalidPassword'))
     }
@@ -84,3 +84,5 @@ export const LoginNeonAccountPassword = () => {
     </form>
   )
 }
+
+export default LoginNeonAccountPasswordPage

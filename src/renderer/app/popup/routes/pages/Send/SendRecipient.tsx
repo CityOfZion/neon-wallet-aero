@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BSBigNumberHelper, Token } from '@cityofzion/blockchain-service'
+import { BSBigNumberHelper, TBSToken } from '@cityofzion/blockchain-service'
 import { ActionStep } from '@renderer/components/ActionStep'
 import { Button } from '@renderer/components/Button'
 import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
@@ -82,7 +82,7 @@ export const SendRecipient = ({
     onUpdateRecipient({ addressInput: address, address: undefined })
   }
 
-  const handleSelectToken = (token: Token) => {
+  const handleSelectToken = (token: TBSToken) => {
     const blockchain = balance?.data?.blockchain
 
     if (!blockchain) return
@@ -152,7 +152,7 @@ export const SendRecipient = ({
         <ActionStep
           className="px-0"
           title={t('title', { order })}
-          leftIcon={<TbStepInto aria-hidden={true} />}
+          leftIcon={<TbStepInto aria-hidden />}
           titleClassName="font-bold text-sm"
         >
           {removable && order > 1 && (
@@ -171,7 +171,7 @@ export const SendRecipient = ({
         <ActionStep
           className="px-0"
           title={t('tokenToReceiveLabel')}
-          leftIcon={<VscCircleFilled aria-hidden={true} className="h-2 w-2 text-gray-300" />}
+          leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
         >
           <GreyTokenSelect
             tokens={balance?.data?.tokensBalances.map(tokenBalance => tokenBalance.token) ?? []}
@@ -187,7 +187,7 @@ export const SendRecipient = ({
 
         <div className="my-5 flex w-full flex-col">
           <div className="flex w-full items-center gap-1.5 pb-5">
-            <VscCircleFilled aria-hidden={true} className="mx-1 h-2 w-2 text-gray-300" />
+            <VscCircleFilled aria-hidden className="mx-1 h-2 w-2 text-gray-300" />
             <span className="text-sm text-white">{t('receivingAddressLabel')}</span>
           </div>
           <div className="flex w-full items-start gap-3">
@@ -214,7 +214,7 @@ export const SendRecipient = ({
                 disabled={isDisabled}
                 variant="text"
                 label={t('myAccountButtonLabel')}
-                leftIcon={<TbWallet aria-hidden={true} />}
+                leftIcon={<TbWallet aria-hidden />}
                 flat
               />
             </GreyAccountSelect>
@@ -228,7 +228,7 @@ export const SendRecipient = ({
         <ActionStep
           className="pt-1.5 pb-2.5"
           title={t('amountLabel')}
-          leftIcon={<VscCircleFilled aria-hidden={true} className="h-2 w-2 text-gray-300" />}
+          leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
         >
           <GreyAmountInput value={recipient.amount ?? ''} onChange={handleChangeAmount} disabled={isAmountDisabled}>
             <Button

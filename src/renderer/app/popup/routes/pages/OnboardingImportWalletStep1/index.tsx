@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { OnboardingLoginNewWalletStep1 } from '../OnboardingLoginNewWalletStep1'
+import { OnboardingLoginNewWalletStep1Page } from '../OnboardingLoginNewWalletStep1'
 
-export const OnboardingImportWalletStep1 = () => {
+export const OnboardingImportWalletStep1Page = () => {
   const navigate = useNavigate()
   const { state } = useLocation()
 
@@ -10,5 +10,7 @@ export const OnboardingImportWalletStep1 = () => {
     navigate('/onboarding-import-wallet/2', { state: { password, ...state } })
   }
 
-  return <OnboardingLoginNewWalletStep1 onSubmit={handleSubmit} />
+  return <OnboardingLoginNewWalletStep1Page onSubmit={handleSubmit} />
 }
+
+export default OnboardingImportWalletStep1Page

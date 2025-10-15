@@ -94,7 +94,7 @@ export const DappConnectionRequestModal = () => {
             </Details.Header>
 
             <Details.Body>
-              <Details.Panel label={'Methods'}>
+              <Details.Panel label="Methods">
                 <Details.Item>
                   <span className="text-sm">{proposalInformation.methods.join(', ')}</span>
                 </Details.Item>
@@ -123,3 +123,5 @@ export const DappConnectionRequestModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default DappConnectionRequestModal

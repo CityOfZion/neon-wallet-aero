@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { hasExplorerService } from '@cityofzion/blockchain-service'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import { TNetwork } from '@shared/types/blockchain'
 import {
   TFullTransactionAssetEvent,
   TFullTransactionsByAddressResponse,
@@ -13,7 +13,7 @@ import {
 import { IAccountState, TSelectedNetworks } from '@shared/types/store'
 import { Query, QueryClient, useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
 import * as dateFns from 'date-fns'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'
@@ -21,7 +21,7 @@ import { useHiddenTokensByBlockchainSelector, usePendingTransactionsSelector } f
 
 type TBuildGetFullTransactionsQueryKeyParams = {
   account: IAccountState
-  network: TNetwork<TBlockchainServiceKey>
+  network: TNetwork
   dateFrom?: Date
   dateTo?: Date
   page?: number

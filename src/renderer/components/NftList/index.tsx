@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { hasExplorerService, NftResponse } from '@cityofzion/blockchain-service'
+import { hasExplorerService, TNftResponse } from '@cityofzion/blockchain-service'
 import { useNfts } from '@renderer/hooks/useNfts'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
 import { bsAggregator } from '@renderer/libs/blockchainService'
@@ -17,7 +17,7 @@ type TProps = {
 export const NftList = ({ selectedAccount }: TProps) => {
   const { aggregatedData: nfts, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useNfts(selectedAccount)
 
-  const getHref = (nft: NftResponse) => {
+  const getHref = (nft: TNftResponse) => {
     try {
       const service = bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
       if (!hasExplorerService(service)) return ''

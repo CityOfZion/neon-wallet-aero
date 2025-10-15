@@ -1,10 +1,12 @@
-import { useLayoutEffect, useState } from 'react'
+import { Suspense, useLayoutEffect, useState } from 'react'
 import { FocusScope } from '@radix-ui/react-focus-scope'
 import { ModalRouterCurrentHistoryProvider } from '@renderer/contexts/ModalRouterCurrentHistoryContext'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { useModalHistories } from '@renderer/hooks/useModalRouter'
 import { THistory } from '@shared/types/modal'
 import { motion, useAnimate, usePresence } from 'motion/react'
+
+import { ScreenLoader } from '../ScreenLoader'
 
 import { ModalContainer } from './ModalContainer'
 
@@ -36,7 +38,11 @@ export const BottomModal = () => {
 
   return (
     <ModalContainer className="flex items-end">
-      <motion.div className="relative w-full" ref={scope} initial={{ height: 0 }}>
+      <motion.div
+        className="relative w-full overflow-hidden rounded-t-2xl bg-gray-700"
+        ref={scope}
+        initial={{ height: 0 }}
+      >
         {bottomHistories.map((history, index) => (
           <FocusScope
             key={history.id}
@@ -46,7 +52,9 @@ export const BottomModal = () => {
             })}
           >
             <ModalRouterCurrentHistoryProvider value={history} isFocused={index === histories.length - 1}>
-              {history.route.element}
+              <Suspense fallback={<ScreenLoader />}>
+                <history.route.element />
+              </Suspense>
             </ModalRouterCurrentHistoryProvider>
           </FocusScope>
         ))}

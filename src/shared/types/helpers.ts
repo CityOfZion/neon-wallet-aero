@@ -4,7 +4,7 @@ import { IAccountState } from './store'
 export type TWalletConnectHelperSessionInformation<T extends TBlockchainServiceKey = TBlockchainServiceKey> = {
   address: string
   blockchain: T
-  network: TNetwork<T>
+  network: TNetwork
   methods: string[]
 }
 
@@ -12,7 +12,7 @@ export type TWalletConnectHelperProposalInformation<T extends TBlockchainService
   chain: string
   methods: string[]
   blockchain: T
-  network: TNetwork<T>
+  network: TNetwork
   proposalBlockchain: string
 }
 

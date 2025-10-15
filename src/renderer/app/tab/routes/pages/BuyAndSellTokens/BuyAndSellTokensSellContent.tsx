@@ -76,7 +76,7 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
           variant="text-slim"
           colorSchema={isIframeLoading ? 'gray' : 'neon'}
           disabled={isIframeLoading}
-          rightIcon={<MdChevronRight aria-hidden={true} className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
+          rightIcon={<MdChevronRight aria-hidden className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
           onClick={modalNavigateWrapper('sell-tokens-deposit', {
             state: { account, depositActions },
           })}

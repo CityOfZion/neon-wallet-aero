@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Account } from '@cityofzion/blockchain-service'
+import { TBSAccount } from '@cityofzion/blockchain-service'
 import { useModalState } from '@renderer/hooks/useModalRouter'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
@@ -10,7 +10,7 @@ import { ImportAccountsSelectionAddress } from './ImportAccountsSelectionAddress
 import { ImportAccountsSelectionKey } from './ImportAccountsSelectionKey'
 import { ImportAccountsSelectionMnemonic } from './ImportAccountsSelectionMnemonic'
 
-export type TBlockchainAccounts = Partial<Record<TBlockchainServiceKey, Account<TBlockchainServiceKey>[]>>
+export type TBlockchainAccounts = Partial<Record<TBlockchainServiceKey, TBSAccount<TBlockchainServiceKey>[]>>
 
 export const ImportAccountsSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelectionModal' })
@@ -29,3 +29,5 @@ export const ImportAccountsSelectionModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default ImportAccountsSelectionModal

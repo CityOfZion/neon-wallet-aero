@@ -100,11 +100,7 @@ const Item = ({ label, children, copyable, className, contentClassName, rightEle
           {typeof children === 'string' ? <p className="text-sm break-all text-white">{children}</p> : children}
 
           {copyable && (
-            <IconButton
-              icon={<MdContentCopy aria-hidden={true} className="text-neon" />}
-              size="sm"
-              onClick={handleCopy}
-            />
+            <IconButton icon={<MdContentCopy aria-hidden className="text-neon" />} size="sm" onClick={handleCopy} />
           )}
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Accordion } from '@renderer/components/Accordion'
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useSelectedNetworkSelector } from '@renderer/hooks/useSettingsSelector'
+import { bsAggregator } from '@renderer/libs/blockchainService'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { NetworkConfigurationBlockchainButton } from './NetworkConfigurationBlockchainButton'
@@ -16,6 +17,8 @@ export const NetworkConfigurationBlockchainAccordion = ({ blockchain }: TProps) 
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { modalNavigateWrapper } = useModalNavigate()
   const { network } = useSelectedNetworkSelector(blockchain)
+
+  const service = bsAggregator.blockchainServicesByName[blockchain]
 
   return (
     <Accordion.Item value={blockchain}>
@@ -43,6 +46,7 @@ export const NetworkConfigurationBlockchainAccordion = ({ blockchain }: TProps) 
           className="border-none"
           label={t('nodeSelection')}
           subLabel={network.url}
+          disabled={service.availableNetworkURLs.length <= 1}
           onClick={modalNavigateWrapper('network-node-selection', {
             state: {
               blockchain,

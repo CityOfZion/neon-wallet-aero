@@ -1,113 +1,104 @@
+import { lazy } from 'react'
 import { createHashRouter, Navigate } from 'react-router-dom'
 
-import { AppPage } from './pages/App'
-import { BackupAndRestorePage } from './pages/BackupAndRestore'
-import { BackupStep1 } from './pages/BackupAndRestore/BackupStep1'
-import { BackupStep2 } from './pages/BackupAndRestore/BackupStep2'
-import { ChangePasswordPage } from './pages/ChangePassword'
-import { ChangePasswordStep1 } from './pages/ChangePassword/ChangePasswordStep1'
-import { ChangePasswordStep2 } from './pages/ChangePassword/ChangePasswordStep2'
-import { ChangePasswordStep3 } from './pages/ChangePassword/ChangePasswordStep3'
-import { ContactsPage } from './pages/Contacts'
-import { ForgottenPassword } from './pages/ForgottenPassword'
-import { ForgottenPasswordConfirm } from './pages/ForgottenPasswordConfirm'
-import { ForgottenPasswordSuccess } from './pages/ForgottenPasswordSuccess'
-import { HelpPage } from './pages/Help'
-import { ImportPage } from './pages/Import'
-import { LanguagePage } from './pages/Language'
-import { Login } from './pages/Login'
-import { LoginKey } from './pages/LoginKey'
-import { LoginNeonAccountOnboarding } from './pages/LoginNeonAccountOnboarding'
-import { LoginNeonAccountPassword } from './pages/LoginNeonAccountPassword'
-import { MigrateFromNeon2 } from './pages/MigrateFromNeon2'
-import { MigrateFromNeon2Step2 } from './pages/MigrateromNeon2Step2'
-import { Neo3NeoXBridgePage } from './pages/Neo3NeoXBridge'
-import { NetworkConfigurationPage } from './pages/NetworkConfiguration'
-import { OnboardingImportWallet } from './pages/OnboardingImportWallet'
-import { OnboardingImportWalletStep1 } from './pages/OnboardingImportWalletStep1'
-import { OnboardingImportWalletStep2 } from './pages/OnboardingImportWalletStep2'
-import { OnboardingImportWalletStep3 } from './pages/OnboardingImportWalletStep3'
-import { OnboardingImportWalletStep4 } from './pages/OnboardingImportWalletStep4'
-import { OnboardingImportWalletStep5 } from './pages/OnboardingImportWalletStep5'
-import { OnboardingLoginNewWallet } from './pages/OnboardingLoginNewWallet'
-import { OnboardingLoginNewWalletStep1 } from './pages/OnboardingLoginNewWalletStep1'
-import { OnboardingLoginNewWalletStep2 } from './pages/OnboardingLoginNewWalletStep2'
-import { OnboardingLoginNewWalletStep3 } from './pages/OnboardingLoginNewWalletStep3'
-import { RestoreBackupStep1 } from './pages/RestoreBackupStep1'
-import { RestoreBackupStep2 } from './pages/RestoreBackupStep2'
-import { RestoreBackupStep3 } from './pages/RestoreBackupStep3'
+import { PrivatePage } from './pages/Private'
 import { RootPage } from './pages/Root'
-import { SendPage } from './pages/Send'
-import { SettingsPage } from './pages/Settings'
-import { SplashScreen } from './pages/SplashScreen'
-import { SwapPage } from './pages/Swap'
-import { WalletsPage } from './pages/Wallets'
+
+const BackupAndRestorePage = lazy(() => import('./pages/BackupAndRestore'))
+const BackupAndRestoreBackupStep1Page = lazy(() => import('./pages/BackupAndRestoreBackupStep1'))
+const BackupAndRestoreBackupStep2Page = lazy(() => import('./pages/BackupAndRestoreBackupStep2'))
+const BackupAndRestoreRestoreStep1Page = lazy(() => import('./pages/BackupAndRestoreRestoreStep1'))
+const BackupAndRestoreRestoreStep2Page = lazy(() => import('./pages/BackupAndRestoreRestoreStep2'))
+const BackupAndRestoreRestoreStep3Page = lazy(() => import('./pages/BackupAndRestoreRestoreStep3'))
+const ChangePasswordPage = lazy(() => import('./pages/ChangePassword'))
+const ChangePasswordStep1Page = lazy(() => import('./pages/ChangePasswordStep1'))
+const ChangePasswordStep2Page = lazy(() => import('./pages/ChangePasswordStep2'))
+const ChangePasswordStep3Page = lazy(() => import('./pages/ChangePasswordStep3'))
+const ContactsPage = lazy(() => import('./pages/Contacts'))
+const ForgottenPasswordPage = lazy(() => import('./pages/ForgottenPassword'))
+const ForgottenPasswordConfirmPage = lazy(() => import('./pages/ForgottenPasswordConfirm'))
+const ForgottenPasswordSuccessPage = lazy(() => import('./pages/ForgottenPasswordSuccess'))
+const ImportPage = lazy(() => import('./pages/Import'))
+const LanguagePage = lazy(() => import('./pages/Language'))
+const LoginPage = lazy(() => import('./pages/Login'))
+const LoginKeyPage = lazy(() => import('./pages/LoginKey'))
+const LoginNeonAccountOnboardingPage = lazy(() => import('./pages/LoginNeonAccountOnboarding'))
+const LoginNeonAccountPasswordPage = lazy(() => import('./pages/LoginNeonAccountPassword'))
+const MigrateFromNeon2Page = lazy(() => import('./pages/MigrateFromNeon2'))
+const MigrateFromNeon2Step2Page = lazy(() => import('./pages/MigrateromNeon2Step2'))
+const NetworkConfigurationPage = lazy(() => import('./pages/NetworkConfiguration'))
+const OnboardingImportWalletPage = lazy(() => import('./pages/OnboardingImportWallet'))
+const OnboardingImportWalletStep1Page = lazy(() => import('./pages/OnboardingImportWalletStep1'))
+const OnboardingImportWalletStep2Page = lazy(() => import('./pages/OnboardingImportWalletStep2'))
+const OnboardingImportWalletStep3Page = lazy(() => import('./pages/OnboardingImportWalletStep3'))
+const OnboardingImportWalletStep4Page = lazy(() => import('./pages/OnboardingImportWalletStep4'))
+const OnboardingImportWalletStep5Page = lazy(() => import('./pages/OnboardingImportWalletStep5'))
+const OnboardingLoginNewWalletPage = lazy(() => import('./pages/OnboardingLoginNewWallet'))
+const OnboardingLoginNewWalletStep1Page = lazy(() => import('./pages/OnboardingLoginNewWalletStep1'))
+const OnboardingLoginNewWalletStep2Page = lazy(() => import('./pages/OnboardingLoginNewWalletStep2'))
+const OnboardingLoginNewWalletStep3Page = lazy(() => import('./pages/OnboardingLoginNewWalletStep3'))
+const SendPage = lazy(() => import('./pages/Send'))
+const SettingsPage = lazy(() => import('./pages/Settings'))
+const SwapPage = lazy(() => import('./pages/Swap'))
+const WalletsPage = lazy(() => import('./pages/Wallets'))
+const HelpPage = lazy(() => import('./pages/Help'))
+const Neo3NeoXBridgePage = lazy(() => import('./pages/Neo3NeoXBridge'))
 
 export const pagesRouter = createHashRouter([
   {
-    path: '/',
     element: <RootPage />,
     children: [
       {
-        path: '/splash',
-        element: <SplashScreen />,
-      },
-      {
         path: 'login',
-        element: <Login />,
+        element: <LoginPage />,
         children: [
           {
             path: 'neon-account',
             children: [
-              { path: 'password', element: <LoginNeonAccountPassword /> },
-              { path: 'onboarding', element: <LoginNeonAccountOnboarding /> },
+              { path: 'password', element: <LoginNeonAccountPasswordPage /> },
+              { path: 'onboarding', element: <LoginNeonAccountOnboardingPage /> },
               { path: '', element: <Navigate to="/login/neon-account/password" replace /> },
             ],
           },
           { path: 'hardware-wallet' },
-          { path: 'address-or-key', element: <LoginKey /> },
+          { path: 'address-or-key', element: <LoginKeyPage /> },
           { path: '', element: <Navigate to="/login/neon-account/password" replace /> },
         ],
       },
-      { path: 'forgotten-password', element: <ForgottenPassword /> },
+      { path: 'forgotten-password', element: <ForgottenPasswordPage /> },
       {
         path: 'forgotten-password-confirm',
-        element: <ForgottenPasswordConfirm />,
+        element: <ForgottenPasswordConfirmPage />,
       },
       {
         path: 'forgotten-password-success',
-        element: <ForgottenPasswordSuccess />,
+        element: <ForgottenPasswordSuccessPage />,
       },
       {
         path: 'onboarding-login-new-wallet',
-        element: <OnboardingLoginNewWallet />,
+        element: <OnboardingLoginNewWalletPage />,
         children: [
-          { path: '1?', element: <OnboardingLoginNewWalletStep1 /> },
-          { path: '2', element: <OnboardingLoginNewWalletStep2 /> },
-          { path: '3', element: <OnboardingLoginNewWalletStep3 /> },
+          { path: '1?', element: <OnboardingLoginNewWalletStep1Page /> },
+          { path: '2', element: <OnboardingLoginNewWalletStep2Page /> },
+          { path: '3', element: <OnboardingLoginNewWalletStep3Page /> },
         ],
       },
       {
         path: 'onboarding-import-wallet',
-        element: <OnboardingImportWallet />,
+        element: <OnboardingImportWalletPage />,
         children: [
-          { path: '1?', element: <OnboardingImportWalletStep1 /> },
-          { path: '2', element: <OnboardingImportWalletStep2 /> },
-          { path: '3', element: <OnboardingImportWalletStep3 /> },
-          { path: '4', element: <OnboardingImportWalletStep4 /> },
-          { path: '5', element: <OnboardingImportWalletStep5 /> },
+          { path: '1?', element: <OnboardingImportWalletStep1Page /> },
+          { path: '2', element: <OnboardingImportWalletStep2Page /> },
+          { path: '3', element: <OnboardingImportWalletStep3Page /> },
+          { path: '4', element: <OnboardingImportWalletStep4Page /> },
+          { path: '5', element: <OnboardingImportWalletStep5Page /> },
         ],
       },
       {
-        path: 'app',
-        element: <AppPage />,
+        element: <PrivatePage />,
         children: [
           {
-            path: '',
-            element: <Navigate to="/app/wallets" />,
-          },
-          {
-            path: 'wallets',
+            path: 'wallets?',
             element: <WalletsPage />,
           },
           {
@@ -130,36 +121,36 @@ export const pagesRouter = createHashRouter([
                   {
                     path: 'backup?',
                     children: [
-                      { path: '1?', element: <BackupStep1 /> },
-                      { path: '2', element: <BackupStep2 /> },
-                      { path: '', element: <Navigate to="/app/settings/backup-and-restore/backup/1" replace /> },
+                      { path: '1?', element: <BackupAndRestoreBackupStep1Page /> },
+                      { path: '2', element: <BackupAndRestoreBackupStep2Page /> },
+                      { path: '', element: <Navigate to="settings/backup-and-restore/backup/1" replace /> },
                     ],
                   },
                   {
                     path: 'restore',
                     children: [
-                      { path: '1?', element: <RestoreBackupStep1 /> },
-                      { path: '2', element: <RestoreBackupStep2 /> },
-                      { path: '3', element: <RestoreBackupStep3 /> },
+                      { path: '1?', element: <BackupAndRestoreRestoreStep1Page /> },
+                      { path: '2', element: <BackupAndRestoreRestoreStep2Page /> },
+                      { path: '3', element: <BackupAndRestoreRestoreStep3Page /> },
                     ],
                   },
-                  { path: '', element: <Navigate to="/app/settings/backup-and-restore/backup/1" replace /> },
+                  { path: '', element: <Navigate to="settings/backup-and-restore/backup/1" replace /> },
                 ],
               },
               {
                 path: 'change-password',
                 element: <ChangePasswordPage />,
                 children: [
-                  { path: '1?', element: <ChangePasswordStep1 /> },
-                  { path: '2', element: <ChangePasswordStep2 /> },
-                  { path: '3', element: <ChangePasswordStep3 /> },
+                  { path: '1?', element: <ChangePasswordStep1Page /> },
+                  { path: '2', element: <ChangePasswordStep2Page /> },
+                  { path: '3', element: <ChangePasswordStep3Page /> },
                 ],
               },
               {
                 path: 'migrate-from-neon2',
                 children: [
-                  { path: '1?', element: <MigrateFromNeon2 /> },
-                  { path: '2', element: <MigrateFromNeon2Step2 /> },
+                  { path: '1?', element: <MigrateFromNeon2Page /> },
+                  { path: '2', element: <MigrateFromNeon2Step2Page /> },
                 ],
               },
               {

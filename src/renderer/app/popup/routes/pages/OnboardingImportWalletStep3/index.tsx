@@ -21,7 +21,7 @@ type TLocationState = {
   isMigration?: boolean
 }
 
-export const OnboardingImportWalletStep3 = () => {
+export const OnboardingImportWalletStep3Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step3' })
   const { t: commonT } = useTranslation('common')
   const { t: decryptKeyModalT } = useTranslation('modals', { keyPrefix: 'decryptKeyModal' })
@@ -269,3 +269,5 @@ export const OnboardingImportWalletStep3 = () => {
     </Fragment>
   )
 }
+
+export default OnboardingImportWalletStep3Page

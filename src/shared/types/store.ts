@@ -1,8 +1,5 @@
-import { Token, TransactionResponse, TSwapServiceStatusResponse, TSwapToken } from '@cityofzion/blockchain-service'
-import {
-  CalculateNeo3MigrationAmountsResponse,
-  CalculateNeoLegacyMigrationAmountsResponse,
-} from '@cityofzion/bs-neo-legacy'
+import { TBSToken, TSwapServiceStatusResponse, TSwapToken, TTransactionResponse } from '@cityofzion/blockchain-service'
+import { TNeo3NeoLegacyMigrationNeo3Amounts, TNeo3NeoLegacyMigrationNeoLegacyAmounts } from '@cityofzion/bs-neo-legacy'
 
 import { TBlockchainServiceKey, TNetwork } from './blockchain'
 import { Optional } from './generics'
@@ -109,8 +106,8 @@ export type TMigrationNeo3 = {
   neoLegacyAccount: IAccountState
   neo3Address: string
   status: TMigrationNeo3Status
-  neo3MigrationAmounts: CalculateNeo3MigrationAmountsResponse
-  neoLegacyMigrationAmounts: CalculateNeoLegacyMigrationAmountsResponse
+  neo3MigrationAmounts: TNeo3NeoLegacyMigrationNeo3Amounts
+  neoLegacyMigrationAmounts: TNeo3NeoLegacyMigrationNeoLegacyAmounts
   time: number
 }
 
@@ -179,20 +176,20 @@ export type TCurrency = {
 }
 
 export type TCustomNetwork = {
-  [K in TBlockchainServiceKey]: TNetwork<K>[]
+  [K in TBlockchainServiceKey]: TNetwork[]
 }
 
 export type TSelectedNetworks = {
-  [K in TBlockchainServiceKey]: TNetwork<K>
+  [K in TBlockchainServiceKey]: TNetwork
 }
 
-export type TPendingTransaction = TransactionResponse & {
+export type TPendingTransaction = TTransactionResponse & {
   account: IAccountState
   isClaim?: boolean
   to?: string
   from?: string
   assetHash: string
-  token?: Token
+  token?: TBSToken
   amount?: string
   methodName?: string
   toAccount?: IAccountState

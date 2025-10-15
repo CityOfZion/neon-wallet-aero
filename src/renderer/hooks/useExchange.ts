@@ -1,21 +1,17 @@
 import { useMemo } from 'react'
-import { Token, TokenPricesResponse } from '@cityofzion/blockchain-service'
+import { TBSToken, TTokenPricesResponse } from '@cityofzion/blockchain-service'
 import { bsAggregator } from '@renderer/libs/blockchainService'
 import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
 import { TExchange, TMultiExchange, TUseExchangeParams, TUseExchangeResult } from '@shared/types/query'
 import { TCurrency } from '@shared/types/store'
 import { Query, QueryClient, useQueries, useQueryClient } from '@tanstack/react-query'
-import lodash from 'lodash'
+import assign from 'lodash/assign'
+import uniqBy from 'lodash/uniqBy'
 
 import { useCurrencyRatio } from './useCurrencyRatio'
 import { useCurrencySelector, useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'
 
-function buildQueryKey(
-  blockchain: TBlockchainServiceKey,
-  currency: TCurrency,
-  network: TNetwork<TBlockchainServiceKey>,
-  token?: Token
-) {
+function buildQueryKey(blockchain: TBlockchainServiceKey, currency: TCurrency, network: TNetwork, token?: TBSToken) {
   const queryKey = ['exchange', blockchain, currency, network]
 
   if (token) {
@@ -27,18 +23,14 @@ function buildQueryKey(
   return queryKey
 }
 
-function buildExchangeByBlockchainQueryKey(
-  blockchain: TBlockchainServiceKey,
-  network: TNetwork<TBlockchainServiceKey>,
-  currency: TCurrency
-) {
+function buildExchangeByBlockchainQueryKey(blockchain: TBlockchainServiceKey, network: TNetwork, currency: TCurrency) {
   return ['exchange-by-blockchain', blockchain, network, currency]
 }
 
 export async function fetchExchange(
   blockchain: TBlockchainServiceKey,
-  tokens: Token[],
-  network: TNetwork<TBlockchainServiceKey>,
+  tokens: TBSToken[],
+  network: TNetwork,
   queryClient: QueryClient,
   currency: TCurrency,
   currencyRatio: number
@@ -53,14 +45,14 @@ export async function fetchExchange(
     return !query
   })
 
-  let tokenPrices: TokenPricesResponse[] = []
+  let tokenPrices: TTokenPricesResponse[] = []
 
   if (tokensToFetch.length > 0) {
     try {
       const service = bsAggregator.blockchainServicesByName[blockchain]
       const newTokenPrices = await service.exchangeDataService.getTokenPrices({ tokens: tokensToFetch })
 
-      tokenPrices = lodash.uniqBy(newTokenPrices, 'token.hash')
+      tokenPrices = uniqBy(newTokenPrices, 'token.hash')
     } catch {
       /* empty */
     }
@@ -128,7 +120,7 @@ export function useExchange(params: TUseExchangeParams[]): TUseExchangeResult {
 
         return acc
       },
-      {} as Record<TBlockchainServiceKey, Token[]>
+      {} as Record<TBlockchainServiceKey, TBSToken[]>
     )
   }, [params])
 
@@ -145,7 +137,7 @@ export function useExchange(params: TUseExchangeParams[]): TUseExchangeResult {
     }),
     combine: result => ({
       isLoading: isCurrencyRatioLoading || result.some(query => query.isLoading),
-      data: lodash.assign(emptyObject, ...result.map(query => query.data ?? {})) as TMultiExchange,
+      data: assign(emptyObject, ...result.map(query => query.data ?? {})) as TMultiExchange,
     }),
   })
 }

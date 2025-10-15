@@ -4,13 +4,13 @@ import {
   buildGetFullTransactionsQueryKey,
 } from '@renderer/hooks/useGetFullTransactions'
 import { queryClient } from '@renderer/libs/query'
-import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import { TNetwork } from '@shared/types/blockchain'
 import { IAccountState } from '@shared/types/store'
 
 type TInvalidateTransactionQueryParams = {
   account: IAccountState
   toAccount?: IAccountState
-  network: TNetwork<TBlockchainServiceKey>
+  network: TNetwork
 }
 
 export class ReactQueryHelper {

@@ -12,12 +12,12 @@ export const SellTokensDepositErrorModal = () => {
   const { errorMessage } = useModalState<TModalState<'sell-tokens-deposit-error'>>()
 
   return (
-    <SideModalLayout heading={t('title')} icon={<TbStepInto aria-hidden={true} />}>
+    <SideModalLayout heading={t('title')} icon={<TbStepInto aria-hidden />}>
       <div className="flex min-h-0 flex-grow flex-col items-center">
         <Separator className="bg-gray-300/30" />
 
         <div className="bg-asphalt mt-8 flex size-28 items-center rounded-full p-2">
-          <MdCancel aria-hidden={true} className="text-pink size-24" />
+          <MdCancel aria-hidden className="text-pink size-24" />
         </div>
 
         <p className="mt-6 text-lg text-white">{t('subtitle')}</p>

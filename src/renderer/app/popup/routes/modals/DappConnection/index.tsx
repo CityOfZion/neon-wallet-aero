@@ -99,3 +99,5 @@ export const DappConnectionModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default DappConnectionModal

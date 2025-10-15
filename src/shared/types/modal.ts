@@ -1,11 +1,11 @@
-import { JSX } from 'react'
+import { ComponentType } from 'react'
 
 import { TModalRouterRouteTypes } from './modal-router-types'
 
 export type TRouteType = 'side' | 'bottom'
 
 export type TRoute = {
-  element: JSX.Element
+  element: ComponentType<any>
   name: string
   type: TRouteType
 }

@@ -5,7 +5,7 @@ import { Swipe } from '@renderer/components/Swipe'
 import { ForgottenPasswordLayout } from '@renderer/layouts/ForgottenPasswordLayout'
 import { RootStore } from '@renderer/store/RootStore'
 
-export const ForgottenPasswordConfirm = () => {
+export const ForgottenPasswordConfirmPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'forgottenPasswordConfirm' })
   const navigate = useNavigate()
 
@@ -30,3 +30,5 @@ export const ForgottenPasswordConfirm = () => {
     </ForgottenPasswordLayout>
   )
 }
+
+export default ForgottenPasswordConfirmPage

@@ -24,3 +24,5 @@ export const SwapAboutExtraIdToReceiveModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default SwapAboutExtraIdToReceiveModal

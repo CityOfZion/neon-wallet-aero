@@ -87,3 +87,5 @@ export const DappDisconnectionModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default DappDisconnectionModal

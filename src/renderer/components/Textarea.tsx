@@ -127,12 +127,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
               type="button"
               colorSchema="neon"
               disabled={props.disabled}
-              icon={<MdContentPasteGo aria-hidden={true} className="text-neon" />}
+              icon={<MdContentPasteGo aria-hidden className="text-neon" />}
               onClick={handlePaste}
             />
           )}
 
-          {clearable && <IconButton icon={<MdCancel aria-hidden={true} />} type="button" onClick={clear} />}
+          {clearable && <IconButton icon={<MdCancel aria-hidden />} type="button" onClick={clear} />}
         </div>
 
         {errorMessage && <span className="text-pink mt-1 block text-xs">{errorMessage}</span>}

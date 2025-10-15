@@ -75,3 +75,5 @@ export const DecryptKeyModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default DecryptKeyModal

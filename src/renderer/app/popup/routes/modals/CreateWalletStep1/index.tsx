@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
+import { BSKeychainHelper } from '@cityofzion/blockchain-service'
 import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
-import { MnemonicHelper } from '@renderer/helpers/MnemonicHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useActions } from '@renderer/hooks/useActions'
@@ -55,8 +55,8 @@ export const CreateWalletStep1Modal = () => {
   }
 
   const { isMounting } = useMountUnsafe(async () => {
-    const walletMnemonic = MnemonicHelper.generateMnemonic()
-    setData({ mnemonic: walletMnemonic })
+    const walletMnemonic = BSKeychainHelper.generateMnemonic()
+    setData({ mnemonic: walletMnemonic.split(' ') })
   }, 500)
 
   return (
@@ -129,3 +129,5 @@ export const CreateWalletStep1Modal = () => {
     </BottomModalLayout>
   )
 }
+
+export default CreateWalletStep1Modal

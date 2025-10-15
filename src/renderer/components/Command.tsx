@@ -19,7 +19,7 @@ const Input = forwardRef<
   ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
   <div className="bg-asphalt flex h-8.5 items-center rounded px-2" cmdk-input-wrapper="">
-    <MdSearch aria-hidden={true} className="mr-2 h-6 w-6 shrink-0 text-gray-300" />
+    <MdSearch aria-hidden className="mr-2 h-6 w-6 shrink-0 text-gray-300" />
     <CommandPrimitive.Input
       ref={ref}
       className={StyleHelper.mergeStyles(

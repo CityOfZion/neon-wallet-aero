@@ -5,7 +5,7 @@ import { ForgottenPasswordLayout } from '@renderer/layouts/ForgottenPasswordLayo
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 
-export const ForgottenPassword = () => {
+export const ForgottenPasswordPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'forgottenPassword' })
   return (
     <ForgottenPasswordLayout heading={t('title')}>
@@ -28,3 +28,5 @@ export const ForgottenPassword = () => {
     </ForgottenPasswordLayout>
   )
 }
+
+export default ForgottenPasswordPage

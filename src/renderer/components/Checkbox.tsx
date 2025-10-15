@@ -30,7 +30,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, TProps>(({ className, onCh
       {...props}
     >
       <RadixCheckbox.Indicator>
-        <FiCheck aria-hidden={true} className="stroke-asphalt h-full w-full stroke-2" />
+        <FiCheck aria-hidden className="stroke-asphalt h-full w-full stroke-2" />
       </RadixCheckbox.Indicator>
     </RadixCheckbox.Root>
   )

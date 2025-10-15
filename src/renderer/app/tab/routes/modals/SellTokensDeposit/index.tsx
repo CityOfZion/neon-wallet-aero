@@ -1,12 +1,12 @@
 import { ChangeEvent, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  BlockchainService,
   BSBigNumberHelper,
-  BSCalculableFee,
-  IntentTransferParam,
+  IBlockchainService,
+  IBSWithFee,
   isCalculableFee,
-  Token,
+  TBSToken,
+  TIntentTransferParam,
 } from '@cityofzion/blockchain-service'
 import { ActionStep } from '@renderer/components/ActionStep'
 import { ActionStepSeparator } from '@renderer/components/ActionStepSeparator'
@@ -105,7 +105,7 @@ export const SellTokensDepositModal = () => {
     const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current!.encryptedPassword)
     const serviceAccount = AccountHelper.getServiceAccount({ account, key })
 
-    const intent: IntentTransferParam = {
+    const intent: TIntentTransferParam = {
       amount: actionData.amount,
       receiverAddress: actionData.address,
       tokenHash: token.hash,
@@ -125,7 +125,7 @@ export const SellTokensDepositModal = () => {
     })
   }
 
-  const handleChangeToken = (token: Token) => {
+  const handleChangeToken = (token: TBSToken) => {
     if (!service) return
 
     const tokenBalance = balanceQuery.data?.tokensBalances?.find(tokenBalance =>
@@ -279,7 +279,7 @@ export const SellTokensDepositModal = () => {
 
         const { serviceAccount, intent } = transferParams
 
-        const fee = await (service as BlockchainService & BSCalculableFee).calculateTransferFee({
+        const fee = await (service as IBlockchainService & IBSWithFee).calculateTransferFee({
           senderAccount: serviceAccount,
           intents: [intent],
         })
@@ -333,7 +333,7 @@ export const SellTokensDepositModal = () => {
   ])
 
   return (
-    <SideModalLayout heading={t('title')} icon={<TbStepOut aria-hidden={true} />} onClose={handleClose}>
+    <SideModalLayout heading={t('title')} icon={<TbStepOut aria-hidden />} onClose={handleClose}>
       <div className="flex w-full flex-col gap-y-6">
         <Separator className="bg-gray-300/30" />
 
@@ -350,7 +350,7 @@ export const SellTokensDepositModal = () => {
             title={t('form.sourceLabel')}
             className="rounded bg-gray-800/60 px-4"
             titleClassName="font-bold"
-            leftIcon={<TbStepOut aria-hidden={true} />}
+            leftIcon={<TbStepOut aria-hidden />}
           >
             <GreyAccountSelect
               selectedAccount={actionData.account}
@@ -371,7 +371,7 @@ export const SellTokensDepositModal = () => {
                 <ActionStep
                   title={t('form.receiveLabel')}
                   titleClassName="font-bold"
-                  leftIcon={<TbStepInto aria-hidden={true} />}
+                  leftIcon={<TbStepInto aria-hidden />}
                 />
 
                 <Separator />
@@ -379,7 +379,7 @@ export const SellTokensDepositModal = () => {
                 <ActionStep
                   title={t('form.tokenLabel')}
                   titleClassName="text-xs"
-                  leftIcon={<VscCircleFilled aria-hidden={true} className="size-2 text-gray-300" />}
+                  leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                 >
                   <GreyTokenSelect
                     className="h-10 w-28 max-w-28 min-w-28 text-xs"
@@ -400,7 +400,7 @@ export const SellTokensDepositModal = () => {
                   title={t('form.addressLabel')}
                   className="py-2.5 whitespace-nowrap"
                   titleClassName="text-xs"
-                  leftIcon={<VscCircleFilled aria-hidden={true} className="size-2 text-gray-300" />}
+                  leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                 >
                   <Input
                     aria-label={t('form.addressLabel')}
@@ -423,7 +423,7 @@ export const SellTokensDepositModal = () => {
                 <ActionStep
                   title={t('form.amountLabel')}
                   titleClassName="text-xs"
-                  leftIcon={<VscCircleFilled aria-hidden={true} className="size-2 text-gray-300" />}
+                  leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   footer={
                     <div className="flex w-full justify-between gap-x-2 pt-1 pb-4 pl-6.5 text-xs text-gray-100 italic">
                       <p className="whitespace-nowrap">{t('form.fiatLabel', { currencyLabel: currency.label })}</p>
@@ -472,7 +472,7 @@ export const SellTokensDepositModal = () => {
             iconsOnEdge={false}
             loading={actionState.isActing}
             disabled={isDisabled}
-            leftIcon={<TbStepOut aria-hidden={true} />}
+            leftIcon={<TbStepOut aria-hidden />}
           />
         </form>
       </div>

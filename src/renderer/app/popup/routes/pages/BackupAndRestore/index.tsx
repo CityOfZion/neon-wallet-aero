@@ -31,6 +31,7 @@ export const BackupAndRestorePage = () => {
         <Tabs.Content value="backup" className="min-h-0 flex-1">
           <Outlet />
         </Tabs.Content>
+
         <Tabs.Content value="restore" className="min-h-0 flex-1">
           <Outlet />
         </Tabs.Content>
@@ -38,3 +39,5 @@ export const BackupAndRestorePage = () => {
     </SettingsLayout>
   )
 }
+
+export default BackupAndRestorePage

@@ -92,3 +92,5 @@ export const ContactsPage = () => {
     </ScreenLayout>
   )
 }
+
+export default ContactsPage

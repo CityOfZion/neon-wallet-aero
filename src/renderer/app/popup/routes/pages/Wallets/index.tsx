@@ -29,7 +29,7 @@ export const WalletsPage = () => {
 
   const handleNavigateSelect = useCallback(
     (wallet: IWalletState, account: IAccountState) => {
-      navigate(`/app/wallets`, { state: { account, wallet }, replace: true })
+      navigate('/wallets', { state: { account, wallet }, replace: true })
     },
     [navigate]
   )
@@ -119,3 +119,5 @@ export const WalletsPage = () => {
     </ScreenLayout>
   )
 }
+
+export default WalletsPage

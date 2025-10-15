@@ -1,4 +1,4 @@
-import { Token } from '@cityofzion/blockchain-service'
+import { TBSToken } from '@cityofzion/blockchain-service'
 import { BSNeoLegacyConstants } from '@cityofzion/bs-neo-legacy'
 import { BSNeo3Constants } from '@cityofzion/bs-neo3'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
@@ -22,7 +22,7 @@ export const ICONS_BY_BLOCKCHAIN: Record<TBlockchainServiceKey, React.FC<React.S
 }
 
 export const TIP_CONFIG_BY_BLOCKCHAIN: Partial<
-  Record<TBlockchainServiceKey, { token: Token; address: string; min: number }>
+  Record<TBlockchainServiceKey, { token: TBSToken; address: string; min: number }>
 > = {
   neo3: {
     address: 'Na6zQi9giUtftPGbLeFn9nfuWjEMP98Trq',

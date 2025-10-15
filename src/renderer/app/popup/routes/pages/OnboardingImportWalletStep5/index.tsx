@@ -11,7 +11,7 @@ type TLocationState = {
   password: string
 }
 
-export const OnboardingImportWalletStep5 = () => {
+export const OnboardingImportWalletStep5Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step5' })
   const { state } = useLocation() as Location<TLocationState>
 
@@ -20,13 +20,13 @@ export const OnboardingImportWalletStep5 = () => {
       <div className="flex flex-grow flex-col items-center justify-start gap-2.5">
         <p className="text-sm text-white">{t('title')}</p>
 
-        <TbRosetteDiscountCheck aria-hidden={true} className="text-blue mt-3 h-[6.25rem] w-[6.25rem] stroke-1" />
+        <TbRosetteDiscountCheck aria-hidden className="text-blue mt-3 h-[6.25rem] w-[6.25rem] stroke-1" />
       </div>
 
       <div className="flex w-full flex-col items-center gap-4">
         <DownloadQRCodePasswordButton password={state.password} className="w-fit" />
         <Link
-          to="/app/wallets"
+          to="/wallets"
           label={t('openWalletButtonLabel')}
           rightIcon={<MdOutlineAutoAwesome aria-hidden />}
           variant="card"
@@ -37,3 +37,5 @@ export const OnboardingImportWalletStep5 = () => {
     </Fragment>
   )
 }
+
+export default OnboardingImportWalletStep5Page

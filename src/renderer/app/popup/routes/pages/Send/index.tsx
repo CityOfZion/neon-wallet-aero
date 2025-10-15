@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Location, useLocation } from 'react-router-dom'
-import { BSBigNumberHelper, IntentTransferParam, isCalculableFee } from '@cityofzion/blockchain-service'
+import { BSBigNumberHelper, isCalculableFee, TIntentTransferParam } from '@cityofzion/blockchain-service'
 import { ActionStep } from '@renderer/components/ActionStep'
 import { ActionStepSeparator } from '@renderer/components/ActionStepSeparator'
 import { Button } from '@renderer/components/Button'
@@ -94,7 +94,7 @@ export const SendPage = () => {
     )
       return
 
-    const intents: IntentTransferParam[] = actionData.recipients.map(recipient => ({
+    const intents: TIntentTransferParam[] = actionData.recipients.map(recipient => ({
       amount: recipient.amount!,
       receiverAddress: recipient.address!,
       tokenHash: recipient.token!.token.hash,
@@ -229,7 +229,7 @@ export const SendPage = () => {
 
           return { receiverAddress, tokenHash, amount, tokenDecimals: currentRecipient.token!.token.decimals }
         })
-        .filter(recipient => recipient !== null) as IntentTransferParam[]
+        .filter(recipient => recipient !== null) as TIntentTransferParam[]
 
       const key = await EncryptionHelper.decrypt(encryptedKey, encryptedPassword)
 
@@ -387,7 +387,7 @@ export const SendPage = () => {
             className="rounded bg-gray-300/15 px-4"
             title={t('sourceAccountLabel')}
             titleClassName="font-bold text-sm"
-            leftIcon={<TbStepOut aria-hidden={true} />}
+            leftIcon={<TbStepOut aria-hidden />}
           >
             <GreyAccountSelect
               selectedAccount={actionData.selectedAccount}
@@ -419,7 +419,7 @@ export const SendPage = () => {
         </div>
 
         <Button
-          leftIcon={<TbPlus aria-hidden={true} />}
+          leftIcon={<TbPlus aria-hidden />}
           label={t('addRecipientButtonLabel')}
           flat
           variant="text"
@@ -461,3 +461,5 @@ export const SendPage = () => {
     </ScreenLayout>
   )
 }
+
+export default SendPage

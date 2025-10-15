@@ -32,6 +32,6 @@ export default defineConfig({
     tsconfigPaths(),
     svgr(),
     crx({ manifest }),
-    zip({ outDir: 'release', outFileName: `crx-${name}-${version}.zip` }),
+    zip({ outDir: 'release', outFileName: `${name}-${version}.zip` }),
   ],
 })

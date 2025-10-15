@@ -1,9 +1,9 @@
 import {
-  FullTransactionAssetEvent,
-  FullTransactionNftEvent,
-  FullTransactionsByAddressResponse,
-  FullTransactionsItem,
-  Token,
+  TBSToken,
+  TFullTransactionAssetEvent as TBSFullTransactionAssetEvent,
+  TFullTransactionNftEvent as TBSFullTransactionNftEvent,
+  TFullTransactionsByAddressResponse as TBSFullTransactionsByAddressResponse,
+  TFullTransactionsItem as TBSFullTransactionsItem,
 } from '@cityofzion/blockchain-service'
 
 import { TBlockchainServiceKey } from './blockchain'
@@ -52,20 +52,20 @@ type TFullTransactionCommonEvent = {
   toAccount?: IAccountState
 }
 
-export type TFullTransactionNftEvent = TFullTransactionCommonEvent & FullTransactionNftEvent
+export type TFullTransactionNftEvent = TFullTransactionCommonEvent & TBSFullTransactionNftEvent
 
-export type TFullTransactionAssetEvent = TFullTransactionCommonEvent & FullTransactionAssetEvent
+export type TFullTransactionAssetEvent = TFullTransactionCommonEvent & TBSFullTransactionAssetEvent
 
 export type TFullTransactionEvent = TFullTransactionAssetEvent | TFullTransactionNftEvent
 
-export type TFullTransactionsItem = Omit<FullTransactionsItem, 'events'> & {
+export type TFullTransactionsItem = Omit<TBSFullTransactionsItem, 'events'> & {
   account: IAccountState
   blockchain: TBlockchainServiceKey
   isPending: boolean
   events: TFullTransactionEvent[]
 }
 
-export type TFullTransactionsByAddressResponse = Omit<FullTransactionsByAddressResponse, 'data'> & {
+export type TFullTransactionsByAddressResponse = Omit<TBSFullTransactionsByAddressResponse, 'data'> & {
   data: Map<string, TFullTransactionsItem>
 }
 
@@ -89,6 +89,6 @@ export type TTransactionsTransfer = {
   to?: string
   asset: string
   assetHash: string
-  token?: Token
+  token?: TBSToken
   explorerUrl?: string
 }

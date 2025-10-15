@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Location, useLocation, useNavigate } from 'react-router-dom'
-import { generateMnemonic } from '@cityofzion/bs-asteroid-sdk'
+import { BSKeychainHelper } from '@cityofzion/blockchain-service'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 import { useActions } from '@renderer/hooks/useActions'
@@ -21,7 +21,7 @@ type TProps = {
   onSubmit?: (password: string) => void
 }
 
-export const OnboardingLoginNewWalletStep2 = ({ onSubmit }: TProps) => {
+export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep2' })
   const { t: commonT } = useTranslation('common')
   const { state } = useLocation() as Location<TLocationState>
@@ -48,11 +48,11 @@ export const OnboardingLoginNewWalletStep2 = ({ onSubmit }: TProps) => {
 
     await setNewPassword(data.confirmPassword)
 
-    const words = generateMnemonic()
+    const mnemonic = BSKeychainHelper.generateMnemonic()
 
     const wallet = await createWallet({
       name: commonT('wallet.firstWalletName'),
-      mnemonic: words.join(' '),
+      mnemonic,
     })
 
     const promises = blockchainNames.map(blockchain =>
@@ -91,3 +91,5 @@ export const OnboardingLoginNewWalletStep2 = ({ onSubmit }: TProps) => {
     </form>
   )
 }
+
+export default OnboardingLoginNewWalletStep2Page

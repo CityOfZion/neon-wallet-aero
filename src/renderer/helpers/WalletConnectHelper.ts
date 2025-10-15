@@ -1,12 +1,7 @@
-import {
-  TAdapterMethodParam,
-  TSession,
-  TSessionProposal,
-  WalletConnectTypes,
-} from '@cityofzion/wallet-connect-sdk-wallet-react'
+import { TAdapterMethodParam, TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-react'
+import { bsAggregator } from '@renderer/libs/blockchainService'
 import { RootStore } from '@renderer/store/RootStore'
-import { NETWORK_OPTIONS_BY_BLOCKCHAIN } from '@shared/constants/networks'
-import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import { TBlockchainServiceKey } from '@shared/types/blockchain'
 import { TWalletConnectHelperProposalInformation, TWalletConnectHelperSessionInformation } from '@shared/types/helpers'
 import { IAccountState } from '@shared/types/store'
 
@@ -27,109 +22,30 @@ export abstract class WalletConnectHelper {
     arbitrum: 'eip155',
   }
 
-  static supportedChainIds = (Object.keys(this.supportedBlockchains) as TBlockchainServiceKey[]).reduce(
-    (acc, key) => {
-      const networks = NETWORK_OPTIONS_BY_BLOCKCHAIN[key].all
+  static get supportedChainIds() {
+    return (Object.keys(this.supportedBlockchains) as TBlockchainServiceKey[]).reduce(
+      (acc, key) => {
+        const service = bsAggregator.blockchainServicesByName[key]
 
-      const customChainId = this.customChainId[key]
+        acc[key] = service.availableNetworks.map(({ id }) => `${this.supportedBlockchains[key]}:${id}`)
 
-      const chainIds = networks.map(({ id }) => id)
-      if (customChainId) chainIds.push(customChainId)
+        return acc
+      },
+      {} as Partial<Record<TBlockchainServiceKey, string[]>>
+    )
+  }
 
-      acc[key] = chainIds.map(id => `${this.supportedBlockchains[key]}:${id}`)
-
-      return acc
-    },
-    {} as Partial<Record<TBlockchainServiceKey, string[]>>
-  )
-
-  static getAccountInformationFromSession(session: TSession): TWalletConnectHelperSessionInformation {
-    const namespaces = Object.values(session.namespaces)[0]
-    if (!namespaces) throw new Error('Namespaces not found')
-
-    const accounts = namespaces.accounts
-    if (!accounts) throw new Error('Accounts not found')
-
-    const account = accounts[0]
-    const methods = namespaces.methods
-    const [sessionBlockchain, sessionNetwork, sessionAddress] = account.split(':')
-
-    const chainId = `${sessionBlockchain}:${sessionNetwork}`
-
-    let blockchain: TBlockchainServiceKey | undefined
-    let network: TNetwork<TBlockchainServiceKey> | undefined
-
-    for (const supportedChainIds of Object.entries(this.supportedChainIds)) {
-      const [key, chainIds] = supportedChainIds
-
-      if (chainIds.includes(chainId)) {
-        const splitChainId = chainId.split(':')
-        blockchain = key as TBlockchainServiceKey
-
-        const networkId = splitChainId[1]
-        network = NETWORK_OPTIONS_BY_BLOCKCHAIN[blockchain].all.find(({ id }) => id === networkId)
-        break
-      }
-    }
-
-    if (!blockchain || !network) throw new Error('Chain not supported')
-
-    return {
-      address: sessionAddress,
-      blockchain,
-      network,
-      methods,
-    }
+  static getAccountInformationFromSession(_session: TSession): TWalletConnectHelperSessionInformation {
+    // TODO: It will be removed in the wallet connect implementation
+    throw new Error('Not implemented')
   }
 
   static getInformationFromProposal(
-    proposal: TSessionProposal,
-    account: IAccountState
+    _proposal: TSessionProposal,
+    _account: IAccountState
   ): TWalletConnectHelperProposalInformation[] {
-    let namespaces: WalletConnectTypes.ProposalTypes.BaseRequiredNamespace[]
-    const requiredNamespaces = Object.values(proposal.params.requiredNamespaces)
-
-    if (requiredNamespaces.length !== 0) {
-      namespaces = requiredNamespaces
-    } else {
-      namespaces = Object.values(proposal.params.optionalNamespaces)
-    }
-
-    const blockchainSupportedChains = this.supportedChainIds[account.blockchain]
-
-    if (!blockchainSupportedChains) return []
-
-    const proposalInformation: TWalletConnectHelperProposalInformation[] = []
-
-    for (const namespace of namespaces) {
-      try {
-        const namespaceChains = namespace.chains
-        if (!namespaceChains) continue
-
-        for (const chain of namespaceChains) {
-          if (!blockchainSupportedChains.includes(chain)) continue
-
-          const splitChainId = chain.split(':')
-          const networkId = splitChainId[1]
-          const blockchain = account.blockchain
-          const network = NETWORK_OPTIONS_BY_BLOCKCHAIN[blockchain].all.find(({ id }) => id === networkId)
-
-          if (!network) continue
-
-          proposalInformation.push({
-            blockchain,
-            network,
-            chain,
-            methods: namespace?.methods ?? [],
-            proposalBlockchain: splitChainId[0],
-          })
-        }
-      } catch {
-        /* empty */
-      }
-    }
-
-    return proposalInformation
+    // TODO: It will be removed in the wallet connect implementation
+    throw new Error('Not implemented')
   }
 
   static isValidURI(uri: string) {

@@ -65,3 +65,5 @@ export const ConfirmPasswordModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default ConfirmPasswordModal
