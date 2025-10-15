@@ -1,13 +1,16 @@
 import { Suspense, useLayoutEffect, useState } from 'react'
+
 import { FocusScope } from '@radix-ui/react-focus-scope'
-import { ModalRouterCurrentHistoryProvider } from '@renderer/contexts/ModalRouterCurrentHistoryContext'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { useModalHistories } from '@renderer/hooks/useModalRouter'
-import { THistory } from '@shared/types/modal'
 import { motion, useAnimate, usePresence } from 'motion/react'
 
-import { ScreenLoader } from '../ScreenLoader'
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
+import { useModalHistories } from '@renderer/hooks/useModalRouter'
+
+import { ModalRouterCurrentHistoryProvider } from '@renderer/contexts/ModalRouterCurrentHistoryContext'
+import type { THistory } from '@shared/types/modal'
+
+import { ScreenLoader } from '../ScreenLoader'
 import { ModalContainer } from './ModalContainer'
 
 export const SideModal = () => {

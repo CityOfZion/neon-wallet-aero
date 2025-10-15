@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+
+import { differenceInCalendarDays } from 'date-fns'
+import type React from 'react'
 import { DayPicker, type DayPickerProps, labelNext, labelPrevious, useDayPicker } from 'react-day-picker'
 import { useTranslation } from 'react-i18next'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { differenceInCalendarDays } from 'date-fns'
 
-import { Button } from './Button'
-import { IconButton } from './IconButton'
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import TbChevronLeft from '@renderer/assets/images/tb-chevron-left.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
+
+import { Button } from './Button'
+import { IconButton } from './IconButton'
 
 export type TCalendarProps = DayPickerProps & {
   yearRange?: number

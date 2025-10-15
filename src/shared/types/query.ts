@@ -1,8 +1,13 @@
-import { TBalanceResponse, TBSToken, TPingNetworkResponse, TTokenPricesResponse } from '@cityofzion/blockchain-service'
-import { QueryKey, UseQueryOptions } from '@tanstack/react-query'
+import type {
+  TBalanceResponse,
+  TBSToken,
+  TPingNetworkResponse,
+  TTokenPricesResponse,
+} from '@cityofzion/blockchain-service'
+import type { QueryKey, UseQueryOptions } from '@tanstack/react-query'
 
-import { TBlockchainServiceKey } from './blockchain'
-import { Optional } from './generics'
+import type { TBlockchainServiceKey } from './blockchain'
+import type { Optional } from './generics'
 
 export type TBaseOptions<T = unknown> = Omit<UseQueryOptions<T, unknown, T, QueryKey>, 'queryKey' | 'queryFn'>
 

@@ -1,4 +1,4 @@
-import {
+import type {
   TBSToken,
   TFullTransactionAssetEvent as TBSFullTransactionAssetEvent,
   TFullTransactionNftEvent as TBSFullTransactionNftEvent,
@@ -6,10 +6,10 @@ import {
   TFullTransactionsItem as TBSFullTransactionsItem,
 } from '@cityofzion/blockchain-service'
 
-import { TBlockchainServiceKey } from './blockchain'
-import { TModalRouterContextNavigateOptions, TRouteType } from './modal'
-import { TModalRouterRouteTypes } from './modal-router-types'
-import { IAccountState } from './store'
+import type { TBlockchainServiceKey } from './blockchain'
+import type { TModalRouterContextNavigateOptions, TRouteType } from './modal'
+import type { TModalRouterRouteTypes } from './modal-router'
+import type { IAccountState } from './store'
 
 export type TUseActionsData = Record<string, any>
 

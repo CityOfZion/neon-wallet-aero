@@ -1,6 +1,8 @@
 import { cloneElement } from 'react'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { match, P } from 'ts-pattern'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { Loader } from './Loader'
 

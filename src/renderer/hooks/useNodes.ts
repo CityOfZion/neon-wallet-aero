@@ -1,9 +1,11 @@
 import { useCallback } from 'react'
-import { TBSNetworkId } from '@cityofzion/blockchain-service'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TBaseOptions, TNode } from '@shared/types/query'
+
+import type { TBSNetworkId } from '@cityofzion/blockchain-service'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TBaseOptions, TNode } from '@shared/types/query'
 
 import { useSelectedNetworkByBlockchainSelector, useSelectedNetworkSelector } from './useSettingsSelector'
 

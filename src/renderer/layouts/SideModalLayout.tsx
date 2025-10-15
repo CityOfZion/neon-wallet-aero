@@ -1,7 +1,12 @@
-import { cloneElement, ComponentProps, JSX } from 'react'
+import { cloneElement } from 'react'
+
+import type { ComponentProps, JSX } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { IconButton } from '@renderer/components/IconButton'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { useModalHistories, useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'

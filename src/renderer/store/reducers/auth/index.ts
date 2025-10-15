@@ -1,7 +1,10 @@
-import { CaseReducerActions, createSlice } from '@reduxjs/toolkit'
-import { IWalletState, TLoginSession, TLoginSessionType, TNotification } from '@shared/types/store'
-import { PersistConfig, persistReducer, PURGE } from 'redux-persist'
+import type { CaseReducerActions } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import type { PersistConfig } from 'redux-persist'
+import { persistReducer, PURGE } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
+
+import type { IWalletState, TLoginSession, TLoginSessionType, TNotification } from '@shared/types/store'
 
 import { authSliceReducers } from './reducers'
 

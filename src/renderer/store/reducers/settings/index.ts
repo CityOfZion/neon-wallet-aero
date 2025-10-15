@@ -1,11 +1,13 @@
-import { CaseReducerActions, createSlice } from '@reduxjs/toolkit'
-import { bsAggregator } from '@renderer/libs/blockchainService'
+import type { CaseReducerActions } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import type { PersistConfig } from 'redux-persist'
+import { persistReducer, PURGE } from 'redux-persist'
+import { localStorage } from 'redux-persist-webextension-storage'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { AVAILABLE_CURRENCIES } from '@shared/constants/currency'
 import { DEFAULT_LANGUAGE } from '@shared/constants/language'
-import { TLanguage } from '@shared/types/language'
-import { TCurrency, TSelectedNetworks } from '@shared/types/store'
-import { PersistConfig, persistReducer, PURGE } from 'redux-persist'
-import { localStorage } from 'redux-persist-webextension-storage'
+import type { TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
 
 import { settingsSliceReducers } from './reducers'
 

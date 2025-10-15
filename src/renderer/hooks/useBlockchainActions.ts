@@ -1,14 +1,18 @@
 import { useCallback } from 'react'
+
+import { cloneDeep } from 'lodash'
 import { useTranslation } from 'react-i18next'
+
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { ContactsHelper } from '@renderer/helpers/ContactsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
-import { bsAggregator } from '@renderer/libs/blockchainService'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { contactReducerActions } from '@renderer/store/reducers/contact'
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
-import {
+import type {
   TAccountToCreate,
   TAccountToEdit,
   TAccountToImport,
@@ -16,8 +20,7 @@ import {
   TWalletToCreate,
   TWalletToEdit,
 } from '@shared/types/blockchain'
-import { IAccountState, IWalletState, TContactState } from '@shared/types/store'
-import { cloneDeep } from 'lodash'
+import type { IAccountState, IWalletState, TContactState } from '@shared/types/store'
 
 import { useLoginSessionSelector } from './useAuthSelector'
 import { useAppDispatch } from './useRedux'

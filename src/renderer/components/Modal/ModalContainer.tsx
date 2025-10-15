@@ -1,7 +1,9 @@
-import { ComponentProps, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { motion } from 'motion/react'
+import type { ComponentProps, ReactNode } from 'react'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 type TProps = {
   children: ReactNode

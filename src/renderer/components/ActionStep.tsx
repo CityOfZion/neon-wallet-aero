@@ -1,4 +1,7 @@
-import { cloneElement, JSX, ReactNode } from 'react'
+import { cloneElement } from 'react'
+
+import type { JSX, ReactNode } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 type TProps = {

@@ -1,12 +1,15 @@
 import { useMemo } from 'react'
-import { TBSToken, TTokenPricesResponse } from '@cityofzion/blockchain-service'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
-import { TExchange, TMultiExchange, TUseExchangeParams, TUseExchangeResult } from '@shared/types/query'
-import { TCurrency } from '@shared/types/store'
-import { Query, QueryClient, useQueries, useQueryClient } from '@tanstack/react-query'
+
+import type { TBSToken, TTokenPricesResponse } from '@cityofzion/blockchain-service'
+import type { Query, QueryClient } from '@tanstack/react-query'
+import { useQueries, useQueryClient } from '@tanstack/react-query'
 import assign from 'lodash/assign'
 import uniqBy from 'lodash/uniqBy'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import type { TExchange, TMultiExchange, TUseExchangeParams, TUseExchangeResult } from '@shared/types/query'
+import type { TCurrency } from '@shared/types/store'
 
 import { useCurrencyRatio } from './useCurrencyRatio'
 import { useCurrencySelector, useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'

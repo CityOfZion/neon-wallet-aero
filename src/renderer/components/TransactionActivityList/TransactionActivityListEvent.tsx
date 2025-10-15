@@ -1,14 +1,16 @@
 import { Fragment } from 'react'
+
 import { useTranslation } from 'react-i18next'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TFullTransactionAssetEvent, TFullTransactionEvent, TFullTransactionNftEvent } from '@shared/types/hooks'
 import { match } from 'ts-pattern'
+
+import TbDiamond from '@renderer/assets/images/tb-diamond.svg?react'
+
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TFullTransactionAssetEvent, TFullTransactionEvent, TFullTransactionNftEvent } from '@shared/types/hooks'
 
 import { TransactionActivityListEventColumn } from './TransactionActivityListEventColumn'
 import { TransactionActivityListEventColumnDataAddress } from './TransactionActivityListEventColumnDataAddress'
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
-
-import TbDiamond from '@renderer/assets/images/tb-diamond.svg?react'
 
 type TProps = {
   blockchain: TBlockchainServiceKey

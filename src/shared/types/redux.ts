@@ -1,5 +1,6 @@
-import { RootStore } from '@renderer/store/RootStore'
-import { createSelector, Selector, UnknownMemoizer, weakMapMemoize } from 'reselect'
+import type { createSelector, Selector, UnknownMemoizer, weakMapMemoize } from 'reselect'
+
+import type { RootStore } from '@renderer/store/RootStore'
 
 export type TRootState = ReturnType<ReturnType<typeof RootStore.getReducer>>
 

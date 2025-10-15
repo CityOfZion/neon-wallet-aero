@@ -1,7 +1,8 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
-import { getI18next } from '@renderer/libs/i18next'
-import { TRootState } from '@shared/types/redux'
 import { REHYDRATE } from 'redux-persist'
+
+import { getI18next } from '@renderer/libs/i18next'
+import type { TRootState } from '@shared/types/redux'
 
 import { settingsReducerActions } from '../reducers/settings'
 

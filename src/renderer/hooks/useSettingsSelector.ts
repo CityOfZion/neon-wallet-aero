@@ -1,5 +1,5 @@
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TSelectedNetworks } from '@shared/types/store'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TSelectedNetworks } from '@shared/types/store'
 
 import { useAppSelector } from './useRedux'
 

@@ -1,12 +1,17 @@
-import { Fragment, JSX, useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
+
+import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
+import { match } from 'ts-pattern'
+
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { useAccountsWithWalletSelector } from '@renderer/hooks/useAccountSelector'
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { IAccountState, TAccountType } from '@shared/types/store'
-import { match } from 'ts-pattern'
+
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { IAccountState, TAccountType } from '@shared/types/store'
 
 import { BlockchainIcon } from './BlockchainIcon'
 import { Loader } from './Loader'

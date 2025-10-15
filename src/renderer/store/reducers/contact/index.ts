@@ -1,8 +1,11 @@
-import { CaseReducerActions, createSlice } from '@reduxjs/toolkit'
-import { TContactEncryptedAddress, TContactState } from '@shared/types/store'
-import { PersistConfig, PURGE } from 'redux-persist'
+import type { CaseReducerActions } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import type { PersistConfig } from 'redux-persist'
+import { PURGE } from 'redux-persist'
 import persistReducer from 'redux-persist/es/persistReducer'
 import { localStorage } from 'redux-persist-webextension-storage'
+
+import type { TContactEncryptedAddress, TContactState } from '@shared/types/store'
 
 import { contactSliceReducers } from './reducer'
 

@@ -1,13 +1,13 @@
-import { useTranslation } from 'react-i18next'
-import { TSession } from '@cityofzion/wallet-connect-sdk-wallet-core'
-import dappFallbackIcon from '@renderer/assets/images/dapp-fallback-icon.png'
+import type { TSession } from '@cityofzion/wallet-connect-sdk-wallet-core'
 import { format } from 'date-fns'
+import { useTranslation } from 'react-i18next'
+
+import dappFallbackIcon from '@renderer/assets/images/dapp-fallback-icon.png'
+import TbPlugX from '@renderer/assets/images/tb-plug-x.svg?react'
 
 import { IconButton } from '../IconButton'
 import { ImageWithFallback } from '../ImageWithFallback'
 import { Tooltip } from '../Tooltip'
-
-import TbPlugX from '@renderer/assets/images/tb-plug-x.svg?react'
 type TProps = {
   session: TSession
   onDisconnect?: () => void

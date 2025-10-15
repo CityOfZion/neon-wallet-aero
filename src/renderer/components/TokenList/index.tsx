@@ -1,11 +1,13 @@
 import { useRef } from 'react'
-import { useBalance } from '@renderer/hooks/useBalances'
-import { useVirtualization } from '@renderer/hooks/useVirtualization'
-import { IAccountState } from '@shared/types/store'
+
 import { match } from 'ts-pattern'
 
-import { Separator } from '../Separator'
+import { useBalance } from '@renderer/hooks/useBalances'
+import { useVirtualization } from '@renderer/hooks/useVirtualization'
 
+import type { IAccountState } from '@shared/types/store'
+
+import { Separator } from '../Separator'
 import { TokenListEmpty } from './TokenListEmpty'
 import { TokenListItem } from './TokenListItem'
 import { TokenListSkeleton } from './TokenListSkeleton'

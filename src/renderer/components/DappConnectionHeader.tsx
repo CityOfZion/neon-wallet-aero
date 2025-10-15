@@ -1,11 +1,12 @@
-import { ComponentProps, ReactNode } from 'react'
-import dappFallbackIcon from '@renderer/assets/images/dapp-fallback-icon.png'
+import type { ComponentProps, ReactNode } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { ImageWithFallback } from './ImageWithFallback'
-
+import dappFallbackIcon from '@renderer/assets/images/dapp-fallback-icon.png'
 import NeonWalletLogo from '@renderer/assets/images/neon-wallet-full.svg?react'
 import WalletConnectLogo from '@renderer/assets/images/wallet-connect.svg?react'
+
+import { ImageWithFallback } from './ImageWithFallback'
 
 type TProps = {
   proposerUri: string

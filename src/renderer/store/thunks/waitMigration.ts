@@ -1,12 +1,15 @@
-import { BSNeoLegacy, BSNeoLegacyConstants } from '@cityofzion/bs-neo-legacy'
-import { Neo3NeoLegacyMigrationService } from '@cityofzion/bs-neo-legacy/dist/services/migration/Neo3NeoLegacyMigrationService'
+import type { BSNeoLegacy } from '@cityofzion/bs-neo-legacy'
+import { BSNeoLegacyConstants } from '@cityofzion/bs-neo-legacy'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TRootState } from '@shared/types/redux'
-import { TMigrationNeo3, TMigrationNeo3Status, TSaveNotification } from '@shared/types/store'
 import { match } from 'ts-pattern'
+
+import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
+
+import { Neo3NeoLegacyMigrationService } from '@cityofzion/bs-neo-legacy/dist/services/migration/Neo3NeoLegacyMigrationService'
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TRootState } from '@shared/types/redux'
+import type { TMigrationNeo3, TMigrationNeo3Status, TSaveNotification } from '@shared/types/store'
 
 import { authReducerActions } from '../reducers/auth'
 import { utilityReducerActions } from '../reducers/utility'

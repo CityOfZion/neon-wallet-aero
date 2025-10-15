@@ -1,6 +1,7 @@
-import { TNftResponse } from '@cityofzion/blockchain-service'
-import { IAccountState } from '@shared/types/store'
-import { VirtualItem } from '@tanstack/react-virtual'
+import type { TNftResponse } from '@cityofzion/blockchain-service'
+import type { VirtualItem } from '@tanstack/react-virtual'
+
+import type { IAccountState } from '@shared/types/store'
 
 import { NftListItemContent } from './NftListItemContent'
 

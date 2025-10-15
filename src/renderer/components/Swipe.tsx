@@ -1,5 +1,5 @@
-import { ComponentProps } from 'react'
 import { animate, motion, useMotionValue } from 'framer-motion'
+import type { ComponentProps } from 'react'
 
 import ArrowRightBoldOutlineIcon from '@renderer/assets/images/md-arrow-right-bold-outline-icon.svg?react'
 

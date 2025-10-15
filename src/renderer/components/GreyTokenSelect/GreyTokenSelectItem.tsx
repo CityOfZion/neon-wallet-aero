@@ -1,11 +1,13 @@
 import { Fragment, useEffect, useState } from 'react'
+
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
-import defaultTokenLogo from '@renderer/assets/images/default-token-logo.png'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { Tooltip } from '../Tooltip'
+import defaultTokenLogo from '@renderer/assets/images/default-token-logo.png'
 
-import { TGreyTokenSelectToken } from '.'
+import { Tooltip } from '../Tooltip'
+import type { TGreyTokenSelectToken } from '.'
 
 type TProps = {
   token: TGreyTokenSelectToken

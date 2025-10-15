@@ -1,9 +1,11 @@
-import { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
+import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
+
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
-import { IAccountState, IWalletState, TLoginSession, TNotification, TSaveNotification } from '@shared/types/store'
 
-import { IAuthReducer } from '.'
+import type { IAccountState, IWalletState, TLoginSession, TNotification, TSaveNotification } from '@shared/types/store'
+
+import type { IAuthReducer } from '.'
 
 const setLoginSession: CaseReducer<IAuthReducer, PayloadAction<TLoginSession | undefined>> = (state, action) => {
   state.inMemoryData.loginSession = action.payload

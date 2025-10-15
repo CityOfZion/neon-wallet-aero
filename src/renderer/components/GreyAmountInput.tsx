@@ -1,7 +1,11 @@
-import { forwardRef, ReactNode } from 'react'
+import { forwardRef } from 'react'
+
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { FieldActionsMenu } from '@renderer/components/FieldActionsMenu'
 import { Loader } from '@renderer/components/Loader'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 type TProps = {

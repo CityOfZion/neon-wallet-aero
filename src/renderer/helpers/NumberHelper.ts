@@ -1,4 +1,4 @@
-import { TCurrency } from '@shared/types/store'
+import type { TCurrency } from '@shared/types/store'
 
 type TCurrencyOptions = {
   minimumFractionDigits?: number

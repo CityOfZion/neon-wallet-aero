@@ -1,5 +1,7 @@
-import { Calendar, TCalendarProps } from './Calendar'
-import { Popover, TPopoverContentProps } from './Popover'
+import type { TCalendarProps } from './Calendar'
+import { Calendar } from './Calendar'
+import type { TPopoverContentProps } from './Popover'
+import { Popover } from './Popover'
 
 const Root = Popover.Root
 

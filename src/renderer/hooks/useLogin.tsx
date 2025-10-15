@@ -1,14 +1,20 @@
 import { useCallback } from 'react'
+
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+
 import { BackgroundHelper } from '@renderer/helpers/BackgroundHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { LOGIN_CONTROL_VALUE } from '@shared/constants/password'
-import { TBackgroundCloseAllTabsMessage, TBackgroundSaveLoginSessionMessage } from '@shared/types/background-events'
-import { TAccountsToImport, TWalletToCreate } from '@shared/types/blockchain'
-import { TLoginSession } from '@shared/types/store'
+import type {
+  TBackgroundCloseAllTabsMessage,
+  TBackgroundSaveLoginSessionMessage,
+} from '@shared/types/background-events'
+import type { TAccountsToImport, TWalletToCreate } from '@shared/types/blockchain'
+import type { TLoginSession } from '@shared/types/store'
 
 import { useBlockchainActions } from './useBlockchainActions'
 import { useAppDispatch } from './useRedux'

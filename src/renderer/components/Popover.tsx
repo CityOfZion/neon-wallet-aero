@@ -1,5 +1,8 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { forwardRef } from 'react'
+
 import * as PopoverPrimitive from '@radix-ui/react-popover'
+import type { ComponentPropsWithoutRef, ElementRef } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 const Root = PopoverPrimitive.Root

@@ -1,8 +1,11 @@
 import { Fragment } from 'react'
+
 import { useTranslation } from 'react-i18next'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { blockchainNames } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
+
+import { blockchainNames } from '@renderer/libs/blockchain-service'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { BlockchainIcon } from './BlockchainIcon'
 import { Select } from './Select'

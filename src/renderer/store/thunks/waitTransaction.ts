@@ -1,10 +1,12 @@
 import { waitForAccountTransaction } from '@cityofzion/blockchain-service'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+
 import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TTransactionsTransfer } from '@shared/types/hooks'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TRootState } from '@shared/types/redux'
-import { TNotification } from '@shared/types/store'
+import type { TNotification } from '@shared/types/store'
 
 import { authReducerActions } from '../reducers/auth'
 import { utilityReducerActions } from '../reducers/utility'

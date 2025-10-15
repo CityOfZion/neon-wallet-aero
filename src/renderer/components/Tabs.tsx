@@ -1,5 +1,8 @@
-import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react'
+import { forwardRef } from 'react'
+
 import * as TabsPrimitive from '@radix-ui/react-tabs'
+import type { ComponentPropsWithoutRef, ComponentRef } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 const Root = TabsPrimitive.Root

@@ -1,5 +1,9 @@
-import React, { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react'
+import { forwardRef } from 'react'
+
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu'
+import type { ComponentPropsWithoutRef, ComponentRef } from 'react'
+import type React from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import TbCheck from '@renderer/assets/images/tb-check.svg?react'

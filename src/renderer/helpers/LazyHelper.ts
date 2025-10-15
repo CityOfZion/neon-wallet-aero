@@ -1,4 +1,6 @@
-import { ComponentType, lazy as reactLazy, LazyExoticComponent } from 'react'
+import { lazy as reactLazy } from 'react'
+
+import type { ComponentType, LazyExoticComponent } from 'react'
 
 export class LazyHelper {
   static delayedLazy<T extends ComponentType<any>>(

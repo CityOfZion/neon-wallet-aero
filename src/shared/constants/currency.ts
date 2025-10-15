@@ -1,4 +1,4 @@
-import { TCurrency } from '@shared/types/store'
+import type { TCurrency } from '@shared/types/store'
 
 export const AVAILABLE_CURRENCIES: TCurrency[] = [
   { symbol: 'U$', label: 'USD' },

@@ -1,10 +1,11 @@
+import type { TAdapterMethodParam, TInitOptions } from '@cityofzion/wallet-connect-sdk-wallet-core'
 import {
   AbstractWalletConnectEIP155Adapter,
   AbstractWalletConnectNeonAdapter,
-  TAdapterMethodParam,
-  TInitOptions,
 } from '@cityofzion/wallet-connect-sdk-wallet-core'
+
 import { WalletConnectHelper } from '@renderer/helpers/WalletConnectHelper'
+
 import { COZ_LINK } from '@shared/constants/links'
 
 import { getI18next } from './i18next'

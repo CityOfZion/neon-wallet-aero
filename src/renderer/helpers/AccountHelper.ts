@@ -1,9 +1,10 @@
 import { BSKeychainHelper, hasLedger } from '@cityofzion/blockchain-service'
-import { blockchainNames, bsAggregator } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TAccountHelperGetServiceAccountParams, TAccountHelperPredicateParams } from '@shared/types/helpers'
-import { IAccountState } from '@shared/types/store'
 import orderBy from 'lodash/orderBy'
+
+import { blockchainNames, bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TAccountHelperGetServiceAccountParams, TAccountHelperPredicateParams } from '@shared/types/helpers'
+import type { IAccountState } from '@shared/types/store'
 
 export class AccountHelper {
   static predicate({ address, blockchain }: TAccountHelperPredicateParams) {

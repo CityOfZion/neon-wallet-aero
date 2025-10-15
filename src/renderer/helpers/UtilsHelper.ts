@@ -1,8 +1,9 @@
-import { getI18n } from 'react-i18next'
-import { ACCOUNT_COLOR_SKINS } from '@shared/constants/skins'
-import { TColorSkin } from '@shared/types/store'
 import { format } from 'date-fns'
+import { getI18n } from 'react-i18next'
 import * as uuid from 'uuid'
+
+import { ACCOUNT_COLOR_SKINS } from '@shared/constants/skins'
+import type { TColorSkin } from '@shared/types/store'
 
 import { ToastHelper } from './ToastHelper'
 

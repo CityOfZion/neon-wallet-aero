@@ -1,9 +1,13 @@
-import { TAdapterMethodParam, TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-react'
-import { bsAggregator } from '@renderer/libs/blockchainService'
+import type { TAdapterMethodParam, TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-react'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { RootStore } from '@renderer/store/RootStore'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TWalletConnectHelperProposalInformation, TWalletConnectHelperSessionInformation } from '@shared/types/helpers'
-import { IAccountState } from '@shared/types/store'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type {
+  TWalletConnectHelperProposalInformation,
+  TWalletConnectHelperSessionInformation,
+} from '@shared/types/helpers'
+import type { IAccountState } from '@shared/types/store'
 
 import { AccountHelper } from './AccountHelper'
 import { EncryptionHelper } from './EncryptionHelper'

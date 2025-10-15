@@ -1,19 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+
+import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { useVirtualizer } from '@tanstack/react-virtual'
 import { useTranslation } from 'react-i18next'
 import { RemoveScroll } from 'react-remove-scroll'
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TBalance } from '@shared/types/query'
-import { useVirtualizer } from '@tanstack/react-virtual'
 import { match } from 'ts-pattern'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TBalance } from '@shared/types/query'
 
 import { Command } from '../Command'
 import { Loader } from '../Loader'
 import { Popover } from '../Popover'
 import { Separator } from '../Separator'
-
 import { GreyTokenSelectItem } from './GreyTokenSelectItem'
 
 export type TGreyTokenSelectToken = {

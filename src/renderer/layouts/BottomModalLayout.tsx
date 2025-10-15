@@ -1,7 +1,10 @@
-import { ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { IconButton } from '@renderer/components/IconButton'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { useModalFocused, useModalHistories, useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useRemoveOverflowShift } from '@renderer/hooks/useRemoveOverflowShift'
 

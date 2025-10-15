@@ -1,8 +1,9 @@
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TUseCurrencyRatioResult } from '@shared/types/query'
-import { TCurrency } from '@shared/types/store'
 import { useQuery } from '@tanstack/react-query'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TUseCurrencyRatioResult } from '@shared/types/query'
+import type { TCurrency } from '@shared/types/store'
 
 import { useCurrencySelector } from './useSettingsSelector'
 

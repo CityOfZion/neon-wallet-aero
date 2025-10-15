@@ -1,5 +1,5 @@
 import { BUY_AND_SELL_TOKENS_CONFIG } from '@shared/constants/buy-and-sell-tokens'
-import { IAccountState, TCurrency } from '@shared/types/store'
+import type { IAccountState, TCurrency } from '@shared/types/store'
 
 type TBuildUrlParams = {
   domainUrl: string

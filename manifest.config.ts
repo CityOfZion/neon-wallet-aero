@@ -20,7 +20,7 @@ export default defineManifest({
       48: 'public/icon-48x48.png',
       128: 'public/icon-128x128.png',
     },
-    default_popup: 'src/renderer/app/popup/index.html',
+    default_popup: 'src/renderer/popup.html',
   },
   background: {
     service_worker: 'src/background/index.ts',

@@ -14,7 +14,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        tab: 'src/renderer/app/tab/index.html',
+        tab: 'src/renderer/tab.html',
       },
     },
   },

@@ -1,5 +1,7 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+
 import { Tooltip } from '@renderer/components/Tooltip'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 type TProps = {

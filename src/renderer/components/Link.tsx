@@ -1,7 +1,10 @@
-import { Link as RRDLink, LinkProps as RRDLinkProps } from 'react-router-dom'
+import type { LinkProps as RRDLinkProps } from 'react-router-dom'
+import { Link as RRDLink } from 'react-router-dom'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { Clickable, TCustomClickableProps } from './Clickable'
+import type { TCustomClickableProps } from './Clickable'
+import { Clickable } from './Clickable'
 
 export type TLinkProps = { clickableProps?: React.ComponentProps<'div'> } & TCustomClickableProps & RRDLinkProps
 

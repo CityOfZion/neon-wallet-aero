@@ -1,6 +1,9 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
+import { forwardRef } from 'react'
+
 import { Command as CommandPrimitive } from 'cmdk'
+import type { ComponentPropsWithoutRef, ElementRef } from 'react'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import MdSearch from '@renderer/assets/images/md-search.svg?react'
 

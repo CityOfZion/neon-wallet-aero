@@ -1,8 +1,11 @@
-import { useTranslation } from 'react-i18next'
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { useTranslation } from 'react-i18next'
+
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
+
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
-import { TTokenBalance } from '@shared/types/query'
+
+import type { TTokenBalance } from '@shared/types/query'
 
 import { BlockchainIcon } from '../BlockchainIcon'
 

@@ -1,12 +1,14 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { IconButton } from '@renderer/components/IconButton'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { ScreenLayout } from './ScreenLayout'
+import { IconButton } from '@renderer/components/IconButton'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import NeonWalletFullImage from '@renderer/assets/images/neon-wallet-full.svg?react'
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
+
+import { ScreenLayout } from './ScreenLayout'
 
 type TProps = {
   heading: string

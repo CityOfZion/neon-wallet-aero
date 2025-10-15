@@ -1,15 +1,19 @@
 import { createContext, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+
+import { AnimatePresence } from 'motion/react'
+
 import { BottomModal } from '@renderer/components/Modal/BottomModal'
 import { SideModal } from '@renderer/components/Modal/SideModal'
+
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
-import {
+
+import type {
   THistory,
   TModalRouterContextNavigateOptions,
   TModalRouterContextValue,
   TModalRouterProviderProps,
   TRouteType,
 } from '@shared/types/modal'
-import { AnimatePresence } from 'motion/react'
 
 const modalByRouteType: Record<TRouteType, (...props: any[]) => React.JSX.Element> = {
   side: SideModal,

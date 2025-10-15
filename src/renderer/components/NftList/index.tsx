@@ -1,10 +1,14 @@
 import { useRef } from 'react'
-import { hasExplorerService, TNftResponse } from '@cityofzion/blockchain-service'
+
+import type { TNftResponse } from '@cityofzion/blockchain-service'
+import { hasExplorerService } from '@cityofzion/blockchain-service'
+import { match } from 'ts-pattern'
+
 import { useNfts } from '@renderer/hooks/useNfts'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { IAccountState } from '@shared/types/store'
-import { match } from 'ts-pattern'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { IAccountState } from '@shared/types/store'
 
 import { NftListEmpty } from './NftListEmpty'
 import { NftListItem } from './NftListItem'

@@ -1,5 +1,8 @@
-import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react'
+import { forwardRef } from 'react'
+
 import * as RadixRadio from '@radix-ui/react-radio-group'
+import type { ComponentPropsWithoutRef, ComponentRef } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { Separator } from './Separator'

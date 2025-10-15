@@ -1,5 +1,5 @@
-import { TBlockchainServiceKey, TNetwork } from './blockchain'
-import { IAccountState } from './store'
+import type { TBlockchainServiceKey, TNetwork } from './blockchain'
+import type { IAccountState } from './store'
 
 export type TWalletConnectHelperSessionInformation<T extends TBlockchainServiceKey = TBlockchainServiceKey> = {
   address: string
