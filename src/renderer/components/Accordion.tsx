@@ -22,7 +22,7 @@ const Trigger = forwardRef<ComponentRef<typeof RadixAccordion.Trigger>, TTrigger
         {children}
 
         <MdExpandMore
-          aria-hidden={true}
+          aria-hidden
           className={StyleHelper.mergeStyles(
             'accordion-trigger-icon h-6 w-6 shrink-0 text-gray-100 transition-transform duration-200',
             iconClassName

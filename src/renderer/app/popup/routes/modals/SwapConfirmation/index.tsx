@@ -9,7 +9,7 @@ import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
-import { utilityReducerActions } from '@renderer/store/reducers/UtilityReducer'
+import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { TModalState } from '@shared/types/modal'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
@@ -55,7 +55,7 @@ export const SwapConfirmationModal = () => {
       <div className="flex h-full flex-col justify-between gap-3">
         <div className="flex flex-col text-sm">
           <div className="flex w-full justify-center pb-8">
-            <TbTransform aria-hidden={true} className="text-blue h-20 w-20" />
+            <TbTransform aria-hidden className="text-blue h-20 w-20" />
           </div>
 
           <p className="my-4 text-left">{t('description')}</p>
@@ -194,3 +194,5 @@ export const SwapConfirmationModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default SwapConfirmationModal

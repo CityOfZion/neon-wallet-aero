@@ -59,7 +59,7 @@ export const BuyAndSellWrapperContent = ({
             variant="text-slim"
             colorSchema={isLoading ? 'gray' : 'neon'}
             disabled={isLoading}
-            leftIcon={<MdRestartAlt aria-hidden={true} className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
+            leftIcon={<MdRestartAlt aria-hidden className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
             onClick={onRestart}
           />
 
@@ -104,9 +104,9 @@ export const BuyAndSellWrapperContent = ({
             disabled={isLoading}
             rightIcon={
               isAccordionAccountsOpened ? (
-                <TbChevronUp aria-hidden={true} className="size-5" />
+                <TbChevronUp aria-hidden className="size-5" />
               ) : (
-                <TbChevronDown aria-hidden={true} className="size-5" />
+                <TbChevronDown aria-hidden className="size-5" />
               )
             }
             onClick={handleToggleAccordionAccounts}

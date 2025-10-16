@@ -32,7 +32,7 @@ export const ImportPage = () => {
           const wallet = await createWallet({ name: tCommonWallet('watchWalletName') })
           const accounts = await importAccounts({ accounts: accountsToImport, wallet })
 
-          navigate('/app/wallets', {
+          navigate('/wallets', {
             state: { wallet, account: AccountHelper.orderAccounts(accounts)[0] },
             replace: true,
           })
@@ -57,7 +57,7 @@ export const ImportPage = () => {
           const wallet = await createWallet({ name: tCommonWallet('importedWalletName') })
           const accounts = await importAccounts({ accounts: accountsToImport, wallet })
 
-          navigate('/app/wallets', {
+          navigate('/wallets', {
             state: { wallet, account: AccountHelper.orderAccounts(accounts)[0] },
             replace: true,
           })
@@ -102,7 +102,7 @@ export const ImportPage = () => {
           const wallet = await createWallet({ name: tCommonWallet('mnemonicWalletName'), mnemonic: value })
           const accounts = await importAccounts({ accounts: accountsToImport, wallet })
 
-          navigate('/app/wallets', {
+          navigate('/wallets', {
             state: { wallet, account: AccountHelper.orderAccounts(accounts)[0] },
             replace: true,
           })
@@ -155,3 +155,5 @@ export const ImportPage = () => {
     </ScreenLayout>
   )
 }
+
+export default ImportPage

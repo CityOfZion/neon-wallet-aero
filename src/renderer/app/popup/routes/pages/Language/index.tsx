@@ -7,7 +7,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
-import { settingsReducerActions } from '@renderer/store/reducers/SettingsReducer'
+import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE } from '@shared/constants/language'
 import i18next from 'i18next'
 
@@ -88,3 +88,5 @@ export const LanguagePage = () => {
     </ScreenLayout>
   )
 }
+
+export default LanguagePage

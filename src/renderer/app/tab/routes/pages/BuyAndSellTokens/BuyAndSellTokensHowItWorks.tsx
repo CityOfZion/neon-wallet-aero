@@ -22,7 +22,7 @@ export const BuyAndSellTokensHowItWorks = ({ tab }: TProps) => {
   return (
     <div className="flex min-h-0 w-80 max-w-80 min-w-80 flex-col overflow-y-auto rounded-l bg-gray-300/10 p-4 pt-0">
       <div className="flex h-14 max-h-14 min-h-14 items-center gap-x-2">
-        <MdInfoOutline aria-hidden={true} className="text-neon size-6" />
+        <MdInfoOutline aria-hidden className="text-neon size-6" />
 
         <h2 className="text-sm">{t('title')}</h2>
       </div>
@@ -108,7 +108,7 @@ export const BuyAndSellTokensHowItWorks = ({ tab }: TProps) => {
           flat
           wide
           iconsOnEdge={false}
-          rightIcon={<TbExternalLink aria-hidden={true} />}
+          rightIcon={<TbExternalLink aria-hidden />}
         />
       </div>
     </div>

@@ -128,7 +128,7 @@ const Nav = ({
         size="xs"
         tabIndex={isPreviousDisabled ? undefined : -1}
         disabled={isPreviousDisabled}
-        icon={<TbChevronLeft aria-hidden={true} />}
+        icon={<TbChevronLeft aria-hidden />}
         onClick={handlePreviousClick}
       />
 
@@ -143,7 +143,7 @@ const Nav = ({
         size="xs"
         tabIndex={isNextDisabled ? undefined : -1}
         disabled={isNextDisabled}
-        icon={<TbChevronRight aria-hidden={true} />}
+        icon={<TbChevronRight aria-hidden />}
         onClick={handleNextClick}
       />
     </nav>

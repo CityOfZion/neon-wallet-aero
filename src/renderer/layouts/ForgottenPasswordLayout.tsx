@@ -32,7 +32,7 @@ export const ForgottenPasswordLayout = ({
     <ScreenLayout contentClassName={StyleHelper.mergeStyles('items-center', contentClassName)} {...props}>
       {withBackButton && (
         <IconButton
-          icon={<TbArrowLeft aria-hidden={true} />}
+          icon={<TbArrowLeft aria-hidden />}
           className="absolute top-5 left-5"
           size="md"
           onClick={handleBack}

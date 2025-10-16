@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NftResponse } from '@cityofzion/blockchain-service'
+import { TNftResponse } from '@cityofzion/blockchain-service'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { IAccountState } from '@shared/types/store'
 
@@ -12,7 +12,7 @@ import TbDiamond from '@renderer/assets/images/tb-diamond.svg?react'
 
 type TProps = {
   selectedAccount: IAccountState
-  nft: NftResponse
+  nft: TNftResponse
   link: string
 }
 
@@ -73,7 +73,7 @@ export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
           </div>
         </div>
 
-        {link && <TbChevronRight aria-hidden={true} className="h-6 w-6 text-gray-300" />}
+        {link && <TbChevronRight aria-hidden className="h-6 w-6 text-gray-300" />}
       </div>
     </Fragment>
   )

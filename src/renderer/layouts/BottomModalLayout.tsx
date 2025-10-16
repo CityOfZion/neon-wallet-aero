@@ -44,13 +44,7 @@ export const BottomModalLayout = ({
   }
 
   return (
-    <div
-      className={StyleHelper.mergeStyles(
-        'flex h-full min-h-0 w-full flex-col rounded-t-2xl bg-gray-700 text-white',
-        className
-      )}
-      {...props}
-    >
+    <div className={StyleHelper.mergeStyles('flex h-full min-h-0 w-full flex-col text-white', className)} {...props}>
       <header className="relative mt-5 mb-5 flex w-full items-center justify-center px-4">
         {withBackButton && (
           <IconButton

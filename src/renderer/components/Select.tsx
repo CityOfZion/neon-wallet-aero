@@ -42,13 +42,10 @@ const Icon = forwardRef<ElementRef<typeof SelectPrimitive.Icon>, ComponentPropsW
       {...props}
     >
       <Fragment>
-        <MdExpandMore
-          aria-hidden={true}
-          className={StyleHelper.mergeStyles('h-full w-full group-aria-expanded:hidden')}
-        />
+        <MdExpandMore aria-hidden className={StyleHelper.mergeStyles('h-full w-full group-aria-expanded:hidden')} />
 
         <MdExpandLess
-          aria-hidden={true}
+          aria-hidden
           className={StyleHelper.mergeStyles('hidden h-full w-full group-aria-expanded:block')}
         />
       </Fragment>
@@ -111,7 +108,7 @@ const ItemIndicator = forwardRef<
   ComponentPropsWithoutRef<typeof SelectPrimitive.ItemIndicator>
 >((props, ref) => (
   <SelectPrimitive.ItemIndicator ref={ref} asChild {...props}>
-    <FiCheck aria-hidden={true} className="max-h-[1rem] min-h-[1rem] max-w-[1rem] min-w-[1rem]" />
+    <FiCheck aria-hidden className="max-h-[1rem] min-h-[1rem] max-w-[1rem] min-w-[1rem]" />
   </SelectPrimitive.ItemIndicator>
 ))
 

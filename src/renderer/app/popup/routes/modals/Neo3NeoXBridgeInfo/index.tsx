@@ -23,3 +23,5 @@ export const Neo3NeoXBridgeInfoModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default Neo3NeoXBridgeInfoModal

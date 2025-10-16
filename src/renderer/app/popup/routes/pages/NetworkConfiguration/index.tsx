@@ -23,3 +23,5 @@ export const NetworkConfigurationPage = () => {
     </SettingsLayout>
   )
 }
+
+export default NetworkConfigurationPage

@@ -7,10 +7,11 @@ import { Radio } from '@renderer/components/Radio'
 import { Separator } from '@renderer/components/Separator'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { useNetworkActions } from '@renderer/hooks/useNetworkActions'
-import { useNodes } from '@renderer/hooks/useNodes'
+import { usePingNodes } from '@renderer/hooks/useNodes'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedNetworkSelector } from '@renderer/hooks/useSettingsSelector'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
+import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import { TModalState } from '@shared/types/modal'
 import { match, P } from 'ts-pattern'
 
@@ -20,17 +21,18 @@ import TbReload from '@renderer/assets/images/tb-reload.svg?react'
 export const NetworkNodeSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'networkNodeSelection' })
   const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const dispatch = useAppDispatch()
   const { blockchain } = useModalState<TModalState<'network-node-selection'>>()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const { network } = useSelectedNetworkSelector(blockchain)
-  const { setNetworkNode } = useNetworkActions()
-  const nodesQuery = useNodes(blockchain)
+
+  const pingNodesQuery = usePingNodes(blockchain, { refetchInterval: 5000 })
 
   const [selectedUrl, setSelectedUrl] = useState(network.url)
   const [isAutomatic, setIsAutomatic] = useState(network.isAutomatic ?? false)
 
   const handleIsAutomaticChange = (value: boolean) => {
-    const firstNode = nodesQuery.data?.nodes.find(node => node.height !== undefined && node.latency !== undefined)
+    const firstNode = pingNodesQuery.data?.[0]
     if (firstNode) setSelectedUrl(firstNode.url)
 
     setIsAutomatic(value)
@@ -38,7 +40,7 @@ export const NetworkNodeSelectionModal = () => {
 
   const handleSave = async () => {
     modalNavigate(-1)
-    setNetworkNode(blockchain, selectedUrl, isAutomatic)
+    dispatch(settingsReducerActions.setSelectedNetworkUrl({ blockchain, url: selectedUrl, isAutomatic }))
   }
 
   const handleSelectRadioItem = (selectedValue: string) => {
@@ -57,12 +59,12 @@ export const NetworkNodeSelectionModal = () => {
         <div className="bg-asphalt mb-2 flex flex-shrink-0 justify-between px-4 py-4">
           <Button
             label={t('refreshButtonLabel')}
-            leftIcon={<TbReload aria-hidden={true} className="text-neon" />}
+            leftIcon={<TbReload aria-hidden className="text-neon" />}
             variant="text-slim"
             flat
             colorSchema="white"
             clickableProps={{ className: 'text-sm' }}
-            onClick={() => nodesQuery.refetch()}
+            onClick={() => pingNodesQuery.refetch()}
           />
 
           <div className="flex gap-2.5">
@@ -73,17 +75,17 @@ export const NetworkNodeSelectionModal = () => {
               id="isAutomatic"
               checked={isAutomatic}
               onCheckedChange={handleIsAutomaticChange}
-              disabled={nodesQuery.isLoading}
+              disabled={pingNodesQuery.isLoading}
             />
           </div>
         </div>
 
         <div className="min-h-0 flex-grow overflow-auto">
-          {nodesQuery.isLoading ? (
+          {pingNodesQuery.isLoading ? (
             <Loader className="mt-4" />
           ) : (
             <Radio.Group value={selectedUrl} onValueChange={handleSelectRadioItem}>
-              {nodesQuery.data?.nodes.map((node, index, array) => (
+              {pingNodesQuery.data?.map((node, index, array) => (
                 <Radio.Item key={node.url} value={node.url} className="h-15" withSeparator={index !== array.length - 1}>
                   <div className="flex min-w-0 flex-grow items-center gap-4">
                     <div className="flex flex-col items-center justify-center gap-0.5">
@@ -152,3 +154,5 @@ export const NetworkNodeSelectionModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default NetworkNodeSelectionModal

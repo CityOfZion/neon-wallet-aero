@@ -1,11 +1,12 @@
-import { BalanceResponse, Token, TokenPricesResponse } from '@cityofzion/blockchain-service'
+import { TBalanceResponse, TBSToken, TPingNetworkResponse, TTokenPricesResponse } from '@cityofzion/blockchain-service'
 import { QueryKey, UseQueryOptions } from '@tanstack/react-query'
 
 import { TBlockchainServiceKey } from './blockchain'
+import { Optional } from './generics'
 
 export type TBaseOptions<T = unknown> = Omit<UseQueryOptions<T, unknown, T, QueryKey>, 'queryKey' | 'queryFn'>
 
-export type TExchange = TokenPricesResponse & {
+export type TExchange = TTokenPricesResponse & {
   convertedPrice: number
 }
 
@@ -21,7 +22,7 @@ export type TUseCurrencyRatioResult = {
   isLoading: boolean
 }
 
-export type TTokenBalance = BalanceResponse & {
+export type TTokenBalance = TBalanceResponse & {
   blockchain: TBlockchainServiceKey
   amountNumber: number
   exchangeConvertedPrice: number
@@ -69,7 +70,7 @@ export type TUseBalancesOptions = {
 }
 
 export type TUseExchangeParams = {
-  tokens: Token[]
+  tokens: TBSToken[]
   blockchain: TBlockchainServiceKey
 }
 
@@ -80,8 +81,4 @@ export type TUseUnclaimedResult = {
   feeNumber: number
 }
 
-export type TNode = {
-  latency?: number
-  url: string
-  height?: number
-}
+export type TNode = Optional<TPingNetworkResponse, 'height' | 'latency'>

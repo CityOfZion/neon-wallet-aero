@@ -61,11 +61,11 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
   }
 
   const handleSendNavigation = () => {
-    navigate('/app/send', { state: { account: selectedAccount } })
+    navigate('/send', { state: { account: selectedAccount } })
   }
 
   const handleSwapNavigation = () => {
-    navigate('/app/swap', { state: { account: selectedAccount } })
+    navigate('/swap', { state: { account: selectedAccount } })
   }
 
   const handleBuyAndSellTokensNavigation = async () => {

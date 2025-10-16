@@ -1,33 +1,43 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
+import { FLUSH, PAUSE, PERSIST, Persistor, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 
-import { authReducer, authReducerConfig } from './reducers/AuthReducer'
-import { contactReducer, contactReducerConfig } from './reducers/ContactReducer'
-import { settingsReducer, settingsReducerConfig } from './reducers/SettingsReducer'
-import { utilityReducer, utilityReducerConfig } from './reducers/UtilityReducer'
-
-const persistedAuthReducer = persistReducer(authReducerConfig, authReducer)
-const persistedSettingsReducer = persistReducer(settingsReducerConfig, settingsReducer)
-const persistedUtilityReducer = persistReducer(utilityReducerConfig, utilityReducer)
-const persistedContactReducer = persistReducer(contactReducerConfig, contactReducer)
+import { getLanguageMiddleware } from './middlewares/language'
+import { getNetworkMiddleware } from './middlewares/network'
+import { getAuthReducer } from './reducers/auth'
+import { getContactReducer } from './reducers/contact'
+import { getSettingsReducer } from './reducers/settings'
+import { getUtilityReducer } from './reducers/utility'
 
 export class RootStore {
-  static reducers = combineReducers({
-    auth: persistedAuthReducer,
-    settings: persistedSettingsReducer,
-    utility: persistedUtilityReducer,
-    contact: persistedContactReducer,
-  })
+  static store: ReturnType<typeof RootStore.setupStore>
+  static persistor: Persistor
 
-  static store = configureStore({
-    reducer: RootStore.reducers,
-    middleware: getDefaultMiddleware =>
-      getDefaultMiddleware({
-        serializableCheck: {
-          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
-      }),
-  })
+  static getReducer() {
+    return combineReducers({
+      utility: getUtilityReducer(),
+      auth: getAuthReducer(),
+      contact: getContactReducer(),
+      settings: getSettingsReducer(),
+    })
+  }
 
-  static persistor = persistStore(RootStore.store)
+  static setupStore() {
+    const reducer = this.getReducer()
+    const middlewares = [getLanguageMiddleware(), getNetworkMiddleware()]
+
+    const store = configureStore({
+      reducer,
+      middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+          serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+          },
+        }).concat(middlewares),
+    })
+
+    RootStore.store = store
+    RootStore.persistor = persistStore(store)
+
+    return store
+  }
 }

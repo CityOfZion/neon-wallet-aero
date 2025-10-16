@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Tabs } from '@renderer/components/Tabs'
 import { LoginLayout } from '@renderer/layouts/LoginLayout'
 
-export const Login = () => {
+export const LoginPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'login' })
   const navigate = useNavigate()
   const location = useLocation()
@@ -32,3 +32,5 @@ export const Login = () => {
     </LoginLayout>
   )
 }
+
+export default LoginPage

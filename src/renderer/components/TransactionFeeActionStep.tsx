@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { BlockchainService } from '@cityofzion/blockchain-service'
+import { IBlockchainService } from '@cityofzion/blockchain-service'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
@@ -15,7 +15,7 @@ import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 type TProps = {
   fee?: string
   isCalculatingFee: boolean
-  service?: BlockchainService<TBlockchainServiceKey>
+  service?: IBlockchainService<TBlockchainServiceKey>
   className?: string
   containerClassName?: string
   titleClassName?: string
@@ -56,7 +56,7 @@ export const TransactionFeeActionStep = ({
         title={t('title')}
         className={StyleHelper.mergeStyles('min-h-11 font-bold', className)}
         titleClassName={StyleHelper.mergeStyles('text-sm whitespace-nowrap mr-3 !overflow-visible', titleClassName)}
-        leftIcon={<TbReceipt aria-hidden={true} className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6" />}
+        leftIcon={<TbReceipt aria-hidden className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6" />}
       >
         {isCalculatingFee ? (
           <Loader className="h-4 w-4" containerClassName="w-min items-center" />

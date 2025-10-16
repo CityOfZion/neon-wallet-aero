@@ -29,6 +29,7 @@ export const GreyTokenSelectItem = ({ token, textClassName }: TProps) => {
         className="h-4 w-4 rounded-full"
         onError={() => {
           setImg(defaultTokenLogo)
+          // eslint-disable-next-line react-hooks/immutability
           token.imageUrl = defaultTokenLogo
         }}
       />

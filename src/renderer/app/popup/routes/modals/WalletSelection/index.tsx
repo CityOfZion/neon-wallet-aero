@@ -122,3 +122,5 @@ export const WalletSelectionModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default WalletSelectionModal

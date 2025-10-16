@@ -41,7 +41,7 @@ export const BuyAndSellTokensAccordionAccountItem = ({ account }: TProps) => {
             <IconButton
               aria-label={t('copyAddressButtonLabel')}
               size="xs"
-              icon={<MdContentCopy aria-hidden={true} className="text-neon" />}
+              icon={<MdContentCopy aria-hidden className="text-neon" />}
               onClick={UtilsHelper.copyToClipboard.bind(null, account.address)}
             />
           </Tooltip>

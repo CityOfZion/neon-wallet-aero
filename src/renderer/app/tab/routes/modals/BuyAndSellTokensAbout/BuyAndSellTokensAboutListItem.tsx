@@ -30,7 +30,7 @@ export const BuyAndSellTokensAboutListItem = ({ text, linkLabel, link, image }: 
       variant="text-slim"
       iconsOnEdge={false}
       clickableProps={{ className: 'gap-x-2' }}
-      rightIcon={<TbExternalLink aria-hidden={true} className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
+      rightIcon={<TbExternalLink aria-hidden className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
     />
 
     <Separator className="bg-gray-300/30" />

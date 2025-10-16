@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BlockchainService, BSClaimable } from '@cityofzion/blockchain-service'
+import { IBlockchainService, IBSWithClaim } from '@cityofzion/blockchain-service'
 import { Button } from '@renderer/components/Button'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useUnclaimed, useUnclaimedMutation } from '@renderer/hooks/useUnclaimedQuery'
@@ -9,7 +9,7 @@ import { match, P } from 'ts-pattern'
 
 type TProps = {
   selectAccount: IAccountState
-  blockchainService: BlockchainService & BSClaimable
+  blockchainService: IBlockchainService & IBSWithClaim
 }
 
 export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TProps) => {

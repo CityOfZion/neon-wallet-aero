@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Account } from '@cityofzion/blockchain-service'
+import { TBSAccount } from '@cityofzion/blockchain-service'
 import { Accordion } from '@renderer/components/Accordion'
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Checkbox } from '@renderer/components/Checkbox'
@@ -14,7 +14,7 @@ import { TImportAccountsSelectionFormProps } from './ImportAccountsSelectionForm
 
 type TProps = {
   blockchainName: TBlockchainServiceKey
-  accounts: Account<TBlockchainServiceKey>[]
+  accounts: TBSAccount<TBlockchainServiceKey>[]
 } & Pick<TImportAccountsSelectionFormProps, 'selectedAccounts' | 'onSelect'>
 
 export const ImportAccountsSelectionAccordionItem = ({
@@ -27,7 +27,7 @@ export const ImportAccountsSelectionAccordionItem = ({
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { doesAccountExist } = useAccountUtils()
 
-  const handleCheckedChange = (isChecked: boolean, account: Account<TBlockchainServiceKey>) => {
+  const handleCheckedChange = (isChecked: boolean, account: TBSAccount<TBlockchainServiceKey>) => {
     onSelect(isChecked ? [...selectedAccounts, account] : selectedAccounts.filter(AccountHelper.predicateNot(account)))
   }
 

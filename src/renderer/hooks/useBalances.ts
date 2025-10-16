@@ -15,7 +15,7 @@ import {
 } from '@shared/types/query'
 import { TCurrency, THiddenTokenByBlockchain } from '@shared/types/store'
 import { QueryClient, useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import { match } from 'ts-pattern'
 
 import { useCurrencyRatio } from './useCurrencyRatio'
@@ -26,7 +26,7 @@ import { useHiddenTokensByBlockchainSelector } from './useUtilitySelector'
 export function buildQueryKeyBalance(
   address: string,
   blockchain: TBlockchainServiceKey,
-  network?: TNetwork<TBlockchainServiceKey>,
+  network?: TNetwork,
   currency?: TCurrency
 ) {
   const key: any[] = ['balance', address, blockchain]
@@ -44,7 +44,7 @@ export function buildQueryKeyBalance(
 
 const fetchBalance = async (
   param: TUseBalancesParams,
-  network: TNetwork<TBlockchainServiceKey>,
+  network: TNetwork,
   queryClient: QueryClient,
   currency: TCurrency,
   currencyRatio: number

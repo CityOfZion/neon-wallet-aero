@@ -14,7 +14,7 @@ export const BuyAndSellTokensAboutModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'buyAndSellTokensAbout' })
 
   return (
-    <SideModalLayout heading={t('title')} icon={<TbHelp aria-hidden={true} />}>
+    <SideModalLayout heading={t('title')} icon={<TbHelp aria-hidden />}>
       <div className="flex flex-col gap-y-6">
         <Separator className="bg-gray-300/30" />
 
@@ -23,14 +23,14 @@ export const BuyAndSellTokensAboutModal = () => {
             text={t('sumbsubText')}
             linkLabel={t('sumbsubLinkLabel')}
             link={SUMSUB_TERMS_AND_CONDITIONS_LINK}
-            image={<SumsubLogo aria-hidden={true} />}
+            image={<SumsubLogo aria-hidden />}
           />
 
           <BuyAndSellTokensAboutListItem
             text={t('unlimitText')}
             linkLabel={t('unlimitLinkLabel')}
             link={UNLIMIT_USER_TERMS_LINK}
-            image={<UnlimitLogo aria-hidden={true} />}
+            image={<UnlimitLogo aria-hidden />}
           />
         </ul>
 

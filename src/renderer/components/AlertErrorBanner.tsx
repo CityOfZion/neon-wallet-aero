@@ -30,7 +30,7 @@ export const AlertErrorBanner = ({ className, message, messageClassName, icon, i
         })
       ) : (
         <TbAlertTriangle
-          aria-hidden={true}
+          aria-hidden
           className={StyleHelper.mergeStyles('text-magenta h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6', iconClassName)}
         />
       )}

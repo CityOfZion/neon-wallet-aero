@@ -84,3 +84,5 @@ export const CreateAccountStep1Modal = () => {
     </BottomModalLayout>
   )
 }
+
+export default CreateAccountStep1Modal

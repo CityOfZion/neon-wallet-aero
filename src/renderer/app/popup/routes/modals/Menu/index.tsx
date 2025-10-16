@@ -23,46 +23,40 @@ export const MenuModal = () => {
   return (
     <SideModalLayout heading={t('title')}>
       <ul className="flex w-full flex-col">
-        <MenuItemLink label={t('walletsItemLabel')} to="/app/wallets" icon={<Wallet aria-hidden={true} />} />
+        <MenuItemLink label={t('walletsItemLabel')} to="/wallets" icon={<Wallet aria-hidden />} />
 
         <MenuItemButton
           label={t('buyAndSellTokensItemLabel')}
           isExternal
-          icon={<TbShoppingBag aria-hidden={true} />}
+          icon={<TbShoppingBag aria-hidden />}
           onClick={TabsHelper.openTab.bind(null, '/buy-and-sell-tokens')}
         />
 
-        <MenuItemLink label={t('importItemLabel')} to="/app/import" icon={<TbFileImport aria-hidden={true} />} />
+        <MenuItemLink label={t('importItemLabel')} to="/import" icon={<TbFileImport aria-hidden />} />
 
-        <MenuItemLink
-          label={t('neo3NeoXBridgeItemLabel')}
-          to="/app/neo3-neox-bridge"
-          icon={<TbReplace2 aria-hidden />}
-        />
+        <MenuItemLink label={t('neo3NeoXBridgeItemLabel')} to="/neo3-neox-bridge" icon={<TbReplace2 aria-hidden />} />
 
         <MenuItemLink
           label={t('connectHardwareWalletItemLabel')}
-          to="/app/connect-hardware-wallet"
-          icon={<TbDeviceUsb aria-hidden={true} className="rotate-45" />}
+          to="/connect-hardware-wallet"
+          icon={<TbDeviceUsb aria-hidden className="rotate-45" />}
         />
 
-        <MenuItemLink label={t('contactsItemLabel')} to="/app/contacts" icon={<TbUsers aria-hidden={true} />} />
+        <MenuItemLink label={t('contactsItemLabel')} to="/contacts" icon={<TbUsers aria-hidden />} />
 
-        <MenuItemLink
-          label={t('helpItemLabel')}
-          to="/app/help"
-          icon={<TbHelp aria-hidden={true} className="text-yellow" />}
-        />
+        <MenuItemLink label={t('helpItemLabel')} to="/help" icon={<TbHelp aria-hidden className="text-yellow" />} />
 
-        <MenuItemLink label={t('settingsItemLabel')} to="/app/settings" icon={<TbSettings aria-hidden={true} />} />
+        <MenuItemLink label={t('settingsItemLabel')} to="/settings" icon={<TbSettings aria-hidden />} />
 
         <MenuItemButton
           label={t('logoutItemLabel')}
           hasSeparator={false}
-          icon={<TbDoorExit aria-hidden={true} />}
+          icon={<TbDoorExit aria-hidden />}
           onClick={logout}
         />
       </ul>
     </SideModalLayout>
   )
 }
+
+export default MenuModal

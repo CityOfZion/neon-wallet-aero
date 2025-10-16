@@ -149,7 +149,7 @@ export const SaveContactModal = () => {
                       >
                         <IconButton
                           aria-label={t('deleteContact')}
-                          icon={<TbTrash aria-hidden={true} className="text-pink h-5 w-5" />}
+                          icon={<TbTrash aria-hidden className="text-pink h-5 w-5" />}
                           type="button"
                           onClick={() => handleOpenDeleteAddressModal(address, index)}
                           className="items-center"
@@ -198,3 +198,5 @@ export const SaveContactModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default SaveContactModal

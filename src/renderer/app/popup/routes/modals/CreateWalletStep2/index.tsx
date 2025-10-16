@@ -128,3 +128,5 @@ export const CreateWalletStep2Modal = () => {
     </BottomModalLayout>
   )
 }
+
+export default CreateWalletStep2Modal

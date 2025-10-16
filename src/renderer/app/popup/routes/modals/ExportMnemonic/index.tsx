@@ -94,7 +94,7 @@ export const ExportMnemonicModal = () => {
             <Button
               iconsOnEdge={false}
               variant="text"
-              leftIcon={<MdContentCopy aria-hidden={true} />}
+              leftIcon={<MdContentCopy aria-hidden />}
               label={t('copyButtonLabel')}
               disabled={isDisabled}
               onClick={() => UtilsHelper.copyToClipboard(walletMnemonic)}
@@ -104,7 +104,7 @@ export const ExportMnemonicModal = () => {
             <Button
               iconsOnEdge={false}
               variant="text"
-              leftIcon={<TbPrinter aria-hidden={true} />}
+              leftIcon={<TbPrinter aria-hidden />}
               label={t('printButtonLabel')}
               flat
               disabled={isDisabled}
@@ -117,3 +117,5 @@ export const ExportMnemonicModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default ExportMnemonicModal

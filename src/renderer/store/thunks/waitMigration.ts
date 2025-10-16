@@ -1,14 +1,15 @@
-import { BSNeoLegacy, BSNeoLegacyConstants, BSNeoLegacyHelper } from '@cityofzion/bs-neo-legacy'
+import { BSNeoLegacy, BSNeoLegacyConstants } from '@cityofzion/bs-neo-legacy'
+import { Neo3NeoLegacyMigrationService } from '@cityofzion/bs-neo-legacy/dist/services/migration/Neo3NeoLegacyMigrationService'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
-import { TRootState } from '@renderer/hooks/useRedux'
 import { bsAggregator } from '@renderer/libs/blockchainService'
 import { TBlockchainServiceKey } from '@shared/types/blockchain'
+import { TRootState } from '@shared/types/redux'
 import { TMigrationNeo3, TMigrationNeo3Status, TSaveNotification } from '@shared/types/store'
 import { match } from 'ts-pattern'
 
-import { authReducerActions } from '../reducers/AuthReducer'
-import { utilityReducerActions } from '../reducers/UtilityReducer'
+import { authReducerActions } from '../reducers/auth'
+import { utilityReducerActions } from '../reducers/utility'
 
 export const waitMigration = createAsyncThunk<void, TMigrationNeo3>(
   'waitMigration',
@@ -79,7 +80,7 @@ export const waitMigration = createAsyncThunk<void, TMigrationNeo3>(
       const neo3Service = bsAggregator.blockchainServicesByName.neo3
       const neoLegacyService = bsAggregator.blockchainServicesByName.neoLegacy as BSNeoLegacy<TBlockchainServiceKey>
 
-      const response = await BSNeoLegacyHelper.waitForMigration({
+      const response = await Neo3NeoLegacyMigrationService.waitForMigration({
         neoLegacyService,
         neo3Service,
         neo3Address: pendingMigrationNeo3.neo3Address,

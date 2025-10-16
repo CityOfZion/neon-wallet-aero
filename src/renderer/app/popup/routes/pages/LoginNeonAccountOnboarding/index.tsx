@@ -6,7 +6,7 @@ import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 import TbPackageExport from '@renderer/assets/images/tb-package-export.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
-export const LoginNeonAccountOnboarding = () => {
+export const LoginNeonAccountOnboardingPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'loginNeonAccountOnboarding' })
 
   return (
@@ -18,7 +18,7 @@ export const LoginNeonAccountOnboarding = () => {
           <LoginNeonAccountOnboardingLink
             to="/onboarding-login-new-wallet"
             title={t('createNewWalletLink.title')}
-            icon={<TbWallet aria-hidden={true} />}
+            icon={<TbWallet aria-hidden />}
             text={
               <Trans t={t} i18nKey="createNewWalletLink.text">
                 start
@@ -33,7 +33,7 @@ export const LoginNeonAccountOnboarding = () => {
           <LoginNeonAccountOnboardingLink
             to="/onboarding-import-wallet"
             title={t('importExternalWalletLink.title')}
-            icon={<TbFileImport aria-hidden={true} />}
+            icon={<TbFileImport aria-hidden />}
             text={
               <Trans t={t} i18nKey="importExternalWalletLink.text">
                 start
@@ -49,7 +49,7 @@ export const LoginNeonAccountOnboarding = () => {
             to="/onboarding-import-wallet"
             state={{ isMigration: true }}
             title={t('migrateFromNeon2Link.title')}
-            icon={<TbPackageExport aria-hidden={true} />}
+            icon={<TbPackageExport aria-hidden />}
             text={
               <Trans t={t} i18nKey="migrateFromNeon2Link.text">
                 start
@@ -63,3 +63,5 @@ export const LoginNeonAccountOnboarding = () => {
     </section>
   )
 }
+
+export default LoginNeonAccountOnboardingPage

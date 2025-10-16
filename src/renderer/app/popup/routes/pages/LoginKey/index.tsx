@@ -10,7 +10,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { bsAggregator } from '@renderer/libs/blockchainService'
 import { TAccountsToImport } from '@shared/types/blockchain'
 
-export const LoginKey = () => {
+export const LoginKeyPage = () => {
   const navigate = useNavigate()
   const { loginWithKey } = useLogin()
   const { modalNavigate } = useModalNavigate()
@@ -32,7 +32,7 @@ export const LoginKey = () => {
           // This adds a slight delay to improve user experience
           await UtilsHelper.sleep(1000)
 
-          navigate('/app/wallets', { replace: true })
+          navigate('/wallets', { replace: true })
         },
       },
     })
@@ -54,7 +54,7 @@ export const LoginKey = () => {
           // This adds a slight delay to improve user experience
           await UtilsHelper.sleep(1000)
 
-          navigate('/app/wallets', { replace: true })
+          navigate('/wallets', { replace: true })
         },
       },
     })
@@ -72,7 +72,7 @@ export const LoginKey = () => {
       name: commonT('wallet.watchAccount'),
       type: 'standard',
     })
-    navigate('/app/wallets', { replace: true })
+    navigate('/wallets', { replace: true })
   }
 
   const { actionData, actionState, handleAct, handleSubmit, handleChange } = useImportActions(
@@ -113,3 +113,5 @@ export const LoginKey = () => {
     </form>
   )
 }
+
+export default LoginKeyPage

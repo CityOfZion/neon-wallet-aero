@@ -98,7 +98,7 @@ export const ExportKeyModal = () => {
         <div className="mt-2.5 flex justify-center gap-3 print:hidden">
           <Button
             variant="text"
-            leftIcon={<MdContentCopy aria-hidden={true} />}
+            leftIcon={<MdContentCopy aria-hidden />}
             label={t('copyButtonLabel')}
             onClick={() => UtilsHelper.copyToClipboard(decryptedKey)}
             clickableProps={{ className: 'px-4' }}
@@ -108,7 +108,7 @@ export const ExportKeyModal = () => {
 
           <Button
             variant="text"
-            leftIcon={<TbPrinter aria-hidden={true} />}
+            leftIcon={<TbPrinter aria-hidden />}
             label={t('printButtonLabel')}
             clickableProps={{ className: 'px-4' }}
             flat
@@ -127,3 +127,5 @@ export const ExportKeyModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default ExportKeyModal

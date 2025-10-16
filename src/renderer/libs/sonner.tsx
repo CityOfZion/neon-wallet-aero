@@ -95,3 +95,5 @@ export const PromiseToast = ({ message, sonnerId }: Pick<TBaseToastProps, 'messa
 }
 
 export const ToastProvider = () => <Toaster position="bottom-center" expand gap={10} />
+
+export default ToastProvider

@@ -54,7 +54,7 @@ export const CreateAccountStep2Modal = () => {
         name: accountName.trim(),
       })
 
-      navigate('/app/wallets', { state: { account, wallet: selectedWallet }, replace: true })
+      navigate('/wallets', { state: { account, wallet: selectedWallet }, replace: true })
       modalErase('bottom')
     } catch (error) {
       console.error('Error creating account:', error)
@@ -122,3 +122,5 @@ export const CreateAccountStep2Modal = () => {
     </BottomModalLayout>
   )
 }
+
+export default CreateAccountStep2Modal

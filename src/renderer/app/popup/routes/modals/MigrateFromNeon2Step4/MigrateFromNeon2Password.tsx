@@ -40,7 +40,7 @@ export const MigrateFromNeon2Password = ({ accountToMigrate, onSubmit }: TProps)
   return (
     <div className="flex w-full min-w-0 items-center justify-between gap-2.5 py-4">
       <div className="flex h-full w-6 items-start">
-        <MdChevronRight aria-hidden={true} className="text-blue h-6 w-full" />
+        <MdChevronRight aria-hidden className="text-blue h-6 w-full" />
       </div>
 
       <div className="flex min-w-0 flex-grow flex-col gap-1">
@@ -67,9 +67,9 @@ export const MigrateFromNeon2Password = ({ accountToMigrate, onSubmit }: TProps)
         {actionState.hasActed && (
           <Fragment>
             {actionState.isValid ? (
-              <MdCheck aria-hidden={true} className="text-green h-6 w-6" />
+              <MdCheck aria-hidden className="text-green h-6 w-6" />
             ) : (
-              <TbAlertTriangle aria-hidden={true} className="text-pink h-6 w-6" />
+              <TbAlertTriangle aria-hidden className="text-pink h-6 w-6" />
             )}
           </Fragment>
         )}

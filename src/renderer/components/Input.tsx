@@ -182,7 +182,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
               {isTypePassword && (
                 <IconButton
                   aria-label={hidden ? t('showPasswordIconButtonLabel') : t('hidePasswordIconButtonLabel')}
-                  icon={hidden ? <MdVisibility aria-hidden={true} /> : <MdVisibilityOff aria-hidden={true} />}
+                  icon={hidden ? <MdVisibility aria-hidden /> : <MdVisibilityOff aria-hidden />}
                   onClick={toggleHidden}
                   type="button"
                   disabled={props.disabled}
@@ -193,7 +193,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
               {pastable && (
                 <IconButton
                   aria-label={t('pasteIconButtonLabel')}
-                  icon={<MdContentPasteGo aria-hidden={true} />}
+                  icon={<MdContentPasteGo aria-hidden />}
                   onClick={handlePaste}
                   colorSchema="neon"
                   type="button"
@@ -205,7 +205,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
               {copyable && (
                 <IconButton
                   aria-label={t('copyIconButtonLabel')}
-                  icon={<MdContentCopy aria-hidden={true} />}
+                  icon={<MdContentCopy aria-hidden />}
                   onClick={handleCopyInput}
                   colorSchema="neon"
                   type="button"
@@ -217,7 +217,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
               {clearable && (
                 <IconButton
                   aria-label={t('clearIconButtonLabel')}
-                  icon={<MdCancel aria-hidden={true} />}
+                  icon={<MdCancel aria-hidden />}
                   type="button"
                   onClick={clear}
                   disabled={props.disabled}

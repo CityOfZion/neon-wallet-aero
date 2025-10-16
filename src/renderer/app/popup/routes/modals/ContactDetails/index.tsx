@@ -8,7 +8,7 @@ import { useContactsSelector } from '@renderer/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
-import { contactReducerActions } from '@renderer/store/reducers/ContactReducer'
+import { contactReducerActions } from '@renderer/store/reducers/contact'
 import { TModalState } from '@shared/types/modal'
 import { TContactState } from '@shared/types/store'
 
@@ -126,3 +126,5 @@ export const ContactDetailsModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default ContactDetailsModal

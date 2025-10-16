@@ -18,7 +18,7 @@ export const MigrateFromNeon2Success = ({ accounts }: TProps) => {
 
   const handleView = () => {
     modalErase('bottom')
-    navigate('/app/wallets')
+    navigate('/wallets')
   }
 
   return (
@@ -31,7 +31,7 @@ export const MigrateFromNeon2Success = ({ accounts }: TProps) => {
               <p className="truncate text-xs text-gray-300">{account.address}</p>
             </div>
 
-            <MdCheck aria-hidden={true} className="text-green h-4.5 w-4.5" />
+            <MdCheck aria-hidden className="text-green h-4.5 w-4.5" />
           </div>
         ))}
       </div>
@@ -40,7 +40,7 @@ export const MigrateFromNeon2Success = ({ accounts }: TProps) => {
         label={t('viewButtonLabel')}
         iconsOnEdge={false}
         variant="card"
-        leftIcon={<MdOutlineRemoveRedEye aria-hidden={true} />}
+        leftIcon={<MdOutlineRemoveRedEye aria-hidden />}
         onClick={handleView}
       />
     </div>

@@ -37,3 +37,5 @@ export const HelpPage = () => {
     </ScreenLayout>
   )
 }
+
+export default HelpPage

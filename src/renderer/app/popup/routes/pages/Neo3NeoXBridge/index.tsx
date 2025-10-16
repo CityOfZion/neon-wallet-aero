@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import {
-  BalanceResponse,
   BSBigNumberHelper,
+  TBalanceResponse,
   TBridgeToken,
   TBridgeValidateValue,
   TBridgeValue,
@@ -24,7 +24,6 @@ import { Separator } from '@renderer/components/Separator'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
-import { NetworkHelper } from '@renderer/helpers/NetworkHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useAccountsMapSelector } from '@renderer/hooks/useAccountsMapSelector'
@@ -54,7 +53,7 @@ import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react
 type TActionsData = {
   availableTokensToUse: TBridgeValue<TBridgeToken<TBlockchainServiceKey>[]>
   tokenToUse: TBridgeValue<TBridgeToken<TBlockchainServiceKey>>
-  tokenToUseBalance: TBridgeValue<BalanceResponse | undefined>
+  tokenToUseBalance: TBridgeValue<TBalanceResponse | undefined>
   accountToUse: TBridgeValue<IAccountState>
   amountToUse: TBridgeValidateValue<string>
   amountToUseMin: TBridgeValue<string>
@@ -325,11 +324,8 @@ export const Neo3NeoXBridgePage = () => {
   })
 
   useEffect(() => {
-    if (
-      isGoingBack.current ||
-      (NetworkHelper.isMainnet('neo3', selectedNetworkByBlockchain.neo3) &&
-        NetworkHelper.isMainnet('neox', selectedNetworkByBlockchain.neox))
-    )
+    if (isGoingBack.current) return
+    if (selectedNetworkByBlockchain.neo3.type === 'mainnet' && selectedNetworkByBlockchain.neox.type === 'mainnet')
       return
 
     isGoingBack.current = true
@@ -357,7 +353,7 @@ export const Neo3NeoXBridgePage = () => {
       leftComponent={
         <IconButton
           aria-label={t('form.restartButtonLabel')}
-          icon={<MdRestartAlt aria-hidden={true} />}
+          icon={<MdRestartAlt aria-hidden />}
           colorSchema={isRestartDisabled ? 'gray' : 'neon'}
           disabled={isRestartDisabled}
           onClick={initializeOrRestartSwapService}
@@ -578,3 +574,5 @@ export const Neo3NeoXBridgePage = () => {
     </ScreenLayout>
   )
 }
+
+export default Neo3NeoXBridgePage

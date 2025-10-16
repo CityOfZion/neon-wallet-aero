@@ -2,7 +2,8 @@ import { RefObject, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
-import { createAppSelector, TRootState } from '@renderer/hooks/useRedux'
+import { createAppSelector } from '@renderer/hooks/useRedux'
+import type { TRootState } from '@shared/types/redux'
 import { IAccountState } from '@shared/types/store'
 
 const selectAccounts = createAppSelector(

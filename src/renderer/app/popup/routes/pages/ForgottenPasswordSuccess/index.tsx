@@ -4,7 +4,7 @@ import { ForgottenPasswordLayout } from '@renderer/layouts/ForgottenPasswordLayo
 
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
 
-export const ForgottenPasswordSuccess = () => {
+export const ForgottenPasswordSuccessPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'forgottenPasswordSuccess' })
 
   return (
@@ -28,3 +28,5 @@ export const ForgottenPasswordSuccess = () => {
     </ForgottenPasswordLayout>
   )
 }
+
+export default ForgottenPasswordSuccessPage

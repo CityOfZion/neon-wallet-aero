@@ -5,9 +5,9 @@ import { ContactsHelper } from '@renderer/helpers/ContactsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { bsAggregator } from '@renderer/libs/blockchainService'
-import { authReducerActions } from '@renderer/store/reducers/AuthReducer'
-import { contactReducerActions } from '@renderer/store/reducers/ContactReducer'
-import { utilityReducerActions } from '@renderer/store/reducers/UtilityReducer'
+import { authReducerActions } from '@renderer/store/reducers/auth'
+import { contactReducerActions } from '@renderer/store/reducers/contact'
+import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import {
   TAccountToCreate,
   TAccountToEdit,

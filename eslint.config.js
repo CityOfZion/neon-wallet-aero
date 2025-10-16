@@ -1,35 +1,27 @@
 import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import { defineConfig } from 'eslint/config'
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import reactPlugin from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: ['dist'] },
+  js.configs.recommended,
+  tseslint.configs.recommended,
+  eslintPluginPrettierRecommended,
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
+    ...reactPlugin.configs.flat.recommended,
+    ...reactPlugin.configs.flat['jsx-runtime'],
+  },
+  reactHooks.configs.flat.recommended,
+  {
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
       'simple-import-sort': simpleImportSort,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          varsIgnorePattern: '^_',
-          argsIgnorePattern: '^_',
-        },
-      ],
-      '@typescript-eslint/no-explicit-any': 'off',
       'simple-import-sort/exports': 'error',
       'simple-import-sort/imports': [
         'error',
@@ -47,5 +39,29 @@ export default tseslint.config(
       ],
     },
   },
-  eslintPluginPrettierRecommended
+  {
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          vars: 'all',
+          args: 'after-used',
+          ignoreRestSiblings: true,
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/no-explicit-any': 'off',
+      'react/jsx-boolean-value': ['warn', 'never'],
+      'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
+      'react-hooks/incompatible-library': 'off',
+      'react-hooks/refs': 'off',
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  }
 )

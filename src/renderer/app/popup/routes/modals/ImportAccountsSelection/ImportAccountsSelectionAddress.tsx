@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Account } from '@cityofzion/blockchain-service'
+import { TBSAccount } from '@cityofzion/blockchain-service'
 import { Banner } from '@renderer/components/Banner'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { useAccountUtils } from '@renderer/hooks/useAccountUtils'
@@ -14,12 +14,12 @@ import { TBlockchainAccounts } from '.'
 
 type TActionsData = {
   blockchainAccounts: TBlockchainAccounts
-  selectedAccounts: Account<TBlockchainServiceKey>[]
+  selectedAccounts: TBSAccount<TBlockchainServiceKey>[]
 }
 
 type TProps = {
   value: string
-  onSubmit: (selectedAccounts: Account<TBlockchainServiceKey>[]) => Promise<void>
+  onSubmit: (selectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => Promise<void>
 }
 
 export const ImportAccountsSelectionAddress = ({ value, onSubmit }: TProps) => {
@@ -36,7 +36,7 @@ export const ImportAccountsSelectionAddress = ({ value, onSubmit }: TProps) => {
 
   const isDisabled = actionState.isActing || !actionState.isValid || selectedAccounts.length === 0
 
-  const handleSelectAccounts = (newSelectedAccounts: Account<TBlockchainServiceKey>[]) => {
+  const handleSelectAccounts = (newSelectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => {
     setData({ selectedAccounts: newSelectedAccounts })
   }
 

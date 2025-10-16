@@ -7,7 +7,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { bsAggregator } from '@renderer/libs/blockchainService'
 import { getI18next } from '@renderer/libs/i18next'
 import { thunks } from '@renderer/store/thunks'
-import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import { TNetwork } from '@shared/types/blockchain'
 import { TTransactionsTransfer } from '@shared/types/hooks'
 import { TUseUnclaimedResult } from '@shared/types/query'
 import { IAccountState } from '@shared/types/store'
@@ -20,7 +20,7 @@ import { useHasClaimPendingTransactionSelector } from './useUtilitySelector'
 
 const { t } = getI18next()
 
-export const buildQueryKeyUnclaimed = (account: IAccountState, network?: TNetwork<TBlockchainServiceKey>) => {
+export const buildQueryKeyUnclaimed = (account: IAccountState, network?: TNetwork) => {
   const key: any[] = ['unclaimed', account.address]
 
   if (network) {
@@ -49,7 +49,7 @@ const getUnclaimedInfos = async (
   let unclaimed = '0'
 
   if (!hasClaimPendingTransaction) {
-    unclaimed = await blockchainService.blockchainDataService.getUnclaimed(account.address)
+    unclaimed = await blockchainService.claimDataService.getUnclaimed(account.address)
   }
 
   const unclaimedNumber = parseFloat(unclaimed)

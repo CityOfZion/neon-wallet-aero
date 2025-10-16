@@ -18,8 +18,7 @@ export const CreateWalletStep4Modal = () => {
 
   const handlePressContinue = () => {
     const wallet = selectedWallet
-
-    navigate('/app/wallets', { state: { account: accountsByWalletId[0], wallet }, replace: true })
+    navigate('/wallets', { state: { account: accountsByWalletId[0], wallet }, replace: true })
     modalErase('bottom')
   }
 
@@ -45,3 +44,5 @@ export const CreateWalletStep4Modal = () => {
     </BottomModalLayout>
   )
 }
+
+export default CreateWalletStep4Modal

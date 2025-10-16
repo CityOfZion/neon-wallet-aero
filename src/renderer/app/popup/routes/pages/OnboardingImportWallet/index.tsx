@@ -6,7 +6,7 @@ import { LoginLayout } from '@renderer/layouts/LoginLayout'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 
-export const OnboardingImportWallet = () => {
+export const OnboardingImportWalletPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet' })
   const navigate = useNavigate()
   const { state } = useLocation()
@@ -45,3 +45,5 @@ export const OnboardingImportWallet = () => {
     </LoginLayout>
   )
 }
+
+export default OnboardingImportWalletPage

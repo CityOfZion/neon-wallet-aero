@@ -20,19 +20,19 @@ export const SellTokensDepositSuccessModal = () => {
   const name = toAccount?.name
 
   return (
-    <SideModalLayout heading={t('title')} icon={<TbStepInto aria-hidden={true} />}>
+    <SideModalLayout heading={t('title')} icon={<TbStepInto aria-hidden />}>
       <div className="flex min-h-0 flex-grow flex-col items-center">
         <Separator className="bg-gray-300/30" />
 
         <div className="bg-asphalt mt-8 flex size-28 items-center rounded-full p-2">
-          <PiSealCheck aria-hidden={true} className="text-blue size-24" />
+          <PiSealCheck aria-hidden className="text-blue size-24" />
         </div>
 
         <p className="mt-6 text-center text-lg text-white">{t('subtitle')}</p>
 
         <div className="bg-asphalt mt-8 flex w-full flex-col rounded p-3 pb-5">
           <div className="flex items-center gap-2.5 text-sm text-white">
-            <TbReceipt aria-hidden={true} className="text-blue size-6" />
+            <TbReceipt aria-hidden className="text-blue size-6" />
 
             <p className="font-medium">{t('details')}</p>
           </div>
@@ -52,7 +52,7 @@ export const SellTokensDepositSuccessModal = () => {
                   <IconButton
                     aria-label={t('copyAddressLabel')}
                     size="sm"
-                    icon={<MdContentCopy aria-hidden={true} className="text-neon" />}
+                    icon={<MdContentCopy aria-hidden className="text-neon" />}
                     onClick={UtilsHelper.copyToClipboard.bind(null, to!)}
                   />
                 </Tooltip>
@@ -81,7 +81,7 @@ export const SellTokensDepositSuccessModal = () => {
                   <IconButton
                     aria-label={t('copyTransactionHashLabel')}
                     size="sm"
-                    icon={<MdContentCopy aria-hidden={true} className="text-neon" />}
+                    icon={<MdContentCopy aria-hidden className="text-neon" />}
                     onClick={UtilsHelper.copyToClipboard.bind(null, hash)}
                   />
                 </Tooltip>

@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@renderer/components/Button'
 import { Radio } from '@renderer/components/Radio'
 import { Separator } from '@renderer/components/Separator'
-import { NetworkHelper } from '@renderer/helpers/NetworkHelper'
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { useNetworkActions } from '@renderer/hooks/useNetworkActions'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedNetworkSelector } from '@renderer/hooks/useSettingsSelector'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
-import { NETWORK_OPTIONS_BY_BLOCKCHAIN } from '@shared/constants/networks'
-import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import { bsAggregator } from '@renderer/libs/blockchainService'
+import { settingsReducerActions } from '@renderer/store/reducers/settings'
+import { TNetwork } from '@shared/types/blockchain'
 import { TModalState } from '@shared/types/modal'
 
 import TbCheck from '@renderer/assets/images/tb-check.svg?react'
@@ -17,25 +18,26 @@ import TbCheck from '@renderer/assets/images/tb-check.svg?react'
 export const NetworkSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'networkSelection' })
   const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const dispatch = useAppDispatch()
   const { blockchain } = useModalState<TModalState<'network-selection'>>()
   const { network } = useSelectedNetworkSelector(blockchain)
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
-  const { setNetwork } = useNetworkActions()
 
-  const [selectedNetwork, setSelectedNetwork] = useState<TNetwork<TBlockchainServiceKey>>(network)
+  const [selectedNetwork, setSelectedNetwork] = useState<TNetwork>(network)
 
-  const options = NETWORK_OPTIONS_BY_BLOCKCHAIN[blockchain].all
+  const service = bsAggregator.blockchainServicesByName[blockchain]
 
   const onSelectRadioItem = (selectedValue: string) => {
-    const network = options.find(network => network.id === selectedValue)
+    const network = service.availableNetworks.find(network => network.id === selectedValue)
     if (!network) return
 
     setSelectedNetwork(network)
   }
 
   const handleSave = () => {
+    // TODO: Disconnect all WalletConnect sessions of this blockchain
+    dispatch(settingsReducerActions.setSelectedNetwork({ blockchain, network: selectedNetwork }))
     modalNavigate(-1)
-    setNetwork(blockchain, selectedNetwork)
   }
 
   return (
@@ -44,11 +46,14 @@ export const NetworkSelectionModal = () => {
         <p className="mb-5 block px-4 text-sm text-gray-300">{t('selectNetwork')}</p>
 
         <Radio.Group value={selectedNetwork.id} onValueChange={onSelectRadioItem}>
-          {options.map((network, index, array) => (
+          {service.availableNetworks.map((network, index, array) => (
             <Radio.Item key={network.id} value={network.id} withSeparator={index !== array.length - 1}>
               <div className="flex items-center gap-4">
                 <div
-                  className={`h-1.5 min-h-1.5 w-1.5 min-w-1.5 rounded-full ${NetworkHelper.getBackgroundColorByNetwork(network, blockchain)}`}
+                  className={StyleHelper.mergeStyles('h-1.5 min-h-1.5 w-1.5 min-w-1.5 rounded-full', {
+                    'bg-purple': network.type === 'testnet',
+                    'bg-neon': network.type === 'mainnet',
+                  })}
                 />
                 <label>{network.name}</label>
               </div>
@@ -84,3 +89,5 @@ export const NetworkSelectionModal = () => {
     </BottomModalLayout>
   )
 }
+
+export default NetworkSelectionModal
