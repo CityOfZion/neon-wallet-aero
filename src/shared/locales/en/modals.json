@@ -427,5 +427,28 @@
     "text": "I'm sorry but your transaction could not be processed.",
     "errorMessageLabel": "Error message",
     "unknownError": "Unknown error"
+  },
+  "swapDetails": {
+    "title": "Your swap",
+    "detailsHeaderLabel": "Details",
+    "statusPanelSteps": ["Confirm", "Exchange", "Complete"],
+    "routingPanelLabel": "Routing",
+    "routingPanelTransactionFromLabel": "From",
+    "routingPanelTransactionToLabel": "To",
+    "routingPanelTransactionToPendingLabel": "Pending…",
+    "sentPanelTokenLabel": "Token",
+    "sentPanelAddressLabel": "Sending address",
+    "receivePanelTokenLabel": "Token",
+    "receivePanelAddressLabel": "Receiving address",
+    "extraIdToLabel": "Destination tag/memo",
+    "helpButtonLabel": "Need help? Chat with us",
+    "swapLogButtonLabel": "Swap log",
+    "saveContactButtonLabel": "Save contact",
+    "contactSavedTooltipLabel": "{{name}} has been saved to your contacts."
+  },
+  "swapDetailsLog": {
+    "title": "Swap log",
+    "copySwapLogLabel": "Copy swap log to clipboard",
+    "thereIsNoLogLabel": "There is no swap log"
   }
 }

@@ -18,7 +18,8 @@
     "swap": "Swap",
     "save": "Save",
     "edit": "Edit",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "copy": "Copy"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",

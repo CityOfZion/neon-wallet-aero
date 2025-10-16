@@ -427,5 +427,28 @@
     "text": "很抱歉，您的交易无法处理。",
     "errorMessageLabel": "错误信息",
     "unknownError": "未知错误"
+  },
+  "swapDetails": {
+    "title": "您的兑换",
+    "detailsHeaderLabel": "详情",
+    "statusPanelSteps": ["确认", "兑换", "完成"],
+    "routingPanelLabel": "路由",
+    "routingPanelTransactionFromLabel": "来自",
+    "routingPanelTransactionToLabel": "到",
+    "routingPanelTransactionToPendingLabel": "待处理…",
+    "sentPanelTokenLabel": "代币",
+    "sentPanelAddressLabel": "发送地址",
+    "receivePanelTokenLabel": "代币",
+    "receivePanelAddressLabel": "接收地址",
+    "extraIdToLabel": "目标标签/备注",
+    "helpButtonLabel": "需要帮助？联系我们",
+    "swapLogButtonLabel": "兑换日志",
+    "saveContactButtonLabel": "保存联系人",
+    "contactSavedTooltipLabel": "{{name}} 已保存到您的联系人中。"
+  },
+  "swapDetailsLog": {
+    "title": "兑换日志",
+    "copySwapLogLabel": "复制兑换日志到剪贴板",
+    "thereIsNoLogLabel": "暂无兑换日志"
   }
 }

@@ -145,7 +145,7 @@ type TDeleteContactAddressModalState = {
 }
 
 type TSwapDetailsModalState = {
-  swapRecord?: TSwapRecord
+  swapRecord: TSwapRecord
 }
 
 type TSwapConfirmationModalState = {
@@ -205,6 +205,10 @@ type TSellTokensDepositErrorModalState = {
   errorMessage?: string
 }
 
+type TSwapDetailsLogModalState = {
+  swapRecord: TSwapRecord
+}
+
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
@@ -242,6 +246,7 @@ export type TModalRouterRouteTypes = {
   'neo3-neox-bridge-info': undefined
   'neo3-neox-bridge-confirmation': TNeo3NeoXBridgeConfirmationModalState
   'neo3-neox-bridge-details': TNeo3NeoXBridgeDetailsModalState
+  'swap-details-log': TSwapDetailsLogModalState
   'buy-and-sell-tokens-about': undefined
   'sell-tokens-deposit': TSellTokensDepositModalState
   'sell-tokens-deposit-success': TSellTokensDepositSuccessModalState
