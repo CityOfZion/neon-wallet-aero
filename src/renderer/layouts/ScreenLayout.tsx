@@ -1,7 +1,12 @@
-import { cloneElement, ComponentProps, JSX, ReactNode } from 'react'
+import { cloneElement } from 'react'
+
+import type { ComponentProps, JSX, ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { IconButton } from '@renderer/components/IconButton'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { useRemoveOverflowShift } from '@renderer/hooks/useRemoveOverflowShift'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'

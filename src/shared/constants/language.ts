@@ -1,4 +1,4 @@
-import { TLanguage } from '@shared/types/language'
+import type { TLanguage } from '@shared/types/store'
 
 export const DEFAULT_LANGUAGE: TLanguage = { label: 'English', value: 'en' }
 

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 
 export const NetworkBanner = () => {

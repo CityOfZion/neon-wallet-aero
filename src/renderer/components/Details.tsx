@@ -1,14 +1,18 @@
-import { cloneElement, ComponentProps, JSX, ReactNode } from 'react'
+import { cloneElement } from 'react'
+
+import type { ComponentProps, JSX, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
+
+import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
+
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { BlockchainIcon } from './BlockchainIcon'
 import { IconButton } from './IconButton'
 import { Separator } from './Separator'
-
-import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 
 type TRootProps = ComponentProps<'div'>
 

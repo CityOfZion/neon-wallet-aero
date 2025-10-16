@@ -1,8 +1,9 @@
 import { useCallback, useContext } from 'react'
+
 import { ModalRouterContext } from '@renderer/contexts/ModalRouterContext'
 import { ModalRouterCurrentHistoryContext } from '@renderer/contexts/ModalRouterCurrentHistoryContext'
-import { TUseModalNavigateResponse } from '@shared/types/hooks'
-import { TModalRouterContextNavigateOptions, TRouteType } from '@shared/types/modal'
+import type { TUseModalNavigateResponse } from '@shared/types/hooks'
+import type { TModalRouterContextNavigateOptions, TRouteType } from '@shared/types/modal'
 
 export const useModalNavigate = (): TUseModalNavigateResponse => {
   const { navigate: modalNavigate, erase: modalErase } = useContext(ModalRouterContext)

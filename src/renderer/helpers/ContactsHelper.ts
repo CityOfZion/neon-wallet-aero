@@ -1,4 +1,4 @@
-import { TContactEncryptedAddress, TContactState } from '@shared/types/store'
+import type { TContactEncryptedAddress, TContactState } from '@shared/types/store'
 
 import { EncryptionHelper } from './EncryptionHelper'
 

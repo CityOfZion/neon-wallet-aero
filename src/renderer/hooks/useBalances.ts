@@ -1,9 +1,16 @@
 import { useCallback, useMemo } from 'react'
+
+import type { QueryClient } from '@tanstack/react-query'
+import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
+import cloneDeep from 'lodash/cloneDeep'
+import { match } from 'ts-pattern'
+
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
-import {
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import type {
   TBalance,
   TTokenBalance,
   TUseBalanceOptionShowType,
@@ -13,10 +20,7 @@ import {
   TUseBalancesParams,
   TUseBalancesResult,
 } from '@shared/types/query'
-import { TCurrency, THiddenTokenByBlockchain } from '@shared/types/store'
-import { QueryClient, useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
-import cloneDeep from 'lodash/cloneDeep'
-import { match } from 'ts-pattern'
+import type { TCurrency, THiddenTokenByBlockchain } from '@shared/types/store'
 
 import { useCurrencyRatio } from './useCurrencyRatio'
 import { fetchExchange } from './useExchange'

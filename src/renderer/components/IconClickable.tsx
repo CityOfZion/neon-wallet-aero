@@ -1,6 +1,9 @@
-import { cloneElement, ComponentProps } from 'react'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
+import { cloneElement } from 'react'
+
+import type { ComponentProps } from 'react'
 import { match } from 'ts-pattern'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import TbLoader2 from '@renderer/assets/images/tb-loader-2.svg?react'
 

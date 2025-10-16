@@ -1,18 +1,21 @@
-import { cloneElement, forwardRef, MouseEvent, useImperativeHandle, useRef, useState } from 'react'
+import { cloneElement, forwardRef, useImperativeHandle, useRef, useState } from 'react'
+
+import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { match, P } from 'ts-pattern'
 
-import { FieldActionsMenu } from './FieldActionsMenu'
-import { IconButton } from './IconButton'
-import { Loader } from './Loader'
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import MdCancel from '@renderer/assets/images/md-cancel.svg?react'
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import MdContentPasteGo from '@renderer/assets/images/md-content-paste-go.svg?react'
 import MdVisibility from '@renderer/assets/images/md-visibility.svg?react'
 import MdVisibilityOff from '@renderer/assets/images/md-visibility-off.svg?react'
+
+import { FieldActionsMenu } from './FieldActionsMenu'
+import { IconButton } from './IconButton'
+import { Loader } from './Loader'
 
 export type TInputProps = Omit<React.ComponentProps<'input'>, 'type' | 'ref'> & {
   containerClassName?: string

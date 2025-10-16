@@ -1,5 +1,6 @@
 import { BackgroundHelper } from '@renderer/helpers/BackgroundHelper'
-import { TBackgroundOpenTabMessage } from '@shared/types/background-events'
+
+import type { TBackgroundOpenTabMessage } from '@shared/types/background-events'
 
 export class TabsHelper {
   static async openTab(path: string, queryParams?: Record<string, string>) {
@@ -8,11 +9,11 @@ export class TabsHelper {
 
     await BackgroundHelper.send<TBackgroundOpenTabMessage>({
       type: 'open-tab',
-      payload: { url: `./src/renderer/app/tab/index.html#${path}${queryParamsValue}` },
+      payload: { url: `./src/renderer/tab.html#${path}${queryParamsValue}` },
     })
   }
 
   static isInTab(url: string) {
-    return url.startsWith('chrome-extension://') && url.includes('/src/renderer/app/tab/index.html#/')
+    return url.startsWith('chrome-extension://') && url.includes('/src/renderer/tab.html#/')
   }
 }

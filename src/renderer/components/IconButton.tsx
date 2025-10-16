@@ -1,6 +1,7 @@
 import { forwardRef } from 'react'
 
-import { IconClickable, TIconClickableCustomProps } from './IconClickable'
+import type { TIconClickableCustomProps } from './IconClickable'
+import { IconClickable } from './IconClickable'
 
 export type TIconButtonProps = TIconClickableCustomProps & {
   clickableProps?: React.ComponentProps<'div'>

@@ -1,7 +1,8 @@
+import { format } from 'date-fns'
 import { useTranslation } from 'react-i18next'
+
 import { Button } from '@renderer/components/Button'
 import { DatePicker } from '@renderer/components/DatePicker'
-import { format } from 'date-fns'
 
 import MdCalendarMonth from '@renderer/assets/images/md-calendar-month.svg?react'
 import MdChevronRight from '@renderer/assets/images/md-chevron-right.svg?react'

@@ -1,9 +1,11 @@
-import { ChangeEvent } from 'react'
-import { useTranslation } from 'react-i18next'
 import { BSKeychainHelper } from '@cityofzion/blockchain-service'
+import type { ChangeEvent } from 'react'
+import { useTranslation } from 'react-i18next'
+
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TUseImportActionInputType } from '@shared/types/hooks'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TUseImportActionInputType } from '@shared/types/hooks'
 
 import { useAccountUtils } from './useAccountUtils'
 import { useActions } from './useActions'

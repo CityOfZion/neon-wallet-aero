@@ -1,13 +1,16 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { IconButton } from '@renderer/components/IconButton'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
-import { ScreenLayout } from './ScreenLayout'
+import { IconButton } from '@renderer/components/IconButton'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
+import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
+
+import { ScreenLayout } from './ScreenLayout'
 
 type TProps = {
   title: string

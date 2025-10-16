@@ -1,6 +1,7 @@
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
-import { IAccountState, TAccountWithWallet } from '@shared/types/store'
+
+import type { IAccountState, TAccountWithWallet } from '@shared/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
 

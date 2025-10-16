@@ -1,9 +1,11 @@
-import type { RefObject } from 'react'
 import { useRef } from 'react'
+
+import type { RefObject } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootStore } from '@renderer/store/RootStore'
-import type { TRootState, TTypedCreateSelector } from '@shared/types/redux'
 import { createSelector } from 'reselect'
+
+import type { RootStore } from '@renderer/store/RootStore'
+import type { TRootState, TTypedCreateSelector } from '@shared/types/redux'
 
 export const useAppDispatch: () => typeof RootStore.store.dispatch = useDispatch
 

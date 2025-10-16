@@ -1,10 +1,15 @@
-import { RefObject, useRef } from 'react'
+import { useRef } from 'react'
+
+import type { RefObject } from 'react'
 import { useSelector } from 'react-redux'
+
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
+
 import { createAppSelector } from '@renderer/hooks/useRedux'
+
 import type { TRootState } from '@shared/types/redux'
-import { IAccountState } from '@shared/types/store'
+import type { IAccountState } from '@shared/types/store'
 
 const selectAccounts = createAppSelector(
   [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],

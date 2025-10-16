@@ -1,5 +1,6 @@
-import { ReactNode } from 'react'
 import * as RadixTooltip from '@radix-ui/react-tooltip'
+import type { ReactNode } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 type TProps = {

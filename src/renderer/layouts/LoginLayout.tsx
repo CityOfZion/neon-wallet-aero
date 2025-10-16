@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { ScreenLayout, TMainLayoutProps } from './ScreenLayout'
-
 import NeonWalletFullImage from '@renderer/assets/images/neon-wallet-full.svg?react'
+
+import type { TMainLayoutProps } from './ScreenLayout'
+import { ScreenLayout } from './ScreenLayout'
 
 type TProps = TMainLayoutProps
 

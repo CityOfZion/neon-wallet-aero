@@ -1,11 +1,13 @@
 import { BackgroundHelper } from '@renderer/helpers/BackgroundHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+
 import { useAppDispatch } from '@renderer/hooks/useRedux'
+
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { LOGIN_CONTROL_VALUE } from '@shared/constants/password'
-import { TBackgroundSaveLoginSessionMessage } from '@shared/types/background-events'
-import { TLoginSession } from '@shared/types/store'
+import type { TBackgroundSaveLoginSessionMessage } from '@shared/types/background-events'
+import type { TLoginSession } from '@shared/types/store'
 
 export const useNewPassword = () => {
   const dispatch = useAppDispatch()

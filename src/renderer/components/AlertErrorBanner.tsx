@@ -1,4 +1,8 @@
-import React, { cloneElement, ComponentProps } from 'react'
+import { cloneElement } from 'react'
+
+import type { ComponentProps } from 'react'
+import type React from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import TbAlertTriangle from '@renderer/assets/images/tb-alert-triangle.svg?react'

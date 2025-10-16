@@ -1,19 +1,23 @@
 import { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
+
 import { hasExplorerService } from '@cityofzion/blockchain-service'
+import type { Query, QueryClient } from '@tanstack/react-query'
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
+import * as dateFns from 'date-fns'
+import cloneDeep from 'lodash/cloneDeep'
+import { useTranslation } from 'react-i18next'
+
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TNetwork } from '@shared/types/blockchain'
-import {
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TNetwork } from '@shared/types/blockchain'
+import type {
   TFullTransactionAssetEvent,
   TFullTransactionsByAddressResponse,
   TFullTransactionsGroupedDataByDate,
   TFullTransactionsItem,
 } from '@shared/types/hooks'
-import { IAccountState, TSelectedNetworks } from '@shared/types/store'
-import { Query, QueryClient, useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
-import * as dateFns from 'date-fns'
-import cloneDeep from 'lodash/cloneDeep'
+import type { IAccountState, TSelectedNetworks } from '@shared/types/store'
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'

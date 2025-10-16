@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+
 import { PasswordHelper } from '@renderer/helpers/PasswordHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 

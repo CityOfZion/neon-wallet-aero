@@ -1,8 +1,10 @@
-import { useTranslation } from 'react-i18next'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { QRCodeSVG } from 'qrcode.react'
+import { useTranslation } from 'react-i18next'
 
-import { Button, TButtonProps } from './Button'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+
+import type { TButtonProps } from './Button'
+import { Button } from './Button'
 
 type TProps = {
   onDownload?: () => Promise<void>

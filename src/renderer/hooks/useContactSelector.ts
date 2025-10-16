@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
+
 import { ContactsHelper } from '@renderer/helpers/ContactsHelper'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
-import { TContactState } from '@shared/types/store'
+
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TContactState } from '@shared/types/store'
 
 import { useLoginSessionSelector } from './useAuthSelector'
 import { createAppSelector, useAppSelector } from './useRedux'

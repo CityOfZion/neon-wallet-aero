@@ -1,10 +1,13 @@
 import { useTranslation } from 'react-i18next'
+
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from './useActions'
-import { TUseNeonBackupData, useNeonImportBackup } from './useNeonBackup'
-import { TUseNeonMigrateData, useNeonImportMigrate } from './useNeonMigrate'
+import type { TUseNeonBackupData } from './useNeonBackup'
+import { useNeonImportBackup } from './useNeonBackup'
+import type { TUseNeonMigrateData } from './useNeonMigrate'
+import { useNeonImportMigrate } from './useNeonMigrate'
 
 export type TUseBackupOrMigrateActionsData = {
   path?: string

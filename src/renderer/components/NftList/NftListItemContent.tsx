@@ -1,14 +1,17 @@
 import { Fragment, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { TNftResponse } from '@cityofzion/blockchain-service'
-import { StringHelper } from '@renderer/helpers/StringHelper'
-import { IAccountState } from '@shared/types/store'
 
-import { BlockchainIcon } from '../BlockchainIcon'
-import { Tooltip } from '../Tooltip'
+import type { TNftResponse } from '@cityofzion/blockchain-service'
+import { useTranslation } from 'react-i18next'
+
+import { StringHelper } from '@renderer/helpers/StringHelper'
 
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbDiamond from '@renderer/assets/images/tb-diamond.svg?react'
+
+import type { IAccountState } from '@shared/types/store'
+
+import { BlockchainIcon } from '../BlockchainIcon'
+import { Tooltip } from '../Tooltip'
 
 type TProps = {
   selectedAccount: IAccountState

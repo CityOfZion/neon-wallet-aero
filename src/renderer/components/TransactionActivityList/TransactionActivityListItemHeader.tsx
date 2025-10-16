@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { TFullTransactionsItem } from '@shared/types/hooks'
-import { TMigrationNeo3 } from '@shared/types/store'
+
+import type { TFullTransactionsItem } from '@shared/types/hooks'
+import type { TMigrationNeo3 } from '@shared/types/store'
 
 import { TransactionActivityListItemHeaderContent } from './TransactionActivityListItemHeaderContent'
 

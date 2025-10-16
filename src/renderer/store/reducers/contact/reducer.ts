@@ -1,8 +1,9 @@
-import { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
-import { TContactEncryptedAddress, TContactState } from '@shared/types/store'
+import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import { cloneDeep } from 'lodash'
 
-import { IContactReducer } from '.'
+import type { TContactEncryptedAddress, TContactState } from '@shared/types/store'
+
+import type { IContactReducer } from '.'
 
 const saveContact: CaseReducer<IContactReducer, PayloadAction<TContactState<TContactEncryptedAddress>>> = (
   state,

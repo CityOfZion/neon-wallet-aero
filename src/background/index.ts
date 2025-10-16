@@ -1,7 +1,8 @@
 import { QueryParamsHelper } from '@renderer/helpers/QueryParamsHelper'
 import { TabsHelper } from '@renderer/helpers/TabsHelper'
-import { TBackgroundGetLoginSessionResponse, TBackgroundMessage } from '@shared/types/background-events'
-import { TLoginSession } from '@shared/types/store'
+
+import type { TBackgroundGetLoginSessionResponse, TBackgroundMessage } from '@shared/types/background-events'
+import type { TLoginSession } from '@shared/types/store'
 
 let loginSession: TLoginSession | undefined
 

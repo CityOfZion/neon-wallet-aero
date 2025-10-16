@@ -1,16 +1,19 @@
+import type { IBlockchainService } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
-import { IBlockchainService } from '@cityofzion/blockchain-service'
+
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { useExchange } from '@renderer/hooks/useExchange'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
+
+import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
+
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { ActionStep } from './ActionStep'
 import { Loader } from './Loader'
-
-import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 
 type TProps = {
   fee?: string

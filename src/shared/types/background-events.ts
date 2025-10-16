@@ -1,4 +1,4 @@
-import { TLoginSession } from '@shared/types/store'
+import type { TLoginSession } from '@shared/types/store'
 
 export type TBackgroundSaveLoginSessionMessage = {
   type: 'save-login-session'

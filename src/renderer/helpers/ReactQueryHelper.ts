@@ -3,9 +3,10 @@ import {
   buildGetFullTransactionsAggregatedQueryKey,
   buildGetFullTransactionsQueryKey,
 } from '@renderer/hooks/useGetFullTransactions'
+
 import { queryClient } from '@renderer/libs/query'
-import { TNetwork } from '@shared/types/blockchain'
-import { IAccountState } from '@shared/types/store'
+import type { TNetwork } from '@shared/types/blockchain'
+import type { IAccountState } from '@shared/types/store'
 
 type TInvalidateTransactionQueryParams = {
   account: IAccountState

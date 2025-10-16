@@ -1,9 +1,11 @@
 import { Separator } from '@renderer/components/Separator'
+
 import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useMigrationNeo3Selector } from '@renderer/hooks/useUtilitySelector'
+
 import { thunks } from '@renderer/store/thunks'
-import { TFullTransactionsItem } from '@shared/types/hooks'
+import type { TFullTransactionsItem } from '@shared/types/hooks'
 
 import { TransactionActivityListEvent } from './TransactionActivityListEvent'
 import { TransactionActivityListItemHeader } from './TransactionActivityListItemHeader'

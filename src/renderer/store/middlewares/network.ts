@@ -1,7 +1,8 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
-import { bsAggregator } from '@renderer/libs/blockchainService'
-import { TRootState } from '@shared/types/redux'
 import { REHYDRATE } from 'redux-persist'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import type { TRootState } from '@shared/types/redux'
 
 import { settingsReducerActions } from '../reducers/settings'
 

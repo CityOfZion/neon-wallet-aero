@@ -1,16 +1,15 @@
-import React, { MouseEvent } from 'react'
+import { format } from 'date-fns'
+import type { MouseEvent } from 'react'
+import type React from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { IconButton } from '@renderer/components/IconButton'
+
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useSwapRecordSelector } from '@renderer/hooks/useUtilitySelector'
-import { TFullTransactionsItem } from '@shared/types/hooks'
-import { TMigrationNeo3 } from '@shared/types/store'
-import { format } from 'date-fns'
-
-import { TransactionActivityListItemHeaderDetails } from './TransactionActivityListItemHeaderDetails'
-import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 import MdCoffee from '@renderer/assets/images/md-coffee.svg?react'
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
@@ -18,6 +17,12 @@ import TbArrowsExchange from '@renderer/assets/images/tb-arrows-exchange.svg?rea
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbClock from '@renderer/assets/images/tb-clock.svg?react'
 import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
+
+import type { TFullTransactionsItem } from '@shared/types/hooks'
+import type { TMigrationNeo3 } from '@shared/types/store'
+
+import { TransactionActivityListItemHeaderDetails } from './TransactionActivityListItemHeaderDetails'
+import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 type TProps = {
   item: TFullTransactionsItem

@@ -1,6 +1,8 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
+
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
 
 import { ContextMenu } from './ContextMenu'

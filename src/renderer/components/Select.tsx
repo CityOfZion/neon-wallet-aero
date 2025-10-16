@@ -1,5 +1,8 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef, Fragment } from 'react'
+import { forwardRef, Fragment } from 'react'
+
 import * as SelectPrimitive from '@radix-ui/react-select'
+import type { ComponentPropsWithoutRef, ElementRef } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import FiCheck from '@renderer/assets/images/fi-check.svg?react'

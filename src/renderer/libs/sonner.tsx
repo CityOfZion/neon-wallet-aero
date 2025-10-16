@@ -1,8 +1,12 @@
-import { cloneElement, ReactNode } from 'react'
+import { cloneElement } from 'react'
+
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Loader } from '@renderer/components/Loader'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { toast, Toaster } from 'sonner'
+
+import { Loader } from '@renderer/components/Loader'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import MdCheckCircleOutline from '@renderer/assets/images/md-check-circle-outline.svg?react'
 import MdClose from '@renderer/assets/images/md-close.svg?react'

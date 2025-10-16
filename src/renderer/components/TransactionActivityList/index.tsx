@@ -1,12 +1,17 @@
 import { useRef } from 'react'
+
+import * as dateFns from 'date-fns'
+import { match } from 'ts-pattern'
+
 import { Separator } from '@renderer/components/Separator'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { useActions } from '@renderer/hooks/useActions'
 import { useGetFullTransactions } from '@renderer/hooks/useGetFullTransactions'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
-import { IAccountState } from '@shared/types/store'
-import * as dateFns from 'date-fns'
-import { match } from 'ts-pattern'
+
+import type { IAccountState } from '@shared/types/store'
 
 import { TransactionActivityListDateRange } from './TransactionActivityListDateRange'
 import { TransactionActivityListEmpty } from './TransactionActivityListEmpty'

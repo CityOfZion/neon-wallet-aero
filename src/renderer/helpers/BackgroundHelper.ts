@@ -1,4 +1,4 @@
-import { TBackgroundMessage } from '@shared/types/background-events'
+import type { TBackgroundMessage } from '@shared/types/background-events'
 
 export class BackgroundHelper {
   static async send<T extends TBackgroundMessage, D = void>(message: T): Promise<D> {

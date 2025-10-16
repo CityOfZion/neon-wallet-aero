@@ -1,9 +1,12 @@
 import { Fragment } from 'react/jsx-runtime'
 import { useTranslation } from 'react-i18next'
+
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { TContactState } from '@shared/types/store'
+
+import type { TContactState } from '@shared/types/store'
 
 import { Button } from '../Button'
 import { Separator } from '../Separator'

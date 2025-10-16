@@ -1,13 +1,16 @@
 import { useTranslation } from 'react-i18next'
+import zod from 'zod'
+
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
-import { doesBlockchainSupported } from '@renderer/libs/blockchainService'
+
+import { doesBlockchainSupported } from '@renderer/libs/blockchain-service'
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { BACKUP_FILE_EXTENSION, BACKUP_VERSION } from '@shared/constants/backup'
-import { TAccountsToImport, TCreateWalletAndAccountParam } from '@shared/types/blockchain'
-import {
+import type { TAccountsToImport, TCreateWalletAndAccountParam } from '@shared/types/blockchain'
+import type {
   IAccountState,
   IWalletState,
   TAccountType,
@@ -17,7 +20,6 @@ import {
   TSkin,
   TSwapRecord,
 } from '@shared/types/store'
-import zod from 'zod'
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useAccountUtils } from './useAccountUtils'

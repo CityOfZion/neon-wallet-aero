@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { FLUSH, PAUSE, PERSIST, Persistor, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
+import type { Persistor } from 'redux-persist'
+import { FLUSH, PAUSE, PERSIST, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 
 import { getLanguageMiddleware } from './middlewares/language'
 import { getNetworkMiddleware } from './middlewares/network'

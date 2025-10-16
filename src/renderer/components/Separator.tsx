@@ -1,4 +1,5 @@
-import { ComponentProps } from 'react'
+import type { ComponentProps } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 type TProps = ComponentProps<'div'> & {

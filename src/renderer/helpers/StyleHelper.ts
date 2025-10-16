@@ -1,4 +1,5 @@
-import classNames, { ArgumentArray } from 'classnames'
+import type { ArgumentArray } from 'classnames'
+import classNames from 'classnames'
 import { twMerge } from 'tailwind-merge'
 
 export class StyleHelper {

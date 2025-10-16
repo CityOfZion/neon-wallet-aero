@@ -1,4 +1,6 @@
-import { GateFiLangEnum, GateFiThemeType } from '@gatefi/js-sdk'
+import type { GateFiThemeType } from '@gatefi/js-sdk'
+import { GateFiLangEnum } from '@gatefi/js-sdk'
+
 import { EnvHelper } from '@renderer/helpers/EnvHelper'
 
 const merchantId = EnvHelper.VITE_UNLIMIT_MERCHANT_ID

@@ -1,12 +1,15 @@
-import { ChangeEventHandler, forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
-import { useTranslation } from 'react-i18next'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
 
-import { FieldActionsMenu } from './FieldActionsMenu'
-import { IconButton } from './IconButton'
+import type { ChangeEventHandler } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import MdCancel from '@renderer/assets/images/md-cancel.svg?react'
 import MdContentPasteGo from '@renderer/assets/images/md-content-paste-go.svg?react'
+
+import { FieldActionsMenu } from './FieldActionsMenu'
+import { IconButton } from './IconButton'
 
 type TProps = React.ComponentProps<'textarea'> & {
   containerClassName?: string

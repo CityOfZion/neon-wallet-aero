@@ -1,4 +1,7 @@
-import { ComponentProps, ReactEventHandler, useState } from 'react'
+import { useState } from 'react'
+
+import type { ComponentProps, ReactEventHandler } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { Loader } from './Loader'

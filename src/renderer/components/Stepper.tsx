@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 export type TStepperCurrentState = 'success' | 'error'

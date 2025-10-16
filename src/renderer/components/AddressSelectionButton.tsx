@@ -1,6 +1,7 @@
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { TBlockchainServiceKey } from '@shared/types/blockchain'
+
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { BlockchainIcon } from './BlockchainIcon'
 import { Button } from './Button'

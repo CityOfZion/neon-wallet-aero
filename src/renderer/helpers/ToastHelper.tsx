@@ -1,7 +1,10 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import type { ToastT } from 'sonner'
+import { toast } from 'sonner'
+
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+
 import { ErrorToast, InfoToast, PromiseToast, SuccessToast } from '@renderer/libs/sonner'
-import { toast, ToastT } from 'sonner'
 
 type TToastOptions = Omit<ToastT, 'id'> & {
   message: ReactNode

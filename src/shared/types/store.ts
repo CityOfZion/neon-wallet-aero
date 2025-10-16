@@ -1,8 +1,23 @@
-import { TBSToken, TSwapServiceStatusResponse, TSwapToken, TTransactionResponse } from '@cityofzion/blockchain-service'
-import { TNeo3NeoLegacyMigrationNeo3Amounts, TNeo3NeoLegacyMigrationNeoLegacyAmounts } from '@cityofzion/bs-neo-legacy'
+import type {
+  TBSToken,
+  TSwapServiceStatusResponse,
+  TSwapToken,
+  TTransactionResponse,
+} from '@cityofzion/blockchain-service'
+import type {
+  TNeo3NeoLegacyMigrationNeo3Amounts,
+  TNeo3NeoLegacyMigrationNeoLegacyAmounts,
+} from '@cityofzion/bs-neo-legacy'
 
-import { TBlockchainServiceKey, TNetwork } from './blockchain'
-import { Optional } from './generics'
+import type { TBlockchainServiceKey, TNetwork } from './blockchain'
+import type { Optional } from './generics'
+
+export type TAvailableLanguages = 'English' | '简体中文' | '繁體中文'
+
+export type TLanguage = {
+  value: string
+  label: TAvailableLanguages
+}
 
 export type TContactEncryptedAddress = {
   encryptedAddress: string

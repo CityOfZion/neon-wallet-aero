@@ -1,17 +1,20 @@
+import type { TSession } from '@cityofzion/wallet-connect-sdk-wallet-react'
+import { useWalletConnectWallet } from '@cityofzion/wallet-connect-sdk-wallet-react'
 import { useTranslation } from 'react-i18next'
-import { TSession, useWalletConnectWallet } from '@cityofzion/wallet-connect-sdk-wallet-react'
+
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { WalletConnectHelper } from '@renderer/helpers/WalletConnectHelper'
+
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { IAccountState } from '@shared/types/store'
-
-import { Button } from '../Button'
-
-import { DappConnectionItem } from './DappConnectionItem'
-import { DappConnectionListEmpty } from './DappConnectionListEmpty'
 
 import TbPlug from '@renderer/assets/images/tb-plug.svg?react'
 import TbPlugX from '@renderer/assets/images/tb-plug-x.svg?react'
+
+import type { IAccountState } from '@shared/types/store'
+
+import { Button } from '../Button'
+import { DappConnectionItem } from './DappConnectionItem'
+import { DappConnectionListEmpty } from './DappConnectionListEmpty'
 
 type TProps = {
   selectedAccount: IAccountState

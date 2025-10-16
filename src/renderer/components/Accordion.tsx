@@ -1,5 +1,8 @@
-import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react'
+import { forwardRef } from 'react'
+
 import * as RadixAccordion from '@radix-ui/react-accordion'
+import type { ComponentPropsWithoutRef, ComponentRef } from 'react'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import MdExpandMore from '@renderer/assets/images/md-expand-more.svg?react'

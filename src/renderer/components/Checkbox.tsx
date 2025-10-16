@@ -1,5 +1,7 @@
 import { forwardRef } from 'react'
+
 import * as RadixCheckbox from '@radix-ui/react-checkbox'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import FiCheck from '@renderer/assets/images/fi-check.svg?react'
