@@ -49,6 +49,7 @@ export const TransactionActivityListItemHeaderContent = ({
   }
 
   const handleGoToSwapDetails = () => {
+    if (!swapRecord) return
     modalNavigate('swap-details', { state: { swapRecord } })
   }
 

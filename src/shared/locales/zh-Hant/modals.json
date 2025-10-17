@@ -427,5 +427,28 @@
     "text": "很抱歉，您的交易無法處理。",
     "errorMessageLabel": "錯誤訊息",
     "unknownError": "未知錯誤"
+  },
+  "swapDetails": {
+    "title": "您的兌換",
+    "detailsHeaderLabel": "詳情",
+    "statusPanelSteps": ["確認", "兌換", "完成"],
+    "routingPanelLabel": "路由",
+    "routingPanelTransactionFromLabel": "從",
+    "routingPanelTransactionToLabel": "到",
+    "routingPanelTransactionToPendingLabel": "處理中…",
+    "sentPanelTokenLabel": "代幣",
+    "sentPanelAddressLabel": "發送地址",
+    "receivePanelTokenLabel": "代幣",
+    "receivePanelAddressLabel": "接收地址",
+    "extraIdToLabel": "目標標籤/備註",
+    "helpButtonLabel": "需要協助？與我們聯絡",
+    "swapLogButtonLabel": "兌換紀錄",
+    "saveContactButtonLabel": "保存聯絡人",
+    "contactSavedTooltipLabel": "{{name}} 已被保存到您的聯絡人中。"
+  },
+  "swapDetailsLog": {
+    "title": "兌換紀錄",
+    "copySwapLogLabel": "複製兌換紀錄到剪貼簿",
+    "thereIsNoLogLabel": "沒有兌換紀錄"
   }
 }
