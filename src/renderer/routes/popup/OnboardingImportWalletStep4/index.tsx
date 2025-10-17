@@ -10,7 +10,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useNewPassword } from '@renderer/hooks/useNewPassword'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 

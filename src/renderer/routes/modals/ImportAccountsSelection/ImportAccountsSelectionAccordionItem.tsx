@@ -27,7 +27,7 @@ export const ImportAccountsSelectionAccordionItem = ({
   selectedAccounts,
   onSelect,
 }: TProps) => {
-  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelectionModal.accordionItem' })
+  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection.accordionItem' })
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { doesAccountExist } = useAccountUtils()
 

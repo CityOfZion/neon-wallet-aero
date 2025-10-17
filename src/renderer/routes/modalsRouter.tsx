@@ -16,6 +16,10 @@ const CreateWalletStep4Modal = lazy(() => import('./modals/CreateWalletStep4'))
 const DappConnectionModal = lazy(() => import('./modals/DappConnection'))
 const DappConnectionRequestModal = lazy(() => import('./modals/DappConnectionRequest'))
 const DappDisconnectionModal = lazy(() => import('./modals/DappDisconnection'))
+const DappPermissionModal = lazy(() => import('./modals/DappPermission'))
+const DappPermissionContractDetailsModal = lazy(() => import('./modals/DappPermissionContractDetails'))
+const DappPermissionSignatureScopeModal = lazy(() => import('./modals/DappPermissionSignatureScope'))
+
 const DecryptKeyModal = lazy(() => import('./modals/DecryptKey'))
 const DeleteContactModal = lazy(() => import('./modals/DeleteContact'))
 const DeleteContactAddressModal = lazy(() => import('./modals/DeleteContactAddress'))
@@ -29,6 +33,7 @@ const NetworkNodeSelectionModal = lazy(() => import('./modals/NetworkNodeSelecti
 const NetworkSelectionModal = lazy(() => import('./modals/NetworkSelection'))
 const SaveContactModal = lazy(() => import('./modals/SaveContact'))
 const SuccessModal = lazy(() => import('./modals/Success'))
+const ErrorModal = lazy(() => import('./modals/Error'))
 const SwapAboutExtraIdToReceiveModal = lazy(() => import('./modals/SwapAboutExtraIdToReceive'))
 const SwapConfirmationModal = lazy(() => import('./modals/SwapConfirmation'))
 const SwapDetailsModal = lazy(() => import('./modals/SwapDetails'))
@@ -65,10 +70,14 @@ export const modalsRouter: TRoute[] = [
   { name: 'migrate-from-neon2-3', type: 'bottom', element: MigrateFromNeon2Step3Modal },
   { name: 'migrate-from-neon2-4', type: 'bottom', element: MigrateFromNeon2Step4Modal },
   { name: 'success', type: 'bottom', element: SuccessModal },
+  { name: 'error', type: 'bottom', element: ErrorModal },
   { name: 'contact-details', type: 'bottom', element: ContactDetailsModal },
   { name: 'dapp-connection', type: 'bottom', element: DappConnectionModal },
   { name: 'dapp-connection-request', type: 'bottom', element: DappConnectionRequestModal },
   { name: 'dapp-disconnection', type: 'bottom', element: DappDisconnectionModal },
+  { name: 'dapp-permission', type: 'bottom', element: DappPermissionModal },
+  { name: 'dapp-permission-contract-details', type: 'bottom', element: DappPermissionContractDetailsModal },
+  { name: 'dapp-permission-signature-scope', type: 'bottom', element: DappPermissionSignatureScopeModal },
   { name: 'save-contact', type: 'bottom', element: SaveContactModal },
   { name: 'contact-address-form', type: 'bottom', element: ContactAddressFormModal },
   { name: 'delete-contact', type: 'bottom', element: DeleteContactModal },

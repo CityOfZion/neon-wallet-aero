@@ -39,7 +39,7 @@ export const ChangePasswordStep2Page = () => {
   } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
 
-  const { handlePress, isPressing } = usePressOnce(async () => {
+  const [isDownloading, startDownload] = usePressOnce(async () => {
     try {
       const loginSession = loginSessionRef.current
 
@@ -103,9 +103,9 @@ export const ChangePasswordStep2Page = () => {
         variant="card"
         className="w-full"
         password={newPassword}
-        loading={isPressing}
+        loading={isDownloading}
         rightIcon={<TbDownload aria-hidden />}
-        onDownload={handlePress()}
+        onDownload={startDownload()}
       />
     </div>
   )

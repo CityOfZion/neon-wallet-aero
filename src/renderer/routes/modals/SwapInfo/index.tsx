@@ -5,7 +5,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
 export const SwapInfoModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'swapInfoModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'swapInfo' })
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="mb-3 flex flex-grow flex-col items-center justify-between px-4">

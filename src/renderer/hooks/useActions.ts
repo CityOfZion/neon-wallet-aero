@@ -148,6 +148,8 @@ export const useActions = <T extends TUseActionsData>(initialData: T, options?: 
     return async (event: FormEvent | MouseEvent) => {
       event.preventDefault()
 
+      if (actionStateRef.current.isActing) return
+
       try {
         setPrivateActionState(prev => ({ ...prev, isActing: true }))
         await callback(actionDataRef.current)

@@ -20,7 +20,7 @@ type TActionsData = {
 }
 
 export const DecryptKeyModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'decryptKeyModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'decryptKey' })
   const { heading, description, encryptedKey, blockchain, onSubmit } = useModalState<TModalState<'decrypt-key'>>()
 
   const {

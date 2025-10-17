@@ -27,7 +27,7 @@ type TActionData = {
 }
 
 export const ContactAddressFormModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'contactAddressFormModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'contactAddressForm' })
   const { name, initialAddress, onSaveAddress } = useModalState<TModalState<'contact-address-form'>>()
   const { modalNavigate } = useModalNavigate()
 

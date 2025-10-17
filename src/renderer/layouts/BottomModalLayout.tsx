@@ -14,7 +14,8 @@ import TbX from '@renderer/assets/images/tb-x.svg?react'
 type TProps = {
   heading: string
   hideBackButton?: boolean
-  onClose?: () => Promise<void>
+  onClose?: () => Promise<void> | void
+  onErase?: () => Promise<void> | void
   contentClassName?: string
 } & ComponentProps<'div'>
 
@@ -24,6 +25,7 @@ export const BottomModalLayout = ({
   className,
   hideBackButton = false,
   onClose,
+  onErase,
   contentClassName,
   ...props
 }: TProps) => {
@@ -43,6 +45,7 @@ export const BottomModalLayout = ({
 
   const handleClose = async () => {
     onClose?.()
+    onErase?.()
     modalErase('bottom')
   }
 

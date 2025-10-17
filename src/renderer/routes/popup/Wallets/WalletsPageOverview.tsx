@@ -17,7 +17,6 @@ import { TransactionActivityList } from '@renderer/components/TransactionActivit
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { TabsHelper } from '@renderer/helpers/TabsHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -32,6 +31,7 @@ import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
+import { rendererApi } from '@shared/message-api/renderer'
 import type { IAccountState, IWalletState } from '@shared/types/store'
 
 import { WalletPageClaimButton } from './WalletsPageClaimButton'
@@ -74,9 +74,12 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
   }
 
   const handleBuyAndSellTokensNavigation = async () => {
-    await TabsHelper.openTab('/buy-and-sell-tokens', {
-      'account-address': selectedAccount.address,
-      'account-blockchain': selectedAccount.blockchain,
+    await rendererApi.send('tab:open', {
+      path: '/buy-and-sell-tokens',
+      query: {
+        'account-address': selectedAccount.address,
+        'account-blockchain': selectedAccount.blockchain,
+      },
     })
   }
 

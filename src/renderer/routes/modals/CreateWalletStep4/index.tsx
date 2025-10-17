@@ -14,7 +14,7 @@ import TbEye from '@renderer/assets/images/tb-eye.svg?react'
 import type { TModalState } from '@shared/types/modal'
 
 export const CreateWalletStep4Modal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep4Modal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep4' })
   const { selectedWallet } = useModalState<TModalState<'create-wallet-4'>>()
   const { accountsByWalletId } = useAccountsByWalletIdSelector(selectedWallet.id)
   const { modalErase } = useModalNavigate()

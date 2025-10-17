@@ -1,4 +1,11 @@
 {
+  "private": {
+    "walletConnectManagerSetup": {
+      "autoAcceptProcessingMessage": "WalletConnect request being processed…",
+      "autoAcceptSuccessMessage": "WalletConnect request successfully processed",
+      "autoAcceptErrorMessage": "WalletConnect request processing failed"
+    }
+  },
   "wallets": {
     "placeholderWalletSelectButton": "Select a wallet…",
     "placeholderAccountSelectButton": "Select an account…",
@@ -99,7 +106,11 @@
   "onboardingLoginNewWallet": {
     "description": "Securing your new wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": ["Create Password", "Confirm Password", "Complete"]
+    "steps": [
+      "Create Password",
+      "Confirm Password",
+      "Complete"
+    ]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Enter password",
@@ -123,7 +134,13 @@
     "title": "Import a wallet",
     "description": "Please create a password to secure your wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": ["Create Password", "Confirm Password", "Add details or locate file", "Import", "Complete"],
+    "steps": [
+      "Create Password",
+      "Confirm Password",
+      "Add details or locate file",
+      "Import",
+      "Complete"
+    ],
     "migrationLabel": "Locate your migration file",
     "step3": {
       "formTitle": "Enter an address, encrypted key, private key, mnemonic or locate backup file",

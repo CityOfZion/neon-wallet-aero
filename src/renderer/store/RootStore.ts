@@ -38,7 +38,24 @@ export class RootStore {
 
     RootStore.store = store
     RootStore.persistor = persistStore(store)
-
     return store
+  }
+
+  static waitForBootstrap(): Promise<void> {
+    return new Promise(resolve => {
+      const { bootstrapped } = RootStore.persistor.getState()
+      if (bootstrapped) {
+        resolve()
+        return
+      }
+
+      const unsubscribe = RootStore.persistor.subscribe(() => {
+        const { bootstrapped } = RootStore.persistor.getState()
+        if (bootstrapped) {
+          unsubscribe()
+          resolve()
+        }
+      })
+    })
   }
 }

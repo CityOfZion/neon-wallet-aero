@@ -8,7 +8,8 @@
     "close": "Close",
     "back": "Back",
     "pasteFromClipboard": "Paste from clipboard",
-    "pasteFromClipboardError": "Failed to read from clipboard",
+    "copyToClipboard": "Copy to clipboard",
+    "copy": "Copy",
     "menuIconButtonAriaLabel": "Menu",
     "downloadQRCodePassword": "Download password QR code",
     "remove": "Remove",
@@ -44,8 +45,7 @@
     "base": "Base",
     "arbitrum": "Arbitrum"
   },
-  "walletConnect": {
-    "name": "Neon Wallet",
-    "description": "Create and organize wallets, or easily import your existing ones, to safely manage and transfer your assets across accounts with Neon’s slick interface."
+  "errors": {
+    "noLoginSession": "You need to log in to access this feature."
   }
 }

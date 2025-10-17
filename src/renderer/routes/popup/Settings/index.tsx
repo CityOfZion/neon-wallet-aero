@@ -8,7 +8,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
 import BsCash from '@renderer/assets/images/bs-cash.svg?react'
-import Tb3dCubeSphere from '@renderer/assets/images/tb-3d-cube-sphere.svg?react'
+import Tb3dCubeSphere from '@renderer/assets/images/tb-cube-3d-sphere.svg?react'
 import TbDeviceFloppy from '@renderer/assets/images/tb-device-floppy.svg?react'
 import TbLock from '@renderer/assets/images/tb-lock.svg?react'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'

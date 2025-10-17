@@ -94,10 +94,12 @@
   },
   "dappConnectionList": {
     "empty": "No connections to display",
-    "dappApprovedDate": "dd/MM/yyyy HH:mm",
-    "connectNewDappButtonLabel": "New connection",
+    "dappDateFormat": "dd/MM/yyyy HH:mm",
+    "connectNewDappButtonLabel": "Create new connection",
     "disconnectionAllButtonLabel": "Disconnect all",
-    "disconnectButtonLabel": "Disconnect"
+    "disconnectButtonLabel": "Disconnect",
+    "nameHeaderLabel": "Name",
+    "expiresInHeaderLabel": "Expires in"
   },
   "blockchainSelect": {
     "selectPlaceholder": "Select a blockchain…"

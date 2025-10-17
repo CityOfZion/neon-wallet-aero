@@ -18,7 +18,7 @@ type TActionsData = {
 }
 
 export const BlockchainSelectionModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'blockchainSelectionModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'blockchainSelection' })
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { heading, description, onSubmit } = useModalState<TModalState<'blockchain-selection'>>()
 

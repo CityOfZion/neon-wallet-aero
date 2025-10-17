@@ -25,7 +25,7 @@ import type { TModalState } from '@shared/types/modal'
 import type { IAccountState } from '@shared/types/store'
 
 export const AccountSelectionModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'accountSelectionModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'accountSelection' })
   const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()

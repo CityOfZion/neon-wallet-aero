@@ -8,7 +8,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { useAccountUtils } from '@renderer/hooks/useAccountUtils'
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
@@ -27,7 +27,7 @@ type TProps = {
 }
 
 export const ImportAccountsSelectionAddress = ({ value, onSubmit }: TProps) => {
-  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelectionModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection' })
   const { modalErase } = useModalNavigate()
   const { doesAccountExist } = useAccountUtils()
 

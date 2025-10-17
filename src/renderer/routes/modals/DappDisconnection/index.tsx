@@ -1,31 +1,38 @@
-import type { TSession } from '@cityofzion/wallet-connect-sdk-wallet-react'
-import { useWalletConnectWallet } from '@cityofzion/wallet-connect-sdk-wallet-react'
+import { WalletKitHelper } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
+import { usePressOnce } from '@renderer/hooks/usePressOnce'
+import { invalidateWalletConnectSessions } from '@renderer/hooks/useWalletConnectSessions'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbPlugX from '@renderer/assets/images/tb-plug-x.svg?react'
 
+import { rendererApi } from '@shared/message-api/renderer'
 import type { TModalState } from '@shared/types/modal'
 
 export const DappDisconnectionModal = () => {
-  const { disconnect } = useWalletConnectWallet()
   const { sessions } = useModalState<TModalState<'dapp-disconnection'>>()
-  const { t } = useTranslation('modals', { keyPrefix: 'dappDisconnectionModal' })
-  const { modalNavigate } = useModalNavigate()
+  const { t } = useTranslation('modals', { keyPrefix: 'dappDisconnection' })
+  const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
 
-  const handleDisconnect = async (session: TSession) => {
-    await disconnect(session)
-    modalNavigate(-1)
-  }
+  const [isDisconnecting, startDisconnect] = usePressOnce()
 
-  const handleDisconnectAll = () => {
-    Promise.allSettled(sessions.map(async session => await disconnect(session)))
+  const handleDisconnect = async () => {
+    await Promise.allSettled(
+      sessions.map(
+        async session =>
+          await rendererApi.send('wallet-connect:disconnect', {
+            topic: session.topic,
+            reason: WalletKitHelper.getError('USER_DISCONNECTED'),
+          })
+      )
+    )
+    await invalidateWalletConnectSessions()
     modalNavigate(-1)
   }
 
@@ -64,29 +71,19 @@ export const DappDisconnectionModal = () => {
             className="w-full"
             variant="contained"
             label={t('cancel')}
-            onClick={() => modalNavigate(-1)}
+            onClick={modalNavigateWrapper(-1)}
             colorSchema="gray"
           />
 
-          {sessions.length === 1 ? (
-            <Button
-              className="w-full"
-              variant="outlined"
-              label={t('disconnect')}
-              leftIcon={<TbPlugX aria-hidden />}
-              colorSchema="error"
-              onClick={() => handleDisconnect(sessions[0])}
-            />
-          ) : (
-            <Button
-              className="w-full"
-              variant="outlined"
-              label={t('disconnect')}
-              leftIcon={<TbPlugX aria-hidden />}
-              colorSchema="error"
-              onClick={() => handleDisconnectAll()}
-            />
-          )}
+          <Button
+            className="w-full"
+            variant="outlined"
+            label={t('disconnect')}
+            leftIcon={<TbPlugX aria-hidden />}
+            colorSchema="error"
+            loading={isDisconnecting}
+            onClick={startDisconnect(handleDisconnect)}
+          />
         </div>
       </div>
     </BottomModalLayout>

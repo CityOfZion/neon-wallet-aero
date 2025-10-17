@@ -1,6 +1,6 @@
 import isEqual from 'lodash/isEqual'
 
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useLazyPingNodes } from '@renderer/hooks/useNodes'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'

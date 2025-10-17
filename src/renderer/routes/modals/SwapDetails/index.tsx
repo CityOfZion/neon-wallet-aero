@@ -70,10 +70,9 @@ export const SwapDetailsModal = () => {
         <Accordion.Root type="multiple" className="w-full">
           <Accordion.Item value="details">
             <Details.Root>
-              <Details.Header
-                label={t('detailsHeaderLabel')}
-                icon={<TbReceipt aria-hidden className="text-blue h-4 min-h-4 w-4 min-w-4" />}
-              />
+              <Details.Header leftElement={<TbReceipt aria-hidden className="min-size-4 size-4" />}>
+                {t('detailsHeaderLabel')}
+              </Details.Header>
               <Details.Body>
                 <Stepper
                   className="mt-4 mb-10 px-14"

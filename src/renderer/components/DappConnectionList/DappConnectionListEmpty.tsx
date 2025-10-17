@@ -4,7 +4,7 @@ export const DappConnectionListEmpty = () => {
   const { t } = useTranslation('components', { keyPrefix: 'dappConnectionList' })
 
   return (
-    <div className="flex justify-center">
+    <div className="mt-4 flex justify-center">
       <p className="text-gray-300">{t('empty')}</p>
     </div>
   )

@@ -20,7 +20,7 @@ type TFormData = {
 }
 
 export const CreateWalletStep3Modal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep3Modal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep3' })
   const { t: commonT } = useTranslation('common')
   const { mnemonic } = useModalState<TModalState<'create-wallet-3'>>()
   const { modalNavigate, modalEraseWrapper } = useModalNavigate()

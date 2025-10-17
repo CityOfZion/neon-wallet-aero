@@ -1,7 +1,8 @@
 import type { IBlockchainService, TBridgeToken, TBSAccount } from '@cityofzion/blockchain-service'
-import type { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
+import type { SimpleSwapOrchestrator, TWalletKitHelperSessionDetails } from '@cityofzion/bs-multichain'
 import type { TVoteServiceCandidate } from '@cityofzion/bs-neo3'
-import type { TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-core'
+import type { ErrorResponse } from '@walletconnect/jsonrpc-utils'
+import type { PendingRequestTypes, ProposalTypes, SessionTypes } from '@walletconnect/types'
 import type { JSX } from 'react'
 
 import type {
@@ -106,17 +107,10 @@ type TSuccessModalState = {
   footer?: JSX.Element
 }
 
-type TDappConnectionModalState = {
-  account: IAccountState
-}
-
-type TDappDisconnectionModalState = {
-  sessions: TSession[]
-}
-
-type TDappConnectionRequestModalState = {
-  proposal: TSessionProposal
-  account: IAccountState
+type TErrorModalState = {
+  heading: string
+  subtitle?: string
+  content?: JSX.Element
 }
 
 type TContactDetailsModalState = {
@@ -216,6 +210,44 @@ type TVoteNeo3CandidateDetailsModalState = {
   candidateVotePercentage: string
 }
 
+type TDappConnectionModalState = {
+  account: IAccountState
+}
+
+type TDappDisconnectionModalState = {
+  sessions: SessionTypes.Struct[]
+}
+
+type TDappConnectionRequestModalState = {
+  proposal: ProposalTypes.Struct
+  account: IAccountState
+}
+
+type TDappPermissionModalState = {
+  session: SessionTypes.Struct
+  request: PendingRequestTypes.Struct
+  sessionDetails: TWalletKitHelperSessionDetails<TBlockchainServiceKey>
+  sessionAccount: IAccountState
+  onReject: (reason?: ErrorResponse) => Promise<void>
+  onAccept: () => Promise<any>
+}
+
+type TDappPermissionSignatureScopeModalState = {
+  session: SessionTypes.Struct
+  scope: string
+  allowedList?: string[]
+  onReject: () => void
+}
+
+type TDappPermissionContractDetailsModalState = {
+  session: SessionTypes.Struct
+  hash: string
+  operation: string
+  blockchain: TBlockchainServiceKey
+  values: any[]
+  onReject: () => void
+}
+
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
@@ -235,9 +267,7 @@ export type TModalRouterRouteTypes = {
   'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState
   'migrate-from-neon2-4': TMigrateFromNeon2Step4ModalState
   success: TSuccessModalState
-  'dapp-connection': TDappConnectionModalState
-  'dapp-connection-request': TDappConnectionRequestModalState
-  'dapp-disconnection': TDappDisconnectionModalState
+  error: TErrorModalState
   'contact-details': TContactDetailsModalState
   'save-contact': TSaveContactModalState
   'contact-address-form': TContactAddressFormModalState
@@ -260,4 +290,10 @@ export type TModalRouterRouteTypes = {
   'sell-tokens-deposit-error': TSellTokensDepositErrorModalState
   'reorder-wallets': undefined
   'vote-neo3-candidate-details': TVoteNeo3CandidateDetailsModalState
+  'dapp-connection': TDappConnectionModalState
+  'dapp-connection-request': TDappConnectionRequestModalState
+  'dapp-disconnection': TDappDisconnectionModalState
+  'dapp-permission': TDappPermissionModalState
+  'dapp-permission-signature-scope': TDappPermissionSignatureScopeModalState
+  'dapp-permission-contract-details': TDappPermissionContractDetailsModalState
 }

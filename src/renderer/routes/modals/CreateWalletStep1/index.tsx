@@ -9,7 +9,7 @@ import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -24,7 +24,7 @@ type TActionData = {
 }
 
 export const CreateWalletStep1Modal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep1Modal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep1' })
   const {
     actionData: { mnemonic },
     actionState,

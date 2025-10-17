@@ -17,7 +17,7 @@ type TProps = {
 }
 
 export const CreateAccountStep2Accordion = ({ selectedWallet, onSelect }: TProps) => {
-  const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep2Modal.accordionItem' })
+  const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep2.accordionItem' })
   const { wallets } = useWalletsSelector()
 
   const filteredWallets = useMemo<IWalletState[]>(() => {

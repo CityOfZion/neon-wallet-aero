@@ -1,7 +1,5 @@
 import { useTranslation } from 'react-i18next'
 
-import { TabsHelper } from '@renderer/helpers/TabsHelper'
-
 import { useLogin } from '@renderer/hooks/useLogin'
 
 import { SideModalLayout } from '@renderer/layouts/SideModalLayout'
@@ -16,11 +14,13 @@ import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbUsers from '@renderer/assets/images/tb-users.svg?react'
 import Wallet from '@renderer/assets/images/wallet.svg?react'
 
+import { rendererApi } from '@shared/message-api/renderer'
+
 import { MenuItemButton } from './MenuItemButton'
 import { MenuItemLink } from './MenuItemLink'
 
 export const MenuModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'menuModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'menu' })
   const { logout } = useLogin()
 
   return (
@@ -32,7 +32,7 @@ export const MenuModal = () => {
           label={t('buyAndSellTokensItemLabel')}
           isExternal
           icon={<TbShoppingBag aria-hidden />}
-          onClick={TabsHelper.openTab.bind(null, '/buy-and-sell-tokens')}
+          onClick={() => rendererApi.send('tab:open', { path: '/buy-and-sell-tokens' })}
         />
 
         <MenuItemLink label={t('importItemLabel')} to="/import" icon={<TbFileImport aria-hidden />} />

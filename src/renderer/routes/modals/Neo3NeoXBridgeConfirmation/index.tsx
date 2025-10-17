@@ -33,7 +33,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
     tokenToUse,
     fromService,
   } = useModalState<TModalState<'neo3-neox-bridge-confirmation'>>()
-  const { handlePress, isPressing } = usePressOnce(onConfirm)
+  const [isPressing, startPress] = usePressOnce()
   const { currency } = useCurrencySelector()
 
   const tokenExchange = useExchange(
@@ -70,7 +70,8 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
         <p className="text-sm font-bold">{t('description')}</p>
 
         <Details.Root>
-          <Details.Header label={t('transactionDetailsHeaderLabel')} icon={<TbReceipt aria-hidden />} />
+          <Details.Header leftElement={<TbReceipt aria-hidden />}>{t('transactionDetailsHeaderLabel')}</Details.Header>
+
           <Details.Body>
             <Details.Panel>
               <Details.Item label={t('bridgeDetailsItemLabel')}>
@@ -115,7 +116,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
           iconsOnEdge={false}
           label={t('confirmButtonLabel')}
           loading={isPressing}
-          onClick={handlePress()}
+          onClick={startPress(onConfirm)}
         />
       </div>
     </BottomModalLayout>

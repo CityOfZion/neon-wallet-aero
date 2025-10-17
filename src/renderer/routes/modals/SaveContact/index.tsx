@@ -30,7 +30,7 @@ type TFormData = {
 }
 
 export const SaveContactModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'saveContactModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'saveContact' })
   const { contact, addresses } = useModalState<TModalState<'save-contact'>>()
   const { modalNavigate } = useModalNavigate()
   const { saveContacts } = useBlockchainActions()
