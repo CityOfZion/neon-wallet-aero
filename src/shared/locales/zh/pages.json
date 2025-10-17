@@ -228,6 +228,10 @@
         "buttonPlaceholder": "浏览文件…",
         "compatibleFile": "已识别兼容文件！"
       }
+    },
+    "releaseNotes": {
+      "title": "发布说明",
+      "learnMoreButtonLabel": "了解更多…"
     }
   },
   "networkConfiguration": {

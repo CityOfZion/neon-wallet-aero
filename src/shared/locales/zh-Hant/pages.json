@@ -228,6 +228,10 @@
         "buttonPlaceholder": "瀏覽檔案…",
         "compatibleFile": "已識別相容檔案！"
       }
+    },
+    "releaseNotes": {
+      "title": "發布說明",
+      "learnMoreButtonLabel": "瞭解更多…"
     }
   },
   "networkConfiguration": {

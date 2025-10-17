@@ -3,6 +3,7 @@ import { lazy } from 'react'
 import { createHashRouter, Navigate } from 'react-router-dom'
 
 import { PrivatePage } from './popup/Private'
+import { ReleaseNotesPage } from './popup/ReleaseNotes'
 import { RootPage } from './popup/Root'
 
 const BackupAndRestorePage = lazy(() => import('./popup/BackupAndRestore'))
@@ -137,6 +138,10 @@ export const popupRouter = createHashRouter([
                   },
                   { path: '', element: <Navigate to="settings/backup-and-restore/backup/1" replace /> },
                 ],
+              },
+              {
+                path: 'release-notes',
+                element: <ReleaseNotesPage />,
               },
               {
                 path: 'change-password',

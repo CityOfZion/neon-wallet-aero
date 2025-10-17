@@ -228,6 +228,10 @@
         "buttonPlaceholder": "Browse files…",
         "compatibleFile": "Compatible file identified!"
       }
+    },
+    "releaseNotes": {
+      "title": "Release Notes",
+      "learnMoreButtonLabel": "Learn more…"
     }
   },
   "networkConfiguration": {
