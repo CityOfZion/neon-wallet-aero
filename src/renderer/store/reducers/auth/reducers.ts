@@ -73,6 +73,16 @@ const deleteWallet: CaseReducer<IAuthReducer, PayloadAction<string>> = (state, a
   applicationData.wallets = applicationData.wallets.filter(it => it.id !== walletId)
 }
 
+const reorderWallets: CaseReducer<IAuthReducer, PayloadAction<IWalletState[]>> = (state, action) => {
+  const loginSessionType = state.inMemoryData.loginSession?.type
+
+  if (!loginSessionType) return
+
+  const applicationData = state.data.applicationDataByLoginType[loginSessionType]
+
+  applicationData.wallets = action.payload
+}
+
 // Account Reducers
 const saveAccount: CaseReducer<IAuthReducer, PayloadAction<IAccountState>> = (state, action) => {
   if (!state.inMemoryData.loginSession) {
@@ -121,6 +131,7 @@ const deleteAccount: CaseReducer<IAuthReducer, PayloadAction<IAccountState>> = (
 export const authSliceReducers = {
   saveWallet,
   deleteWallet,
+  reorderWallets,
   saveAccount,
   deleteAccount,
   saveNotification,

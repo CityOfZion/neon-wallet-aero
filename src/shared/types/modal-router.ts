@@ -251,4 +251,5 @@ export type TModalRouterRouteTypes = {
   'sell-tokens-deposit': TSellTokensDepositModalState
   'sell-tokens-deposit-success': TSellTokensDepositSuccessModalState
   'sell-tokens-deposit-error': TSellTokensDepositErrorModalState
+  'reorder-wallets': undefined
 }

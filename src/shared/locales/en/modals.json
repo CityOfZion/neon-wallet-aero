@@ -10,7 +10,6 @@
   },
   "accountSelectionModal": {
     "title": "Select an account",
-    "reorderButtonLabel": "Reorder",
     "addButtonLabel": "Add",
     "exportButtonLabel": "Export",
     "exportAccountTitle": "Export account",
@@ -450,5 +449,9 @@
     "title": "Swap log",
     "copySwapLogLabel": "Copy swap log to clipboard",
     "thereIsNoLogLabel": "There is no swap log"
+  },
+  "reorderWallets": {
+    "title": "Reorder your wallets",
+    "subtitle": "All wallets"
   }
 }

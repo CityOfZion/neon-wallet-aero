@@ -10,7 +10,6 @@
   },
   "accountSelectionModal": {
     "title": "选择账户",
-    "reorderButtonLabel": "重新排序",
     "addButtonLabel": "添加",
     "exportButtonLabel": "导出",
     "exportAccountTitle": "导出账户",
@@ -450,5 +449,9 @@
     "title": "兑换日志",
     "copySwapLogLabel": "复制兑换日志到剪贴板",
     "thereIsNoLogLabel": "暂无兑换日志"
+  },
+  "reorderWallets": {
+    "title": "重新排序您的钱包",
+    "subtitle": "所有钱包"
   }
 }
