@@ -103,6 +103,7 @@ export const WalletSelectionModal = () => {
           label={t('reorderButtonLabel')}
           colorSchema="gray"
           leftIcon={<TbReorder aria-hidden />}
+          onClick={modalNavigateWrapper('reorder-wallets')}
         />
 
         <Button

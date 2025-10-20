@@ -19,7 +19,8 @@
     "save": "Save",
     "edit": "Edit",
     "cancel": "Cancel",
-    "copy": "Copy"
+    "copy": "Copy",
+    "confirm": "Confirm"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",

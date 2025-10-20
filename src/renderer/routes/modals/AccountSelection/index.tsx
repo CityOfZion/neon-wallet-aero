@@ -19,7 +19,6 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
 import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
-import TbReorder from '@renderer/assets/images/tb-reorder.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
 import type { TModalState } from '@shared/types/modal'
@@ -110,13 +109,6 @@ export const AccountSelectionModal = () => {
       </ul>
 
       <div className="mt-auto flex gap-2.5">
-        <Button
-          variant="card"
-          label={t('reorderButtonLabel')}
-          colorSchema="gray"
-          leftIcon={<TbReorder aria-hidden />}
-        />
-
         <Button
           className="w-full"
           variant="card"

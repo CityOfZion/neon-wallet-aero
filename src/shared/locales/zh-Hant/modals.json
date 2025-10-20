@@ -10,7 +10,6 @@
   },
   "accountSelectionModal": {
     "title": "選擇帳戶",
-    "reorderButtonLabel": "重新排序",
     "addButtonLabel": "新增",
     "exportButtonLabel": "導出",
     "exportAccountTitle": "導出帳戶",
@@ -450,5 +449,9 @@
     "title": "兌換紀錄",
     "copySwapLogLabel": "複製兌換紀錄到剪貼簿",
     "thereIsNoLogLabel": "沒有兌換紀錄"
+  },
+  "reorderWallets": {
+    "title": "重新排序您的錢包",
+    "subtitle": "所有錢包"
   }
 }
