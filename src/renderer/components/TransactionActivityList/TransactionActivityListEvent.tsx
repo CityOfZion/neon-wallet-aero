@@ -29,18 +29,6 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
   return (
     <div className="flex h-13 max-h-13 min-h-13 flex-grow items-center gap-x-2 overflow-x-auto overflow-y-hidden px-2 whitespace-nowrap">
       <TransactionActivityListEventColumn
-        label={t('columns.toLabel')}
-        data={
-          !to ? (
-            <span className="inline-block">{tCommon('general.emptyColumn')}</span>
-          ) : (
-            <TransactionActivityListEventColumnDataAddress address={to} addressName={toName} />
-          )
-        }
-        url={toUrl}
-      />
-
-      <TransactionActivityListEventColumn
         label={t('columns.fromLabel')}
         data={
           !from ? (
@@ -50,6 +38,18 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
           )
         }
         url={fromUrl}
+      />
+
+      <TransactionActivityListEventColumn
+        label={t('columns.toLabel')}
+        data={
+          !to ? (
+            <span className="inline-block">{tCommon('general.emptyColumn')}</span>
+          ) : (
+            <TransactionActivityListEventColumnDataAddress address={to} addressName={toName} />
+          )
+        }
+        url={toUrl}
       />
 
       <TransactionActivityListEventColumn

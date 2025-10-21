@@ -26,7 +26,7 @@ type TActionData = {
 export const CreateWalletStep2Modal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep2' })
   const { mnemonic } = useModalState<TModalState<'create-wallet-2'>>()
-  const { modalNavigate, modalEraseWrapper } = useModalNavigate()
+  const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
 
   const shuffledWords = useMemo(() => shuffle(mnemonic), [mnemonic])
 
@@ -115,12 +115,7 @@ export const CreateWalletStep2Modal = () => {
       </div>
 
       <div className="mt-auto flex gap-2.5 px-3.5">
-        <Button
-          variant="card"
-          label={t('cancelButtonLabel')}
-          colorSchema="gray"
-          onClick={modalEraseWrapper('bottom')}
-        />
+        <Button variant="card" label={t('cancelButtonLabel')} colorSchema="gray" onClick={modalNavigateWrapper(-1)} />
         <Button
           className="w-full"
           variant="card"

@@ -3,9 +3,7 @@ import { lazy, Suspense, useState } from 'react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { Provider as StoreProvider } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-import { PersistGate } from 'redux-persist/integration/react'
 
-import { ScreenLoader } from '@renderer/components/ScreenLoader'
 import { SplashScreen } from '@renderer/components/SplashScreen'
 
 import { useMountUnsafe } from '@renderer/hooks/useMount'
@@ -51,18 +49,16 @@ export const RootPage = () => {
 
   return (
     <StoreProvider store={RootStore.store}>
-      <PersistGate persistor={RootStore.persistor} loading={<ScreenLoader />}>
-        <QueryClientProvider client={queryClient}>
-          <ModalRouterProvider routes={modalsRouter}>
-            <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <ModalRouterProvider routes={modalsRouter}>
+          <Outlet />
 
-            <Suspense fallback={null}>
-              <NetworkBanner />
-              <ToastProvider />
-            </Suspense>
-          </ModalRouterProvider>
-        </QueryClientProvider>
-      </PersistGate>
+          <Suspense fallback={null}>
+            <NetworkBanner />
+            <ToastProvider />
+          </Suspense>
+        </ModalRouterProvider>
+      </QueryClientProvider>
     </StoreProvider>
   )
 }

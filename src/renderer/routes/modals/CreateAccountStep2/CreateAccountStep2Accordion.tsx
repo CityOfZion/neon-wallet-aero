@@ -21,7 +21,7 @@ export const CreateAccountStep2Accordion = ({ selectedWallet, onSelect }: TProps
   const { wallets } = useWalletsSelector()
 
   const filteredWallets = useMemo<IWalletState[]>(() => {
-    return wallets.filter(wallet => !wallet.accounts.some(account => account.type === 'watch'))
+    return wallets.filter(wallet => !!wallet.encryptedMnemonic)
   }, [wallets])
 
   const walletsId = useMemo(() => filteredWallets.map(wallet => wallet.id), [filteredWallets])
@@ -38,32 +38,28 @@ export const CreateAccountStep2Accordion = ({ selectedWallet, onSelect }: TProps
           <Separator containerClassName="px-4" />
 
           <ul className="flex flex-col">
-            {wallets.length > 0 ? (
-              wallets
-                .filter(wallet => !wallet.accounts.some(account => account.type === 'watch'))
-                .map(item => {
-                  const isDisabled = selectedWallet?.id === item.id
+            {filteredWallets.length > 0 ? (
+              filteredWallets.map(item => {
+                const isDisabled = selectedWallet?.id === item.id
 
-                  return (
-                    <li key={item.id} className="flex w-full items-center text-sm text-white">
-                      <button
-                        className={StyleHelper.mergeStyles('flex w-full flex-col gap-y-0.5 px-4 py-3 text-left', {
-                          'cursor-pointer': !isDisabled,
-                        })}
-                        onClick={() => !isDisabled && onSelect(item)}
-                        disabled={isDisabled}
-                      >
-                        <p
-                          className={StyleHelper.mergeStyles('block min-w-0 truncate', { 'text-gray-300': isDisabled })}
-                        >
-                          {item.name}
-                        </p>
-                      </button>
-                    </li>
-                  )
-                })
+                return (
+                  <li key={item.id} className="flex w-full items-center text-sm text-white">
+                    <button
+                      className={StyleHelper.mergeStyles('flex w-full flex-col gap-y-0.5 px-4 py-3 text-left', {
+                        'cursor-pointer': !isDisabled,
+                      })}
+                      onClick={() => !isDisabled && onSelect(item)}
+                      disabled={isDisabled}
+                    >
+                      <p className={StyleHelper.mergeStyles('block min-w-0 truncate', { 'text-gray-300': isDisabled })}>
+                        {item.name}
+                      </p>
+                    </button>
+                  </li>
+                )
+              })
             ) : (
-              <li className="text-sm text-gray-300">{t('noWalletSelectable')}</li>
+              <li className="px-4 py-3 text-sm text-gray-300">{t('noWalletSelectable')}</li>
             )}
           </ul>
         </Accordion.Content>

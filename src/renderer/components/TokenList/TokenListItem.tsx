@@ -42,7 +42,7 @@ export const TokenListItem = ({ tokenBalance }: TProps) => {
         <p className="text-1xs leading-4 text-gray-300">{t('valueLabel')}</p>
       </div>
 
-      <div className="flex w-20 flex-col gap-0.5">
+      <div className="flex w-26 flex-col gap-0.5">
         <p className="truncate text-right text-sm leading-5 text-white">
           {BSBigNumberHelper.format(tokenBalance.amountNumber, { decimals: tokenBalance.token.decimals })}
         </p>

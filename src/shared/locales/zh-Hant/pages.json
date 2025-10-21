@@ -313,6 +313,7 @@
     "sendTokensButtonLabel": "立即發送",
     "sourceAccountLabel": "來源帳戶",
     "addRecipientButtonLabel": "新增收件人",
+    "totalFee": "總手續費",
     "sendRecipient": {
       "title": "收件人 {{order}}",
       "addressPlaceholder": "輸入收件人…",
@@ -326,19 +327,25 @@
         "invalidAddress": "地址無效"
       }
     },
-    "totalFee": "總手續費",
-    "errors": {
-      "feeError": "計算手續費時發生錯誤",
-      "insufficientFunds": "資金不足",
-      "calculateMaxAmount": "計算最大金額時發生錯誤",
-      "amountIsLessOrEqualZero": "金額小於或等於零",
-      "hardwareWalletShouldBeValid": "請確保您的硬體錢包已解鎖以繼續操作"
+    "sendTip": {
+      "supportLabel": "我想透過小費支持 COZ，金額為",
+      "optionalLabel": "*可選"
     },
     "sendSuccess": {
       "toast": "交易已成功發送"
     },
     "sendFail": {
       "toast": "交易發送失敗"
+    },
+    "errors": {
+      "feeError": "計算手續費時發生錯誤",
+      "insufficientFunds": "資金不足",
+      "calculateMaxAmount": "計算最大金額時發生錯誤",
+      "amountIsLessOrEqualZero": "金額小於或等於零",
+      "hardwareWalletShouldBeValid": "請確保您的硬體錢包已解鎖以繼續操作",
+      "noTokenToTip": "沒有代幣支付小費",
+      "noAmountToTip": "金額不足以支付小費",
+      "noFiatPriceToTip": "未找到法定貨幣價格以進行打賞"
     }
   },
   "contacts": {

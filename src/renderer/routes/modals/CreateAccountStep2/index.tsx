@@ -32,7 +32,7 @@ export const CreateAccountStep2Modal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep2' })
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { accountName } = useModalState<TModalState<'create-account-2'>>()
-  const { modalErase, modalEraseWrapper } = useModalNavigate()
+  const { modalErase, modalNavigateWrapper } = useModalNavigate()
   const { createStandardAccount } = useBlockchainActions()
   const navigate = useNavigate()
 
@@ -111,7 +111,7 @@ export const CreateAccountStep2Modal = () => {
             label={t('cancelButtonLabel')}
             colorSchema="gray"
             type="button"
-            onClick={modalEraseWrapper('bottom')}
+            onClick={modalNavigateWrapper(-1)}
           />
 
           <Button

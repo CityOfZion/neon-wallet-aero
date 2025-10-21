@@ -35,7 +35,7 @@ export const ConfirmPasswordModal = () => {
 
   return (
     <BottomModalLayout heading={heading} className="overflow-y-auto">
-      <div className="flex h-full flex-col px-3.5">
+      <div className="flex h-full flex-col">
         <p className="mb-5 text-sm">{description}</p>
 
         <form className="flex flex-grow flex-col justify-between" onSubmit={handleAct(handleSubmit)}>
