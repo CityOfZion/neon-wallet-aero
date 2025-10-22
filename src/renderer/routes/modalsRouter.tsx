@@ -44,6 +44,7 @@ const SellTokensDepositSuccessModal = lazy(() => import('./modals/SellTokensDepo
 const SellTokensDepositErrorModal = lazy(() => import('./modals/SellTokensDepositError'))
 const SwapDetailsLogModal = lazy(() => import('./modals/SwapDetailsLog'))
 const ReorderWalletsModal = lazy(() => import('./modals/ReorderWallets'))
+const VoteNeo3CandidateDetailsModal = lazy(() => import('./modals/VoteNeo3CandidateDetails'))
 
 export const modalsRouter: TRoute[] = [
   { name: 'wallet-selection', type: 'bottom', element: WalletSelectionModal },
@@ -88,4 +89,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'sell-tokens-deposit-error', type: 'side', element: SellTokensDepositErrorModal },
   { name: 'swap-details-log', type: 'bottom', element: SwapDetailsLogModal },
   { name: 'reorder-wallets', type: 'bottom', element: ReorderWalletsModal },
+  { name: 'vote-neo3-candidate-details', type: 'bottom', element: VoteNeo3CandidateDetailsModal },
 ]
