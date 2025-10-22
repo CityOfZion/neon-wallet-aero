@@ -1,7 +1,7 @@
 import type { CaseReducerActions } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PersistConfig } from 'redux-persist'
-import { persistReducer, PURGE } from 'redux-persist'
+import { persistReducer } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
 
 import type { IWalletState, TLoginSession, TLoginSessionType, TNotification } from '@shared/types/store'
@@ -49,14 +49,9 @@ export function getAuthReducer() {
     name: authReducerConfig.key,
     initialState: authReducerInitialState,
     reducers: authSliceReducers,
-    extraReducers: builder => {
-      builder.addCase(PURGE, () => authReducerInitialState)
-    },
   })
 
   authReducerActions = authSlice.actions
 
-  const persistedAuthReducer = persistReducer(authReducerConfig, authSlice.reducer)
-
-  return persistedAuthReducer
+  return persistReducer(authReducerConfig, authSlice.reducer)
 }

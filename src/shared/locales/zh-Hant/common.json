@@ -20,7 +20,8 @@
     "edit": "編輯",
     "cancel": "取消",
     "copy": "複製",
-    "confirm": "確認"
+    "confirm": "確認",
+    "menu": "選單"
   },
   "wallet": {
     "firstWalletName": "我的第一個錢包",

@@ -1,11 +1,14 @@
 import { animate, motion, useMotionValue } from 'framer-motion'
 import type { ComponentProps } from 'react'
 
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import ArrowRightBoldOutlineIcon from '@renderer/assets/images/md-arrow-right-bold-outline-icon.svg?react'
 
 type TProps = {
   text: string
   buttonAriaLabel: string
+  isDisabled?: boolean
   onComplete: () => void
 } & ComponentProps<typeof motion.div>
 
@@ -17,10 +20,12 @@ const MAX = WIDTH - DRAG_WIDTH
 const REST_SIZE = -MAX
 const DURATION = 0.4
 
-export const Swipe = ({ text, buttonAriaLabel, onComplete, ...props }: TProps) => {
+export const Swipe = ({ text, buttonAriaLabel, isDisabled = false, onComplete, ...props }: TProps) => {
   const motionValue = useMotionValue(REST_SIZE)
 
   const handleDragEnd = () => {
+    if (isDisabled) return
+
     const value = motionValue.get()
 
     if (value !== 0) animate(motionValue, REST_SIZE, { type: 'spring', duration: DURATION })
@@ -28,6 +33,7 @@ export const Swipe = ({ text, buttonAriaLabel, onComplete, ...props }: TProps) =
   }
 
   const handleKeyDown = async ({ code }: React.KeyboardEvent<HTMLElement>) => {
+    if (isDisabled) return
     if (code !== 'Space' && code !== 'Enter') return
 
     await animate(motionValue, 0, { type: 'keyframes', duration: DURATION })
@@ -46,10 +52,13 @@ export const Swipe = ({ text, buttonAriaLabel, onComplete, ...props }: TProps) =
           touchAction: 'none',
           boxShadow: '4px 8px 20px 0px #12151766, 1px 1px 0px 0px #D6D2D223 inset, -1px -1px 0px 0px #00000051 inset',
         }}
-        className="bg-pink relative z-[1] flex h-full w-full justify-end rounded"
+        className={StyleHelper.mergeStyles('bg-pink relative z-[1] flex h-full w-full justify-end rounded', {
+          'pointer-events-none': isDisabled,
+        })}
         tabIndex={0}
         role="button"
         aria-label={buttonAriaLabel}
+        aria-disabled={isDisabled}
         dragMomentum={false}
         dragTransition={{ max: 0, min: REST_SIZE }}
         dragConstraints={{ left: REST_SIZE, right: 0 }}
@@ -65,7 +74,7 @@ export const Swipe = ({ text, buttonAriaLabel, onComplete, ...props }: TProps) =
       </motion.div>
       <p
         style={{ left: `calc(${HALF} + ${HALF_DRAG_WIDTH}px)`, transform: `translate(-${HALF}, -${HALF})`, width: MAX }}
-        className="absolute top-1/2 text-center"
+        className="pointer-events-none absolute top-1/2 text-center"
       >
         {text}
       </p>

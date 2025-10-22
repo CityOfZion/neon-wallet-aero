@@ -1,6 +1,7 @@
 import { cloneElement } from 'react'
 
 import type { ComponentProps, JSX, ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { IconButton } from '@renderer/components/IconButton'
@@ -34,6 +35,7 @@ export const ScreenLayout = ({
   withBackButton = true,
   ...props
 }: TMainLayoutProps): JSX.Element => {
+  const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { ref } = useRemoveOverflowShift<HTMLDivElement>()
 
   const navigate = useNavigate()
@@ -62,6 +64,7 @@ export const ScreenLayout = ({
           >
             {leftComponent || (
               <IconButton
+                aria-label={tCommonGeneral('back')}
                 type="button"
                 icon={<TbArrowLeft aria-hidden />}
                 className={StyleHelper.mergeStyles({ invisible: !withBackButton })}
