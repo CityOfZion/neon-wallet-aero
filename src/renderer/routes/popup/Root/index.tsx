@@ -41,6 +41,8 @@ export const RootPage = () => {
       await setupBsAggregator()
       RootStore.setupStore()
 
+      await UtilsHelper.sleep(500)
+
       const response = await BackgroundHelper.send<
         TBackgroundGetLoginSessionMessage,
         TBackgroundGetLoginSessionResponse
@@ -52,10 +54,9 @@ export const RootPage = () => {
         RootStore.store.dispatch(authReducerActions.setLoginSession(response.loginSession))
         navigate('/wallets', { replace: true })
       } else {
+        RootStore.store.dispatch(authReducerActions.resetTemporaryApplicationData())
         navigate('/login', { replace: true })
       }
-
-      await UtilsHelper.sleep(1000)
 
       setReady(true)
     } catch (error) {
@@ -67,7 +68,6 @@ export const RootPage = () => {
 
   return (
     <StoreProvider store={RootStore.store}>
-      {/* TODO: Add a loading screen */}
       <PersistGate persistor={RootStore.persistor}>
         <QueryClientProvider client={queryClient}>
           <WalletConnectWalletProvider options={walletConnectOptions}>

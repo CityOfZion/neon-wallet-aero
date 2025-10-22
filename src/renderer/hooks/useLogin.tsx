@@ -93,16 +93,17 @@ export const useLogin = () => {
   const logout = useCallback(async () => {
     const loginSession = undefined
 
-    await BackgroundHelper.send<TBackgroundCloseAllTabsMessage>({ type: 'close-all-tabs' })
-
     await BackgroundHelper.send<TBackgroundSaveLoginSessionMessage>({
       type: 'save-login-session',
       payload: { loginSession },
     })
 
     dispatch(authReducerActions.setLoginSession(loginSession))
+    dispatch(authReducerActions.resetTemporaryApplicationData())
 
     navigate('/login', { replace: true })
+
+    await BackgroundHelper.send<TBackgroundCloseAllTabsMessage>({ type: 'close-all-tabs' })
   }, [dispatch, navigate])
 
   return {

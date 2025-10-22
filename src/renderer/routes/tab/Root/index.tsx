@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { SplashScreen } from '@renderer/components/SplashScreen'
 
 import { BackgroundHelper } from '@renderer/helpers/BackgroundHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
 
@@ -37,6 +38,8 @@ export const RootPage = () => {
       await setupBsAggregator()
       RootStore.setupStore()
 
+      await UtilsHelper.sleep(250)
+
       const response = await BackgroundHelper.send<
         TBackgroundGetLoginSessionMessage,
         TBackgroundGetLoginSessionResponse
@@ -51,6 +54,8 @@ export const RootPage = () => {
       RootStore.store.dispatch(authReducerActions.setLoginSession(response.loginSession))
       setReady(true)
     } catch {
+      RootStore.store.dispatch(authReducerActions.resetTemporaryApplicationData())
+
       await BackgroundHelper.send<TBackgroundCloseAllTabsMessage>({
         type: 'close-all-tabs',
       })

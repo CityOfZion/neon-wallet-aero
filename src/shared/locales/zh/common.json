@@ -20,7 +20,8 @@
     "edit": "编辑",
     "cancel": "取消",
     "copy": "复制",
-    "confirm": "确认"
+    "confirm": "确认",
+    "menu": "菜单"
   },
   "wallet": {
     "firstWalletName": "我的第一个钱包",

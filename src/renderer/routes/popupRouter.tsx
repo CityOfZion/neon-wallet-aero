@@ -22,6 +22,7 @@ const ForgottenPasswordConfirmPage = lazy(() => import('./popup/ForgottenPasswor
 const ForgottenPasswordSuccessPage = lazy(() => import('./popup/ForgottenPasswordSuccess'))
 const ImportPage = lazy(() => import('./popup/Import'))
 const LanguagePage = lazy(() => import('./popup/Language'))
+const CurrencyPage = lazy(() => import('./popup/Currency'))
 const LoginPage = lazy(() => import('./popup/Login'))
 const LoginKeyPage = lazy(() => import('./popup/LoginKey'))
 const LoginNeonAccountOnboardingPage = lazy(() => import('./popup/LoginNeonAccountOnboarding'))
@@ -115,6 +116,10 @@ export const popupRouter = createHashRouter([
               {
                 path: 'language',
                 element: <LanguagePage />,
+              },
+              {
+                path: 'currency',
+                element: <CurrencyPage />,
               },
               {
                 path: 'backup-and-restore',

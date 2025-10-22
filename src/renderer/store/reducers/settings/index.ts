@@ -1,7 +1,7 @@
 import type { CaseReducerActions } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PersistConfig } from 'redux-persist'
-import { persistReducer, PURGE } from 'redux-persist'
+import { persistReducer } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
@@ -47,20 +47,9 @@ export function getSettingsReducer() {
     name: settingsReducerConfig.key,
     initialState: settingsReducerInitialState,
     reducers: settingsSliceReducers,
-    extraReducers: builder => {
-      builder.addCase(PURGE, state => ({
-        ...settingsReducerInitialState,
-        data: {
-          ...settingsReducerInitialState.data,
-          language: state.data.language,
-        },
-      }))
-    },
   })
 
   settingsReducerActions = settingsSlice.actions
 
-  const persistedAuthReducer = persistReducer(settingsReducerConfig, settingsSlice.reducer)
-
-  return persistedAuthReducer
+  return persistReducer(settingsReducerConfig, settingsSlice.reducer)
 }

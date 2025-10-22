@@ -13,9 +13,9 @@ export const SplashScreen = () => {
         <CoZLogo className="h-6.5 w-22.5" aria-hidden />
       </div>
 
-      <NeonWalletIcon className="text-asphalt/30 absolute -top-21 -right-33 h-60 w-68.5" aria-hidden />
+      <NeonWalletIcon className="text-asphalt/30 fixed -top-21 -right-33 h-60 w-68.5" aria-hidden />
 
-      <NeonWalletIcon className="absolute -bottom-20.5 -left-25.5 h-61.5 w-68.5 text-gray-800/20" aria-hidden />
+      <NeonWalletIcon className="fixed -bottom-20.5 -left-25.5 h-61.5 w-68.5 text-gray-800/20" aria-hidden />
     </div>
   )
 }

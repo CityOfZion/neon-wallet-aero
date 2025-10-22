@@ -20,7 +20,8 @@
     "edit": "Edit",
     "cancel": "Cancel",
     "copy": "Copy",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "menu": "Menu"
   },
   "wallet": {
     "firstWalletName": "My First Wallet",

@@ -176,6 +176,7 @@
     "backupAndRestoreButtonLabel": "備份與還原",
     "releaseNotesButtonLabel": "版本資訊",
     "languageButtonLabel": "語言",
+    "currencyButtonLabel": "貨幣",
     "menuIconButtonAriaLabel": "選單",
     "migrateFromNeon2ButtonLabel": "從 Neon 2 遷移",
     "settingsBackupWallet": {
@@ -455,5 +456,8 @@
     "accordionAccountItem": {
       "copyAddressButtonLabel": "複製地址"
     }
+  },
+  "currency": {
+    "title": "貨幣"
   }
 }

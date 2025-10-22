@@ -7,6 +7,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
+import BsCash from '@renderer/assets/images/bs-cash.svg?react'
 import Tb3dCubeSphere from '@renderer/assets/images/tb-3d-cube-sphere.svg?react'
 import TbDeviceFloppy from '@renderer/assets/images/tb-device-floppy.svg?react'
 import TbLock from '@renderer/assets/images/tb-lock.svg?react'
@@ -56,6 +57,12 @@ export const SettingsPage = () => {
           icon={<TbMessage aria-hidden className="text-neon w-6" />}
           label={t('languageButtonLabel')}
           to="/settings/language"
+        />
+
+        <SettingsLinkNavigation
+          icon={<BsCash aria-hidden className="text-neon w-6" />}
+          label={t('currencyButtonLabel')}
+          to="/settings/currency"
         />
 
         <SettingsLinkNavigation

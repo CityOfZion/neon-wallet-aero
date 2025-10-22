@@ -176,6 +176,7 @@
     "backupAndRestoreButtonLabel": "Backup & Restore",
     "releaseNotesButtonLabel": "Release notes",
     "languageButtonLabel": "Language",
+    "currencyButtonLabel": "Currency",
     "menuIconButtonAriaLabel": "Menu",
     "migrateFromNeon2ButtonLabel": "Migrate from Neon 2",
     "settingsBackupWallet": {
@@ -455,5 +456,8 @@
     "accordionAccountItem": {
       "copyAddressButtonLabel": "Copy address"
     }
+  },
+  "currency": {
+    "title": "Currency"
   }
 }

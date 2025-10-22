@@ -1,7 +1,6 @@
 import type { CaseReducerActions } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PersistConfig } from 'redux-persist'
-import { PURGE } from 'redux-persist'
 import persistReducer from 'redux-persist/es/persistReducer'
 import { localStorage } from 'redux-persist-webextension-storage'
 
@@ -49,14 +48,9 @@ export function getUtilityReducer() {
     name: 'utilityReducer',
     initialState: utilityReducerInitialState,
     reducers: utilitySliceReducers,
-    extraReducers: builder => {
-      builder.addCase(PURGE, () => utilityReducerInitialState)
-    },
   })
 
   utilityReducerActions = utilitySlice.actions
 
-  const persistedUtilityReducer = persistReducer(utilityReducerConfig, utilitySlice.reducer)
-
-  return persistedUtilityReducer
+  return persistReducer(utilityReducerConfig, utilitySlice.reducer)
 }

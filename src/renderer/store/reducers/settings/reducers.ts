@@ -2,7 +2,7 @@ import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash/cloneDeep'
 
 import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
-import type { TLanguage, TSelectedNetworks } from '@shared/types/store'
+import type { TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
 
 import type { ISettingsReducer } from './index'
 
@@ -42,9 +42,14 @@ const setLanguage: CaseReducer<ISettingsReducer, PayloadAction<TLanguage>> = (st
   state.data.language = action.payload
 }
 
+const setCurrency: CaseReducer<ISettingsReducer, PayloadAction<TCurrency>> = (state, action) => {
+  state.data.currency = action.payload
+}
+
 export const settingsSliceReducers = {
-  setSelectedNetwork,
   setLanguage,
+  setCurrency,
+  setSelectedNetwork,
   setSelectedNetworkUrl,
   setSelectedNetworkByBlockchain,
 }
