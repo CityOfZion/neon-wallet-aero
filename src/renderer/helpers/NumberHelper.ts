@@ -81,4 +81,8 @@ export class NumberHelper {
 
     return newValue
   }
+
+  static localeNumber(value: number) {
+    return value.toLocaleString('en-US')
+  }
 }

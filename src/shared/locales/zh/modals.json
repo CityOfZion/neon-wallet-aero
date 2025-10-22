@@ -453,5 +453,22 @@
   "reorderWallets": {
     "title": "重新排序您的钱包",
     "subtitle": "所有钱包"
+  },
+  "voteNeo3CandidateDetails": {
+    "title": "关于此候选人",
+    "candidateNameLabel": "候选人",
+    "positionLabel": "当前排名",
+    "hashLabel": "哈希",
+    "totalVotesLabel": "总票数",
+    "voteButtonLabel": "为此候选人投票",
+    "voteAlreadyCastButtonLabel": "已投票",
+    "descriptionLabel": "描述",
+    "errors": {
+      "insufficientGasTitle": "GAS 不足，无法支付投票费用",
+      "insufficientGasDescription": "请向此账户转入 GAS 或使用有足够 GAS 支付投票费用的账户。",
+      "notEnoughNeo": "此 Neo 3 账户中没有足够的 NEO 进行投票",
+      "selectNeo3Account": "请选择一个 Neo 3 账户以继续",
+      "accountCanNotBeWatch": "您无法使用观察账户进行投票"
+    }
   }
 }

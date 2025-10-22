@@ -1,5 +1,6 @@
 import type { IBlockchainService, TBridgeToken, TBSAccount } from '@cityofzion/blockchain-service'
 import type { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
+import type { TVoteServiceCandidate } from '@cityofzion/bs-neo3'
 import type { TSession, TSessionProposal } from '@cityofzion/wallet-connect-sdk-wallet-core'
 import type { JSX } from 'react'
 
@@ -209,6 +210,12 @@ type TSwapDetailsLogModalState = {
   swapRecord: TSwapRecord
 }
 
+type TVoteNeo3CandidateDetailsModalState = {
+  neo3Account: IAccountState
+  candidate: TVoteServiceCandidate
+  candidateVotePercentage: string
+}
+
 export type TModalRouterRouteTypes = {
   'wallet-selection': TWalletSelectionModalState
   'account-selection': TAccountSelectionModalState
@@ -252,4 +259,5 @@ export type TModalRouterRouteTypes = {
   'sell-tokens-deposit-success': TSellTokensDepositSuccessModalState
   'sell-tokens-deposit-error': TSellTokensDepositErrorModalState
   'reorder-wallets': undefined
+  'vote-neo3-candidate-details': TVoteNeo3CandidateDetailsModalState
 }
