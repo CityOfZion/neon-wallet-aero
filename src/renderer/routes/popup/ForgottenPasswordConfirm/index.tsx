@@ -28,6 +28,7 @@ export const ForgottenPasswordConfirmPage = () => {
         await RootStore.persistor.purge()
 
         RootStore.setupStore()
+        await RootStore.waitForBootstrap()
 
         RootStore.store.dispatch(settingsReducerActions.setLanguage(language))
         RootStore.store.dispatch(settingsReducerActions.setCurrency(currency))

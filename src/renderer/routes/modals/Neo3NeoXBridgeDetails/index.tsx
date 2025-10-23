@@ -15,7 +15,7 @@ import { AccountHelper } from '@renderer/helpers/AccountHelper'
 
 import { useContactsSelector } from '@renderer/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -105,7 +105,8 @@ export const Neo3NeoXBridgeDetailsModal = () => {
 
         <div className="flex w-full flex-col gap-3.5">
           <Details.Root>
-            <Details.Header label={t('bridgeDetailsHeaderLabel')} icon={<TbReceipt aria-hidden />}>
+            <Details.Header leftElement={<TbReceipt aria-hidden />}>
+              <span className="text-sm text-white">{t('bridgeDetailsHeaderLabel')}</span>
               {status === 'confirming' && <MdRefresh aria-hidden className="text-orange h-6 w-6 animate-spin" />}
             </Details.Header>
             <Details.Body>

@@ -24,7 +24,7 @@ import type { TModalState } from '@shared/types/modal'
 
 export const SwapConfirmationModal = () => {
   const { swapRecord, swapOrchestrator } = useModalState<TModalState<'swap-confirmation'>>()
-  const { t } = useTranslation('modals', { keyPrefix: 'swapConfirmationModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'swapConfirmation' })
   const { currency } = useCurrencySelector()
 
   const { modalNavigate } = useModalNavigate()
@@ -66,10 +66,9 @@ export const SwapConfirmationModal = () => {
           <p className="my-4 text-left">{t('description')}</p>
 
           <Details.Root className="my-6">
-            <Details.Header
-              label={t('transactionDetails')}
-              icon={<TbReceipt aria-hidden className="text-blue h-4 min-h-4 w-4 min-w-4" />}
-            />
+            <Details.Header leftElement={<TbReceipt aria-hidden className="text-blue h-4 min-h-4 w-4 min-w-4" />}>
+              {t('transactionDetails')}
+            </Details.Header>
 
             <Details.Body>
               <Details.Panel>

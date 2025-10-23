@@ -1,6 +1,6 @@
 import { Separator } from '@renderer/components/Separator'
 
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useMigrationNeo3Selector } from '@renderer/hooks/useUtilitySelector'
 

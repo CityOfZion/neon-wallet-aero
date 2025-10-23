@@ -5,12 +5,10 @@ import { Provider as StoreProvider } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 
+import { ScreenLoader } from '@renderer/components/ScreenLoader'
 import { SplashScreen } from '@renderer/components/SplashScreen'
 
-import { BackgroundHelper } from '@renderer/helpers/BackgroundHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
-
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 
 import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
 import { setupBsAggregator } from '@renderer/libs/blockchain-service'
@@ -18,11 +16,7 @@ import { setupI18next } from '@renderer/libs/i18next'
 import { queryClient } from '@renderer/libs/query'
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { RootStore } from '@renderer/store/RootStore'
-import type {
-  TBackgroundCloseAllTabsMessage,
-  TBackgroundGetLoginSessionMessage,
-  TBackgroundGetLoginSessionResponse,
-} from '@shared/types/background-events'
+import { rendererApi } from '@shared/message-api/renderer'
 
 import { modalsRouter } from '../../modalsRouter'
 
@@ -37,28 +31,19 @@ export const RootPage = () => {
       setupI18next()
       await setupBsAggregator()
       RootStore.setupStore()
+      await RootStore.waitForBootstrap()
 
-      await UtilsHelper.sleep(250)
+      const loginSession = await rendererApi.send('login:get-session')
 
-      const response = await BackgroundHelper.send<
-        TBackgroundGetLoginSessionMessage,
-        TBackgroundGetLoginSessionResponse
-      >({
-        type: 'get-login-session',
-      })
-
-      if (!response?.loginSession) {
+      if (!loginSession) {
         throw new Error('No login session found')
       }
 
-      RootStore.store.dispatch(authReducerActions.setLoginSession(response.loginSession))
+      RootStore.store.dispatch(authReducerActions.setLoginSession(loginSession))
       setReady(true)
     } catch {
       RootStore.store.dispatch(authReducerActions.resetTemporaryApplicationData())
-
-      await BackgroundHelper.send<TBackgroundCloseAllTabsMessage>({
-        type: 'close-all-tabs',
-      })
+      await rendererApi.send('tab:close-all')
     }
   })
 
@@ -66,7 +51,7 @@ export const RootPage = () => {
 
   return (
     <StoreProvider store={RootStore.store}>
-      <PersistGate persistor={RootStore.persistor}>
+      <PersistGate persistor={RootStore.persistor} loading={<ScreenLoader />}>
         <QueryClientProvider client={queryClient}>
           <ModalRouterProvider routes={modalsRouter}>
             <Outlet />

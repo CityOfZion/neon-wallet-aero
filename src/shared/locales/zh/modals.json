@@ -1,5 +1,5 @@
 {
-  "walletSelectionModal": {
+  "walletSelection": {
     "title": "选择钱包",
     "subtitle": "所有钱包",
     "reorderButtonLabel": "重新排序",
@@ -8,14 +8,14 @@
     "exportWalletTitle": "导出钱包",
     "exportError": "导出钱包时出错"
   },
-  "accountSelectionModal": {
+  "accountSelection": {
     "title": "选择账户",
     "addButtonLabel": "添加",
     "exportButtonLabel": "导出",
     "exportAccountTitle": "导出账户",
     "exportError": "导出账户时出错"
   },
-  "menuModal": {
+  "menu": {
     "title": "菜单",
     "walletsItemLabel": "钱包",
     "importItemLabel": "导入",
@@ -28,7 +28,7 @@
     "neo3NeoXBridgeItemLabel": "桥接",
     "logoutItemLabel": "注销"
   },
-  "importAccountsSelectionModal": {
+  "importAccountsSelection": {
     "title": "导入",
     "subtitle": "请选择您要导入的地址：",
     "form": {
@@ -49,10 +49,10 @@
       "walletAndAccounts": "钱包和账户存在错误"
     }
   },
-  "blockchainSelectionModal": {
+  "blockchainSelection": {
     "nextButtonLabel": "下一步"
   },
-  "decryptKeyModal": {
+  "decryptKey": {
     "title": "导入",
     "description": "为您的加密密钥输入密码：",
     "inputPlaceholder": "输入您的密码…",
@@ -65,7 +65,7 @@
       "noEncryptionInterfaceError": "所选区块链不支持加密密钥"
     }
   },
-  "createWalletStep1Modal": {
+  "createWalletStep1": {
     "title": "创建新的 BIP39 钱包",
     "subtitle": "生成安全短语",
     "secretWordsText": "这组助记词可以方便地备份和恢复您的账户。",
@@ -80,7 +80,7 @@
       "copyError": "复制安全短语到剪贴板失败。错误：{{ error }}"
     }
   },
-  "createWalletStep2Modal": {
+  "createWalletStep2": {
     "title": "创建新的 BIP39 钱包",
     "subtitle": "确认安全短语",
     "selectWordsText": "请按<1>正确顺序</1>选择每个单词，以确保您记对了：",
@@ -91,7 +91,7 @@
       "wordsNotMatch": "单词顺序不正确，请重试。"
     }
   },
-  "createWalletStep3Modal": {
+  "createWalletStep3": {
     "title": "创建新的 BIP39 钱包",
     "subtitle": "为您的新钱包命名",
     "walletNameText": "为您的钱包取一个容易记住的名字，例如“投资”或“交易钱包”等。",
@@ -102,14 +102,14 @@
       "walletNameEmpty": "请输入钱包名称"
     }
   },
-  "createWalletStep4Modal": {
+  "createWalletStep4": {
     "title": "创建新的 BIP39 钱包",
     "subtitle": "恭喜！",
     "proudOwnerText": "您现在拥有一个全新的钱包！",
     "rememberSecretPhraseText": "请务必妥善保管您的安全短语，建议多做几份备份。如需查找钱包的安全短语，可在该钱包的设置页面找到。",
     "viewNewWalletButtonLabel": "查看您的新钱包"
   },
-  "createAccountStep1Modal": {
+  "createAccountStep1": {
     "title": "添加新账户",
     "subtitle": "创建账户很简单，只需为其命名并选择一个链即可！",
     "accountNameLabel": "账户名称",
@@ -121,7 +121,7 @@
       "accountNameEmpty": "请输入账户名称"
     }
   },
-  "createAccountStep2Modal": {
+  "createAccountStep2": {
     "title": "添加新账户",
     "selectBlockchainLabel": "选择区块链",
     "selectWalletLabel": "选择钱包",
@@ -187,7 +187,7 @@
       }
     }
   },
-  "dappConnectionModal": {
+  "dappConnection": {
     "title": "连接到 dApp",
     "description": "所有由已连接 dApp 请求的交易在广播到区块链之前都<strong>需要您的许可</strong>。",
     "disclaimer": "没有您的直接批准，dApp 发起的任何操作都不会发生。",
@@ -198,21 +198,24 @@
       "invalidUri": "该 URI 无效。请检查后重试。"
     }
   },
-  "dappConnectionRequestModal": {
-    "title": "dApp 连接",
+  "dappConnectionRequest": {
+    "title": "连接 dApp",
     "description": "<strong>{{name}}</strong> 想要连接到您的钱包",
     "connectionDetailsTitle": "连接详情",
+    "methodsDetailsTitle": "方法",
     "acceptButtonLabel": "接受",
     "rejectButtonLabel": "拒绝",
     "messages": {
-      "connected": "{{dappName}} 已连接到您的钱包"
+      "connected": "{{dappName}} 已连接。"
     },
     "errors": {
-      "accountProposalError": "该 dApp 正尝试连接到与所选账户区块链不同的区块链。",
-      "differentNetworkError": "该 dApp 正尝试连接到与您当前连接的网络不同的网络。请切换网络以连接到此 dApp。"
+      "unknown": "发生未知错误。请重试。"
+    },
+    "errorsByCode": {
+      "NO_SERVICE": "该 dApp 尝试连接到与当前选择不同的区块链或网络。"
     }
   },
-  "dappDisconnectionModal": {
+  "dappDisconnection": {
     "title": "连接详情",
     "disconnectAllApps": "断开所有应用？",
     "disconnectApp": "断开应用？",
@@ -230,7 +233,7 @@
     "editContactButtonLabel": "编辑联系人",
     "deleteContactButtonLabel": "删除联系人"
   },
-  "saveContactModal": {
+  "saveContact": {
     "addContact": "添加联系人",
     "editContact": "编辑联系人",
     "deleteContact": "删除联系人",
@@ -247,7 +250,7 @@
       "invalidName": "无效姓名"
     }
   },
-  "contactAddressFormModal": {
+  "contactAddressForm": {
     "addAddress": "添加地址",
     "editAddress": "编辑地址",
     "name": "姓名",
@@ -274,7 +277,7 @@
     "buttonDeleteLabel": "删除此地址",
     "fromContact": "联系人"
   },
-  "swapAboutExtraIdToReceiveModal": {
+  "swapAboutExtraIdToReceive": {
     "title": "关于目的地标签/备注",
     "what": {
       "title": "什么是目的地标签或备注？",
@@ -289,12 +292,12 @@
       "description": "它通常是一个唯一的标识字符串，可以在您的收款人账户信息中找到。"
     }
   },
-  "swapInfoModal": {
+  "swapInfo": {
     "title": "它是如何工作的？",
     "description1": "跨链交换代币，无需使用交易所。",
     "description2": "在 NEON 中直接且即时交换代币既方便又能节省时间和降低手续费。"
   },
-  "swapConfirmationModal": {
+  "swapConfirmation": {
     "heading": "交换确认",
     "transactionDetails": "交易详情",
     "description": "请在继续交换前确认以下详情：",
@@ -360,7 +363,10 @@
     "title": "您的跨链桥",
     "bridgeDetailsHeaderLabel": "详情",
     "bridgeStatusPanelLabel": "状态",
-    "bridgeStatusPanelSteps": ["已发送", "完成"],
+    "bridgeStatusPanelSteps": [
+      "已发送",
+      "完成"
+    ],
     "fromDetailsPanelLabel": "来源",
     "fromAddressDetailsItemLabel": "发送地址",
     "fromTokenDetailsItemLabel": "代币",
@@ -430,7 +436,11 @@
   "swapDetails": {
     "title": "您的兑换",
     "detailsHeaderLabel": "详情",
-    "statusPanelSteps": ["确认", "兑换", "完成"],
+    "statusPanelSteps": [
+      "确认",
+      "兑换",
+      "完成"
+    ],
     "routingPanelLabel": "路由",
     "routingPanelTransactionFromLabel": "来自",
     "routingPanelTransactionToLabel": "到",
@@ -470,5 +480,64 @@
       "selectNeo3Account": "请选择一个 Neo 3 账户以继续",
       "accountCanNotBeWatch": "您无法使用观察账户进行投票"
     }
+  },
+  "dappPermission": {
+    "title": "允许 dApp 请求",
+    "description": "<1>{{name}}</1> 需要您的授权",
+    "description2": "请确认您希望继续",
+    "unsupportedMethodError": "不支持的方法：{{method}}",
+    "rejectButtonLabel": "拒绝",
+    "acceptButtonLabel": "接受",
+    "feeLabel": "手续费",
+    "feeOverridesMessage": "该 dApp 已覆盖手续费设置",
+    "errors": {
+      "expired": "请求已过期",
+      "cancelled": "请求已取消",
+      "fee": "计算手续费时出错。请求已取消。"
+    },
+    "errorContent": {
+      "title": "dApp 请求失败",
+      "subtitle": "糟糕！我们遇到了一个错误",
+      "description": "无法处理该 dApp 请求。",
+      "errorMessageLabel": "错误信息",
+      "doneButtonLabel": "完成"
+    },
+    "successContent": {
+      "title": "dApp 请求成功",
+      "subtitle": "dApp 请求已成功处理",
+      "doneButtonLabel": "完成",
+      "resultBoxLabel": "结果"
+    },
+    "customContents": {
+      "invokeNeo3": {
+        "hashDetailsItemLabel": "哈希",
+        "amountDetailsItemLabel": "数量",
+        "signatureScopeDetailsHeaderLabel": "签名范围",
+        "viewSignatureScopeButtonLabel": "查看签名范围详情",
+        "externalButtonLabel": "在区块浏览器中查看",
+        "viewContractDetailsButtonLabel": "查看合约详情"
+      }
+    }
+  },
+  "dappPermissionSignatureScope": {
+    "title": "签名范围",
+    "scopeDetailsHeaderLabel": "范围",
+    "explanationDetailsHeaderLabel": "说明",
+    "allowListDetailsHeaderLabel": "允许列表",
+    "scopes": {
+      "unknown": "未知",
+      "None": "您的签名仅对手续费支付有效。",
+      "CalledByEntry": "您的签名仅可被调用合约使用，并且仅适用于此交易。",
+      "Global": "您的签名可在任何合约中无限制使用。",
+      "CustomContracts": "您的签名可被上方列出的合约集合使用。",
+      "CustomGroups": "您的签名可被上方列出的群组集合使用。",
+      "WitnessRules": "您的签名仅对符合指定规则和条件的交易有效，例如当前脚本哈希、群组或调用脚本哈希。这允许更复杂和灵活的签名范围设置，以应对特殊情况和潜在的重入攻击。"
+    }
+  },
+  "dappPermissionContractDetails": {
+    "title": "合约详情",
+    "hashDetailsHeaderLabel": "哈希",
+    "parametersDetailsLabel": "请求参数",
+    "externalButtonLabel": "在区块浏览器中查看"
   }
 }

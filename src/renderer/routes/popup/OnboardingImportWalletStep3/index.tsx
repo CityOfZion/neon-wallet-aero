@@ -31,7 +31,7 @@ type TLocationState = {
 export const OnboardingImportWalletStep3Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step3' })
   const { t: commonT } = useTranslation('common')
-  const { t: decryptKeyModalT } = useTranslation('modals', { keyPrefix: 'decryptKeyModal' })
+  const { t: decryptKeyT } = useTranslation('modals', { keyPrefix: 'decryptKey' })
   const { t: confirmPasswordT } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const navigate = useNavigate()
   const { state } = useLocation() as Location<TLocationState>
@@ -103,8 +103,8 @@ export const OnboardingImportWalletStep3Page = () => {
         onSubmit: (blockchain: TBlockchainServiceKey) => {
           modalNavigate('decrypt-key', {
             state: {
-              heading: decryptKeyModalT('title'),
-              description: decryptKeyModalT('description'),
+              heading: decryptKeyT('title'),
+              description: decryptKeyT('description'),
               encryptedKey,
               blockchain,
               onSubmit: async (key: string) => {

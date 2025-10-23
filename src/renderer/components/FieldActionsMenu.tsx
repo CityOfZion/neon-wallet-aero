@@ -18,7 +18,7 @@ type Props = {
 export const FieldActionsMenu = ({ value, disabled = false, readOnly = false, onChange, children }: Props) => {
   const { t } = useTranslation('components', { keyPrefix: 'fieldActionsMenu' })
 
-  const pressOnceCut = usePressOnce(async () => {
+  const [isPressingCut, startPressCut] = usePressOnce(async () => {
     try {
       await navigator.clipboard.writeText(value)
       onChange?.('')
@@ -28,7 +28,7 @@ export const FieldActionsMenu = ({ value, disabled = false, readOnly = false, on
     }
   })
 
-  const pressOnceCopy = usePressOnce(async () => {
+  const [isPressingCopy, startPressCopy] = usePressOnce(async () => {
     try {
       await navigator.clipboard.writeText(value)
 
@@ -39,7 +39,7 @@ export const FieldActionsMenu = ({ value, disabled = false, readOnly = false, on
     }
   })
 
-  const pressOncePaste = usePressOnce(async () => {
+  const [isPressingPaste, startPressPaste] = usePressOnce(async () => {
     try {
       const text = await navigator.clipboard.readText()
 
@@ -56,17 +56,17 @@ export const FieldActionsMenu = ({ value, disabled = false, readOnly = false, on
   return (
     <ContextMenu.Root>
       <ContextMenu.Trigger disabled={isDisabled}>{children}</ContextMenu.Trigger>
+
       <ContextMenu.Content>
-        <ContextMenu.Item
-          disabled={pressOnceCut.isPressing || isDisabled || !hasValue}
-          onClick={pressOnceCut.handlePress()}
-        >
+        <ContextMenu.Item disabled={isPressingCut || isDisabled || !hasValue} onClick={startPressCut}>
           {t('cut')}
         </ContextMenu.Item>
-        <ContextMenu.Item disabled={pressOnceCopy.isPressing || !hasValue} onClick={pressOnceCopy.handlePress()}>
+
+        <ContextMenu.Item disabled={isPressingCopy || !hasValue} onClick={startPressCopy}>
           {t('copy')}
         </ContextMenu.Item>
-        <ContextMenu.Item disabled={pressOncePaste.isPressing || isDisabled} onClick={pressOncePaste.handlePress()}>
+
+        <ContextMenu.Item disabled={isPressingPaste || isDisabled} onClick={startPressPaste}>
           {t('paste')}
         </ContextMenu.Item>
       </ContextMenu.Content>

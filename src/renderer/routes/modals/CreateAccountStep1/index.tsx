@@ -16,7 +16,7 @@ type TFormData = {
 }
 
 export const CreateAccountStep1Modal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep1Modal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep1' })
   const { modalNavigate, modalEraseWrapper } = useModalNavigate()
 
   const { actionData, actionState, setData, setError, handleAct } = useActions<TFormData>({ accountName: '' })

@@ -14,6 +14,7 @@ import type {
   TModalRouterProviderProps,
   TRouteType,
 } from '@shared/types/modal'
+import type { TModalRouterRouteTypes } from '@shared/types/modal-router'
 
 const modalByRouteType: Record<TRouteType, (...props: any[]) => React.JSX.Element> = {
   side: SideModal,
@@ -32,7 +33,7 @@ export const ModalRouterProvider = ({ routes, children }: TModalRouterProviderPr
   }, [histories])
 
   const navigate = useCallback(
-    (name: string | number, options?: TModalRouterContextNavigateOptions) => {
+    (name: keyof TModalRouterRouteTypes | number, options?: TModalRouterContextNavigateOptions) => {
       if (typeof name === 'string') {
         const routeExist = routes.find(route => route.name === name)
         if (!routeExist) {

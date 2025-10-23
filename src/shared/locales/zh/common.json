@@ -8,7 +8,8 @@
     "close": "关闭",
     "back": "返回",
     "pasteFromClipboard": "从剪贴板粘贴",
-    "pasteFromClipboardError": "无法从剪贴板读取",
+    "copyToClipboard": "复制到剪贴板",
+    "copy": "复制",
     "menuIconButtonAriaLabel": "菜单",
     "downloadQRCodePassword": "下载密码二维码",
     "remove": "移除",
@@ -44,8 +45,7 @@
     "base": "Base",
     "arbitrum": "Arbitrum"
   },
-  "walletConnect": {
-    "name": "Neon 钱包",
-    "description": "创建和管理钱包，或轻松导入现有钱包，通过 Neon 流畅的界面，在多个账户之间安全地管理和转移您的资产。"
+  "errors": {
+    "noLoginSession": "您需要登录才能访问此功能。"
   }
 }

@@ -24,7 +24,7 @@ type TActionData = {
 }
 
 export const CreateWalletStep2Modal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep2Modal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep2' })
   const { mnemonic } = useModalState<TModalState<'create-wallet-2'>>()
   const { modalNavigate, modalEraseWrapper } = useModalNavigate()
 

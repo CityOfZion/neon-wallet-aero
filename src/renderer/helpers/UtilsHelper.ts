@@ -136,4 +136,14 @@ export class UtilsHelper {
 
     return text
   }
+
+  static parseJsonSafely(value: any): any {
+    if (typeof value !== 'string') return value
+
+    try {
+      return JSON.parse(value)
+    } catch {
+      return value
+    }
+  }
 }

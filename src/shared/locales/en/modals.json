@@ -1,5 +1,5 @@
 {
-  "walletSelectionModal": {
+  "walletSelection": {
     "title": "Select a wallet",
     "subtitle": "All wallets",
     "reorderButtonLabel": "Reorder",
@@ -8,14 +8,14 @@
     "exportWalletTitle": "Export wallet",
     "exportError": "Error exporting wallet"
   },
-  "accountSelectionModal": {
+  "accountSelection": {
     "title": "Select an account",
     "addButtonLabel": "Add",
     "exportButtonLabel": "Export",
     "exportAccountTitle": "Export account",
     "exportError": "Error exporting account"
   },
-  "menuModal": {
+  "menu": {
     "title": "Menu",
     "walletsItemLabel": "Wallets",
     "importItemLabel": "Import",
@@ -28,7 +28,7 @@
     "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Logout"
   },
-  "importAccountsSelectionModal": {
+  "importAccountsSelection": {
     "title": "Import",
     "subtitle": "Select the address(es) you’d like to import:",
     "form": {
@@ -49,10 +49,10 @@
       "walletAndAccounts": "There is an error with wallet and account(s)"
     }
   },
-  "blockchainSelectionModal": {
+  "blockchainSelection": {
     "nextButtonLabel": "Next"
   },
-  "decryptKeyModal": {
+  "decryptKey": {
     "title": "Import",
     "description": "Enter a pass phrase for your encrypted key:",
     "inputPlaceholder": "Enter your pass phrase…",
@@ -65,7 +65,7 @@
       "noEncryptionInterfaceError": "The selected blockchain does not support encrypted keys"
     }
   },
-  "createWalletStep1Modal": {
+  "createWalletStep1": {
     "title": "Create new BIP39 wallet",
     "subtitle": "Generate security phrase",
     "secretWordsText": "This set of secret words make it easy to back up and restore your account.",
@@ -80,7 +80,7 @@
       "copyError": "Failed to copy security phrase to clipboard. Error: {{ error }}"
     }
   },
-  "createWalletStep2Modal": {
+  "createWalletStep2": {
     "title": "Create new BIP39 wallet",
     "subtitle": "Confirm security phrase",
     "selectWordsText": "Please select each word <1>in the correct order</1> to make sure you’ve got it right:",
@@ -91,7 +91,7 @@
       "wordsNotMatch": "Incorrect word order. Please try again."
     }
   },
-  "createWalletStep3Modal": {
+  "createWalletStep3": {
     "title": "Create new BIP39 wallet",
     "subtitle": "Give your new wallet a name",
     "walletNameText": "Give your wallet a memorable name, it could be helpful to name it with a label related to what you want to use the wallet for (such as ‘Investments’ or ‘Trading Wallet’).",
@@ -102,14 +102,14 @@
       "walletNameEmpty": "Please enter a wallet name"
     }
   },
-  "createWalletStep4Modal": {
+  "createWalletStep4": {
     "title": "Create new BIP39 wallet",
     "subtitle": "Congratulations!",
     "proudOwnerText": "You’re now the proud owner of a shiny new wallet!",
     "rememberSecretPhraseText": "Remember to keep your secret phrase safe, having several backups is always a good idea. If you need to find out a wallets secret phrase you can find it in the settings page for that wallet.",
     "viewNewWalletButtonLabel": "View your new wallet"
   },
-  "createAccountStep1Modal": {
+  "createAccountStep1": {
     "title": "Add new account",
     "subtitle": "Creating an account is easy, just give it a name and select a chain and you’re done!",
     "accountNameLabel": "Account name",
@@ -121,7 +121,7 @@
       "accountNameEmpty": "Please enter an account name"
     }
   },
-  "createAccountStep2Modal": {
+  "createAccountStep2": {
     "title": "Add new account",
     "selectBlockchainLabel": "Select a blockchain",
     "selectWalletLabel": "Select a wallet",
@@ -187,7 +187,7 @@
       }
     }
   },
-  "dappConnectionModal": {
+  "dappConnection": {
     "title": "Connect with a dApp",
     "description": "All transactions requested by a connected dApp will <strong>require your permission before being broadcast</strong> to the blockchain.",
     "disclaimer": "No actions that are initiated by the dApp will happen without your direct approval.",
@@ -198,21 +198,24 @@
       "invalidUri": "The URI is not valid. Please check and try again."
     }
   },
-  "dappConnectionRequestModal": {
-    "title": "Dapp connection",
+  "dappConnectionRequest": {
+    "title": "Connect with a dApp",
     "description": "<strong>{{name}}</strong> wants to connect to your wallet",
     "connectionDetailsTitle": "Connection details",
+    "methodsDetailsTitle": "Methods",
     "acceptButtonLabel": "Accept",
     "rejectButtonLabel": "Reject",
     "messages": {
-      "connected": "{{dappName}} is now connected to your wallet"
+      "connected": "{{dappName}} is now connected."
     },
     "errors": {
-      "accountProposalError": "The dApp is trying to connect to a different blockchain than the selected account's blockchain.",
-      "differentNetworkError": "The dApp is trying to connect to a different network than the one you are currently connected to. Please change your network to connect to this dApp."
+      "unknown": "An unknown error occurred. Please try again."
+    },
+    "errorsByCode": {
+      "NO_SERVICE": "The dApp is trying to connect to a different blockchain or network than the one selected."
     }
   },
-  "dappDisconnectionModal": {
+  "dappDisconnection": {
     "title": "Connection details",
     "disconnectAllApps": "Disconnect all applications?",
     "disconnectApp": "Disconnect application?",
@@ -230,7 +233,7 @@
     "editContactButtonLabel": "Edit contact",
     "deleteContactButtonLabel": "Delete contact"
   },
-  "saveContactModal": {
+  "saveContact": {
     "addContact": "Add contact",
     "editContact": "Edit contact",
     "deleteContact": "Delete contact",
@@ -247,7 +250,7 @@
       "invalidName": "Invalid name"
     }
   },
-  "contactAddressFormModal": {
+  "contactAddressForm": {
     "addAddress": "Add address",
     "editAddress": "Edit address",
     "name": "Name",
@@ -274,7 +277,7 @@
     "buttonDeleteLabel": "Delete this address",
     "fromContact": "Contact"
   },
-  "swapAboutExtraIdToReceiveModal": {
+  "swapAboutExtraIdToReceive": {
     "title": "About a destination tag/memo",
     "what": {
       "title": "What is a destination tag or memo?",
@@ -289,12 +292,12 @@
       "description": "It is typically a unique identifying string that can be found in your recipient account information."
     }
   },
-  "swapInfoModal": {
+  "swapInfo": {
     "title": "How does it work?",
     "description1": "Exchange tokens for other token, across chains, without using an exchange.",
     "description2": "Directly and immediately exchanging tokens in NEON is convenient and allows you to save time and pay lower fees."
   },
-  "swapConfirmationModal": {
+  "swapConfirmation": {
     "heading": "Swap Confirmation",
     "transactionDetails": "Transaction details",
     "description": "Please confirm the details below before proceeding with your swap:",
@@ -360,7 +363,10 @@
     "title": "Your bridge",
     "bridgeDetailsHeaderLabel": "Details",
     "bridgeStatusPanelLabel": "Status",
-    "bridgeStatusPanelSteps": ["Sent", "Complete"],
+    "bridgeStatusPanelSteps": [
+      "Sent",
+      "Complete"
+    ],
     "fromDetailsPanelLabel": "From",
     "fromAddressDetailsItemLabel": "Sending address",
     "fromTokenDetailsItemLabel": "Token",
@@ -430,7 +436,11 @@
   "swapDetails": {
     "title": "Your swap",
     "detailsHeaderLabel": "Details",
-    "statusPanelSteps": ["Confirm", "Exchange", "Complete"],
+    "statusPanelSteps": [
+      "Confirm",
+      "Exchange",
+      "Complete"
+    ],
     "routingPanelLabel": "Routing",
     "routingPanelTransactionFromLabel": "From",
     "routingPanelTransactionToLabel": "To",
@@ -470,5 +480,64 @@
       "selectNeo3Account": "Select a Neo 3 account to continue",
       "accountCanNotBeWatch": "You cannot vote with a watch account"
     }
+  },
+  "dappPermission": {
+    "title": "Allow dApp request",
+    "description": "<1>{{name}}</1> needs your permission",
+    "description2": "Confirm that you’d like to proceed",
+    "unsupportedMethodError": "The method {{method}} is not supported",
+    "rejectButtonLabel": "Reject",
+    "acceptButtonLabel": "Accept",
+    "feeLabel": "Fee",
+    "feeOverridesMessage": "The dApp has overwritten the fees",
+    "errors": {
+      "expired": "The request has expired",
+      "cancelled": "Request cancelled",
+      "fee": "Error to calculate fee. The request was cancelled."
+    },
+    "errorContent": {
+      "title": "Failed dApp request",
+      "subtitle": "Oops! we’ve encountered an error",
+      "description": "The dApp request could not be processed.",
+      "errorMessageLabel": "Error message",
+      "doneButtonLabel": "Done"
+    },
+    "successContent": {
+      "title": "Successful dApp request",
+      "subtitle": "The dApp request was processed successfully",
+      "doneButtonLabel": "Done",
+      "resultBoxLabel": "Result"
+    },
+    "customContents": {
+      "invokeNeo3": {
+        "hashDetailsItemLabel": "Hash",
+        "amountDetailsItemLabel": "Amount",
+        "signatureScopeDetailsHeaderLabel": "Signature scope",
+        "viewSignatureScopeButtonLabel": "View signature scope details",
+        "externalButtonLabel": "View on explorer",
+        "viewContractDetailsButtonLabel": "View contract details"
+      }
+    }
+  },
+  "dappPermissionSignatureScope": {
+    "title": "Signature scope",
+    "scopeDetailsHeaderLabel": "Scope",
+    "explanationDetailsHeaderLabel": "Explanation",
+    "allowListDetailsHeaderLabel": "Allow list",
+    "scopes": {
+      "unknown": "Unknown",
+      "None": "Your signature is only valid for fee payments.",
+      "CalledByEntry": "Your signature can only be used by the calling contract and just for this transaction.",
+      "Global": "Your signature can be used without restriction with any contract.",
+      "CustomContracts": "Your signature can be used by the set of contracts listed above.",
+      "CustomGroups": "Your signature can be used by the set of groups listed above.",
+      "WitnessRules": "Your signature is only valid for transactions that match the specified rules and conditions, such as the current script hash, group, or calling script hash. This allows for more complex and expressive signature scoping to address edge cases and potential reentrance attacks."
+    }
+  },
+  "dappPermissionContractDetails": {
+    "title": "Contract details",
+    "hashDetailsHeaderLabel": "Hash",
+    "parametersDetailsLabel": "Request parameters",
+    "externalButtonLabel": "View on explorer"
   }
 }

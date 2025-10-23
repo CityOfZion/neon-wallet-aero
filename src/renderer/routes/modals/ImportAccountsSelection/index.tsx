@@ -16,7 +16,7 @@ import { ImportAccountsSelectionMnemonic } from './ImportAccountsSelectionMnemon
 export type TBlockchainAccounts = Partial<Record<TBlockchainServiceKey, TBSAccount<TBlockchainServiceKey>[]>>
 
 export const ImportAccountsSelectionModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelectionModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection' })
   const { value, type, onSubmit } = useModalState<TModalState<'import-accounts-selection'>>()
 
   return (

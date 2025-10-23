@@ -1,22 +1,32 @@
-import { useRef, useState } from 'react'
+import { useRef, useTransition } from 'react'
 
-export const usePressOnce = (callback: (() => void) | (() => Promise<void>)) => {
-  const [isPressing, setIsPressing] = useState(false)
+type TCallback<T extends any[] = any[]> = (...args: T) => void | Promise<void>
+
+export function usePressOnce(): [boolean, <T extends any[]>(callback: TCallback<T>) => (...args: T) => void]
+export function usePressOnce<T extends any[]>(rootCallback: TCallback<T>): [boolean, () => (...args: T) => void]
+export function usePressOnce<T extends any[] = any[]>(rootCallback?: TCallback<T>): any {
   const isPressingRef = useRef(false)
+  const [isPressing, startPressing] = useTransition()
 
-  const handlePress = () => async () => {
-    if (isPressing || isPressingRef.current) return
+  const handlePress = <A extends any[] = T>(childrenCallback?: TCallback<A>) => {
+    return (...args: A) => {
+      if (isPressingRef.current) return
 
-    setIsPressing(true)
-    isPressingRef.current = true
+      startPressing(async () => {
+        isPressingRef.current = true
 
-    try {
-      await callback()
-    } finally {
-      setIsPressing(false)
-      isPressingRef.current = false
+        try {
+          if (rootCallback) {
+            await rootCallback(...(args as unknown as T))
+          } else if (childrenCallback) {
+            await childrenCallback(...args)
+          }
+        } finally {
+          isPressingRef.current = false
+        }
+      })
     }
   }
 
-  return { isPressing, isPressingRef, handlePress }
+  return [isPressing, handlePress] as const
 }

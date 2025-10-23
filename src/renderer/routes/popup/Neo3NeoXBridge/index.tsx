@@ -30,7 +30,7 @@ import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLazyBalance } from '@renderer/hooks/useBalances'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'

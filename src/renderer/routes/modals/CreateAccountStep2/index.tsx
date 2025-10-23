@@ -29,7 +29,7 @@ type TActionsData = {
 }
 
 export const CreateAccountStep2Modal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep2Modal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep2' })
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { accountName } = useModalState<TModalState<'create-account-2'>>()
   const { modalErase, modalEraseWrapper } = useModalNavigate()

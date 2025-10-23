@@ -7,10 +7,11 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { Loader } from './Loader'
 
 type TProps = ComponentProps<'img'> & {
+  containerClassName?: string
   fallbackSrc?: string
 }
 
-export const ImageWithFallback = ({ fallbackSrc, className, ...props }: TProps) => {
+export const ImageWithFallback = ({ fallbackSrc, className, containerClassName, ...props }: TProps) => {
   const [isLoading, setIsLoading] = useState(true)
 
   const handleError: ReactEventHandler<HTMLImageElement> = event => {
@@ -22,13 +23,12 @@ export const ImageWithFallback = ({ fallbackSrc, className, ...props }: TProps) 
   }
 
   return (
-    <div className={className}>
-      {isLoading && <Loader className="h-4 w-4 text-gray-600" />}
+    <div className={StyleHelper.mergeStyles('size-4', containerClassName)}>
+      {isLoading && <Loader className="h-full w-full text-gray-600" />}
 
       <img
-        alt=""
         {...props}
-        className={StyleHelper.mergeStyles({ hidden: isLoading }, 'h-full w-full object-contain')}
+        className={StyleHelper.mergeStyles({ hidden: isLoading }, 'h-full w-full object-contain', className)}
         onError={handleError}
         onLoad={() => setIsLoading(false)}
       />

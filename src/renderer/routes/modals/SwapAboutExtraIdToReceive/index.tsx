@@ -5,7 +5,7 @@ import { Separator } from '@renderer/components/Separator'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 export const SwapAboutExtraIdToReceiveModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'swapAboutExtraIdToReceiveModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'swapAboutExtraIdToReceive' })
 
   return (
     <BottomModalLayout heading={t('title')} className="py-6">

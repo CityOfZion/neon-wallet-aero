@@ -6,7 +6,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { useAccountUtils } from '@renderer/hooks/useAccountUtils'
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
@@ -26,7 +26,7 @@ type TProps = {
 }
 
 export const ImportAccountsSelectionMnemonic = ({ value, onSubmit }: TProps) => {
-  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelectionModal' })
+  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection' })
   const { modalErase } = useModalNavigate()
   const { doesAccountExist } = useAccountUtils()
   const { lastIndexesByWallet } = useLastIndexesByWallet()

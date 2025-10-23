@@ -1,108 +1,122 @@
-import { Fragment, useState, useTransition } from 'react'
+import { Fragment, useState } from 'react'
 
-import { useWalletConnectWallet } from '@cityofzion/wallet-connect-sdk-wallet-react'
+import type { TWalletKitHelperProposalDetails } from '@cityofzion/bs-multichain'
+import { WalletKitHelper } from '@cityofzion/bs-multichain'
 import { Trans, useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
-import { DappConnectionHeader } from '@renderer/components/DappConnectionHeader'
+import { DappHeader } from '@renderer/components/DappHeader'
 import { Details } from '@renderer/components/Details'
-import { Loader } from '@renderer/components/Loader'
+import { ScreenLoader } from '@renderer/components/ScreenLoader'
 
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { WalletConnectHelper } from '@renderer/helpers/WalletConnectHelper'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
-import { useSelectedNetworkSelector } from '@renderer/hooks/useSettingsSelector'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
+import { usePressOnce } from '@renderer/hooks/usePressOnce'
+import { invalidateWalletConnectSessions } from '@renderer/hooks/useWalletConnectSessions'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbPlug from '@renderer/assets/images/tb-plug.svg?react'
 
-import type { TWalletConnectHelperProposalInformation } from '@shared/types/helpers'
+import { bsAggregator } from '@renderer/libs/blockchain-service'
+import { rendererApi } from '@shared/message-api/renderer'
 import type { TModalState } from '@shared/types/modal'
 
 export const DappConnectionRequestModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'dappConnectionRequestModal' })
-  const { rejectProposal, approveProposal } = useWalletConnectWallet()
-  const { modalNavigate, modalErase } = useModalNavigate()
+  const { t } = useTranslation('modals', { keyPrefix: 'dappConnectionRequest' })
+  const { modalErase } = useModalNavigate()
   const { proposal, account } = useModalState<TModalState<'dapp-connection-request'>>()
-  const { networkRef } = useSelectedNetworkSelector(account.blockchain)
 
-  const [proposalInformation, setProposalInformation] = useState<TWalletConnectHelperProposalInformation>()
-  const [isConnecting, startConnecting] = useTransition()
+  const [isConnecting, startConnecting] = usePressOnce()
+
+  const [proposalDetails, setProposalDetails] = useState<TWalletKitHelperProposalDetails>()
 
   const handleReject = async () => {
-    rejectProposal(proposal)
+    rendererApi.send('wallet-connect:reject-proposal', {
+      id: proposal.id,
+      reason: WalletKitHelper.getError('USER_REJECTED'),
+    })
+
     modalErase('bottom')
   }
 
-  const handleAccept = () => {
-    if (isConnecting) return
+  const handleAccept = async () => {
+    try {
+      await rendererApi.send('wallet-connect:approve-proposal', {
+        id: proposal.id,
+        namespaces: proposalDetails!.approvedNamespaces,
+      })
 
-    startConnecting(async () => {
-      try {
-        await approveProposal(proposal!, {
-          address: account.address,
-          chain: proposalInformation!.network.id,
-          blockchain: proposalInformation!.proposalBlockchain,
-        })
+      await invalidateWalletConnectSessions()
 
-        ToastHelper.success({ message: t('messages.connected', { dappName: proposal.params.proposer.metadata.name }) })
-      } catch (error: any) {
-        ToastHelper.error({ message: error.message })
-      } finally {
-        modalErase('bottom')
-      }
-    })
+      ToastHelper.success({ message: t('messages.connected', { dappName: proposal.proposer.metadata.name }) })
+    } catch (error: any) {
+      ToastHelper.error({ message: error.message })
+    } finally {
+      modalErase('bottom')
+    }
   }
 
   const { isMounting } = useMountUnsafe(() => {
     try {
-      const proposalInformation = WalletConnectHelper.getInformationFromProposal(proposal, account)
-
-      if (proposalInformation.length === 0) throw new Error(t('errors.accountProposalError'))
-
-      const selectedNetworkProposalInformation = proposalInformation.find(
-        information => information.network.id === networkRef.current.id
+      setProposalDetails(
+        WalletKitHelper.getProposalDetails({
+          proposal,
+          address: account.address,
+          services: bsAggregator.blockchainServices,
+        })
       )
-
-      if (!selectedNetworkProposalInformation) throw new Error(t('errors.differentNetworkError'))
-
-      setProposalInformation(selectedNetworkProposalInformation)
     } catch (error: any) {
-      rejectProposal(proposal)
-      ToastHelper.error({ message: error.message, id: 'dapp-connection-details-proposal-error' })
-      modalNavigate(-1)
+      rendererApi.send('wallet-connect:reject-proposal', {
+        id: proposal.id,
+        reason: WalletKitHelper.getError('UNSUPPORTED_NAMESPACE_KEY'),
+      })
+
+      ToastHelper.error({
+        message: t(`errorsByCode.${error.code}`, error.message),
+        id: 'dapp-connection-details-proposal-error',
+      })
+
+      modalErase('bottom')
     }
   }, 1000)
 
   return (
-    <BottomModalLayout heading={t('title')} contentClassName="items-center" onClose={() => rejectProposal(proposal)}>
-      {isMounting || !proposalInformation ? (
-        <div className="flex grow items-center justify-center">
-          <Loader className="size-10" />
-        </div>
+    <BottomModalLayout heading={t('title')} contentClassName="items-center" onClose={handleReject}>
+      {isMounting || !proposalDetails ? (
+        <ScreenLoader />
       ) : (
         <Fragment>
-          <DappConnectionHeader
+          <DappHeader
             className="mt-6"
-            proposerUri={proposal.params.proposer.metadata.icons[0]}
-            proposerName={proposal.params.proposer.metadata.name}
-            description={
-              <Trans t={t} i18nKey="description" values={{ name: proposal.params.proposer.metadata.name }} />
-            }
+            proposerUri={proposal.proposer.metadata.icons[0]}
+            proposerName={proposal.proposer.metadata.name}
           />
 
+          <p className="mt-3 text-center text-sm text-gray-100">
+            <Trans t={t} i18nKey="description" values={{ name: proposal.proposer.metadata.name }} />
+          </p>
+
           <Details.Root className="mt-3">
-            <Details.Header label={t('connectionDetailsTitle')} icon={<TbPlug aria-hidden className="text-blue" />}>
-              <span className="grow text-right text-sm text-gray-300">{proposalInformation.chain}</span>
+            <Details.Header
+              rightElement={
+                <span className="text-right text-sm text-gray-300">
+                  {proposalDetails.service.walletConnectService.chain}
+                </span>
+              }
+              leftElement={<TbPlug aria-hidden className="text-blue" />}
+            >
+              {t('connectionDetailsTitle')}
             </Details.Header>
 
+            <Details.HeaderSeparator />
+
             <Details.Body>
-              <Details.Panel label="Methods">
+              <Details.Panel label={t('methodsDetailsTitle')}>
                 <Details.Item>
-                  <span className="text-sm">{proposalInformation.methods.join(', ')}</span>
+                  <span className="text-sm">{proposalDetails.methods.join(', ')}</span>
                 </Details.Item>
               </Details.Panel>
             </Details.Body>
@@ -120,7 +134,7 @@ export const DappConnectionRequestModal = () => {
             <Button
               label={t('acceptButtonLabel')}
               className="flex-grow"
-              onClick={handleAccept}
+              onClick={startConnecting(handleAccept)}
               loading={isConnecting}
             />
           </div>

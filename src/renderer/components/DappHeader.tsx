@@ -1,4 +1,4 @@
-import type { ComponentProps, ReactNode } from 'react'
+import type { ComponentProps } from 'react'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
@@ -11,10 +11,9 @@ import { ImageWithFallback } from './ImageWithFallback'
 type TProps = {
   proposerUri: string
   proposerName: string
-  description?: ReactNode
 } & ComponentProps<'div'>
 
-export const DappConnectionHeader = ({ proposerUri, proposerName, description, className, ...props }: TProps) => {
+export const DappHeader = ({ proposerUri, proposerName, className, ...props }: TProps) => {
   return (
     <div className={StyleHelper.mergeStyles('flex flex-col items-center gap-6', className)} {...props}>
       <div className="flex w-full items-center gap-x-12">
@@ -22,16 +21,15 @@ export const DappConnectionHeader = ({ proposerUri, proposerName, description, c
         <WalletConnectLogo aria-hidden className="h-min w-full text-white opacity-60" />
       </div>
 
-      <div className="flex items-center justify-center rounded-full bg-gray-900/40 px-4 py-2">
+      <div className="bg-asphalt/50 flex size-14 items-center justify-center overflow-hidden rounded-full p-2">
         <ImageWithFallback
           src={proposerUri}
           alt={proposerName}
           fallbackSrc={dappFallbackIcon}
-          className="h-full max-h-16 w-full max-w-16 rounded-sm object-contain"
+          className="h-full w-full object-contain"
+          containerClassName="h-full w-full"
         />
       </div>
-
-      {description && <p className="text-center text-sm text-gray-100">{description}</p>}
     </div>
   )
 }

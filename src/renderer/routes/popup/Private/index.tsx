@@ -2,9 +2,12 @@ import { Fragment, lazy, Suspense } from 'react'
 
 import { Navigate, Outlet } from 'react-router-dom'
 
+import { LazyHelper } from '@renderer/helpers/LazyHelper'
+
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 
 const NetworkBanner = lazy(() => import('@renderer/components/NetworkBanner'))
+const WalletConnectManagerSetup = LazyHelper.delayedLazy(() => import('./WalletConnectManagerSetup'), 1000)
 
 export const PrivatePage = () => {
   const { loginSession } = useLoginSessionSelector()
@@ -15,6 +18,10 @@ export const PrivatePage = () => {
     <Fragment>
       <Suspense fallback={null}>
         <NetworkBanner />
+      </Suspense>
+
+      <Suspense fallback={null}>
+        <WalletConnectManagerSetup />
       </Suspense>
 
       <Outlet />

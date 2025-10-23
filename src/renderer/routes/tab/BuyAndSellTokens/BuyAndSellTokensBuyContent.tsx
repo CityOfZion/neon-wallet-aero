@@ -7,7 +7,7 @@ import type { ComponentProps } from 'react'
 import { BuyAndSellTokensHelper } from '@renderer/helpers/BuyAndSellTokensHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 import { useTheme } from '@renderer/hooks/useTheme'
 

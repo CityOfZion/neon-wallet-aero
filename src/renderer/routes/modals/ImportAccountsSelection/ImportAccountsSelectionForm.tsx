@@ -36,7 +36,7 @@ export const ImportAccountsSelectionForm = ({
   onSubmit,
   children,
 }: TImportAccountsSelectionFormProps) => {
-  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelectionModal.form' })
+  const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection.form' })
 
   const hasBlockchainAccounts = useMemo(() => Object.values(blockchainAccounts).flat().length > 0, [blockchainAccounts])
 

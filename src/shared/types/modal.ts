@@ -6,7 +6,7 @@ export type TRouteType = 'side' | 'bottom'
 
 export type TRoute = {
   element: ComponentType<any>
-  name: string
+  name: keyof TModalRouterRouteTypes
   type: TRouteType
 }
 
@@ -20,7 +20,7 @@ export type THistory<T = any> = {
 export type TModalRouterContextNavigateOptions<T = any> = Partial<Pick<THistory<T>, 'state' | 'replace'>>
 
 export type TModalRouterContextValue<T = any> = {
-  navigate: (name: string | number, options?: TModalRouterContextNavigateOptions<T>) => void
+  navigate: (name: keyof TModalRouterRouteTypes | number, options?: TModalRouterContextNavigateOptions<T>) => void
   erase: (type: TRouteType) => void
   histories: THistory[]
   historiesRef: React.RefObject<THistory[]>

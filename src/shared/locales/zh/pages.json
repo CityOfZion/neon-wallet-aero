@@ -1,4 +1,11 @@
 {
+  "private": {
+    "walletConnectManagerSetup": {
+      "autoAcceptProcessingMessage": "正在处理 WalletConnect 请求…",
+      "autoAcceptSuccessMessage": "WalletConnect 请求已成功处理",
+      "autoAcceptErrorMessage": "WalletConnect 请求处理失败"
+    }
+  },
   "wallets": {
     "placeholderWalletSelectButton": "选择钱包…",
     "placeholderAccountSelectButton": "选择账户…",
@@ -99,7 +106,11 @@
   "onboardingLoginNewWallet": {
     "description": "正在保护您的新钱包",
     "goBackIconButtonLabel": "返回",
-    "steps": ["创建密码", "确认密码", "完成"]
+    "steps": [
+      "创建密码",
+      "确认密码",
+      "完成"
+    ]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "输入您的新密码",
@@ -123,7 +134,13 @@
     "title": "导入钱包",
     "description": "请创建密码以保护您的钱包",
     "goBackIconButtonLabel": "返回",
-    "steps": ["创建密码", "确认密码", "添加详情或定位文件", "导入", "完成"],
+    "steps": [
+      "创建密码",
+      "确认密码",
+      "添加详情或定位文件",
+      "导入",
+      "完成"
+    ],
     "migrationLabel": "定位您的迁移文件",
     "step3": {
       "formTitle": "输入地址、加密密钥、私钥、助记词或定位备份文件",

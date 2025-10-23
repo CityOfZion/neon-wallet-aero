@@ -7,7 +7,7 @@ import type { TButtonProps } from './Button'
 import { Button } from './Button'
 
 type TProps = {
-  onDownload?: () => Promise<void>
+  onDownload?: () => void
   password: string
 } & TButtonProps
 

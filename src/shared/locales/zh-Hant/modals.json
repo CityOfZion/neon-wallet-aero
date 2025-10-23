@@ -1,5 +1,5 @@
 {
-  "walletSelectionModal": {
+  "walletSelection": {
     "title": "選擇錢包",
     "subtitle": "所有錢包",
     "reorderButtonLabel": "重新排序",
@@ -8,14 +8,14 @@
     "exportWalletTitle": "導出錢包",
     "exportError": "導出錢包時出錯"
   },
-  "accountSelectionModal": {
+  "accountSelection": {
     "title": "選擇帳戶",
     "addButtonLabel": "新增",
     "exportButtonLabel": "導出",
     "exportAccountTitle": "導出帳戶",
     "exportError": "導出帳戶時出錯"
   },
-  "menuModal": {
+  "menu": {
     "title": "選單",
     "walletsItemLabel": "錢包",
     "importItemLabel": "匯入",
@@ -28,7 +28,7 @@
     "neo3NeoXBridgeItemLabel": "橋接",
     "logoutItemLabel": "註銷"
   },
-  "importAccountsSelectionModal": {
+  "importAccountsSelection": {
     "title": "匯入",
     "subtitle": "選擇您想要匯入的地址：",
     "form": {
@@ -49,10 +49,10 @@
       "walletAndAccounts": "錢包和帳戶出現錯誤"
     }
   },
-  "blockchainSelectionModal": {
+  "blockchainSelection": {
     "nextButtonLabel": "下一步"
   },
-  "decryptKeyModal": {
+  "decryptKey": {
     "title": "匯入",
     "description": "為您的加密金鑰輸入密碼：",
     "inputPlaceholder": "輸入您的密碼…",
@@ -65,7 +65,7 @@
       "noEncryptionInterfaceError": "所選區塊鏈不支持加密密鑰"
     }
   },
-  "createWalletStep1Modal": {
+  "createWalletStep1": {
     "title": "建立新的 BIP39 錢包",
     "subtitle": "產生安全助記詞",
     "secretWordsText": "這組助記詞可讓您輕鬆備份和還原您的帳戶。",
@@ -80,7 +80,7 @@
       "copyError": "複製助記詞到剪貼簿失敗。錯誤：{{ error }}"
     }
   },
-  "createWalletStep2Modal": {
+  "createWalletStep2": {
     "title": "建立新的 BIP39 錢包",
     "subtitle": "確認安全助記詞",
     "selectWordsText": "請依<1>正確順序</1>選擇每個單詞，以確保您記得正確：",
@@ -91,7 +91,7 @@
       "wordsNotMatch": "單詞順序不正確。請再試一次。"
     }
   },
-  "createWalletStep3Modal": {
+  "createWalletStep3": {
     "title": "建立新的 BIP39 錢包",
     "subtitle": "為您的新錢包命名",
     "walletNameText": "請為您的錢包取一個容易記住的名稱，例如「投資」或「交易錢包」等。",
@@ -102,14 +102,14 @@
       "walletNameEmpty": "請輸入錢包名稱"
     }
   },
-  "createWalletStep4Modal": {
+  "createWalletStep4": {
     "title": "建立新的 BIP39 錢包",
     "subtitle": "恭喜！",
     "proudOwnerText": "您現在擁有一個全新的錢包！",
     "rememberSecretPhraseText": "請務必妥善保管您的助記詞，建議多做幾份備份。如需查詢錢包的助記詞，可在該錢包的設定頁面找到。",
     "viewNewWalletButtonLabel": "查看您的新錢包"
   },
-  "createAccountStep1Modal": {
+  "createAccountStep1": {
     "title": "新增帳戶",
     "subtitle": "建立帳戶很簡單，只需給它命名並選擇一條鏈即可完成！",
     "accountNameLabel": "帳戶名稱",
@@ -121,7 +121,7 @@
       "accountNameEmpty": "請輸入帳戶名稱"
     }
   },
-  "createAccountStep2Modal": {
+  "createAccountStep2": {
     "title": "新增帳戶",
     "selectBlockchainLabel": "選擇區塊鏈",
     "selectWalletLabel": "選擇錢包",
@@ -187,7 +187,7 @@
       }
     }
   },
-  "dappConnectionModal": {
+  "dappConnection": {
     "title": "連接到 dApp",
     "description": "所有由已連接 dApp 請求的交易在廣播到區塊鏈之前都<strong>需要您的許可</strong>。",
     "disclaimer": "沒有您的直接批准，dApp 發起的任何操作都不會發生。",
@@ -198,21 +198,24 @@
       "invalidUri": "該 URI 無效。請檢查後重試。"
     }
   },
-  "dappConnectionRequestModal": {
-    "title": "dApp 連線",
+  "dappConnectionRequest": {
+    "title": "連接 dApp",
     "description": "<strong>{{name}}</strong> 想要連接到您的錢包",
     "connectionDetailsTitle": "連線詳情",
+    "methodsDetailsTitle": "方法",
     "acceptButtonLabel": "接受",
     "rejectButtonLabel": "拒絕",
     "messages": {
-      "connected": "{{dappName}} 已連接到您的錢包"
+      "connected": "{{dappName}} 已連接。"
     },
     "errors": {
-      "accountProposalError": "該 dApp 正嘗試連接到與所選帳戶區塊鏈不同的區塊鏈。",
-      "differentNetworkError": "該 dApp 正嘗試連接到與您當前連線的網路不同的網路。請切換網路以連接到此 dApp。"
+      "unknown": "發生未知錯誤。請重試。"
+    },
+    "errorsByCode": {
+      "NO_SERVICE": "該 dApp 嘗試連接到與當前選擇不同的區塊鏈或網路。"
     }
   },
-  "dappDisconnectionModal": {
+  "dappDisconnection": {
     "title": "連線詳情",
     "disconnectAllApps": "要斷開所有應用嗎？",
     "disconnectApp": "要斷開應用嗎？",
@@ -230,7 +233,7 @@
     "editContactButtonLabel": "編輯聯絡人",
     "deleteContactButtonLabel": "刪除聯絡人"
   },
-  "saveContactModal": {
+  "saveContact": {
     "addContact": "新增聯絡人",
     "editContact": "編輯聯絡人",
     "deleteContact": "刪除聯絡人",
@@ -247,7 +250,7 @@
       "invalidName": "無效姓名"
     }
   },
-  "contactAddressFormModal": {
+  "contactAddressForm": {
     "addAddress": "新增地址",
     "editAddress": "編輯地址",
     "name": "姓名",
@@ -274,7 +277,7 @@
     "buttonDeleteLabel": "刪除此地址",
     "fromContact": "聯絡人"
   },
-  "swapAboutExtraIdToReceiveModal": {
+  "swapAboutExtraIdToReceive": {
     "title": "關於目的地標籤/備註",
     "what": {
       "title": "什麼是目的地標籤或備註？",
@@ -289,12 +292,12 @@
       "description": "它通常是一个唯一的标识字符串，可以在您的收款人账户信息中找到。"
     }
   },
-  "swapInfoModal": {
+  "swapInfo": {
     "title": "這是如何運作的？",
     "description1": "在不使用交易所的情況下，跨鏈交換代幣。",
     "description2": "在 NEON 中直接和立即交換代幣非常方便，並且可以節省時間和支付更低的費用。"
   },
-  "swapConfirmationModal": {
+  "swapConfirmation": {
     "heading": "交換確認",
     "transactionDetails": "交易詳情",
     "description": "請在繼續交換前確認以下詳細資訊：",
@@ -360,7 +363,10 @@
     "title": "您的跨鏈橋",
     "bridgeDetailsHeaderLabel": "詳情",
     "bridgeStatusPanelLabel": "狀態",
-    "bridgeStatusPanelSteps": ["已發送", "完成"],
+    "bridgeStatusPanelSteps": [
+      "已發送",
+      "完成"
+    ],
     "fromDetailsPanelLabel": "來源",
     "fromAddressDetailsItemLabel": "發送位址",
     "fromTokenDetailsItemLabel": "代幣",
@@ -430,7 +436,11 @@
   "swapDetails": {
     "title": "您的兌換",
     "detailsHeaderLabel": "詳情",
-    "statusPanelSteps": ["確認", "兌換", "完成"],
+    "statusPanelSteps": [
+      "確認",
+      "兌換",
+      "完成"
+    ],
     "routingPanelLabel": "路由",
     "routingPanelTransactionFromLabel": "從",
     "routingPanelTransactionToLabel": "到",
@@ -470,5 +480,64 @@
       "selectNeo3Account": "請選擇一個 Neo 3 帳戶以繼續",
       "accountCanNotBeWatch": "您無法使用觀察帳戶進行投票"
     }
+  },
+  "dappPermission": {
+    "title": "允許 dApp 請求",
+    "description": "<1>{{name}}</1> 需要您的授權",
+    "description2": "請確認您希望繼續",
+    "unsupportedMethodError": "不支援的方法：{{method}}",
+    "rejectButtonLabel": "拒絕",
+    "acceptButtonLabel": "接受",
+    "feeLabel": "手續費",
+    "feeOverridesMessage": "該 dApp 已覆寫手續費設定",
+    "errors": {
+      "expired": "請求已過期",
+      "cancelled": "請求已取消",
+      "fee": "計算手續費時發生錯誤。請求已取消。"
+    },
+    "errorContent": {
+      "title": "dApp 請求失敗",
+      "subtitle": "糟糕！我們遇到了一個錯誤",
+      "description": "無法處理該 dApp 請求。",
+      "errorMessageLabel": "錯誤訊息",
+      "doneButtonLabel": "完成"
+    },
+    "successContent": {
+      "title": "dApp 請求成功",
+      "subtitle": "dApp 請求已成功處理",
+      "doneButtonLabel": "完成",
+      "resultBoxLabel": "結果"
+    },
+    "customContents": {
+      "invokeNeo3": {
+        "hashDetailsItemLabel": "雜湊",
+        "amountDetailsItemLabel": "數量",
+        "signatureScopeDetailsHeaderLabel": "簽章範圍",
+        "viewSignatureScopeButtonLabel": "查看簽章範圍詳情",
+        "externalButtonLabel": "在區塊瀏覽器中查看",
+        "viewContractDetailsButtonLabel": "查看合約詳情"
+      }
+    }
+  },
+  "dappPermissionSignatureScope": {
+    "title": "簽章範圍",
+    "scopeDetailsHeaderLabel": "範圍",
+    "explanationDetailsHeaderLabel": "說明",
+    "allowListDetailsHeaderLabel": "允許清單",
+    "scopes": {
+      "unknown": "未知",
+      "None": "您的簽章僅對手續費支付有效。",
+      "CalledByEntry": "您的簽章僅可由呼叫合約使用，且僅適用於此交易。",
+      "Global": "您的簽章可在任何合約中無限制使用。",
+      "CustomContracts": "您的簽章可由上方列出的合約集合使用。",
+      "CustomGroups": "您的簽章可由上方列出的群組集合使用。",
+      "WitnessRules": "您的簽章僅對符合指定規則與條件的交易有效，例如目前的腳本雜湊、群組或呼叫腳本雜湊。這允許更複雜且靈活的簽章範圍設定，以應對特殊情況和潛在的重入攻擊。"
+    }
+  },
+  "dappPermissionContractDetails": {
+    "title": "合約詳情",
+    "hashDetailsHeaderLabel": "雜湊",
+    "parametersDetailsLabel": "請求參數",
+    "externalButtonLabel": "在區塊瀏覽器中查看"
   }
 }

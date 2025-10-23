@@ -61,6 +61,16 @@
   --spacing-modal-bottom-height: 36.25rem;
 }
 
+@utility min-size {
+  min-width: var(--size);
+  min-height: var(--size);
+}
+
+@utility max-size {
+  max-width: var(--size);
+  max-height: var(--size);
+}
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -106,6 +116,8 @@
     @apply !w-[420px] !h-[720px] !border-none;
   }
 }
+
+
 
 @font-face {
   font-family: 'SofiaPro';

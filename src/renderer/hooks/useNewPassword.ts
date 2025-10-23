@@ -1,4 +1,3 @@
-import { BackgroundHelper } from '@renderer/helpers/BackgroundHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 
 import { useAppDispatch } from '@renderer/hooks/useRedux'
@@ -6,7 +5,7 @@ import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { LOGIN_CONTROL_VALUE } from '@shared/constants/password'
-import type { TBackgroundSaveLoginSessionMessage } from '@shared/types/background-events'
+import { rendererApi } from '@shared/message-api/renderer'
 import type { TLoginSession } from '@shared/types/store'
 
 export const useNewPassword = () => {
@@ -21,10 +20,7 @@ export const useNewPassword = () => {
       encryptedPassword,
     }
 
-    await BackgroundHelper.send<TBackgroundSaveLoginSessionMessage>({
-      type: 'save-login-session',
-      payload: { loginSession },
-    })
+    await rendererApi.send('login:save-session', loginSession)
 
     dispatch(utilityReducerActions.setEncryptedLoginControl(encryptedLoginControl))
     dispatch(authReducerActions.setLoginSession(loginSession))

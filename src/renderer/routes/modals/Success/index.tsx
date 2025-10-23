@@ -16,7 +16,7 @@ export const SuccessModal = () => {
           <TbRosetteDiscountCheck aria-hidden className="text-blue h-24 w-24" />
         </div>
 
-        <p className="mt-7 text-center text-lg text-white">{subtitle}</p>
+        <p className="mt-7 px-10 text-center text-lg text-white">{subtitle}</p>
 
         {content}
       </div>

@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
-
-import { useWalletConnectWallet } from '@cityofzion/wallet-connect-sdk-wallet-react'
+import { WalletKitHelper } from '@cityofzion/bs-multichain'
 import type { ChangeEvent } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
@@ -8,7 +6,6 @@ import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { WalletConnectHelper } from '@renderer/helpers/WalletConnectHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -19,25 +16,21 @@ import NeonWalletLogo from '@renderer/assets/images/neon-wallet-full.svg?react'
 import TbLink from '@renderer/assets/images/tb-link.svg?react'
 import WalletConnectLogo from '@renderer/assets/images/wallet-connect.svg?react'
 
+import { rendererApi } from '@shared/message-api/renderer'
 import type { TModalState } from '@shared/types/modal'
 
 type TFormData = {
   url: string
-  isConnecting: boolean
 }
 
 export const DappConnectionModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'dappConnectionModal' })
-  const { connect, proposals } = useWalletConnectWallet()
+  const { t } = useTranslation('modals', { keyPrefix: 'dappConnection' })
   const { modalNavigate } = useModalNavigate()
   const { account } = useModalState<TModalState<'dapp-connection'>>()
 
   const { actionData, setData, actionState, setError, handleAct, reset } = useActions<TFormData>({
     url: '',
-    isConnecting: false,
   })
-
-  const isLoading = actionState.isActing || actionData.isConnecting
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
@@ -45,34 +38,23 @@ export const DappConnectionModal = () => {
   }
 
   const handleSubmit = async (data: TFormData) => {
-    if (isLoading) return
-
-    if (!WalletConnectHelper.isValidURI(data.url)) {
+    if (!WalletKitHelper.isValidURI(data.url)) {
       setError('url', t('errors.invalidUri'))
       return
     }
 
     try {
-      setData({ isConnecting: true })
-      await connect(data.url)
+      const proposal = await rendererApi.send('wallet-connect:pair', data.url)
+      modalNavigate('dapp-connection-request', { state: { account, proposal } })
+      reset()
     } catch {
       ToastHelper.error({ message: t('errors.errorToConnect') })
-      setData({ isConnecting: false })
     }
   }
 
-  useEffect(() => {
-    const proposal = proposals[0]
-    if (!proposal) return
-
-    modalNavigate('dapp-connection-request', { state: { account, proposal } })
-    reset()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [proposals])
-
   return (
     <BottomModalLayout heading={t('title')}>
-      <div className="flex w-full items-center gap-x-12">
+      <div className="mt-5 flex w-full items-center gap-x-12 px-5">
         <NeonWalletLogo aria-hidden className="h-min w-full" />
         <WalletConnectLogo aria-hidden className="h-min w-full text-white opacity-60" />
       </div>
@@ -100,7 +82,7 @@ export const DappConnectionModal = () => {
           label={t('buttonConnectLabel')}
           leftIcon={<TbLink aria-hidden />}
           iconsOnEdge={false}
-          loading={isLoading}
+          loading={actionState.isActing}
         />
       </form>
     </BottomModalLayout>

@@ -7,7 +7,7 @@ import { AccountHelper } from '@renderer/helpers/AccountHelper'
 
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
-import { useMountUnsafe } from '@renderer/hooks/useMountUnsafe'
+import { useMountUnsafe } from '@renderer/hooks/useMount'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 

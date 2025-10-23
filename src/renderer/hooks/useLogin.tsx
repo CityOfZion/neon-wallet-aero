@@ -3,16 +3,12 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import { BackgroundHelper } from '@renderer/helpers/BackgroundHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { LOGIN_CONTROL_VALUE } from '@shared/constants/password'
-import type {
-  TBackgroundCloseAllTabsMessage,
-  TBackgroundSaveLoginSessionMessage,
-} from '@shared/types/background-events'
+import { rendererApi } from '@shared/message-api/renderer'
 import type { TAccountsToImport, TWalletToCreate } from '@shared/types/blockchain'
 import type { TLoginSession } from '@shared/types/store'
 
@@ -53,10 +49,7 @@ export const useLogin = () => {
         encryptedPassword,
       }
 
-      await BackgroundHelper.send<TBackgroundSaveLoginSessionMessage>({
-        type: 'save-login-session',
-        payload: { loginSession },
-      })
+      await rendererApi.send('login:save-session', loginSession)
 
       dispatch(authReducerActions.setLoginSession(loginSession))
     },
@@ -73,10 +66,7 @@ export const useLogin = () => {
         encryptedPassword,
       }
 
-      await BackgroundHelper.send<TBackgroundSaveLoginSessionMessage>({
-        type: 'save-login-session',
-        payload: { loginSession },
-      })
+      await rendererApi.send('login:save-session', loginSession)
 
       dispatch(authReducerActions.setLoginSession(loginSession))
 
@@ -93,17 +83,14 @@ export const useLogin = () => {
   const logout = useCallback(async () => {
     const loginSession = undefined
 
-    await BackgroundHelper.send<TBackgroundSaveLoginSessionMessage>({
-      type: 'save-login-session',
-      payload: { loginSession },
-    })
+    await rendererApi.send('login:save-session', loginSession)
 
     dispatch(authReducerActions.setLoginSession(loginSession))
     dispatch(authReducerActions.resetTemporaryApplicationData())
 
     navigate('/login', { replace: true })
 
-    await BackgroundHelper.send<TBackgroundCloseAllTabsMessage>({ type: 'close-all-tabs' })
+    await rendererApi.send('tab:close-all')
   }, [dispatch, navigate])
 
   return {
