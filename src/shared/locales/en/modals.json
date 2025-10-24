@@ -363,10 +363,7 @@
     "title": "Your bridge",
     "bridgeDetailsHeaderLabel": "Details",
     "bridgeStatusPanelLabel": "Status",
-    "bridgeStatusPanelSteps": [
-      "Sent",
-      "Complete"
-    ],
+    "bridgeStatusPanelSteps": ["Sent", "Complete"],
     "fromDetailsPanelLabel": "From",
     "fromAddressDetailsItemLabel": "Sending address",
     "fromTokenDetailsItemLabel": "Token",
@@ -436,11 +433,7 @@
   "swapDetails": {
     "title": "Your swap",
     "detailsHeaderLabel": "Details",
-    "statusPanelSteps": [
-      "Confirm",
-      "Exchange",
-      "Complete"
-    ],
+    "statusPanelSteps": ["Confirm", "Exchange", "Complete"],
     "routingPanelLabel": "Routing",
     "routingPanelTransactionFromLabel": "From",
     "routingPanelTransactionToLabel": "To",
@@ -479,6 +472,37 @@
       "notEnoughNeo": "Not enough NEO in this Neo 3 account to vote",
       "selectNeo3Account": "Select a Neo 3 account to continue",
       "accountCanNotBeWatch": "You cannot vote with a watch account"
+    }
+  },
+  "voteNeo3Confirmation": {
+    "title": "Review & confirm your vote",
+    "highlightLabel": "As a token holder, you can influence important protocol decisions so the network has a development path that matches community interests.",
+    "detailsLabel": "Detailed proposal research and smart voting practices matter greatly. The system uses reliable verification and clear processes that let individuals meaningfully contribute to the NEO ecosystem’s growth and development.",
+    "votingDetailsLabel": "Voting details",
+    "accountNameLabel": "Account name",
+    "addressLabel": "Address",
+    "candidateLabel": "Candidate",
+    "hashLabel": "Hash",
+    "votesLabel": "No. of votes",
+    "feeLabel": "Total fee",
+    "confirmationButtonLabel": "Cast your vote",
+    "voteAlreadyCastButtonLabel": "Vote already cast",
+    "errors": {
+      "insufficientGasTitle": "Insufficient GAS to cover voting fee",
+      "insufficientGasDescription": "Transfer GAS to this account or use an account with enough GAS to pay the voting fee.",
+      "notEnoughNeo": "Not enough NEO in this Neo 3 account to vote",
+      "accountCanNotBeWatch": "You cannot vote with a watch account",
+      "castVoteFailed": "There was an error casting your vote, please try again later."
+    },
+    "notifications": {
+      "voteSuccessNotification": {
+        "title": "Vote completed",
+        "previewBody": "Your vote has been completed successfully."
+      },
+      "voteFailureNotification": {
+        "title": "Vote failed",
+        "previewBody": "We couldn't process your vote. If the issue persists, please contact support."
+      }
     }
   },
   "dappPermission": {

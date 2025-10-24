@@ -210,6 +210,11 @@ type TVoteNeo3CandidateDetailsModalState = {
   candidateVotePercentage: string
 }
 
+type TVoteNeo3ConfirmationModalState = {
+  candidate: TVoteServiceCandidate
+  neo3Account: IAccountState
+}
+
 type TDappConnectionModalState = {
   account: IAccountState
 }
@@ -290,6 +295,7 @@ export type TModalRouterRouteTypes = {
   'sell-tokens-deposit-error': TSellTokensDepositErrorModalState
   'reorder-wallets': undefined
   'vote-neo3-candidate-details': TVoteNeo3CandidateDetailsModalState
+  'vote-neo3-confirmation': TVoteNeo3ConfirmationModalState
   'dapp-connection': TDappConnectionModalState
   'dapp-connection-request': TDappConnectionRequestModalState
   'dapp-disconnection': TDappDisconnectionModalState

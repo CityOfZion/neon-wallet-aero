@@ -363,10 +363,7 @@
     "title": "您的跨鏈橋",
     "bridgeDetailsHeaderLabel": "詳情",
     "bridgeStatusPanelLabel": "狀態",
-    "bridgeStatusPanelSteps": [
-      "已發送",
-      "完成"
-    ],
+    "bridgeStatusPanelSteps": ["已發送", "完成"],
     "fromDetailsPanelLabel": "來源",
     "fromAddressDetailsItemLabel": "發送位址",
     "fromTokenDetailsItemLabel": "代幣",
@@ -436,11 +433,7 @@
   "swapDetails": {
     "title": "您的兌換",
     "detailsHeaderLabel": "詳情",
-    "statusPanelSteps": [
-      "確認",
-      "兌換",
-      "完成"
-    ],
+    "statusPanelSteps": ["確認", "兌換", "完成"],
     "routingPanelLabel": "路由",
     "routingPanelTransactionFromLabel": "從",
     "routingPanelTransactionToLabel": "到",
@@ -479,6 +472,37 @@
       "notEnoughNeo": "此 Neo 3 帳戶中沒有足夠的 NEO 進行投票",
       "selectNeo3Account": "請選擇一個 Neo 3 帳戶以繼續",
       "accountCanNotBeWatch": "您無法使用觀察帳戶進行投票"
+    }
+  },
+  "voteNeo3Confirmation": {
+    "title": "審核並確認您的投票",
+    "highlightLabel": "作為代幣持有者，您可以影響重要的協議決策，使網路的發展方向符合社群利益。",
+    "detailsLabel": "詳細的提案研究和明智的投票實踐至關重要。系統使用可靠的驗證和清晰的流程，讓個人能夠有意義地為 NEO 生態系統的發展做出貢獻。",
+    "votingDetailsLabel": "投票詳情",
+    "accountNameLabel": "帳戶名稱",
+    "addressLabel": "地址",
+    "candidateLabel": "候選人",
+    "hashLabel": "雜湊",
+    "votesLabel": "票數",
+    "feeLabel": "總費用",
+    "confirmationButtonLabel": "投出您的票",
+    "voteAlreadyCastButtonLabel": "已投票",
+    "errors": {
+      "insufficientGasTitle": "GAS 不足，無法支付投票費用",
+      "insufficientGasDescription": "請向此帳戶轉入 GAS 或使用有足夠 GAS 支付投票費用的帳戶。",
+      "notEnoughNeo": "此 Neo 3 帳戶中沒有足夠的 NEO 進行投票",
+      "accountCanNotBeWatch": "您無法使用觀察帳戶進行投票",
+      "castVoteFailed": "投票時出現錯誤，請稍後再試。"
+    },
+    "notifications": {
+      "voteSuccessNotification": {
+        "title": "投票完成",
+        "previewBody": "您的投票已成功完成。"
+      },
+      "voteFailureNotification": {
+        "title": "投票失敗",
+        "previewBody": "我們無法處理您的投票。如果問題仍然存在，請聯絡支援團隊。"
+      }
     }
   },
   "dappPermission": {
