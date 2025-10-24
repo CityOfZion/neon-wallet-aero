@@ -505,6 +505,17 @@
       }
     }
   },
+  "voteNeo3Success": {
+    "title": "您的投票",
+    "subtitle": "您的投票已投出！",
+    "votingDetailsLabel": "您的投票",
+    "accountNameLabel": "账户名称",
+    "addressLabel": "地址",
+    "candidateLabel": "候选人",
+    "hashLabel": "哈希",
+    "votesLabel": "票数",
+    "returnButtonLabel": "返回投票页面"
+  },
   "dappPermission": {
     "title": "允许 dApp 请求",
     "description": "<1>{{name}}</1> 需要您的授权",

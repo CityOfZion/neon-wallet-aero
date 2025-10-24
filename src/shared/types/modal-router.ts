@@ -215,6 +215,11 @@ type TVoteNeo3ConfirmationModalState = {
   neo3Account: IAccountState
 }
 
+type TVoteNeo3SuccessModalState = {
+  candidate: TVoteServiceCandidate
+  neo3Account: IAccountState
+}
+
 type TDappConnectionModalState = {
   account: IAccountState
 }
@@ -296,6 +301,7 @@ export type TModalRouterRouteTypes = {
   'reorder-wallets': undefined
   'vote-neo3-candidate-details': TVoteNeo3CandidateDetailsModalState
   'vote-neo3-confirmation': TVoteNeo3ConfirmationModalState
+  'vote-neo3-success': TVoteNeo3SuccessModalState
   'dapp-connection': TDappConnectionModalState
   'dapp-connection-request': TDappConnectionRequestModalState
   'dapp-disconnection': TDappDisconnectionModalState
