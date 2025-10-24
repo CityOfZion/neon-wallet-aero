@@ -48,4 +48,8 @@ export class StringHelper {
 
     return initials.toUpperCase()
   }
+
+  static normalizeText(text: string) {
+    return text.trim().toLowerCase()
+  }
 }

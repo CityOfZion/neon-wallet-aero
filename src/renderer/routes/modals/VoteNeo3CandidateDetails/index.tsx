@@ -37,7 +37,7 @@ export const VoteNeo3CandidateDetailsModal = () => {
     neo3Account,
     candidatePubKey: pubKey,
   })
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address)
+  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account.address)
   const balanceQuery = useBalance(neo3Account)
   const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
   const isCandidateCoz = VOTE_NEO3_COZ_PUB_KEY === pubKey

@@ -54,6 +54,15 @@ type TAccountEditModalState = {
   wallet: IWalletState
 }
 
+type TAccountSelectionByBlockchainModalState = {
+  description?: string
+  submitButtonLabel?: string
+  blockchain: TBlockchainServiceKey
+  selectedWallet: IWalletState
+  selectedAccount?: IAccountState
+  onSelect(account: IAccountState, wallet: IWalletState): void
+}
+
 type TImportAccountsSelectionModalState = {
   value: string
   type: TImportAccountsSelectionType
@@ -229,8 +238,8 @@ type TVoteNeo3CandidateDetailsModalState = {
 }
 
 type TVoteNeo3ConfirmationModalState = {
-  candidate: TVoteServiceCandidate
   neo3Account: IAccountState
+  candidate: TVoteServiceCandidate
 }
 
 type TVoteNeo3SuccessModalState = {
@@ -282,6 +291,7 @@ export type TModalRouterRouteTypes = {
   'wallet-deletion': TWalletDeletionModalState
   'wallet-edit': TWalletEditModalState
   'account-selection': TAccountSelectionModalState
+  'account-selection-by-blockchain': TAccountSelectionByBlockchainModalState
   'account-deletion': TAccountDeletionModalState
   'account-edit': TAccountEditModalState
   'import-accounts-selection': TImportAccountsSelectionModalState
@@ -322,6 +332,7 @@ export type TModalRouterRouteTypes = {
   'sell-tokens-deposit-error': TSellTokensDepositErrorModalState
   'reorder-wallets': undefined
   'vote-neo3-candidate-details': TVoteNeo3CandidateDetailsModalState
+  'vote-neo3-info': undefined
   'vote-neo3-confirmation': TVoteNeo3ConfirmationModalState
   'vote-neo3-success': TVoteNeo3SuccessModalState
   'dapp-connection': TDappConnectionModalState

@@ -8,7 +8,7 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import TbCheck from '@renderer/assets/images/tb-check.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
-import TbCircleFilled from '@renderer/assets/images/tb-filled-circle.svg?react'
+import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
 const Root = ContextMenuPrimitive.Root
 
@@ -140,7 +140,7 @@ const RadioItem = forwardRef<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <ContextMenuPrimitive.ItemIndicator>
-        <TbCircleFilled aria-hidden className="h-2 w-2 fill-current" />
+        <VscCircleFilled aria-hidden className="h-2 w-2 fill-current" />
       </ContextMenuPrimitive.ItemIndicator>
     </span>
 

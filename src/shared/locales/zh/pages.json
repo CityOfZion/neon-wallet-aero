@@ -106,11 +106,7 @@
   "onboardingLoginNewWallet": {
     "description": "正在保护您的新钱包",
     "goBackIconButtonLabel": "返回",
-    "steps": [
-      "创建密码",
-      "确认密码",
-      "完成"
-    ]
+    "steps": ["创建密码", "确认密码", "完成"]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "输入您的新密码",
@@ -134,13 +130,7 @@
     "title": "导入钱包",
     "description": "请创建密码以保护您的钱包",
     "goBackIconButtonLabel": "返回",
-    "steps": [
-      "创建密码",
-      "确认密码",
-      "添加详情或定位文件",
-      "导入",
-      "完成"
-    ],
+    "steps": ["创建密码", "确认密码", "添加详情或定位文件", "导入", "完成"],
     "migrationLabel": "定位您的迁移文件",
     "step3": {
       "formTitle": "输入地址、加密密钥、私钥、助记词或定位备份文件",
@@ -483,5 +473,39 @@
   },
   "currency": {
     "title": "货币"
+  },
+  "voteNeo3": {
+    "title": "投票",
+    "howDoesItWorkButtonLabel": "它是如何工作的？",
+    "searchPlaceholder": "搜索候选人…",
+    "changeAccountButtonLabel": "更改",
+    "selectAccountButtonLabel": "选择账户",
+    "voteErrorMessages": {
+      "thereIsNoNeoLabel": "您的 Neo 3 账户应具有 NEO",
+      "accountCanNotBeWatchLabel": "您的 Neo 3 账户处于观察模式",
+      "shouldHaveEnoughGasToPayFeeLabel": "您没有足够的 GAS 来支付费用",
+      "selectNeo3AccountLabel": "选择一个 Neo 3 账户"
+    },
+    "availableVotes": {
+      "availableVotesLabel": "可用投票",
+      "noAvailableVotesLabel": "没有投票"
+    },
+    "list": {
+      "positionColumnLabel": "位置",
+      "nameColumnLabel": "候选人",
+      "castVoteColumnLabel": "投票"
+    },
+    "listItem": {
+      "castVoteButtonLabel": "投票",
+      "yourVoteButtonLabel": "您的投票"
+    },
+    "notFound": {
+      "title": "没有候选人可供显示",
+      "text": "没有候选人可供投票，或者获取候选人时出现问题。请验证您的 Neo 3 网络，然后重试。"
+    },
+    "accountSelectionByBlockchain": {
+      "description": "您的 NEO 钱包和账户：",
+      "submitButtonLabel": "使用此账户投票"
+    }
   }
 }

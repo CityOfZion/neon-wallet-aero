@@ -56,7 +56,8 @@
     "contactsItemLabel": "Contacts",
     "settingsItemLabel": "Settings",
     "neo3NeoXBridgeItemLabel": "Bridge",
-    "logoutItemLabel": "Logout"
+    "logoutItemLabel": "Logout",
+    "voteNeo3ItemLabel": "Voting"
   },
   "importAccountsSelection": {
     "title": "Import",
@@ -604,5 +605,21 @@
     "hashDetailsHeaderLabel": "Hash",
     "parametersDetailsLabel": "Request parameters",
     "externalButtonLabel": "View on explorer"
+  },
+  "voteNeo3Info": {
+    "title": "How does it work?",
+    "description": "The number of NEO you hold equates to the number of votes you can cast to vote for a candidate.",
+    "whyVoteLabel": "Why vote?",
+    "whyVoteResponseLabel": "By voting, you’re actively participating in the NEO ecosystem and are subsequently eligible to receive GAS as a holder’s benefit.",
+    "noteLabel": "Note:",
+    "noteResponseLabel": "By not voting, you miss will out on this benefit.",
+    "alertDescription": "If you sell your NEO, your votes will be reduced by the number you have sold and your GAS reward will reduce proportionately too"
+  },
+  "accountSelectionByBlockchain": {
+    "title": "Change account",
+    "description": "Your wallets and accounts:",
+    "selectWalletPlaceholder": "Select a wallet…",
+    "accountsSelectionLabel": "Accounts",
+    "submitButtonLabel": "Use this account"
   }
 }
