@@ -106,7 +106,7 @@ export const useVoteNeo3Validations = ({ balanceQuery, gasFee }: TValidationsPar
       service.tokenService.predicateByHash(service.feeToken, token)
     )?.amount
 
-    if (gasAmount === undefined || gasFee === undefined) return undefined
+    if (gasAmount === undefined || gasFee === undefined) return false
 
     const bnGasAmount = BSBigNumberHelper.fromNumber(gasAmount)
 

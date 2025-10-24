@@ -1,0 +1,18 @@
+import type { ReactNode } from 'react'
+
+import { Skeleton } from '@renderer/components/Skeleton'
+
+type TProps = {
+  isLoading: boolean
+  children: ReactNode
+}
+
+export const VoteNeo3ConfirmationSkeleton = ({ isLoading, children }: TProps) => (
+  <Skeleton.Root
+    loading={isLoading}
+    className="flex w-full flex-col gap-y-2.5"
+    items={[<Skeleton.Item className="h-66 w-full" />, <Skeleton.Item className="h-15 w-full" />]}
+  >
+    {children}
+  </Skeleton.Root>
+)
