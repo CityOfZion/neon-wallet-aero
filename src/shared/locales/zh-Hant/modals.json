@@ -505,6 +505,17 @@
       }
     }
   },
+  "voteNeo3Success": {
+    "title": "您的投票",
+    "subtitle": "您的投票已投出！",
+    "votingDetailsLabel": "您的投票",
+    "accountNameLabel": "帳戶名稱",
+    "addressLabel": "地址",
+    "candidateLabel": "候選人",
+    "hashLabel": "雜湊",
+    "votesLabel": "票數",
+    "returnButtonLabel": "返回投票頁面"
+  },
   "dappPermission": {
     "title": "允許 dApp 請求",
     "description": "<1>{{name}}</1> 需要您的授權",

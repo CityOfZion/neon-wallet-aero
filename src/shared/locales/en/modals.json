@@ -505,6 +505,17 @@
       }
     }
   },
+  "voteNeo3Success": {
+    "title": "Your vote",
+    "subtitle": "Your vote has been cast!",
+    "votingDetailsLabel": "Your vote",
+    "accountNameLabel": "Account name",
+    "addressLabel": "Address",
+    "candidateLabel": "Candidate",
+    "hashLabel": "Hash",
+    "votesLabel": "No. of votes",
+    "returnButtonLabel": "Return to Voting"
+  },
   "dappPermission": {
     "title": "Allow dApp request",
     "description": "<1>{{name}}</1> needs your permission",
