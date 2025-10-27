@@ -76,7 +76,7 @@ export const BackupAndRestoreBackupStep1Page = () => {
     actionData.password.length < PASSWORD_MIN_LENGTH
 
   return (
-    <form className="flex h-full w-full flex-col px-3" onSubmit={handleAct(handleSubmitCreateBackup)}>
+    <form className="flex h-full w-full flex-col" onSubmit={handleAct(handleSubmitCreateBackup)}>
       <fieldset className="flex h-full w-full flex-col">
         <legend className="mb-7 text-xs">{t('description')}</legend>
 

@@ -25,7 +25,7 @@ import { ReorderWalletsItem } from './ReorderWalletsItem'
 export const ReorderWalletsModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'reorderWallets' })
   const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
-  const { modalErase, modalEraseWrapper } = useModalNavigate()
+  const { modalErase, modalNavigateWrapper } = useModalNavigate()
   const { wallets } = useWalletsSelector()
   const dispatch = useAppDispatch()
 
@@ -93,7 +93,7 @@ export const ReorderWalletsModal = () => {
           variant="card"
           label={commonT('cancel')}
           colorSchema="gray"
-          onClick={modalEraseWrapper('bottom')}
+          onClick={modalNavigateWrapper(-1)}
           clickableProps={{ className: 'px-4' }}
         />
         <Button

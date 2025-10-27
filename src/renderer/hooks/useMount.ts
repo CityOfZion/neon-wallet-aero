@@ -33,6 +33,7 @@ export const useMount = (effect: TEffect, changingStateVars?: DependencyList, de
 
   return { isMounting }
 }
+
 export const useMountUnsafe = (effect: TEffect, delay: number = 0) => {
   const [isMounting, setIsMounting] = useState(true)
 
@@ -47,7 +48,7 @@ export const useMountUnsafe = (effect: TEffect, delay: number = 0) => {
     if (numberOfRender.current <= 1) {
       timeoutRef.current = setTimeout(async () => {
         try {
-          unmountEffectRef.current = effect()
+          unmountEffectRef.current = await effect()
         } finally {
           setIsMounting(false)
         }

@@ -252,17 +252,17 @@ export const SendRecipient = ({
           </GreyAmountInput>
         </ActionStep>
 
-        <div className="flex w-full justify-between pb-3 pl-6.5">
+        <div className="flex w-full justify-between gap-x-4 pb-3 pl-6.5">
           <span className="text-xs text-gray-200 italic">{t('balanceLabel')}</span>
-          <span className="text-xs text-gray-100 italic">
+          <span className="truncate text-xs text-gray-100 italic">
             {NumberHelper.currency(
               recipient.amount && recipient.token
                 ? BSBigNumberHelper.fromNumber(recipient.amount)
                     .multipliedBy(recipient.token.exchangeConvertedPrice)
-                    .toNumber()
+                    .toFixed()
                 : 0,
               currency,
-              { minimumFractionDigits: 2, maximumFractionDigits: 6 }
+              { maximumFractionDigits: 6 }
             )}
           </span>
         </div>

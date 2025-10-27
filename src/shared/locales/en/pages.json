@@ -313,6 +313,7 @@
     "sendTokensButtonLabel": "Send now",
     "sourceAccountLabel": "Source account",
     "addRecipientButtonLabel": "Add recipient",
+    "totalFee": "Total fee",
     "sendRecipient": {
       "title": "Recipient {{order}}",
       "addressPlaceholder": "Enter recipient…",
@@ -326,19 +327,25 @@
         "invalidAddress": "Invalid address"
       }
     },
-    "totalFee": "Total fee",
-    "errors": {
-      "feeError": "Error to calculate fee",
-      "insufficientFunds": "Insufficient funds",
-      "calculateMaxAmount": "Error to calculate the maximum amount",
-      "amountIsLessOrEqualZero": "The amount is less than or equal to zero",
-      "hardwareWalletShouldBeValid": "To proceed with this operation, please make sure your hardware wallet is unlocked"
+    "sendTip": {
+      "supportLabel": "I want to support COZ with a tip of",
+      "optionalLabel": "*Optional"
     },
     "sendSuccess": {
       "toast": "Transaction sent successfully"
     },
     "sendFail": {
       "toast": "Transaction failed to send"
+    },
+    "errors": {
+      "feeError": "Error to calculate fee",
+      "insufficientFunds": "Insufficient funds",
+      "calculateMaxAmount": "Error to calculate the maximum amount",
+      "amountIsLessOrEqualZero": "The amount is less than or equal to zero",
+      "hardwareWalletShouldBeValid": "To proceed with this operation, please make sure your hardware wallet is unlocked",
+      "noTokenToTip": "No token to pay the tip",
+      "noAmountToTip": "No enough amount to pay the tip",
+      "noFiatPriceToTip": "Fiat price not found to the tip"
     }
   },
   "contacts": {

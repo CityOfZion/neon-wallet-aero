@@ -44,7 +44,7 @@ const BaseToast = ({ message, className, sonnerId, icon, closeable = true }: TBa
         <button
           aria-label={t('closeIconButtonLabel')}
           onClick={() => toast.dismiss(sonnerId)}
-          className="h-[1.5rem] min-h-[1.5rem] w-[1.5rem] min-w-[1.5rem] opacity-50"
+          className="h-[1.5rem] min-h-[1.5rem] w-[1.5rem] min-w-[1.5rem] cursor-pointer opacity-50"
         >
           <MdClose aria-hidden className="h-full w-full" />
         </button>
