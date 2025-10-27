@@ -36,3 +36,21 @@ export const useLanguageSelector = () => {
     languageRef: ref,
   }
 }
+
+export const useSelectedWalletSelector = () => {
+  const { ref, value } = useAppSelector(state => state.settings.inMemoryData.selectedWallet)
+
+  return {
+    selectedWallet: value,
+    selectedWalletRef: ref,
+  }
+}
+
+export const useSelectedAccountSelector = () => {
+  const { ref, value } = useAppSelector(state => state.settings.inMemoryData.selectedAccount)
+
+  return {
+    selectedAccount: value,
+    selectedAccountRef: ref,
+  }
+}

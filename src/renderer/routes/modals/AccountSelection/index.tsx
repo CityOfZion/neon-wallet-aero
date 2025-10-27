@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
@@ -13,6 +11,8 @@ import { useAccountsByWalletIdSelector } from '@renderer/hooks/useAccountSelecto
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLogin } from '@renderer/hooks/useLogin'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
+import { useSelectedAccountSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -21,6 +21,7 @@ import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
 import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
+import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import type { TModalState } from '@shared/types/modal'
 import type { IAccountState } from '@shared/types/store'
 
@@ -29,14 +30,14 @@ export const AccountSelectionModal = () => {
   const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
-  const { wallet, selectedAccount, onSelect } = useModalState<TModalState<'account-selection'>>()
+  const { wallet, onSelect } = useModalState<TModalState<'account-selection'>>()
+  const { selectedAccount } = useSelectedAccountSelector()
   const { modalNavigate } = useModalNavigate()
   const { accountsByWalletId } = useAccountsByWalletIdSelector(wallet.id)
-
-  const [selectedAccountInternal, setSelectedAccountInternal] = useState<IAccountState | undefined>(selectedAccount)
+  const dispatch = useAppDispatch()
 
   const handleSelect = (account: IAccountState) => {
-    setSelectedAccountInternal(account)
+    dispatch(settingsReducerActions.setSelectedAccount(account))
     onSelect?.(account)
   }
 
@@ -61,7 +62,7 @@ export const AccountSelectionModal = () => {
 
             modalNavigate('export-key', {
               state: {
-                account: selectedAccountInternal ?? accountsByWalletId[0],
+                account: selectedAccount ?? accountsByWalletId[0],
               },
               replace: true,
             })
@@ -85,7 +86,7 @@ export const AccountSelectionModal = () => {
         {accountsByWalletId.map((account, index, array) => (
           <li key={account.id}>
             <button
-              aria-selected={selectedAccountInternal?.id === account.id}
+              aria-selected={selectedAccount?.id === account.id}
               onClick={handleSelect.bind(null, account)}
               className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
             >
@@ -118,7 +119,7 @@ export const AccountSelectionModal = () => {
           onClick={() => modalNavigate('create-account-1', { replace: true })}
         />
 
-        {!!selectedAccountInternal?.encryptedKey && loginSession?.type === 'password' && (
+        {!!selectedAccount?.encryptedKey && loginSession?.type === 'password' && (
           <Button
             label={t('exportButtonLabel')}
             variant="card"

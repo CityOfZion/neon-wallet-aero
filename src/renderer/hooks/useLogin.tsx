@@ -7,6 +7,7 @@ import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
+import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import { LOGIN_CONTROL_VALUE } from '@shared/constants/password'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { TAccountsToImport, TWalletToCreate } from '@shared/types/blockchain'
@@ -85,6 +86,8 @@ export const useLogin = () => {
 
     await rendererApi.send('login:save-session', loginSession)
 
+    dispatch(settingsReducerActions.setSelectedWallet(undefined))
+    dispatch(settingsReducerActions.setSelectedAccount(undefined))
     dispatch(authReducerActions.setLoginSession(loginSession))
     dispatch(authReducerActions.resetTemporaryApplicationData())
 

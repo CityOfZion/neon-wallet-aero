@@ -2,7 +2,7 @@ import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash/cloneDeep'
 
 import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
-import type { TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
+import type { IAccountState, IWalletState, TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
 
 import type { ISettingsReducer } from './index'
 
@@ -46,10 +46,20 @@ const setCurrency: CaseReducer<ISettingsReducer, PayloadAction<TCurrency>> = (st
   state.data.currency = action.payload
 }
 
+const setSelectedWallet: CaseReducer<ISettingsReducer, PayloadAction<IWalletState | undefined>> = (state, action) => {
+  state.inMemoryData.selectedWallet = action.payload
+}
+
+const setSelectedAccount: CaseReducer<ISettingsReducer, PayloadAction<IAccountState | undefined>> = (state, action) => {
+  state.inMemoryData.selectedAccount = action.payload
+}
+
 export const settingsSliceReducers = {
   setLanguage,
   setCurrency,
   setSelectedNetwork,
   setSelectedNetworkUrl,
   setSelectedNetworkByBlockchain,
+  setSelectedWallet,
+  setSelectedAccount,
 }
