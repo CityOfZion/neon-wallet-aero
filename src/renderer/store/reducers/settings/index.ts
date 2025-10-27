@@ -7,13 +7,17 @@ import { localStorage } from 'redux-persist-webextension-storage'
 import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { AVAILABLE_CURRENCIES } from '@shared/constants/currency'
 import { DEFAULT_LANGUAGE } from '@shared/constants/language'
-import type { TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
+import type { IAccountState, IWalletState, TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
 
 import { settingsSliceReducers } from './reducers'
 
 export let settingsReducerActions: CaseReducerActions<typeof settingsSliceReducers, string>
 
 export interface ISettingsReducer {
+  inMemoryData: {
+    selectedWallet: IWalletState | undefined
+    selectedAccount: IAccountState | undefined
+  }
   data: {
     currency: TCurrency
     language: TLanguage
@@ -23,6 +27,10 @@ export interface ISettingsReducer {
 
 export function getSettingsReducer() {
   const settingsReducerInitialState: ISettingsReducer = {
+    inMemoryData: {
+      selectedWallet: undefined,
+      selectedAccount: undefined,
+    },
     data: {
       currency: AVAILABLE_CURRENCIES[0],
       language: DEFAULT_LANGUAGE,
@@ -41,6 +49,7 @@ export function getSettingsReducer() {
   const settingsReducerConfig: PersistConfig<ISettingsReducer> = {
     key: 'settingsReducer',
     storage: localStorage,
+    blacklist: ['inMemoryData'],
   }
 
   const settingsSlice = createSlice({

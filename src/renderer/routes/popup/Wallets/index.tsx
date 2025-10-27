@@ -1,37 +1,33 @@
-import { useCallback, useLayoutEffect, useState } from 'react'
+import { useCallback, useLayoutEffect } from 'react'
 
 import { useTranslation } from 'react-i18next'
-import type { Location } from 'react-router-dom'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { IconButton } from '@renderer/components/IconButton'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
+import { useSelectedAccountSelector, useSelectedWalletSelector } from '@renderer/hooks/useSettingsSelector'
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 
+import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import type { IAccountState, IWalletState } from '@shared/types/store'
 
 import { WalletsPageOverview } from './WalletsPageOverview'
 import { WalletsPageSelectButton } from './WalletsPageSelectButton'
 
-type TLocationState = {
-  account?: IAccountState
-  wallet?: IWalletState
-}
-
 export const WalletsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'wallets' })
-  const { state } = useLocation() as Location<TLocationState>
   const { wallets } = useWalletsSelector()
   const navigate = useNavigate()
   const { modalNavigate, modalNavigateWrapper, modalErase } = useModalNavigate()
-
-  const [selectedWallet, setSelectedWallet] = useState<IWalletState | undefined>()
-  const [selectedAccount, setSelectedAccount] = useState<IAccountState | undefined>()
+  const { selectedWallet } = useSelectedWalletSelector()
+  const { selectedAccount } = useSelectedAccountSelector()
+  const dispatch = useAppDispatch()
 
   const handleNavigateSelect = useCallback(
     (wallet: IWalletState, account: IAccountState) => {
@@ -74,24 +70,19 @@ export const WalletsPage = () => {
   }
 
   useLayoutEffect(() => {
-    const navigateToFirstAccount = () => {
-      const firstWallet = wallets[0]
-      const firstAccount = firstWallet?.accounts[0]
-      if (firstAccount) {
-        handleNavigateSelect(firstWallet, firstAccount)
-      }
+    const firstWallet = selectedWallet || wallets[0]
+    const firstAccount =
+      (!!selectedAccount && firstWallet.accounts.find(account => account.id === selectedAccount.id)) ||
+      firstWallet?.accounts[0]
+
+    if (firstWallet) {
+      dispatch(settingsReducerActions.setSelectedWallet(firstWallet))
     }
 
-    if (!state?.account) {
-      navigateToFirstAccount()
-      return
+    if (firstAccount) {
+      dispatch(settingsReducerActions.setSelectedAccount(firstAccount))
     }
-
-    const wallet = state?.wallet ?? wallets.find(wallet => wallet.id === state.account?.idWallet)
-
-    setSelectedAccount(state.account)
-    setSelectedWallet(wallet)
-  }, [handleNavigateSelect, state, wallets])
+  }, [wallets, selectedAccount, selectedWallet, dispatch])
 
   return (
     <ScreenLayout>

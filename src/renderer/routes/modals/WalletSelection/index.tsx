@@ -10,6 +10,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLogin } from '@renderer/hooks/useLogin'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
@@ -20,6 +21,7 @@ import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 import TbReorder from '@renderer/assets/images/tb-reorder.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
+import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import type { TModalState } from '@shared/types/modal'
 import type { IWalletState } from '@shared/types/store'
 
@@ -31,10 +33,12 @@ export const WalletSelectionModal = () => {
   const { encryptPassword } = useLogin()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const { onSelect, selectedWallet } = useModalState<TModalState<'wallet-selection'>>()
+  const dispatch = useAppDispatch()
 
   const [selectedWalletInternal, setSelectedWalletInternal] = useState<IWalletState | undefined>(selectedWallet)
 
   const handleSelect = (wallet: IWalletState) => {
+    dispatch(settingsReducerActions.setSelectedWallet(wallet))
     setSelectedWalletInternal(wallet)
     onSelect?.(wallet)
   }
