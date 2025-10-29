@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { ContactsHelper } from '@renderer/helpers/ContactsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
@@ -25,13 +26,18 @@ import type {
 } from '@shared/types/blockchain'
 import type { IAccountState, IWalletState, TContactState } from '@shared/types/store'
 
+import { useAccountsSelector } from './useAccountSelector'
 import { useLoginSessionSelector } from './useAuthSelector'
 import { useAppDispatch } from './useRedux'
+import { useWalletsSelector } from './useWalletSelector'
 
 export function useBlockchainActions() {
   const dispatch = useAppDispatch()
   const { loginSessionRef } = useLoginSessionSelector()
   const { t } = useTranslation('common', { keyPrefix: 'account' })
+  const { t: tHook } = useTranslation('hooks', { keyPrefix: 'useBlockchainActions' })
+  const { wallets } = useWalletsSelector()
+  const { accounts } = useAccountsSelector()
 
   const saveContacts = async (contacts: TContactState[]) => {
     if (!loginSessionRef.current?.encryptedPassword) return
@@ -174,7 +180,12 @@ export function useBlockchainActions() {
 
   const deleteAccount = useCallback(
     async (account: IAccountState) => {
-      dispatch(authReducerActions.deleteAccount(account))
+      const filteredAccounts = accounts.filter(({ idWallet }) => idWallet === account.idWallet)
+
+      if (filteredAccounts.length === 1) {
+        ToastHelper.error({ message: tHook('errors.deleteLastAccountError') })
+        return
+      }
 
       const service = bsAggregator.blockchainServicesByName[account.blockchain]
       if (!hasWalletConnect(service)) return
@@ -192,13 +203,20 @@ export function useBlockchainActions() {
           })
         )
       )
+
+      dispatch(authReducerActions.deleteAccount(account))
     },
-    [dispatch]
+    [dispatch, tHook, accounts]
   )
 
   const deleteWallet = useCallback(
     async (wallet: IWalletState) => {
-      dispatch(authReducerActions.deleteWallet(wallet.id))
+      const isLastWallet = wallets.length === 1
+
+      if (isLastWallet) {
+        ToastHelper.error({ message: tHook('errors.deleteLastWalletError') })
+        return
+      }
 
       const sessions = await rendererApi.send('wallet-connect:get-sessions')
 
@@ -222,8 +240,11 @@ export function useBlockchainActions() {
           })
         )
       )
+
+      dispatch(authReducerActions.deleteWallet(wallet.id))
     },
-    [dispatch]
+
+    [dispatch, tHook, wallets]
   )
 
   const editAccount = useCallback(

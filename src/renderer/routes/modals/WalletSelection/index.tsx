@@ -1,9 +1,9 @@
-import { useState } from 'react'
-
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
+import { IconButton } from '@renderer/components/IconButton'
 import { Separator } from '@renderer/components/Separator'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -17,6 +17,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
+import TbPencil from '@renderer/assets/images/tb-pencil.svg?react'
 import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 import TbReorder from '@renderer/assets/images/tb-reorder.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
@@ -35,12 +36,20 @@ export const WalletSelectionModal = () => {
   const { onSelect, selectedWallet } = useModalState<TModalState<'wallet-selection'>>()
   const dispatch = useAppDispatch()
 
-  const [selectedWalletInternal, setSelectedWalletInternal] = useState<IWalletState | undefined>(selectedWallet)
-
   const handleSelect = (wallet: IWalletState) => {
     dispatch(settingsReducerActions.setSelectedWallet(wallet))
-    setSelectedWalletInternal(wallet)
     onSelect?.(wallet)
+  }
+
+  const handleEditWallet = () => {
+    if (!selectedWallet) return
+
+    // TODO: Add wallet selection modal
+    modalNavigate('wallet-edit', {
+      state: {
+        wallet: selectedWallet,
+      },
+    })
   }
 
   const handleGoToConfirmPasswordModal = () => {
@@ -63,7 +72,7 @@ export const WalletSelectionModal = () => {
             }
             modalNavigate('export-mnemonic', {
               state: {
-                wallet: selectedWalletInternal ?? wallets[0],
+                wallet: selectedWallet ?? wallets[0],
               },
               replace: true,
             })
@@ -87,7 +96,7 @@ export const WalletSelectionModal = () => {
         {wallets.map((wallet, index, array) => (
           <li key={wallet.id}>
             <button
-              aria-selected={selectedWalletInternal?.id === wallet.id}
+              aria-selected={selectedWallet?.id === wallet.id}
               onClick={handleSelect.bind(null, wallet)}
               className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
             >
@@ -102,33 +111,56 @@ export const WalletSelectionModal = () => {
       </ul>
 
       <div className="mt-auto flex gap-2.5">
+        {!!selectedWallet?.encryptedMnemonic && loginSession?.type === 'password' && (
+          <Tooltip
+            title={t('exportButtonLabel')}
+            contentProps={{ className: 'bg-asphalt' }}
+            arrowProps={{ className: 'fill-asphalt' }}
+            delayDuration={200}
+          >
+            <IconButton
+              aria-label={t('exportButtonLabel')}
+              variant="contained"
+              colorSchema="gray"
+              className="w-13"
+              icon={<TbFileExport aria-hidden />}
+              onClick={handleGoToConfirmPasswordModal}
+            />
+          </Tooltip>
+        )}
+
+        <Tooltip
+          title={t('reorderButtonLabel')}
+          contentProps={{ className: 'bg-asphalt' }}
+          arrowProps={{ className: 'fill-asphalt' }}
+          delayDuration={200}
+        >
+          <IconButton
+            aria-label={t('reorderButtonLabel')}
+            variant="contained"
+            className="w-13"
+            icon={<TbReorder aria-hidden />}
+            onClick={modalNavigateWrapper('reorder-wallets')}
+          />
+        </Tooltip>
+
         <Button
+          label={t('editButtonLabel')}
+          className="w-full"
           variant="card"
-          label={t('reorderButtonLabel')}
-          colorSchema="gray"
-          leftIcon={<TbReorder aria-hidden />}
-          onClick={modalNavigateWrapper('reorder-wallets')}
+          leftIcon={<TbPencil aria-hidden className="text-neon" />}
+          iconsOnEdge={false}
+          onClick={handleEditWallet}
         />
 
         <Button
+          label={t('addButtonLabel')}
           className="w-full"
           variant="card"
-          label={t('addButtonLabel')}
-          leftIcon={<TbPlus aria-hidden />}
+          leftIcon={<TbPlus aria-hidden className="text-neon" />}
           iconsOnEdge={false}
           onClick={modalNavigateWrapper('create-wallet-1', { replace: true })}
         />
-
-        {!!selectedWalletInternal?.encryptedMnemonic && loginSession?.type === 'password' && (
-          <Button
-            label={t('exportButtonLabel')}
-            variant="card"
-            colorSchema="gray"
-            iconsOnEdge={false}
-            leftIcon={<TbFileExport aria-hidden />}
-            onClick={handleGoToConfirmPasswordModal}
-          />
-        )}
       </div>
     </BottomModalLayout>
   )

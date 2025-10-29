@@ -30,10 +30,28 @@ type TWalletSelectionModalState = {
   onSelect?(wallet: IWalletState): void
 }
 
+type TWalletDeletionModalState = {
+  wallet: IWalletState
+}
+
+type TWalletEditModalState = {
+  wallet: IWalletState
+}
+
 type TAccountSelectionModalState = {
   wallet: IWalletState
   selectedAccount?: IAccountState
   onSelect?(account: IAccountState): void
+}
+
+type TAccountDeletionModalState = {
+  account: IAccountState
+  wallet: IWalletState
+}
+
+type TAccountEditModalState = {
+  account: IAccountState
+  wallet: IWalletState
 }
 
 type TImportAccountsSelectionModalState = {
@@ -259,9 +277,13 @@ type TDappPermissionContractDetailsModalState = {
 }
 
 export type TModalRouterRouteTypes = {
-  'wallet-selection': TWalletSelectionModalState
-  'account-selection': TAccountSelectionModalState
   menu: undefined
+  'wallet-selection': TWalletSelectionModalState
+  'wallet-deletion': TWalletDeletionModalState
+  'wallet-edit': TWalletEditModalState
+  'account-selection': TAccountSelectionModalState
+  'account-deletion': TAccountDeletionModalState
+  'account-edit': TAccountEditModalState
   'import-accounts-selection': TImportAccountsSelectionModalState
   'blockchain-selection': TBlockchainSelectionModalState
   'decrypt-key': TDecryptKeyModalState

@@ -4,16 +4,46 @@
     "subtitle": "所有钱包",
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "添加",
+    "editButtonLabel": "编辑",
     "exportButtonLabel": "导出",
     "exportWalletTitle": "导出钱包",
     "exportError": "导出钱包时出错"
   },
+  "walletEdit": {
+    "title": "编辑钱包",
+    "deleteWalletLabel": "删除钱包",
+    "deleteWalletButtonLabel": "删除钱包",
+    "deleteWalletDescription": "删除包含资产的钱包将导致这些资产在删除后无法访问！"
+  },
+  "walletDeletion": {
+    "title": "删除钱包",
+    "subtitle": "删除钱包？",
+    "description": "在继续之前，请确保您已将资产转移到新钱包，以便您的资产安全。",
+    "deleteWalletWarningLabel": "删除包含资产的钱包将导致这些资产在删除后无法访问！",
+    "deleteWalletConfirmationLabel": "您确定要继续吗？",
+    "deleteWalletButtonLabel": "删除钱包"
+  },
   "accountSelection": {
     "title": "选择账户",
     "addButtonLabel": "添加",
+    "editButtonLabel": "编辑",
     "exportButtonLabel": "导出",
     "exportAccountTitle": "导出账户",
     "exportError": "导出账户时出错"
+  },
+  "accountEdit": {
+    "title": "编辑账户",
+    "deleteAccountLabel": "删除账户",
+    "deleteAccountButtonLabel": "删除账户",
+    "deleteAccountDescription": "删除包含资产的账户将导致这些资产在删除后无法访问！"
+  },
+  "accountDeletion": {
+    "title": "删除账户",
+    "subtitle": "删除账户？",
+    "description": "在继续之前，请确保您已将资产转移到新账户，以便删除后您的资产安全",
+    "deleteAccountWarningLabel": "删除包含资产的账户将导致这些资产在删除后无法访问！",
+    "deleteAccountConfirmationLabel": "您确定要继续吗？",
+    "deleteAccountButtonLabel": "删除账户"
   },
   "menu": {
     "title": "菜单",
