@@ -18,6 +18,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
+import TbPencil from '@renderer/assets/images/tb-pencil.svg?react'
 import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
@@ -32,13 +33,26 @@ export const AccountSelectionModal = () => {
   const { encryptPassword } = useLogin()
   const { wallet, onSelect } = useModalState<TModalState<'account-selection'>>()
   const { selectedAccount } = useSelectedAccountSelector()
-  const { modalNavigate } = useModalNavigate()
+  const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const { accountsByWalletId } = useAccountsByWalletIdSelector(wallet.id)
   const dispatch = useAppDispatch()
 
   const handleSelect = (account: IAccountState) => {
     dispatch(settingsReducerActions.setSelectedAccount(account))
     onSelect?.(account)
+  }
+
+  const handleEditAccount = () => {
+    // TODO: Add account selection modal
+
+    if (!selectedAccount) return
+
+    modalNavigate('account-edit', {
+      state: {
+        account: selectedAccount,
+        wallet,
+      },
+    })
   }
 
   const handleGoToConfirmPasswordModal = () => {
@@ -110,25 +124,35 @@ export const AccountSelectionModal = () => {
       </ul>
 
       <div className="mt-auto flex gap-2.5">
-        <Button
-          className="w-full"
-          variant="card"
-          label={t('addButtonLabel')}
-          leftIcon={<TbPlus aria-hidden />}
-          iconsOnEdge={false}
-          onClick={() => modalNavigate('create-account-1', { replace: true })}
-        />
-
         {!!selectedAccount?.encryptedKey && loginSession?.type === 'password' && (
           <Button
             label={t('exportButtonLabel')}
             variant="card"
+            className="w-full"
             colorSchema="gray"
             iconsOnEdge={false}
             leftIcon={<TbFileExport aria-hidden />}
             onClick={handleGoToConfirmPasswordModal}
           />
         )}
+
+        <Button
+          className="w-full"
+          variant="card"
+          label={t('editButtonLabel')}
+          leftIcon={<TbPencil aria-hidden />}
+          iconsOnEdge={false}
+          onClick={handleEditAccount}
+        />
+
+        <Button
+          className="w-full"
+          variant="card"
+          label={t('addButtonLabel')}
+          leftIcon={<TbPlus aria-hidden />}
+          iconsOnEdge={false}
+          onClick={modalNavigateWrapper('create-account-1', { replace: true })}
+        />
       </div>
     </BottomModalLayout>
   )

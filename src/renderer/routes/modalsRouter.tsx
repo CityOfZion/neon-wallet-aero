@@ -3,6 +3,8 @@ import { lazy } from 'react'
 import type { TRoute } from '@shared/types/modal'
 
 const AccountSelectionModal = lazy(() => import('./modals/AccountSelection'))
+const AccountDeletionModal = lazy(() => import('./modals/AccountDeletion'))
+const AccountEditModal = lazy(() => import('./modals/AccountEdit'))
 const BlockchainSelectionModal = lazy(() => import('./modals/BlockchainSelection'))
 const ConfirmPasswordModal = lazy(() => import('./modals/ConfirmPassword'))
 const ContactAddressFormModal = lazy(() => import('./modals/ContactAddressForm'))
@@ -39,6 +41,8 @@ const SwapConfirmationModal = lazy(() => import('./modals/SwapConfirmation'))
 const SwapDetailsModal = lazy(() => import('./modals/SwapDetails'))
 const SwapInfoModal = lazy(() => import('./modals/SwapInfo'))
 const WalletSelectionModal = lazy(() => import('./modals/WalletSelection'))
+const WalletDeletionModal = lazy(() => import('./modals/WalletDeletion'))
+const WalletEditModal = lazy(() => import('./modals/WalletEdit'))
 const AccountReceiveSelectionModal = lazy(() => import('./modals/AccountReceiveSelection'))
 const Neo3NeoXBridgeInfoModal = lazy(() => import('./modals/Neo3NeoXBridgeInfo'))
 const Neo3NeoXBridgeConfirmationModal = lazy(() => import('./modals/Neo3NeoXBridgeConfirmation'))
@@ -55,7 +59,11 @@ const VoteNeo3SuccessModal = lazy(() => import('./modals/VoteNeo3Success'))
 
 export const modalsRouter: TRoute[] = [
   { name: 'wallet-selection', type: 'bottom', element: WalletSelectionModal },
+  { name: 'wallet-deletion', type: 'bottom', element: WalletDeletionModal },
+  { name: 'wallet-edit', type: 'bottom', element: WalletEditModal },
   { name: 'account-selection', type: 'bottom', element: AccountSelectionModal },
+  { name: 'account-deletion', type: 'bottom', element: AccountDeletionModal },
+  { name: 'account-edit', type: 'bottom', element: AccountEditModal },
   { name: 'menu', type: 'side', element: MenuModal },
   { name: 'import-accounts-selection', type: 'bottom', element: ImportAccountsSelectionModal },
   { name: 'blockchain-selection', type: 'bottom', element: BlockchainSelectionModal },

@@ -4,16 +4,46 @@
     "subtitle": "All wallets",
     "reorderButtonLabel": "Reorder",
     "addButtonLabel": "Add",
+    "editButtonLabel": "Edit",
     "exportButtonLabel": "Export",
     "exportWalletTitle": "Export wallet",
     "exportError": "Error exporting wallet"
   },
+  "walletEdit": {
+    "title": "Edit wallet",
+    "deleteWalletLabel": "Delete Wallet",
+    "deleteWalletButtonLabel": "Delete Wallet",
+    "deleteWalletDescription": "Deleting a wallet that contains assets will cause these assets to become inaccessible after deletion!"
+  },
+  "walletDeletion": {
+    "title": "Delete wallet",
+    "subtitle": "Delete wallet?",
+    "description": "Ensure that you've transferred your assets to a new wallet before proceeding, so that your assets will be safe.",
+    "deleteWalletWarningLabel": "Deleting a wallet that contains assets will cause these assets to become inaccessible after deletion!",
+    "deleteWalletConfirmationLabel": "Are you sure that you want to continue?",
+    "deleteWalletButtonLabel": "Delete Wallet"
+  },
   "accountSelection": {
     "title": "Select an account",
     "addButtonLabel": "Add",
+    "editButtonLabel": "Edit",
     "exportButtonLabel": "Export",
     "exportAccountTitle": "Export account",
     "exportError": "Error exporting account"
+  },
+  "accountEdit": {
+    "title": "Edit account",
+    "deleteAccountLabel": "Delete Account",
+    "deleteAccountButtonLabel": "Delete Account",
+    "deleteAccountDescription": "Deleting an account that contains assets will cause these assets to become inaccessible after deletion!"
+  },
+  "accountDeletion": {
+    "title": "Delete account",
+    "subtitle": "Delete account?",
+    "description": "Ensure that you've transferred your assets to a new account before proceeding, so that your assets will be safe after deletion",
+    "deleteAccountWarningLabel": "Deleting an account that contains assets will cause these assets to become inaccessible after deletion!",
+    "deleteAccountConfirmationLabel": "Are you sure that you want to continue?",
+    "deleteAccountButtonLabel": "Delete Account"
   },
   "menu": {
     "title": "Menu",

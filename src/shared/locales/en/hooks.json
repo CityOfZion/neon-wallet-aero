@@ -60,5 +60,11 @@
   },
   "useGetFullTransactions": {
     "formatExtendedDate": "dd MMM yyyy"
+  },
+  "useBlockchainActions": {
+    "errors": {
+      "deleteLastWalletError": "You need at least one wallet. Create a new wallet before deleting this one.",
+      "deleteLastAccountError": "Wallets must have at least one account. Delete the wallet to remove it."
+    }
   }
 }

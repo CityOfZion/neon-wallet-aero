@@ -4,16 +4,46 @@
     "subtitle": "所有錢包",
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "新增",
-    "exportButtonLabel": "導出",
-    "exportWalletTitle": "導出錢包",
-    "exportError": "導出錢包時出錯"
+    "editButtonLabel": "編輯",
+    "exportButtonLabel": "匯出",
+    "exportWalletTitle": "匯出錢包",
+    "exportError": "匯出錢包時發生錯誤"
+  },
+  "walletEdit": {
+    "title": "編輯錢包",
+    "deleteWalletLabel": "刪除錢包",
+    "deleteWalletButtonLabel": "刪除錢包",
+    "deleteWalletDescription": "刪除包含資產的錢包將導致這些資產在刪除後無法存取！"
+  },
+  "walletDeletion": {
+    "title": "刪除錢包",
+    "subtitle": "刪除錢包？",
+    "description": "在繼續之前，請確保您已將資產轉移到新錢包，以便您的資產安全。",
+    "deleteWalletWarningLabel": "刪除包含資產的錢包將導致這些資產在刪除後無法存取！",
+    "deleteWalletConfirmationLabel": "您確定要繼續嗎？",
+    "deleteWalletButtonLabel": "刪除錢包"
   },
   "accountSelection": {
     "title": "選擇帳戶",
     "addButtonLabel": "新增",
-    "exportButtonLabel": "導出",
-    "exportAccountTitle": "導出帳戶",
-    "exportError": "導出帳戶時出錯"
+    "editButtonLabel": "編輯",
+    "exportButtonLabel": "匯出",
+    "exportAccountTitle": "匯出帳戶",
+    "exportError": "匯出帳戶時發生錯誤"
+  },
+  "accountEdit": {
+    "title": "編輯帳戶",
+    "deleteAccountLabel": "刪除帳戶",
+    "deleteAccountButtonLabel": "刪除帳戶",
+    "deleteAccountDescription": "刪除包含資產的帳戶將導致這些資產在刪除後無法存取！"
+  },
+  "accountDeletion": {
+    "title": "刪除帳戶",
+    "subtitle": "刪除帳戶？",
+    "description": "在繼續之前，請確保您已將資產轉移到新帳戶，以便刪除後您的資產安全",
+    "deleteAccountWarningLabel": "刪除包含資產的帳戶將導致這些資產在刪除後無法存取！",
+    "deleteAccountConfirmationLabel": "您確定要繼續嗎？",
+    "deleteAccountButtonLabel": "刪除帳戶"
   },
   "menu": {
     "title": "選單",
