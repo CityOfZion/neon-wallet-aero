@@ -65,7 +65,7 @@ export const DappConnectionRequestModal = () => {
         WalletKitHelper.getProposalDetails({
           proposal,
           address: account.address,
-          services: bsAggregator.blockchainServices,
+          service: bsAggregator.blockchainServicesByName[account.blockchain],
         })
       )
     } catch (error: any) {

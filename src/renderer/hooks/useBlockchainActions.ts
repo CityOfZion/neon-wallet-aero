@@ -1,5 +1,7 @@
 import { useCallback } from 'react'
 
+import { hasWalletConnect } from '@cityofzion/blockchain-service'
+import { WalletKitHelper } from '@cityofzion/bs-multichain'
 import { cloneDeep } from 'lodash'
 import { useTranslation } from 'react-i18next'
 
@@ -12,6 +14,7 @@ import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { contactReducerActions } from '@renderer/store/reducers/contact'
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
+import { rendererApi } from '@shared/message-api/renderer'
 import type {
   TAccountToCreate,
   TAccountToEdit,
@@ -171,18 +174,54 @@ export function useBlockchainActions() {
 
   const deleteAccount = useCallback(
     async (account: IAccountState) => {
-      if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
-      }
-
       dispatch(authReducerActions.deleteAccount(account))
+
+      const service = bsAggregator.blockchainServicesByName[account.blockchain]
+      if (!hasWalletConnect(service)) return
+
+      const sessions = await rendererApi.send('wallet-connect:get-sessions')
+      const accountSessions = WalletKitHelper.filterSessions(Object.values(sessions), {
+        addresses: [account.address],
+        chains: [service.walletConnectService.chain],
+      })
+      await Promise.allSettled(
+        accountSessions.map(session =>
+          rendererApi.send('wallet-connect:disconnect', {
+            topic: session.topic,
+            reason: WalletKitHelper.getError('USER_DISCONNECTED'),
+          })
+        )
+      )
     },
-    [loginSessionRef, dispatch]
+    [dispatch]
   )
 
   const deleteWallet = useCallback(
-    (walletId: string) => {
-      dispatch(authReducerActions.deleteWallet(walletId))
+    async (wallet: IWalletState) => {
+      dispatch(authReducerActions.deleteWallet(wallet.id))
+
+      const sessions = await rendererApi.send('wallet-connect:get-sessions')
+
+      const addresses: string[] = []
+      const chains: string[] = []
+
+      for (const account of wallet.accounts) {
+        const service = bsAggregator.blockchainServicesByName[account.blockchain]
+        if (!hasWalletConnect(service)) continue
+
+        addresses.push(account.address)
+        chains.push(service.walletConnectService.chain)
+      }
+
+      const accountSessions = WalletKitHelper.filterSessions(Object.values(sessions), { addresses, chains })
+      await Promise.allSettled(
+        accountSessions.map(session =>
+          rendererApi.send('wallet-connect:disconnect', {
+            topic: session.topic,
+            reason: WalletKitHelper.getError('USER_DISCONNECTED'),
+          })
+        )
+      )
     },
     [dispatch]
   )
