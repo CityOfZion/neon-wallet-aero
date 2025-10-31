@@ -4,6 +4,7 @@ import { useLogin } from '@renderer/hooks/useLogin'
 
 import { SideModalLayout } from '@renderer/layouts/SideModalLayout'
 
+import TbChartBar from '@renderer/assets/images/tb-chart-bar.svg?react'
 import TbDeviceUsb from '@renderer/assets/images/tb-device-usb.svg?react'
 import TbDoorExit from '@renderer/assets/images/tb-door-exit.svg?react'
 import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
@@ -38,6 +39,8 @@ export const MenuModal = () => {
         <MenuItemLink label={t('importItemLabel')} to="/import" icon={<TbFileImport aria-hidden />} />
 
         <MenuItemLink label={t('neo3NeoXBridgeItemLabel')} to="/neo3-neox-bridge" icon={<TbReplace2 aria-hidden />} />
+
+        <MenuItemLink label={t('voteNeo3ItemLabel')} to="/vote-neo3" icon={<TbChartBar aria-hidden />} />
 
         <MenuItemLink
           label={t('connectHardwareWalletItemLabel')}

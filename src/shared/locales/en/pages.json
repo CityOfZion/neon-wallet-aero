@@ -106,11 +106,7 @@
   "onboardingLoginNewWallet": {
     "description": "Securing your new wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": [
-      "Create Password",
-      "Confirm Password",
-      "Complete"
-    ]
+    "steps": ["Create Password", "Confirm Password", "Complete"]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Enter password",
@@ -134,13 +130,7 @@
     "title": "Import a wallet",
     "description": "Please create a password to secure your wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": [
-      "Create Password",
-      "Confirm Password",
-      "Add details or locate file",
-      "Import",
-      "Complete"
-    ],
+    "steps": ["Create Password", "Confirm Password", "Add details or locate file", "Import", "Complete"],
     "migrationLabel": "Locate your migration file",
     "step3": {
       "formTitle": "Enter an address, encrypted key, private key, mnemonic or locate backup file",
@@ -483,5 +473,39 @@
   },
   "currency": {
     "title": "Currency"
+  },
+  "voteNeo3": {
+    "title": "Voting",
+    "howDoesItWorkButtonLabel": "How does it work?",
+    "searchPlaceholder": "Search for a candidate…",
+    "changeAccountButtonLabel": "Change",
+    "selectAccountButtonLabel": "Select account",
+    "voteErrorMessages": {
+      "thereIsNoNeoLabel": "Your Neo 3 account should have NEO",
+      "accountCanNotBeWatchLabel": "Your Neo 3 account is in watch mode",
+      "shouldHaveEnoughGasToPayFeeLabel": "You don't have enough GAS to pay the fee",
+      "selectNeo3AccountLabel": "Select a Neo 3 account"
+    },
+    "availableVotes": {
+      "availableVotesLabel": "Available votes",
+      "noAvailableVotesLabel": "No votes"
+    },
+    "list": {
+      "positionColumnLabel": "Position",
+      "nameColumnLabel": "Candidate",
+      "castVoteColumnLabel": "Vote"
+    },
+    "listItem": {
+      "castVoteButtonLabel": "Cast vote",
+      "yourVoteButtonLabel": "Your vote"
+    },
+    "notFound": {
+      "title": "No candidates to display",
+      "text": "There are no candidates to vote for or there was a problem obtaining them. Verify your Neo 3 network, and please, try again."
+    },
+    "accountSelectionByBlockchain": {
+      "description": "Your NEO wallets and accounts:",
+      "submitButtonLabel": "Vote using this account"
+    }
   }
 }

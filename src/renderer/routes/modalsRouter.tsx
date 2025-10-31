@@ -56,6 +56,8 @@ const ReorderWalletsModal = lazy(() => import('./modals/ReorderWallets'))
 const VoteNeo3CandidateDetailsModal = lazy(() => import('./modals/VoteNeo3CandidateDetails'))
 const VoteNeo3ConfirmationModal = lazy(() => import('./modals/VoteNeo3Confirmation'))
 const VoteNeo3SuccessModal = lazy(() => import('./modals/VoteNeo3Success'))
+const VoteNeo3InfoModal = lazy(() => import('./modals/VoteNeo3Info'))
+const AccountSelectionByBlockchainModal = lazy(() => import('./modals/AccountSelectionByBlockchain'))
 
 export const modalsRouter: TRoute[] = [
   { name: 'wallet-selection', type: 'bottom', element: WalletSelectionModal },
@@ -64,6 +66,7 @@ export const modalsRouter: TRoute[] = [
   { name: 'account-selection', type: 'bottom', element: AccountSelectionModal },
   { name: 'account-deletion', type: 'bottom', element: AccountDeletionModal },
   { name: 'account-edit', type: 'bottom', element: AccountEditModal },
+  { name: 'account-selection-by-blockchain', type: 'bottom', element: AccountSelectionByBlockchainModal },
   { name: 'menu', type: 'side', element: MenuModal },
   { name: 'import-accounts-selection', type: 'bottom', element: ImportAccountsSelectionModal },
   { name: 'blockchain-selection', type: 'bottom', element: BlockchainSelectionModal },
@@ -109,6 +112,7 @@ export const modalsRouter: TRoute[] = [
   { name: 'swap-details-log', type: 'bottom', element: SwapDetailsLogModal },
   { name: 'reorder-wallets', type: 'bottom', element: ReorderWalletsModal },
   { name: 'vote-neo3-candidate-details', type: 'bottom', element: VoteNeo3CandidateDetailsModal },
+  { name: 'vote-neo3-info', type: 'bottom', element: VoteNeo3InfoModal },
   { name: 'vote-neo3-confirmation', type: 'bottom', element: VoteNeo3ConfirmationModal },
   { name: 'vote-neo3-success', type: 'bottom', element: VoteNeo3SuccessModal },
 ]

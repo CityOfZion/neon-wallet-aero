@@ -46,6 +46,7 @@ const SwapPage = lazy(() => import('./popup/Swap'))
 const WalletsPage = lazy(() => import('./popup/Wallets'))
 const HelpPage = lazy(() => import('./popup/Help'))
 const Neo3NeoXBridgePage = lazy(() => import('./popup/Neo3NeoXBridge'))
+const VoteNeo3Page = lazy(() => import('./popup/VoteNeo3'))
 
 export const popupRouter = createHashRouter([
   {
@@ -185,6 +186,10 @@ export const popupRouter = createHashRouter([
           {
             path: 'neo3-neox-bridge',
             element: <Neo3NeoXBridgePage />,
+          },
+          {
+            path: 'vote-neo3',
+            element: <VoteNeo3Page />,
           },
         ],
       },

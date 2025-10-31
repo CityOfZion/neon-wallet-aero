@@ -56,7 +56,8 @@
     "contactsItemLabel": "聯絡人",
     "settingsItemLabel": "設定",
     "neo3NeoXBridgeItemLabel": "橋接",
-    "logoutItemLabel": "註銷"
+    "logoutItemLabel": "註銷",
+    "voteNeo3ItemLabel": "投票"
   },
   "importAccountsSelection": {
     "title": "匯入",
@@ -604,5 +605,21 @@
     "hashDetailsHeaderLabel": "雜湊",
     "parametersDetailsLabel": "請求參數",
     "externalButtonLabel": "在區塊瀏覽器中查看"
+  },
+  "voteNeo3Info": {
+    "title": "它是如何工作的？",
+    "description": "您持有的 NEO 数量等于您可以投票支持候选人的票数。",
+    "whyVoteLabel": "为什么要投票？",
+    "whyVoteResponseLabel": "通过投票，您积极参与 NEO 生态系统，并因此有资格作为持有者获得 GAS 奖励。",
+    "noteLabel": "注意：",
+    "noteResponseLabel": "如果您不投票，您将失去这一好处。",
+    "alertDescription": "如果您出售您的 NEO，您的投票将减少您出售的数量，您的 GAS 奖励也将相应减少。"
+  },
+  "accountSelectionByBlockchain": {
+    "title": "更改帳戶",
+    "description": "您的錢包和帳戶：",
+    "selectWalletPlaceholder": "選擇一個錢包…",
+    "accountsSelectionLabel": "帳戶",
+    "submitButtonLabel": "使用此帳戶"
   }
 }

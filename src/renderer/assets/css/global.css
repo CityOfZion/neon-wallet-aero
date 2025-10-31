@@ -10,6 +10,8 @@
 
   --color-neon: #4cffb3;
 
+  --color-lemon: #bcff2d;
+
   --color-green-100: #00ddb4;
   --color-green-700: #345048;
   --color-green: #2ebe81;
@@ -85,11 +87,11 @@
   }
 
   body {
-    @apply antialiased h-full overflow-hidden bg-gray-950;
+    @apply h-full overflow-hidden bg-gray-950 antialiased;
   }
 
   #neon-root {
-    @apply overflow-hidden
+    @apply overflow-hidden;
   }
 
   * {
@@ -113,11 +115,9 @@
   }
 
   .buy-and-sell-tokens-iframe-container iframe {
-    @apply !w-[420px] !h-[720px] !border-none;
+    @apply !h-[720px] !w-[420px] !border-none;
   }
 }
-
-
 
 @font-face {
   font-family: 'SofiaPro';

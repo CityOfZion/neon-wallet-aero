@@ -1,6 +1,7 @@
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
 
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { IAccountState, TAccountWithWallet } from '@shared/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
@@ -66,4 +67,24 @@ export const useAccountsByWalletIdSelector = (walletId: string) => {
     accountsByWalletId: value,
     accountsByWalletIdRef: ref,
   }
+}
+
+const selectAccountsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
+  createAppSelector(
+    [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+    (applicationDataByLoginType, loginSession) => {
+      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+
+      return applicationDataByLoginType[loginSession.type].wallets
+        .flatMap(wallet => wallet.accounts)
+        .filter(account => blockchains.some(blockchain => blockchain === account.blockchain))
+    }
+  )
+
+export const useAccountsByBlockchainsSelector = (blockchains: TBlockchainServiceKey[]) => {
+  const { value: accountsByBlockchains, ref: accountsByBlockchainsRef } = useAppSelector(
+    selectAccountsByBlockchains(blockchains)
+  )
+
+  return { accountsByBlockchains, accountsByBlockchainsRef }
 }
