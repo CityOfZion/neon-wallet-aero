@@ -20,9 +20,7 @@ export const DappDisconnectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'dappDisconnection' })
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
 
-  const [isDisconnecting, startDisconnect] = usePressOnce()
-
-  const handleDisconnect = async () => {
+  const [isDisconnecting, startDisconnect] = usePressOnce(async () => {
     await Promise.allSettled(
       sessions.map(
         async session =>
@@ -34,7 +32,7 @@ export const DappDisconnectionModal = () => {
     )
     await invalidateWalletConnectSessions()
     modalNavigate(-1)
-  }
+  })
 
   return (
     <BottomModalLayout heading={t('title')}>
@@ -82,7 +80,7 @@ export const DappDisconnectionModal = () => {
             leftIcon={<TbPlugX aria-hidden />}
             colorSchema="error"
             loading={isDisconnecting}
-            onClick={startDisconnect(handleDisconnect)}
+            onClick={startDisconnect}
           />
         </div>
       </div>

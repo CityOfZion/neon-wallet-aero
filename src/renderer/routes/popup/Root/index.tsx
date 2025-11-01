@@ -16,8 +16,8 @@ import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
 import { setupBsAggregator } from '@renderer/libs/blockchain-service'
 import { setupI18next } from '@renderer/libs/i18next'
 import { queryClient } from '@renderer/libs/query'
+import { setupStore, store, waitForBootstrap } from '@renderer/libs/redux'
 import { authReducerActions } from '@renderer/store/reducers/auth'
-import { RootStore } from '@renderer/store/RootStore'
 import { rendererApi } from '@shared/message-api/renderer'
 
 const ToastProvider = lazy(() => import('@renderer/libs/sonner'))
@@ -29,18 +29,17 @@ export const RootPage = () => {
 
   useMountUnsafe(async () => {
     try {
-      setupI18next()
-      await setupBsAggregator()
-      RootStore.setupStore()
-      await RootStore.waitForBootstrap()
+      await Promise.allSettled([setupI18next(), setupBsAggregator()])
+      setupStore()
+      await waitForBootstrap()
 
       const loginSession = await rendererApi.send('login:get-session')
 
       if (loginSession) {
-        RootStore.store.dispatch(authReducerActions.setLoginSession(loginSession))
+        store.dispatch(authReducerActions.setLoginSession(loginSession))
         navigate('/wallets', { replace: true })
       } else {
-        RootStore.store.dispatch(authReducerActions.resetTemporaryApplicationData())
+        store.dispatch(authReducerActions.resetTemporaryApplicationData())
         navigate('/login', { replace: true })
       }
 
@@ -53,7 +52,7 @@ export const RootPage = () => {
   if (!ready) return <SplashScreen />
 
   return (
-    <StoreProvider store={RootStore.store}>
+    <StoreProvider store={store}>
       <QueryClientProvider client={queryClient}>
         <ModalRouterProvider routes={modalsRouter}>
           <Outlet />

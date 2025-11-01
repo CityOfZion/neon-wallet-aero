@@ -105,7 +105,7 @@ export const ChangePasswordStep2Page = () => {
         password={newPassword}
         loading={isDownloading}
         rightIcon={<TbDownload aria-hidden />}
-        onDownload={startDownload()}
+        onDownload={startDownload}
       />
     </div>
   )

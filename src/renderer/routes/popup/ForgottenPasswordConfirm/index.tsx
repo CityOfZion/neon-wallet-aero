@@ -1,44 +1,39 @@
-import { useTransition } from 'react'
-
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Banner } from '@renderer/components/Banner'
 import { Swipe } from '@renderer/components/Swipe'
 
+import { usePressOnce } from '@renderer/hooks/usePressOnce'
 import { useCurrencySelector, useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { ForgottenPasswordLayout } from '@renderer/layouts/ForgottenPasswordLayout'
 
+import { persistor, setupStore, store, waitForBootstrap } from '@renderer/libs/redux'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
-import { RootStore } from '@renderer/store/RootStore'
 
 export const ForgottenPasswordConfirmPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'forgottenPasswordConfirm' })
   const { language } = useLanguageSelector()
   const { currency } = useCurrencySelector()
-  const [isCleaningData, startIsCleaningData] = useTransition()
+
   const navigate = useNavigate()
 
-  const handleClearData = async () => {
-    if (isCleaningData) return
+  const [isCleaning, startClear] = usePressOnce(async () => {
+    try {
+      persistor.purge()
 
-    startIsCleaningData(async () => {
-      try {
-        await RootStore.persistor.purge()
+      setupStore()
+      waitForBootstrap()
 
-        RootStore.setupStore()
-        await RootStore.waitForBootstrap()
+      store.dispatch(settingsReducerActions.setLanguage(language))
+      store.dispatch(settingsReducerActions.setCurrency(currency))
 
-        RootStore.store.dispatch(settingsReducerActions.setLanguage(language))
-        RootStore.store.dispatch(settingsReducerActions.setCurrency(currency))
-
-        navigate('/forgotten-password-success')
-      } catch (error) {
-        console.error(error)
-      }
-    })
-  }
+      navigate('/forgotten-password-success')
+    } catch (error) {
+      console.error(error)
+    }
+  })
 
   return (
     <ForgottenPasswordLayout heading={t('title')}>
@@ -54,8 +49,8 @@ export const ForgottenPasswordConfirmPage = () => {
           <Swipe
             text={t('swipe.text')}
             buttonAriaLabel={t('swipe.buttonAriaLabel')}
-            isDisabled={isCleaningData}
-            onComplete={handleClearData}
+            isDisabled={isCleaning}
+            onComplete={startClear}
           />
         </div>
       </div>

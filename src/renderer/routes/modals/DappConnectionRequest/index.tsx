@@ -29,20 +29,9 @@ export const DappConnectionRequestModal = () => {
   const { modalErase } = useModalNavigate()
   const { proposal, account } = useModalState<TModalState<'dapp-connection-request'>>()
 
-  const [isConnecting, startConnecting] = usePressOnce()
-
   const [proposalDetails, setProposalDetails] = useState<TWalletKitHelperProposalDetails>()
 
-  const handleReject = async () => {
-    rendererApi.send('wallet-connect:reject-proposal', {
-      id: proposal.id,
-      reason: WalletKitHelper.getError('USER_REJECTED'),
-    })
-
-    modalErase('bottom')
-  }
-
-  const handleAccept = async () => {
+  const [isAccepting, startAccept] = usePressOnce(async () => {
     try {
       await rendererApi.send('wallet-connect:approve-proposal', {
         id: proposal.id,
@@ -57,7 +46,16 @@ export const DappConnectionRequestModal = () => {
     } finally {
       modalErase('bottom')
     }
-  }
+  })
+
+  const [isRejecting, startReject] = usePressOnce(async () => {
+    await rendererApi.send('wallet-connect:reject-proposal', {
+      id: proposal.id,
+      reason: WalletKitHelper.getError('USER_REJECTED'),
+    })
+
+    modalErase('bottom')
+  })
 
   const { isMounting } = useMountUnsafe(() => {
     try {
@@ -84,7 +82,7 @@ export const DappConnectionRequestModal = () => {
   }, 1000)
 
   return (
-    <BottomModalLayout heading={t('title')} contentClassName="items-center" onClose={handleReject}>
+    <BottomModalLayout heading={t('title')} contentClassName="items-center" onClose={startReject}>
       {isMounting || !proposalDetails ? (
         <ScreenLoader />
       ) : (
@@ -127,15 +125,17 @@ export const DappConnectionRequestModal = () => {
               label={t('rejectButtonLabel')}
               colorSchema="gray"
               className="min-w-[7.5rem]"
-              onClick={handleReject}
-              disabled={isConnecting}
+              onClick={startReject}
+              loading={isRejecting}
+              disabled={isAccepting}
             />
 
             <Button
               label={t('acceptButtonLabel')}
               className="flex-grow"
-              onClick={startConnecting(handleAccept)}
-              loading={isConnecting}
+              onClick={startAccept}
+              loading={isAccepting}
+              disabled={isRejecting}
             />
           </div>
         </Fragment>

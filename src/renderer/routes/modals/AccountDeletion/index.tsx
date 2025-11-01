@@ -67,7 +67,7 @@ export const AccountDeletionModal = () => {
           className="w-full"
           leftIcon={<TbTrash aria-hidden />}
           iconsOnEdge={false}
-          onClick={startDelete()}
+          onClick={startDelete}
           disabled={isDeleting}
         />
       </div>

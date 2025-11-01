@@ -12,8 +12,8 @@ import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
 import { setupBsAggregator } from '@renderer/libs/blockchain-service'
 import { setupI18next } from '@renderer/libs/i18next'
 import { queryClient } from '@renderer/libs/query'
+import { setupStore, store, waitForBootstrap } from '@renderer/libs/redux'
 import { authReducerActions } from '@renderer/store/reducers/auth'
-import { RootStore } from '@renderer/store/RootStore'
 import { rendererApi } from '@shared/message-api/renderer'
 
 import { modalsRouter } from '../../modalsRouter'
@@ -26,10 +26,10 @@ export const RootPage = () => {
 
   useMountUnsafe(async () => {
     try {
-      setupI18next()
-      await setupBsAggregator()
-      RootStore.setupStore()
-      await RootStore.waitForBootstrap()
+      await Promise.allSettled([setupI18next(), setupBsAggregator()])
+
+      setupStore()
+      await waitForBootstrap()
 
       const loginSession = await rendererApi.send('login:get-session')
 
@@ -37,10 +37,10 @@ export const RootPage = () => {
         throw new Error('No login session found')
       }
 
-      RootStore.store.dispatch(authReducerActions.setLoginSession(loginSession))
+      store.dispatch(authReducerActions.setLoginSession(loginSession))
       setReady(true)
     } catch {
-      RootStore.store.dispatch(authReducerActions.resetTemporaryApplicationData())
+      store.dispatch(authReducerActions.resetTemporaryApplicationData())
       await rendererApi.send('tab:close-all')
     }
   })
@@ -48,7 +48,7 @@ export const RootPage = () => {
   if (!ready) return <SplashScreen />
 
   return (
-    <StoreProvider store={RootStore.store}>
+    <StoreProvider store={store}>
       <QueryClientProvider client={queryClient}>
         <ModalRouterProvider routes={modalsRouter}>
           <Outlet />
