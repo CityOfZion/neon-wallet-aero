@@ -46,7 +46,7 @@ const buildVoteNeo3GetCandidatesToVoteQueryKey = ({
   neo3Network,
 }: TBuildVoteNeo3GetCandidatesToVoteQueryKeyParams): any[] => ['vote-neo3-get-candidates-to-vote', neo3Network]
 
-const buildVoteNeo3GetVoteDetailsByAddressQueryKey = ({
+export const buildVoteNeo3GetVoteDetailsByAddressQueryKey = ({
   neo3Network,
   address,
 }: TBuildVoteNeo3GetVoteDetailsByAddressQueryKeyParams) => {

@@ -11,7 +11,7 @@ import { Separator } from '@renderer/components/Separator'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
-import { useModalState } from '@renderer/hooks/useModalRouter'
+import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import {
   useVoteNeo3CalculateVoteFee,
   useVoteNeo3GetVoteDetailsByAddress,
@@ -30,6 +30,7 @@ export const VoteNeo3CandidateDetailsModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'voteNeo3CandidateDetails' })
   const { neo3Account, candidate, candidateVotePercentage } =
     useModalState<TModalState<'vote-neo3-candidate-details'>>()
+  const { modalNavigate } = useModalNavigate()
 
   const { position, logoUrl, hash, description, pubKey, name, votes } = candidate
 
@@ -65,7 +66,7 @@ export const VoteNeo3CandidateDetailsModal = () => {
   const handleConfirmVote = () => {
     if (isDisabled) return
 
-    // TODO: Add confirmation step
+    modalNavigate('vote-neo3-confirmation', { state: { neo3Account, candidate }, replace: true })
   }
 
   return (
