@@ -4,7 +4,8 @@ import type { TRoute } from '@shared/types/modal'
 
 const AccountSelectionModal = lazy(() => import('./modals/AccountSelection'))
 const AccountDeletionModal = lazy(() => import('./modals/AccountDeletion'))
-const AccountEditModal = lazy(() => import('./modals/AccountEdit'))
+const AccountEditFormModal = lazy(() => import('./modals/AccountEditForm'))
+const AccountEditListModal = lazy(() => import('./modals/AccountEditList'))
 const BlockchainSelectionModal = lazy(() => import('./modals/BlockchainSelection'))
 const ConfirmPasswordModal = lazy(() => import('./modals/ConfirmPassword'))
 const ContactAddressFormModal = lazy(() => import('./modals/ContactAddressForm'))
@@ -65,7 +66,8 @@ export const modalsRouter: TRoute[] = [
   { name: 'wallet-edit', type: 'bottom', element: WalletEditModal },
   { name: 'account-selection', type: 'bottom', element: AccountSelectionModal },
   { name: 'account-deletion', type: 'bottom', element: AccountDeletionModal },
-  { name: 'account-edit', type: 'bottom', element: AccountEditModal },
+  { name: 'account-edit-list', type: 'bottom', element: AccountEditListModal },
+  { name: 'account-edit-form', type: 'bottom', element: AccountEditFormModal },
   { name: 'account-selection-by-blockchain', type: 'bottom', element: AccountSelectionByBlockchainModal },
   { name: 'menu', type: 'side', element: MenuModal },
   { name: 'import-accounts-selection', type: 'bottom', element: ImportAccountsSelectionModal },

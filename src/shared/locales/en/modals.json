@@ -31,17 +31,29 @@
     "exportAccountTitle": "Export account",
     "exportError": "Error exporting account"
   },
-  "accountEdit": {
+  "accountEditList": {
+    "title": "Select account to edit",
+    "cancelButtonLabel": "Cancel"
+  },
+  "accountEditForm": {
     "title": "Edit account",
+    "accountNameLabel": "Account name",
+    "accountAddressLabel": "Address",
     "deleteAccountLabel": "Delete Account",
     "deleteAccountButtonLabel": "Delete Account",
-    "deleteAccountDescription": "Deleting an account that contains assets will cause these assets to become inaccessible after deletion!"
+    "deleteAccountDescription": "Deleting an account without a backup makes assets inaccessible.",
+    "messages": {
+      "accountNameUpdated": "Account name updated successfully"
+    },
+    "errors": {
+      "accountNameEmpty": "Account name can't be empty"
+    }
   },
   "accountDeletion": {
     "title": "Delete account",
     "subtitle": "Delete account?",
     "description": "Ensure that you've transferred your assets to a new account before proceeding, so that your assets will be safe after deletion",
-    "deleteAccountWarningLabel": "Deleting an account that contains assets will cause these assets to become inaccessible after deletion!",
+    "deleteAccountWarningLabel": "Deleting this account without a backup may make its assets inaccessible. Only proceed if you've securely backed it up or can recover it through a mnemonic wallet.",
     "deleteAccountConfirmationLabel": "Are you sure that you want to continue?",
     "deleteAccountButtonLabel": "Delete Account"
   },

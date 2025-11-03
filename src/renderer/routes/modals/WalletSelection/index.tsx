@@ -113,18 +113,17 @@ export const WalletSelectionModal = () => {
       <div className="mt-auto flex gap-2.5">
         {!!selectedWallet?.encryptedMnemonic && loginSession?.type === 'password' && (
           <Tooltip
-            title={t('exportButtonLabel')}
+            title={t('editButtonLabel')}
             contentProps={{ className: 'bg-asphalt' }}
             arrowProps={{ className: 'fill-asphalt' }}
             delayDuration={200}
           >
             <IconButton
-              aria-label={t('exportButtonLabel')}
+              aria-label={t('editButtonLabel')}
               variant="contained"
-              colorSchema="gray"
               className="w-13"
-              icon={<TbFileExport aria-hidden />}
-              onClick={handleGoToConfirmPasswordModal}
+              icon={<TbPencil aria-hidden />}
+              onClick={handleEditWallet}
             />
           </Tooltip>
         )}
@@ -145,19 +144,20 @@ export const WalletSelectionModal = () => {
         </Tooltip>
 
         <Button
-          label={t('editButtonLabel')}
+          label={t('exportButtonLabel')}
           className="w-full"
           variant="card"
-          leftIcon={<TbPencil aria-hidden className="text-neon" />}
+          colorSchema="gray"
+          leftIcon={<TbFileExport aria-hidden />}
           iconsOnEdge={false}
-          onClick={handleEditWallet}
+          onClick={handleGoToConfirmPasswordModal}
         />
 
         <Button
           label={t('addButtonLabel')}
           className="w-full"
           variant="card"
-          leftIcon={<TbPlus aria-hidden className="text-neon" />}
+          leftIcon={<TbPlus aria-hidden />}
           iconsOnEdge={false}
           onClick={modalNavigateWrapper('create-wallet-1', { replace: true })}
         />

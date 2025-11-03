@@ -18,14 +18,15 @@ const selectWallets = createAppSelector(
   }
 )
 
-export const useWalletsSelector = () => {
-  const { ref, value } = useAppSelector(selectWallets)
+const selectWalletById = (walletId: string) =>
+  createAppSelector(
+    [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+    (applicationDataByLoginType, loginSession) => {
+      if (!loginSession?.type) return undefined
 
-  return {
-    wallets: value,
-    walletsRef: ref,
-  }
-}
+      return applicationDataByLoginType[loginSession.type].wallets.find(wallet => wallet.id === walletId)
+    }
+  )
 
 const selectWalletsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
   createAppSelector(
@@ -38,6 +39,24 @@ const selectWalletsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
       )
     }
   )
+
+export const useWalletsSelector = () => {
+  const { ref, value } = useAppSelector(selectWallets)
+
+  return {
+    wallets: value,
+    walletsRef: ref,
+  }
+}
+
+export const useWalletByIdSelector = (walletId: string) => {
+  const { value, ref } = useAppSelector(selectWalletById(walletId))
+
+  return {
+    wallet: value,
+    walletRef: ref,
+  }
+}
 
 export const useWalletsByBlockchainsSelector = (blockchains: TBlockchainServiceKey[]) => {
   const { value: walletsByBlockchains, ref: walletsByBlockchainsRef } = useAppSelector(
