@@ -31,11 +31,23 @@
     "exportAccountTitle": "导出账户",
     "exportError": "导出账户时出错"
   },
-  "accountEdit": {
+  "accountEditList": {
+    "title": "选择要编辑的账户",
+    "cancelButtonLabel": "取消"
+  },
+  "accountEditForm": {
     "title": "编辑账户",
+    "accountNameLabel": "账户名称",
+    "accountAddressLabel": "地址",
     "deleteAccountLabel": "删除账户",
     "deleteAccountButtonLabel": "删除账户",
-    "deleteAccountDescription": "删除包含资产的账户将导致这些资产在删除后无法访问！"
+    "deleteAccountDescription": "删除未备份的账户可能导致资产无法访问。",
+    "messages": {
+      "accountNameUpdated": "账户名称已成功更新"
+    },
+    "errors": {
+      "accountNameEmpty": "账户名称不能为空"
+    }
   },
   "accountDeletion": {
     "title": "删除账户",

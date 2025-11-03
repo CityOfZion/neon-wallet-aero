@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { IconButton } from '@renderer/components/IconButton'
 
+import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedAccountSelector, useSelectedWalletSelector } from '@renderer/hooks/useSettingsSelector'
@@ -23,6 +24,7 @@ import { WalletsPageSelectButton } from './WalletsPageSelectButton'
 export const WalletsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'wallets' })
   const { wallets } = useWalletsSelector()
+  const { accounts } = useAccountsSelector()
   const navigate = useNavigate()
   const { modalNavigate, modalNavigateWrapper, modalErase } = useModalNavigate()
   const { selectedWallet } = useSelectedWalletSelector()
@@ -43,7 +45,7 @@ export const WalletsPage = () => {
         onSelect: wallet => {
           modalNavigate('account-selection', {
             state: {
-              wallet,
+              walletId: wallet.id,
               selectedAccount,
               onSelect: account => {
                 handleNavigateSelect(wallet, account)
@@ -59,7 +61,7 @@ export const WalletsPage = () => {
   const handleAccountSelect = () => {
     modalNavigate('account-selection', {
       state: {
-        wallet: selectedWallet!,
+        walletId: selectedWallet!.id,
         selectedAccount,
         onSelect: (account: IAccountState) => {
           handleNavigateSelect(selectedWallet!, account)
@@ -71,9 +73,10 @@ export const WalletsPage = () => {
 
   useLayoutEffect(() => {
     const firstWallet = selectedWallet || wallets[0]
+    const firstWalletAccounts = accounts.filter(account => account.idWallet === firstWallet.id)
     const firstAccount =
-      (!!selectedAccount && firstWallet.accounts.find(account => account.id === selectedAccount.id)) ||
-      firstWallet?.accounts[0]
+      (!!selectedAccount && firstWalletAccounts.find(account => account.id === selectedAccount.id)) ||
+      firstWalletAccounts[0]
 
     if (firstWallet) {
       dispatch(settingsReducerActions.setSelectedWallet(firstWallet))
@@ -82,7 +85,7 @@ export const WalletsPage = () => {
     if (firstAccount) {
       dispatch(settingsReducerActions.setSelectedAccount(firstAccount))
     }
-  }, [wallets, selectedAccount, selectedWallet, dispatch])
+  }, [wallets, selectedAccount, selectedWallet, dispatch, accounts])
 
   return (
     <ScreenLayout>

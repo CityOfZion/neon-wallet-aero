@@ -31,11 +31,23 @@
     "exportAccountTitle": "匯出帳戶",
     "exportError": "匯出帳戶時發生錯誤"
   },
-  "accountEdit": {
+  "accountEditList": {
+    "title": "選擇要編輯的帳戶",
+    "cancelButtonLabel": "取消"
+  },
+  "accountEditForm": {
     "title": "編輯帳戶",
+    "accountNameLabel": "帳戶名稱",
+    "accountAddressLabel": "地址",
     "deleteAccountLabel": "刪除帳戶",
     "deleteAccountButtonLabel": "刪除帳戶",
-    "deleteAccountDescription": "刪除包含資產的帳戶將導致這些資產在刪除後無法存取！"
+    "deleteAccountDescription": "刪除未備份的帳戶可能導致資產無法存取。",
+    "messages": {
+      "accountNameUpdated": "帳戶名稱已成功更新"
+    },
+    "errors": {
+      "accountNameEmpty": "帳戶名稱不能為空"
+    }
   },
   "accountDeletion": {
     "title": "刪除帳戶",
