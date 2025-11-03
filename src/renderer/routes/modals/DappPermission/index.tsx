@@ -49,16 +49,13 @@ export const DappPermissionModal = () => {
     useModalState<TModalState<'dapp-permission'>>()
   const { modalErase, modalNavigate } = useModalNavigate()
 
-  const [isAccepting, startAccept] = usePressOnce()
-  const [isRejecting, startReject] = usePressOnce()
-
-  const handleReject = async (reason?: ErrorResponse, toastMessage?: string) => {
+  const [isRejecting, startReject] = usePressOnce(async (reason?: ErrorResponse, toastMessage?: string) => {
     await onReject(reason)
     modalErase('bottom')
     ToastHelper.error({ message: toastMessage ?? t('errors.cancelled'), id: 'dapp-permission-cancel' })
-  }
+  })
 
-  const handleAccept = async () => {
+  const [isAccepting, startAccept] = usePressOnce(async () => {
     try {
       const response = await onAccept()
 
@@ -80,7 +77,7 @@ export const DappPermissionModal = () => {
         },
       })
     }
-  }
+  })
 
   useEffect(() => {
     const removeSessionRequestExpireListener = rendererApi.listen(
@@ -102,14 +99,14 @@ export const DappPermissionModal = () => {
     DappPermissionGenericContent
 
   return (
-    <BottomModalLayout heading={t('title')} contentClassName="px-0 flex flex-col pb-5 min-h-0" onClose={handleReject}>
+    <BottomModalLayout heading={t('title')} contentClassName="px-0 flex flex-col pb-5 min-h-0" onClose={startReject}>
       <Content
         request={request}
         session={session}
         sessionDetails={sessionDetails}
         sessionAccount={sessionAccount}
-        onAccept={startAccept(handleAccept)}
-        onReject={startReject(handleReject)}
+        onAccept={startAccept}
+        onReject={startReject}
         isAccepting={isAccepting}
         isRejecting={isRejecting}
       />

@@ -46,9 +46,10 @@ export const DappConnectionModal = () => {
     try {
       const proposal = await rendererApi.send('wallet-connect:pair', data.url)
       modalNavigate('dapp-connection-request', { state: { account, proposal } })
-      reset()
     } catch {
       ToastHelper.error({ message: t('errors.errorToConnect') })
+    } finally {
+      reset()
     }
   }
 
