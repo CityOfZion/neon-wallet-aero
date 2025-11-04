@@ -452,6 +452,7 @@
     "messages": {
       "feeError": "Error to calculate fee",
       "insufficientFunds": "Insufficient funds",
+      "invalidAmount": "Invalid amount",
       "invalidAddress": "Invalid address"
     }
   },

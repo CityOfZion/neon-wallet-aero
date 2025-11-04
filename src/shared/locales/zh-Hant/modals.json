@@ -452,6 +452,7 @@
     "messages": {
       "feeError": "計算費用時發生錯誤",
       "insufficientFunds": "資金不足",
+      "invalidAmount": "無效金額",
       "invalidAddress": "無效地址"
     }
   },
