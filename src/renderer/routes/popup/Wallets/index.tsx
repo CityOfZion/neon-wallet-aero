@@ -72,7 +72,7 @@ export const WalletsPage = () => {
   }
 
   useLayoutEffect(() => {
-    const firstWallet = selectedWallet || wallets[0]
+    const firstWallet = wallets.find(wallet => wallet.id === selectedWallet?.id) || wallets[0]
     const firstWalletAccounts = accounts.filter(account => account.idWallet === firstWallet.id)
     const firstAccount =
       (!!selectedAccount && firstWalletAccounts.find(account => account.id === selectedAccount.id)) ||

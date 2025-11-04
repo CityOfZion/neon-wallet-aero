@@ -35,7 +35,7 @@ type TWalletDeletionModalState = {
 }
 
 type TWalletEditModalState = {
-  wallet: IWalletState
+  walletId: IWalletState['id']
 }
 
 type TAccountSelectionModalState = {

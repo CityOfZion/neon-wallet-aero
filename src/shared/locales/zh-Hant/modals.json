@@ -1,6 +1,7 @@
 {
   "walletSelection": {
     "title": "選擇錢包",
+    "titleEdit": "管理錢包",
     "subtitle": "所有錢包",
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "新增",
@@ -11,9 +12,17 @@
   },
   "walletEdit": {
     "title": "編輯錢包",
+    "subtitle": "所有錢包",
+    "walletNameLabel": "錢包名稱",
     "deleteWalletLabel": "刪除錢包",
     "deleteWalletButtonLabel": "刪除錢包",
-    "deleteWalletDescription": "刪除包含資產的錢包將導致這些資產在刪除後無法存取！"
+    "deleteWalletDescription": "這將刪除您的錢包和所有交易歷史記錄。",
+    "messages": {
+      "walletNameUpdated": "錢包名稱更新成功"
+    },
+    "errors": {
+      "walletNameEmpty": "錢包名稱不能為空"
+    }
   },
   "walletDeletion": {
     "title": "刪除錢包",
