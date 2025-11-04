@@ -1,7 +1,6 @@
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { BSNeo3Constants } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@renderer/components/Button'
 import { DashedSeparator } from '@renderer/components/DashedSeparator'
@@ -20,19 +19,13 @@ import type { TModalState } from '@shared/types/modal'
 export const VoteNeo3SuccessModal = () => {
   const { candidate, neo3Account } = useModalState<TModalState<'vote-neo3-success'>>()
   const { t } = useTranslation('modals', { keyPrefix: 'voteNeo3Success' })
-  const navigate = useNavigate()
-  const { modalErase } = useModalNavigate()
+  const { modalEraseWrapper } = useModalNavigate()
 
   const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address)
   const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance ?? 0)
 
-  const handleReturnToVoting = () => {
-    navigate('wallets') // TODO: Edit with correct path after voting is fully integrated
-    modalErase('bottom')
-  }
-
   return (
-    <BottomModalLayout heading={t('title')}>
+    <BottomModalLayout heading={t('title')} hideBackButton>
       <div className="flex flex-col gap-y-6">
         <div className="flex flex-col items-center gap-y-6">
           <TbRosetteDiscountCheck aria-hidden className="text-blue size-21 stroke-1" />
@@ -77,7 +70,7 @@ export const VoteNeo3SuccessModal = () => {
           variant="card"
           leftIcon={<TbArrowLeft aria-hidden />}
           iconsOnEdge={false}
-          onClick={handleReturnToVoting}
+          onClick={modalEraseWrapper('bottom')}
         />
       </div>
     </BottomModalLayout>

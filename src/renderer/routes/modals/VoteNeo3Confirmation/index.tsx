@@ -20,11 +20,12 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useExchange } from '@renderer/hooks/useExchange'
-import { useModalState } from '@renderer/hooks/useModalRouter'
+import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
-import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
+import { useCurrencySelector, useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 import {
+  buildVoteNeo3GetVoteDetailsByAddressQueryKey,
   useVoteNeo3CalculateVoteFee,
   useVoteNeo3GetVoteDetailsByAddress,
   useVoteNeo3Validations,
@@ -35,6 +36,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import TbCheckbox from '@renderer/assets/images/tb-checkbox.svg?react'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
+import { queryClient } from '@renderer/libs/query'
 import { thunks } from '@renderer/store/thunks'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
@@ -53,6 +55,10 @@ export const VoteNeo3ConfirmationModal = () => {
   const balanceQuery = useBalance(neo3Account)
   const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
   const { currency } = useCurrencySelector()
+  const { modalNavigate } = useModalNavigate()
+  const {
+    selectedNetworkByBlockchain: { neo3: neo3Network },
+  } = useSelectedNetworkByBlockchainSelector()
 
   const [isSubmitting, startSubmit] = usePressOnce()
   const dispatch = useAppDispatch()
@@ -145,7 +151,16 @@ export const VoteNeo3ConfirmationModal = () => {
         })
       )
 
-      // TODO: Implement success modal
+      queryClient.setQueryData(
+        buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network, address: account.address }),
+        {
+          ...voteDetailsByAddressQuery.data,
+          candidatePubKey: candidate.pubKey,
+          candidateName: candidate.name,
+        }
+      )
+
+      modalNavigate('vote-neo3-success', { state: { candidate, neo3Account }, replace: true })
     } catch (error) {
       console.error(error)
       ToastHelper.error({ message: t('errors.castVoteFailed'), duration: 6000 })

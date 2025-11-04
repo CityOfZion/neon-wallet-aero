@@ -55,7 +55,7 @@ export const VoteNeo3ListItem = ({
   const votePercentage = useMemo(() => {
     const percentage = Math.min(
       100,
-      BSBigNumberHelper.fromNumber(votes).multipliedBy('100').div(votesTotalBn).toNumber()
+      BSBigNumberHelper.fromNumber(votes).multipliedBy('100').div(votesTotalBn).decimalPlaces(2).toNumber()
     )
 
     return `${percentage >= 0 ? percentage : 0}%`
