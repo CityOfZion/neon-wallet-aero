@@ -8,7 +8,9 @@ import { Loader } from './Loader'
 
 type TProps = ComponentProps<'img'> & {
   containerClassName?: string
-  fallbackSrc?: string
+  src: string
+  alt: string
+  fallbackSrc: string
 }
 
 export const ImageWithFallback = ({ fallbackSrc, className, containerClassName, ...props }: TProps) => {

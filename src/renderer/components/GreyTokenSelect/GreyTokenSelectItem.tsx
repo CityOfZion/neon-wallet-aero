@@ -4,7 +4,7 @@ import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import defaultTokenLogo from '@renderer/assets/images/default-token-logo.png'
+import { NEON_ICONS_URL } from '@shared/constants/urls'
 
 import { Tooltip } from '../Tooltip'
 import type { TGreyTokenSelectToken } from '.'
@@ -14,13 +14,15 @@ type TProps = {
   textClassName?: string
 }
 
+const defaultTokenImageUrl = `${NEON_ICONS_URL}/tokens/default-token.png`
+
 export const GreyTokenSelectItem = ({ token, textClassName }: TProps) => {
-  const [img, setImg] = useState(token.imageUrl ?? defaultTokenLogo)
+  const [img, setImg] = useState(token.imageUrl || defaultTokenImageUrl)
 
   const network = token.network || token.blockchain
 
   useEffect(() => {
-    setImg(token.imageUrl ?? defaultTokenLogo)
+    setImg(token.imageUrl || defaultTokenImageUrl)
   }, [token])
 
   return (
@@ -30,9 +32,10 @@ export const GreyTokenSelectItem = ({ token, textClassName }: TProps) => {
         alt={token.symbol}
         className="h-4 w-4 rounded-full"
         onError={() => {
-          setImg(defaultTokenLogo)
+          setImg(defaultTokenImageUrl)
+
           // eslint-disable-next-line react-hooks/immutability
-          token.imageUrl = defaultTokenLogo
+          token.imageUrl = defaultTokenImageUrl
         }}
       />
 
