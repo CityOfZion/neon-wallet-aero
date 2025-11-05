@@ -160,23 +160,8 @@ export const SellTokensDepositModal = () => {
     debounceAmount(() => {
       const token = actionData.token
       const nextValue = BSBigNumberHelper.format(value, { decimals: token?.token?.decimals })
-      const tokenAmount = token?.amount
 
-      setData({
-        amount: nextValue === '0' ? '' : nextValue,
-        isAmountLoading: false,
-      })
-
-      if (
-        service &&
-        tokenAmount &&
-        !service.tokenService.predicateByHash(service.feeToken, token.token.hash) &&
-        BSBigNumberHelper.fromNumber(nextValue).isGreaterThan(tokenAmount)
-      ) {
-        setError('amount', t('messages.insufficientFunds'))
-      } else {
-        clearErrors('amount')
-      }
+      setData({ amount: nextValue === '0' ? '' : nextValue, isAmountLoading: false })
     })
   }
 
@@ -287,21 +272,24 @@ export const SellTokensDepositModal = () => {
 
         setData({ fee })
 
+        const amount = BSBigNumberHelper.fromNumber(intent.amount)
         let feeTotal = BSBigNumberHelper.fromNumber(fee)
 
         if (service.tokenService.predicateByHash(service.feeToken, intent.tokenHash)) {
           feeTotal = feeTotal.plus(intent.amount)
         }
 
-        const feeAmount =
+        const feeTokenAmount =
           balanceQuery.data?.tokensBalances?.find(({ token }) =>
             service.tokenService.predicateByHash(service.feeToken, token)
           )?.amount || '0'
 
-        if (feeTotal.isGreaterThan(feeAmount)) {
-          setError('fee', t('messages.insufficientFunds'))
+        if (amount.isZero() || amount.isNegative()) {
+          setError('amount', t('messages.invalidAmount'))
+        } else if (amount.isGreaterThan(actionData?.token?.amount ?? '0') || feeTotal.isGreaterThan(feeTokenAmount)) {
+          setError('amount', t('messages.insufficientFunds'))
         } else {
-          clearErrors('fee')
+          clearErrors(['fee', 'amount'])
         }
       } catch (error) {
         console.error(error)
