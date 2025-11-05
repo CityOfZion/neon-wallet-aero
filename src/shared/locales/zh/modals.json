@@ -1,7 +1,7 @@
 {
   "walletSelection": {
     "title": "选择钱包",
-    "titleEdit": "管理钱包",
+    "titleEdit": "选择要编辑的钱包",
     "subtitle": "所有钱包",
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "添加",
@@ -34,17 +34,14 @@
   },
   "accountSelection": {
     "title": "选择账户",
+    "titleEdit": "选择要编辑的账户",
     "addButtonLabel": "添加",
     "editButtonLabel": "编辑",
     "exportButtonLabel": "导出",
     "exportAccountTitle": "导出账户",
     "exportError": "导出账户时出错"
   },
-  "accountEditList": {
-    "title": "选择要编辑的账户",
-    "cancelButtonLabel": "取消"
-  },
-  "accountEditForm": {
+  "accountEdit": {
     "title": "编辑账户",
     "accountNameLabel": "账户名称",
     "accountAddressLabel": "地址",

@@ -49,11 +49,7 @@ type TAccountDeletionModalState = {
   wallet: IWalletState
 }
 
-type TAccountEditListModalState = {
-  walletId: IWalletState['id']
-}
-
-type TAccountEditFormModalState = {
+type TAccountEditModalState = {
   account: IAccountState
 }
 
@@ -296,8 +292,7 @@ export type TModalRouterRouteTypes = {
   'account-selection': TAccountSelectionModalState
   'account-selection-by-blockchain': TAccountSelectionByBlockchainModalState
   'account-deletion': TAccountDeletionModalState
-  'account-edit-list': TAccountEditListModalState
-  'account-edit-form': TAccountEditFormModalState
+  'account-edit': TAccountEditModalState
   'import-accounts-selection': TImportAccountsSelectionModalState
   'blockchain-selection': TBlockchainSelectionModalState
   'decrypt-key': TDecryptKeyModalState

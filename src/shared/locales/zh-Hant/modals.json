@@ -1,7 +1,7 @@
 {
   "walletSelection": {
     "title": "選擇錢包",
-    "titleEdit": "管理錢包",
+    "titleEdit": "選擇要編輯的錢包",
     "subtitle": "所有錢包",
     "reorderButtonLabel": "重新排序",
     "addButtonLabel": "新增",
@@ -34,17 +34,14 @@
   },
   "accountSelection": {
     "title": "選擇帳戶",
+    "titleEdit": "選擇要編輯的賬戶",
     "addButtonLabel": "新增",
     "editButtonLabel": "編輯",
     "exportButtonLabel": "匯出",
     "exportAccountTitle": "匯出帳戶",
     "exportError": "匯出帳戶時發生錯誤"
   },
-  "accountEditList": {
-    "title": "選擇要編輯的帳戶",
-    "cancelButtonLabel": "取消"
-  },
-  "accountEditForm": {
+  "accountEdit": {
     "title": "編輯帳戶",
     "accountNameLabel": "帳戶名稱",
     "accountAddressLabel": "地址",
