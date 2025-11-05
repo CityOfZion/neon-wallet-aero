@@ -4,6 +4,7 @@ import { Core } from '@walletconnect/core'
 import type { ProposalTypes } from '@walletconnect/types'
 
 import { COZ_LINK } from '@shared/constants/links'
+import { NEON_ICONS_URL } from '@shared/constants/urls'
 import { backgroundApi } from '@shared/message-api/background'
 
 import pkg from '../../package.json'
@@ -22,7 +23,7 @@ async function setupWalletKit() {
       name: pkg.name.charAt(0).toUpperCase() + pkg.name.slice(1),
       description: pkg.description,
       url: COZ_LINK,
-      icons: ['https://raw.githubusercontent.com/CityOfZion/neon-icons/refs/heads/main/neon-logo/128x128.png'],
+      icons: [`${NEON_ICONS_URL}/neon-logo/128x128.png`],
     },
   })
 

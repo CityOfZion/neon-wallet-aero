@@ -1,13 +1,14 @@
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
+import { ImageWithFallback } from '@renderer/components/ImageWithFallback'
+
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
+import { NEON_ICONS_URL } from '@shared/constants/urls'
 import type { TTokenBalance } from '@shared/types/query'
-
-import { BlockchainIcon } from '../BlockchainIcon'
 
 type TProps = {
   tokenBalance: TTokenBalance
@@ -21,10 +22,11 @@ export const TokenListItem = ({ tokenBalance }: TProps) => {
   return (
     <div className="flex gap-5 px-2 py-3">
       <div className="flex min-w-0 flex-1 gap-2.5">
-        {/* TODO: Replace by token icon  */}
-        <BlockchainIcon
-          blockchain={tokenBalance.blockchain}
-          className="text-green mt-1 h-3.5 min-h-3.5 w-3.5 min-w-3.5"
+        <ImageWithFallback
+          src={`${NEON_ICONS_URL}/tokens/${tokenBalance.blockchain}/${tokenBalance.token.hash}.png`}
+          alt={tokenBalance.token.name}
+          fallbackSrc={`${NEON_ICONS_URL}/tokens/default-token.png`}
+          containerClassName="mt-1 size-4.5 min-size-4.5 max-size-4.5"
         />
 
         <div className="flex min-w-0 flex-col gap-0.5">
