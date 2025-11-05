@@ -99,6 +99,7 @@ export const AccountEditFormModal = () => {
             leftIcon={<MdCheck aria-hidden />}
             iconsOnEdge={false}
             className="w-full"
+            disabled={!actionState.isValid}
           />
         </div>
       </form>

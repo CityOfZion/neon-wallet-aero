@@ -49,7 +49,7 @@ export const AccountDeletionModal = () => {
         <div className="w-full rounded bg-gray-300/15 px-4 py-3 text-center">
           <p className="truncate text-sm font-medium text-white">{account.name}</p>
         </div>
-        <p className="text-xs text-gray-100">{t('description')}</p>
+        <p className="text-center text-xs text-gray-100">{t('description')}</p>
 
         <Banner className="mt-4" type="error" message={t('deleteAccountWarningLabel')} textClassName="p-4" />
 

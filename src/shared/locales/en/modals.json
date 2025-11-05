@@ -1,6 +1,7 @@
 {
   "walletSelection": {
     "title": "Select a wallet",
+    "titleEdit": "Select a wallet to edit",
     "subtitle": "All wallets",
     "reorderButtonLabel": "Reorder",
     "addButtonLabel": "Add",
@@ -11,9 +12,17 @@
   },
   "walletEdit": {
     "title": "Edit wallet",
+    "subtitle": "All wallets",
+    "walletNameLabel": "Wallet name",
     "deleteWalletLabel": "Delete Wallet",
     "deleteWalletButtonLabel": "Delete Wallet",
-    "deleteWalletDescription": "Deleting a wallet that contains assets will cause these assets to become inaccessible after deletion!"
+    "deleteWalletDescription": "This will remove your wallet and all transaction history.",
+    "messages": {
+      "walletNameUpdated": "Wallet name updated successfully"
+    },
+    "errors": {
+      "walletNameEmpty": "Wallet name can't be empty"
+    }
   },
   "walletDeletion": {
     "title": "Delete wallet",
