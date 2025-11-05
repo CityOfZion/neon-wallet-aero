@@ -1,8 +1,13 @@
+import { Fragment, useState } from 'react'
+
 import { useTranslation } from 'react-i18next'
 
+import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
-import { SelectableAccountList } from '@renderer/components/SelectableAccountList'
+import { Separator } from '@renderer/components/Separator'
 
+import { StringHelper } from '@renderer/helpers/StringHelper'
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
@@ -14,6 +19,7 @@ import { useWalletByIdSelector } from '@renderer/hooks/useWalletSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
 import TbPencil from '@renderer/assets/images/tb-pencil.svg?react'
 import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
@@ -32,6 +38,7 @@ export const AccountSelectionModal = () => {
   const { wallet } = useWalletByIdSelector(walletId)
   const { selectedAccount } = useSelectedAccountSelector()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
+  const [editMode, setEditMode] = useState(false)
 
   const dispatch = useAppDispatch()
 
@@ -40,12 +47,12 @@ export const AccountSelectionModal = () => {
     onSelect?.(account)
   }
 
-  const handleEditAccount = () => {
+  const handleEdit = (account: IAccountState) => {
     if (!selectedAccount) return
 
-    modalNavigate('account-edit-list', {
+    modalNavigate('account-edit', {
       state: {
-        walletId,
+        account,
       },
     })
   }
@@ -85,49 +92,89 @@ export const AccountSelectionModal = () => {
   }
 
   return (
-    <BottomModalLayout heading={t('title')}>
+    <BottomModalLayout heading={editMode ? t('titleEdit') : t('title')}>
       <div className="bg-asphalt flex items-center gap-4 rounded px-3.5 py-2">
         <TbWallet className="text-blue h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6" aria-hidden />
         <p className="text-blue truncate text-sm">{wallet?.name}</p>
       </div>
 
-      <SelectableAccountList
-        accounts={wallet!.accounts}
-        onSelectAccount={handleSelect}
-        selectedAccountId={selectedAccount?.id}
-      />
+      <ul className="my-2.5 min-h-0 overflow-y-auto rounded">
+        {wallet?.accounts.map((account, index, array) => (
+          <li key={account.id}>
+            <button
+              aria-selected={selectedAccount?.id === account.id}
+              onClick={editMode ? handleEdit.bind(null, account) : handleSelect.bind(null, account)}
+              className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
+            >
+              <div className="min-w-0 text-left">
+                <div className="flex min-w-0 items-center gap-5">
+                  <BlockchainIcon
+                    blockchain={account.blockchain}
+                    className={StyleHelper.mergeStyles('h-4 min-h-4 w-4 min-w-4 text-gray-100', {
+                      'text-neon': editMode,
+                    })}
+                  />
+                  <p className={StyleHelper.mergeStyles('truncate text-sm text-white', { 'text-neon': editMode })}>
+                    {account.name}
+                  </p>
+                </div>
+
+                <p className="mt-0.5 ml-9 truncate text-xs text-gray-400">
+                  {StringHelper.truncateMiddle(account.address, 10)}
+                </p>
+              </div>
+
+              <TbChevronRight aria-hidden className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6 text-gray-300" />
+            </button>
+
+            {index + 1 !== array.length && <Separator />}
+          </li>
+        ))}
+      </ul>
 
       <div className="mt-auto flex gap-2.5">
-        <Button
-          className="w-full"
-          variant="card"
-          colorSchema="gray"
-          label={t('editButtonLabel')}
-          leftIcon={<TbPencil aria-hidden />}
-          iconsOnEdge={false}
-          onClick={handleEditAccount}
-        />
-
-        {!!selectedAccount?.encryptedKey && loginSession?.type === 'password' && (
+        {editMode ? (
           <Button
-            label={t('exportButtonLabel')}
-            variant="card"
+            label={t('cancelButtonLabel', { defaultValue: 'Cancel' })}
             className="w-full"
+            variant="card"
             colorSchema="gray"
-            iconsOnEdge={false}
-            leftIcon={<TbFileExport aria-hidden />}
-            onClick={handleGoToConfirmPasswordModal}
+            onClick={() => setEditMode(false)}
           />
-        )}
+        ) : (
+          <Fragment>
+            <Button
+              className="w-full"
+              variant="card"
+              colorSchema="gray"
+              label={t('editButtonLabel')}
+              leftIcon={<TbPencil aria-hidden />}
+              iconsOnEdge={false}
+              onClick={() => setEditMode(true)}
+            />
 
-        <Button
-          className="w-full"
-          variant="card"
-          label={t('addButtonLabel')}
-          leftIcon={<TbPlus aria-hidden />}
-          iconsOnEdge={false}
-          onClick={modalNavigateWrapper('create-account-1', { replace: true })}
-        />
+            {!!selectedAccount?.encryptedKey && loginSession?.type === 'password' && (
+              <Button
+                label={t('exportButtonLabel')}
+                variant="card"
+                className="w-full"
+                colorSchema="gray"
+                iconsOnEdge={false}
+                leftIcon={<TbFileExport aria-hidden />}
+                onClick={handleGoToConfirmPasswordModal}
+              />
+            )}
+
+            <Button
+              className="w-full"
+              variant="card"
+              label={t('addButtonLabel')}
+              leftIcon={<TbPlus aria-hidden />}
+              iconsOnEdge={false}
+              onClick={modalNavigateWrapper('create-account-1', { replace: true })}
+            />
+          </Fragment>
+        )}
       </div>
     </BottomModalLayout>
   )

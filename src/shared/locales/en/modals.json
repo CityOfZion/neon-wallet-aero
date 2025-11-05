@@ -34,17 +34,14 @@
   },
   "accountSelection": {
     "title": "Select an account",
+    "titleEdit": "Select account to edit",
     "addButtonLabel": "Add",
     "editButtonLabel": "Edit",
     "exportButtonLabel": "Export",
     "exportAccountTitle": "Export account",
     "exportError": "Error exporting account"
   },
-  "accountEditList": {
-    "title": "Select account to edit",
-    "cancelButtonLabel": "Cancel"
-  },
-  "accountEditForm": {
+  "accountEdit": {
     "title": "Edit account",
     "accountNameLabel": "Account name",
     "accountAddressLabel": "Address",

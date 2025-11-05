@@ -25,10 +25,10 @@ type TActionsData = {
   accountName: string
 }
 
-export const AccountEditFormModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'accountEditForm' })
+export const AccountEditModal = () => {
+  const { t } = useTranslation('modals', { keyPrefix: 'accountEdit' })
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
-  const { account } = useModalState<TModalState<'account-edit-form'>>()
+  const { account } = useModalState<TModalState<'account-edit'>>()
   const { wallet } = useWalletByIdSelector(account.idWallet)
   const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
   const { editAccount } = useBlockchainActions()
@@ -128,4 +128,4 @@ export const AccountEditFormModal = () => {
   )
 }
 
-export default AccountEditFormModal
+export default AccountEditModal
