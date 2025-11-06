@@ -21,10 +21,11 @@ export const ForgottenPasswordConfirmPage = () => {
 
   const [isCleaning, startClear] = usePressOnce(async () => {
     try {
-      persistor.purge()
+      await persistor.purge()
 
       setupStore()
-      waitForBootstrap()
+
+      await waitForBootstrap()
 
       store.dispatch(settingsReducerActions.setLanguage(language))
       store.dispatch(settingsReducerActions.setCurrency(currency))
