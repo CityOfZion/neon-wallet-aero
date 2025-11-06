@@ -45,6 +45,7 @@ export const MenuModal = () => {
         <MenuItemLink
           label={t('connectHardwareWalletItemLabel')}
           to="/connect-hardware-wallet"
+          isDisabled
           icon={<TbDeviceUsb aria-hidden className="rotate-45" />}
         />
 

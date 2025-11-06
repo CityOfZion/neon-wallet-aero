@@ -13,8 +13,7 @@
     "dev": "vite",
     "build": "npm run lint && npm run typecheck && tsc -b && vite build",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json --composite false",
-    "icon": "svg-icons"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
     "@cityofzion/blockchain-service": "1.22.3",
@@ -70,7 +69,6 @@
   "devDependencies": {
     "@crxjs/vite-plugin": "~2.2.0",
     "@eslint/js": "~9.37.0",
-    "@raulduartep/svg-icons": "~2.0.1",
     "@types/chrome": "~0.1.24",
     "@types/lodash": "~4.17.20",
     "@types/react": "~19.2.2",
