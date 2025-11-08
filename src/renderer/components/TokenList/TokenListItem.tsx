@@ -24,7 +24,7 @@ export const TokenListItem = ({ tokenBalance }: TProps) => {
       <div className="flex min-w-0 flex-1 gap-2.5">
         <ImageWithFallback
           src={`${NEON_ICONS_URL}/tokens/${tokenBalance.blockchain}/${tokenBalance.token.hash}.png`}
-          alt={tokenBalance.token.name}
+          alt={tokenBalance.token.name || tokenBalance.token.symbol}
           fallbackSrc={`${NEON_ICONS_URL}/tokens/default-token.png`}
           containerClassName="mt-1 size-4.5 min-size-4.5 max-size-4.5"
         />
