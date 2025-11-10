@@ -59,6 +59,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
 
   const parentRef = useRef<HTMLDivElement>(null)
 
+  const fallbackBlockchain = balance?.blockchain || blockchain
   const isDisabled = loading || disabled
 
   const filteredAndSortedTokens = useMemo(() => {
@@ -78,7 +79,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
 
         return {
           ...token,
-          blockchain: tokenBalance?.blockchain ?? blockchain,
+          blockchain: token.blockchain || tokenBalance?.blockchain || blockchain,
           amount: tokenBalance?.amount,
         }
       })
@@ -145,7 +146,8 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
           .with({ loading: true }, () => <Loader />)
           .with({ isTokenSelected: true }, () => (
             <GreyTokenSelectItem
-              token={{ ...selectedToken!, blockchain: balance?.blockchain ?? blockchain }}
+              token={selectedToken!}
+              blockchain={selectedToken!.blockchain || fallbackBlockchain}
               textClassName={textClassName}
             />
           ))
@@ -171,7 +173,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
               >
                 {rowVirtualizer.getVirtualItems().map((virtualItem, _, array) => {
                   const row = filteredTokensByText[virtualItem.index]
-                  const value = `${row.symbol}-${row.network}-${virtualItem.key}`
+                  const value = `${row.symbol}-${row.hash}-${virtualItem.key}`
 
                   return (
                     <Command.Item
@@ -185,7 +187,11 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
                       }}
                     >
                       <div className="flex h-full w-full items-center gap-2">
-                        <GreyTokenSelectItem token={row} textClassName={textClassName} />
+                        <GreyTokenSelectItem
+                          token={row}
+                          blockchain={row.blockchain || fallbackBlockchain}
+                          textClassName={textClassName}
+                        />
                       </div>
 
                       {virtualItem.index + 1 !== array.length && <Separator />}
