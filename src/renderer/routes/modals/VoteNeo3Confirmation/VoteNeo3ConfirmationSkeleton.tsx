@@ -11,7 +11,10 @@ export const VoteNeo3ConfirmationSkeleton = ({ isLoading, children }: TProps) =>
   <Skeleton.Root
     loading={isLoading}
     className="flex w-full flex-col gap-y-2.5"
-    items={[<Skeleton.Item className="h-66 w-full" />, <Skeleton.Item className="h-15 w-full" />]}
+    items={[
+      <Skeleton.Item key="vote-neo3-confirmation-skeleton-item-1" className="h-66 w-full" />,
+      <Skeleton.Item key="vote-neo3-confirmation-skeleton-item-2" className="h-15 w-full" />,
+    ]}
   >
     {children}
   </Skeleton.Root>

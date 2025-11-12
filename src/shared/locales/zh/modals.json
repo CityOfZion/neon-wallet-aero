@@ -640,5 +640,14 @@
     "selectWalletPlaceholder": "选择一个钱包…",
     "accountsSelectionLabel": "账户",
     "submitButtonLabel": "使用此账户"
+  },
+  "confirmAction": {
+    "heading": "密码确认",
+    "descriptionPassword": "为保障您的安全，请输入密码以确认您的操作。",
+    "descriptionNoPassword": "为保障您的安全，请确认您的操作。",
+    "inputPlaceholder": "请输入您的密码…",
+    "passwordError": "密码未被识别！",
+    "confirmButtonLabel": "确认",
+    "cancelButtonLabel": "取消"
   }
 }

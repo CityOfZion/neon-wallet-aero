@@ -58,6 +58,8 @@ const VoteNeo3ConfirmationModal = lazy(() => import('./modals/VoteNeo3Confirmati
 const VoteNeo3SuccessModal = lazy(() => import('./modals/VoteNeo3Success'))
 const VoteNeo3InfoModal = lazy(() => import('./modals/VoteNeo3Info'))
 const AccountSelectionByBlockchainModal = lazy(() => import('./modals/AccountSelectionByBlockchain'))
+const ConfirmActionBottomModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionBottom'))
+const ConfirmActionSideModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionSide'))
 
 export const modalsRouter: TRoute[] = [
   { name: 'wallet-selection', type: 'bottom', element: WalletSelectionModal },
@@ -78,6 +80,8 @@ export const modalsRouter: TRoute[] = [
   { name: 'create-account-1', type: 'bottom', element: CreateAccountStep1Modal },
   { name: 'create-account-2', type: 'bottom', element: CreateAccountStep2Modal },
   { name: 'confirm-password', type: 'bottom', element: ConfirmPasswordModal },
+  { name: 'confirm-action-bottom', type: 'bottom', element: ConfirmActionBottomModal },
+  { name: 'confirm-action-side', type: 'side', element: ConfirmActionSideModal },
   { name: 'export-mnemonic', type: 'bottom', element: ExportMnemonicModal },
   { name: 'export-key', type: 'bottom', element: ExportKeyModal },
   { name: 'migrate-from-neon2-3', type: 'bottom', element: MigrateFromNeon2Step3Modal },

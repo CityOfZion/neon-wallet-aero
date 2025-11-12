@@ -66,5 +66,8 @@
       "deleteLastWalletError": "您至少需要一个钱包。请在删除此钱包之前创建一个新钱包。",
       "deleteLastAccountError": "钱包必须至少有一个账户。请删除钱包以将其移除。"
     }
+  },
+  "useConfirmAction": {
+    "unauthorizedAction": "未授权。请重试或联系支持。"
   }
 }

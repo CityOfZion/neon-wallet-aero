@@ -107,6 +107,11 @@ type TConfirmPasswordModalState = {
   onSubmit: (password: string) => Promise<void>
 }
 
+export type TConfirmActionModalState = {
+  onSuccess: () => void
+  onCancel: () => void
+}
+
 type TExportKeyModalState = {
   account: IAccountState
 }
@@ -303,6 +308,8 @@ export type TModalRouterRouteTypes = {
   'create-account-1': undefined
   'create-account-2': TCreateAccountStep2ModalState
   'confirm-password': TConfirmPasswordModalState
+  'confirm-action-side': TConfirmActionModalState
+  'confirm-action-bottom': TConfirmActionModalState
   'export-key': TExportKeyModalState
   'export-mnemonic': TExportMnemonicModalState
   'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState

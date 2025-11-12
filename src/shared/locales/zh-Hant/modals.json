@@ -640,5 +640,14 @@
     "selectWalletPlaceholder": "選擇一個錢包…",
     "accountsSelectionLabel": "帳戶",
     "submitButtonLabel": "使用此帳戶"
+  },
+  "confirmAction": {
+    "heading": "密碼確認",
+    "descriptionPassword": "為了您的安全，請輸入密碼以確認此操作。",
+    "descriptionNoPassword": "為了您的安全，請確認您的操作。",
+    "inputPlaceholder": "輸入您的密碼…",
+    "passwordError": "密碼不正確！",
+    "confirmButtonLabel": "確認",
+    "cancelButtonLabel": "取消"
   }
 }

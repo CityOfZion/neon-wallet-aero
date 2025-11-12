@@ -16,9 +16,18 @@ type TProps = ComponentProps<'div'> & {
   heading: string
   icon?: JSX.Element
   onClose?: () => void
+  contentClassName?: string
 }
 
-export const SideModalLayout = ({ children, heading, icon, className, onClose, ...props }: TProps) => {
+export const SideModalLayout = ({
+  children,
+  heading,
+  icon,
+  className,
+  onClose,
+  contentClassName,
+  ...props
+}: TProps) => {
   const { t } = useTranslation('common')
   const { modalErase, modalNavigate } = useModalNavigate()
   const { histories } = useModalHistories()
@@ -76,7 +85,7 @@ export const SideModalLayout = ({ children, heading, icon, className, onClose, .
         />
       </header>
 
-      <div className="flex w-full flex-col gap-y-2">{children}</div>
+      <div className={StyleHelper.mergeStyles('flex w-full flex-col gap-y-2', contentClassName)}>{children}</div>
     </div>
   )
 }
