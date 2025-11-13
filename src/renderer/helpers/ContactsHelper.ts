@@ -1,4 +1,4 @@
-import type { TContactEncryptedAddress, TContactState } from '@shared/types/store'
+import type { TContactAddress, TContactEncryptedAddress, TContactState } from '@shared/types/store'
 
 import { EncryptionHelper } from './EncryptionHelper'
 
@@ -7,20 +7,14 @@ export class ContactsHelper {
     contact: TContactState,
     encryptedPassword: string
   ): Promise<TContactState<TContactEncryptedAddress>> {
-    const resolvedAddresses = await Promise.all(
-      contact.addresses.map(async ({ address, ...contactAddress }) => {
-        let encryptedAddress = ''
+    const addresses: TContactEncryptedAddress[] = []
 
-        try {
-          encryptedAddress = await EncryptionHelper.encrypt(address, encryptedPassword)
-        } catch (error) {
-          console.error(error)
-        }
+    const promises = contact.addresses.map(async contactAddress => {
+      const encryptedAddress = await EncryptionHelper.encrypt(contactAddress.address, encryptedPassword)
+      addresses.push({ ...contactAddress, encryptedAddress })
+    })
 
-        return { ...contactAddress, encryptedAddress }
-      })
-    )
-    const addresses = resolvedAddresses.filter(({ encryptedAddress }) => !!encryptedAddress)
+    await Promise.allSettled(promises)
 
     return {
       ...contact,
@@ -32,44 +26,50 @@ export class ContactsHelper {
     contacts: TContactState[],
     encryptedPassword: string
   ): Promise<TContactState<TContactEncryptedAddress>[]> {
-    const resolvedContacts = await Promise.all(
-      contacts.map(contact => {
-        try {
-          return ContactsHelper.encryptContact(contact, encryptedPassword)
-        } catch (error) {
-          console.error(error)
+    const encryptedContacts: TContactState<TContactEncryptedAddress>[] = []
 
-          return null
-        }
-      })
-    )
+    const promises = contacts.map(async contact => {
+      const encryptedContact = await ContactsHelper.encryptContact(contact, encryptedPassword)
+      encryptedContacts.push(encryptedContact)
+    })
 
-    return resolvedContacts.filter<TContactState<TContactEncryptedAddress>>(contact => !!contact)
+    await Promise.allSettled(promises)
+
+    return encryptedContacts
+  }
+
+  static async decryptContact(
+    contacts: TContactState<TContactEncryptedAddress>,
+    encryptedPassword: string
+  ): Promise<TContactState> {
+    const addresses: TContactAddress[] = []
+
+    const promises = contacts.addresses.map(async contactAddress => {
+      const address = await EncryptionHelper.decrypt(contactAddress.encryptedAddress, encryptedPassword)
+      addresses.push({ ...contactAddress, address })
+    })
+
+    await Promise.allSettled(promises)
+
+    return {
+      ...contacts,
+      addresses,
+    }
   }
 
   static async decryptContacts(
     contacts: TContactState<TContactEncryptedAddress>[],
     encryptedPassword: string
   ): Promise<TContactState[]> {
-    return await Promise.all(
-      contacts.map(async ({ addresses, ...contact }) => {
-        const resolvedAddresses = await Promise.all(
-          addresses.map(async ({ encryptedAddress, ...contactAddress }) => {
-            let address = ''
+    const decryptedContacts: TContactState[] = []
 
-            try {
-              address = await EncryptionHelper.decrypt(encryptedAddress, encryptedPassword)
-            } catch (error) {
-              console.error(error)
-            }
+    const promises = contacts.map(async contact => {
+      const decryptedContact = await ContactsHelper.decryptContact(contact, encryptedPassword)
+      decryptedContacts.push(decryptedContact)
+    })
 
-            return { ...contactAddress, address }
-          })
-        )
-        const addressesList = resolvedAddresses.filter(({ address }) => !!address)
+    await Promise.allSettled(promises)
 
-        return { ...contact, addresses: addressesList }
-      })
-    )
+    return decryptedContacts
   }
 }

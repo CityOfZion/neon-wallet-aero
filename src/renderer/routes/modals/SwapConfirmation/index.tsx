@@ -46,12 +46,7 @@ export const SwapConfirmationModal = () => {
 
       dispatch(utilityReducerActions.persistSwapRecord(swapRecord))
 
-      modalNavigate('swap-details', {
-        state: {
-          swapRecord,
-        },
-        replace: true,
-      })
+      modalNavigate('swap-details', { state: { swapRecord }, replace: true })
     }
   }
 

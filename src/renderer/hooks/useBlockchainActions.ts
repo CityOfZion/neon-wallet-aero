@@ -42,8 +42,9 @@ export function useBlockchainActions() {
   const saveContacts = async (contacts: TContactState[]) => {
     if (!loginSessionRef.current?.encryptedPassword) return
 
-    for (const contact of contacts) {
-      const encryptedContact = await ContactsHelper.encryptContact(contact, loginSessionRef.current.encryptedPassword)
+    const encryptedContacts = await ContactsHelper.encryptContacts(contacts, loginSessionRef.current.encryptedPassword)
+
+    for (const encryptedContact of encryptedContacts) {
       dispatch(contactReducerActions.saveContact(encryptedContact))
     }
   }

@@ -1,3 +1,6 @@
+import { useEffect, useRef, useState } from 'react'
+
+import { SimpleSwapService } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 import { match, P } from 'ts-pattern'
 
@@ -11,10 +14,9 @@ import type { TStepperCurrentState } from '@renderer/components/Stepper'
 import { Stepper } from '@renderer/components/Stepper'
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { AccountHelper } from '@renderer/helpers/AccountHelper'
-
-import { useContactsSelector } from '@renderer/hooks/useContactSelector'
+import { useContactByAddressSelector } from '@renderer/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -26,35 +28,85 @@ import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
 import TbUsers from '@renderer/assets/images/tb-users.svg?react'
 
+import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { DISCORD_LINK } from '@shared/constants/links'
 import type { TModalState } from '@shared/types/modal'
 import type { TSwapRecord } from '@shared/types/store'
 
+const SWAP_SERVICE = new SimpleSwapService()
+
+const STEPS_BY_STATUS: Record<TSwapRecord['swapStatus'], number> = {
+  confirming: 2,
+  exchanging: 3,
+  finished: 4,
+  failed: 2,
+  refunded: 2,
+}
+
 export const SwapDetailsModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'swapDetails' })
-  const { swapRecord } = useModalState<TModalState<'swap-details'>>()
+  const modalState = useModalState<TModalState<'swap-details'>>()
   const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
-  const { contacts } = useContactsSelector()
 
-  const contact = contacts.find(({ addresses }) =>
-    swapRecord.tokenTo?.blockchain
-      ? addresses.some(
-          AccountHelper.predicate({ address: swapRecord.addressTo, blockchain: swapRecord.tokenTo.blockchain })
-        )
+  const [swapRecord, setSwapRecord] = useState<TSwapRecord>(modalState.swapRecord)
+
+  const dispatch = useAppDispatch()
+
+  const timeoutRef = useRef<NodeJS.Timeout>(undefined)
+
+  const { contact } = useContactByAddressSelector(
+    swapRecord && swapRecord.tokenTo?.blockchain
+      ? { address: swapRecord.addressTo, blockchain: swapRecord.tokenTo.blockchain! }
       : undefined
   )
 
-  const stepsByStatus: Record<TSwapRecord['swapStatus'], number> = {
-    confirming: 2,
-    exchanging: 3,
-    finished: 4,
-    failed: 2,
-    refunded: 2,
+  const handleGoToSwapLog = () => {
+    modalNavigate('swap-details-log', { state: { swapRecord: swapRecord! } })
   }
 
-  const handleGoToSwapLog = () => {
-    modalNavigate('swap-details-log', { state: { swapRecord } })
-  }
+  useEffect(() => {
+    const getStatus = async () => {
+      if (!swapRecord) {
+        clearTimeout(timeoutRef.current)
+        modalNavigate(-1)
+        return
+      }
+
+      if (!swapRecord.swapId || !['confirming', 'exchanging'].includes(swapRecord.swapStatus)) return
+
+      try {
+        const response = await SWAP_SERVICE.getStatus(swapRecord.swapId)
+        const { status, log } = response
+        let { txFrom, txTo } = response
+
+        if (!txFrom) txFrom = swapRecord.txFrom
+        if (!txTo) txTo = swapRecord.txTo
+
+        const updatedSwapRecord: TSwapRecord = { ...swapRecord, txFrom, txTo, swapStatus: status, log }
+
+        setSwapRecord(updatedSwapRecord)
+        dispatch(utilityReducerActions.persistSwapRecord(updatedSwapRecord))
+
+        if (status === 'finished') {
+          clearTimeout(timeoutRef.current)
+          return
+        }
+      } catch {
+        // Empty block
+      }
+
+      timeoutRef.current = setTimeout(getStatus, 2000)
+    }
+
+    timeoutRef.current = setTimeout(getStatus, 100)
+
+    return () => {
+      clearTimeout(timeoutRef.current)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (!swapRecord) return null
 
   return (
     <BottomModalLayout heading={t('title')}>
@@ -67,17 +119,18 @@ export const SwapDetailsModal = () => {
           )}
         </div>
 
-        <Accordion.Root type="multiple" className="w-full">
+        <Accordion.Root type="multiple" className="w-full" defaultChecked>
           <Accordion.Item value="details">
             <Details.Root>
               <Details.Header leftElement={<TbReceipt aria-hidden className="min-size-4 size-4" />}>
                 {t('detailsHeaderLabel')}
               </Details.Header>
+
               <Details.Body>
                 <Stepper
                   className="mt-4 mb-10 px-14"
                   steps={t('statusPanelSteps', { returnObjects: true })}
-                  currentStep={stepsByStatus[swapRecord.swapStatus]}
+                  currentStep={STEPS_BY_STATUS[swapRecord.swapStatus]}
                   currentState={match({ swapStatus: swapRecord.swapStatus, txFrom: swapRecord.txFrom })
                     .returnType<TStepperCurrentState>()
                     .with({ swapStatus: P.union('failed', 'refunded') }, () => 'error')
@@ -85,6 +138,7 @@ export const SwapDetailsModal = () => {
                     .otherwise(() => 'success')}
                   theme="neon"
                 />
+
                 <Accordion.Trigger className="flex items-center justify-between border-none bg-gray-300/15 px-3.5 py-0.5 text-xs">
                   <p className="text-neon">{t('routingPanelLabel')}</p>
                 </Accordion.Trigger>

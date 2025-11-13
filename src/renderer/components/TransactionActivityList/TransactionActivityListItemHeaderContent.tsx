@@ -9,7 +9,7 @@ import { StringHelper } from '@renderer/helpers/StringHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useSwapRecordSelector } from '@renderer/hooks/useUtilitySelector'
+import { useSwapRecordByHashSelector } from '@renderer/hooks/useUtilitySelector'
 
 import MdCoffee from '@renderer/assets/images/md-coffee.svg?react'
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
@@ -35,7 +35,7 @@ export const TransactionActivityListItemHeaderContent = ({
 }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.item' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
-  const { swapRecord } = useSwapRecordSelector(txId)
+  const { swapRecord } = useSwapRecordByHashSelector(txId)
   const { modalNavigate } = useModalNavigate()
 
   const handleCancelBubbleEvent = (event: MouseEvent<HTMLDivElement>) => {
