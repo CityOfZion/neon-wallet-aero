@@ -12,6 +12,14 @@ const selectHasClaimPendingTransaction = (account: IAccountState) =>
     )
   })
 
+const selectSwapRecordByHash = (hash: string) =>
+  createAppSelector([state => state.utility.data.swapRecords], swapRecords =>
+    swapRecords.find(({ txFrom, account }) => {
+      const service = account ? bsAggregator.blockchainServicesByName[account.blockchain] : undefined
+      return !!txFrom && !!service && service.tokenService.predicateByHash(hash, txFrom)
+    })
+  )
+
 export const usePendingTransactionsSelector = () => {
   const { ref, value } = useAppSelector(state => state.utility.inMemoryData.pendingTransactions)
 
@@ -48,15 +56,8 @@ export const useHiddenTokensByBlockchainSelector = () => {
   }
 }
 
-export const useSwapRecordSelector = (hash: string) => {
-  const { value: swapRecord, ref: swapRecordRef } = useAppSelector(({ utility }) =>
-    utility.data.swapRecords.find(({ txFrom, account }) => {
-      const service = account ? bsAggregator.blockchainServicesByName[account.blockchain] : undefined
-
-      return !!txFrom && !!service && service.tokenService.predicateByHash(hash, txFrom)
-    })
-  )
-
+export const useSwapRecordByHashSelector = (hash: string) => {
+  const { value: swapRecord, ref: swapRecordRef } = useAppSelector(selectSwapRecordByHash(hash))
   return { swapRecord, swapRecordRef }
 }
 

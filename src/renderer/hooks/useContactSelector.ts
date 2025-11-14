@@ -1,33 +1,30 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { ContactsHelper } from '@renderer/helpers/ContactsHelper'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { TContactState } from '@shared/types/store'
+import type { TContactAddress, TContactState } from '@shared/types/store'
 
 import { useLoginSessionSelector } from './useAuthSelector'
-import { createAppSelector, useAppSelector } from './useRedux'
+import { useAppSelector } from './useRedux'
 
 export const useContactsSelector = () => {
-  const { value } = useAppSelector(state => state.contact.data)
+  const { value: encryptedContacts } = useAppSelector(state => state.contact.data)
   const { loginSession } = useLoginSessionSelector()
+
   const [contacts, setContacts] = useState<TContactState[]>([])
   const contactsRef = useRef<TContactState[]>(contacts)
 
-  const handleContacts = async () => {
-    if (!value || !loginSession?.encryptedPassword) return
-
-    const newContacts = await ContactsHelper.decryptContacts(value, loginSession.encryptedPassword)
-
-    contactsRef.current = newContacts
-
-    setContacts(newContacts)
-  }
-
   useEffect(() => {
-    handleContacts()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, loginSession?.encryptedPassword])
+    async function handle() {
+      if (!encryptedContacts || !loginSession?.encryptedPassword) return
+      const decryptedContacts = await ContactsHelper.decryptContacts(encryptedContacts, loginSession.encryptedPassword)
+      contactsRef.current = decryptedContacts
+      setContacts(decryptedContacts)
+    }
+
+    handle()
+  }, [encryptedContacts, loginSession?.encryptedPassword])
 
   return {
     contacts,
@@ -35,15 +32,12 @@ export const useContactsSelector = () => {
   }
 }
 
-const hasContactsByBlockchainSelector = (blockchain?: TBlockchainServiceKey) =>
-  createAppSelector([state => state.contact.data], data => {
-    if (!blockchain) return false
+export const useContactByAddressSelector = (contactAddress?: TContactAddress) => {
+  const { contacts } = useContactsSelector()
 
-    return new Set(data.flatMap(contact => contact.addresses.map(address => address.blockchain))).has(blockchain)
-  })
+  const contact = contactAddress
+    ? contacts.find(contact => contact.addresses.some(AccountHelper.predicate(contactAddress)))
+    : undefined
 
-export const useHasContactsByBlockchain = (blockchain?: TBlockchainServiceKey) => {
-  const { value: hasContactsByBlockchain } = useAppSelector(hasContactsByBlockchainSelector(blockchain))
-
-  return { hasContactsByBlockchain }
+  return { contact }
 }
