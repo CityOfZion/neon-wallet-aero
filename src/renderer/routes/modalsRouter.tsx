@@ -34,6 +34,7 @@ const MigrateFromNeon2Step4Modal = lazy(() => import('./modals/MigrateFromNeon2S
 const NetworkNodeSelectionModal = lazy(() => import('./modals/NetworkNodeSelection'))
 const NetworkSelectionModal = lazy(() => import('./modals/NetworkSelection'))
 const SaveContactModal = lazy(() => import('./modals/SaveContact'))
+const SearchModal = lazy(() => import('./modals/Search'))
 const SuccessModal = lazy(() => import('./modals/Success'))
 const ErrorModal = lazy(() => import('./modals/Error'))
 const SwapAboutExtraIdToReceiveModal = lazy(() => import('./modals/SwapAboutExtraIdToReceive'))
@@ -119,4 +120,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'vote-neo3-info', type: 'bottom', element: VoteNeo3InfoModal },
   { name: 'vote-neo3-confirmation', type: 'bottom', element: VoteNeo3ConfirmationModal },
   { name: 'vote-neo3-success', type: 'bottom', element: VoteNeo3SuccessModal },
+  { name: 'search', type: 'bottom', element: SearchModal },
 ]

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { useLogin } from '@renderer/hooks/useLogin'
+import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import { SideModalLayout } from '@renderer/layouts/SideModalLayout'
 
@@ -10,6 +11,7 @@ import TbDoorExit from '@renderer/assets/images/tb-door-exit.svg?react'
 import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 import TbHelp from '@renderer/assets/images/tb-help.svg?react'
 import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
+import TbSearch from '@renderer/assets/images/tb-search.svg?react'
 import TbSettings from '@renderer/assets/images/tb-settings.svg?react'
 import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbUsers from '@renderer/assets/images/tb-users.svg?react'
@@ -23,10 +25,20 @@ import { MenuItemLink } from './MenuItemLink'
 export const MenuModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'menu' })
   const { logout } = useLogin()
+  const { modalErase, modalNavigate } = useModalNavigate()
+
+  const handleOpenSearchModal = async () => {
+    modalErase('bottom')
+    setTimeout(() => {
+      modalNavigate('search')
+    }, 500)
+  }
 
   return (
     <SideModalLayout heading={t('title')}>
       <ul className="flex w-full flex-col">
+        <MenuItemButton label={t('searchItemLabel')} icon={<TbSearch aria-hidden />} onClick={handleOpenSearchModal} />
+
         <MenuItemLink label={t('walletsItemLabel')} to="/wallets" icon={<Wallet aria-hidden />} />
 
         <MenuItemButton

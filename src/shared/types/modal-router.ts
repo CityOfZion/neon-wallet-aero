@@ -19,6 +19,7 @@ import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type {
   IAccountState,
   IWalletState,
+  TAccountType,
   TContactAddress,
   TContactState,
   TImportAccountsSelectionType,
@@ -27,6 +28,7 @@ import type {
 
 type TWalletSelectionModalState = {
   selectedWallet?: IWalletState
+  hideActions?: boolean
   onSelect?(wallet: IWalletState): void
 }
 
@@ -41,6 +43,8 @@ type TWalletEditModalState = {
 type TAccountSelectionModalState = {
   walletId: IWalletState['id']
   selectedAccount?: IAccountState
+  accountTypes?: TAccountType[]
+  hideActions?: boolean
   onSelect?(account: IAccountState): void
 }
 
@@ -347,4 +351,5 @@ export type TModalRouterRouteTypes = {
   'dapp-permission': TDappPermissionModalState
   'dapp-permission-signature-scope': TDappPermissionSignatureScopeModalState
   'dapp-permission-contract-details': TDappPermissionContractDetailsModalState
+  search: undefined
 }

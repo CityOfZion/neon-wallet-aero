@@ -39,7 +39,8 @@
     "editButtonLabel": "编辑",
     "exportButtonLabel": "导出",
     "exportAccountTitle": "导出账户",
-    "exportError": "导出账户时出错"
+    "exportError": "导出账户时出错",
+    "noAccountsFound": "未找到账户"
   },
   "accountEdit": {
     "title": "编辑账户",
@@ -75,7 +76,8 @@
     "settingsItemLabel": "设置",
     "neo3NeoXBridgeItemLabel": "桥接",
     "logoutItemLabel": "注销",
-    "voteNeo3ItemLabel": "投票"
+    "voteNeo3ItemLabel": "投票",
+    "searchItemLabel": "搜索"
   },
   "importAccountsSelection": {
     "title": "导入",
@@ -649,5 +651,17 @@
     "passwordError": "密码未被识别！",
     "confirmButtonLabel": "确认",
     "cancelButtonLabel": "取消"
+  },
+  "search": {
+    "title": "搜索 Neon",
+    "closeButtonLabel": "关闭",
+    "inputPlaceholder": "输入您的搜索…",
+    "idleResultDescription": "在找什么吗？",
+    "emptyResultDescription": "未找到任何结果！",
+    "resultDescription": "您可能对这些主题感兴趣：",
+    "errors": {
+      "noFunction": "此项目没有可用的操作。请联系我们的支持团队。",
+      "errorToExecute": "执行操作时出错。请联系我们的支持团队。"
+    }
   }
 }

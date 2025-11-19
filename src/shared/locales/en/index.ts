@@ -4,6 +4,7 @@ import enComponents from './components.json'
 import enHooks from './hooks.json'
 import enModals from './modals.json'
 import enPages from './pages.json'
+import enSearch from './search.json'
 
 export const enResources = {
   changelog: changelog,
@@ -12,4 +13,5 @@ export const enResources = {
   components: enComponents,
   hooks: enHooks,
   modals: enModals,
+  search: enSearch,
 }

@@ -535,9 +535,9 @@ const SendPage = () => {
   ])
 
   useEffect(() => {
-    handleSelectAccount(state.account)
+    handleSelectAccount(state?.account)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.account])
+  }, [state?.account])
 
   return (
     <ScreenLayout heading={t('title')} className="text-white">
