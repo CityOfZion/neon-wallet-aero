@@ -32,7 +32,7 @@ export const WalletEditModal = () => {
   const { wallet } = useWalletByIdSelector(walletId)
 
   const { actionData, actionState, setData, setError, handleAct } = useActions<TActionsData>({
-    walletName: wallet!.name,
+    walletName: wallet?.name || '',
   })
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +45,7 @@ export const WalletEditModal = () => {
   }
 
   const handleSubmit = async () => {
-    if (!walletId || !wallet) return
+    if (!wallet) return
 
     await editWallet({ wallet, data: { name: actionData.walletName.trim() } })
 
