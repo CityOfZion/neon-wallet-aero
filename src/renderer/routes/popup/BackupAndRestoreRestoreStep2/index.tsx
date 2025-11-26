@@ -32,6 +32,8 @@ export const BackupAndRestoreRestoreStep2Page = () => {
     password: '',
   })
 
+  const isDisabled = actionData.password.length === 0
+
   const handleSubmit = async ({ password }: TFormData) => {
     if (password.length === 0) {
       setError('password', t('passwordError'))
@@ -76,6 +78,7 @@ export const BackupAndRestoreRestoreStep2Page = () => {
           loading={actionState.isActing}
           leftIcon={<TbDeviceFloppy aria-hidden />}
           iconsOnEdge={false}
+          disabled={isDisabled}
         />
       </div>
     </form>

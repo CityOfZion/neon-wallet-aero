@@ -52,7 +52,8 @@ export const VoteNeo3Page = () => {
   const { selectedWallet } = useSelectedWalletSelector()
   const { selectedAccount } = useSelectedAccountSelector()
 
-  const initialWallet = selectedWallet || wallets[0]
+  const initialWallet =
+    selectedWallet || wallets.find(wallet => wallet.accounts.some(account => account.blockchain === 'neo3'))
 
   const {
     actionData: { neo3Account, wallet, search },
@@ -60,9 +61,9 @@ export const VoteNeo3Page = () => {
     setDataFromEventWrapper,
   } = useActions<TActionsData>({
     neo3Account:
-      selectedAccount && selectedAccount.blockchain === 'neo3' && selectedAccount.idWallet === initialWallet.id
+      selectedAccount && selectedAccount.blockchain === 'neo3' && selectedAccount.idWallet === initialWallet?.id
         ? selectedAccount
-        : initialWallet?.accounts?.[0],
+        : initialWallet?.accounts?.find(account => account.blockchain === 'neo3'),
     wallet: initialWallet,
     search: '',
   })
@@ -161,7 +162,7 @@ export const VoteNeo3Page = () => {
         ) : (
           <Button
             variant="text-slim"
-            className="text-neon pb-6 text-sm"
+            className="text-neon self-start pb-6 text-sm"
             onClick={handleSelectAccount}
             label={t('selectAccountButtonLabel')}
           />
