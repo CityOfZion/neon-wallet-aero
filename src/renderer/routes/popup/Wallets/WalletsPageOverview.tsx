@@ -3,20 +3,20 @@ import { Fragment, useLayoutEffect, useMemo, useState } from 'react'
 import { isClaimable } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { match } from 'ts-pattern'
 
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
-import { Button } from '@renderer/components/Button'
 import { DappConnectionList } from '@renderer/components/DappConnectionList'
 import { IconButton } from '@renderer/components/IconButton'
 import { NftList } from '@renderer/components/NftList'
 import { Skeleton } from '@renderer/components/Skeleton'
 import { Tabs } from '@renderer/components/Tabs'
 import { TokenList } from '@renderer/components/TokenList'
+import { Tooltip } from '@renderer/components/Tooltip'
 import { TransactionActivityList } from '@renderer/components/TransactionActivityList'
 
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -24,11 +24,12 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 import { useUnclaimed } from '@renderer/hooks/useUnclaimedQuery'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
-import TbExternalLink from '@renderer/assets/images/tb-external-link.svg?react'
+import TbChartBar from '@renderer/assets/images/tb-chart-bar.svg?react'
 import TbRefresh from '@renderer/assets/images/tb-refresh.svg?react'
-import TbReplace from '@renderer/assets/images/tb-replace.svg?react'
+import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
+import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { rendererApi } from '@shared/message-api/renderer'
@@ -90,10 +91,26 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
 
   return (
     <Fragment key={`${selectedWallet.id}-${selectedAccount.id}`}>
-      <div className="mt-4 flex justify-between">
-        <div className="flex items-center gap-2.5">
-          <BlockchainIcon blockchain={selectedAccount.blockchain} className="text-green" />
-          <span className="text-sm text-white uppercase">{commonT(`blockchain.${selectedAccount.blockchain}`)}</span>
+      <div className="mt-4 flex items-center justify-between gap-2.5">
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2.5">
+            <BlockchainIcon blockchain={selectedAccount.blockchain} className="text-green" />
+            <span className="text-sm text-white uppercase">{commonT(`blockchain.${selectedAccount.blockchain}`)}</span>
+          </div>
+          <div className="flex items-center gap-2.5">
+            <Tooltip title={selectedAccount.address}>
+              <p className="text-blue text-sm whitespace-nowrap">
+                {StringHelper.truncateMiddle(selectedAccount.address, 34)}
+              </p>
+            </Tooltip>
+            <IconButton
+              aria-label={t('ariaLabels.copyIconButton')}
+              icon={<MdContentCopy aria-hidden />}
+              colorSchema="neon"
+              size="sm"
+              onClick={() => UtilsHelper.copyToClipboard(selectedAccount.address)}
+            />
+          </div>
         </div>
 
         <IconButton
@@ -107,22 +124,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
         />
       </div>
 
-      <div>
-        <p className="text-sm text-gray-300 uppercase">{t('addressLabel')}</p>
-        <div className="gap- flex items-center gap-2">
-          <p className="text-blue text-sm">{StringHelper.truncateMiddle(selectedAccount.address, 35)}</p>
-          <IconButton
-            aria-label={t('ariaLabels.copyIconButton')}
-            icon={<MdContentCopy aria-hidden />}
-            colorSchema="neon"
-            size="sm"
-            onClick={() => UtilsHelper.copyToClipboard(selectedAccount.address)}
-          />
-        </div>
-      </div>
-
-      <div className="mt-3.5">
-        <p className="text-sm text-gray-300 uppercase">{t('balanceLabel')}</p>
+      <div className="mt-3.5 flex flex-col gap-3">
         <Skeleton.Root
           loading={balanceQuery.isLoading}
           className="relative top-1.5"
@@ -132,46 +134,66 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
             {NumberHelper.currency(balanceQuery.data?.exchangeTotal ?? 0, currency)}
           </p>
         </Skeleton.Root>
+
+        {blockchainService && isClaimable(blockchainService) && !isWatchAccount && (
+          <WalletPageClaimButton selectAccount={selectedAccount} blockchainService={blockchainService} />
+        )}
       </div>
 
-      <div className="mt-7 flex flex-col gap-2.5">
-        <div className="flex w-full items-center gap-2.5">
-          <Button
-            label={t('sendButtonLabel')}
-            className="w-full"
-            iconsOnEdge={false}
-            disabled={isWatchAccount}
-            leftIcon={<TbStepOut aria-hidden />}
-            onClick={handleSendNavigation}
-          />
+      <div className="mt-5 flex w-full items-center gap-2.5">
+        <IconButton
+          text={t('sendButtonLabel')}
+          variant="boxed"
+          colorSchema="neon"
+          className="w-full"
+          disabled={isWatchAccount}
+          icon={<TbStepOut aria-hidden />}
+          onClick={handleSendNavigation}
+        />
 
-          {blockchainService && isClaimable(blockchainService) && !isWatchAccount && (
-            <WalletPageClaimButton selectAccount={selectedAccount} blockchainService={blockchainService} />
-          )}
-        </div>
+        <IconButton
+          text={t('swapButtonLabel')}
+          variant="boxed"
+          colorSchema="neon"
+          className="w-full"
+          disabled={isWatchAccount}
+          icon={<TbTransform aria-hidden />}
+          onClick={handleSwapNavigation}
+        />
 
-        <div className="flex w-full items-center gap-2.5">
-          <Button
-            label={t('swapButtonLabel')}
-            className="w-full"
-            iconsOnEdge={false}
-            disabled={isWatchAccount}
-            leftIcon={<TbReplace aria-hidden />}
-            onClick={handleSwapNavigation}
-          />
+        <IconButton
+          text={t('buyAndSellTokensButtonLabel')}
+          variant="boxed"
+          colorSchema="neon"
+          className="w-full"
+          disabled={isWatchAccount}
+          icon={<TbShoppingBag aria-hidden />}
+          onClick={handleBuyAndSellTokensNavigation}
+        />
 
-          <Button
-            label={t('buyAndSellTokensButtonLabel')}
-            className="w-full"
-            iconsOnEdge={false}
-            disabled={isWatchAccount}
-            leftIcon={<TbShoppingBag aria-hidden />}
-            rightIcon={
-              <TbExternalLink aria-hidden className={StyleHelper.mergeStyles({ 'text-gray-100': !isWatchAccount })} />
-            }
-            onClick={handleBuyAndSellTokensNavigation}
-          />
-        </div>
+        {match(selectedAccount.blockchain)
+          .with('neox', () => (
+            <IconButton
+              text={t('bridgeButtonLabel')}
+              variant="boxed"
+              colorSchema="neon"
+              className="w-full"
+              disabled={isWatchAccount}
+              icon={<TbReplace2 aria-hidden />}
+              onClick={() => navigate('/neo3-neox-bridge')}
+            />
+          ))
+          .with('neo3', () => (
+            <IconButton
+              text={t('votingButtonLabel')}
+              variant="boxed"
+              colorSchema="neon"
+              className="w-full"
+              icon={<TbChartBar aria-hidden />}
+              onClick={() => navigate('/vote-neo3')}
+            />
+          ))
+          .otherwise(() => null)}
       </div>
 
       <Tabs.Root className="mt-7.5" value={tab} onValueChange={newTab => setTab(newTab as TTab)}>

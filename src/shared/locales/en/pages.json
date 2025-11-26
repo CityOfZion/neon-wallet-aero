@@ -11,10 +11,10 @@
     "placeholderAccountSelectButton": "Select an account…",
     "labelWalletSelectButton": "Wallet",
     "labelAccountSelectButton": "Account",
-    "addressLabel": "Address",
-    "balanceLabel": "Balance",
     "sendButtonLabel": "Send",
     "swapButtonLabel": "Swap",
+    "votingButtonLabel": "Voting",
+    "bridgeButtonLabel": "Bridge",
     "buyAndSellTokensButtonLabel": "Buy + Sell",
     "ariaLabels": {
       "menuIconButton": "Menu",
@@ -22,8 +22,8 @@
       "copyIconButton": "Copy"
     },
     "claimButton": {
-      "gasAvailableLabel": "Claim {{ amount }} {{ symbol }}",
-      "gasUnavailableLabel": "GAS unavailable"
+      "gasAvailableLabel": "Claim",
+      "gasUnavailableLabel": "Claim unavailable"
     },
     "tokenTab": {
       "label": "Tokens"

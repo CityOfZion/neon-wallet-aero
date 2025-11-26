@@ -11,10 +11,10 @@
     "placeholderAccountSelectButton": "選擇帳戶…",
     "labelWalletSelectButton": "錢包",
     "labelAccountSelectButton": "帳戶",
-    "addressLabel": "地址",
-    "balanceLabel": "餘額",
     "sendButtonLabel": "發送",
     "swapButtonLabel": "交換",
+    "votingButtonLabel": "投票",
+    "bridgeButtonLabel": "跨鏈橋",
     "buyAndSellTokensButtonLabel": "買入 + 賣出",
     "ariaLabels": {
       "menuIconButton": "選單",
@@ -22,8 +22,8 @@
       "copyIconButton": "複製"
     },
     "claimButton": {
-      "gasAvailableLabel": "領取 {{ amount }} {{ symbol }}",
-      "gasUnavailableLabel": "GAS 不可用"
+      "gasAvailableLabel": "領取",
+      "gasUnavailableLabel": "領取不可用"
     },
     "tokenTab": {
       "label": "代幣"
