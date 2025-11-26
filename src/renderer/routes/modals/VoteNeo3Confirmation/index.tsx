@@ -19,6 +19,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
+import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useExchange } from '@renderer/hooks/useExchange'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
@@ -56,6 +57,7 @@ export const VoteNeo3ConfirmationModal = () => {
   const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
   const { currency } = useCurrencySelector()
   const { modalNavigate } = useModalNavigate()
+  const { confirmAction } = useConfirmAction()
   const {
     selectedNetworkByBlockchain: { neo3: neo3Network },
   } = useSelectedNetworkByBlockchainSelector()
@@ -115,6 +117,12 @@ export const VoteNeo3ConfirmationModal = () => {
 
   const handleSubmit = async () => {
     if (isDisabled) return
+
+    try {
+      await confirmAction({ account: neo3Account })
+    } catch {
+      return
+    }
 
     try {
       const key = await EncryptionHelper.decrypt(neo3Account.encryptedKey, loginSessionRef.current?.encryptedPassword)

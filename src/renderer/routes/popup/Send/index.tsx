@@ -26,6 +26,7 @@ import { useAccountsMapSelector } from '@renderer/hooks/useAccountsMapSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
+import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useExchange } from '@renderer/hooks/useExchange'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
@@ -72,6 +73,7 @@ const SendPage = () => {
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { loginSessionRef } = useLoginSessionSelector()
   const { accountsMapRef } = useAccountsMapSelector()
+  const { confirmAction } = useConfirmAction()
   const dispatch = useAppDispatch()
 
   const { actionData, actionState, setData, setError, clearErrors, handleAct, reset } = useActions<TActionsData>({
@@ -306,6 +308,12 @@ const SendPage = () => {
     const fields = await getSendFields()
 
     if (!fields || isCalculatingForm || actionState.isActing || isFeeInvalid) return
+
+    try {
+      await confirmAction({ account: fields.selectedAccount })
+    } catch {
+      return
+    }
 
     try {
       const transactionHashes = await fields.service.transfer({

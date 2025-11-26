@@ -640,5 +640,14 @@
     "selectWalletPlaceholder": "Select a wallet…",
     "accountsSelectionLabel": "Accounts",
     "submitButtonLabel": "Use this account"
+  },
+  "confirmAction": {
+    "heading": "Password Confirmation",
+    "descriptionPassword": "For your security, please confirm your action by entering your password.",
+    "descriptionNoPassword": "For your security, please confirm your action.",
+    "inputPlaceholder": "Enter your password…",
+    "passwordError": "Password not recognised!",
+    "confirmButtonLabel": "Confirm",
+    "cancelButtonLabel": "Cancel"
   }
 }

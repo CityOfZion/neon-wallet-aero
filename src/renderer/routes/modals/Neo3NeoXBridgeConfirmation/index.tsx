@@ -7,6 +7,7 @@ import { Details } from '@renderer/components/Details'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
+import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useExchange } from '@renderer/hooks/useExchange'
 import { useModalState } from '@renderer/hooks/useModalRouter'
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
@@ -36,6 +37,8 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
   const [isPressing, startPress] = usePressOnce()
   const { currency } = useCurrencySelector()
 
+  const { confirmAction } = useConfirmAction()
+
   const tokenExchange = useExchange(
     tokenToReceive
       ? [
@@ -61,6 +64,16 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
     .toString()
 
   const formattedTokenToReceiveFiat = NumberHelper.currency(amountToReceiveFiatPrice, currency)
+
+  const handleSubmit = async () => {
+    try {
+      await confirmAction({ account: accountToUse })
+    } catch {
+      return
+    }
+
+    await onConfirm()
+  }
 
   return (
     <BottomModalLayout heading={t('title')}>
@@ -116,7 +129,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
           iconsOnEdge={false}
           label={t('confirmButtonLabel')}
           loading={isPressing}
-          onClick={startPress(onConfirm)}
+          onClick={startPress(handleSubmit)}
         />
       </div>
     </BottomModalLayout>

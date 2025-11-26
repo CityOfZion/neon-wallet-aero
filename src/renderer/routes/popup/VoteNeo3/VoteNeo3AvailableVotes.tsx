@@ -21,7 +21,7 @@ export const VoteNeo3AvailableVotes = ({ neoAmountBn, voteErrorMessage, hasNeoAm
   const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address ?? '')
 
   return (
-    <p className="flex w-full items-center justify-between gap-x-4 pt-6 pr-5 pb-6 text-lg">
+    <span className="flex w-full items-center justify-between gap-x-4 pt-6 pr-5 pb-6 text-lg">
       {t('availableVotesLabel')}{' '}
       {voteDetailsByAddressQuery.isLoading ? (
         <Skeleton.Root loading className="h-7 w-24" items={<Skeleton.Item className="h-18 rounded-xs" />} />
@@ -36,6 +36,6 @@ export const VoteNeo3AvailableVotes = ({ neoAmountBn, voteErrorMessage, hasNeoAm
           </span>
         </Tooltip>
       )}
-    </p>
+    </span>
   )
 }

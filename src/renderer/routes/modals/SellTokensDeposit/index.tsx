@@ -27,6 +27,7 @@ import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
+import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useDebounceFunction } from '@renderer/hooks/useDebounceFunction'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
@@ -53,6 +54,7 @@ export const SellTokensDepositModal = () => {
   const { loginSessionRef } = useLoginSessionSelector()
   const { accountsRef } = useAccountsSelector()
   const { currency } = useCurrencySelector()
+  const { confirmAction } = useConfirmAction()
   const dispatch = useAppDispatch()
   const debounceAddress = useDebounceFunction()
   const debounceAmount = useDebounceFunction()
@@ -176,8 +178,15 @@ export const SellTokensDepositModal = () => {
 
     if (!transferParams || isDisabled) return
 
+    const account = actionData.account!
+
     try {
-      const account = actionData.account!
+      await confirmAction({ account, modalType: 'side' })
+    } catch {
+      return
+    }
+
+    try {
       const address = actionData.address
       const token = actionData.token!.token!
 

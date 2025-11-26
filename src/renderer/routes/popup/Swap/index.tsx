@@ -38,6 +38,7 @@ import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
+import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useIsFocused } from '@renderer/hooks/useIsFocused'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
@@ -87,6 +88,7 @@ export const SwapPage = () => {
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { loginSessionRef } = useLoginSessionSelector()
   const { accountsRef } = useAccountsSelector()
+  const { confirmAction } = useConfirmAction()
   const { ref: amountInputRef, isFocused: isAmountInputFocused } = useIsFocused<HTMLInputElement>()
 
   const swapChainsByServiceName = useMemo(() => {
@@ -346,6 +348,12 @@ export const SwapPage = () => {
       isExtraIdToReceiveInvalid
     )
       return
+
+    try {
+      await confirmAction({ account })
+    } catch {
+      return
+    }
 
     const swapRecord: TSwapRecord = {
       account,
