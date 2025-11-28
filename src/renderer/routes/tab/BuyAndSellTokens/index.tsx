@@ -65,6 +65,11 @@ export const BuyAndSellTokensPage = () => {
   })
 
   useMountUnsafe(() => {
+    const tab = searchParams.get('tab') as EBuyAndSellTokensTab | null
+    if (tab === EBuyAndSellTokensTab.BUY_TOKENS || tab === EBuyAndSellTokensTab.SELL_TOKENS) {
+      actions.setData({ tab })
+    }
+
     const address = searchParams.get('account-address')
     const blockchain = searchParams.get('account-blockchain') as TBlockchainServiceKey | null
 

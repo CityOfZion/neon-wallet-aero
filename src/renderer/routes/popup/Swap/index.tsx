@@ -518,11 +518,11 @@ export const SwapPage = () => {
   ])
 
   useLayoutEffect(() => {
-    if (!state.account) return
+    if (!state?.account) return
 
     handleSelectAccountToUse(state.account)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.account])
+  }, [state?.account])
 
   useEffect(() => {
     initializeOrRestartSwapService()

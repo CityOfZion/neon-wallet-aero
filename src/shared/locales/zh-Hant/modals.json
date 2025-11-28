@@ -39,7 +39,8 @@
     "editButtonLabel": "編輯",
     "exportButtonLabel": "匯出",
     "exportAccountTitle": "匯出帳戶",
-    "exportError": "匯出帳戶時發生錯誤"
+    "exportError": "匯出帳戶時發生錯誤",
+    "noAccountsFound": "未找到帳戶"
   },
   "accountEdit": {
     "title": "編輯帳戶",
@@ -75,7 +76,8 @@
     "settingsItemLabel": "設定",
     "neo3NeoXBridgeItemLabel": "橋接",
     "logoutItemLabel": "註銷",
-    "voteNeo3ItemLabel": "投票"
+    "voteNeo3ItemLabel": "投票",
+    "searchItemLabel": "搜尋"
   },
   "importAccountsSelection": {
     "title": "匯入",
@@ -649,5 +651,17 @@
     "passwordError": "密碼不正確！",
     "confirmButtonLabel": "確認",
     "cancelButtonLabel": "取消"
+  },
+  "search": {
+    "title": "搜尋 Neon",
+    "closeButtonLabel": "關閉",
+    "inputPlaceholder": "輸入您的搜尋…",
+    "idleResultDescription": "在找什麼嗎？",
+    "emptyResultDescription": "未找到任何結果！",
+    "resultDescription": "您可能對這些主題感興趣：",
+    "errors": {
+      "noFunction": "此項目沒有可用的操作。請聯絡我們的支援團隊。",
+      "errorToExecute": "執行操作時出錯。請聯絡我們的支援團隊。"
+    }
   }
 }

@@ -36,7 +36,7 @@ export const WalletSelectionModal = () => {
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
-  const { onSelect, selectedWallet } = useModalState<TModalState<'wallet-selection'>>()
+  const { onSelect, selectedWallet, hideActions } = useModalState<TModalState<'wallet-selection'>>()
   const dispatch = useAppDispatch()
   const [editMode, setEditMode] = useState(false)
 
@@ -115,70 +115,72 @@ export const WalletSelectionModal = () => {
         ))}
       </ul>
 
-      <div className="mt-auto flex gap-2.5">
-        {editMode ? (
-          <Button
-            label={t('cancelButtonLabel', { defaultValue: 'Cancel' })}
-            className="w-full"
-            variant="card"
-            colorSchema="gray"
-            onClick={() => setEditMode(false)}
-          />
-        ) : (
-          <Fragment>
-            <Tooltip
-              title={t('editButtonLabel')}
-              contentProps={{ className: 'bg-asphalt' }}
-              arrowProps={{ className: 'fill-asphalt' }}
-              delayDuration={200}
-            >
-              <IconButton
-                aria-label={t('editButtonLabel')}
-                variant="contained"
-                className="w-13"
-                icon={<TbPencil aria-hidden />}
-                onClick={() => setEditMode(true)}
-              />
-            </Tooltip>
-
-            <Tooltip
-              title={t('reorderButtonLabel')}
-              contentProps={{ className: 'bg-asphalt' }}
-              arrowProps={{ className: 'fill-asphalt' }}
-              delayDuration={200}
-            >
-              <IconButton
-                aria-label={t('reorderButtonLabel')}
-                variant="contained"
-                className="w-13"
-                icon={<TbReorder aria-hidden />}
-                onClick={modalNavigateWrapper('reorder-wallets')}
-              />
-            </Tooltip>
-
-            {!!selectedWallet?.encryptedMnemonic && loginSession?.type === 'password' && (
-              <Button
-                label={t('exportButtonLabel')}
-                className="w-full"
-                variant="card"
-                colorSchema="gray"
-                leftIcon={<TbFileExport aria-hidden />}
-                iconsOnEdge={false}
-                onClick={handleGoToConfirmPasswordModal}
-              />
-            )}
-
+      {!hideActions && (
+        <div className="mt-auto flex gap-2.5">
+          {editMode ? (
             <Button
-              label={t('addButtonLabel')}
+              label={t('cancelButtonLabel', { defaultValue: 'Cancel' })}
               className="w-full"
               variant="card"
-              leftIcon={<TbPlus aria-hidden />}
-              iconsOnEdge={false}
-              onClick={modalNavigateWrapper('create-wallet-1', { replace: true })}
+              colorSchema="gray"
+              onClick={() => setEditMode(false)}
             />
-          </Fragment>
-        )}
-      </div>
+          ) : (
+            <Fragment>
+              <Tooltip
+                title={t('editButtonLabel')}
+                contentProps={{ className: 'bg-asphalt' }}
+                arrowProps={{ className: 'fill-asphalt' }}
+                delayDuration={200}
+              >
+                <IconButton
+                  aria-label={t('editButtonLabel')}
+                  variant="contained"
+                  className="w-13"
+                  icon={<TbPencil aria-hidden />}
+                  onClick={() => setEditMode(true)}
+                />
+              </Tooltip>
+
+              <Tooltip
+                title={t('reorderButtonLabel')}
+                contentProps={{ className: 'bg-asphalt' }}
+                arrowProps={{ className: 'fill-asphalt' }}
+                delayDuration={200}
+              >
+                <IconButton
+                  aria-label={t('reorderButtonLabel')}
+                  variant="contained"
+                  className="w-13"
+                  icon={<TbReorder aria-hidden />}
+                  onClick={modalNavigateWrapper('reorder-wallets')}
+                />
+              </Tooltip>
+
+              {!!selectedWallet?.encryptedMnemonic && loginSession?.type === 'password' && (
+                <Button
+                  label={t('exportButtonLabel')}
+                  className="w-full"
+                  variant="card"
+                  colorSchema="gray"
+                  leftIcon={<TbFileExport aria-hidden />}
+                  iconsOnEdge={false}
+                  onClick={handleGoToConfirmPasswordModal}
+                />
+              )}
+
+              <Button
+                label={t('addButtonLabel')}
+                className="w-full"
+                variant="card"
+                leftIcon={<TbPlus aria-hidden />}
+                iconsOnEdge={false}
+                onClick={modalNavigateWrapper('create-wallet-1', { replace: true })}
+              />
+            </Fragment>
+          )}
+        </div>
+      )}
     </BottomModalLayout>
   )
 }

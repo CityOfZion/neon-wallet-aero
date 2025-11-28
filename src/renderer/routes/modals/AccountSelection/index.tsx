@@ -34,11 +34,16 @@ export const AccountSelectionModal = () => {
   const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
-  const { walletId, onSelect } = useModalState<TModalState<'account-selection'>>()
+  const { walletId, onSelect, hideActions, accountTypes } = useModalState<TModalState<'account-selection'>>()
   const { wallet } = useWalletByIdSelector(walletId)
   const { selectedAccount } = useSelectedAccountSelector()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const [editMode, setEditMode] = useState(false)
+
+  const filteredAccounts =
+    accountTypes && accountTypes.length > 0
+      ? wallet?.accounts.filter(account => accountTypes.includes(account.type))
+      : wallet?.accounts
 
   const dispatch = useAppDispatch()
 
@@ -98,84 +103,94 @@ export const AccountSelectionModal = () => {
         <p className="text-blue truncate text-sm">{wallet?.name}</p>
       </div>
 
-      <ul className="my-2.5 min-h-0 overflow-y-auto rounded">
-        {wallet?.accounts.map((account, index, array) => (
-          <li key={account.id}>
-            <button
-              aria-selected={selectedAccount?.id === account.id}
-              onClick={editMode ? handleEdit.bind(null, account) : handleSelect.bind(null, account)}
-              className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
-            >
-              <div className="min-w-0 text-left">
-                <div className="flex min-w-0 items-center gap-5">
-                  <BlockchainIcon
-                    blockchain={account.blockchain}
-                    className={StyleHelper.mergeStyles('h-4 min-h-4 w-4 min-w-4 text-gray-100', {
-                      'text-neon': editMode,
-                    })}
-                  />
-                  <p className={StyleHelper.mergeStyles('truncate text-sm text-white', { 'text-neon': editMode })}>
-                    {account.name}
+      {filteredAccounts && filteredAccounts.length > 0 ? (
+        <ul className="my-2.5 min-h-0 overflow-y-auto rounded">
+          {filteredAccounts.map((account, index, array) => (
+            <li key={account.id}>
+              <button
+                aria-selected={selectedAccount?.id === account.id}
+                onClick={editMode ? handleEdit.bind(null, account) : handleSelect.bind(null, account)}
+                className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
+              >
+                <div className="min-w-0 text-left">
+                  <div className="flex min-w-0 items-center gap-5">
+                    <BlockchainIcon
+                      blockchain={account.blockchain}
+                      className={StyleHelper.mergeStyles('h-4 min-h-4 w-4 min-w-4 text-gray-100', {
+                        'text-neon': editMode,
+                      })}
+                    />
+                    <p className={StyleHelper.mergeStyles('truncate text-sm text-white', { 'text-neon': editMode })}>
+                      {account.name}
+                    </p>
+                  </div>
+
+                  <p className="mt-0.5 ml-9 truncate text-xs text-gray-400">
+                    {StringHelper.truncateMiddle(account.address, 10)}
                   </p>
                 </div>
 
-                <p className="mt-0.5 ml-9 truncate text-xs text-gray-400">
-                  {StringHelper.truncateMiddle(account.address, 10)}
-                </p>
-              </div>
+                <TbChevronRight aria-hidden className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6 text-gray-300" />
+              </button>
 
-              <TbChevronRight aria-hidden className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6 text-gray-300" />
-            </button>
+              {index + 1 !== array.length && <Separator />}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="flex items-center justify-center py-8 text-gray-400">
+          <p className="text-base">{t('noAccountsFound')}</p>
+        </div>
+      )}
 
-            {index + 1 !== array.length && <Separator />}
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-auto flex gap-2.5">
-        {editMode ? (
-          <Button
-            label={t('cancelButtonLabel', { defaultValue: 'Cancel' })}
-            className="w-full"
-            variant="card"
-            colorSchema="gray"
-            onClick={() => setEditMode(false)}
-          />
-        ) : (
-          <Fragment>
+      {!hideActions && (
+        <div className="mt-auto flex gap-2.5">
+          {editMode ? (
             <Button
+              label={t('cancelButtonLabel', { defaultValue: 'Cancel' })}
               className="w-full"
               variant="card"
               colorSchema="gray"
-              label={t('editButtonLabel')}
-              leftIcon={<TbPencil aria-hidden />}
-              iconsOnEdge={false}
-              onClick={() => setEditMode(true)}
+              onClick={() => setEditMode(false)}
             />
-
-            {!!selectedAccount?.encryptedKey && loginSession?.type === 'password' && (
+          ) : (
+            <Fragment>
               <Button
-                label={t('exportButtonLabel')}
-                variant="card"
                 className="w-full"
+                variant="card"
                 colorSchema="gray"
+                label={t('editButtonLabel')}
+                leftIcon={<TbPencil aria-hidden />}
                 iconsOnEdge={false}
-                leftIcon={<TbFileExport aria-hidden />}
-                onClick={handleGoToConfirmPasswordModal}
+                onClick={() => setEditMode(true)}
               />
-            )}
 
-            <Button
-              className="w-full"
-              variant="card"
-              label={t('addButtonLabel')}
-              leftIcon={<TbPlus aria-hidden />}
-              iconsOnEdge={false}
-              onClick={modalNavigateWrapper('create-account-1', { replace: true })}
-            />
-          </Fragment>
-        )}
-      </div>
+              {!!selectedAccount?.encryptedKey && loginSession?.type === 'password' && (
+                <Button
+                  label={t('exportButtonLabel')}
+                  variant="card"
+                  className="w-full"
+                  colorSchema="gray"
+                  iconsOnEdge={false}
+                  leftIcon={<TbFileExport aria-hidden />}
+                  onClick={handleGoToConfirmPasswordModal}
+                />
+              )}
+
+              {wallet?.encryptedMnemonic && (
+                <Button
+                  className="w-full"
+                  variant="card"
+                  label={t('addButtonLabel')}
+                  leftIcon={<TbPlus aria-hidden />}
+                  iconsOnEdge={false}
+                  onClick={modalNavigateWrapper('create-account-1', { replace: true })}
+                />
+              )}
+            </Fragment>
+          )}
+        </div>
+      )}
     </BottomModalLayout>
   )
 }

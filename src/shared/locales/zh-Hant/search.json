@@ -1,0 +1,82 @@
+{
+  "actions": [
+    {
+      "id": "transfer",
+      "nonVerbs": ["代幣", "加密貨幣"],
+      "verbs": ["轉帳", "發送", "加密"],
+      "label": "轉帳代幣"
+    },
+    {
+      "id": "connect",
+      "verbs": ["連接", "建立", "配對"],
+      "nonVerbs": ["連結", "連接", "wc", "dapp"],
+      "label": "建立連接"
+    },
+    {
+      "id": "createContact",
+      "verbs": ["新增", "建立", "地址"],
+      "nonVerbs": ["聯絡人", "地址"],
+      "label": "建立聯絡人"
+    },
+    {
+      "id": "viewContacts",
+      "verbs": ["列表", "檢視", "地址"],
+      "nonVerbs": ["聯絡人", "地址"],
+      "label": "查看聯絡人"
+    },
+    {
+      "id": "swap",
+      "verbs": ["兌換", "交易", "接收", "加密"],
+      "nonVerbs": ["代幣", "交換", "加密貨幣"],
+      "label": "交換代幣"
+    },
+    {
+      "id": "buy",
+      "verbs": ["購買", "取得", "法幣入場", "加密"],
+      "nonVerbs": ["代幣", "購買", "加密貨幣", "法幣入場", "入場"],
+      "label": "購買代幣"
+    },
+    {
+      "id": "sell",
+      "verbs": ["出售", "交易", "清算", "接收", "法幣出場", "加密"],
+      "nonVerbs": ["代幣", "法幣出場", "出場", "加密貨幣"],
+      "label": "出售代幣"
+    },
+    {
+      "id": "voteNeo3",
+      "verbs": ["投票"],
+      "nonVerbs": ["投票", "neo", "n3", "節點", "成員", "共識", "委員會", "治理"],
+      "label": "投票（Neo 3）"
+    },
+    {
+      "id": "createWallet",
+      "verbs": ["建立", "產生"],
+      "nonVerbs": ["錢包"],
+      "label": "建立錢包"
+    },
+    {
+      "id": "createBackup",
+      "verbs": ["保存", "匯出", "保護"],
+      "nonVerbs": ["備份"],
+      "label": "建立備份"
+    },
+    {
+      "id": "import",
+      "verbs": ["地址", "復原", "復原", "匯入", "復原", "載入", "新增", "建立"],
+      "nonVerbs": ["錢包", "帳戶", "地址", "金鑰"],
+      "label": "匯入錢包/帳戶"
+    },
+    {
+      "id": "restoreBackup",
+      "verbs": ["復原", "復原", "匯入", "復原", "載入"],
+      "nonVerbs": ["備份"],
+      "label": "還原備份"
+    },
+    {
+      "id": "neo3NeoXBridge",
+      "label": "Neo3 和 NeoX 跨鏈",
+      "verbs": ["跨鏈", "兌換", "接收"],
+      "nonVerbs": ["neox", "neo3", "n3", "跨鏈", "交換", "代幣", "加密貨幣"]
+    }
+  ]
+}
