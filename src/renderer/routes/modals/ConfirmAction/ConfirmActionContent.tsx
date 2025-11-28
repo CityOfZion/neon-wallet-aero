@@ -29,6 +29,11 @@ export const ConfirmActionContent = ({ onSuccess, onCancel }: TConfirmActionModa
 
   const shouldPromptPassword = loginSessionRef.current?.type === 'password'
 
+  const handleCancel = () => {
+    onCancel()
+    modalNavigate(-1)
+  }
+
   const handleSubmit = async () => {
     try {
       if (shouldPromptPassword) {
@@ -43,7 +48,7 @@ export const ConfirmActionContent = ({ onSuccess, onCancel }: TConfirmActionModa
       onSuccess()
       modalNavigate(-1)
     } catch {
-      onCancel()
+      handleCancel()
     }
   }
 
@@ -75,7 +80,13 @@ export const ConfirmActionContent = ({ onSuccess, onCancel }: TConfirmActionModa
         )}
 
         <div className="flex w-full items-center gap-x-4">
-          <Button variant="card" onClick={onCancel} colorSchema="error" label={t('cancelButtonLabel')} />
+          <Button
+            type="button"
+            variant="card"
+            onClick={handleCancel}
+            colorSchema="error"
+            label={t('cancelButtonLabel')}
+          />
 
           <Button
             variant="card"
