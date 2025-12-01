@@ -31,7 +31,7 @@ import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLazyBalance } from '@renderer/hooks/useBalances'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
-import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
+import { useSelectedAccountSelector, useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
@@ -77,6 +77,7 @@ export const Neo3NeoXBridgePage = () => {
   const { accountsMapRef } = useAccountsMapSelector()
   const { getBalance } = useLazyBalance()
   const { loginSessionRef } = useLoginSessionSelector()
+  const { selectedAccount } = useSelectedAccountSelector()
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const isGoingBack = useRef(false)
   const navigate = useNavigate()
@@ -151,6 +152,10 @@ export const Neo3NeoXBridgePage = () => {
     const neo3NeoXBridgeOrchestrator = new Neo3NeoXBridgeOrchestrator<TBlockchainServiceKey>({
       neo3Service: bsAggregator.blockchainServicesByName.neo3 as BSNeo3<TBlockchainServiceKey>,
       neoXService: bsAggregator.blockchainServicesByName.neox as BSNeoX<TBlockchainServiceKey>,
+      initialFromServiceName:
+        selectedAccount?.blockchain === 'neo3' || selectedAccount?.blockchain === 'neox'
+          ? selectedAccount.blockchain
+          : undefined,
     })
 
     neo3NeoXBridgeOrchestrator.eventEmitter.on('availableTokensToUse', availableTokensToUse => {
@@ -204,6 +209,10 @@ export const Neo3NeoXBridgePage = () => {
     await neo3NeoXBridgeOrchestrator.init()
 
     bridgeOrchestratorRef.current = neo3NeoXBridgeOrchestrator
+
+    if (selectedAccount && (selectedAccount.blockchain === 'neo3' || selectedAccount.blockchain === 'neox')) {
+      await handleSelectAccountToUse(selectedAccount)
+    }
   }
 
   const handleChangeAmountToUse = (value: string) => {

@@ -8,13 +8,14 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import TbLoader2 from '@renderer/assets/images/tb-loader-2.svg?react'
 
 export type TIconClickableCustomProps = {
-  variant?: 'contained' | 'normal'
+  variant?: 'contained' | 'normal' | 'boxed'
   icon: React.JSX.Element
   text?: string
   size?: 'xs' | 'sm' | 'md'
   colorSchema?: 'neon' | 'gray' | 'white' | 'yellow' | 'error'
   disabled?: boolean
   loading?: boolean
+  children?: React.ReactNode
 }
 
 export type TIconClickableProps = TIconClickableCustomProps & ComponentProps<'div'>
@@ -28,6 +29,7 @@ const Base = ({
   size,
   variant: _variant,
   loading,
+  children,
   ...props
 }: TIconClickableProps) => {
   const isMd = size === 'md'
@@ -73,8 +75,7 @@ const Base = ({
         ),
         ...iconProps,
       })}
-
-      {text && !loading && <span className="text-1xs whitespace-nowrap">{text}</span>}
+      {children}
     </div>
   )
 }
@@ -103,6 +104,20 @@ const Contained = ({ className, ...props }: TIconClickableProps) => {
   )
 }
 
+const Boxed = ({ text, loading, className, ...props }: TIconClickableProps) => {
+  return (
+    <Base
+      className={StyleHelper.mergeStyles(
+        'h-17 min-w-21.5 truncate rounded-lg bg-gray-300/15 aria-selected:bg-gray-300/30 aria-selected:hover:bg-gray-300/45 aria-[disabled=false]:hover:bg-gray-300/30 aria-[disabled=false]:focus:bg-gray-300/30 aria-[disabled=false]:active:bg-gray-300/45',
+        className
+      )}
+      {...props}
+    >
+      {text && !loading && <span className="text-sm whitespace-nowrap">{text}</span>}
+    </Base>
+  )
+}
+
 export const IconClickable = ({
   size = 'md',
   colorSchema = 'gray',
@@ -115,5 +130,6 @@ export const IconClickable = ({
 
   return match(props.variant)
     .with('contained', () => <Contained {...props} />)
+    .with('boxed', () => <Boxed {...props} />)
     .otherwise(() => <Normal {...props} />)
 }

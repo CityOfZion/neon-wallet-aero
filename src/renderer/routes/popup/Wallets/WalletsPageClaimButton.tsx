@@ -47,21 +47,21 @@ export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TPro
       disabled: true,
     }))
     .otherwise(() => ({
-      label: t('gasAvailableLabel', {
-        symbol: blockchainService.claimToken.symbol,
-        amount: unclaimedQuery.data?.unclaimed,
-      }),
+      label: t('gasAvailableLabel'),
       disabled: false,
     }))
 
   return (
-    <Button
-      variant="outlined"
-      label={label}
-      loading={unclaimedMutation.isPending}
-      disabled={disabled}
-      clickableProps={{ className: 'whitespace-nowrap gap-x-2' }}
-      onClick={() => unclaimedMutation.mutate(selectAccount)}
-    />
+    <div className="flex items-center gap-x-2 text-sm">
+      {unclaimedQuery.data?.unclaimed || 0} {blockchainService.claimToken.symbol}
+      <Button
+        variant="text"
+        label={label}
+        loading={unclaimedMutation.isPending}
+        disabled={disabled}
+        clickableProps={{ className: 'h-6 px-1' }}
+        onClick={() => unclaimedMutation.mutate(selectAccount)}
+      />
+    </div>
   )
 }
