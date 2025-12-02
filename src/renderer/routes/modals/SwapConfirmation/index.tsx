@@ -113,7 +113,7 @@ export const SwapConfirmationModal = () => {
                         <p className="text-xs text-gray-100 uppercase">{t('amount')}</p>
 
                         <p className="text-sm text-gray-100">
-                          {NumberHelper.currency(swapRecord.amountFrom, currency)}
+                          {NumberHelper.currency(swapRecord.amountFrom, { currency })}
                         </p>
                       </div>
 
@@ -151,7 +151,9 @@ export const SwapConfirmationModal = () => {
                       <div className="flex justify-between">
                         <p className="text-xs text-gray-100 uppercase">{t('amount')}</p>
 
-                        <p className="text-sm text-gray-100">{NumberHelper.currency(swapRecord.amountTo, currency)}</p>
+                        <p className="text-sm text-gray-100">
+                          {NumberHelper.currency(swapRecord.amountTo, { currency })}
+                        </p>
                       </div>
 
                       <div className="flex justify-between">

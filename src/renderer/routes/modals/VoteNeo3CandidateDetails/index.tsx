@@ -12,6 +12,7 @@ import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
+import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 import {
   useVoteNeo3CalculateVoteFee,
   useVoteNeo3GetVoteDetailsByAddress,
@@ -31,6 +32,7 @@ export const VoteNeo3CandidateDetailsModal = () => {
   const { neo3Account, candidate, candidateVotePercentage } =
     useModalState<TModalState<'vote-neo3-candidate-details'>>()
   const { modalNavigate } = useModalNavigate()
+  const { currency } = useCurrencySelector()
 
   const { position, logoUrl, hash, description, pubKey, name, votes } = candidate
 
@@ -102,7 +104,7 @@ export const VoteNeo3CandidateDetailsModal = () => {
           <li className="flex flex-col">
             <strong className="font-semibold text-gray-100 uppercase">{t('totalVotesLabel')}</strong>
             <p className="mt-0.5">
-              {NumberHelper.localeNumber(votes)} ({candidateVotePercentage})
+              {NumberHelper.localeNumber(votes, currency)} ({candidateVotePercentage})
             </p>
           </li>
         </ul>

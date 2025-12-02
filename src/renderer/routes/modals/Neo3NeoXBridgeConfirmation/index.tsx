@@ -63,7 +63,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
     .times(tokenToReceiveFiatPrice)
     .toString()
 
-  const formattedTokenToReceiveFiat = NumberHelper.currency(amountToReceiveFiatPrice, currency)
+  const formattedTokenToReceiveFiat = NumberHelper.currency(amountToReceiveFiatPrice, { currency })
 
   const handleSubmit = async () => {
     try {

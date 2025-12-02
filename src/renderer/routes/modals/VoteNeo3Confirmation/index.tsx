@@ -98,7 +98,7 @@ export const VoteNeo3ConfirmationModal = () => {
           ExchangeHelper.getExchangeConvertedPrice(blockchainService.feeToken.hash, 'neo3', exchangeQuery.data)
         )
 
-      return NumberHelper.currency(value.toFixed(), currency, { maximumFractionDigits: 4 })
+      return NumberHelper.currency(value.toFixed(), { currency, maximumFractionDigits: 4 })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [exchangeQuery.data, feeBn, currency]

@@ -75,7 +75,7 @@ export const TransactionFeeActionStep = ({
 
       <div className="flex w-full justify-between gap-x-2 pb-3 pl-6.5">
         <span className="text-xs text-gray-200 italic">{t('value')}</span>
-        <span className="truncate text-xs text-gray-100 italic">{NumberHelper.currency(fiatFee, currency)}</span>
+        <span className="truncate text-xs text-gray-100 italic">{NumberHelper.currency(fiatFee, { currency })}</span>
       </div>
     </div>
   )

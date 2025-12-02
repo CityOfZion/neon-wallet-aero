@@ -6,7 +6,7 @@ import zhHantModals from './modals.json'
 import zhHantPages from './pages.json'
 
 export const zhHantResources = {
-  changelog: changelog,
+  changelog,
   common: zhHantCommon,
   pages: zhHantPages,
   components: zhHantComponents,
