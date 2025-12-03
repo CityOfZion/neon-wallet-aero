@@ -1,4 +1,4 @@
-import type { TCurrency } from '@shared/types/store'
+import type { TAvailableCurrency, TCurrency } from '@shared/types/store'
 
 export const AVAILABLE_CURRENCIES: TCurrency[] = [
   { symbol: 'U$', label: 'USD' },
@@ -7,3 +7,11 @@ export const AVAILABLE_CURRENCIES: TCurrency[] = [
   { symbol: 'R$', label: 'BRL' },
   { symbol: '¥', label: 'CNY' },
 ]
+
+export const LOCALE_BY_CURRENCY_LABEL: Record<TAvailableCurrency, string> = {
+  USD: 'en-US',
+  EUR: 'de-DE',
+  GBP: 'en-GB',
+  BRL: 'pt-BR',
+  CNY: 'zh-CN',
+}

@@ -25,7 +25,7 @@ export const BuyAndSellTokensAccordionAccountItem = ({ account }: TProps) => {
   const { currency } = useCurrencySelector()
   const { data, isLoading } = useBalance(account)
 
-  const total = NumberHelper.currency(data?.exchangeTotal ?? 0, currency)
+  const total = NumberHelper.currency(data?.exchangeTotal ?? 0, { currency })
 
   return (
     <section className="flex items-center gap-x-3 px-4 py-3">

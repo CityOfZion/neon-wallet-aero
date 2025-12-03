@@ -50,7 +50,7 @@ export const TokenListItem = ({ tokenBalance }: TProps) => {
         </p>
 
         <p className="text-neon truncate text-right text-xs leading-4">
-          {NumberHelper.currency(tokenBalance.exchangeAmount, currency)}
+          {NumberHelper.currency(tokenBalance.exchangeAmount, { currency })}
         </p>
       </div>
     </div>

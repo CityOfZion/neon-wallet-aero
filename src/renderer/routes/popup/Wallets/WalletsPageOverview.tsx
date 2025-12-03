@@ -131,7 +131,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
           items={<Skeleton.Item className="h-12 w-64" />}
         >
           <p className="text-5xl text-white">
-            {NumberHelper.currency(balanceQuery.data?.exchangeTotal ?? 0, currency)}
+            {NumberHelper.currency(balanceQuery.data?.exchangeTotal ?? 0, { currency })}
           </p>
         </Skeleton.Root>
 

@@ -6,7 +6,7 @@ import zhModals from './modals.json'
 import zhPages from './pages.json'
 
 export const zhResources = {
-  changelog: changelog,
+  changelog,
   common: zhCommon,
   pages: zhPages,
   components: zhComponents,

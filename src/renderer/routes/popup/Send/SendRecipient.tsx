@@ -261,8 +261,7 @@ export const SendRecipient = ({
                     .multipliedBy(recipient.token.exchangeConvertedPrice)
                     .toFixed()
                 : 0,
-              currency,
-              { maximumFractionDigits: 6 }
+              { currency, maximumFractionDigits: 6 }
             )}
           </span>
         </div>

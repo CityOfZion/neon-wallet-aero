@@ -62,7 +62,7 @@ export const SendTip = ({
         >
           <span className="uppercase">
             {BSBigNumberHelper.format(amountBn, { decimals: token.decimals })} {token.symbol} (
-            {NumberHelper.currency(fiatPriceBn.toFixed(), currency, { maximumFractionDigits: 2 })} {currency.label})
+            {NumberHelper.currency(fiatPriceBn.toFixed(), { currency, maximumFractionDigits: 2 })} {currency.label})
           </span>
         </Skeleton.Root>{' '}
         <span className="text-gray-100 italic">{t('optionalLabel')}</span>

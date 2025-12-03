@@ -7,7 +7,7 @@ import enPages from './pages.json'
 import enSearch from './search.json'
 
 export const enResources = {
-  changelog: changelog,
+  changelog,
   common: enCommon,
   pages: enPages,
   components: enComponents,

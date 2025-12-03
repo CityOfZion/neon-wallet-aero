@@ -12,7 +12,7 @@ import type {
 import type { TBlockchainServiceKey, TNetwork } from './blockchain'
 import type { Optional } from './generics'
 
-export type TAvailableLanguages = 'English' | '简体中文' | '繁體中文'
+export type TAvailableLanguages = 'English' | 'Deutsch' | 'Português (BR)' | '简体中文' | '繁體中文'
 
 export type TLanguage = {
   value: string
