@@ -20,13 +20,7 @@
   },
   "temporaryLimitsBox": {
     "description": "這是一個觀察帳戶，將限制您對以下功能的訪問：",
-    "limits": [
-      "備份和恢復",
-      "錢包自定義",
-      "匯入/匯出功能",
-      "建立新錢包",
-      "以及其他功能…"
-    ]
+    "limits": ["備份和恢復", "錢包自定義", "匯入/匯出功能", "建立新錢包", "以及其他功能…"]
   },
   "passwordStrength": {
     "label": "密碼強度",
@@ -60,9 +54,7 @@
       "txIdLabel": "交易ID",
       "copyTxIdLabel": "複製交易ID",
       "pendingDataLabel": "處理中…",
-      "pendingTooltipLabel": "您的交易正在處理中 — 請稍候",
-      "formatHourMinutes": "HH:mm",
-      "formatFullDateTime": "yyyy年MM月dd日 (HH:mm)"
+      "pendingTooltipLabel": "您的交易正在處理中 — 請稍候"
     },
     "event": {
       "nftImageAltWithNameLabel": "NFT圖片: {{ name }}",
@@ -94,7 +86,6 @@
   },
   "dappConnectionList": {
     "empty": "沒有可顯示的連線",
-    "dappDateFormat": "dd/MM/yyyy HH:mm",
     "connectNewDappButtonLabel": "建立新的連線",
     "disconnectionAllButtonLabel": "斷開所有連線",
     "disconnectButtonLabel": "斷開連線",

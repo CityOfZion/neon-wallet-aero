@@ -424,9 +424,9 @@ export const SellTokensDepositModal = () => {
                   leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   footer={
                     <div className="flex w-full justify-between gap-x-2 pt-1 pb-4 pl-6.5 text-xs text-gray-100 italic">
-                      <p className="whitespace-nowrap">{t('form.fiatLabel', { currencyLabel: currency.label })}</p>
+                      <p>{t('form.fiatLabel', { currencyLabel: currency.label })}</p>
 
-                      <p className="truncate">
+                      <p className="whitespace-nowrap">
                         {NumberHelper.currency(
                           actionData.amount && actionData.token
                             ? BSBigNumberHelper.fromNumber(actionData.amount)

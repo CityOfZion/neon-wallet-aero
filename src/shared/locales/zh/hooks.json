@@ -58,9 +58,6 @@
       "backupError": "备份时发生错误。请重试。"
     }
   },
-  "useGetFullTransactions": {
-    "formatExtendedDate": "yyyy年MM月dd日"
-  },
   "useBlockchainActions": {
     "errors": {
       "deleteLastWalletError": "您至少需要一个钱包。请在删除此钱包之前创建一个新钱包。",

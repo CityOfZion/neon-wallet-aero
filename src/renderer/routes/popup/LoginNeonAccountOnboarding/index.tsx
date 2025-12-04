@@ -13,7 +13,7 @@ export const LoginNeonAccountOnboardingPage = () => {
     <section>
       <h2 className="text-center text-lg text-white">{t('description')}</h2>
 
-      <ul className="mt-5 flex flex-col gap-y-2">
+      <ul className="my-5 flex flex-col gap-y-2">
         <li>
           <LoginNeonAccountOnboardingLink
             to="/onboarding-login-new-wallet"

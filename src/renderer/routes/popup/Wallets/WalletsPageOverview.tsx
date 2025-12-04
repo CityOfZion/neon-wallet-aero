@@ -91,16 +91,16 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
 
   return (
     <Fragment key={`${selectedWallet.id}-${selectedAccount.id}`}>
-      <div className="mt-4 flex items-center justify-between gap-2.5">
+      <div className="mt-4 flex items-center justify-between gap-1">
         <div className="flex flex-col">
           <div className="flex items-center gap-2.5">
             <BlockchainIcon blockchain={selectedAccount.blockchain} className="text-green" />
             <span className="text-sm text-white uppercase">{commonT(`blockchain.${selectedAccount.blockchain}`)}</span>
           </div>
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <Tooltip title={selectedAccount.address}>
               <p className="text-blue text-sm whitespace-nowrap">
-                {StringHelper.truncateMiddle(selectedAccount.address, 34)}
+                {StringHelper.truncateMiddle(selectedAccount.address, 30)}
               </p>
             </Tooltip>
             <IconButton

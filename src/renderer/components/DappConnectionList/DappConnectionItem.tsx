@@ -1,6 +1,9 @@
 import type { SessionTypes } from '@walletconnect/types'
-import { format } from 'date-fns'
 import { useTranslation } from 'react-i18next'
+
+import { DateHelper } from '@renderer/helpers/DateHelper'
+
+import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 
 import TbPlugX from '@renderer/assets/images/tb-plug-x.svg?react'
 
@@ -17,6 +20,7 @@ type TProps = {
 
 export const DappConnectionItem = ({ session, onDisconnect }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'dappConnectionList' })
+  const { language } = useLanguageSelector()
 
   return (
     <li className="flex items-center gap-2 p-2.5 py-1.5 text-xs font-medium odd:bg-gray-300/15">
@@ -29,7 +33,7 @@ export const DappConnectionItem = ({ session, onDisconnect }: TProps) => {
 
       <p className="min-w-30 text-white">{session.peer.metadata.name}</p>
 
-      <p className="min-w-30 text-gray-100">{format(session.expiry * 1000, t('dappDateFormat'))}</p>
+      <p className="min-w-30 text-gray-100">{DateHelper.formatLocalized(session.expiry, { format: 'Pp', language })}</p>
 
       <div className="flex w-full items-center justify-end">
         <Tooltip title={t('disconnectButtonLabel')}>

@@ -173,7 +173,7 @@ export const VoteNeo3ListItem = ({
               label={isCurrentVote ? t('yourVoteButtonLabel') : t('castVoteButtonLabel')}
               variant="text-slim"
               colorSchema={isCurrentVote || canVote ? 'neon' : 'error'}
-              textClassName="text-sm text-right"
+              textClassName="text-sm text-center"
               className="w-full"
               flat
               disabled={isVoteDisabled}

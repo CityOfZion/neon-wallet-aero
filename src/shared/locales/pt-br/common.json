@@ -1,1 +1,78 @@
-{}
+{
+  "general": {
+    "continue": "Continuar",
+    "next": "Próximo",
+    "default": "Padrão",
+    "successfullyCopied": "Copiado para a área de transferência com sucesso",
+    "clear": "Limpar",
+    "close": "Fechar",
+    "back": "Voltar",
+    "pasteFromClipboard": "Colar da área de transferência",
+    "copyToClipboard": "Copiar para a área de transferência",
+    "copy": "Copiar",
+    "menuIconButtonAriaLabel": "Menu",
+    "downloadQRCodePassword": "Baixar código QR da senha",
+    "remove": "Remover",
+    "reset": "Redefinir",
+    "emptyColumn": "--",
+    "migrationNeo3": "Migração",
+    "swap": "Swap",
+    "save": "Salvar",
+    "edit": "Editar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "menu": "Menu"
+  },
+  "wallet": {
+    "firstWalletName": "Minha Primeira Carteira",
+    "mnemonicWalletName": "Carteira Mnemônica",
+    "watchAccount": "Conta Watch",
+    "watchWalletName": "Carteira Watch",
+    "importedWalletName": "Carteira Importada",
+    "encryptedName": "Carteira Criptografada",
+    "migratedWalletName": "Carteira Migrada"
+  },
+  "account": {
+    "defaultName": "Conta {{accountNumber}}"
+  },
+  "blockchain": {
+    "neo3": "Neo N3",
+    "neoLegacy": "Neo Legacy",
+    "ethereum": "Ethereum",
+    "neox": "Neo X",
+    "polygon": "Polygon",
+    "base": "Base",
+    "arbitrum": "Arbitrum"
+  },
+  "errors": {
+    "noLoginSession": "Você precisa fazer login para acessar este recurso."
+  },
+  "synonyms": {
+    "view": ["ver", "olhar", "observar", "assistir"],
+    "transfer": ["transferir", "transmitir", "transportar", "enviar", "transferência", "transporte", "mandar"],
+    "trade": ["troca", "câmbio", "mudar", "mercadoria", "negócio", "transação"],
+    "swap": ["troca", "mudar"],
+    "send": ["transmitir", "enviar", "entregar", "comprometer"],
+    "sell": ["vender", "transação"],
+    "secure": ["garantir", "assegurar", "seguro", "proteger", "inviolável", "resguardar", "defender"],
+    "save": ["preservar", "manter", "armazenar", "economizar"],
+    "restore": ["restaurar", "reconstruir"],
+    "recover": ["recuperar", "voltar", "recuperação", "recobrar"],
+    "purchase": ["comprar", "adquirir"],
+    "pair": ["parear", "corresponder", "combinar"],
+    "lock": ["bloquear", "trancar", "fechar"],
+    "load": ["carregar", "carregamento", "abrir"],
+    "list": ["listar", "lista", "listagem"],
+    "liquidate": ["liquidar", "pagar", "gastar"],
+    "link": ["conectar", "ligar", "associar"],
+    "generate": ["produzir", "criar", "gerar"],
+    "exchange": ["troca", "trocar", "mudar", "câmbio"],
+    "create": ["produzir", "construir", "fazer", "gerar"],
+    "connection": ["ligação", "associação", "relação"],
+    "connect": ["conectar", "ligar", "unir", "associar"],
+    "buy": ["comprar", "adquirir"],
+    "add": ["adicionar", "incluir", "aumentar", "somar"],
+    "acquire": ["obter", "conseguir"],
+    "crypto": ["token", "tokens"]
+  }
+}
