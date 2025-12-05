@@ -60,9 +60,7 @@
       "txIdLabel": "Tx ID",
       "copyTxIdLabel": "Copy tx ID",
       "pendingDataLabel": "Pending",
-      "pendingTooltipLabel": "Your transaction is being processed — please wait",
-      "formatHourMinutes": "HH:mm",
-      "formatFullDateTime": "dd MMM yyyy (HH:mm)"
+      "pendingTooltipLabel": "Your transaction is being processed — please wait"
     },
     "event": {
       "nftImageAltWithNameLabel": "NFT image: {{ name }}",
@@ -94,12 +92,11 @@
   },
   "dappConnectionList": {
     "empty": "No connections to display",
-    "dappDateFormat": "dd/MM/yyyy HH:mm",
     "connectNewDappButtonLabel": "Create new connection",
     "disconnectionAllButtonLabel": "Disconnect all",
     "disconnectButtonLabel": "Disconnect",
     "nameHeaderLabel": "Name",
-    "expiresInHeaderLabel": "Expires in"
+    "expiresInHeaderLabel": "Expires on"
   },
   "blockchainSelect": {
     "selectPlaceholder": "Select a blockchain…"

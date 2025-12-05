@@ -1,19 +1,19 @@
-import { format } from 'date-fns'
-import type { MouseEvent } from 'react'
 import type React from 'react'
+import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
 
+import { DateHelper } from '@renderer/helpers/DateHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 import { useSwapRecordByHashSelector } from '@renderer/hooks/useUtilitySelector'
 
 import MdCoffee from '@renderer/assets/images/md-coffee.svg?react'
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
-import TbArrowsExchange from '@renderer/assets/images/tb-arrows-exchange.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbClock from '@renderer/assets/images/tb-clock.svg?react'
 import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
@@ -37,15 +37,11 @@ export const TransactionActivityListItemHeaderContent = ({
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { swapRecord } = useSwapRecordByHashSelector(txId)
   const { modalNavigate } = useModalNavigate()
+  const { language } = useLanguageSelector()
 
   const handleCancelBubbleEvent = (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
     event.stopPropagation()
-  }
-
-  // TODO: Implement navigate
-  const handleGoToMigrationNeo3Status = () => {
-    // modalNavigate('migration-neo3-status', { state: { hash: txId } })
   }
 
   const handleGoToSwapDetails = () => {
@@ -69,8 +65,8 @@ export const TransactionActivityListItemHeaderContent = ({
     <div className="flex h-full w-full items-center justify-between gap-x-2 rounded bg-gray-700/60 px-1">
       <div className="flex items-center gap-x-4 truncate whitespace-nowrap" onClick={handleCancelBubbleEvent}>
         <TransactionActivityListItemHeaderDetails
-          label={format(date, t('formatFullDateTime'))}
-          data={format(date, t('formatHourMinutes'))}
+          label={DateHelper.formatLocalized(date, { format: 'Pp', language })}
+          data={DateHelper.formatLocalized(date, { format: 'hh:mm', language })}
           icon={<TbClock aria-hidden />}
         />
 
@@ -90,18 +86,6 @@ export const TransactionActivityListItemHeaderContent = ({
       <div className="flex items-center gap-x-2 truncate whitespace-nowrap">
         {(migrationNeo3 || swapRecord) && (
           <div className="flex items-center gap-x-2" onClick={handleCancelBubbleEvent}>
-            {migrationNeo3 && (
-              <TransactionActivityListItemHeaderDetails
-                role="button"
-                tabIndex={0}
-                className="hover:opacity-90 focus:opacity-90 active:opacity-80"
-                data={<p className="text-yellow">{tCommonGeneral('migrationNeo3')}</p>}
-                icon={<TbArrowsExchange aria-hidden className="text-yellow" />}
-                onKeyDown={handleKeyDownWrapper(handleGoToMigrationNeo3Status)}
-                onClick={handleGoToMigrationNeo3Status}
-              />
-            )}
-
             {swapRecord && (
               <TransactionActivityListItemHeaderDetails
                 role="button"

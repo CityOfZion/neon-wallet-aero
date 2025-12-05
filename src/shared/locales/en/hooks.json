@@ -58,9 +58,6 @@
       "backupError": "There was an error trying to backup. Please, try again."
     }
   },
-  "useGetFullTransactions": {
-    "formatExtendedDate": "dd MMM yyyy"
-  },
   "useBlockchainActions": {
     "errors": {
       "deleteLastWalletError": "You need at least one wallet. Create a new wallet before deleting this one.",

@@ -1,7 +1,7 @@
+import { format } from 'date-fns'
 import { useTranslation } from 'react-i18next'
 import zod from 'zod'
 
-import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
@@ -428,7 +428,7 @@ export const useNeonCreateBackup = () => {
         data: backupFileDataStringEncrypted,
       }
 
-      const fileName = `Neon-Backup-${DateHelper.getNowUnix()}.${BACKUP_FILE_EXTENSION}`
+      const fileName = `Neon-Backup-${format(new Date(), 'yyyy-MM-dd')}.${BACKUP_FILE_EXTENSION}`
 
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
     } catch {

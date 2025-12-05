@@ -1,1 +1,70 @@
-{}
+{
+  "useUnclaimedQuery": {
+    "errors": {
+      "noKey": "Não foi possível encontrar a chave: {{address}}",
+      "blockchainIsNotClaimable": "Não é possível dar claim com esta conta: {{address}} {{blockchain}}"
+    }
+  },
+  "useUnclaimedMutation": {
+    "messages": {
+      "claimedSuccess": "Claim realizado com sucesso"
+    },
+    "errors": {
+      "loginSessionIsNotDefined": "Erro desconhecido. A sessão de login não está definida.",
+      "claimError": "Ocorreu um erro ao tentar dar claim. Por favor, tente novamente."
+    },
+    "successNotification": {
+      "title": "Claim bem-sucedido",
+      "previewBody": "Você realizou com sucesso o claim dos seus tokens."
+    },
+    "failureNotification": {
+      "title": "Erro no claim",
+      "previewBody": "Não conseguimos verificar a conclusão do seu claim"
+    }
+  },
+  "useLogin": {
+    "controlIsNotSet": "Erro inesperado. O controle de login não está definido.",
+    "controlIsNotValid": "Erro inesperado. O controle de login não é válido."
+  },
+  "useImportActions": {
+    "errors": {
+      "invalid": "Valor inválido ou já existente",
+      "empty": "Por favor, digite algum valor",
+      "invalidMnemonic": "Mnemônico inválido",
+      "mnemonicIncomplete": "Mnemônico incompleto"
+    }
+  },
+  "useBackupOrMigrate": {
+    "neon3BackupFileDetected": "Arquivo de backup NEON3 detectado",
+    "neon2MigrateFileDetected": "Arquivo de migração NEON2 detectado",
+    "filterName": "Arquivo de backup ou migração da Neon",
+    "error": "Arquivo não reconhecido",
+    "defaultAccountLabel": "Conta migrada",
+    "defaultContactName": "Contato migrado"
+  },
+  "useNeonImportBackup": {
+    "errors": {
+      "wrongPassword": "A senha está incorreta. Por favor, tente novamente.",
+      "wrongVersion": "A versão do arquivo de backup não é suportada. Tente gerar um novo backup na versão mais recente da NEON.",
+      "importData": "Houve um erro ao importar os dados (pode ter sido importado parcialmente)."
+    }
+  },
+  "useWalletUtils": {
+    "beLoggedInError": "Você precisa estar conectado para acessar carteiras"
+  },
+  "useNeonBackup": {
+    "errors": {
+      "unexpectedError": "Erro inesperado. Reinicie a aplicação.",
+      "backupError": "Houve um erro ao tentar fazer backup. Por favor, tente novamente."
+    }
+  },
+  "useBlockchainActions": {
+    "errors": {
+      "deleteLastWalletError": "Você precisa ter pelo menos uma carteira. Crie uma nova carteira antes de deletar esta.",
+      "deleteLastAccountError": "As carteiras devem ter pelo menos uma conta. Delete a carteira para removê-la."
+    }
+  },
+  "useConfirmAction": {
+    "unauthorizedAction": "Não autorizado. Por favor, tente novamente ou entre em contato com o suporte."
+  }
+}
