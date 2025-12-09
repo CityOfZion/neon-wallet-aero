@@ -1,1 +1,108 @@
-{}
+{
+  "fieldActionsMenu": {
+    "cut": "Ausschneiden",
+    "copy": "Kopieren",
+    "paste": "Einfügen",
+    "messages": {
+      "copied": "Kopiert",
+      "error": "Aktion konnte nicht ausgeführt werden"
+    }
+  },
+  "baseToast": {
+    "closeIconButtonLabel": "Meldung schließen"
+  },
+  "input": {
+    "pasteIconButtonLabel": "Von Zwischenablage einfügen",
+    "copyIconButtonLabel": "In Zwischenablage kopieren",
+    "clearIconButtonLabel": "Eingabefeld leeren",
+    "hidePasswordIconButtonLabel": "Passwort ausblenden",
+    "showPasswordIconButtonLabel": "Passwort einblenden"
+  },
+  "temporaryLimitsBox": {
+    "description": "Dies ist ein Watch Account mit eingeschränktem Zugang zu:",
+    "limits": [
+      "Backup und Wiederherstellung",
+      "Wallet-Personalisierung",
+      "Import/Export Funktionen",
+      "Neue Wallet anlegen",
+      "Weitere Features…"
+    ]
+  },
+  "passwordStrength": {
+    "label": "Passwortstärke",
+    "none": "-",
+    "tooShort": "Zu kurz",
+    "weak": "Schwach",
+    "good": "Gut",
+    "strong": "Stark"
+  },
+  "greyAccountSelect": {
+    "placeholder": "Auswählen…",
+    "empty": "Keine Konten vorhanden"
+  },
+  "greyTokenSelect": {
+    "placeholder": "Auswählen…",
+    "empty": "Keine Token vorhanden"
+  },
+  "greyAmountInput": {
+    "placeholder": "0.00000000"
+  },
+  "transactionFeeActionStep": {
+    "title": "Gesamtgebühr",
+    "value": "Wert"
+  },
+  "transactionActivityList": {
+    "empty": {
+      "notFoundTitle": "Keine Transaktionen vorhanden",
+      "notFoundDescription": "Führen Sie eine Transaktion durch und sie wird hier erscheinen"
+    },
+    "item": {
+      "txIdLabel": "Tx ID",
+      "copyTxIdLabel": "Tx ID kopieren",
+      "pendingDataLabel": "Ausstehend",
+      "pendingTooltipLabel": "Ihre Transaktion wird verarbeitet — bitte warten"
+    },
+    "event": {
+      "nftImageAltWithNameLabel": "NFT Bild: {{ name }}",
+      "nftImageAltLabel": "NFT Bild",
+      "columns": {
+        "fromLabel": "Von",
+        "toLabel": "An",
+        "tokenLabel": "Token",
+        "tokenIdLabel": "Token ID",
+        "amountLabel": "Betrag",
+        "collectionNameLabel": "Kollektion",
+        "nameLabel": "Name"
+      }
+    }
+  },
+  "contactsList": {
+    "noContactAddresses": "Keine Kontaktadressen gefunden"
+  },
+  "nftList": {
+    "empty": "Keine NFTs vorhanden"
+  },
+  "tokenList": {
+    "holdingsLabel": "Bestände",
+    "valueLabel": "Wert",
+    "empty": "Keine Token-Guthaben vorhanden"
+  },
+  "dappConnectionList": {
+    "empty": "Keine Verbindungen vorhanden",
+    "connectNewDappButtonLabel": "Neue Verbindung erstellen",
+    "disconnectionAllButtonLabel": "Alle trennen",
+    "disconnectButtonLabel": "Trennen",
+    "nameHeaderLabel": "Name",
+    "expiresInHeaderLabel": "Läuft ab am"
+  },
+  "blockchainSelect": {
+    "selectPlaceholder": "Blockchain auswählen…"
+  },
+  "calendar": {
+    "previousYearButtonLabel": "Zu den vorherigen Jahren",
+    "nextYearButtonLabel": "Zu den nächsten Jahren"
+  },
+  "networkBanner": {
+    "testnetLabel": "Testnet-Netzwerk"
+  }
+}

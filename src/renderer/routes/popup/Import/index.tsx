@@ -125,7 +125,7 @@ export const ImportPage = () => {
 
   return (
     <ScreenLayout heading={t('title')} className="text-white">
-      <form className="flex flex-col" onSubmit={handleAct(handleSubmit)}>
+      <form className="flex flex-1 flex-col" onSubmit={handleAct(handleSubmit)}>
         <h2 className="mb-8">{t('subtitle')}</h2>
 
         <Textarea
@@ -152,7 +152,7 @@ export const ImportPage = () => {
         <Button
           label={t('submitButtonLabel')}
           type="submit"
-          className="mt-12"
+          className="mt-auto"
           disabled={!actionData.text || !actionState.isValid}
           loading={actionState.isActing}
         />

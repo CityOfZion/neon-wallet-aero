@@ -1,1 +1,78 @@
-{}
+{
+  "general": {
+    "continue": "Weiter",
+    "next": "Nächste",
+    "default": "Standard",
+    "successfullyCopied": "Erfolgreich in die Zwischenablage kopiert",
+    "clear": "Löschen",
+    "close": "Schließen",
+    "back": "Zurück",
+    "pasteFromClipboard": "Aus Zwischenablage einfügen",
+    "copyToClipboard": "In die Zwischenablage kopieren",
+    "copy": "Kopieren",
+    "menuIconButtonAriaLabel": "Menü",
+    "downloadQRCodePassword": "Passwort-QR-Code herunterladen",
+    "remove": "Entfernen",
+    "reset": "Zurücksetzen",
+    "emptyColumn": "--",
+    "migrationNeo3": "Migration",
+    "swap": "Swap",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "menu": "Menü"
+  },
+  "wallet": {
+    "firstWalletName": "Meine erste Wallet",
+    "mnemonicWalletName": "Mnemonic Wallet",
+    "watchAccount": "Watch Account",
+    "watchWalletName": "Watch Wallet",
+    "importedWalletName": "Importierte Wallet",
+    "encryptedName": "Verschlüsselte Wallet",
+    "migratedWalletName": "Migrierte Wallet"
+  },
+  "account": {
+    "defaultName": "Konto {{accountNumber}}"
+  },
+  "blockchain": {
+    "neo3": "Neo N3",
+    "neoLegacy": "Neo Legacy",
+    "ethereum": "Ethereum",
+    "neox": "Neo X",
+    "polygon": "Polygon",
+    "base": "Base",
+    "arbitrum": "Arbitrum"
+  },
+  "errors": {
+    "noLoginSession": "Sie müssen sich anmelden, um auf diese Funktion zuzugreifen."
+  },
+  "synonyms": {
+    "view": ["sehen", "betrachten", "beobachten", "ansehen"],
+    "transfer": ["transponieren", "übertragen", "transportieren", "ändern", "übertragung", "überführung", "transport"],
+    "trade": ["tauschen", "handeln", "wechseln", "handel", "geschäft", "deal"],
+    "swap": ["tauschen", "wechseln"],
+    "send": ["übertragen", "versenden", "liefern", "senden"],
+    "sell": ["vermarkten", "verkaufen"],
+    "secure": ["sicherstellen", "garantieren", "sicher", "unverletzlich", "geschützt", "versichern", "schützen"],
+    "save": ["bewahren", "behalten", "speichern", "sparen"],
+    "restore": ["wiederherstellen", "regenerieren"],
+    "recover": ["zurückgewinnen", "zurück", "abrufen", "wiederherstellen"],
+    "purchase": ["kaufen", "erwerben"],
+    "pair": ["paar", "verknüpfen", "paaren"],
+    "lock": ["sichern", "verschließen", "schließen"],
+    "load": ["laden", "aufladen", "füllen"],
+    "list": ["auflisten", "katalog", "liste"],
+    "liquidate": ["begleichen", "abbezahlen", "liquidieren"],
+    "link": ["verbinden", "verknüpfen", "assoziieren"],
+    "generate": ["produzieren", "erstellen", "erzeugen"],
+    "exchange": ["handeln", "tauschen", "wechseln", "ändern"],
+    "create": ["produzieren", "bauen", "machen", "generieren"],
+    "connection": ["link", "verbindung", "beziehung"],
+    "connect": ["verknüpfen", "verbinden", "vereinen", "assoziieren"],
+    "buy": ["kaufen", "erwerben"],
+    "add": ["anfügen", "einschließen", "erhöhen", "hinzufügen"],
+    "acquire": ["erhalten", "bekommen"],
+    "crypto": ["token", "tokens"]
+  }
+}
