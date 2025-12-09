@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 import { Button } from '@renderer/components/Button'
 import { DatePicker } from '@renderer/components/DatePicker'
 
@@ -25,7 +23,6 @@ export const TransactionActivityListDateRange = ({
   onSelectDateFrom,
   onSelectDateTo,
 }: TProps) => {
-  const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.dateRange' })
   const { language } = useLanguageSelector()
 
   return (
@@ -35,7 +32,7 @@ export const TransactionActivityListDateRange = ({
       <DatePicker.Root>
         <DatePicker.Trigger asChild>
           <Button
-            label={DateHelper.formatLocalized(dateFrom, { format: t('formatExtendedDate'), language })}
+            label={DateHelper.formatLocalized(dateFrom, { format: 'PPP', language })}
             type="button"
             flat
             variant="text"
@@ -59,7 +56,7 @@ export const TransactionActivityListDateRange = ({
       <DatePicker.Root>
         <DatePicker.Trigger asChild>
           <Button
-            label={DateHelper.formatLocalized(dateTo, { format: t('formatExtendedDate'), language })}
+            label={DateHelper.formatLocalized(dateTo, { format: 'PPP', language })}
             type="button"
             flat
             variant="text"

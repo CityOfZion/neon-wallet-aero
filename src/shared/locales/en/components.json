@@ -74,9 +74,6 @@
         "collectionNameLabel": "Collection",
         "nameLabel": "Name"
       }
-    },
-    "dateRange": {
-      "formatExtendedDate": "dd MMM yyyy"
     }
   },
   "contactsList": {

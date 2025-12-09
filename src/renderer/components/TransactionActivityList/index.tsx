@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 
 import * as dateFns from 'date-fns'
-import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
 
 import { Separator } from '@renderer/components/Separator'
@@ -44,7 +43,6 @@ const heights = {
 export const TransactionActivityList = ({ selectedAccount }: TProps) => {
   const dateNow = new Date()
   const { language } = useLanguageSelector()
-  const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.dateRange' })
 
   const { actionData, setData } = useActions<TActionsData>({
     accounts: [selectedAccount],
@@ -172,7 +170,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
                   }}
                 >
                   <h3 className="flex h-10 max-h-10 min-h-10 items-center font-medium text-white">
-                    {DateHelper.formatLocalized(date, { format: t('formatExtendedDate'), language })}
+                    {DateHelper.formatLocalized(date, { format: 'PPP', language })}
                   </h3>
 
                   <Separator className="h-px max-h-px min-h-px" containerClassName="mb-2" />

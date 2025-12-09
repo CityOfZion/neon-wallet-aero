@@ -1,1 +1,70 @@
-{}
+{
+  "useUnclaimedQuery": {
+    "errors": {
+      "noKey": "Der Schlüssel konnte nicht gefunden werden: {{address}}",
+      "blockchainIsNotClaimable": "Die Blockchain des Kontos unterstützt kein Claiming: {{address}} {{blockchain}}"
+    }
+  },
+  "useUnclaimedMutation": {
+    "messages": {
+      "claimedSuccess": "Erfolgreich eingefordert"
+    },
+    "errors": {
+      "loginSessionIsNotDefined": "Unbekannter Fehler. Login-Sitzung ist nicht definiert.",
+      "claimError": "Beim Einfordern ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    },
+    "successNotification": {
+      "title": "Claiming erfolgreich",
+      "previewBody": "Sie haben Ihre ausstehenden Token erfolgreich eingefordert."
+    },
+    "failureNotification": {
+      "title": "Claiming-Fehler",
+      "previewBody": "Wir konnten den Abschluss Ihres Claims nicht verifizieren"
+    }
+  },
+  "useLogin": {
+    "controlIsNotSet": "Unerwarteter Fehler. Login-Kontrolle ist nicht gesetzt.",
+    "controlIsNotValid": "Unerwarteter Fehler. Login-Kontrolle ist nicht gültig."
+  },
+  "useImportActions": {
+    "errors": {
+      "invalid": "Ungültiger Wert oder existiert bereits",
+      "empty": "Bitte geben Sie einen Wert ein",
+      "invalidMnemonic": "Ungültige Mnemonic",
+      "mnemonicIncomplete": "Mnemonic unvollständig"
+    }
+  },
+  "useBackupOrMigrate": {
+    "neon3BackupFileDetected": "NEON3 Backup-Datei erkannt",
+    "neon2MigrateFileDetected": "NEON2 Migrations-Datei erkannt",
+    "filterName": "Neon Backup- oder Migrations-Datei",
+    "error": "Datei nicht erkannt",
+    "defaultAccountLabel": "Migriertes Konto",
+    "defaultContactName": "Migrierter Kontakt"
+  },
+  "useNeonImportBackup": {
+    "errors": {
+      "wrongPassword": "Das Passwort ist falsch. Bitte versuchen Sie es erneut.",
+      "wrongVersion": "Die Backup-Datei-Version wird nicht unterstützt. Bitte erstellen Sie ein neues Backup in der neuesten NEON-Version.",
+      "importData": "Beim Importieren der Daten ist ein Fehler aufgetreten (Möglicherweise teilweise importiert)."
+    }
+  },
+  "useWalletUtils": {
+    "beLoggedInError": "Sie müssen angemeldet sein, um auf Wallets zuzugreifen"
+  },
+  "useNeonBackup": {
+    "errors": {
+      "unexpectedError": "Unerwarteter Fehler. Starten Sie die Anwendung neu.",
+      "backupError": "Beim Erstellen des Backups ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    }
+  },
+  "useBlockchainActions": {
+    "errors": {
+      "deleteLastWalletError": "Sie benötigen mindestens eine Wallet. Erstellen Sie eine neue Wallet, bevor Sie diese löschen.",
+      "deleteLastAccountError": "Wallets müssen mindestens ein Konto haben. Löschen Sie die Wallet, um sie zu entfernen."
+    }
+  },
+  "useConfirmAction": {
+    "unauthorizedAction": "Nicht autorisiert. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support."
+  }
+}

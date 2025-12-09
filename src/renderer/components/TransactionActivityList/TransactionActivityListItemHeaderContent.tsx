@@ -65,8 +65,8 @@ export const TransactionActivityListItemHeaderContent = ({
     <div className="flex h-full w-full items-center justify-between gap-x-2 rounded bg-gray-700/60 px-1">
       <div className="flex items-center gap-x-4 truncate whitespace-nowrap" onClick={handleCancelBubbleEvent}>
         <TransactionActivityListItemHeaderDetails
-          label={DateHelper.formatLocalized(date, { format: 'Pp', language })}
-          data={DateHelper.formatLocalized(date, { format: 'hh:mm', language })}
+          label={DateHelper.formatLocalized(date, { format: 'PP - p', language })}
+          data={DateHelper.formatLocalized(date, { format: 'p', language })}
           icon={<TbClock aria-hidden />}
         />
 
