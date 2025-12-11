@@ -1,5 +1,7 @@
 import { forwardRef } from 'react'
 
+import { StyleHelper } from '@renderer/helpers/StyleHelper'
+
 import type { TCustomClickableProps } from './Clickable'
 import { Clickable } from './Clickable'
 
@@ -22,15 +24,22 @@ export const Button = forwardRef<HTMLButtonElement, TButtonProps>(
       disabled,
       wide,
       textClassName,
+      className,
       children,
       ...props
     },
     ref
   ) => {
-    const isDisabled = disabled || loading
+    const isDisabled = disabled || loading || false
 
     return (
-      <button {...props} aria-disabled={isDisabled} disabled={isDisabled} ref={ref}>
+      <button
+        className={StyleHelper.mergeStyles('group', className)}
+        {...props}
+        aria-disabled={isDisabled}
+        disabled={isDisabled}
+        ref={ref}
+      >
         <Clickable
           {...clickableProps}
           label={label}

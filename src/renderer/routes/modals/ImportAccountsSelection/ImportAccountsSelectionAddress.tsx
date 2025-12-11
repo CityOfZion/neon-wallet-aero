@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Banner } from '@renderer/components/Banner'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountUtils } from '@renderer/hooks/useAccountUtils'
@@ -56,7 +57,7 @@ export const ImportAccountsSelectionAddress = ({ value, onSubmit }: TProps) => {
     } catch (error) {
       console.error(error)
 
-      ToastHelper.error({ message: t('errors.walletAndAccounts') })
+      ToastHelper.error({ message: AppError.wrap(error, t('errors.walletAndAccounts')).message })
     }
   }
 

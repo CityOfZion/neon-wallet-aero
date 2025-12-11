@@ -27,8 +27,8 @@ const Outline = ({ className, ...props }: TClickableProps) => {
     <Base
       className={StyleHelper.mergeStyles(
         'group flex cursor-pointer items-center justify-center rounded-sm border py-3 text-center transition-colors',
-        'aria-disabled:border-gray-100/50 aria-disabled:text-gray-100/50 aria-disabled:opacity-100',
-        'aria-[disabled=false]:hover:bg-gray-300/15',
+        'group-aria-[disabled=true]:border-gray-100/50 group-aria-[disabled=true]:text-gray-100/50 group-aria-[disabled=true]:opacity-100',
+        'group-aria-[disabled=false]:hover:bg-gray-300/15',
         {
           'border-neon': props.colorSchema === 'neon',
           'border-gray-100': props.colorSchema === 'gray',
@@ -50,8 +50,8 @@ const Contained = ({ className, ...props }: TClickableProps) => {
     <Base
       className={StyleHelper.mergeStyles(
         'flex min-w-0 items-center justify-center rounded-sm py-3 text-center transition-colors',
-        'aria-disabled:bg-gray-300/30 aria-disabled:text-gray-100/50 aria-disabled:opacity-100',
-        'aria-[disabled=false]:bg-linear-to-t aria-[disabled=false]:from-gray-800 aria-[disabled=false]:to-gray-600 aria-[disabled=false]:shadow-[4px_8px_20px_0px_rgba(18,21,23,0.40),inset_1px_1px_0px_0px_rgba(214,210,210,0.14),inset_-1px_-1px_0px_0px_rgba(0,0,0,0.32)] aria-[disabled=false]:hover:from-gray-600 aria-[disabled=false]:hover:to-gray-600',
+        'group-aria-[disabled=true]:bg-gray-300/30 group-aria-[disabled=true]:text-gray-100/50 group-aria-[disabled=true]:opacity-100',
+        'group-aria-[disabled=false]:bg-linear-to-t group-aria-[disabled=false]:from-gray-800 group-aria-[disabled=false]:to-gray-600 group-aria-[disabled=false]:shadow-[4px_8px_20px_0px_rgba(18,21,23,0.40),inset_1px_1px_0px_0px_rgba(214,210,210,0.14),inset_-1px_-1px_0px_0px_rgba(0,0,0,0.32)] group-aria-[disabled=false]:hover:from-gray-600 group-aria-[disabled=false]:hover:to-gray-600',
         className
       )}
       {...props}
@@ -63,7 +63,7 @@ const Text = ({ className, ...props }: TClickableProps) => {
   return (
     <Base
       className={StyleHelper.mergeStyles(
-        'flex min-w-0 items-center justify-center rounded-sm text-center transition-colors aria-[disabled=false]:hover:bg-gray-300/15',
+        'flex min-w-0 items-center justify-center rounded-sm text-center transition-colors group-aria-[disabled=false]:hover:bg-gray-300/15',
         className
       )}
       {...props}
@@ -75,7 +75,7 @@ const TextSlim = ({ className, ...props }: TClickableProps) => {
   return (
     <Base
       className={StyleHelper.mergeStyles(
-        'flex h-fit min-w-0 items-center justify-center px-0 text-center transition-opacity aria-[disabled=false]:hover:opacity-75 aria-[disabled=false]:focus:opacity-75 aria-[disabled=false]:active:opacity-50',
+        'flex h-fit min-w-0 items-center justify-center px-0 text-center transition-opacity group-aria-[disabled=false]:hover:opacity-75 group-aria-[disabled=false]:focus:opacity-75 group-aria-[disabled=false]:active:opacity-50',
         className
       )}
       {...props}
@@ -88,8 +88,8 @@ const Card = ({ className, ...props }: TClickableProps) => {
     <Base
       className={StyleHelper.mergeStyles(
         'flex min-w-0 items-center justify-center rounded-sm py-3 text-center transition-colors',
-        'aria-disabled:bg-gray-300/30 aria-disabled:text-gray-100/50 aria-disabled:opacity-100',
-        'aria-[disabled=false]:bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30',
+        'group-aria-[disabled=true]:bg-gray-300/30 group-aria-[disabled=true]:text-gray-100/50 group-aria-[disabled=true]:opacity-100',
+        'group-aria-[disabled=false]:bg-gray-300/15 group-aria-[disabled=false]:hover:bg-gray-300/30',
         className
       )}
       {...props}
@@ -127,9 +127,8 @@ const Base = ({
 
   return (
     <div
-      aria-disabled={disabled}
       className={StyleHelper.mergeStyles(
-        'relative w-full gap-x-2.5 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-[disabled=false]:cursor-pointer',
+        'relative w-full gap-x-2.5 group-aria-[disabled=false]:cursor-pointer group-aria-[disabled=true]:cursor-not-allowed group-aria-[disabled=true]:opacity-50',
         {
           'px-7': wide,
           'h-12 text-sm': !flat,

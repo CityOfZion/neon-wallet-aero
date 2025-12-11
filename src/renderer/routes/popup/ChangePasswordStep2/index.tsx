@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { DownloadQRCodePasswordButton } from '@renderer/components/DownloadQRCodePasswordButton'
 
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
@@ -27,7 +28,6 @@ type TLocationState = {
 
 export const ChangePasswordStep2Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'changePassword.step2' })
-  const { t: tHookUseLogin } = useTranslation('hooks', { keyPrefix: 'useLogin' })
   const { loginSessionRef } = useLoginSessionSelector()
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
@@ -41,10 +41,6 @@ export const ChangePasswordStep2Page = () => {
 
   const [isDownloading, startDownload] = usePressOnce(async () => {
     try {
-      const loginSession = loginSessionRef.current
-
-      if (!loginSession) throw new Error(tHookUseLogin('controlIsNotSet'))
-
       const encryptedNewPassword = await encryptPassword(newPassword)
 
       const walletPromises = wallets.map(async wallet => {
@@ -57,7 +53,7 @@ export const ChangePasswordStep2Page = () => {
 
             if (!encryptedKey) return account
 
-            const key = await EncryptionHelper.decrypt(encryptedKey, loginSession.encryptedPassword)
+            const key = await EncryptionHelper.decrypt(encryptedKey, loginSessionRef.current?.encryptedPassword)
 
             const newEncryptedKey = await EncryptionHelper.encrypt(key, encryptedNewPassword)
 
@@ -68,7 +64,7 @@ export const ChangePasswordStep2Page = () => {
         const encryptedMnemonic = clonedWallet.encryptedMnemonic
 
         if (encryptedMnemonic) {
-          const mnemonic = await EncryptionHelper.decrypt(encryptedMnemonic, loginSession.encryptedPassword)
+          const mnemonic = await EncryptionHelper.decrypt(encryptedMnemonic, loginSessionRef.current?.encryptedPassword)
 
           clonedWallet.encryptedMnemonic = await EncryptionHelper.encrypt(mnemonic, encryptedNewPassword)
         }
@@ -83,7 +79,7 @@ export const ChangePasswordStep2Page = () => {
       navigate('/settings/change-password/3')
     } catch (error) {
       console.error(error)
-      ToastHelper.error({ message: t('error') })
+      ToastHelper.error({ message: AppError.wrap(error, t('error')).message })
     }
   })
 

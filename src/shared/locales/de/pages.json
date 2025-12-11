@@ -4,6 +4,9 @@
       "autoAcceptProcessingMessage": "WalletConnect-Anfrage wird verarbeitet…",
       "autoAcceptSuccessMessage": "WalletConnect-Anfrage erfolgreich verarbeitet",
       "autoAcceptErrorMessage": "WalletConnect-Anfrage Verarbeitung fehlgeschlagen"
+    },
+    "hardwareWalletManagerSetup": {
+      "requestingPermission": "Warten Sie Hardware-Gerät-Bestätigung..."
     }
   },
   "wallets": {
@@ -21,10 +24,6 @@
       "refreshIconButton": "Aktualisieren",
       "copyIconButton": "Kopieren"
     },
-    "claimButton": {
-      "gasAvailableLabel": "Einfordern",
-      "gasUnavailableLabel": "Einfordern nicht verfügbar"
-    },
     "tokenTab": {
       "label": "Token"
     },
@@ -36,7 +35,8 @@
     },
     "connectionsTab": {
       "label": "Verbindungen"
-    }
+    },
+    "claimButtonButtonLabel": "Anspruch"
   },
   "login": {
     "title": "Willkommen bei",
@@ -513,5 +513,19 @@
       "description": "Ihre NEO Wallets und Konten:",
       "submitButtonLabel": "Mit diesem Konto abstimmen"
     }
+  },
+  "loginHardware": {
+    "title": "Verbinde deine Hardware-Wallet",
+    "byBluetoothButtonLabel": "Über Bluetoth",
+    "byUSBButtonLabel": "Durch USB",
+    "successToastMessage": "Gerätewallet verbunden erfolgreich"
+  },
+  "connectHardwareWallet": {
+    "title": "Verbinden-Hardware",
+    "description": "Wie möchten Sie sich verbinden?",
+    "byBluetoothButtonLabel": "Über Bluetooth",
+    "byUSBButtonLabel": "Mit USB",
+    "successToastMessage": "Hartenware-Portefeuille erfolgreich verbunden",
+    "disconnectButtonLabel": "Hardware-Wallet-Abreissen"
   }
 }

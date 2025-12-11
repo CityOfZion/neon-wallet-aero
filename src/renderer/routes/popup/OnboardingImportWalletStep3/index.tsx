@@ -10,6 +10,7 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Textarea } from '@renderer/components/Textarea'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import type { TUseBackupOrMigrateActionsData } from '@renderer/hooks/useBackupOrMigrate'
@@ -176,8 +177,8 @@ export const OnboardingImportWalletStep3Page = () => {
             })
 
             modalErase('bottom')
-          } catch {
-            throw new Error('Invalid password')
+          } catch (error) {
+            throw new AppError(confirmPasswordT('passwordError'), error)
           }
         },
       },

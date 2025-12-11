@@ -1,6 +1,7 @@
 import type { TBSAccount } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountUtils } from '@renderer/hooks/useAccountUtils'
@@ -53,7 +54,7 @@ export const ImportAccountsSelectionMnemonic = ({ value, onSubmit }: TProps) => 
       modalErase('bottom')
     } catch (error) {
       console.error(error)
-      ToastHelper.error({ message: t('errors.walletAndAccounts') })
+      ToastHelper.error({ message: AppError.wrap(error, t('errors.walletAndAccounts')).message })
     }
   }
 

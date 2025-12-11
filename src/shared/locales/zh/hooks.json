@@ -31,7 +31,8 @@
       "invalid": "无效的值或已存在",
       "empty": "请输入一些内容",
       "invalidMnemonic": "助记词无效",
-      "mnemonicIncomplete": "助记词不完整"
+      "mnemonicIncomplete": "助记词不完整",
+      "typeNotSupported": "提供的导入类型不受支持"
     }
   },
   "useBackupOrMigrate": {

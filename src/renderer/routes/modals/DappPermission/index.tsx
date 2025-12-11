@@ -6,6 +6,7 @@ import type { PendingRequestTypes, SessionTypes } from '@walletconnect/types'
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { WalletConnectError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -67,13 +68,15 @@ export const DappPermissionModal = () => {
           content: <DappPermissionSuccessContent response={response} />,
         },
       })
-    } catch (error: any) {
+    } catch (error) {
+      const walletConnectError = WalletConnectError.wrap(error)
+
       modalNavigate('error', {
         replace: true,
         state: {
           heading: t('errorContent.title'),
           subtitle: t('errorContent.subtitle'),
-          content: <DappPermissionErrorContent error={error} />,
+          content: <DappPermissionErrorContent error={walletConnectError} />,
         },
       })
     }

@@ -32,9 +32,8 @@ export const RootPage = () => {
       await waitForBootstrap()
 
       const loginSession = await rendererApi.send('login:get-session')
-
       if (!loginSession) {
-        throw new Error('No login session found')
+        throw new Error()
       }
 
       store.dispatch(authReducerActions.setLoginSession(loginSession))

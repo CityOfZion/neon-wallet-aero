@@ -1,6 +1,7 @@
 import type { IWalletKit } from '@reown/walletkit'
 import type { PendingRequestTypes, ProposalTypes } from '@walletconnect/types'
 
+import type { THardwareWalletHelperConnectionType } from '@shared/types/helpers'
 import type { TLoginSession } from '@shared/types/store'
 
 export type TMessageApiListener<T = any[], R = any> = (options: {
@@ -36,6 +37,8 @@ export type TMessageBackgroundApi = {
   'wallet-connect:get-sessions': TMessageApiListener<undefined, TWalletConnectGetSessionsResponse>
   'wallet-connect:get-requests': TMessageApiListener<undefined, TWalletConnectGetRequestsResponse>
   'wallet-connect:respond-request': TMessageApiListener<TWalletConnectRespondRequestArgs, void>
+  'hardware-wallet:save-type': TMessageApiListener<THardwareWalletHelperConnectionType | undefined, void>
+  'hardware-wallet:get-type': TMessageApiListener<undefined, THardwareWalletHelperConnectionType | undefined>
 }
 
 export type TMessageRendererApi = {

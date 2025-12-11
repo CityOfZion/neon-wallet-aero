@@ -2,6 +2,7 @@ import { BSKeychainHelper } from '@cityofzion/blockchain-service'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
@@ -34,8 +35,7 @@ export const useImportActions = (
 
   const validateMnemonic = (value: string) => {
     const isValid = BSKeychainHelper.isValidMnemonic(value)
-
-    if (!isValid) throw new Error(t('errors.mnemonicIncomplete'))
+    if (!isValid) throw new AppError(t('errors.mnemonicIncomplete'))
   }
 
   const isValidAddress = (address: string) =>
@@ -66,7 +66,7 @@ export const useImportActions = (
         }
       })
 
-      if (!functionsByInputType) throw new Error()
+      if (!functionsByInputType) throw new AppError(t('errors.typeNotSupported'))
       const inputType = functionsByInputType[0] as TUseImportActionInputType
 
       setData({ inputType })
@@ -79,28 +79,28 @@ export const useImportActions = (
 
       clearErrors()
     } catch (error: any) {
-      setError('text', error.message || t('errors.invalid'))
+      setError('text', AppError.wrap(error, t('errors.invalid')).message)
     }
   }
 
   const handleSubmit = async (data: TFormData) => {
     try {
       if (!data.text.length) {
-        throw new Error(t('errors.empty'))
+        throw new AppError(t('errors.empty'))
       }
 
       if (!data.inputType) {
-        throw new Error(t('errors.invalid'))
+        throw new AppError(t('errors.invalid'))
       }
 
       const fixedText = UtilsHelper.removeSpecialCharacters(data.text, { trimText: true })
       const submit = submitByInputType[data.inputType]
 
-      if (!submit) throw new Error(t('errors.invalid'))
+      if (!submit) throw new AppError(t('errors.invalid'))
 
       await submit(fixedText, data.inputType)
-    } catch (error: any) {
-      setError('text', error.message)
+    } catch (error) {
+      setError('text', AppError.wrap(error).message)
     }
   }
 

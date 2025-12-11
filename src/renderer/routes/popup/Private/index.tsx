@@ -6,6 +6,8 @@ import { LazyHelper } from '@renderer/helpers/LazyHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 
+import HardwareWalletManagerSetup from './HardwareWalletManagerSetup'
+
 const NetworkBanner = lazy(() => import('@renderer/components/NetworkBanner'))
 const WalletConnectManagerSetup = LazyHelper.delayedLazy(() => import('./WalletConnectManagerSetup'), 1000)
 
@@ -24,6 +26,9 @@ export const PrivatePage = () => {
         <WalletConnectManagerSetup />
       </Suspense>
 
+      <Suspense fallback={null}>
+        <HardwareWalletManagerSetup />
+      </Suspense>
       <Outlet />
     </Fragment>
   )

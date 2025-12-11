@@ -30,7 +30,8 @@
     "watchWalletName": "Watch Wallet",
     "importedWalletName": "Importierte Wallet",
     "encryptedName": "Verschlüsselte Wallet",
-    "migratedWalletName": "Migrierte Wallet"
+    "migratedWalletName": "Migrierte Wallet",
+    "hardwareName": "{{blockchain}} Hardware-Wallet"
   },
   "account": {
     "defaultName": "Konto {{accountNumber}}"
@@ -45,7 +46,12 @@
     "arbitrum": "Arbitrum"
   },
   "errors": {
-    "noLoginSession": "Sie müssen sich anmelden, um auf diese Funktion zuzugreifen."
+    "noLoginSession": "Sie müssen sich anmelden, um auf diese Funktion zuzugreifen.",
+    "noMnemonic": "Keine assoziative Verweisung verfügbar",
+    "noKey": "Kein Schlüssel verfügbar",
+    "walletNotFound": "Brieftasche nicht gefunden",
+    "accountNotFound": "Konto nicht gefunden",
+    "unexpectedError": "Es ist ein unerwarteter Fehler aufgetreten. Bitte wenden Sie sich an den Support, falls das Problem weiterhin besteht."
   },
   "synonyms": {
     "view": ["sehen", "betrachten", "beobachten", "ansehen"],
@@ -74,5 +80,32 @@
     "add": ["anfügen", "einschließen", "erhöhen", "hinzufügen"],
     "acquire": ["erhalten", "bekommen"],
     "crypto": ["token", "tokens"]
+  },
+  "hardwareWallet": {
+    "errors": {
+      "disconnectFirst": "Sie müssen die Hardware-Wallet trennen, bevor Sie sie erneut verbinden",
+      "accountsNotFound": "Die Blockchain der Hardware-Wallet konnte nicht erkannt werden. Stellen Sie sicher, dass eine unterstützte App geöffnet ist",
+      "hardwareWalletNotFound": "Es ist keine Hardware-Wallet verbunden",
+      "hardwareWalletIsNotConnectOrUnlocked": "Stellen Sie sicher, dass Ihre Hardware-Wallet entsperrt ist, um fortzufahren",
+      "blockchainNotSupported": "Die Blockchain {{blockchain}} unterstützt keine Hardware-Wallets",
+      "missingBip44Path": "Der BIP44-Pfad für das Hardware-Wallet-Konto fehlt",
+      "accountIsNotHardware": "Das ausgewählte Konto ist kein Hardware-Wallet-Konto",
+      "userCancelled": "Der Vorgang wurde vom Benutzer abgebrochen",
+      "hidNotSupported": "WebHID wird in diesem Browser nicht unterstützt",
+      "bluetoothNotSupported": "WebBluetooth wird in diesem Browser nicht unterstützt"
+    }
+  },
+  "encryption": {
+    "errors": {
+      "noPasswordEncryption": "Kein Passwort wurde für die Verschlüsselung bereitgestellt",
+      "noPasswordDecryption": "Kein Passwort zur Entschlüsselung bereitgestellt.",
+      "noValueDecryption": "Kein Wert für Verschlüsselung angegeben."
+    }
+  },
+  "walletConnect": {
+    "errorsByCode": {
+      "UNEXPECTED_ERROR": "Ein unerwarteter Fehler trat auf. Bitte versuchen Sie erneut oder kontaktieren Sie den Support.",
+      "NO_SERVICE": "Das DApp versucht, eine andere Blockchain oder Netzwerk zu verbinden als das ausgewählte."
+    }
   }
 }

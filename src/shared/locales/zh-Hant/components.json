@@ -19,7 +19,7 @@
     "showPasswordIconButtonLabel": "顯示密碼"
   },
   "temporaryLimitsBox": {
-    "description": "這是一個觀察帳戶，將限制您對以下功能的訪問：",
+    "description": "使用這個登入方法將限制您的存取到",
     "limits": ["備份和恢復", "錢包自定義", "匯入/匯出功能", "建立新錢包", "以及其他功能…"]
   },
   "passwordStrength": {

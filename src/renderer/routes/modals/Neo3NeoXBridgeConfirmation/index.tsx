@@ -7,7 +7,6 @@ import { Details } from '@renderer/components/Details'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
-import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useExchange } from '@renderer/hooks/useExchange'
 import { useModalState } from '@renderer/hooks/useModalRouter'
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
@@ -34,10 +33,8 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
     tokenToUse,
     fromService,
   } = useModalState<TModalState<'neo3-neox-bridge-confirmation'>>()
-  const [isPressing, startPress] = usePressOnce()
-  const { currency } = useCurrencySelector()
 
-  const { confirmAction } = useConfirmAction()
+  const { currency } = useCurrencySelector()
 
   const tokenExchange = useExchange(
     tokenToReceive
@@ -50,30 +47,24 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
       : []
   )
 
+  const [isConfirming, startConfirm] = usePressOnce(async () => {
+    await onConfirm()
+  })
+
+  if (!accountToUse || !tokenToUse || !tokenToReceive || !fromService || !amountToReceive || !amountToUse) {
+    return null
+  }
+
   const tokenToReceiveFiatPrice =
     tokenExchange && tokenToReceive
       ? ExchangeHelper.getExchangeConvertedPrice(tokenToReceive.hash, tokenToReceive.blockchain, tokenExchange.data)
       : 0
-
-  if (!accountToUse || !tokenToUse || !tokenToReceive || !fromService || !amountToReceive || !amountToUse) {
-    return
-  }
 
   const amountToReceiveFiatPrice = BSBigNumberHelper.fromNumber(amountToReceive)
     .times(tokenToReceiveFiatPrice)
     .toString()
 
   const formattedTokenToReceiveFiat = NumberHelper.currency(amountToReceiveFiatPrice, { currency })
-
-  const handleSubmit = async () => {
-    try {
-      await confirmAction({ account: accountToUse })
-    } catch {
-      return
-    }
-
-    await onConfirm()
-  }
 
   return (
     <BottomModalLayout heading={t('title')}>
@@ -128,8 +119,8 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
           leftIcon={<MdCheck aria-hidden />}
           iconsOnEdge={false}
           label={t('confirmButtonLabel')}
-          loading={isPressing}
-          onClick={startPress(handleSubmit)}
+          loading={isConfirming}
+          onClick={startConfirm}
         />
       </div>
     </BottomModalLayout>

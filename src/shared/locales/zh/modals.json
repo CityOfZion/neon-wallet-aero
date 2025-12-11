@@ -190,7 +190,8 @@
     "description": "为了保护您资产的安全，请确认您的密码",
     "inputPlaceholder": "输入密码…",
     "error": "密码未被识别！",
-    "buttonContinueLabel": "继续"
+    "buttonContinueLabel": "继续",
+    "invalidPasswordError": "无效密码"
   },
   "exportMnemonic": {
     "title": "导出钱包",
@@ -258,12 +259,6 @@
     "rejectButtonLabel": "拒绝",
     "messages": {
       "connected": "{{dappName}} 已连接。"
-    },
-    "errors": {
-      "unknown": "发生未知错误。请重试。"
-    },
-    "errorsByCode": {
-      "NO_SERVICE": "该 dApp 尝试连接到与当前选择不同的区块链或网络。"
     }
   },
   "dappDisconnection": {
@@ -663,5 +658,13 @@
       "noFunction": "此项目没有可用的操作。请联系我们的支持团队。",
       "errorToExecute": "执行操作时出错。请联系我们的支持团队。"
     }
+  },
+  "connectHardwareWalletModal": {
+    "title": "连接硬件",
+    "subtitle": "寻找您的钱包",
+    "searchAgainButtonLabel": "再搜索",
+    "searchingUsbMessage": "扫描连接设备…",
+    "searchingBluetoothMessage": "搜索附近设备…",
+    "alert": "请确保您的硬件钱包已解锁、连接到支持的应用程序，并连接到此设备。"
   }
 }

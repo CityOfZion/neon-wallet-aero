@@ -7,6 +7,8 @@ import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 import { Separator } from '@renderer/components/Separator'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
+
 import type { TUseBackupOrMigrateActionsData } from '@renderer/hooks/useBackupOrMigrate'
 import { useBackupOrMigrate } from '@renderer/hooks/useBackupOrMigrate'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
@@ -67,8 +69,8 @@ export const MigrateFromNeon2Step2Page = () => {
                 footer: <SuccessFooter />,
               },
             })
-          } catch {
-            throw new Error('Invalid password')
+          } catch (error) {
+            throw new AppError(confirmPasswordT('passwordError'), error)
           }
         },
       },

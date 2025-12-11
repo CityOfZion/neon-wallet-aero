@@ -21,7 +21,7 @@ export const CreateAccountStep2Accordion = ({ selectedWallet, onSelect }: TProps
   const { wallets } = useWalletsSelector()
 
   const filteredWallets = useMemo<IWalletState[]>(() => {
-    return wallets.filter(wallet => !!wallet.encryptedMnemonic)
+    return wallets.filter(wallet => !!wallet.encryptedMnemonic || wallet.type === 'hardware')
   }, [wallets])
 
   const walletsId = useMemo(() => filteredWallets.map(wallet => wallet.id), [filteredWallets])

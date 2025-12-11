@@ -190,7 +190,8 @@
     "description": "Para proteger o acesso aos seus ativos, confirme sua senha",
     "inputPlaceholder": "Digite a senha…",
     "error": "Senha não reconhecida!",
-    "buttonContinueLabel": "Continuar"
+    "buttonContinueLabel": "Continuar",
+    "invalidPasswordError": "Senha inválida"
   },
   "exportMnemonic": {
     "title": "Exportar carteira",
@@ -258,12 +259,6 @@
     "rejectButtonLabel": "Rejeitar",
     "messages": {
       "connected": "{{dappName}} está conectado."
-    },
-    "errors": {
-      "unknown": "Um erro desconhecido ocorreu. Por favor, tente novamente."
-    },
-    "errorsByCode": {
-      "NO_SERVICE": "O dApp está tentando se conectar a uma blockchain ou rede diferente do que foi selecionado."
     }
   },
   "dappDisconnection": {
@@ -663,5 +658,13 @@
       "noFunction": "Não há ação disponível para este item. Por favor, entre em contato com nosso suporte.",
       "errorToExecute": "Houve um erro ao tentar executar a ação. Por favor, entre em contato com nosso suporte."
     }
+  },
+  "connectHardwareWalletModal": {
+    "title": "Conectar hardware",
+    "subtitle": "Procurando sua carteira",
+    "searchAgainButtonLabel": "Procure novamente",
+    "searchingUsbMessage": "Pesquisando dispositivos conectados…",
+    "searchingBluetoothMessage": "Pesquisando dispositivos próximos…",
+    "alert": "Por favor, certifique-se de que sua carteira hardware esteja desbloqueada, conectada à uma aplicação compatível e conectada a esse dispositivo."
   }
 }

@@ -9,6 +9,7 @@ import { DappHeader } from '@renderer/components/DappHeader'
 import { Details } from '@renderer/components/Details'
 import { ScreenLoader } from '@renderer/components/ScreenLoader'
 
+import { WalletConnectError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -42,7 +43,7 @@ export const DappConnectionRequestModal = () => {
 
       ToastHelper.success({ message: t('messages.connected', { dappName: proposal.proposer.metadata.name }) })
     } catch (error: any) {
-      ToastHelper.error({ message: error.message })
+      ToastHelper.error({ message: WalletConnectError.wrap(error).message })
     } finally {
       modalErase('bottom')
     }

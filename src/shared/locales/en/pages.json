@@ -4,6 +4,9 @@
       "autoAcceptProcessingMessage": "WalletConnect request being processed…",
       "autoAcceptSuccessMessage": "WalletConnect request successfully processed",
       "autoAcceptErrorMessage": "WalletConnect request processing failed"
+    },
+    "hardwareWalletManagerSetup": {
+      "requestingPermission": "Waiting hardware device confirmation…"
     }
   },
   "wallets": {
@@ -21,10 +24,7 @@
       "refreshIconButton": "Refresh",
       "copyIconButton": "Copy"
     },
-    "claimButton": {
-      "gasAvailableLabel": "Claim",
-      "gasUnavailableLabel": "Claim unavailable"
-    },
+    "claimButtonButtonLabel": "Claim",
     "tokenTab": {
       "label": "Tokens"
     },
@@ -58,6 +58,12 @@
     "description": "Enter an address, key or mnemonic words:",
     "inputPlaceholder": "Enter an address, key or mnemonic…",
     "buttonContinueLabel": "Continue"
+  },
+  "loginHardware": {
+    "title": "Connect your hardware wallet",
+    "byBluetoothButtonLabel": "By Bluetooth",
+    "byUSBButtonLabel": "By USB",
+    "successToastMessage": "Hardware wallet connected successfully"
   },
   "forgottenPassword": {
     "title": "Forgotten password",
@@ -507,5 +513,13 @@
       "description": "Your NEO wallets and accounts:",
       "submitButtonLabel": "Vote using this account"
     }
+  },
+  "connectHardwareWallet": {
+    "title": "Connect Hardware",
+    "description": "How do you want to connect ?",
+    "byBluetoothButtonLabel": "By Bluetooth",
+    "byUSBButtonLabel": "By USB",
+    "successToastMessage": "Hardware wallet connected successfully",
+    "disconnectButtonLabel": "Disconnect hardware wallet"
   }
 }

@@ -176,7 +176,7 @@ export type TAccountWithWallet = IAccountState & {
   wallet: IWalletState
 }
 
-export type TLoginSessionType = 'password' | 'key'
+export type TLoginSessionType = 'password' | 'key' | 'hardware'
 
 export type TLoginSession = {
   type: TLoginSessionType

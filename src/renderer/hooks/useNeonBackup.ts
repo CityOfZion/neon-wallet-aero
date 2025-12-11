@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import zod from 'zod'
 
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
@@ -220,7 +221,7 @@ export const useNeonImportBackup = () => {
       return await backupDataSchema.parseAsync(parsedData)
     } catch (error) {
       console.error(error)
-      throw new Error(t('errors.wrongPassword'))
+      throw new AppError(t('errors.wrongPassword'), error)
     }
   }
 
@@ -330,8 +331,8 @@ export const useNeonImportBackup = () => {
       })
 
       await Promise.allSettled(promises)
-    } catch {
-      throw new Error(t('errors.importData'))
+    } catch (error) {
+      throw new AppError(t('errors.importData'), error)
     }
   }
   return {
@@ -344,6 +345,7 @@ export const useNeonImportBackup = () => {
 
 export const useNeonCreateBackup = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useNeonBackup' })
+  const { t: tCommon } = useTranslation('common')
   const { loginSessionRef } = useLoginSessionSelector()
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
@@ -351,7 +353,7 @@ export const useNeonCreateBackup = () => {
 
   const handleCreateBackupFormat = async () => {
     if (!loginSessionRef.current) {
-      throw new Error(t('errors.unexpectedError'))
+      throw new AppError(tCommon('errors.noLoginSession'))
     }
 
     const encryptedPassword = loginSessionRef.current.encryptedPassword
@@ -431,8 +433,8 @@ export const useNeonCreateBackup = () => {
       const fileName = `Neon-Backup-${format(new Date(), 'yyyy-MM-dd')}.${BACKUP_FILE_EXTENSION}`
 
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
-    } catch {
-      throw new Error(t('errors.backupError'))
+    } catch (error) {
+      throw new AppError(t('errors.backupError'), error)
     }
   }
 

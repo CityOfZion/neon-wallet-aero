@@ -18,11 +18,12 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import { useAccountsMapSelector } from '@renderer/hooks/useAccountsMapSelector'
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -282,7 +283,7 @@ const SendPage = () => {
       )
     } catch (error) {
       console.error(error)
-      ToastHelper.error({ message: t('errors.calculateMaxAmount') })
+      ToastHelper.error({ message: AppError.wrap(error, t('errors.calculateMaxAmount')).message })
     } finally {
       isDisabledMaxAmountRef.current = false
       setData({ isLoadingMaxAmount: false, maxAmountRecipientId: '' })
@@ -309,11 +310,7 @@ const SendPage = () => {
 
     if (!fields || isCalculatingForm || actionState.isActing || isFeeInvalid) return
 
-    try {
-      await confirmAction({ account: fields.selectedAccount })
-    } catch {
-      return
-    }
+    await confirmAction({ account: fields.selectedAccount })
 
     try {
       const transactionHashes = await fields.service.transfer({
@@ -352,7 +349,7 @@ const SendPage = () => {
       ToastHelper.success({ message: t('sendSuccess.toast') })
     } catch (error: any) {
       console.error(error)
-      ToastHelper.error({ message: t('sendFail.toast') })
+      ToastHelper.error({ message: AppError.wrap(error, t('sendFail.toast')).message })
     } finally {
       handleReset()
     }
@@ -405,7 +402,7 @@ const SendPage = () => {
         }
       } catch (error) {
         console.error(error)
-        ToastHelper.error({ message: t('errors.feeError') })
+        ToastHelper.error({ message: AppError.wrap(error, t('errors.feeError')).message })
         setError('fee', t('errors.feeError'))
         setData({ fee: undefined })
       } finally {

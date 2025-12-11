@@ -19,7 +19,7 @@
     "showPasswordIconButtonLabel": "Passwort einblenden"
   },
   "temporaryLimitsBox": {
-    "description": "Dies ist ein Watch Account mit eingeschränktem Zugang zu:",
+    "description": "Mit diesem Anmeldeverfahren werden Ihre Zugangsrechte begrenzt auf:",
     "limits": [
       "Backup und Wiederherstellung",
       "Wallet-Personalisierung",

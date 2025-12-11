@@ -5,9 +5,12 @@ import { Button } from '@renderer/components/Button'
 import { Details } from '@renderer/components/Details'
 import { Tooltip } from '@renderer/components/Tooltip'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
+import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
+import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
@@ -26,6 +29,7 @@ export const SwapConfirmationModal = () => {
   const { swapRecord, swapOrchestrator } = useModalState<TModalState<'swap-confirmation'>>()
   const { t } = useTranslation('modals', { keyPrefix: 'swapConfirmation' })
   const { currency } = useCurrencySelector()
+  const { confirmAction } = useConfirmAction()
 
   const { modalNavigate } = useModalNavigate()
   const dispatch = useAppDispatch()
@@ -34,19 +38,24 @@ export const SwapConfirmationModal = () => {
     if (!swapOrchestrator) return
 
     try {
+      await confirmAction({ account: swapRecord.account })
+
       const swapResponse = await swapOrchestrator.swap()
 
-      swapRecord.swapId = swapResponse.id
-      swapRecord.txFrom = swapResponse.txFrom
-      swapRecord.log = swapResponse.log
-    } catch (error: any) {
-      console.error(error)
-    } finally {
-      if (!swapRecord.txFrom) swapRecord.swapStatus = 'refunded'
-
-      dispatch(utilityReducerActions.persistSwapRecord(swapRecord))
+      dispatch(
+        utilityReducerActions.persistSwapRecord({
+          ...swapRecord,
+          swapId: swapResponse.id,
+          txFrom: swapResponse.txFrom,
+          log: swapResponse.log,
+          swapStatus: swapResponse.txFrom ? swapRecord.swapStatus : 'refunded',
+        })
+      )
 
       modalNavigate('swap-details', { state: { swapRecord }, replace: true })
+    } catch (error: any) {
+      console.error(error)
+      ToastHelper.error({ message: AppError.wrap(error).message })
     }
   }
 

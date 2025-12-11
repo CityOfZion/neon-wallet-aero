@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
+import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLogin } from '@renderer/hooks/useLogin'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
@@ -26,6 +27,9 @@ export const MenuModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'menu' })
   const { logout } = useLogin()
   const { modalErase, modalNavigate } = useModalNavigate()
+  const { loginSession } = useLoginSessionSelector()
+
+  const isPasswordLogin = loginSession?.type === 'password'
 
   const handleOpenSearchModal = async () => {
     modalErase('bottom')
@@ -48,7 +52,12 @@ export const MenuModal = () => {
           onClick={() => rendererApi.send('tab:open', { path: '/buy-and-sell-tokens' })}
         />
 
-        <MenuItemLink label={t('importItemLabel')} to="/import" icon={<TbFileImport aria-hidden />} />
+        <MenuItemLink
+          label={t('importItemLabel')}
+          to="/import"
+          icon={<TbFileImport aria-hidden />}
+          isDisabled={!isPasswordLogin}
+        />
 
         <MenuItemLink label={t('neo3NeoXBridgeItemLabel')} to="/neo3-neox-bridge" icon={<TbReplace2 aria-hidden />} />
 
@@ -57,8 +66,8 @@ export const MenuModal = () => {
         <MenuItemLink
           label={t('connectHardwareWalletItemLabel')}
           to="/connect-hardware-wallet"
-          isDisabled
           icon={<TbDeviceUsb aria-hidden className="rotate-45" />}
+          isDisabled={!isPasswordLogin}
         />
 
         <MenuItemLink label={t('contactsItemLabel')} to="/contacts" icon={<TbUsers aria-hidden />} />

@@ -13,6 +13,7 @@ import { Separator } from '@renderer/components/Separator'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -120,11 +121,7 @@ export const VoteNeo3ConfirmationModal = () => {
 
     try {
       await confirmAction({ account: neo3Account })
-    } catch {
-      return
-    }
 
-    try {
       const key = await EncryptionHelper.decrypt(neo3Account.encryptedKey, loginSessionRef.current?.encryptedPassword)
       const account = AccountHelper.getServiceAccount({ account: neo3Account!, key })
 
@@ -171,7 +168,7 @@ export const VoteNeo3ConfirmationModal = () => {
       modalNavigate('vote-neo3-success', { state: { candidate, neo3Account }, replace: true })
     } catch (error) {
       console.error(error)
-      ToastHelper.error({ message: t('errors.castVoteFailed'), duration: 6000 })
+      ToastHelper.error({ message: AppError.wrap(error, t('errors.castVoteFailed')).message, duration: 6000 })
     }
   }
 

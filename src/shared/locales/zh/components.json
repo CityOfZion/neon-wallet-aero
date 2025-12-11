@@ -19,7 +19,7 @@
     "showPasswordIconButtonLabel": "显示密码"
   },
   "temporaryLimitsBox": {
-    "description": "这是一个观察账户，将限制您对以下功能的访问：",
+    "description": "使用该登录方法将限制您对“",
     "limits": ["备份和恢复", "钱包自定义", "导入/导出功能", "创建新钱包", "以及其他功能…"]
   },
   "passwordStrength": {

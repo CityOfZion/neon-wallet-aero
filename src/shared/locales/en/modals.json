@@ -190,6 +190,7 @@
     "description": "To protect access to your assets, please confirm your password",
     "inputPlaceholder": "Enter password…",
     "error": "Password not recognised!",
+    "invalidPasswordError": "Invalid password",
     "buttonContinueLabel": "Continue"
   },
   "exportMnemonic": {
@@ -258,12 +259,6 @@
     "rejectButtonLabel": "Reject",
     "messages": {
       "connected": "{{dappName}} is now connected."
-    },
-    "errors": {
-      "unknown": "An unknown error occurred. Please try again."
-    },
-    "errorsByCode": {
-      "NO_SERVICE": "The dApp is trying to connect to a different blockchain or network than the one selected."
     }
   },
   "dappDisconnection": {
@@ -663,5 +658,13 @@
       "noFunction": "There is no action available for this item. Please, contact our support.",
       "errorToExecute": "There was an error trying to execute the action. Please, contact our support."
     }
+  },
+  "connectHardwareWalletModal": {
+    "title": "Connect hardware",
+    "subtitle": "Looking for your wallet",
+    "searchAgainButtonLabel": "Search again",
+    "searchingUsbMessage": "Scanning for connected devices…",
+    "searchingBluetoothMessage": "Searching for nearby devices…",
+    "alert": " Please ensure your hardware wallet is unlocked, connected to a supported app and connected to this device"
   }
 }

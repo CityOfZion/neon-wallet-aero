@@ -7,6 +7,7 @@ import { IconButton } from '@renderer/components/IconButton'
 import { Separator } from '@renderer/components/Separator'
 import { Tooltip } from '@renderer/components/Tooltip'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -40,6 +41,8 @@ export const WalletSelectionModal = () => {
   const dispatch = useAppDispatch()
   const [editMode, setEditMode] = useState(false)
 
+  const isPasswordLogin = loginSession?.type === 'password'
+
   const handleSelect = (wallet: IWalletState) => {
     dispatch(settingsReducerActions.setSelectedWallet(wallet))
     onSelect?.(wallet)
@@ -64,14 +67,10 @@ export const WalletSelectionModal = () => {
         buttonLabel: modalT('buttonContinueLabel'),
         onSubmit: async (password: string) => {
           try {
-            if (!loginSessionRef.current) {
-              throw new Error('Login session not defined')
-            }
-
             const encryptedPassword = await encryptPassword(password)
 
-            if (loginSessionRef.current.encryptedPassword !== encryptedPassword) {
-              throw new Error('Invalid password')
+            if (loginSessionRef.current?.encryptedPassword !== encryptedPassword) {
+              throw new AppError(modalT('invalidPasswordError'))
             }
             modalNavigate('export-mnemonic', {
               state: {
@@ -139,6 +138,7 @@ export const WalletSelectionModal = () => {
                   className="w-13"
                   icon={<TbPencil aria-hidden />}
                   onClick={() => setEditMode(true)}
+                  disabled={!isPasswordLogin}
                 />
               </Tooltip>
 
@@ -154,10 +154,11 @@ export const WalletSelectionModal = () => {
                   className="w-13"
                   icon={<TbReorder aria-hidden />}
                   onClick={modalNavigateWrapper('reorder-wallets')}
+                  disabled={!isPasswordLogin}
                 />
               </Tooltip>
 
-              {!!selectedWallet?.encryptedMnemonic && loginSession?.type === 'password' && (
+              {!!selectedWallet?.encryptedMnemonic && (
                 <Button
                   label={t('exportButtonLabel')}
                   className="w-full"
@@ -166,6 +167,7 @@ export const WalletSelectionModal = () => {
                   leftIcon={<TbFileExport aria-hidden />}
                   iconsOnEdge={false}
                   onClick={handleGoToConfirmPasswordModal}
+                  disabled={!isPasswordLogin}
                 />
               )}
 
@@ -176,6 +178,7 @@ export const WalletSelectionModal = () => {
                 leftIcon={<TbPlus aria-hidden />}
                 iconsOnEdge={false}
                 onClick={modalNavigateWrapper('create-wallet-1', { replace: true })}
+                disabled={!isPasswordLogin}
               />
             </Fragment>
           )}

@@ -89,22 +89,19 @@ export const LoginKeyPage = () => {
   )
 
   return (
-    <form
-      onSubmit={handleAct(handleSubmit)}
-      className="flex w-full flex-grow flex-col items-center justify-between pb-10"
-    >
-      <h2 className="mb-2 text-lg text-white">{t('description')}</h2>
+    <form onSubmit={handleAct(handleSubmit)} className="flex w-full grow flex-col items-center">
+      <h2 className="text-lg text-white">{t('description')}</h2>
 
-      <div className="flex w-full flex-col items-center">
-        <Textarea
-          placeholder={t('inputPlaceholder')}
-          value={actionData.text}
-          pastable
-          clearable
-          onChange={handleChange}
-        />
-        <TemporaryLimitsBox className="mt-4 w-full" />
-      </div>
+      <Textarea
+        containerClassName="mt-5"
+        placeholder={t('inputPlaceholder')}
+        value={actionData.text}
+        pastable
+        clearable
+        onChange={handleChange}
+      />
+
+      <TemporaryLimitsBox className="mt-auto w-full" />
 
       <Button
         label={t('buttonContinueLabel')}

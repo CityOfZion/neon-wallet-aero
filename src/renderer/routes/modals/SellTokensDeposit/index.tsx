@@ -19,6 +19,7 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
@@ -182,11 +183,7 @@ export const SellTokensDepositModal = () => {
 
     try {
       await confirmAction({ account, modalType: 'side' })
-    } catch {
-      return
-    }
 
-    try {
       const address = actionData.address
       const token = actionData.token!.token!
 
@@ -221,7 +218,7 @@ export const SellTokensDepositModal = () => {
 
       modalNavigate('sell-tokens-deposit-error', {
         replace: true,
-        state: { errorMessage: error?.message },
+        state: { errorMessage: AppError.wrap(error).message },
       })
     } finally {
       reset()

@@ -16,6 +16,7 @@ import type { TBuyAndSellTokensDepositActions } from '@renderer/routes/tab/BuyAn
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
 
+import type { THardwareWalletHelperConnectionType } from './helpers'
 import type {
   IAccountState,
   IWalletState,
@@ -293,6 +294,11 @@ type TDappPermissionContractDetailsModalState = {
   onReject: () => void
 }
 
+type TConnectHardwareWalletModalState = {
+  type: THardwareWalletHelperConnectionType
+  onConnect: (accounts: TBSAccount<TBlockchainServiceKey>[]) => Promise<void>
+}
+
 export type TModalRouterRouteTypes = {
   menu: undefined
   'wallet-selection': TWalletSelectionModalState
@@ -352,4 +358,5 @@ export type TModalRouterRouteTypes = {
   'dapp-permission-signature-scope': TDappPermissionSignatureScopeModalState
   'dapp-permission-contract-details': TDappPermissionContractDetailsModalState
   search: undefined
+  'connect-hardware-wallet': TConnectHardwareWalletModalState
 }

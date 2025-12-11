@@ -47,7 +47,7 @@ export async function registerWalletConnectHandlers() {
       })
 
       setTimeout(() => {
-        reject(new Error('Timeout waiting for session proposal'))
+        reject()
       }, 6000)
 
       walletKit.pair({ uri: args })

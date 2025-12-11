@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 
 import type { IBlockchainService, IBSWithClaim } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
-import { match, P } from 'ts-pattern'
 
 import { Button } from '@renderer/components/Button'
+import { Skeleton } from '@renderer/components/Skeleton'
 
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useUnclaimed, useUnclaimedMutation } from '@renderer/hooks/useUnclaimedQuery'
@@ -17,7 +17,7 @@ type TProps = {
 }
 
 export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TProps) => {
-  const { t } = useTranslation('pages', { keyPrefix: 'wallets.claimButton' })
+  const { t } = useTranslation('pages', { keyPrefix: 'wallets' })
   const balanceQuery = useBalance(selectAccount)
   const unclaimedQuery = useUnclaimed(selectAccount)
   const unclaimedMutation = useUnclaimedMutation()
@@ -37,29 +37,21 @@ export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TPro
     ? unclaimedQuery.data.feeNumber < unclaimedQuery.data.unclaimedNumber
     : undefined
 
-  const { label, disabled } = match({
-    feeIsLessThanBalance,
-    feeIsLessThanUnclaimed,
-    unclaimedNumber: unclaimedQuery.data?.unclaimedNumber,
-  })
-    .with({ unclaimedNumber: P.nullish }, { feeIsLessThanUnclaimed: false }, { feeIsLessThanBalance: false }, () => ({
-      label: t('gasUnavailableLabel'),
-      disabled: true,
-    }))
-    .otherwise(() => ({
-      label: t('gasAvailableLabel'),
-      disabled: false,
-    }))
+  const isAbleToClaim =
+    feeIsLessThanUnclaimed && feeIsLessThanBalance && unclaimedQuery.data && unclaimedQuery.data.unclaimedNumber > 0
 
   return (
     <div className="flex items-center gap-x-2 text-sm">
-      {unclaimedQuery.data?.unclaimed || 0} {blockchainService.claimToken.symbol}
+      <Skeleton.Root loading={unclaimedQuery.isLoading} items={[<Skeleton.Item className="h-5 w-20" />]}>
+        {unclaimedQuery.data && unclaimedQuery.data.unclaimedNumber > 0 ? unclaimedQuery.data?.unclaimed : 0}{' '}
+        {blockchainService.claimToken.symbol}
+      </Skeleton.Root>
+
       <Button
-        variant="text"
-        label={label}
+        variant="text-slim"
+        label={t('claimButtonButtonLabel')}
         loading={unclaimedMutation.isPending}
-        disabled={disabled}
-        clickableProps={{ className: 'h-6 px-1' }}
+        disabled={!isAbleToClaim}
         onClick={() => unclaimedMutation.mutate(selectAccount)}
       />
     </div>

@@ -50,17 +50,13 @@ export class FileHelper {
     const url = URL.createObjectURL(blob)
 
     try {
-      if (typeof chrome === 'undefined' && !chrome?.downloads) {
-        throw new Error()
-      }
-
       chrome.downloads.download({
         url: url,
         filename: fileName,
         saveAs: true,
       })
-    } catch (downloadError) {
-      console.error('Download failed:', downloadError)
+    } catch (error) {
+      console.error(error)
       // Fallback to anchor element
       const a = document.createElement('a')
       a.href = url

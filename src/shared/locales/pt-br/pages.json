@@ -4,6 +4,9 @@
       "autoAcceptProcessingMessage": "Solicitação de WalletConnect sendo processada…",
       "autoAcceptSuccessMessage": "Solicitação de WalletConnect processada com sucesso",
       "autoAcceptErrorMessage": "Falha ao processar solicitação de WalletConnect"
+    },
+    "hardwareWalletManagerSetup": {
+      "requestingPermission": "Aguardando confirmação do dispositivo físico…"
     }
   },
   "wallets": {
@@ -21,10 +24,6 @@
       "refreshIconButton": "Atualizar",
       "copyIconButton": "Copiar"
     },
-    "claimButton": {
-      "gasAvailableLabel": "Claim",
-      "gasUnavailableLabel": "Claim indisponível"
-    },
     "tokenTab": {
       "label": "Tokens"
     },
@@ -36,7 +35,8 @@
     },
     "connectionsTab": {
       "label": "dApps"
-    }
+    },
+    "claimButtonButtonLabel": "Reivindicar"
   },
   "login": {
     "title": "Bem-vindo a",
@@ -507,5 +507,19 @@
       "description": "Suas carteiras e contas NEO:",
       "submitButtonLabel": "Votar usando esta conta"
     }
+  },
+  "loginHardware": {
+    "title": "Conecte sua carteira hardware",
+    "byBluetoothButtonLabel": "Pela Tecnologia Bluetooth",
+    "byUSBButtonLabel": "Pela USB",
+    "successToastMessage": "Carteira de hardware conectada com sucesso"
+  },
+  "connectHardwareWallet": {
+    "title": "Conectar Equipamento",
+    "description": "Como você gostaria de se conectar?",
+    "byBluetoothButtonLabel": "Pela Bluetooth",
+    "byUSBButtonLabel": "Pelo USB",
+    "successToastMessage": "Carteira hardware conectada com sucesso",
+    "disconnectButtonLabel": "Desconectar carteira hardware"
   }
 }

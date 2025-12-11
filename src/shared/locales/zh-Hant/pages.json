@@ -4,6 +4,9 @@
       "autoAcceptProcessingMessage": "正在處理 WalletConnect 請求…",
       "autoAcceptSuccessMessage": "WalletConnect 請求已成功處理",
       "autoAcceptErrorMessage": "WalletConnect 請求處理失敗"
+    },
+    "hardwareWalletManagerSetup": {
+      "requestingPermission": "等待硬體設備確認…"
     }
   },
   "wallets": {
@@ -21,10 +24,6 @@
       "refreshIconButton": "重新整理",
       "copyIconButton": "複製"
     },
-    "claimButton": {
-      "gasAvailableLabel": "領取",
-      "gasUnavailableLabel": "領取不可用"
-    },
     "tokenTab": {
       "label": "代幣"
     },
@@ -36,7 +35,8 @@
     },
     "connectionsTab": {
       "label": "連接"
-    }
+    },
+    "claimButtonButtonLabel": "聲明"
   },
   "login": {
     "title": "歡迎來到",
@@ -507,5 +507,19 @@
       "description": "您的 NEO 钱包和账户：",
       "submitButtonLabel": "使用此账户投票"
     }
+  },
+  "loginHardware": {
+    "title": "連接硬體錢包",
+    "byBluetoothButtonLabel": "「透過藍牙」",
+    "byUSBButtonLabel": "由USB",
+    "successToastMessage": "硬體錢包連線成功"
+  },
+  "connectHardwareWallet": {
+    "title": "連接硬體",
+    "description": "你想怎麼連接？",
+    "byBluetoothButtonLabel": "由藍牙",
+    "byUSBButtonLabel": "由USB",
+    "successToastMessage": "硬體錢包連接成功",
+    "disconnectButtonLabel": "斷接硬體錢包"
   }
 }

@@ -19,7 +19,7 @@
     "showPasswordIconButtonLabel": "Mostrar senha"
   },
   "temporaryLimitsBox": {
-    "description": "Esta é uma conta watch e limitará seu acesso a:",
+    "description": "Usando esse método de login, você limitará o acesso a:",
     "limits": [
       "Backup e restauração",
       "Personalizações de carteira",
