@@ -161,39 +161,61 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
           onClick={handleSwapNavigation}
         />
 
-        <IconButton
-          text={t('buyAndSellTokensButtonLabel')}
-          variant="boxed"
-          colorSchema="neon"
-          className="w-full"
-          disabled={isWatchAccount}
-          icon={<TbShoppingBag aria-hidden />}
-          onClick={handleBuyAndSellTokensNavigation}
-        />
-
         {match(selectedAccount.blockchain)
+          .with('neo3', () => (
+            <Fragment>
+              <IconButton
+                text={t('bridgeButtonLabel')}
+                variant="boxed"
+                colorSchema="neon"
+                className="w-full"
+                disabled={isWatchAccount}
+                icon={<TbReplace2 aria-hidden />}
+                onClick={() => navigate('/neo3-neox-bridge')}
+              />
+              <IconButton
+                text={t('votingButtonLabel')}
+                variant="boxed"
+                colorSchema="neon"
+                className="w-full"
+                icon={<TbChartBar aria-hidden />}
+                onClick={() => navigate('/vote-neo3')}
+              />
+            </Fragment>
+          ))
           .with('neox', () => (
+            <Fragment>
+              <IconButton
+                text={t('buyAndSellTokensButtonLabel')}
+                variant="boxed"
+                colorSchema="neon"
+                className="w-full"
+                disabled={isWatchAccount}
+                icon={<TbShoppingBag aria-hidden />}
+                onClick={handleBuyAndSellTokensNavigation}
+              />
+              <IconButton
+                text={t('bridgeButtonLabel')}
+                variant="boxed"
+                colorSchema="neon"
+                className="w-full"
+                disabled={isWatchAccount}
+                icon={<TbReplace2 aria-hidden />}
+                onClick={() => navigate('/neo3-neox-bridge')}
+              />
+            </Fragment>
+          ))
+          .otherwise(() => (
             <IconButton
-              text={t('bridgeButtonLabel')}
+              text={t('buyAndSellTokensButtonLabel')}
               variant="boxed"
               colorSchema="neon"
               className="w-full"
               disabled={isWatchAccount}
-              icon={<TbReplace2 aria-hidden />}
-              onClick={() => navigate('/neo3-neox-bridge')}
+              icon={<TbShoppingBag aria-hidden />}
+              onClick={handleBuyAndSellTokensNavigation}
             />
-          ))
-          .with('neo3', () => (
-            <IconButton
-              text={t('votingButtonLabel')}
-              variant="boxed"
-              colorSchema="neon"
-              className="w-full"
-              icon={<TbChartBar aria-hidden />}
-              onClick={() => navigate('/vote-neo3')}
-            />
-          ))
-          .otherwise(() => null)}
+          ))}
       </div>
 
       <Tabs.Root className="mt-7.5" value={tab} onValueChange={newTab => setTab(newTab as TTab)}>
