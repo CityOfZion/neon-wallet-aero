@@ -2,10 +2,12 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
 
+import type { WalletConnectError } from '@renderer/helpers/ErrorHelper'
+
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 type TProps = {
-  error: Error
+  error: WalletConnectError
 }
 
 export const DappPermissionErrorContent = ({ error }: TProps) => {
@@ -20,7 +22,7 @@ export const DappPermissionErrorContent = ({ error }: TProps) => {
         <p className="font-bold text-gray-300 uppercase">{t('errorMessageLabel')}</p>
 
         <p className="bg-asphalt whitespace-pre-wraps w-full overflow-y-auto rounded p-2 font-medium break-words text-white">
-          {error.message}
+          {error.rootMessage || error.message}
         </p>
       </div>
 

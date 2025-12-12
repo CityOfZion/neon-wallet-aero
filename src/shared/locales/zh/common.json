@@ -30,7 +30,8 @@
     "watchWalletName": "观察钱包",
     "importedWalletName": "导入钱包",
     "encryptedName": "加密钱包",
-    "migratedWalletName": "已迁移钱包"
+    "migratedWalletName": "已迁移钱包",
+    "hardwareName": "{{blockchain}} 硬件钱包"
   },
   "account": {
     "defaultName": "账户 {{accountNumber}}"
@@ -45,7 +46,12 @@
     "arbitrum": "Arbitrum"
   },
   "errors": {
-    "noLoginSession": "您需要登录才能访问此功能。"
+    "noLoginSession": "您需要登录才能访问此功能。",
+    "noMnemonic": "无mnemonic可用",
+    "noKey": "无密钥可用",
+    "walletNotFound": "钱包未找到",
+    "accountNotFound": "账户未找到",
+    "unexpectedError": "发生意外错误。如果问题持续存在，请联系支持。"
   },
   "synonyms": {
     "view": ["看", "查看", "观察", "观看"],
@@ -74,5 +80,32 @@
     "add": ["追加", "包括", "增加", "求和"],
     "acquire": ["获得", "得到"],
     "crypto": ["代币", "代币"]
+  },
+  "hardwareWallet": {
+    "errors": {
+      "disconnectFirst": "重新连接前必须先断开硬件钱包",
+      "accountsNotFound": "无法识别硬件钱包的区块链。请确保已打开受支持的应用",
+      "hardwareWalletNotFound": "没有检测到已连接的硬件钱包",
+      "hardwareWalletIsNotConnectOrUnlocked": "请确保您的硬件钱包已解锁以继续操作",
+      "blockchainNotSupported": "区块链 {{blockchain}} 不支持硬件钱包",
+      "missingBip44Path": "硬件钱包账户缺少 BIP44 路径",
+      "accountIsNotHardware": "所选账户不是硬件钱包账户",
+      "userCancelled": "操作已被用户取消",
+      "hidNotSupported": "此浏览器不支持 WebHID",
+      "bluetoothNotSupported": "此浏览器不支持 WebBluetooth"
+    }
+  },
+  "encryption": {
+    "errors": {
+      "noPasswordEncryption": "无密碼提供加密",
+      "noPasswordDecryption": "没有提供解密密码",
+      "noValueDecryption": "未提供解密值"
+    }
+  },
+  "walletConnect": {
+    "errorsByCode": {
+      "UNEXPECTED_ERROR": "一个意外错误发生了。请重新尝试或联系支持。",
+      "NO_SERVICE": "对dApp正在尝试连接到已选择的区块链或网络之外。"
+    }
   }
 }

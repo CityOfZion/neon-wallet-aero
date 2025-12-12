@@ -26,7 +26,7 @@ export const Link = ({
   children,
   ...props
 }: TLinkProps) => {
-  const isDisabled = disabled || loading
+  const isDisabled = disabled || loading || false
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (disabled) {
@@ -39,7 +39,7 @@ export const Link = ({
   return (
     <RRDLink
       aria-disabled={isDisabled}
-      className={StyleHelper.mergeStyles('cursor-default', className)}
+      className={StyleHelper.mergeStyles('group cursor-default', className)}
       onClick={handleClick}
       {...props}
     >

@@ -97,7 +97,7 @@ export const SaveContactModal = () => {
       await saveContacts([contactData])
       modalNavigate(-1)
     } catch (error) {
-      console.error('Failed to save contact:', error)
+      console.error(error)
     }
   }
 

@@ -1,5 +1,10 @@
 import nodeCrypto from 'crypto'
 
+import { getI18next } from '@renderer/libs/i18next'
+
+import { AppError } from './ErrorHelper'
+
+const { t } = getI18next()
 export class EncryptionHelper {
   private static arrayBufferToHex(buffer: any) {
     return [...new Uint8Array(buffer)].map(byte => byte.toString(16).padStart(2, '0')).join('')
@@ -38,7 +43,7 @@ export class EncryptionHelper {
 
   static async encrypt(value: string, encryptedPassword?: string) {
     if (!encryptedPassword) {
-      throw new Error('No password provided for encryption')
+      throw new AppError(t('common:encryption.errors.noPasswordEncryption'))
     }
 
     const keyArrayBytes = this.hexToArrayBuffer(encryptedPassword)
@@ -57,11 +62,11 @@ export class EncryptionHelper {
 
   static async decrypt(encryptedValue?: string, encryptedPassword?: string) {
     if (!encryptedPassword) {
-      throw new Error('No password provided for encryption')
+      throw new AppError(t('common:encryption.errors.noPasswordDecryption'))
     }
 
     if (!encryptedValue) {
-      throw new Error('No value provided for decryption')
+      throw new AppError(t('common:encryption.errors.noValueDecryption'))
     }
 
     const keyArrayBytes = this.hexToArrayBuffer(encryptedPassword)

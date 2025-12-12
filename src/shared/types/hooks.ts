@@ -92,3 +92,5 @@ export type TTransactionsTransfer = {
   token?: TBSToken
   explorerUrl?: string
 }
+
+export type TUseHardwareWalletByUsbStatus = 'searching' | 'connected' | 'not-connected'

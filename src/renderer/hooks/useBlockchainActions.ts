@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { ContactsHelper } from '@renderer/helpers/ContactsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
+import { HardwareWalletHelper } from '@renderer/helpers/HardwareWalletHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
@@ -34,7 +36,7 @@ import { useWalletsSelector } from './useWalletSelector'
 export function useBlockchainActions() {
   const dispatch = useAppDispatch()
   const { loginSessionRef } = useLoginSessionSelector()
-  const { t } = useTranslation('common', { keyPrefix: 'account' })
+  const { t: tCommon } = useTranslation('common')
   const { t: tHook } = useTranslation('hooks', { keyPrefix: 'useBlockchainActions' })
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
@@ -52,7 +54,7 @@ export function useBlockchainActions() {
   const createWallet = useCallback(
     async ({ name, mnemonic, id, type = 'standard' }: TWalletToCreate) => {
       if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
+        throw new AppError(tCommon('errors.noLoginSession'))
       }
 
       let encryptedMnemonic: string | undefined
@@ -73,16 +75,18 @@ export function useBlockchainActions() {
 
       return newWallet
     },
-    [dispatch, loginSessionRef]
+    [dispatch, loginSessionRef, tCommon]
   )
 
   const createStandardAccount = useCallback(
     async ({ blockchain, name, wallet, skin, id }: TAccountToCreate) => {
       if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
+        throw new AppError(tCommon('errors.noLoginSession'))
       }
 
-      if (!wallet.encryptedMnemonic) throw new Error('Problem to create account')
+      if (!wallet.encryptedMnemonic) {
+        throw new AppError(tCommon('errors.noMnemonic'))
+      }
 
       const mnemonic = await EncryptionHelper.decrypt(
         wallet.encryptedMnemonic,
@@ -123,7 +127,7 @@ export function useBlockchainActions() {
 
       return newAccount
     },
-    [loginSessionRef, dispatch]
+    [loginSessionRef, tCommon, dispatch]
   )
 
   const importAccount = useCallback(
@@ -131,11 +135,14 @@ export function useBlockchainActions() {
       let encryptedKey: string | undefined
 
       if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
+        throw new AppError(tCommon('errors.noLoginSession'))
       }
 
       if (type === 'standard' || type === 'hardware') {
-        if (!key) throw new Error('Key not defined')
+        if (!key) {
+          throw new AppError(tCommon('errors.noKey'))
+        }
+
         encryptedKey = await EncryptionHelper.encrypt(key, loginSessionRef.current.encryptedPassword)
       }
 
@@ -144,7 +151,7 @@ export function useBlockchainActions() {
       const newAccount: IAccountState = {
         id: UtilsHelper.uuid(),
         idWallet: wallet.id,
-        name: name ?? t('defaultName', { accountNumber: accountOrder + 1 }),
+        name: name ?? tCommon('account.defaultName', { accountNumber: accountOrder + 1 }),
         blockchain,
         skin: skin ?? UtilsHelper.generateColorSkin(),
         address,
@@ -157,13 +164,13 @@ export function useBlockchainActions() {
 
       return newAccount
     },
-    [loginSessionRef, t, dispatch]
+    [loginSessionRef, tCommon, dispatch]
   )
 
   const importAccounts = useCallback(
     async ({ accounts: accountsToImport, wallet }: TImportAccountsParam) => {
       if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
+        throw new AppError(tCommon('errors.noLoginSession'))
       }
 
       const clonedWallet = cloneDeep(wallet)
@@ -176,7 +183,7 @@ export function useBlockchainActions() {
 
       return clonedWallet.accounts
     },
-    [loginSessionRef, importAccount]
+    [loginSessionRef, tCommon, importAccount]
   )
 
   const deleteAccount = useCallback(
@@ -242,6 +249,13 @@ export function useBlockchainActions() {
         )
       )
 
+      const isHardwareWalletConnected =
+        wallet.type === 'hardware' && wallet.accounts.some(account => account.type === 'hardware')
+
+      if (isHardwareWalletConnected) {
+        await HardwareWalletHelper.disconnect()
+      }
+
       dispatch(authReducerActions.deleteWallet(wallet.id))
     },
 
@@ -251,7 +265,7 @@ export function useBlockchainActions() {
   const editAccount = useCallback(
     async ({ account, data }: TAccountToEdit) => {
       if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
+        throw new AppError(tCommon('errors.noLoginSession'))
       }
 
       let encryptedKey = account.encryptedKey
@@ -267,13 +281,13 @@ export function useBlockchainActions() {
 
       return editedAccount
     },
-    [dispatch, loginSessionRef]
+    [dispatch, loginSessionRef, tCommon]
   )
 
   const editWallet = useCallback(
     async ({ data, wallet }: TWalletToEdit) => {
       if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
+        throw new AppError(tCommon('errors.noLoginSession'))
       }
 
       let encryptedMnemonic = wallet.encryptedMnemonic
@@ -290,7 +304,7 @@ export function useBlockchainActions() {
 
       return editedWallet
     },
-    [dispatch, loginSessionRef]
+    [dispatch, loginSessionRef, tCommon]
   )
 
   return {

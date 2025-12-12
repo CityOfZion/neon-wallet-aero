@@ -5,9 +5,10 @@ import { useTranslation } from 'react-i18next'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
-import { useAccountsMapSelector } from '@renderer/hooks/useAccountsMapSelector'
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
@@ -61,11 +62,14 @@ export const WalletConnectManagerSetup = () => {
 
           return response
         } catch (error: any) {
+          const appError = AppError.wrap(error)
+
           await rendererApi.send('wallet-connect:respond-request', {
             topic: request.topic,
-            response: WalletKitHelper.formatRequestError(request, error.message),
+            response: WalletKitHelper.formatRequestError(request, { message: appError.message, code: -32000 }),
           })
-          throw error
+
+          throw appError
         }
       }
 
@@ -91,7 +95,7 @@ export const WalletConnectManagerSetup = () => {
           })
           .catch(error => {
             ToastHelper.error({
-              message: t('autoAcceptErrorMessage'),
+              message: AppError.wrap(error, t('autoAcceptErrorMessage')).message,
               id: 'auto-approve-walletconnect-request',
             })
             console.error(error)

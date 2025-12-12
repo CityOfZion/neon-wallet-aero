@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 
-import { useAccountsMapSelector } from '@renderer/hooks/useAccountsMapSelector'
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 
 import type { TAccountHelperPredicateParams } from '@shared/types/helpers'

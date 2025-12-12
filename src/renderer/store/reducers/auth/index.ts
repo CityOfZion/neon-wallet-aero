@@ -35,6 +35,7 @@ export function getAuthReducer() {
       applicationDataByLoginType: {
         password: { wallets: [], notifications: [] },
         key: { wallets: [], notifications: [] },
+        hardware: { wallets: [], notifications: [] },
       },
     },
   }

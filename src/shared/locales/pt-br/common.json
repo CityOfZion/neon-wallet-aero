@@ -30,7 +30,8 @@
     "watchWalletName": "Carteira Watch",
     "importedWalletName": "Carteira Importada",
     "encryptedName": "Carteira Criptografada",
-    "migratedWalletName": "Carteira Migrada"
+    "migratedWalletName": "Carteira Migrada",
+    "hardwareName": "Carteira Hardware {{blockchain}}"
   },
   "account": {
     "defaultName": "Conta {{accountNumber}}"
@@ -45,7 +46,12 @@
     "arbitrum": "Arbitrum"
   },
   "errors": {
-    "noLoginSession": "Você precisa fazer login para acessar este recurso."
+    "noLoginSession": "Você precisa fazer login para acessar este recurso.",
+    "noMnemonic": "Não mnemônica disponível",
+    "noKey": "Nenhuma chave disponível",
+    "walletNotFound": "Carteira não encontrada",
+    "accountNotFound": "Conta não encontrado",
+    "unexpectedError": "Ocorreu um erro inesperado. Entre em contato com o suporte se o problema persistir."
   },
   "synonyms": {
     "view": ["ver", "olhar", "observar", "assistir"],
@@ -74,5 +80,32 @@
     "add": ["adicionar", "incluir", "aumentar", "somar"],
     "acquire": ["obter", "conseguir"],
     "crypto": ["token", "tokens"]
+  },
+  "hardwareWallet": {
+    "errors": {
+      "disconnectFirst": "Você deve desconectar a carteira hardware antes de conectar novamente",
+      "accountsNotFound": "Não foi possível identificar a blockchain da carteira hardware. Certifique-se de que um aplicativo compatível está aberto",
+      "hardwareWalletNotFound": "Nenhuma carteira hardware está conectada",
+      "hardwareWalletIsNotConnectOrUnlocked": "Para prosseguir, certifique-se de que sua carteira hardware está desbloqueada",
+      "blockchainNotSupported": "A blockchain {{blockchain}} não suporta carteiras hardware",
+      "missingBip44Path": "O caminho BIP44 está faltando para a conta da carteira hardware",
+      "accountIsNotHardware": "A conta selecionada não é uma conta de carteira hardware",
+      "userCancelled": "A operação foi cancelada pelo usuário",
+      "hidNotSupported": "WebHID não é suportado neste navegador",
+      "bluetoothNotSupported": "WebBluetooth não é suportado neste navegador"
+    }
+  },
+  "encryption": {
+    "errors": {
+      "noPasswordEncryption": "\"Nenhuma senha fornecida para criptografia\"",
+      "noPasswordDecryption": "\"Nenhum senha foi fornecido para descriptografia\"",
+      "noValueDecryption": "Nenhum valor fornecido para descriptografia"
+    }
+  },
+  "walletConnect": {
+    "errorsByCode": {
+      "UNEXPECTED_ERROR": "Um erro inesperado ocorreu. Por favor, tente novamente ou entre em contato com o suporte.",
+      "NO_SERVICE": "O dApp está tentando conectar-se a uma blockchain ou rede diferente da selecionada."
+    }
   }
 }

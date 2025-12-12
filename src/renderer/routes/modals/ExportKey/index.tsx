@@ -55,12 +55,9 @@ export const ExportKeyModal = () => {
 
   const { isMounting } = useMountUnsafe(async () => {
     try {
-      if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
-      }
       const decryptedKey = await EncryptionHelper.decrypt(
         account.encryptedKey,
-        loginSessionRef.current.encryptedPassword
+        loginSessionRef.current?.encryptedPassword
       )
       setData({ decryptedKey: decryptedKey })
     } catch {

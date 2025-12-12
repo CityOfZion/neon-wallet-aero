@@ -1,7 +1,12 @@
+import { useRef } from 'react'
+
+import { useSelector } from 'react-redux'
+
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TRootState } from '@shared/types/redux'
 import type { IAccountState, TAccountWithWallet } from '@shared/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
@@ -42,6 +47,39 @@ const selectAccountsByWalletId = (walletId: string) =>
     }
   )
 
+const selectAccountsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
+  createAppSelector(
+    [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+    (applicationDataByLoginType, loginSession) => {
+      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+
+      return applicationDataByLoginType[loginSession.type].wallets
+        .flatMap(wallet => wallet.accounts)
+        .filter(account => blockchains.some(blockchain => blockchain === account.blockchain))
+    }
+  )
+
+const selectHasHardwareAccount = createAppSelector(
+  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+  (applicationDataByLoginType, currentLoginSession) => {
+    return applicationDataByLoginType[currentLoginSession?.type ?? 'password'].wallets.some(wallet =>
+      wallet.accounts.some(account => account.type === 'hardware')
+    )
+  }
+)
+
+const selectHardwareAccounts = createAppSelector(
+  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+  (applicationDataByLoginType, loginSession) => {
+    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+
+    const accounts = applicationDataByLoginType[loginSession.type].wallets.flatMap(wallet => wallet.accounts)
+    const hardwareAccounts = accounts.filter(account => account.type === 'hardware')
+
+    return AccountHelper.orderAccounts(hardwareAccounts)
+  }
+)
+
 export const useAccountsSelector = () => {
   const { ref, value } = useAppSelector(selectAccounts)
 
@@ -69,22 +107,46 @@ export const useAccountsByWalletIdSelector = (walletId: string) => {
   }
 }
 
-const selectAccountsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
-  createAppSelector(
-    [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
-    (applicationDataByLoginType, loginSession) => {
-      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
-
-      return applicationDataByLoginType[loginSession.type].wallets
-        .flatMap(wallet => wallet.accounts)
-        .filter(account => blockchains.some(blockchain => blockchain === account.blockchain))
-    }
-  )
-
 export const useAccountsByBlockchainsSelector = (blockchains: TBlockchainServiceKey[]) => {
   const { value: accountsByBlockchains, ref: accountsByBlockchainsRef } = useAppSelector(
     selectAccountsByBlockchains(blockchains)
   )
 
   return { accountsByBlockchains, accountsByBlockchainsRef }
+}
+
+export const useAccountsMapSelector = () => {
+  const accountsMapRef = useRef(new Map<string, TAccountWithWallet>())
+
+  useSelector((state: TRootState) => {
+    const accounts = selectAccountsWithWallet(state)
+
+    accountsMapRef.current.clear()
+
+    accountsMapRef.current = new Map<string, TAccountWithWallet>()
+
+    accounts.forEach(account => {
+      accountsMapRef.current.set(AccountHelper.buildAccountKey(account), account)
+    })
+  })
+
+  return { accountsMapRef }
+}
+
+export const useHardwareAccountsSelector = () => {
+  const { ref, value } = useAppSelector(selectHardwareAccounts)
+
+  return {
+    hardwareAccounts: value,
+    hardwareAccountsRef: ref,
+  }
+}
+
+export const useHasHardwareAccountSelector = () => {
+  const { ref, value } = useAppSelector(selectHasHardwareAccount)
+
+  return {
+    hasHardwareAccount: value,
+    hasHardwareAccountRef: ref,
+  }
 }

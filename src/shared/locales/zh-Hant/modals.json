@@ -190,7 +190,8 @@
     "description": "為了保護您的資產存取，請確認您的密碼",
     "inputPlaceholder": "輸入密碼…",
     "error": "密碼不正確！",
-    "buttonContinueLabel": "繼續"
+    "buttonContinueLabel": "繼續",
+    "invalidPasswordError": "無效密碼"
   },
   "exportMnemonic": {
     "title": "導出錢包",
@@ -258,12 +259,6 @@
     "rejectButtonLabel": "拒絕",
     "messages": {
       "connected": "{{dappName}} 已連接。"
-    },
-    "errors": {
-      "unknown": "發生未知錯誤。請重試。"
-    },
-    "errorsByCode": {
-      "NO_SERVICE": "該 dApp 嘗試連接到與當前選擇不同的區塊鏈或網路。"
     }
   },
   "dappDisconnection": {
@@ -663,5 +658,13 @@
       "noFunction": "此項目沒有可用的操作。請聯絡我們的支援團隊。",
       "errorToExecute": "執行操作時出錯。請聯絡我們的支援團隊。"
     }
+  },
+  "connectHardwareWalletModal": {
+    "title": "連接硬體",
+    "subtitle": "尋找你的錢包",
+    "searchAgainButtonLabel": "重新搜尋",
+    "searchingUsbMessage": "掃描連接設備…",
+    "searchingBluetoothMessage": "搜索附近設備…",
+    "alert": "請確保您的硬體錢包已解鎖、連接到支持的應用程式並連接到本設備"
   }
 }

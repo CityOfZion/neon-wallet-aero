@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
@@ -40,7 +41,7 @@ const getUnclaimedInfos = async (
   const blockchainService = bsAggregator.blockchainServicesByName[account.blockchain]
 
   if (!isClaimable(blockchainService)) {
-    throw new Error(
+    throw new AppError(
       t('hooks:useUnclaimedQuery.errors.blockchainIsNotClaimable', {
         address: account.address,
         blockchain: account.blockchain,
@@ -62,7 +63,7 @@ const getUnclaimedInfos = async (
     const key = await EncryptionHelper.decrypt(account.encryptedKey, encryptedPassword)
 
     if (!key) {
-      throw new Error(t('hooks:useUnclaimedQuery.errors.noKey', { address: account.address }))
+      throw new AppError(t('hooks:useUnclaimedQuery.errors.noKey', { address: account.address }))
     }
 
     const serviceAccount = AccountHelper.getServiceAccount({ account, key })
@@ -112,12 +113,12 @@ export const useUnclaimedMutation = () => {
   return useMutation({
     mutationFn: async (account: IAccountState) => {
       if (!loginSessionRef.current) {
-        throw new Error(unclaimedT('errors.loginSessionIsNotDefined'))
+        throw new AppError(unclaimedT('errors.loginSessionIsNotDefined'))
       }
 
       const blockchainService = bsAggregator.blockchainServicesByName[account.blockchain]
       if (!isClaimable(blockchainService)) {
-        throw new Error(
+        throw new AppError(
           t('hooks:useUnclaimedQuery.errors.blockchainIsNotClaimable', {
             address: account.address,
             blockchain: account.blockchain,
@@ -163,7 +164,7 @@ export const useUnclaimedMutation = () => {
     },
     onError: error => {
       console.error(error)
-      ToastHelper.error({ message: unclaimedT('errors.claimError') })
+      ToastHelper.error({ message: AppError.wrap(error, unclaimedT('errors.claimError')).message })
     },
     onSuccess: (_data, account) => {
       queryClient.setQueryData(buildQueryKeyUnclaimed(account, selectedNetworkByBlockchain[account.blockchain]), {

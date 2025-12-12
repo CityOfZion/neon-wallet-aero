@@ -20,11 +20,7 @@ export const LoginPage = () => {
             {t('neonAccountTabLabel')}
           </Tabs.Trigger>
 
-          <Tabs.Trigger
-            value="hardware-wallet"
-            disabled
-            onClick={() => navigate('/login/hardware-wallet', { replace: true })}
-          >
+          <Tabs.Trigger value="hardware-wallet" onClick={() => navigate('/login/hardware-wallet', { replace: true })}>
             {t('hardwareWalletTabLabel')}
           </Tabs.Trigger>
 

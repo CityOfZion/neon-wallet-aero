@@ -173,7 +173,7 @@ const getFullTransactions = async ({
         })
       })
     } catch (error) {
-      console.error('An error has occurred: ', error)
+      console.error(error)
     }
 
     const newQuery = queryCache.build(queryClient, defaultedQueryOptions) as Query<

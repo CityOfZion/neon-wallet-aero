@@ -19,10 +19,15 @@ export const useConfirmAction = () => {
   const confirmAction = useCallback(
     async ({ account, modalType = 'bottom' }: TConfirmActionParams) => {
       return new Promise<void>((resolve, reject) => {
-        if (account.type === 'watch') {
-          reject(new Error(t('unauthorizedAction')))
-          return
+        const handleReject = () => {
+          const message = t('unauthorizedAction')
+          return reject(message)
         }
+
+        if (account.type === 'watch') {
+          return handleReject()
+        }
+
         if (account.type === 'hardware') {
           resolve()
           return
@@ -31,12 +36,13 @@ export const useConfirmAction = () => {
         modalNavigate(`confirm-action-${modalType}`, {
           state: {
             onSuccess: resolve,
-            onCancel: reject,
+            onCancel: handleReject,
           },
         })
       })
     },
     [t, modalNavigate]
   )
+
   return { confirmAction }
 }

@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Progress } from '@renderer/components/Progress'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
@@ -79,8 +80,8 @@ export const OnboardingImportWalletStep4Page = () => {
       navigate('/onboarding-import-wallet/5', {
         state: { password: state.password },
       })
-    } catch (error: any) {
-      ToastHelper.error({ message: error.message })
+    } catch (error) {
+      ToastHelper.error({ message: AppError.wrap(error).message })
       navigate(-1)
     } finally {
       isImporting.current = false

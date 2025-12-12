@@ -30,6 +30,7 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
@@ -38,7 +39,6 @@ import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
-import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useIsFocused } from '@renderer/hooks/useIsFocused'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
@@ -88,7 +88,6 @@ export const SwapPage = () => {
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { loginSessionRef } = useLoginSessionSelector()
   const { accountsRef } = useAccountsSelector()
-  const { confirmAction } = useConfirmAction()
   const { ref: amountInputRef, isFocused: isAmountInputFocused } = useIsFocused<HTMLInputElement>()
 
   const swapChainsByServiceName = useMemo(() => {
@@ -349,12 +348,6 @@ export const SwapPage = () => {
     )
       return
 
-    try {
-      await confirmAction({ account })
-    } catch {
-      return
-    }
-
     const swapRecord: TSwapRecord = {
       account,
       addressTo: actionData.selectedAddressToReceive.value,
@@ -475,14 +468,18 @@ export const SwapPage = () => {
           const minNumber = BSBigNumberHelper.fromDecimals(actionData.selectAmountToUseMinMax.value?.min ?? 0, decimals)
 
           if (amountNumber.isLessThan(minNumber)) {
-            throw new Error(t('form.errors.amountMin', { amount: BSBigNumberHelper.format(minNumber, { decimals }) }))
+            throw new AppError(
+              t('form.errors.amountMin', { amount: BSBigNumberHelper.format(minNumber, { decimals }) })
+            )
           }
 
           if (actionData.selectAmountToUseMinMax.value?.max) {
             const maxNumber = BSBigNumberHelper.fromDecimals(actionData.selectAmountToUseMinMax.value.max, decimals)
 
             if (amountNumber.isGreaterThan(maxNumber)) {
-              throw new Error(t('form.errors.amountMax', { amount: BSBigNumberHelper.format(maxNumber, { decimals }) }))
+              throw new AppError(
+                t('form.errors.amountMax', { amount: BSBigNumberHelper.format(maxNumber, { decimals }) })
+              )
             }
           }
         }
@@ -496,12 +493,12 @@ export const SwapPage = () => {
               selectedTokenBalance.token.decimals
             ).isLessThan(amountNumber))
         ) {
-          throw new Error(t('form.errors.insufficientFunds'))
+          throw new AppError(t('form.errors.insufficientFunds'))
         }
 
         clearErrors('selectedAmountToUse')
-      } catch (error: any) {
-        setError('selectedAmountToUse', error.message)
+      } catch (error) {
+        setError('selectedAmountToUse', AppError.wrap(error).message)
       }
     }
 

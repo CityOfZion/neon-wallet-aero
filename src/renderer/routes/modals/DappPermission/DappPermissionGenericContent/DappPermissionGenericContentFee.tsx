@@ -8,6 +8,7 @@ import { Loader } from '@renderer/components/Loader'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 
@@ -28,7 +29,7 @@ export const DappPermissionGenericContentFee = ({
   const feeQuery = useQuery({
     queryKey: ['fee', request.id],
     queryFn: async () => {
-      if (!loginSession) throw new Error(commonT('errors.noLoginSession'))
+      if (!loginSession) throw new AppError(commonT('errors.noLoginSession'))
 
       const key = await EncryptionHelper.decrypt(sessionAccount.encryptedKey, loginSession.encryptedPassword)
       const serviceAccount = AccountHelper.getServiceAccount({ account: sessionAccount, key })

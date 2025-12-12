@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
@@ -53,7 +54,7 @@ export const DecryptKeyModal = () => {
       await onSubmit(key)
     } catch (error) {
       console.error(error)
-      ToastHelper.error({ message: t('decryptKeyError') })
+      ToastHelper.error({ message: AppError.wrap(error, t('decryptKeyError')).message })
     }
   }
 

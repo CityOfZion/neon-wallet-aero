@@ -30,7 +30,8 @@
     "watchWalletName": "Watch Wallet",
     "importedWalletName": "Imported Wallet",
     "encryptedName": "Encrypted Wallet",
-    "migratedWalletName": "Migrated Wallet"
+    "migratedWalletName": "Migrated Wallet",
+    "hardwareName": "{{blockchain}} Hardware Wallet"
   },
   "account": {
     "defaultName": "Account {{accountNumber}}"
@@ -45,7 +46,39 @@
     "arbitrum": "Arbitrum"
   },
   "errors": {
-    "noLoginSession": "You need to log in to access this feature."
+    "noLoginSession": "You need to log in to access this feature.",
+    "noMnemonic": "No mnemonic available",
+    "noKey": "No key available",
+    "walletNotFound": "Wallet not found",
+    "accountNotFound": "Account not found",
+    "unexpectedError": "An unexpected error occurred. Please contact support if the problem persists."
+  },
+  "hardwareWallet": {
+    "errors": {
+      "disconnectFirst": "You must disconnect the hardware wallet before connecting again",
+      "accountsNotFound": "Unable to identify the hardware wallet blockchain. Ensure a supported app is open",
+      "hardwareWalletNotFound": "There is no hardware wallet connected",
+      "hardwareWalletIsNotConnectOrUnlocked": "To proceed with this operation, please make sure your hardware wallet is unlocked",
+      "blockchainNotSupported": "The blockchain {{blockchain}} does not support hardware wallets",
+      "missingBip44Path": "BIP44 path is missing for the hardware wallet account",
+      "accountIsNotHardware": "The selected account is not a hardware wallet account",
+      "userCancelled": "The operation was cancelled by the user",
+      "hidNotSupported": "WebHID is not supported in this browser",
+      "bluetoothNotSupported": "WebBluetooth is not supported in this browser"
+    }
+  },
+  "encryption": {
+    "errors": {
+      "noPasswordEncryption": "No password provided for encryption",
+      "noPasswordDecryption": "No password provided for decryption",
+      "noValueDecryption": "No value provided for decryption"
+    }
+  },
+  "walletConnect": {
+    "errorsByCode": {
+      "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again or contact support.",
+      "NO_SERVICE": "The dApp is trying to connect to a different blockchain or network than the one selected."
+    }
   },
   "synonyms": {
     "view": ["see", "look at", "observe", "watch"],

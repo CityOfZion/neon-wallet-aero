@@ -30,7 +30,8 @@
     "watchWalletName": "觀察錢包",
     "importedWalletName": "導入錢包",
     "encryptedName": "加密錢包",
-    "migratedWalletName": "已遷移錢包"
+    "migratedWalletName": "已遷移錢包",
+    "hardwareName": "{{blockchain}} 硬體錢包"
   },
   "account": {
     "defaultName": "帳戶 {{accountNumber}}"
@@ -45,7 +46,12 @@
     "arbitrum": "Arbitrum"
   },
   "errors": {
-    "noLoginSession": "您需要登入才能使用此功能。"
+    "noLoginSession": "您需要登入才能使用此功能。",
+    "noMnemonic": "無記憶助記可用",
+    "noKey": "不可取得鑰",
+    "walletNotFound": "手包未發現",
+    "accountNotFound": "帳號未找到",
+    "unexpectedError": "發生意外錯誤。如果問題持續存在，請聯絡支援。"
   },
   "synonyms": {
     "view": ["看", "查看", "觀察", "注視"],
@@ -74,5 +80,32 @@
     "add": ["附加", "包含", "增加", "求和"],
     "acquire": ["取得", "獲取"],
     "crypto": ["代幣", "代幣"]
+  },
+  "hardwareWallet": {
+    "errors": {
+      "disconnectFirst": "重新連接前必須先斷開硬體錢包",
+      "accountsNotFound": "無法識別硬體錢包的區塊鏈。請確保已開啟受支援的應用程式",
+      "hardwareWalletNotFound": "未偵測到已連接的硬體錢包",
+      "hardwareWalletIsNotConnectOrUnlocked": "請確保您的硬體錢包已解鎖以繼續操作",
+      "blockchainNotSupported": "區塊鏈 {{blockchain}} 不支援硬體錢包",
+      "missingBip44Path": "硬體錢包帳戶缺少 BIP44 路徑",
+      "accountIsNotHardware": "所選帳戶不是硬體錢包帳戶",
+      "userCancelled": "操作已被使用者取消",
+      "hidNotSupported": "此瀏覽器不支援 WebHID",
+      "bluetoothNotSupported": "此瀏覽器不支援 WebBluetooth"
+    }
+  },
+  "encryption": {
+    "errors": {
+      "noPasswordEncryption": "無密碼提供加密",
+      "noPasswordDecryption": "無密碼提供解密",
+      "noValueDecryption": "無法提供解密的值"
+    }
+  },
+  "walletConnect": {
+    "errorsByCode": {
+      "UNEXPECTED_ERROR": "一個未預期的錯誤發生了。請再試一次或聯繫客服。",
+      "NO_SERVICE": ".apps想要連接到選擇不同的區塊鏈或網路"
+    }
   }
 }

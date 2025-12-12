@@ -36,13 +36,9 @@ export const ChangePasswordStep1Page = () => {
   })
 
   const handleSubmit = async (data: TFormData) => {
-    if (!loginSessionRef.current) {
-      throw new Error('Login session not defined')
-    }
-
     const encryptedCurrentPassword = await encryptPassword(data.currentPassword)
 
-    if (loginSessionRef.current.encryptedPassword !== encryptedCurrentPassword) {
+    if (loginSessionRef.current?.encryptedPassword !== encryptedCurrentPassword) {
       setError('currentPassword', t('error'))
       return
     }

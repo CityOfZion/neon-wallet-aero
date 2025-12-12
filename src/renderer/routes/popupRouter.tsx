@@ -25,6 +25,8 @@ const LanguagePage = lazy(() => import('./popup/Language'))
 const CurrencyPage = lazy(() => import('./popup/Currency'))
 const LoginPage = lazy(() => import('./popup/Login'))
 const LoginKeyPage = lazy(() => import('./popup/LoginKey'))
+const LoginHardwarePage = lazy(() => import('./popup/LoginHardware'))
+const ConnectHardwareWalletPage = lazy(() => import('./popup/ConnectHardwareWallet'))
 const LoginNeonAccountOnboardingPage = lazy(() => import('./popup/LoginNeonAccountOnboarding'))
 const LoginNeonAccountPasswordPage = lazy(() => import('./popup/LoginNeonAccountPassword'))
 const MigrateFromNeon2Page = lazy(() => import('./popup/MigrateFromNeon2'))
@@ -64,7 +66,7 @@ export const popupRouter = createHashRouter([
               { path: '', element: <Navigate to="/login/neon-account/password" replace /> },
             ],
           },
-          { path: 'hardware-wallet' },
+          { path: 'hardware-wallet', element: <LoginHardwarePage /> },
           { path: 'address-or-key', element: <LoginKeyPage /> },
           { path: '', element: <Navigate to="/login/neon-account/password" replace /> },
         ],
@@ -190,6 +192,10 @@ export const popupRouter = createHashRouter([
           {
             path: 'vote-neo3',
             element: <VoteNeo3Page />,
+          },
+          {
+            path: 'connect-hardware-wallet',
+            element: <ConnectHardwareWalletPage />,
           },
         ],
       },

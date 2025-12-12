@@ -45,7 +45,7 @@ export const RootPage = () => {
 
       setReady(true)
     } catch (error) {
-      console.error('Setup failed:', error)
+      console.error(error)
     }
   })
 

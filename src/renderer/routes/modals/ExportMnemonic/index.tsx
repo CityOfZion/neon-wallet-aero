@@ -35,10 +35,6 @@ export const ExportMnemonicModal = () => {
 
   const isDisabled = actionState.isActing || walletMnemonic.length === 0
 
-  if (!loginSessionRef.current) {
-    throw new Error('Login session not defined')
-  }
-
   const handlePrint = () => {
     const printContent = walletMnemonic
     const printWindow = window.open('', '_blank')
@@ -57,13 +53,11 @@ export const ExportMnemonicModal = () => {
 
   const { isMounting } = useMountUnsafe(async () => {
     try {
-      if (!loginSessionRef.current) {
-        throw new Error('Login session not defined')
-      }
       const decryptedMnemonic = await EncryptionHelper.decrypt(
         wallet.encryptedMnemonic,
-        loginSessionRef.current.encryptedPassword
+        loginSessionRef.current?.encryptedPassword
       )
+
       setData({ walletMnemonic: decryptedMnemonic })
     } catch {
       setError('walletMnemonic', t('error'))

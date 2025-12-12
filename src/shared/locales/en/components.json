@@ -19,7 +19,7 @@
     "showPasswordIconButtonLabel": "Show password"
   },
   "temporaryLimitsBox": {
-    "description": "This is a watch account and will limit your access to:",
+    "description": "Using this login method will limit your access to:",
     "limits": [
       "Backup and restore",
       "Wallet customizations",

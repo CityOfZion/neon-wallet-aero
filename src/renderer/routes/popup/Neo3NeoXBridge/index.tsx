@@ -22,13 +22,15 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import { useAccountsMapSelector } from '@renderer/hooks/useAccountsMapSelector'
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLazyBalance } from '@renderer/hooks/useBalances'
+import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useSelectedAccountSelector, useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
@@ -81,6 +83,7 @@ export const Neo3NeoXBridgePage = () => {
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const isGoingBack = useRef(false)
   const navigate = useNavigate()
+  const { confirmAction } = useConfirmAction()
 
   const { actionData, actionState, setData, reset, handleAct } = useActions<TActionsData>({
     availableTokensToUse: { value: null, error: null, loading: false },
@@ -297,13 +300,11 @@ export const Neo3NeoXBridgePage = () => {
         fromService,
 
         onConfirm: async () => {
-          let transactionHash: string | undefined
-
           try {
-            transactionHash = await bridgeOrchestratorRef.current.bridge()
-          } catch (error) {
-            console.error(error)
-          } finally {
+            await confirmAction({ account: accountToUse })
+
+            const transactionHash = await bridgeOrchestratorRef.current.bridge()
+
             modalNavigate('neo3-neox-bridge-details', {
               replace: true,
               state: {
@@ -317,7 +318,10 @@ export const Neo3NeoXBridgePage = () => {
                 confirmed: !transactionHash ? false : undefined,
               },
             })
-
+          } catch (error) {
+            console.error(error)
+            ToastHelper.error({ message: AppError.wrap(error).message })
+          } finally {
             initializeOrRestartSwapService()
           }
         },

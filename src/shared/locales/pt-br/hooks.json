@@ -31,7 +31,8 @@
       "invalid": "Valor inválido ou já existente",
       "empty": "Por favor, digite algum valor",
       "invalidMnemonic": "Mnemônico inválido",
-      "mnemonicIncomplete": "Mnemônico incompleto"
+      "mnemonicIncomplete": "Mnemônico incompleto",
+      "typeNotSupported": "O tipo de importação fornecido não é compatível"
     }
   },
   "useBackupOrMigrate": {

@@ -6,10 +6,12 @@ import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
 
+import { AppError } from '@renderer/helpers/ErrorHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
+import { useHasHardwareAccountSelector } from '@renderer/hooks/useAccountSelector'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLogin } from '@renderer/hooks/useLogin'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -36,6 +38,7 @@ export const AccountSelectionModal = () => {
   const { encryptPassword } = useLogin()
   const { walletId, onSelect, hideActions, accountTypes } = useModalState<TModalState<'account-selection'>>()
   const { wallet } = useWalletByIdSelector(walletId)
+  const { hasHardwareAccount } = useHasHardwareAccountSelector()
   const { selectedAccount } = useSelectedAccountSelector()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const [editMode, setEditMode] = useState(false)
@@ -71,14 +74,10 @@ export const AccountSelectionModal = () => {
         inputPlaceholder: modalT('inputPlaceholder'),
         onSubmit: async (password: string) => {
           try {
-            if (!loginSessionRef.current) {
-              throw new Error('Login session not defined')
-            }
-
             const encryptedPassword = await encryptPassword(password)
 
-            if (loginSessionRef.current.encryptedPassword !== encryptedPassword) {
-              throw new Error('Invalid password')
+            if (loginSessionRef.current?.encryptedPassword !== encryptedPassword) {
+              throw new AppError(modalT('invalidPasswordError'))
             }
 
             modalNavigate('export-key', {
@@ -177,7 +176,7 @@ export const AccountSelectionModal = () => {
                 />
               )}
 
-              {wallet?.encryptedMnemonic && (
+              {(wallet?.encryptedMnemonic || (wallet?.type === 'hardware' && hasHardwareAccount)) && (
                 <Button
                   className="w-full"
                   variant="card"
