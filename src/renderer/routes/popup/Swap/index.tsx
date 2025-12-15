@@ -672,6 +672,8 @@ export const SwapPage = () => {
                     leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
                   >
                     <Input
+                      name="extra-id"
+                      id="extra-id"
                       aria-label={t('form.extraIdToReceive')}
                       placeholder={t('form.extraIdToReceivePlaceholder')}
                       compacted

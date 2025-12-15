@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { shuffle } from 'lodash'
+import shuffle from 'lodash/shuffle'
 import { Trans, useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -38,7 +38,11 @@ export const CreateWalletStep2Modal = () => {
     pressedWordsIndex: [],
   })
 
-  const isDisabled = shuffledWords.length === 0 || shuffledWords.length !== mnemonic.length || actionState.isActing
+  const isDisabled =
+    shuffledWords.length === 0 ||
+    shuffledWords.length !== mnemonic.length ||
+    pressedWordsIndex.length !== mnemonic.length ||
+    actionState.isActing
 
   const wordWasAlreadyPressed = (wordIndex: number) => pressedWordsIndex.some(pressedWord => pressedWord === wordIndex)
 

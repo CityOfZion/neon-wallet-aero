@@ -1,4 +1,4 @@
-import { Fragment, useLayoutEffect, useMemo, useState } from 'react'
+import { Fragment, useLayoutEffect, useMemo } from 'react'
 
 import { isClaimable } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
@@ -19,17 +19,20 @@ import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
+import { useActions } from '@renderer/hooks/useActions'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 import { useUnclaimed } from '@renderer/hooks/useUnclaimedQuery'
 
+import type { TWalletsTab } from '@renderer/routes/popup/Wallets'
+
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import TbChartBar from '@renderer/assets/images/tb-chart-bar.svg?react'
 import TbRefresh from '@renderer/assets/images/tb-refresh.svg?react'
+import TbReplace from '@renderer/assets/images/tb-replace.svg?react'
 import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
-import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
 import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { rendererApi } from '@shared/message-api/renderer'
@@ -37,25 +40,40 @@ import type { IAccountState, IWalletState } from '@shared/types/store'
 
 import { WalletPageClaimButton } from './WalletsPageClaimButton'
 
+type TActionsData = {
+  tab: TWalletsTab
+  showHiddenTokens: boolean
+}
+
 type TProps = {
   selectedAccount: IAccountState
   selectedWallet: IWalletState
+  defaultTab?: TWalletsTab
 }
 
-type TTab = 'tokens' | 'nfts' | 'transactions' | 'dappConnections'
+const DEFAULT_TAB: TWalletsTab = 'tokens'
 
-export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps) => {
+export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTab }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'wallets' })
   const { t: commonT } = useTranslation('common')
   const { currency } = useCurrencySelector()
-  const balanceQuery = useBalance(selectedAccount)
   const unclaimedQuery = useUnclaimed(selectedAccount)
   const navigate = useNavigate()
 
-  const [tab, setTab] = useState<TTab>('tokens')
+  const {
+    actionData: { tab, showHiddenTokens },
+    setData,
+    setDataFromEventWrapper,
+  } = useActions<TActionsData>({
+    tab: defaultTab || DEFAULT_TAB,
+    showHiddenTokens: false,
+  })
+
+  const balanceQuery = useBalance(selectedAccount, { showType: showHiddenTokens ? 'all' : 'active' })
 
   const blockchainService = useMemo(() => {
     if (!selectedAccount) return undefined
+
     return bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
   }, [selectedAccount])
 
@@ -85,29 +103,34 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
   }
 
   useLayoutEffect(() => {
-    if (!isWatchAccount || tab !== 'dappConnections') return
-    setTab('tokens')
+    if (isWatchAccount && tab === 'dappConnections') {
+      setData({ tab: DEFAULT_TAB })
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isWatchAccount, tab])
 
   return (
     <Fragment key={`${selectedWallet.id}-${selectedAccount.id}`}>
-      <div className="mt-4 flex items-center justify-between gap-1">
-        <div className="flex flex-col">
-          <div className="flex items-center gap-2.5">
+      <div className="mt-4 flex items-center justify-between gap-x-2">
+        <div className="flex flex-col gap-y-1">
+          <div className="flex items-center gap-x-2">
             <BlockchainIcon blockchain={selectedAccount.blockchain} className="text-green" />
             <span className="text-sm text-white uppercase">{commonT(`blockchain.${selectedAccount.blockchain}`)}</span>
           </div>
-          <div className="flex items-center gap-2">
+
+          <div className="flex items-center gap-x-2">
             <Tooltip title={selectedAccount.address}>
               <p className="text-blue text-sm whitespace-nowrap">
                 {StringHelper.truncateMiddle(selectedAccount.address, 30)}
               </p>
             </Tooltip>
+
             <IconButton
               aria-label={t('ariaLabels.copyIconButton')}
-              icon={<MdContentCopy aria-hidden />}
               colorSchema="neon"
               size="sm"
+              icon={<MdContentCopy aria-hidden />}
               onClick={() => UtilsHelper.copyToClipboard(selectedAccount.address)}
             />
           </div>
@@ -124,7 +147,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
         />
       </div>
 
-      <div className="mt-3.5 flex flex-col gap-3">
+      <div className="mt-3 flex flex-col gap-2">
         <Skeleton.Root
           loading={balanceQuery.isLoading}
           className="relative top-1.5"
@@ -140,96 +163,119 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet }: TProps)
         )}
       </div>
 
-      <div className="mt-5 flex w-full items-center gap-2.5">
+      <div className="mt-5 flex w-full items-center gap-x-2.5">
         <IconButton
-          text={t('sendButtonLabel')}
           variant="boxed"
           colorSchema="neon"
           className="w-full"
           disabled={isWatchAccount}
           icon={<TbStepOut aria-hidden />}
           onClick={handleSendNavigation}
-        />
+        >
+          {t('sendButtonLabel')}
+        </IconButton>
 
         <IconButton
-          text={t('swapButtonLabel')}
           variant="boxed"
           colorSchema="neon"
           className="w-full"
           disabled={isWatchAccount}
-          icon={<TbTransform aria-hidden />}
+          icon={<TbReplace aria-hidden />}
           onClick={handleSwapNavigation}
-        />
+        >
+          {t('swapButtonLabel')}
+        </IconButton>
 
         {match(selectedAccount.blockchain)
           .with('neo3', () => (
             <Fragment>
               <IconButton
-                text={t('bridgeButtonLabel')}
                 variant="boxed"
                 colorSchema="neon"
                 className="w-full"
                 disabled={isWatchAccount}
                 icon={<TbReplace2 aria-hidden />}
                 onClick={() => navigate('/neo3-neox-bridge')}
-              />
+              >
+                {t('bridgeButtonLabel')}
+              </IconButton>
+
               <IconButton
-                text={t('votingButtonLabel')}
                 variant="boxed"
                 colorSchema="neon"
                 className="w-full"
                 icon={<TbChartBar aria-hidden />}
-                onClick={() => navigate('/vote-neo3')}
-              />
+                onClick={() =>
+                  navigate('/vote-neo3', {
+                    state: { initialWallet: selectedWallet, initialNeo3Account: selectedAccount },
+                  })
+                }
+              >
+                {t('votingButtonLabel')}
+              </IconButton>
             </Fragment>
           ))
           .with('neox', () => (
             <Fragment>
               <IconButton
-                text={t('buyAndSellTokensButtonLabel')}
                 variant="boxed"
                 colorSchema="neon"
                 className="w-full"
                 disabled={isWatchAccount}
                 icon={<TbShoppingBag aria-hidden />}
                 onClick={handleBuyAndSellTokensNavigation}
-              />
+              >
+                {t('buyAndSellTokensButtonLabel')}
+              </IconButton>
+
               <IconButton
-                text={t('bridgeButtonLabel')}
                 variant="boxed"
                 colorSchema="neon"
                 className="w-full"
                 disabled={isWatchAccount}
                 icon={<TbReplace2 aria-hidden />}
                 onClick={() => navigate('/neo3-neox-bridge')}
-              />
+              >
+                {t('bridgeButtonLabel')}
+              </IconButton>
             </Fragment>
           ))
           .otherwise(() => (
             <IconButton
-              text={t('buyAndSellTokensButtonLabel')}
               variant="boxed"
               colorSchema="neon"
               className="w-full"
               disabled={isWatchAccount}
               icon={<TbShoppingBag aria-hidden />}
               onClick={handleBuyAndSellTokensNavigation}
-            />
+            >
+              {t('buyAndSellTokensButtonLabel')}
+            </IconButton>
           ))}
       </div>
 
-      <Tabs.Root className="mt-7.5" value={tab} onValueChange={newTab => setTab(newTab as TTab)}>
-        <Tabs.List>
-          <Tabs.Trigger value="tokens">{t('tokenTab.label')}</Tabs.Trigger>
-          <Tabs.Trigger value="nfts">{t('nftsTab.label')}</Tabs.Trigger>
-          <Tabs.Trigger value="transactions">{t('transactionsTab.label')}</Tabs.Trigger>
-          <Tabs.Trigger value="dappConnections" disabled={isWatchAccount}>
+      <Tabs.Root className="mt-6" value={tab} onValueChange={newTab => setData({ tab: newTab as TWalletsTab })}>
+        <Tabs.List className="mx-auto w-full max-w-[94%] gap-x-2">
+          <Tabs.Trigger value="tokens" className="w-full px-3">
+            {t('tokenTab.label')}
+          </Tabs.Trigger>
+          <Tabs.Trigger value="nfts" className="w-full px-3">
+            {t('nftsTab.label')}
+          </Tabs.Trigger>
+          <Tabs.Trigger value="transactions" className="w-full px-3">
+            {t('transactionsTab.label')}
+          </Tabs.Trigger>
+          <Tabs.Trigger value="dappConnections" disabled={isWatchAccount} className="w-full px-3">
             {t('connectionsTab.label')}
           </Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value="tokens">
-          <TokenList selectedAccount={selectedAccount} />
+          <TokenList
+            selectedAccount={selectedAccount}
+            showHiddenTokens={showHiddenTokens}
+            onToggleShowHiddenTokens={setDataFromEventWrapper('showHiddenTokens')}
+          />
         </Tabs.Content>
 
         <Tabs.Content value="nfts">

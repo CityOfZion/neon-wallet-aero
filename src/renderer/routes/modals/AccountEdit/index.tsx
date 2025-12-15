@@ -67,6 +67,8 @@ export const AccountEditModal = () => {
         <Input
           contentClassName="bg-asphalt"
           maxLength={20}
+          name="name"
+          id="name"
           value={actionData.accountName}
           errorMessage={actionState.errors.accountName}
           autoFocus

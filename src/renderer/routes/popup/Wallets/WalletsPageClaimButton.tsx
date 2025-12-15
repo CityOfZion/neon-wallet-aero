@@ -41,7 +41,7 @@ export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TPro
     feeIsLessThanUnclaimed && feeIsLessThanBalance && unclaimedQuery.data && unclaimedQuery.data.unclaimedNumber > 0
 
   return (
-    <div className="flex items-center gap-x-2 text-sm">
+    <div className="mt-1 flex items-center gap-x-1 text-sm">
       <Skeleton.Root loading={unclaimedQuery.isLoading} items={[<Skeleton.Item className="h-5 w-20" />]}>
         {unclaimedQuery.data && unclaimedQuery.data.unclaimedNumber > 0 ? unclaimedQuery.data?.unclaimed : 0}{' '}
         {blockchainService.claimToken.symbol}

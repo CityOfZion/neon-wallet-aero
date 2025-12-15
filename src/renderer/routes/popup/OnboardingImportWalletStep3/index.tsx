@@ -159,6 +159,7 @@ export const OnboardingImportWalletStep3Page = () => {
 
             const wallets: TWalletToCreate[] = generatedData.wallets.map(wallet => ({
               name: wallet.name,
+              backupStatus: wallet.backupStatus,
               mnemonic: wallet.mnemonic,
               accounts: wallet.accounts.map(account => ({
                 address: account.address,
@@ -220,7 +221,10 @@ export const OnboardingImportWalletStep3Page = () => {
   return (
     <Fragment>
       <p className="text-center text-sm text-white">{!state.isMigration ? t('formTitle') : t('migrationFormTitle')}</p>
-      <form className="mt-4 flex w-full grow-1 flex-col items-center justify-between" onSubmit={handleSubmit}>
+      <form
+        className="mt-4 -mb-3.5 flex w-full grow-1 flex-col items-center justify-between pb-4"
+        onSubmit={handleSubmit}
+      >
         <div className="flex w-full flex-col items-center gap-2">
           {!state.isMigration && (
             <Textarea
@@ -267,7 +271,7 @@ export const OnboardingImportWalletStep3Page = () => {
 
         <Button
           label={commonT('general.next')}
-          className="mt-2 w-full"
+          className="mt-4 w-full"
           type="submit"
           variant="card"
           disabled={importActions.actionData.text ? !importActions.actionState.isValid : !fileActions.actionData.path}

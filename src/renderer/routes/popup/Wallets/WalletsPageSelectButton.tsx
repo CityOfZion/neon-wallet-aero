@@ -14,7 +14,7 @@ export const WalletsPageSelectButton = ({ label, selectedLabel, ...props }: TPro
       {...props}
       flat
       variant="text"
-      clickableProps={{ className: 'flex-col items-start w-fit gap-1 py-1 h-fit' }}
+      clickableProps={{ className: 'flex-col items-start w-fit gap-1 pb-1 pt-0 h-fit' }}
     >
       <div className="flex items-center gap-1">
         <span className="text-sm">{label}</span>

@@ -1,11 +1,12 @@
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 
 import { DateHelper } from '@renderer/helpers/DateHelper'
+import { NotificationHelper } from '@renderer/helpers/NotificationHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import type { IAccountState, IWalletState, TLoginSession, TNotification, TSaveNotification } from '@shared/types/store'
 
-import type { IAuthReducer } from '.'
+import type { IAuthReducer } from './index'
 
 const setLoginSession: CaseReducer<IAuthReducer, PayloadAction<TLoginSession | undefined>> = (state, action) => {
   state.inMemoryData.loginSession = action.payload
@@ -54,6 +55,8 @@ const saveNotification: CaseReducer<IAuthReducer, PayloadAction<TSaveNotificatio
 
   if (foundIndex < 0) {
     applicationData.notifications = [...applicationData.notifications, notification]
+
+    NotificationHelper.create(notification).catch(console.error)
 
     return
   }

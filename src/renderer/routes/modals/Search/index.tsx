@@ -175,6 +175,8 @@ const SearchModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <Input
+        name="search"
+        id="search"
         leftIcon={<TbSearch aria-hidden className="text-neon size-6" />}
         onChange={handleChange}
         value={actionData.search}

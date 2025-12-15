@@ -207,7 +207,19 @@ export const SellTokensDepositModal = () => {
         isPending: true,
       }
 
-      dispatch(thunks.waitTransaction({ transaction }))
+      dispatch(
+        thunks.waitTransaction({
+          transaction,
+          successNotification: {
+            title: 'modals:sellTokensDeposit.successNotification.title',
+            previewBody: 'modals:sellTokensDeposit.successNotification.previewBody',
+          },
+          failureNotification: {
+            title: 'modals:sellTokensDeposit.failureNotification.title',
+            previewBody: 'modals:sellTokensDeposit.failureNotification.previewBody',
+          },
+        })
+      )
 
       modalNavigate('sell-tokens-deposit-success', {
         replace: true,
@@ -398,6 +410,8 @@ export const SellTokensDepositModal = () => {
                   leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                 >
                   <Input
+                    name="address"
+                    id="address"
                     aria-label={t('form.addressLabel')}
                     placeholder={t('form.addressPlaceholder')}
                     className="w-full"

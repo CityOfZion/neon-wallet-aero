@@ -19,6 +19,7 @@ import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import TbAlertTriangle from '@renderer/assets/images/tb-alert-triangle.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
 import TbPencil from '@renderer/assets/images/tb-pencil.svg?react'
@@ -72,6 +73,7 @@ export const WalletSelectionModal = () => {
             if (loginSessionRef.current?.encryptedPassword !== encryptedPassword) {
               throw new AppError(modalT('invalidPasswordError'))
             }
+
             modalNavigate('export-mnemonic', {
               state: {
                 wallet: selectedWallet ?? wallets[0],
@@ -83,7 +85,6 @@ export const WalletSelectionModal = () => {
           }
         },
       },
-      replace: true,
     })
   }
 
@@ -98,6 +99,7 @@ export const WalletSelectionModal = () => {
         {wallets.map((wallet, index, array) => (
           <li key={wallet.id}>
             <button
+              type="button"
               aria-selected={selectedWallet?.id === wallet.id}
               onClick={editMode ? handleEdit.bind(null, wallet) : handleSelect.bind(null, wallet)}
               className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
@@ -106,7 +108,20 @@ export const WalletSelectionModal = () => {
                 {wallet.name}
               </p>
 
-              <TbChevronRight className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6 text-gray-300" aria-hidden />
+              <div className="flex items-center gap-x-2">
+                {wallet.backupStatus === 'unsuccessful' && isPasswordLogin && (
+                  <Tooltip
+                    title={t('walletWithoutBackupLabel')}
+                    contentProps={{ className: 'bg-asphalt' }}
+                    arrowProps={{ className: 'fill-asphalt' }}
+                    delayDuration={0}
+                  >
+                    <TbAlertTriangle className="text-yellow max-size-6 min-size-6 size-6" aria-hidden />
+                  </Tooltip>
+                )}
+
+                <TbChevronRight className="max-size-6 min-size-6 size-6 text-gray-300" aria-hidden />
+              </div>
             </button>
 
             {index + 1 !== array.length && <Separator />}
@@ -135,7 +150,6 @@ export const WalletSelectionModal = () => {
                 <IconButton
                   aria-label={t('editButtonLabel')}
                   variant="contained"
-                  className="w-13"
                   icon={<TbPencil aria-hidden />}
                   onClick={() => setEditMode(true)}
                   disabled={!isPasswordLogin}
@@ -151,14 +165,15 @@ export const WalletSelectionModal = () => {
                 <IconButton
                   aria-label={t('reorderButtonLabel')}
                   variant="contained"
-                  className="w-13"
+                  className="min-size-12 max-size-12 size-12"
+                  clickableProps={{ className: 'min-size-[inherit] max-size-[inherit] size-[inherit] p-0' }}
                   icon={<TbReorder aria-hidden />}
                   onClick={modalNavigateWrapper('reorder-wallets')}
                   disabled={!isPasswordLogin}
                 />
               </Tooltip>
 
-              {!!selectedWallet?.encryptedMnemonic && (
+              {!!selectedWallet?.encryptedMnemonic && isPasswordLogin && (
                 <Button
                   label={t('exportButtonLabel')}
                   className="w-full"

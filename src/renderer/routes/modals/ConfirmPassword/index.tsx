@@ -41,6 +41,8 @@ export const ConfirmPasswordModal = () => {
         <form className="flex flex-grow flex-col justify-between" onSubmit={handleAct(handleSubmit)}>
           <div>
             <Input
+              name="password"
+              id="password"
               placeholder={inputPlaceholder}
               label={inputLabel}
               error={!!actionState.errors.password}

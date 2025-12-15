@@ -179,6 +179,8 @@ export const AccountReceiveSelectionModal = () => {
               <Input
                 value={actionData.address}
                 onChange={handleInputAddressChange}
+                name="address"
+                id="address"
                 className="placeholder:text-neon w-full"
                 placeholder={t('enterRecipientAddressPlaceholder')}
                 clearable
@@ -250,6 +252,8 @@ export const AccountReceiveSelectionModal = () => {
             </Tabs.Content>
             <Tabs.Content value="my-contacts" className="max-h-80 min-h-0 overflow-y-auto">
               <Input
+                name="search-contact"
+                id="search-contact"
                 aria-label={t('searchContactsLabel')}
                 clearable
                 placeholder={t('searchContactsPlaceholder')}

@@ -35,6 +35,7 @@ export const CreateWalletStep3Modal = () => {
       setError('walletName', t('errors.walletNameEmpty'))
     }
   }
+
   const handlePressContinue = async () => {
     const wallet = await createWallet({
       name: actionData.walletName.trim(),
@@ -74,6 +75,8 @@ export const CreateWalletStep3Modal = () => {
 
           <div className="flex flex-col items-center rounded px-3.5 py-2">
             <Input
+              name="name"
+              id="name"
               maxLength={20}
               value={actionData.walletName}
               errorMessage={actionState.errors.walletName}
@@ -93,6 +96,7 @@ export const CreateWalletStep3Modal = () => {
             type="button"
             onClick={modalEraseWrapper('bottom')}
           />
+
           <Button
             className="w-full"
             variant="card"

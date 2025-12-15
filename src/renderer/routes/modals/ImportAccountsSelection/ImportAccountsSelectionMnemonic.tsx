@@ -13,8 +13,8 @@ import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
+import type { TBlockchainAccounts } from '.'
 import { ImportAccountsSelectionForm } from './ImportAccountsSelectionForm'
-import type { TBlockchainAccounts } from './index'
 
 type TActionsData = {
   blockchainAccounts: TBlockchainAccounts
@@ -50,7 +50,9 @@ export const ImportAccountsSelectionMnemonic = ({ value, onSubmit }: TProps) => 
 
     try {
       await onSubmit(selectedAccounts)
+
       ToastHelper.success({ message: t('successes.accountsImported') })
+
       modalErase('bottom')
     } catch (error) {
       console.error(error)

@@ -38,6 +38,8 @@ export const BackupAndRestoreRestoreStep1Page = () => {
 
         <div className="flex flex-col items-end gap-2.5">
           <Input
+            name="backup-path"
+            id="backup-path"
             value={actionData?.path ?? ''}
             placeholder={t('browse')}
             readOnly

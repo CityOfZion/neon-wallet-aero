@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import type { TBSToken } from '@cityofzion/blockchain-service'
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
-import { motion, useIsPresent } from 'framer-motion'
+import { motion, useIsPresent } from 'motion/react'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -199,6 +199,8 @@ export const SendRecipient = ({
           </div>
           <div className="flex w-full items-start gap-3">
             <Input
+              name="recipient-address"
+              id="recipient-address"
               value={recipient.addressInput ?? ''}
               onChange={handleChangeAddress}
               compacted

@@ -85,7 +85,12 @@
   "tokenList": {
     "holdingsLabel": "Holdings",
     "valueLabel": "Value",
-    "empty": "No token balances to display"
+    "empty": "No token balances to display",
+    "showHiddenTokensLabel": "Show hidden tokens",
+    "enableEditModeButtonLabel": "Enable edit mode",
+    "disableEditModeButtonLabel": "Disable edit mode",
+    "showTokenButtonLabel": "Show token",
+    "hideTokenButtonLabel": "Hide token"
   },
   "dappConnectionList": {
     "empty": "No connections to display",

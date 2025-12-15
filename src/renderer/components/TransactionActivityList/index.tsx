@@ -58,7 +58,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
 
   const contentRef = useRef<HTMLUListElement>(null)
 
-  const virtualizer = useVirtualization({
+  const { virtualizer } = useVirtualization({
     contentRef,
     count: data.length,
     gap: heights.DATE_GAP,

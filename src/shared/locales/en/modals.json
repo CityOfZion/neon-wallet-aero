@@ -8,7 +8,8 @@
     "editButtonLabel": "Edit",
     "exportButtonLabel": "Export",
     "exportWalletTitle": "Export wallet",
-    "exportError": "Error exporting wallet"
+    "exportError": "Error exporting wallet",
+    "walletWithoutBackupLabel": "Wallet without backup"
   },
   "walletEdit": {
     "title": "Edit wallet",
@@ -457,6 +458,14 @@
       "insufficientFunds": "Insufficient funds",
       "invalidAmount": "Invalid amount",
       "invalidAddress": "Invalid address"
+    },
+    "successNotification": {
+      "title": "Sell completed",
+      "previewBody": "Your sell transfer has been completed."
+    },
+    "failureNotification": {
+      "title": "Sell failed",
+      "previewBody": "We couldn't verify the completion of your sell transfer."
     }
   },
   "sellTokensDepositSuccess": {
@@ -666,5 +675,20 @@
     "searchingUsbMessage": "Scanning for connected devices…",
     "searchingBluetoothMessage": "Searching for nearby devices…",
     "alert": " Please ensure your hardware wallet is unlocked, connected to a supported app and connected to this device"
+  },
+  "hideFraudulentToken": {
+    "title": "Hide this fraudulent token?",
+    "description": "If you hide a token, it will only be removed from your wallet's view. No on-chain action is executed.",
+    "details": "Details:",
+    "tokenHashLabel": "Hash:",
+    "tokenNameLabel": "Name:",
+    "blockchainLabel": "Blockchain:",
+    "amountLabel": "Amount:",
+    "notFoundTokenLabel": "The token wasn't found or already hidden",
+    "hideTokenButtonLabel": "Hide token",
+    "messages": {
+      "hideError": "There is an error to hide fraudulent token, try again later, please",
+      "hideSuccess": "Fraudulent token was hidden"
+    }
   }
 }

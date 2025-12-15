@@ -8,7 +8,8 @@
     "editButtonLabel": "Editar",
     "exportButtonLabel": "Exportar",
     "exportWalletTitle": "Exportar carteira",
-    "exportError": "Erro ao exportar carteira"
+    "exportError": "Erro ao exportar carteira",
+    "walletWithoutBackupLabel": "Carteira sem backup"
   },
   "walletEdit": {
     "title": "Editar carteira",
@@ -457,6 +458,14 @@
       "insufficientFunds": "Fundos insuficientes",
       "invalidAmount": "Quantidade inválida",
       "invalidAddress": "Endereço inválido"
+    },
+    "successNotification": {
+      "title": "Venda concluída",
+      "previewBody": "Sua transferência de venda foi concluída."
+    },
+    "failureNotification": {
+      "title": "Venda falhou",
+      "previewBody": "Não foi possível verificar a conclusão da sua transferência de venda."
     }
   },
   "sellTokensDepositSuccess": {
@@ -666,5 +675,20 @@
     "searchingUsbMessage": "Pesquisando dispositivos conectados…",
     "searchingBluetoothMessage": "Pesquisando dispositivos próximos…",
     "alert": "Por favor, certifique-se de que sua carteira hardware esteja desbloqueada, conectada à uma aplicação compatível e conectada a esse dispositivo."
+  },
+  "hideFraudulentToken": {
+    "title": "Ocultar este token fraudulento?",
+    "description": "Se você ocultar um token, ele será removido apenas da visualização da sua carteira. Nenhuma ação on-chain é executada.",
+    "details": "Detalhes:",
+    "tokenHashLabel": "Hash:",
+    "tokenNameLabel": "Nome:",
+    "blockchainLabel": "Blockchain:",
+    "amountLabel": "Quantidade:",
+    "notFoundTokenLabel": "O token não foi encontrado ou já está oculto",
+    "hideTokenButtonLabel": "Ocultar token",
+    "messages": {
+      "hideError": "Ocorreu um erro ao ocultar o token fraudulento, tente novamente mais tarde, por favor",
+      "hideSuccess": "Token fraudulento foi ocultado"
+    }
   }
 }

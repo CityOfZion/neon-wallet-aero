@@ -1,9 +1,8 @@
 import { format } from 'date-fns'
-import { getI18n } from 'react-i18next'
 import * as uuid from 'uuid'
 
+import { getI18next } from '@renderer/libs/i18next'
 import { ACCOUNT_COLOR_SKINS } from '@shared/constants/skins'
-import type { TColorSkin } from '@shared/types/store'
 
 import { ToastHelper } from './ToastHelper'
 
@@ -13,6 +12,8 @@ type TRemoveSpecialCharacterOptions = {
   allowCommas?: boolean
   trimText?: boolean
 }
+
+const { t } = getI18next()
 
 export class UtilsHelper {
   static sleep(ms: number) {
@@ -79,11 +80,7 @@ export class UtilsHelper {
   static getSkinColor(index?: number) {
     const newIndex = index ?? UtilsHelper.getRandomNumber(7)
 
-    return ACCOUNT_COLOR_SKINS[newIndex]?.id ?? ACCOUNT_COLOR_SKINS[0].id
-  }
-
-  static generateColorSkin(colorIndex?: number): TColorSkin {
-    return { id: UtilsHelper.getSkinColor(colorIndex), type: 'color' }
+    return ACCOUNT_COLOR_SKINS[newIndex] ?? ACCOUNT_COLOR_SKINS[0]
   }
 
   static isHexadecimal(hexadecimal: string) {
@@ -109,9 +106,8 @@ export class UtilsHelper {
   }
 
   static async copyToClipboard(text: string): Promise<void> {
-    const { t } = getI18n()
-
     ToastHelper.success({ message: t('common:general.successfullyCopied') })
+
     return await navigator.clipboard.writeText(text)
   }
 
@@ -130,6 +126,7 @@ export class UtilsHelper {
     if (options.allowSpaces) {
       regex += ' '
     }
+
     text = text.replace(new RegExp(`[^${regex}]`, 'g'), '')
 
     if (options.trimText) text = text.trim()

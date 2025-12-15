@@ -38,7 +38,7 @@ export const useLanguageSelector = () => {
 }
 
 export const useSelectedWalletSelector = () => {
-  const { ref, value } = useAppSelector(state => state.settings.inMemoryData.selectedWallet)
+  const { ref, value } = useAppSelector(state => state.settings.data.selectedWallet)
 
   return {
     selectedWallet: value,
@@ -47,7 +47,7 @@ export const useSelectedWalletSelector = () => {
 }
 
 export const useSelectedAccountSelector = () => {
-  const { ref, value } = useAppSelector(state => state.settings.inMemoryData.selectedAccount)
+  const { ref, value } = useAppSelector(state => state.settings.data.selectedAccount)
 
   return {
     selectedAccount: value,

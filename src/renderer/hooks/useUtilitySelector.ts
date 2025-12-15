@@ -61,16 +61,6 @@ export const useSwapRecordByHashSelector = (hash: string) => {
   return { swapRecord, swapRecordRef }
 }
 
-export const useMigrationNeo3Selector = (hash: string) => {
-  const neoLegacyService = bsAggregator.blockchainServicesByName.neoLegacy
-
-  const { value: migrationNeo3, ref: migrationNeo3Ref } = useAppSelector(
-    ({ utility }) => utility.data.migrationsNeo3[neoLegacyService.tokenService.normalizeHash(hash)]
-  )
-
-  return { migrationNeo3, migrationNeo3Ref }
-}
-
 export const useLoginControlSelector = () => {
   const { ref, value } = useAppSelector(state => state.utility.data.encryptedLoginControl)
 

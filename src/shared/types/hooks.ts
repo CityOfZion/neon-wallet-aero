@@ -83,7 +83,6 @@ export type TTransactionsTransfer = {
   methodName?: string
   isPending?: boolean
   isClaim?: boolean
-  isMigrate?: boolean
   amount: string
   from?: string
   to?: string

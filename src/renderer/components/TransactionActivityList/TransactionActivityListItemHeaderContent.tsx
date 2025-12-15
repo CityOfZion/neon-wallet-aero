@@ -19,20 +19,15 @@ import TbClock from '@renderer/assets/images/tb-clock.svg?react'
 import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
 import type { TFullTransactionsItem } from '@shared/types/hooks'
-import type { TMigrationNeo3 } from '@shared/types/store'
 
 import { TransactionActivityListItemHeaderDetails } from './TransactionActivityListItemHeaderDetails'
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 type TProps = {
   item: TFullTransactionsItem
-  migrationNeo3?: TMigrationNeo3
 }
 
-export const TransactionActivityListItemHeaderContent = ({
-  item: { txId, txIdUrl, date, isPending },
-  migrationNeo3,
-}: TProps) => {
+export const TransactionActivityListItemHeaderContent = ({ item: { txId, txIdUrl, date, isPending } }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.item' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { swapRecord } = useSwapRecordByHashSelector(txId)
@@ -84,19 +79,17 @@ export const TransactionActivityListItemHeaderContent = ({
       </div>
 
       <div className="flex items-center gap-x-2 truncate whitespace-nowrap">
-        {(migrationNeo3 || swapRecord) && (
+        {swapRecord && (
           <div className="flex items-center gap-x-2" onClick={handleCancelBubbleEvent}>
-            {swapRecord && (
-              <TransactionActivityListItemHeaderDetails
-                role="button"
-                tabIndex={0}
-                className="hover:opacity-90 focus:opacity-90 active:opacity-80"
-                data={<p className="text-blue">{tCommonGeneral('swap')}</p>}
-                icon={<TbTransform aria-hidden className="text-blue" />}
-                onKeyDown={handleKeyDownWrapper(handleGoToSwapDetails)}
-                onClick={handleGoToSwapDetails}
-              />
-            )}
+            <TransactionActivityListItemHeaderDetails
+              role="button"
+              tabIndex={0}
+              className="hover:opacity-90 focus:opacity-90 active:opacity-80"
+              data={<p className="text-blue">{tCommonGeneral('swap')}</p>}
+              icon={<TbTransform aria-hidden className="text-blue" />}
+              onKeyDown={handleKeyDownWrapper(handleGoToSwapDetails)}
+              onClick={handleGoToSwapDetails}
+            />
           </div>
         )}
 

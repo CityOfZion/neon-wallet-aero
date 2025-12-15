@@ -7,6 +7,22 @@
     },
     "hardwareWalletManagerSetup": {
       "requestingPermission": "等待硬體設備確認…"
+    },
+    "accountTasksManagerSetup": {
+      "useFraudulentTokensNotificationProcess": {
+        "notificationTitle": "\"{{ value }}\"是一個詐騙代幣！",
+        "notificationDescription": "我們發現\"{{ value }}\"被社群標記為詐騙代幣，建議將其隱藏，並避免與其進行任何其他互動。"
+      },
+      "useVotingNeo3NotificationProcess": {
+        "notificationTitle": "你正在錯過免費的 GAS！",
+        "notificationDescription": "點擊這裡，立即投票。"
+      }
+    },
+    "walletTasksManagerSetup": {
+      "useBackupReminderNotificationProcess": {
+        "notificationTitle": "建立新的備份檔案！",
+        "notificationDescription": "我們建議在\"菜單 > 設置 > 備份與恢復\"中創建新的備份文件以保護您的錢包。為了提高安全性，您還可以在\"錢包 > 導出\"中手動導出助記詞，在\"賬戶 > 導出\"中導出私鑰。"
+      }
     }
   },
   "wallets": {
@@ -20,6 +36,7 @@
     "bridgeButtonLabel": "跨鏈橋",
     "buyAndSellTokensButtonLabel": "買入 + 賣出",
     "ariaLabels": {
+      "notificationsIconButton": "通知",
       "menuIconButton": "選單",
       "refreshIconButton": "重新整理",
       "copyIconButton": "複製"
@@ -327,6 +344,14 @@
     "sendFail": {
       "toast": "交易發送失敗"
     },
+    "successNotification": {
+      "title": "轉帳完成",
+      "previewBody": "您的轉帳已成功完成。"
+    },
+    "failureNotification": {
+      "title": "轉帳失敗",
+      "previewBody": "我們無法確認您的轉帳是否完成。"
+    },
     "errors": {
       "feeError": "計算手續費時發生錯誤",
       "insufficientFunds": "資金不足",
@@ -521,5 +546,23 @@
     "byUSBButtonLabel": "由USB",
     "successToastMessage": "硬體錢包連接成功",
     "disconnectButtonLabel": "斷接硬體錢包"
+  },
+  "notifications": {
+    "title": "通知",
+    "notFound": {
+      "title": "這裡什麼都沒有",
+      "description": "還沒有通知"
+    },
+
+    "item": {
+      "relatedAddressLabel": "地址：{{ address }}",
+      "relatedAccountLabel": "賬戶：{{ name }}",
+      "actionsButtonLabel": "操作",
+      "markAsReadButtonLabel": "標記為已讀",
+      "markAsUnreadButtonLabel": "標記為未讀",
+      "providerLabels": {
+        "system": "系統"
+      }
+    }
   }
 }

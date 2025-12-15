@@ -8,6 +8,7 @@ import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
+import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -20,14 +21,19 @@ import type { TModalState } from '@shared/types/modal'
 export const WalletDeletionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletDeletion' })
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
+  const { wallets } = useWalletsSelector()
   const { wallet } = useModalState<TModalState<'wallet-deletion'>>()
   const { modalNavigateWrapper, modalErase } = useModalNavigate()
   const { deleteWallet } = useBlockchainActions()
   const dispatch = useAppDispatch()
 
   const [isDeleting, startDelete] = usePressOnce(async () => {
+    const nextWallet = wallets.find(currentWallet => currentWallet.id !== wallet.id)
+
     await deleteWallet(wallet)
-    dispatch(settingsReducerActions.setSelectedWallet(undefined))
+
+    if (nextWallet) dispatch(settingsReducerActions.setSelectedWallet(nextWallet))
+
     modalErase('bottom')
   })
 

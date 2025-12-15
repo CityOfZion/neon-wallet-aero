@@ -37,7 +37,7 @@ async function setupWalletKit() {
   })
 }
 
-export async function registerWalletConnectHandlers() {
+export function registerWalletConnectHandlers() {
   setupWalletKit()
 
   backgroundApi.listen('wallet-connect:pair', async ({ args }) => {

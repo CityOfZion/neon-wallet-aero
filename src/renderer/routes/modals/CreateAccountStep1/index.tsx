@@ -43,6 +43,8 @@ export const CreateAccountStep1Modal = () => {
       <form className="flex w-full flex-grow flex-col justify-between" onSubmit={handleAct(handlePressContinue)}>
         <div className="flex flex-col items-center rounded px-3.5 py-2">
           <Input
+            name="name"
+            id="name"
             maxLength={20}
             value={actionData.accountName}
             errorMessage={actionState.errors.accountName}

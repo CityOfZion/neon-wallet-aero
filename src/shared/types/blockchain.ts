@@ -1,6 +1,6 @@
 import type { TBSNetwork } from '@cityofzion/blockchain-service'
 
-import type { IAccountState, IWalletState, TAccountType, TSkin, TWalletType } from './store'
+import type { IAccountState, IWalletState, TAccountType, TSkin, TWalletBackupStatus, TWalletType } from './store'
 
 export type TBlockchainServiceKey = 'neo3' | 'neoLegacy' | 'ethereum' | 'neox' | 'polygon' | 'base' | 'arbitrum'
 
@@ -39,6 +39,7 @@ export type TWalletToCreate = {
   mnemonic?: string
   id?: string
   type?: TWalletType
+  backupStatus?: TWalletBackupStatus
 }
 
 export type TNetwork = {

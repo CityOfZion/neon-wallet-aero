@@ -28,10 +28,8 @@ export const LoginKeyPage = () => {
         type: 'key',
         onSubmit: async selectedAccounts => {
           const accounts: TAccountsToImport = selectedAccounts.map(account => ({ ...account, type: 'standard' }))
-          await loginWithKey(accounts, {
-            name: commonT('wallet.importedWalletName'),
-            type: 'standard',
-          })
+
+          await loginWithKey(accounts, { name: commonT('wallet.importedWalletName'), type: 'standard' })
 
           // This adds a slight delay to improve user experience
           await UtilsHelper.sleep(1000)
@@ -49,6 +47,7 @@ export const LoginKeyPage = () => {
         type: 'mnemonic',
         onSubmit: async selectedAccounts => {
           const accounts: TAccountsToImport = selectedAccounts.map(account => ({ ...account, type: 'standard' }))
+
           await loginWithKey(accounts, {
             name: commonT('wallet.mnemonicWalletName'),
             type: 'standard',
@@ -66,16 +65,18 @@ export const LoginKeyPage = () => {
 
   const submitAddress = async (address: string) => {
     const blockchains = bsAggregator.getBlockchainNameByAddress(address)
+
     const accountsToImport: TAccountsToImport = blockchains.map(blockchain => ({
       blockchain,
       address,
       type: 'watch',
     }))
 
-    await loginWithKey(accountsToImport, {
-      name: commonT('wallet.watchAccount'),
-      type: 'standard',
-    })
+    await loginWithKey(accountsToImport, { name: commonT('wallet.watchAccount'), type: 'standard' })
+
+    // This adds a slight delay to improve user experience
+    await UtilsHelper.sleep(1000)
+
     navigate('/wallets', { replace: true })
   }
 

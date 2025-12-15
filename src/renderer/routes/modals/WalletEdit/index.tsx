@@ -63,6 +63,8 @@ export const WalletEditModal = () => {
 
       <form className="mt-6 flex flex-1 flex-col gap-y-4 px-4" onSubmit={handleAct(handleSubmit)}>
         <Input
+          name="name"
+          id="name"
           contentClassName="bg-asphalt"
           maxLength={20}
           value={actionData.walletName}

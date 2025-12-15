@@ -19,12 +19,11 @@ import NeonWalletIcon from '@renderer/assets/images/neon-wallet-icon.svg?react'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import type { TCreateWalletAndAccountParam } from '@shared/types/blockchain'
-import type { TContactState, TMigrationsNeo3, TSwapRecord } from '@shared/types/store'
+import type { TContactState, TSwapRecord } from '@shared/types/store'
 
 type TLocationState = {
   wallets: TCreateWalletAndAccountParam[]
   swapRecords?: TSwapRecord[]
-  migrationsNeo3?: TMigrationsNeo3
   contacts?: TContactState[]
   password: string
 }
@@ -46,7 +45,7 @@ export const OnboardingImportWalletStep4Page = () => {
     isImporting.current = true
 
     try {
-      const { wallets, contacts, password, swapRecords, migrationsNeo3 } = state
+      const { wallets, contacts, password, swapRecords } = state
       const progressByStep = 100 / (wallets.length + 3)
 
       await setNewPassword(password)
@@ -54,15 +53,14 @@ export const OnboardingImportWalletStep4Page = () => {
       setProgress(progress => progress + progressByStep)
 
       if (swapRecords) swapRecords.forEach(swapRecord => dispatch(utilityReducerActions.persistSwapRecord(swapRecord)))
-      if (migrationsNeo3) dispatch(utilityReducerActions.mergeMigrationsNeo3(migrationsNeo3))
       if (contacts) saveContacts(contacts)
 
       await UtilsHelper.sleep(250)
 
       setProgress(progress => progress + progressByStep)
 
-      for (const { name, mnemonic, type, id, accounts } of wallets) {
-        const wallet = await createWallet({ name, mnemonic, type, id })
+      for (const { accounts, ...newWallet } of wallets) {
+        const wallet = await createWallet(newWallet)
 
         await importAccounts({ accounts, wallet })
 

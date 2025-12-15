@@ -47,11 +47,11 @@ const setCurrency: CaseReducer<ISettingsReducer, PayloadAction<TCurrency>> = (st
 }
 
 const setSelectedWallet: CaseReducer<ISettingsReducer, PayloadAction<IWalletState | undefined>> = (state, action) => {
-  state.inMemoryData.selectedWallet = action.payload
+  state.data.selectedWallet = action.payload
 }
 
 const setSelectedAccount: CaseReducer<ISettingsReducer, PayloadAction<IAccountState | undefined>> = (state, action) => {
-  state.inMemoryData.selectedAccount = action.payload
+  state.data.selectedAccount = action.payload
 }
 
 export const settingsSliceReducers = {

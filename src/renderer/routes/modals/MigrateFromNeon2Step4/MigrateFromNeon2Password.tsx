@@ -52,6 +52,8 @@ export const MigrateFromNeon2Password = ({ accountToMigrate, onSubmit }: TProps)
         <p className="truncate text-xs text-gray-300">{accountToMigrate.address}</p>
 
         <Input
+          name="password"
+          id="password"
           label={t('inputLabel')}
           containerClassName="mt-1.5"
           placeholder={t('inputPlaceholder')}

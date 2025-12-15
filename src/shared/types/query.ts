@@ -38,6 +38,7 @@ export type TBalance = {
   address: string
   blockchain: TBlockchainServiceKey
   tokensBalances: TTokenBalance[]
+  tokensBalancesMap: Map<string, TTokenBalance>
   exchangeTotal: number
 }
 
@@ -67,7 +68,7 @@ export type TUseBalancesParams = {
   blockchain: TBlockchainServiceKey
 }
 
-export type TUseBalanceOptionShowType = 'hidden' | 'active'
+export type TUseBalanceOptionShowType = 'hidden' | 'active' | 'all'
 
 export type TUseBalancesOptions = {
   showType?: TUseBalanceOptionShowType

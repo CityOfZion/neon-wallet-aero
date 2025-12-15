@@ -10,7 +10,7 @@ import { LazyHelper } from '@renderer/helpers/LazyHelper'
 
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
-import { modalsRouter } from '@renderer/routes/modalsRouter'
+import { modalsRouter } from '@renderer/routes/modals-router'
 
 import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
 import { setupBsAggregator } from '@renderer/libs/blockchain-service'
@@ -18,6 +18,7 @@ import { setupI18next } from '@renderer/libs/i18next'
 import { queryClient } from '@renderer/libs/query'
 import { setupStore, store, waitForBootstrap } from '@renderer/libs/redux'
 import { authReducerActions } from '@renderer/store/reducers/auth'
+import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import { rendererApi } from '@shared/message-api/renderer'
 
 const ToastProvider = lazy(() => import('@renderer/libs/sonner'))
@@ -39,6 +40,8 @@ export const RootPage = () => {
         store.dispatch(authReducerActions.setLoginSession(loginSession))
         navigate('/wallets', { replace: true })
       } else {
+        store.dispatch(settingsReducerActions.setSelectedWallet(undefined))
+        store.dispatch(settingsReducerActions.setSelectedAccount(undefined))
         store.dispatch(authReducerActions.resetTemporaryApplicationData())
         navigate('/login', { replace: true })
       }

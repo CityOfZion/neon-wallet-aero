@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
@@ -44,7 +44,7 @@ export const MigrateFromNeon2Step3Modal = () => {
   }
 
   return (
-    <BottomModalLayout heading={t('title')} className="px-4">
+    <BottomModalLayout heading={t('title')}>
       <p className="text-center text-white">{t('selectTitle')}</p>
 
       <div className="flex flex-1 flex-col items-center justify-between px-4">
@@ -54,13 +54,13 @@ export const MigrateFromNeon2Step3Modal = () => {
           <Button label={t('selectAllButtonLabel')} variant="text-slim" flat onClick={handleSelectAll} />
         </div>
 
-        <div className="mt-1 flex min-h-0 w-full flex-grow flex-col overflow-y-auto pr-2">
+        <ul className="mt-1 flex min-h-0 w-full flex-grow flex-col overflow-y-auto pr-2">
           {content.accounts.map((account, index) => {
             const isExistingAccount = doesAccountExist(account)
             const isChecked = selectedAccountsToMigrate.some(selectAccount => selectAccount.address === account.address)
 
             return (
-              <Fragment key={account.address}>
+              <li key={account.address} className="flex w-full flex-col">
                 <div className="flex items-center justify-between py-4">
                   <div className="flex items-center">
                     <BlockchainIcon className="mr-2" blockchain={account.blockchain} type="gray" />
@@ -78,16 +78,16 @@ export const MigrateFromNeon2Step3Modal = () => {
 
                   <Checkbox
                     onClick={handleSelect.bind(null, account)}
-                    checked={isExistingAccount || isChecked}
+                    checked={isChecked}
                     disabled={isExistingAccount}
                   />
                 </div>
 
                 {index < content.accounts.length - 1 && <Separator />}
-              </Fragment>
+              </li>
             )
           })}
-        </div>
+        </ul>
 
         <span className="text-blue my-3.5 text-center text-sm font-bold">
           {t('selectedQuantity', { selected: selectedAccountsToMigrate.length, total: content.accounts.length })}

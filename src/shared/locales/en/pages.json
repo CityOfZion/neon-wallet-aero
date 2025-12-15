@@ -7,6 +7,22 @@
     },
     "hardwareWalletManagerSetup": {
       "requestingPermission": "Waiting hardware device confirmation…"
+    },
+    "accountTasksManagerSetup": {
+      "useFraudulentTokensNotificationProcess": {
+        "notificationTitle": "\"{{ value }}\" is a fraudulent token!",
+        "notificationDescription": "We've identified \"{{ value }}\" that has been flagged as fraudulent token by the community, we suggest hiding it and avoiding any other kind of interaction with it."
+      },
+      "useVotingNeo3NotificationProcess": {
+        "notificationTitle": "You're missing out on free GAS!",
+        "notificationDescription": "Simply tap here and cast your vote today."
+      }
+    },
+    "walletTasksManagerSetup": {
+      "useBackupReminderNotificationProcess": {
+        "notificationTitle": "Create a new backup file!",
+        "notificationDescription": "We recommend creating a new backup file in \"Menu > Settings > Backup & Restore\" to protect your wallets. For additional security, you can also export manually your mnemonics in \"Wallet > Export\" and private keys in \"Account > Export\"."
+      }
     }
   },
   "wallets": {
@@ -20,6 +36,7 @@
     "bridgeButtonLabel": "Bridge",
     "buyAndSellTokensButtonLabel": "Buy + Sell",
     "ariaLabels": {
+      "notificationsIconButton": "Notifications",
       "menuIconButton": "Menu",
       "refreshIconButton": "Refresh",
       "copyIconButton": "Copy"
@@ -35,7 +52,7 @@
       "label": "Transactions"
     },
     "connectionsTab": {
-      "label": "Connections"
+      "label": "dApps"
     }
   },
   "login": {
@@ -333,6 +350,14 @@
     "sendFail": {
       "toast": "Transaction failed to send"
     },
+    "successNotification": {
+      "title": "Transfer completed",
+      "previewBody": "Your transfer has been completed successfully."
+    },
+    "failureNotification": {
+      "title": "Transfer failed",
+      "previewBody": "We couldn't verify the completion of your transfer."
+    },
     "errors": {
       "feeError": "Error to calculate fee",
       "insufficientFunds": "Insufficient funds",
@@ -521,5 +546,22 @@
     "byUSBButtonLabel": "By USB",
     "successToastMessage": "Hardware wallet connected successfully",
     "disconnectButtonLabel": "Disconnect hardware wallet"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "notFound": {
+      "title": "Nothing to see here",
+      "description": "There is no notifications yet"
+    },
+    "item": {
+      "relatedAddressLabel": "Address: {{ address }}",
+      "relatedAccountLabel": "Account: {{ name }}",
+      "actionsButtonLabel": "Actions",
+      "markAsReadButtonLabel": "Mark as read",
+      "markAsUnreadButtonLabel": "Mark as unread",
+      "providerLabels": {
+        "system": "System"
+      }
+    }
   }
 }

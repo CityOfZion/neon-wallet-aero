@@ -1,4 +1,4 @@
-import { animate, motion, useMotionValue } from 'framer-motion'
+import { animate, motion, useMotionValue } from 'motion/react'
 import type { ComponentProps } from 'react'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'

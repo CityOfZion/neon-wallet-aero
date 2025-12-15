@@ -13,8 +13,8 @@ import { utilityReducerActions } from '../reducers/utility'
 
 type TParams = {
   transaction: TTransactionsTransfer
-  successNotification?: Pick<TNotification, 'title' | 'previewBody'>
-  failureNotification?: Pick<TNotification, 'title' | 'previewBody'>
+  successNotification: Pick<TNotification, 'title' | 'previewBody'>
+  failureNotification: Pick<TNotification, 'title' | 'previewBody'>
 }
 
 export const waitTransaction = createAsyncThunk<void, TParams>(
@@ -53,7 +53,7 @@ export const waitTransaction = createAsyncThunk<void, TParams>(
           previewBody: successNotification.previewBody,
           action: {
             type: 'navigate',
-            payload: { to: 'account-transaction', address, blockchain },
+            payload: { to: 'account-transactions', address, blockchain },
           },
         })
       )

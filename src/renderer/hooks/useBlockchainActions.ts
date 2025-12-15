@@ -52,7 +52,7 @@ export function useBlockchainActions() {
   }
 
   const createWallet = useCallback(
-    async ({ name, mnemonic, id, type = 'standard' }: TWalletToCreate) => {
+    async ({ name, mnemonic, id, backupStatus, type = 'standard' }: TWalletToCreate) => {
       if (!loginSessionRef.current) {
         throw new AppError(tCommon('errors.noLoginSession'))
       }
@@ -69,6 +69,7 @@ export function useBlockchainActions() {
         encryptedMnemonic,
         type,
         accounts: [],
+        backupStatus: backupStatus || 'unsuccessful',
       }
 
       dispatch(authReducerActions.saveWallet(newWallet))
@@ -107,7 +108,7 @@ export function useBlockchainActions() {
         idWallet: wallet.id,
         name,
         blockchain,
-        skin: skin ?? UtilsHelper.generateColorSkin(),
+        skin: skin ?? { id: UtilsHelper.getSkinColor(), type: 'color' },
         address: generatedAccount.address,
         type: 'standard',
         encryptedKey,
@@ -153,7 +154,7 @@ export function useBlockchainActions() {
         idWallet: wallet.id,
         name: name ?? tCommon('account.defaultName', { accountNumber: accountOrder + 1 }),
         blockchain,
-        skin: skin ?? UtilsHelper.generateColorSkin(),
+        skin: skin ?? { id: UtilsHelper.getSkinColor(), type: 'color' },
         address,
         type,
         encryptedKey,
@@ -196,21 +197,24 @@ export function useBlockchainActions() {
       }
 
       const service = bsAggregator.blockchainServicesByName[account.blockchain]
-      if (!hasWalletConnect(service)) return
 
-      const sessions = await rendererApi.send('wallet-connect:get-sessions')
-      const accountSessions = WalletKitHelper.filterSessions(Object.values(sessions), {
-        addresses: [account.address],
-        chains: [service.walletConnectService.chain],
-      })
-      await Promise.allSettled(
-        accountSessions.map(session =>
-          rendererApi.send('wallet-connect:disconnect', {
-            topic: session.topic,
-            reason: WalletKitHelper.getError('USER_DISCONNECTED'),
-          })
+      if (hasWalletConnect(service)) {
+        const sessions = await rendererApi.send('wallet-connect:get-sessions')
+
+        const accountSessions = WalletKitHelper.filterSessions(Object.values(sessions), {
+          addresses: [account.address],
+          chains: [service.walletConnectService.chain],
+        })
+
+        await Promise.allSettled(
+          accountSessions.map(session =>
+            rendererApi.send('wallet-connect:disconnect', {
+              topic: session.topic,
+              reason: WalletKitHelper.getError('USER_DISCONNECTED'),
+            })
+          )
         )
-      )
+      }
 
       dispatch(authReducerActions.deleteAccount(account))
     },

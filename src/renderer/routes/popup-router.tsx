@@ -30,7 +30,7 @@ const ConnectHardwareWalletPage = lazy(() => import('./popup/ConnectHardwareWall
 const LoginNeonAccountOnboardingPage = lazy(() => import('./popup/LoginNeonAccountOnboarding'))
 const LoginNeonAccountPasswordPage = lazy(() => import('./popup/LoginNeonAccountPassword'))
 const MigrateFromNeon2Page = lazy(() => import('./popup/MigrateFromNeon2'))
-const MigrateFromNeon2Step2Page = lazy(() => import('./popup/MigrateromNeon2Step2'))
+const MigrateFromNeon2Step2Page = lazy(() => import('./popup/MigrateFromNeon2Step2'))
 const NetworkConfigurationPage = lazy(() => import('./popup/NetworkConfiguration'))
 const OnboardingImportWalletPage = lazy(() => import('./popup/OnboardingImportWallet'))
 const OnboardingImportWalletStep1Page = lazy(() => import('./popup/OnboardingImportWalletStep1'))
@@ -49,6 +49,7 @@ const WalletsPage = lazy(() => import('./popup/Wallets'))
 const HelpPage = lazy(() => import('./popup/Help'))
 const Neo3NeoXBridgePage = lazy(() => import('./popup/Neo3NeoXBridge'))
 const VoteNeo3Page = lazy(() => import('./popup/VoteNeo3'))
+const NotificationsPage = lazy(() => import('./popup/Notifications'))
 
 export const popupRouter = createHashRouter([
   {
@@ -108,6 +109,10 @@ export const popupRouter = createHashRouter([
             element: <WalletsPage />,
           },
           {
+            path: 'notifications',
+            element: <NotificationsPage />,
+          },
+          {
             path: 'import',
             element: <ImportPage />,
           },
@@ -129,9 +134,9 @@ export const popupRouter = createHashRouter([
                 element: <BackupAndRestorePage />,
                 children: [
                   {
-                    path: 'backup?',
+                    path: 'backup',
                     children: [
-                      { path: '1?', element: <BackupAndRestoreBackupStep1Page /> },
+                      { path: '1', element: <BackupAndRestoreBackupStep1Page /> },
                       { path: '2', element: <BackupAndRestoreBackupStep2Page /> },
                       { path: '', element: <Navigate to="settings/backup-and-restore/backup/1" replace /> },
                     ],
@@ -139,7 +144,7 @@ export const popupRouter = createHashRouter([
                   {
                     path: 'restore',
                     children: [
-                      { path: '1?', element: <BackupAndRestoreRestoreStep1Page /> },
+                      { path: '1', element: <BackupAndRestoreRestoreStep1Page /> },
                       { path: '2', element: <BackupAndRestoreRestoreStep2Page /> },
                       { path: '3', element: <BackupAndRestoreRestoreStep3Page /> },
                     ],

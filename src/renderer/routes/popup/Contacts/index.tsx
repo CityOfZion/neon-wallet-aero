@@ -86,6 +86,8 @@ export const ContactsPage = () => {
     >
       <div className="flex flex-grow flex-col gap-y-4">
         <Input
+          name="search-contact"
+          id="search-contact"
           aria-label={t('searchContactsLabel')}
           clearable
           placeholder={t('searchContactsPlaceholder')}

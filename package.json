@@ -2,10 +2,10 @@
   "name": "neon",
   "description": "Your self-custodial and open-source blockchain wallet as browser extension.",
   "homepage": "https://github.com/CityOfZion/neon-wallet-aero",
-  "author": "CoZ (https://github.com/CityOfZion)",
+  "author": "COZ",
   "version": "1.0.0",
   "maintainers": [
-    "CoZ"
+    "COZ"
   ],
   "scripts": {
     "prepare": "husky",
@@ -15,12 +15,12 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json --composite false"
   },
   "dependencies": {
-    "@cityofzion/blockchain-service": "1.22.3",
-    "@cityofzion/bs-ethereum": "2.14.4",
-    "@cityofzion/bs-multichain": "1.1.7",
-    "@cityofzion/bs-neo-legacy": "1.13.9",
-    "@cityofzion/bs-neo3": "1.17.4",
-    "@cityofzion/bs-neox": "1.4.4",
+    "@cityofzion/blockchain-service": "1.22.5",
+    "@cityofzion/bs-ethereum": "2.14.7",
+    "@cityofzion/bs-multichain": "1.1.10",
+    "@cityofzion/bs-neo-legacy": "1.14.2",
+    "@cityofzion/bs-neo3": "1.17.6",
+    "@cityofzion/bs-neox": "1.4.7",
     "@dnd-kit/core": "~6.3.1",
     "@dnd-kit/modifiers": "~9.0.0",
     "@dnd-kit/sortable": "~10.0.0",
@@ -39,6 +39,7 @@
     "@radix-ui/react-progress": "~1.1.7",
     "@radix-ui/react-radio-group": "~1.3.8",
     "@radix-ui/react-select": "~2.2.6",
+    "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tabs": "~1.1.13",
     "@radix-ui/react-tooltip": "~1.2.8",
     "@reduxjs/toolkit": "~2.9.0",

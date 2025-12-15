@@ -29,7 +29,7 @@ export const SellTokensDepositSuccessModal = () => {
           <PiSealCheck aria-hidden className="text-blue size-24" />
         </div>
 
-        <p className="mt-6 text-center text-lg text-white">{t('subtitle')}</p>
+        <p className="my-6 text-center text-lg text-white">{t('subtitle')}</p>
 
         <Details.Root>
           <Details.Header leftElement={<TbReceipt aria-hidden />}>{t('details')}</Details.Header>

@@ -103,7 +103,6 @@ const fixBalanceResult = (
   hiddenTokensByBlockchain: THiddenTokenByBlockchain
 ): TBalance => {
   const tokenBalancesMapClone = cloneDeep(result.tokensBalancesMap)
-
   const hiddenTokens = hiddenTokensByBlockchain[result.blockchain]
   const service = bsAggregator.blockchainServicesByName[result.blockchain]
   let tokensBalances: TTokenBalance[] = []
@@ -113,27 +112,34 @@ const fixBalanceResult = (
       hiddenTokens?.forEach(tokenHash => {
         tokenBalancesMapClone.delete(service.tokenService.normalizeHash(tokenHash))
       })
+
       tokensBalances = Array.from(tokenBalancesMapClone.values())
     })
-    .otherwise(() => {
+    .with('hidden', () => {
       hiddenTokens?.forEach(tokenHash => {
         const tokenBalance = tokenBalancesMapClone.get(service.tokenService.normalizeHash(tokenHash))
+
         if (!tokenBalance) return
+
         tokensBalances.push(tokenBalance)
       })
+    })
+    .otherwise(() => {
+      tokensBalances = Array.from(tokenBalancesMapClone.values())
     })
 
   return {
     address: result.address,
     blockchain: result.blockchain,
     tokensBalances,
+    tokensBalancesMap: tokenBalancesMapClone,
     exchangeTotal: tokensBalances.reduce((acc, tokenBalance) => acc + tokenBalance.exchangeAmount, 0),
   }
 }
 
 export function useBalances(params: TUseBalancesParams[], options?: TUseBalancesOptions): TUseBalancesResult {
-  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const queryClient = useQueryClient()
+  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { isLoading: isCurrencyRatioLoading, data: currencyRatio } = useCurrencyRatio()
   const { currency } = useCurrencySelector()
   const { hiddenTokensByBlockchain } = useHiddenTokensByBlockchainSelector()
@@ -198,8 +204,8 @@ export function useBalance(
   balanceParams: TUseBalancesParams | undefined,
   options?: TUseBalancesOptions
 ): TUseBalanceResult {
-  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const queryClient = useQueryClient()
+  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { currency } = useCurrencySelector()
   const { isLoading: isCurrencyRatioLoading, data: currencyRatio } = useCurrencyRatio()
   const { hiddenTokensByBlockchain } = useHiddenTokensByBlockchainSelector()
@@ -238,8 +244,8 @@ export function useBalance(
 }
 
 export function useLazyBalance() {
-  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const queryClient = useQueryClient()
+  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { currency } = useCurrencySelector()
   const currentRatioQuery = useCurrencyRatio()
   const { hiddenTokensByBlockchain } = useHiddenTokensByBlockchainSelector()

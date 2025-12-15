@@ -42,6 +42,7 @@ const BaseToast = ({ message, className, sonnerId, icon, closeable = true }: TBa
 
       {closeable && (
         <button
+          type="button"
           aria-label={t('closeIconButtonLabel')}
           onClick={() => toast.dismiss(sonnerId)}
           className="h-[1.5rem] min-h-[1.5rem] w-[1.5rem] min-w-[1.5rem] cursor-pointer opacity-50"

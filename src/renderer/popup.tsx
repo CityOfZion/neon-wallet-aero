@@ -3,7 +3,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 
-import { popupRouter } from './routes/popupRouter'
+import { popupRouter } from './routes/popup-router'
 
 import '@renderer/assets/css/global.css'
 

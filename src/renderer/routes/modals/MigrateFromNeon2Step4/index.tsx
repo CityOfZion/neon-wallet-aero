@@ -1,5 +1,3 @@
-import { Fragment } from 'react'
-
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -60,6 +58,7 @@ export const MigrateFromNeon2Step4Modal = () => {
           subtitle: t('step4.success.subtitle'),
           content: <MigrateFromNeon2Success accounts={accounts} />,
         },
+        replace: true,
       })
     } catch {
       ToastHelper.error({ message: t('step4.migrateError') })
@@ -75,15 +74,15 @@ export const MigrateFromNeon2Step4Modal = () => {
     <BottomModalLayout heading={t('step4.title')}>
       <p className="text-center text-white">{t('step4.description')}</p>
 
-      <div className="mt-1 mb-3 flex min-h-0 w-full flex-grow flex-col overflow-y-auto pr-2">
+      <ul className="mt-1 mb-3 flex min-h-0 w-full flex-grow flex-col overflow-y-auto pr-2">
         {selectedAccountsToMigrate.map((accountToMigrate, index) => (
-          <Fragment key={accountToMigrate.address}>
+          <li key={accountToMigrate.address} className="flex flex-col">
             <MigrateFromNeon2Password accountToMigrate={accountToMigrate} onSubmit={handlePasswordSubmit} />
 
             {index < selectedAccountsToMigrate.length - 1 && <Separator />}
-          </Fragment>
+          </li>
         ))}
-      </div>
+      </ul>
 
       <Button
         label={t('step4.buttonLabel')}
