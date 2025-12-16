@@ -75,6 +75,8 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
   return (
     <form className="flex w-full flex-grow flex-col justify-between" onSubmit={handleAct(handleSubmit)}>
       <Input
+        name="password"
+        id="name"
         type="password"
         value={actionData.confirmPassword}
         onChange={handleChange}

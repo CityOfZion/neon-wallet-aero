@@ -68,6 +68,7 @@ export const MigrateFromNeon2Step2Page = () => {
                 subtitle: confirmPasswordT('importSuccess'),
                 footer: <SuccessFooter />,
               },
+              replace: true,
             })
           } catch (error) {
             throw new AppError(confirmPasswordT('passwordError'), error)
@@ -85,6 +86,8 @@ export const MigrateFromNeon2Step2Page = () => {
 
           <div className="flex flex-col items-end gap-2.5">
             <Input
+              name="migrate-path"
+              id="migrate-path"
               value={actionData?.path ?? ''}
               placeholder={t('buttonPlaceholder')}
               readOnly

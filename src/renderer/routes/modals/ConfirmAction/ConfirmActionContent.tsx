@@ -66,6 +66,8 @@ export const ConfirmActionContent = ({ onSuccess, onCancel }: TConfirmActionModa
         {shouldPromptPassword && (
           <div>
             <Input
+              name="password"
+              id="password"
               placeholder={t('inputPlaceholder')}
               error={!!actionState.errors.password}
               value={actionData.password}

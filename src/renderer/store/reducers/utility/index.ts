@@ -5,7 +5,7 @@ import persistReducer from 'redux-persist/es/persistReducer'
 import { localStorage } from 'redux-persist-webextension-storage'
 
 import type { TTransactionsTransfer } from '@shared/types/hooks'
-import type { THiddenTokenByBlockchain, TLastIndexesByWallet, TMigrationsNeo3, TSwapRecord } from '@shared/types/store'
+import type { THiddenTokenByBlockchain, TLastIndexesByWallet, TSwapRecord } from '@shared/types/store'
 
 import { utilitySliceReducers } from './reducers'
 
@@ -18,7 +18,7 @@ export interface IUtilityReducer {
     swapRecords: TSwapRecord[]
     lastIndexesByWallet: TLastIndexesByWallet
     hiddenTokensByBlockchain: THiddenTokenByBlockchain
-    migrationsNeo3: TMigrationsNeo3
+    unlockedSkinIds: string[]
   }
 }
 
@@ -34,7 +34,7 @@ export function getUtilityReducer() {
       swapRecords: [],
       lastIndexesByWallet: {},
       hiddenTokensByBlockchain: {},
-      migrationsNeo3: {},
+      unlockedSkinIds: [],
     },
   }
 

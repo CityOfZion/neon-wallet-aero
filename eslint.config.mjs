@@ -52,14 +52,13 @@ export default defineConfig(
     },
     files: ['**/*.{ts,tsx}'],
     rules: {
+      'no-unused-vars': 'off',
+
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
-          vars: 'all',
-          args: 'after-used',
-          ignoreRestSiblings: true,
-          argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
+          argsIgnorePattern: '^_',
         },
       ],
       '@typescript-eslint/consistent-type-imports': 'error',

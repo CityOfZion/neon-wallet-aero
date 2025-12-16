@@ -17,7 +17,6 @@ import type {
   TAccountType,
   TContactAddress,
   TContactState,
-  TMigrationsNeo3,
   TSkin,
   TSwapRecord,
 } from '@shared/types/store'
@@ -37,7 +36,6 @@ export type TUseNeonBackupData = { content: TUseNeonBackupSchema; type: 'backup'
 export type TUseNeonBackupGeneratedData = {
   wallets: TCreateWalletAndAccountParam[]
   swapRecords?: TSwapRecord[]
-  migrationsNeo3?: TMigrationsNeo3
   contacts?: TContactState[]
 }
 
@@ -96,50 +94,10 @@ export const backupSwapSchema = zod.object({
   fee: zod.string().optional(),
 })
 
-const backupTokenSchema = zod.object({
-  symbol: zod.string(),
-  name: zod.string(),
-  hash: zod.string(),
-  decimals: zod.number(),
-})
-
-const backupBalanceSchema = zod.object({
-  token: backupTokenSchema,
-  amount: zod.string(),
-})
-
-const backupMigrationsNeo3Schema = zod.record(
-  zod.string(),
-  zod.object({
-    hash: zod.string(),
-    neoLegacyAccount: backupAccountSchema,
-    neo3Address: zod.string(),
-    status: zod.union([
-      zod.literal('failure'),
-      zod.literal('pending'),
-      zod.literal('done'),
-      zod.literal('failure-neo3'),
-    ]),
-    neo3MigrationAmounts: zod.object({
-      gasMigrationTotalFees: zod.string().optional(),
-      neoMigrationTotalFees: zod.string().optional(),
-      gasMigrationReceiveAmount: zod.string().optional(),
-      neoMigrationReceiveAmount: zod.string().optional(),
-    }),
-    neoLegacyMigrationAmounts: zod.object({
-      hasEnoughGasBalance: zod.boolean(),
-      hasEnoughNeoBalance: zod.boolean(),
-      gasBalance: backupBalanceSchema.optional(),
-      neoBalance: backupBalanceSchema.optional(),
-    }),
-  })
-)
-
 export const backupDataSchema = zod.object({
   wallets: zod.array(backupWalletSchema),
   contacts: zod.array(backupContactSchema),
   swapRecords: zod.array(backupSwapSchema).optional(),
-  migrationsNeo3: backupMigrationsNeo3Schema.optional(),
 })
 
 export const backupFileSchema = zod.object({
@@ -155,8 +113,9 @@ const fixAccountProperties = (
   const type: TAccountType =
     backupAccount.type === 'ledger' || backupAccount.type === 'hardware' ? 'watch' : backupAccount.type
 
-  if (!backupAccount.skin || UtilsHelper.isHexadecimal(backupAccount.skin.id))
-    backupAccount.skin = UtilsHelper.generateColorSkin()
+  if (!backupAccount.skin || UtilsHelper.isHexadecimal(backupAccount.skin.id)) {
+    backupAccount.skin = { id: UtilsHelper.getSkinColor(), type: 'color' }
+  }
 
   return {
     address: backupAccount.address,
@@ -172,7 +131,7 @@ const fixAccountProperties = (
 
 const fixWalletProperties = (
   backupWallet: zod.infer<typeof backupWalletSchema>
-): Omit<IWalletState, 'accounts' | 'encryptedMnemonic'> => {
+): Omit<IWalletState, 'accounts' | 'encryptedMnemonic' | 'backupStatus'> => {
   const type = backupWallet.type === 'ledger' ? 'hardware' : backupWallet.type
 
   return {
@@ -228,7 +187,6 @@ export const useNeonImportBackup = () => {
   const handleGenerateData = (data: zod.infer<typeof backupDataSchema>): TUseNeonBackupGeneratedData => {
     const contactsToCreate: TContactState[] = []
     const swapRecordsToCreate: TSwapRecord[] = []
-    const migrationsNeo3ToCreate: TMigrationsNeo3 = {}
     const walletsToCreate: TCreateWalletAndAccountParam[] = []
 
     data.swapRecords?.forEach(swap => {
@@ -251,24 +209,6 @@ export const useNeonImportBackup = () => {
         account,
       })
     })
-
-    if (data.migrationsNeo3)
-      Object.assign(
-        migrationsNeo3ToCreate,
-        Object.values(data.migrationsNeo3).reduce((migrationsNeo3, migrationNeo3) => {
-          const account = fixAccountProperties(migrationNeo3.neoLegacyAccount)
-
-          if (!account) return migrationsNeo3
-
-          return {
-            ...migrationsNeo3,
-            [migrationNeo3.hash]: {
-              ...migrationNeo3,
-              account,
-            },
-          }
-        }, {})
-      )
 
     data.contacts.forEach(contact => {
       const addresses: TContactAddress[] = []
@@ -301,6 +241,7 @@ export const useNeonImportBackup = () => {
 
       walletsToCreate.push({
         ...fixedWallet,
+        backupStatus: 'successful',
         mnemonic: backupWallet.mnemonic,
         accounts: accountsToImport,
       })
@@ -310,7 +251,6 @@ export const useNeonImportBackup = () => {
       wallets: walletsToCreate,
       contacts: contactsToCreate,
       swapRecords: swapRecordsToCreate,
-      migrationsNeo3: migrationsNeo3ToCreate,
     }
   }
 
@@ -319,9 +259,6 @@ export const useNeonImportBackup = () => {
       generatedData.swapRecords?.forEach(swap => {
         dispatch(utilityReducerActions.persistSwapRecord(swap))
       })
-
-      if (generatedData.migrationsNeo3)
-        dispatch(utilityReducerActions.mergeMigrationsNeo3(generatedData.migrationsNeo3))
 
       if (generatedData.contacts) await saveContacts(generatedData.contacts)
 
@@ -350,6 +287,7 @@ export const useNeonCreateBackup = () => {
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
   const { contacts } = useContactsSelector()
+  const { editWallet } = useBlockchainActions()
 
   const handleCreateBackupFormat = async () => {
     if (!loginSessionRef.current) {
@@ -399,8 +337,9 @@ export const useNeonCreateBackup = () => {
     const promises = wallets.map(async wallet => {
       let mnemonic: string | undefined
 
-      if (wallet.encryptedMnemonic)
+      if (wallet.encryptedMnemonic) {
         mnemonic = await EncryptionHelper.decrypt(wallet.encryptedMnemonic, encryptedPassword)
+      }
 
       const walletAccounts = backupAccountsByWalletId.get(wallet.id) ?? []
 
@@ -429,6 +368,14 @@ export const useNeonCreateBackup = () => {
         version: BACKUP_VERSION,
         data: backupFileDataStringEncrypted,
       }
+
+      backupFileData.wallets.forEach(({ id }) => {
+        const wallet = wallets.find(wallet => wallet.id === id)
+
+        if (wallet) {
+          editWallet({ wallet, data: { backupStatus: 'successful' } })
+        }
+      })
 
       const fileName = `Neon-Backup-${format(new Date(), 'yyyy-MM-dd')}.${BACKUP_FILE_EXTENSION}`
 

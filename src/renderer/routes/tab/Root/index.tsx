@@ -8,6 +8,8 @@ import { SplashScreen } from '@renderer/components/SplashScreen'
 
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
+import { modalsRouter } from '@renderer/routes/modals-router'
+
 import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
 import { setupBsAggregator } from '@renderer/libs/blockchain-service'
 import { setupI18next } from '@renderer/libs/i18next'
@@ -16,9 +18,6 @@ import { setupStore, store, waitForBootstrap } from '@renderer/libs/redux'
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { rendererApi } from '@shared/message-api/renderer'
 
-import { modalsRouter } from '../../modalsRouter'
-
-const NetworkBanner = lazy(() => import('@renderer/components/NetworkBanner'))
 const ToastProvider = lazy(() => import('@renderer/libs/sonner'))
 
 export const RootPage = () => {
@@ -53,7 +52,6 @@ export const RootPage = () => {
           <Outlet />
 
           <Suspense fallback={null}>
-            <NetworkBanner />
             <ToastProvider />
           </Suspense>
         </ModalRouterProvider>

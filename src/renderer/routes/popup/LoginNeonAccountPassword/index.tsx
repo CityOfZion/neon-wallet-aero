@@ -57,6 +57,8 @@ export const LoginNeonAccountPasswordPage = () => {
         <h2 className="text-lg text-white">{t('description')}</h2>
 
         <Input
+          name="password"
+          id="password"
           containerClassName="mt-10"
           label={t('passwordInputLabel')}
           placeholder={t('passwordInputPlaceholder')}

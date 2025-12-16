@@ -1,5 +1,7 @@
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
+import type { Location } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { match, P } from 'ts-pattern'
 
 import { Button } from '@renderer/components/Button'
@@ -13,14 +15,12 @@ import { useAccountsByBlockchainsSelector } from '@renderer/hooks/useAccountSele
 import { useActions } from '@renderer/hooks/useActions'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useSelectedAccountSelector, useSelectedWalletSelector } from '@renderer/hooks/useSettingsSelector'
 import {
   useVoteNeo3CalculateVoteFee,
   useVoteNeo3GetCandidatesToVote,
   useVoteNeo3GetVoteDetailsByAddress,
   useVoteNeo3Validations,
 } from '@renderer/hooks/useVoteNeo3'
-import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
@@ -35,6 +35,11 @@ import type { IAccountState, IWalletState } from '@shared/types/store'
 import { VoteNeo3AvailableVotes } from './VoteNeo3AvailableVotes'
 import { VoteNeo3List } from './VoteNeo3List'
 
+type TLocationState = {
+  initialNeo3Account?: IAccountState
+  initialWallet?: IWalletState
+}
+
 type TActionsData = {
   neo3Account?: IAccountState
   wallet?: IWalletState
@@ -44,27 +49,18 @@ type TActionsData = {
 export const VoteNeo3Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'voteNeo3' })
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
-
+  const { state } = useLocation() as Location<TLocationState>
   const { modalNavigateWrapper, modalNavigate, modalErase } = useModalNavigate()
-  const { wallets } = useWalletsSelector()
+
   const { accountsByBlockchains: neo3Accounts } = useAccountsByBlockchainsSelector(['neo3'])
-
-  const { selectedWallet } = useSelectedWalletSelector()
-  const { selectedAccount } = useSelectedAccountSelector()
-
-  const initialWallet =
-    selectedWallet || wallets.find(wallet => wallet.accounts.some(account => account.blockchain === 'neo3'))
 
   const {
     actionData: { neo3Account, wallet, search },
     setData,
     setDataFromEventWrapper,
   } = useActions<TActionsData>({
-    neo3Account:
-      selectedAccount && selectedAccount.blockchain === 'neo3' && selectedAccount.idWallet === initialWallet?.id
-        ? selectedAccount
-        : initialWallet?.accounts?.find(account => account.blockchain === 'neo3'),
-    wallet: initialWallet,
+    neo3Account: state?.initialNeo3Account,
+    wallet: state?.initialNeo3Account ? state?.initialWallet : undefined,
     search: '',
   })
 
@@ -173,6 +169,8 @@ export const VoteNeo3Page = () => {
           className="placeholder:text-neon"
           contentClassName="h-10"
           containerClassName="w-full max-w-96"
+          id="vote-neo3-search-input"
+          name="vote-neo3-search-input"
           maxLength={100}
           value={search}
           disabled={isSearchDisabled}

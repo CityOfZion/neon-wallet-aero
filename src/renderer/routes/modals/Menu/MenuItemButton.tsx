@@ -46,6 +46,7 @@ export const MenuItemButton = ({
   return (
     <li className="-mx-4 w-auto">
       <button
+        type="button"
         className={StyleHelper.mergeStyles(
           'relative flex w-full cursor-pointer flex-col px-3 transition-opacity duration-200 hover:opacity-75 focus:opacity-75 active:opacity-60',
           {

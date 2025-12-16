@@ -11,12 +11,14 @@ import type { IAccountState, TAccountWithWallet } from '@shared/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
 
-const selectAccounts = createAppSelector(
+export const selectAccounts = createAppSelector(
   [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
     if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
 
     const accounts = applicationDataByLoginType[loginSession.type].wallets.flatMap(wallet => wallet.accounts)
+
+    if (accounts.length === 0) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
 
     return AccountHelper.orderAccounts(accounts)
   }
@@ -31,6 +33,8 @@ const selectAccountsWithWallet = createAppSelector(
       wallet.accounts.map(account => ({ ...account, wallet }))
     )
 
+    if (accounts.length === 0) return SelectorHelper.fallbackToEmptyArray<TAccountWithWallet>()
+
     return AccountHelper.orderAccounts<TAccountWithWallet>(accounts)
   }
 )
@@ -41,9 +45,13 @@ const selectAccountsByWalletId = (walletId: string) =>
     (applicationDataByLoginType, loginSession) => {
       if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
 
-      const wallet = applicationDataByLoginType[loginSession.type].wallets.find(wallet => wallet.id === walletId)
+      const accounts = applicationDataByLoginType[loginSession.type].wallets.find(
+        wallet => wallet.id === walletId
+      )?.accounts
 
-      return AccountHelper.orderAccounts(SelectorHelper.fallbackToEmptyArray<IAccountState>(wallet?.accounts))
+      if (!accounts || accounts.length === 0) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+
+      return AccountHelper.orderAccounts(accounts)
     }
   )
 

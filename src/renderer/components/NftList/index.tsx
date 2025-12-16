@@ -39,7 +39,7 @@ export const NftList = ({ selectedAccount }: TProps) => {
 
   const contentRef = useRef<HTMLUListElement>(null)
 
-  const virtualizer = useVirtualization({
+  const { virtualizer } = useVirtualization({
     contentRef,
     count: nfts.length,
     estimateSize: () => 76,

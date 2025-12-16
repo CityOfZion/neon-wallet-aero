@@ -64,6 +64,8 @@ export const DecryptKeyModal = () => {
         <h2 className="mb-8 text-center">{description}</h2>
 
         <Input
+          name="password"
+          id="password"
           label={t('passwordLabel')}
           placeholder={t('passwordPlaceholder')}
           type="password"

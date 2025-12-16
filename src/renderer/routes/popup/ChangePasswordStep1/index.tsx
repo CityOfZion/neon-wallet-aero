@@ -61,6 +61,8 @@ export const ChangePasswordStep1Page = () => {
             <span className="mb-2 text-xs font-bold text-gray-100 uppercase">{t('titleInput1')}</span>
             <div className="mb-5 flex flex-col items-center">
               <Input
+                name="new-password"
+                id="new-password"
                 type="password"
                 placeholder={t('inputNewPasswordPlaceholder')}
                 onChange={handlePassword}
@@ -77,6 +79,8 @@ export const ChangePasswordStep1Page = () => {
             </div>
             <div className="mb-5 flex flex-col items-center">
               <Input
+                name="password"
+                id="password"
                 type="password"
                 placeholder={t('inputCurrentPasswordPlaceholder')}
                 onChange={setDataFromEventWrapper('currentPassword')}

@@ -1,8 +1,8 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
-import type { BSNeo3, TVoteServiceDetailsByAddressResponse } from '@cityofzion/bs-neo3'
-import { useQueries, useQuery } from '@tanstack/react-query'
+import type { BSNeo3 } from '@cityofzion/bs-neo3'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
@@ -40,8 +40,6 @@ type TValidationsParams = {
   gasFee?: string
 }
 
-type TUseVoteNeo3GetVoteDetailsByAddressesParams = { address: string }
-
 const buildVoteNeo3GetCandidatesToVoteQueryKey = ({
   neo3Network,
 }: TBuildVoteNeo3GetCandidatesToVoteQueryKeyParams): any[] => ['vote-neo3-get-candidates-to-vote', neo3Network]
@@ -76,39 +74,6 @@ export const useVoteNeo3GetCandidatesToVote = () => {
   return useQuery({
     queryKey: buildVoteNeo3GetCandidatesToVoteQueryKey({ neo3Network }),
     queryFn: () => blockchainService.voteService.getCandidatesToVote(),
-  })
-}
-
-export const useVoteNeo3GetVoteDetailsByAddresses = (addresses: TUseVoteNeo3GetVoteDetailsByAddressesParams[]) => {
-  const {
-    selectedNetworkByBlockchain: { neo3: neo3Network },
-  } = useSelectedNetworkByBlockchainSelector()
-
-  const blockchainService = bsAggregator.blockchainServicesByName.neo3 as BSNeo3
-
-  return useQueries({
-    queries: addresses.map(({ address }) => ({
-      queryKey: buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network, address }),
-      queryFn: () => blockchainService.voteService.getVoteDetailsByAddress(address),
-    })),
-    combine: results => {
-      const isLoading = results.some(result => result.isLoading)
-      const data: TVoteServiceDetailsByAddressResponse[] = []
-
-      if (!isLoading) {
-        results.forEach(result => {
-          if (!result.data) {
-            return
-          }
-          data.push(result.data)
-        })
-      }
-
-      return {
-        isLoading,
-        data,
-      }
-    },
   })
 }
 
@@ -148,6 +113,29 @@ export const useVoteNeo3GetVoteDetailsByAddress = (address: string) => {
     queryFn: () => blockchainService.voteService.getVoteDetailsByAddress(address!),
     enabled: !!address && neo3Network.type === 'mainnet',
   })
+}
+
+export const useLazyVoteNeo3GetVoteDetailsByAddress = () => {
+  const queryClient = useQueryClient()
+  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
+
+  const getVoteDetails = useCallback(
+    async (address: string) => {
+      const neo3Network = selectedNetworkByBlockchain.neo3
+
+      if (!address || neo3Network.type !== 'mainnet') return
+
+      const blockchainService = bsAggregator.blockchainServicesByName.neo3 as BSNeo3
+
+      return await queryClient.ensureQueryData({
+        queryKey: buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network, address }),
+        queryFn: () => blockchainService.voteService.getVoteDetailsByAddress(address),
+      })
+    },
+    [selectedNetworkByBlockchain, queryClient]
+  )
+
+  return { getVoteDetails }
 }
 
 export const useVoteNeo3Validations = ({ balanceQuery, gasFee }: TValidationsParams) => {

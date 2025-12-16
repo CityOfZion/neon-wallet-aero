@@ -22,17 +22,18 @@ export const AccountDeletionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'accountDeletion' })
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { account, wallet } = useModalState<TModalState<'account-deletion'>>()
-  const { accountsByWalletId } = useAccountsByWalletIdSelector(wallet.id)
+  const { accountsByWalletIdRef } = useAccountsByWalletIdSelector(wallet.id)
   const { modalNavigateWrapper, modalErase } = useModalNavigate()
   const { deleteAccount } = useBlockchainActions()
   const dispatch = useAppDispatch()
 
   const [isDeleting, startDelete] = usePressOnce(async () => {
+    const nextAccount = accountsByWalletIdRef.current.find(currentAccount => currentAccount.id !== account.id)
+
     await deleteAccount(account)
 
-    const remainingAccounts = accountsByWalletId.filter(acc => acc.id !== account.id)
+    if (nextAccount) dispatch(settingsReducerActions.setSelectedAccount(nextAccount))
 
-    dispatch(settingsReducerActions.setSelectedAccount(remainingAccounts[0]))
     modalErase('bottom')
   })
 

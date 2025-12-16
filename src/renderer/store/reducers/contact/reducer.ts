@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash'
 
 import type { TContactEncryptedAddress, TContactState } from '@shared/types/store'
 
-import type { IContactReducer } from '.'
+import type { IContactReducer } from './index'
 
 const saveContact: CaseReducer<IContactReducer, PayloadAction<TContactState<TContactEncryptedAddress>>> = (
   state,

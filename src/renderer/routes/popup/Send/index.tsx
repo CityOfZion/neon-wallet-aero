@@ -343,7 +343,19 @@ const SendPage = () => {
           isPending: true,
         }
 
-        dispatch(thunks.waitTransaction({ transaction }))
+        dispatch(
+          thunks.waitTransaction({
+            transaction,
+            successNotification: {
+              title: 'pages:send.successNotification.title',
+              previewBody: 'pages:send.successNotification.previewBody',
+            },
+            failureNotification: {
+              title: 'pages:send.failureNotification.title',
+              previewBody: 'pages:send.failureNotification.previewBody',
+            },
+          })
+        )
       })
 
       ToastHelper.success({ message: t('sendSuccess.toast') })

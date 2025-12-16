@@ -30,7 +30,11 @@ export const ImageWithFallback = ({ fallbackSrc, className, containerClassName, 
 
       <img
         {...props}
-        className={StyleHelper.mergeStyles({ hidden: isLoading }, 'h-full w-full object-contain', className)}
+        className={StyleHelper.mergeStyles(
+          { hidden: isLoading },
+          'pointer-events-none h-full w-full object-contain select-none',
+          className
+        )}
         onError={handleError}
         onLoad={() => setIsLoading(false)}
       />

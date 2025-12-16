@@ -68,7 +68,7 @@ export const SettingsPage = () => {
         <SettingsLinkNavigation
           icon={<TbDeviceFloppy aria-hidden className="text-neon w-6" />}
           label={t('backupAndRestoreButtonLabel')}
-          to="/settings/backup-and-restore"
+          to="/settings/backup-and-restore/backup/1"
           isDisabled={!isLoginSessionPassword}
         />
 

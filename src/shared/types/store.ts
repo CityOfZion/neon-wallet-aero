@@ -1,13 +1,4 @@
-import type {
-  TBSToken,
-  TSwapServiceStatusResponse,
-  TSwapToken,
-  TTransactionResponse,
-} from '@cityofzion/blockchain-service'
-import type {
-  TNeo3NeoLegacyMigrationNeo3Amounts,
-  TNeo3NeoLegacyMigrationNeoLegacyAmounts,
-} from '@cityofzion/bs-neo-legacy'
+import type { TSwapServiceStatusResponse, TSwapToken } from '@cityofzion/blockchain-service'
 
 import type { TBlockchainServiceKey, TNetwork } from './blockchain'
 import type { Optional } from './generics'
@@ -52,23 +43,11 @@ export type TSwapRecord = {
   log?: string
 }
 
-type TNotificationNavigateActionHideFraudulentTokenPayload = {
-  to: 'hide-fraudulent-token'
-  address: string
-  blockchain: TBlockchainServiceKey
-  tokenHash?: string
-}
-
 type TNotificationNavigateAction = {
   type: 'navigate'
   payload:
     | {
-        to: 'account'
-        address: string
-        blockchain: TBlockchainServiceKey
-      }
-    | {
-        to: 'account-transaction'
+        to: 'account-transactions'
         address: string
         blockchain: TBlockchainServiceKey
       }
@@ -77,22 +56,25 @@ type TNotificationNavigateAction = {
         address: string
         blockchain: TBlockchainServiceKey
       }
-    | TNotificationNavigateActionHideFraudulentTokenPayload
     | {
-        to: 'migration-neo3'
+        to: 'hide-fraudulent-token'
         address: string
         blockchain: TBlockchainServiceKey
+        tokenHash: string
       }
     | {
         to: 'vote-neo3'
         address: string
         blockchain: TBlockchainServiceKey
       }
+    | {
+        to: 'backup-wallet'
+      }
 }
 
-type TNotificationAction = TNotificationNavigateAction
+export type TNotificationAction = TNotificationNavigateAction
 
-type TNotificationPriority = 'low' | 'medium' | 'high'
+export type TNotificationPriority = 'low' | 'medium' | 'high'
 
 export type TNotification = {
   id: string
@@ -114,22 +96,6 @@ export type TNotification = {
 
 export type TSaveNotification = Optional<TNotification, 'id' | 'date' | 'provider' | 'read' | 'priority'>
 
-export type TMigrationNeo3Status = 'done' | 'pending' | 'failure' | 'failure-neo3'
-
-export type TMigrationNeo3 = {
-  hash: string
-  neoLegacyAccount: IAccountState
-  neo3Address: string
-  status: TMigrationNeo3Status
-  neo3MigrationAmounts: TNeo3NeoLegacyMigrationNeo3Amounts
-  neoLegacyMigrationAmounts: TNeo3NeoLegacyMigrationNeoLegacyAmounts
-  time: number
-}
-
-export type TMigrationsNeo3 = {
-  [hash: string]: TMigrationNeo3
-}
-
 export type TAccountType = 'standard' | 'watch' | 'hardware'
 
 export type TWalletType = 'standard' | 'hardware'
@@ -138,14 +104,15 @@ export type TNftSkin = {
   id: string
   type: 'nft'
   imgUrl: string
+  contractHash: string
 }
 
-export type TColorSkin = {
+type TColorSkin = {
   id: string
   type: 'color'
 }
 
-export type TLocalSkin = {
+type TLocalSkin = {
   id: string
   type: 'local'
 }
@@ -164,12 +131,15 @@ export interface IAccountState {
   skin: TSkin
 }
 
+export type TWalletBackupStatus = 'successful' | 'unsuccessful'
+
 export interface IWalletState {
   id: string
   name: string
   type: TWalletType
   encryptedMnemonic?: string
   accounts: IAccountState[]
+  backupStatus: TWalletBackupStatus
 }
 
 export type TAccountWithWallet = IAccountState & {
@@ -190,26 +160,8 @@ export type TCurrency = {
   label: TAvailableCurrency
 }
 
-export type TCustomNetwork = {
-  [K in TBlockchainServiceKey]: TNetwork[]
-}
-
 export type TSelectedNetworks = {
   [K in TBlockchainServiceKey]: TNetwork
-}
-
-export type TPendingTransaction = TTransactionResponse & {
-  account: IAccountState
-  isClaim?: boolean
-  to?: string
-  from?: string
-  assetHash: string
-  token?: TBSToken
-  amount?: string
-  methodName?: string
-  toAccount?: IAccountState
-  fromAccount?: IAccountState
-  asset?: string
 }
 
 export type TLastIndexesByWallet = Partial<Record<TBlockchainServiceKey, Record<string, number>>>

@@ -26,5 +26,14 @@ export default defineManifest({
     service_worker: 'src/background/index.ts',
     type: 'module',
   },
-  permissions: ['storage', 'unlimitedStorage', 'downloads', 'clipboardRead', 'clipboardWrite', 'tabs', 'activeTab'],
+  permissions: [
+    'storage',
+    'unlimitedStorage',
+    'downloads',
+    'clipboardRead',
+    'clipboardWrite',
+    'tabs',
+    'activeTab',
+    'notifications',
+  ],
 })

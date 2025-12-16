@@ -156,14 +156,13 @@ export const VoteNeo3ConfirmationModal = () => {
         })
       )
 
-      queryClient.setQueryData(
-        buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network, address: account.address }),
-        {
-          ...voteDetailsByAddressQuery.data,
-          candidatePubKey: candidate.pubKey,
-          candidateName: candidate.name,
-        }
-      )
+      const queryKey = buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network, address: account.address })
+
+      queryClient.setQueryData(queryKey, {
+        ...voteDetailsByAddressQuery.data,
+        candidatePubKey: candidate.pubKey,
+        candidateName: candidate.name,
+      })
 
       modalNavigate('vote-neo3-success', { state: { candidate, neo3Account }, replace: true })
     } catch (error) {

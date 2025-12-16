@@ -7,6 +7,22 @@
     },
     "hardwareWalletManagerSetup": {
       "requestingPermission": "等待硬件设备确认…"
+    },
+    "accountTasksManagerSetup": {
+      "useFraudulentTokensNotificationProcess": {
+        "notificationTitle": "\"{{ value }}\"是一个欺诈代币！",
+        "notificationDescription": "我们发现\"{{ value }}\"被社区标记为欺诈代币，建议将其隐藏，并避免与其进行任何其他交互。"
+      },
+      "useVotingNeo3NotificationProcess": {
+        "notificationTitle": "你正在错过免费的 GAS！",
+        "notificationDescription": "点击这里，立即投票。"
+      }
+    },
+    "walletTasksManagerSetup": {
+      "useBackupReminderNotificationProcess": {
+        "notificationTitle": "创建新的备份文件！",
+        "notificationDescription": "我们建议在\"菜单 > 设置 > 备份与恢复\"中创建新的备份文件以保护您的钱包。为了提高安全性，您还可以在\"钱包 > 导出\"中手动导出助记词，在\"账户 > 导出\"中导出私钥。"
+      }
     }
   },
   "wallets": {
@@ -20,6 +36,7 @@
     "bridgeButtonLabel": "跨链桥",
     "buyAndSellTokensButtonLabel": "买入 + 卖出",
     "ariaLabels": {
+      "notificationsIconButton": "通知",
       "menuIconButton": "菜单",
       "refreshIconButton": "刷新",
       "copyIconButton": "复制"
@@ -34,7 +51,7 @@
       "label": "交易"
     },
     "connectionsTab": {
-      "label": "连接"
+      "label": "去中心化应用"
     },
     "claimButtonButtonLabel": "claim"
   },
@@ -327,6 +344,14 @@
     "sendFail": {
       "toast": "交易发送失败"
     },
+    "successNotification": {
+      "title": "转账完成",
+      "previewBody": "您的转账已成功完成。"
+    },
+    "failureNotification": {
+      "title": "转账失败",
+      "previewBody": "我们无法验证您的转账是否完成。"
+    },
     "errors": {
       "feeError": "计算手续费时出错",
       "insufficientFunds": "资金不足",
@@ -521,5 +546,23 @@
     "byUSBButtonLabel": "由USB",
     "successToastMessage": "硬件钱包连接成功",
     "disconnectButtonLabel": "取出硬件钱包"
+  },
+  "notifications": {
+    "title": "通知",
+    "notFound": {
+      "title": "这里什么都没有",
+      "description": "还没有通知"
+    },
+
+    "item": {
+      "relatedAddressLabel": "地址：{{ address }}",
+      "relatedAccountLabel": "账户：{{ name }}",
+      "actionsButtonLabel": "操作",
+      "markAsReadButtonLabel": "标为已读",
+      "markAsUnreadButtonLabel": "标为未读",
+      "providerLabels": {
+        "system": "系统"
+      }
+    }
   }
 }

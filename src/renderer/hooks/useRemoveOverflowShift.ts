@@ -19,8 +19,10 @@ export const useRemoveOverflowShift = <T extends HTMLElement = HTMLElement>(isFo
       }
     }
 
-    const computedStyle = window.getComputedStyle(ref.current)
-    initialPaddingRight.current = parseFloat(computedStyle.paddingRight)
+    if (!initialPaddingRight.current) {
+      const computedStyle = window.getComputedStyle(ref.current)
+      initialPaddingRight.current = parseFloat(computedStyle.paddingRight)
+    }
 
     const observer = new MutationObserver(trigger)
     observer.observe(ref.current, { attributes: true, childList: true, subtree: true })

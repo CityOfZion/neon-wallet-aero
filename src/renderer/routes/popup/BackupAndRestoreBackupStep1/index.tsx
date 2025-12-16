@@ -82,6 +82,8 @@ export const BackupAndRestoreBackupStep1Page = () => {
 
         <div className="flex flex-grow flex-col gap-y-4">
           <Input
+            name="password"
+            id="password"
             label={t('backupPasswordLabel')}
             value={actionData.password}
             onChange={handleBackupPasswordChange}
@@ -91,6 +93,8 @@ export const BackupAndRestoreBackupStep1Page = () => {
           />
 
           <Input
+            name="confirm-password"
+            id="confirm-password"
             label={t('confirmBackupPasswordLabel')}
             value={actionData.confirmPassword}
             onChange={handleConfirmPasswordChange}

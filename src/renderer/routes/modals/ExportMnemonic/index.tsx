@@ -10,6 +10,7 @@ import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
+import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useModalState } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
@@ -21,9 +22,12 @@ import TbPrinter from '@renderer/assets/images/tb-printer.svg?react'
 import type { TModalState } from '@shared/types/modal'
 
 export const ExportMnemonicModal = () => {
-  const { wallet } = useModalState<TModalState<'export-mnemonic'>>()
   const { t } = useTranslation('modals', { keyPrefix: 'exportMnemonic' })
+  const { wallet } = useModalState<TModalState<'export-mnemonic'>>()
+  const { editWallet } = useBlockchainActions()
+
   const { loginSessionRef } = useLoginSessionSelector()
+
   const {
     actionData: { walletMnemonic },
     actionState,
@@ -57,6 +61,8 @@ export const ExportMnemonicModal = () => {
         wallet.encryptedMnemonic,
         loginSessionRef.current?.encryptedPassword
       )
+
+      await editWallet({ wallet, data: { backupStatus: 'successful' } })
 
       setData({ walletMnemonic: decryptedMnemonic })
     } catch {

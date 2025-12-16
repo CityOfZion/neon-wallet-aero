@@ -167,12 +167,8 @@ export const useUnclaimedMutation = () => {
       ToastHelper.error({ message: AppError.wrap(error, unclaimedT('errors.claimError')).message })
     },
     onSuccess: (_data, account) => {
-      queryClient.setQueryData(buildQueryKeyUnclaimed(account, selectedNetworkByBlockchain[account.blockchain]), {
-        unclaimed: '0',
-        unclaimedNumber: 0,
-        fee: '0',
-        feeNumber: 0,
-      })
+      const queryKey = buildQueryKeyUnclaimed(account, selectedNetworkByBlockchain[account.blockchain])
+      queryClient.setQueryData(queryKey, { unclaimed: '0', unclaimedNumber: 0, fee: '0', feeNumber: 0 })
       ToastHelper.success({ message: unclaimedT('messages.claimedSuccess') })
     },
   })

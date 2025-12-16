@@ -79,7 +79,12 @@
   "tokenList": {
     "holdingsLabel": "持有量",
     "valueLabel": "价值",
-    "empty": "没有可显示的代币余额"
+    "empty": "没有可显示的代币余额",
+    "showHiddenTokensLabel": "显示隐藏的令牌",
+    "enableEditModeButtonLabel": "启用编辑模式",
+    "disableEditModeButtonLabel": "禁用编辑模式",
+    "showTokenButtonLabel": "显示令牌",
+    "hideTokenButtonLabel": "隐藏令牌"
   },
   "dappConnectionList": {
     "empty": "没有可显示的连接",

@@ -1,4 +1,4 @@
-import * as dateFns from 'date-fns'
+import { format } from 'date-fns/format'
 
 import { DATE_FNS_LOCALE_BY_LANGUAGE_VALUE } from '@shared/constants/language'
 import type { TLanguage } from '@shared/types/store'
@@ -20,7 +20,7 @@ export class DateHelper {
       date *= 1000
     }
 
-    return dateFns.format(date, options.format, {
+    return format(date, options.format, {
       locale: DATE_FNS_LOCALE_BY_LANGUAGE_VALUE[options.language.value],
     })
   }

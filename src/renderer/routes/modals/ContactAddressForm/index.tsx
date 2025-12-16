@@ -85,6 +85,8 @@ export const ContactAddressFormModal = () => {
           </div>
 
           <Input
+            name="address"
+            id="address"
             label={t('addressOrDomain')}
             value={actionData.address}
             onChange={handleChange}

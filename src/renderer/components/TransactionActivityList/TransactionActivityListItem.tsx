@@ -1,10 +1,5 @@
 import { Separator } from '@renderer/components/Separator'
 
-import { useMountUnsafe } from '@renderer/hooks/useMount'
-import { useAppDispatch } from '@renderer/hooks/useRedux'
-import { useMigrationNeo3Selector } from '@renderer/hooks/useUtilitySelector'
-
-import { thunks } from '@renderer/store/thunks'
 import type { TFullTransactionsItem } from '@shared/types/hooks'
 
 import { TransactionActivityListEvent } from './TransactionActivityListEvent'
@@ -15,19 +10,11 @@ type TProps = {
 }
 
 export const TransactionActivityListItem = ({ item }: TProps) => {
-  const { txId, blockchain, events } = item
-
-  const { migrationNeo3 } = useMigrationNeo3Selector(txId)
-  const dispatch = useAppDispatch()
-
-  useMountUnsafe(() => {
-    if (migrationNeo3 && migrationNeo3.status === 'pending')
-      dispatch(thunks.waitMigration({ ...migrationNeo3, status: 'failure-neo3' }))
-  })
+  const { blockchain, events } = item
 
   return (
     <li className="flex w-full flex-col bg-gray-900">
-      <TransactionActivityListItemHeader item={item} migrationNeo3={migrationNeo3} />
+      <TransactionActivityListItemHeader item={item} />
 
       {events.length > 0 && (
         <ul className="flex w-full flex-col">

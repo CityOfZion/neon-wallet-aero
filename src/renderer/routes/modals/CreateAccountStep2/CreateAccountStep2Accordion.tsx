@@ -45,6 +45,7 @@ export const CreateAccountStep2Accordion = ({ selectedWallet, onSelect }: TProps
                 return (
                   <li key={item.id} className="flex w-full items-center text-sm text-white">
                     <button
+                      type="button"
                       className={StyleHelper.mergeStyles('flex w-full flex-col gap-y-0.5 px-4 py-3 text-left', {
                         'cursor-pointer': !isDisabled,
                       })}

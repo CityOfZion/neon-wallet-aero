@@ -4,11 +4,8 @@ export const DappConnectionListSkeleton = () => (
   <Skeleton.Root
     loading
     className="mt-4 flex w-full flex-col gap-y-2"
-    items={[
-      <Skeleton.Item className="h-10 rounded-xs" />,
-      <Skeleton.Item className="h-10 rounded-xs" />,
-      <Skeleton.Item className="h-10 rounded-xs" />,
-      <Skeleton.Item className="h-10 rounded-xs" />,
-    ]}
+    items={new Array(4).fill(null).map((_, index) => (
+      <Skeleton.Item key={`dapp-connection-list-skeleton-item-${index}`} className="h-10 rounded-xs" />
+    ))}
   />
 )

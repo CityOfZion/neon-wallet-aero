@@ -91,7 +91,6 @@ export const AccountSelectionModal = () => {
           }
         },
       },
-      replace: true,
     })
   }
 
@@ -107,6 +106,7 @@ export const AccountSelectionModal = () => {
           {filteredAccounts.map((account, index, array) => (
             <li key={account.id}>
               <button
+                type="button"
                 aria-selected={selectedAccount?.id === account.id}
                 onClick={editMode ? handleEdit.bind(null, account) : handleSelect.bind(null, account)}
                 className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
@@ -138,7 +138,7 @@ export const AccountSelectionModal = () => {
         </ul>
       ) : (
         <div className="flex items-center justify-center py-8 text-gray-400">
-          <p className="text-base">{t('noAccountsFound')}</p>
+          <p className="text-center text-base">{t('noAccountsFound')}</p>
         </div>
       )}
 

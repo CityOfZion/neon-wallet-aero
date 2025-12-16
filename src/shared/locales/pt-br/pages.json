@@ -7,6 +7,22 @@
     },
     "hardwareWalletManagerSetup": {
       "requestingPermission": "Aguardando confirmação do dispositivo físico…"
+    },
+    "accountTasksManagerSetup": {
+      "useFraudulentTokensNotificationProcess": {
+        "notificationTitle": "\"{{ value }}\" é um token fraudulento!",
+        "notificationDescription": "Identificamos \"{{ value }}\" que foi sinalizado como token fraudulento pela comunidade. Sugerimos ocultá-lo e evitar qualquer outro tipo de interação com ele."
+      },
+      "useVotingNeo3NotificationProcess": {
+        "notificationTitle": "Você está perdendo GAS grátis!",
+        "notificationDescription": "Basta tocar aqui e votar hoje mesmo."
+      }
+    },
+    "walletTasksManagerSetup": {
+      "useBackupReminderNotificationProcess": {
+        "notificationTitle": "Crie um novo arquivo de backup!",
+        "notificationDescription": "Recomendamos criar um novo arquivo de backup em \"Menu > Configurações > Backup e restauração\" para proteger suas carteiras. Para segurança adicional, você também pode exportar manualmente suas mnemonics em \"Carteira > Exportar\" e chaves privadas em \"Conta > Exportar\"."
+      }
     }
   },
   "wallets": {
@@ -20,6 +36,7 @@
     "bridgeButtonLabel": "Bridge",
     "buyAndSellTokensButtonLabel": "Shop",
     "ariaLabels": {
+      "notificationsIconButton": "Notificações",
       "menuIconButton": "Menu",
       "refreshIconButton": "Atualizar",
       "copyIconButton": "Copiar"
@@ -327,6 +344,14 @@
     "sendFail": {
       "toast": "Falha ao enviar transação"
     },
+    "successNotification": {
+      "title": "Transferência concluída",
+      "previewBody": "Sua transferência foi concluída com sucesso."
+    },
+    "failureNotification": {
+      "title": "Transferência falhou",
+      "previewBody": "Não foi possível verificar a conclusão da sua transferência."
+    },
     "errors": {
       "feeError": "Erro ao calcular taxa",
       "insufficientFunds": "Fundos insuficientes",
@@ -521,5 +546,23 @@
     "byUSBButtonLabel": "Pelo USB",
     "successToastMessage": "Carteira hardware conectada com sucesso",
     "disconnectButtonLabel": "Desconectar carteira hardware"
+  },
+  "notifications": {
+    "title": "Notificações",
+    "notFound": {
+      "title": "Nada para ver aqui",
+      "description": "Ainda não há notificações"
+    },
+
+    "item": {
+      "relatedAddressLabel": "Endereço: {{ address }}",
+      "relatedAccountLabel": "Conta: {{ name }}",
+      "actionsButtonLabel": "Ações",
+      "markAsReadButtonLabel": "Marcar como lida",
+      "markAsUnreadButtonLabel": "Marcar como não lida",
+      "providerLabels": {
+        "system": "Sistema"
+      }
+    }
   }
 }

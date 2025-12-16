@@ -14,11 +14,9 @@ import { settingsSliceReducers } from './reducers'
 export let settingsReducerActions: CaseReducerActions<typeof settingsSliceReducers, string>
 
 export interface ISettingsReducer {
-  inMemoryData: {
+  data: {
     selectedWallet: IWalletState | undefined
     selectedAccount: IAccountState | undefined
-  }
-  data: {
     currency: TCurrency
     language: TLanguage
     selectedNetworkByBlockchain: TSelectedNetworks
@@ -27,11 +25,9 @@ export interface ISettingsReducer {
 
 export function getSettingsReducer() {
   const settingsReducerInitialState: ISettingsReducer = {
-    inMemoryData: {
+    data: {
       selectedWallet: undefined,
       selectedAccount: undefined,
-    },
-    data: {
       currency: AVAILABLE_CURRENCIES[0],
       language: DEFAULT_LANGUAGE,
       selectedNetworkByBlockchain: {

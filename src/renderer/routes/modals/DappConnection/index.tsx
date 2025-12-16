@@ -70,6 +70,8 @@ export const DappConnectionModal = () => {
 
       <form className="mt-6 flex flex-grow flex-col" onSubmit={handleAct(handleSubmit)}>
         <Input
+          name="url"
+          id="url"
           placeholder={t('inputPlaceholder')}
           pastable
           clearable

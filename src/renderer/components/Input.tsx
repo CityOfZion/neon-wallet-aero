@@ -1,6 +1,6 @@
 import { cloneElement, forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
-import type { MouseEvent } from 'react'
+import type { ComponentProps, MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { match, P } from 'ts-pattern'
 
@@ -17,7 +17,7 @@ import { FieldActionsMenu } from './FieldActionsMenu'
 import { IconButton } from './IconButton'
 import { Loader } from './Loader'
 
-export type TInputProps = Omit<React.ComponentProps<'input'>, 'type' | 'ref'> & {
+export type TInputProps = Omit<ComponentProps<'input'>, 'type' | 'ref' | 'id'> & {
   containerClassName?: string
   contentClassName?: string
   actionsClassName?: string
@@ -33,11 +33,13 @@ export type TInputProps = Omit<React.ComponentProps<'input'>, 'type' | 'ref'> & 
   loading?: boolean
   label?: string
   buttons?: React.JSX.Element
+  id: string
 }
 
 export const Input = forwardRef<HTMLInputElement, TInputProps>(
   (
     {
+      id,
       className,
       containerClassName,
       contentClassName,
@@ -60,9 +62,13 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
     ref
   ) => {
     const { t } = useTranslation('components', { keyPrefix: 'input' })
+
     const isTypePassword = type === 'password'
-    const internalRef = useRef<HTMLInputElement>(null)
+
     const [hidden, setHidden] = useState(isTypePassword)
+
+    const internalRef = useRef<HTMLInputElement>(null)
+
     const realType = isTypePassword ? (hidden ? 'password' : 'text') : type
 
     const toggleHidden: React.MouseEventHandler<HTMLButtonElement> = event => {
@@ -122,7 +128,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
     return (
       <div className={StyleHelper.mergeStyles('relative w-full', containerClassName)}>
         {label && (
-          <label htmlFor={props.name} className="mb-2 block text-xs font-bold text-gray-100 uppercase">
+          <label htmlFor={id} className="mb-2 block text-xs font-bold text-gray-100 uppercase">
             {label}
           </label>
         )}
@@ -164,6 +170,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
           >
             <input
               ref={internalRef}
+              id={id}
               className={StyleHelper.mergeStyles(
                 'w-full flex-grow [appearance:textfield] bg-transparent outline-none disabled:cursor-not-allowed [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none',
                 className

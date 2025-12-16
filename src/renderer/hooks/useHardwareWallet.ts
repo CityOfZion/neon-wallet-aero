@@ -66,6 +66,7 @@ export const useCreateHardwareWallet = () => {
           wallet = await createWallet({
             name: walletName,
             type: walletType,
+            backupStatus: 'successful',
           })
         } else {
           wallet = await editWallet({

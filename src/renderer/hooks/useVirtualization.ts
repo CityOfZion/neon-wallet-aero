@@ -11,16 +11,17 @@ type TUseVirtualizationOptions = Omit<TUseVirtualizerOptions, 'getScrollElement'
 }
 
 type TUseInfiniteScrollVirtualizationOptions = {
-  virtualizer: ReturnType<typeof useVirtualization>
+  virtualizer: ReturnType<typeof useVirtualization>['virtualizer']
   fetchNextPage: () => void
   hasNextPage: boolean
   isFetchingNextPage: boolean
   data: any[]
 }
 
+const VERTICAL_SECTION_GAP = 16
+
 export const useVirtualization = ({ contentRef, getScrollElement, ...options }: TUseVirtualizationOptions) => {
-  const [paddingStart, setPaddingStart] = useState(0)
-  const VERTICAL_SECTION_GAP = 16
+  const [paddingStart, setPaddingStart] = useState<number | undefined>(undefined)
 
   const virtualizer = useVirtualizer({
     paddingStart,
@@ -54,17 +55,24 @@ export const useVirtualization = ({ contentRef, getScrollElement, ...options }: 
 
   useLayoutEffect(() => {
     if (!virtualizer.scrollElement || !contentRef.current || paddingStart) return
-    const scrollElementRect = virtualizer.scrollElement!.getBoundingClientRect()
-    const contentRect = contentRef.current!.getBoundingClientRect()
+
+    const scrollElement = virtualizer.scrollElement
+    const contentElement = contentRef.current
+
+    const scrollElementRect = scrollElement.getBoundingClientRect()
+    const contentRect = contentElement.getBoundingClientRect()
+
+    const scrollElementStyles = window.getComputedStyle(scrollElement)
+    const scrollElementPaddingTop = parseFloat(scrollElementStyles.paddingTop) || 0
 
     setPaddingStart(
-      contentRect.top - scrollElementRect.top + virtualizer.scrollElement.scrollTop - VERTICAL_SECTION_GAP
+      contentRect.top - scrollElementRect.top - scrollElementPaddingTop + scrollElement.scrollTop - VERTICAL_SECTION_GAP
     )
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalSize, contentRef, virtualizer.scrollElement])
 
-  return virtualizer
+  return { virtualizer, ready: paddingStart !== undefined }
 }
 
 export const useInfiniteScrollVirtualization = ({

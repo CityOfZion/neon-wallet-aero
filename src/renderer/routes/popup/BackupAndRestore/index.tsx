@@ -18,29 +18,36 @@ export const BackupAndRestorePage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings' })
   const navigate = useNavigate()
   const location = useLocation()
+
   const { state } = location as Location<TLocationState>
+  const stateTab = state?.tab
 
-  const [tab, setTab] = useState<TTab>('backup')
+  const [tab, setTab] = useState<TTab>(stateTab || 'backup')
 
-  useEffect(() => {
-    if (state?.tab) {
-      setTab(state.tab)
-    }
-  }, [state?.tab])
+  const isBackDisabled = !location.pathname.includes('/1')
 
-  const handleTabChange = (tab: TTab) => {
-    setTab(tab)
-    navigate(`${tab}/1`, { replace: true })
+  const handleTabChange = (newTab: TTab) => {
+    setTab(newTab)
+    navigate(`${newTab}/1`, { replace: true })
   }
 
-  const hideBackButton = location.pathname.endsWith('/backup/2')
+  useEffect(() => {
+    if (stateTab) {
+      setTab(stateTab)
+    }
+  }, [stateTab])
 
   return (
-    <SettingsLayout title={t('backupAndRestoreButtonLabel')} hideBackButton={hideBackButton}>
-      <Tabs.Root className="flex h-full flex-col" value={tab} onValueChange={tab => handleTabChange(tab as TTab)}>
+    <SettingsLayout title={t('backupAndRestoreButtonLabel')} hideBackButton={isBackDisabled}>
+      <Tabs.Root className="flex h-full flex-col" value={tab} onValueChange={newTab => handleTabChange(newTab as TTab)}>
         <Tabs.List>
-          <Tabs.Trigger value="backup">{t('settingsBackupWallet.title')}</Tabs.Trigger>
-          <Tabs.Trigger value="restore">{t('settingsRestoreWallet.title')}</Tabs.Trigger>
+          <Tabs.Trigger disabled={isBackDisabled} value="backup">
+            {t('settingsBackupWallet.title')}
+          </Tabs.Trigger>
+
+          <Tabs.Trigger disabled={isBackDisabled} value="restore">
+            {t('settingsRestoreWallet.title')}
+          </Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content value="backup" className="min-h-0 flex-1">

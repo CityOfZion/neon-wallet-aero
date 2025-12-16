@@ -101,7 +101,6 @@ const Base = ({
   leftIcon,
   rightIcon,
   label,
-  disabled,
   loading,
   flat,
   colorSchema,

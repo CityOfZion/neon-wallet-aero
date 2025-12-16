@@ -34,6 +34,7 @@ export const Button = forwardRef<HTMLButtonElement, TButtonProps>(
 
     return (
       <button
+        type="button"
         className={StyleHelper.mergeStyles('group', className)}
         {...props}
         aria-disabled={isDisabled}

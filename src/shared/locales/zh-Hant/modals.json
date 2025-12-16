@@ -8,7 +8,8 @@
     "editButtonLabel": "編輯",
     "exportButtonLabel": "匯出",
     "exportWalletTitle": "匯出錢包",
-    "exportError": "匯出錢包時發生錯誤"
+    "exportError": "匯出錢包時發生錯誤",
+    "walletWithoutBackupLabel": "未備份的錢包"
   },
   "walletEdit": {
     "title": "編輯錢包",
@@ -457,6 +458,14 @@
       "insufficientFunds": "資金不足",
       "invalidAmount": "無效金額",
       "invalidAddress": "無效地址"
+    },
+    "successNotification": {
+      "title": "出售完成",
+      "previewBody": "您的出售轉帳已完成。"
+    },
+    "failureNotification": {
+      "title": "出售失敗",
+      "previewBody": "我們無法確認您的出售轉帳已完成。"
     }
   },
   "sellTokensDepositSuccess": {
@@ -666,5 +675,20 @@
     "searchingUsbMessage": "掃描連接設備…",
     "searchingBluetoothMessage": "搜索附近設備…",
     "alert": "請確保您的硬體錢包已解鎖、連接到支持的應用程式並連接到本設備"
+  },
+  "hideFraudulentToken": {
+    "title": "隱藏此欺詐代幣？",
+    "description": "如果您隱藏代幣，它只會從您錢包的視圖中移除。不會執行任何鏈上操作。",
+    "details": "詳情：",
+    "tokenHashLabel": "哈希值：",
+    "tokenNameLabel": "名稱：",
+    "blockchainLabel": "區塊鏈：",
+    "amountLabel": "數量：",
+    "notFoundTokenLabel": "未找到該代幣或已被隱藏",
+    "hideTokenButtonLabel": "隱藏代幣",
+    "messages": {
+      "hideError": "隱藏欺詐代幣時出錯，請稍後重試",
+      "hideSuccess": "已隱藏欺詐代幣"
+    }
   }
 }

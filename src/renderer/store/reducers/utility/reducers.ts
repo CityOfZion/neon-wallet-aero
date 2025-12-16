@@ -1,11 +1,19 @@
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import { cloneDeep } from 'lodash'
 
+import { TokenHelper } from '@renderer/helpers/TokenHelper'
+
+import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
-import type { TMigrationNeo3, TMigrationsNeo3, TSwapRecord } from '@shared/types/store'
+import type { TSwapRecord } from '@shared/types/store'
 
-import type { IUtilityReducer } from '.'
+import type { IUtilityReducer } from './index'
+
+type THiddenTokenParams = {
+  tokenHash: string
+  blockchain: TBlockchainServiceKey
+}
 
 // Pending Transaction Reducers
 const addPendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<TTransactionsTransfer>> = (state, action) => {
@@ -57,17 +65,37 @@ const persistSwapRecord: CaseReducer<IUtilityReducer, PayloadAction<TSwapRecord>
   state.data.swapRecords[index] = swapRecord
 }
 
-// Migration Neo3 Reducers
-const mergeMigrationsNeo3: CaseReducer<IUtilityReducer, PayloadAction<TMigrationsNeo3>> = (state, action) => {
-  const migrationsNeo3 = cloneDeep(action.payload)
+// Unlocked Skins Reducers
+const setUnlockedSkinIds: CaseReducer<IUtilityReducer, PayloadAction<string[]>> = (state, action) => {
+  const { payload: skinIds } = action
 
-  state.data.migrationsNeo3 = { ...state.data.migrationsNeo3, ...migrationsNeo3 }
+  state.data.unlockedSkinIds = skinIds
 }
 
-const saveMigrationNeo3: CaseReducer<IUtilityReducer, PayloadAction<TMigrationNeo3>> = (state, action) => {
-  const migrationNeo3 = cloneDeep(action.payload)
+// Hidden Tokens Reducers
+const toggleHiddenToken: CaseReducer<IUtilityReducer, PayloadAction<THiddenTokenParams>> = (state, action) => {
+  const { tokenHash, blockchain } = action.payload
 
-  state.data.migrationsNeo3[migrationNeo3.hash] = migrationNeo3
+  if (TokenHelper.isNativeToken(tokenHash, blockchain)) throw new Error("Native token can't be hidden")
+
+  const service = bsAggregator.blockchainServicesByName[blockchain]
+  const normalizedTokenHash = service.tokenService.normalizeHash(tokenHash)
+  const hiddenTokens = cloneDeep(state.data.hiddenTokensByBlockchain[blockchain] || [])
+
+  const index = hiddenTokens.findIndex(tokenHash =>
+    service.tokenService.predicateByHash(normalizedTokenHash, tokenHash)
+  )
+
+  if (index < 0) {
+    hiddenTokens.push(normalizedTokenHash)
+  } else {
+    hiddenTokens.splice(index, 1)
+  }
+
+  state.data.hiddenTokensByBlockchain = {
+    ...state.data.hiddenTokensByBlockchain,
+    [blockchain]: hiddenTokens,
+  }
 }
 
 export const utilitySliceReducers = {
@@ -75,7 +103,7 @@ export const utilitySliceReducers = {
   removePendingTransaction,
   saveLastIndexByWallet,
   setEncryptedLoginControl,
-  saveMigrationNeo3,
-  mergeMigrationsNeo3,
   persistSwapRecord,
+  toggleHiddenToken,
+  setUnlockedSkinIds,
 }

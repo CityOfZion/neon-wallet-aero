@@ -60,6 +60,8 @@ export const BackupAndRestoreRestoreStep2Page = () => {
       <div className="flex flex-grow flex-col justify-between gap-y-6">
         <div className="flex flex-col">
           <Input
+            name="password"
+            id="password"
             containerClassName="mt-10"
             label={t('passwordInputLabel')}
             placeholder={t('inputPlaceholder')}
