@@ -568,7 +568,6 @@ const SendPage = () => {
           >
             <GreyAccountSelect
               selectedAccount={actionData.selectedAccount}
-              triggerClassName="text-xs"
               disabled={isCalculatingForm}
               onSelect={handleSelectAccount}
             />
@@ -598,7 +597,6 @@ const SendPage = () => {
         <Button
           leftIcon={<TbPlus aria-hidden />}
           label={t('addRecipientButtonLabel')}
-          flat
           variant="text"
           iconsOnEdge={false}
           disabled={isAccountDisabled}

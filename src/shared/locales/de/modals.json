@@ -277,7 +277,7 @@
     "copyAddressButtonLabel": "Adresse kopieren",
     "contactNotFound": "Kontaktinformationen konnten nicht geöffnet werden",
     "editContactButtonLabel": "Kontakt bearbeiten",
-    "deleteContactButtonLabel": "Kontakt löschen"
+    "deleteContactButtonLabel": "Löschen"
   },
   "saveContact": {
     "addContact": "Kontakt hinzufügen",
@@ -288,6 +288,8 @@
     "addAddressButtonLabel": "Adresse hinzufügen",
     "addressesInputLabel": "Adressen",
     "saveContactButtonLabel": "Kontakt speichern",
+    "editAddressButtonLabel": "Adresse bearbeiten",
+    "deleteAddressButtonLabel": "Adresse löschen",
     "warnings": {
       "emptyContactList": "Sie müssen mindestens eine Adresse hinzufügen, um den Kontakt zu speichern",
       "noAddressesFound": "Keine Adressen gefunden"
@@ -314,13 +316,13 @@
     "title": "Kontakt löschen",
     "warningText": "Diesen Kontakt löschen?",
     "warningDescription": "Alle gespeicherten Adressen werden von diesem Kontakt getrennt",
-    "buttonDeleteLabel": "Diesen Kontakt löschen"
+    "buttonDeleteLabel": "Kontakt löschen"
   },
   "deleteContactAddress": {
     "title": "Adresse löschen",
     "warningText": "Diese Adresse löschen?",
-    "warningDescription": "Diese Adresse wird getrennt von",
-    "buttonDeleteLabel": "Diese Adresse löschen",
+    "warningDescription": "Diese Adresse wird von diesem Kontakt getrennt",
+    "buttonDeleteLabel": "Adresse löschen",
     "fromContact": "Kontakt"
   },
   "swapAboutExtraIdToReceive": {

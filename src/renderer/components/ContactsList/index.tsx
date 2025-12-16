@@ -31,7 +31,7 @@ export const ContactsList = ({ groupedContacts }: TProps) => {
     <ul className="flex min-h-0 w-full flex-grow basis-0 flex-col gap-y-5 overflow-y-auto text-xs">
       {groupedContacts.map(([letter, letterContacts]) => (
         <li key={letter}>
-          <div className="bg-asphalt/50 text-blue flex h-6 items-center pl-4 font-bold">{letter}</div>
+          <div className="text-blue flex h-6 items-center bg-gray-300/15 py-3.5 pl-4 font-bold">{letter}</div>
           {letterContacts.map((contact, index) => {
             return (
               <Fragment key={`contact-list-${contact.id}`}>
@@ -44,13 +44,13 @@ export const ContactsList = ({ groupedContacts }: TProps) => {
                     },
                   })}
                   className={StyleHelper.mergeStyles(
-                    'hover:border-neon flex h-12 w-full items-center justify-between border-l-4 border-transparent py-4 pl-0'
+                    'hover:border-neon group flex h-12 w-full items-center justify-between border-l-4 border-transparent py-4 pl-0 hover:text-white'
                   )}
                 >
                   <div className="flex w-full items-center">
                     <p
                       className={StyleHelper.mergeStyles(
-                        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-300/30 text-xs text-gray-100'
+                        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-300/30 text-xs text-gray-100 transition-colors group-hover:bg-gray-200 group-hover:text-gray-800'
                       )}
                     >
                       {StringHelper.getInitials(contact.name)}

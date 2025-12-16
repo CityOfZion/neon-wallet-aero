@@ -9,7 +9,7 @@ type TProps = ComponentProps<'div'> & {
 export const Separator = ({ className, containerClassName, ...props }: TProps) => {
   return (
     <div className={StyleHelper.mergeStyles('w-full', containerClassName)}>
-      <div className={StyleHelper.mergeStyles('h-px min-h-[0.0625rem] w-full bg-gray-300/15', className)} {...props} />
+      <div className={StyleHelper.mergeStyles('h-px min-h-[0.0625rem] w-full bg-gray-300/30', className)} {...props} />
     </div>
   )
 }

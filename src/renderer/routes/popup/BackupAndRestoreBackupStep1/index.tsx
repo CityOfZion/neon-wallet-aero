@@ -78,7 +78,7 @@ export const BackupAndRestoreBackupStep1Page = () => {
   return (
     <form className="flex h-full w-full flex-col" onSubmit={handleAct(handleSubmitCreateBackup)}>
       <fieldset className="flex h-full w-full flex-col">
-        <legend className="mb-7 text-xs">{t('description')}</legend>
+        <legend className="mb-7 text-sm">{t('description')}</legend>
 
         <div className="flex flex-grow flex-col gap-y-4">
           <Input

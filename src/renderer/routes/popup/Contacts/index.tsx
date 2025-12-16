@@ -84,7 +84,7 @@ export const ContactsPage = () => {
         </Tooltip>
       }
     >
-      <div className="flex flex-grow flex-col gap-y-4">
+      <div className="flex flex-grow flex-col gap-y-6">
         <Input
           name="search-contact"
           id="search-contact"

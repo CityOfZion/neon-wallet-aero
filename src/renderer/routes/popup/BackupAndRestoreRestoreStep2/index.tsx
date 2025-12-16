@@ -55,9 +55,9 @@ export const BackupAndRestoreRestoreStep2Page = () => {
   }
 
   return (
-    <form className="flex h-full flex-col gap-4" onSubmit={handleAct(handleSubmit)}>
-      <p className="text-xs text-gray-100">{t('description')}</p>
-      <div className="flex flex-grow flex-col justify-between gap-y-6">
+    <form className="flex h-full flex-col" onSubmit={handleAct(handleSubmit)}>
+      <p className="text-sm text-gray-100">{t('description')}</p>
+      <div className="flex flex-grow flex-col justify-between">
         <div className="flex flex-col">
           <Input
             name="password"

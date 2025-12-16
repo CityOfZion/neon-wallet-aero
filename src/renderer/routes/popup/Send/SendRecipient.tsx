@@ -187,6 +187,7 @@ export const SendRecipient = ({
             selectedToken={recipient.token?.token}
             loading={balance?.isLoading}
             disabled={isDisabled}
+            className="text-sm"
           />
         </ActionStep>
 
@@ -203,7 +204,6 @@ export const SendRecipient = ({
               id="recipient-address"
               value={recipient.addressInput ?? ''}
               onChange={handleChangeAddress}
-              compacted
               className="w-full"
               placeholder={t('addressPlaceholder')}
               clearable={false}
@@ -224,7 +224,6 @@ export const SendRecipient = ({
                 variant="text"
                 label={t('myAccountButtonLabel')}
                 leftIcon={<TbWallet aria-hidden />}
-                flat
               />
             </GreyAccountSelect>
           </div>

@@ -33,8 +33,8 @@ export const BackupAndRestoreRestoreStep1Page = () => {
 
   return (
     <form className="flex h-full min-h-0 flex-col justify-between gap-4" onSubmit={handleAct(handleSubmit)}>
-      <div className="flex min-h-0 flex-col gap-4">
-        <p className="text-xs text-gray-100">{t('description')}</p>
+      <div className="flex min-h-0 flex-col gap-6">
+        <p className="text-sm text-gray-100">{t('description')}</p>
 
         <div className="flex flex-col items-end gap-2.5">
           <Input
