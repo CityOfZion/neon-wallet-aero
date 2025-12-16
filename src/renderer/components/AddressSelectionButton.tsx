@@ -21,29 +21,21 @@ export const AddressSelectionButton = ({ blockchain, address, disabled, placehol
   return (
     <Button
       label={hasAddress ? StringHelper.truncateMiddle(address, 8) : placeholder}
-      variant="card"
-      colorSchema="white"
+      variant="text"
+      colorSchema="neon"
       className={StyleHelper.mergeStyles(
-        'bg-asphalt flex h-12 w-32 max-w-36 min-w-32 items-center gap-2 rounded px-2 not-disabled:hover:bg-gray-300/30',
+        'bg-asphalt aria-[disabled=false]:hover:bg-asphalt/60 flex h-12 w-32 max-w-36 min-w-32 items-center gap-2 rounded',
         {
           'opacity-50': disabled,
-          'not-disabled:bg-gray-300/20': !disabled && hasAddress,
+          'bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30': !disabled && hasAddress,
         }
       )}
-      textClassName={StyleHelper.mergeStyles({ 'grow-0': hasAddress })}
+      textClassName={StyleHelper.mergeStyles({ 'grow-0 text-white': hasAddress })}
       iconsOnEdge
       disabled={disabled}
-      clickableProps={{
-        className: StyleHelper.mergeStyles(
-          'aria-disabled:bg-transparent justify-start aria-[disabled=false]:bg-transparent aria-[disabled=false]:hover:bg-transparent aria-disabled:text-neon aria-disabled:cursor-default w-full px-0 gap-x-2',
-          {
-            'aria-[disabled=false]:text-neon': !hasAddress,
-          }
-        ),
-      }}
       leftIcon={
         showIcon ? (
-          <BlockchainIcon blockchain={blockchain} className="h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4" />
+          <BlockchainIcon blockchain={blockchain} className="size-4 max-h-4 min-h-4 max-w-4 min-w-4" />
         ) : undefined
       }
       onClick={onClick}

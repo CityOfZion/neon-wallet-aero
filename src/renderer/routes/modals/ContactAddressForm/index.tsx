@@ -30,6 +30,8 @@ export const ContactAddressFormModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'contactAddressForm' })
   const { name, initialAddress, onSaveAddress } = useModalState<TModalState<'contact-address-form'>>()
   const { modalNavigate } = useModalNavigate()
+  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { modalNavigateWrapper } = useModalNavigate()
 
   const {
     isNameService,
@@ -74,7 +76,7 @@ export const ContactAddressFormModal = () => {
         <div className="flex flex-col gap-y-6 text-sm">
           <div>
             <p className="pb-2 text-xs font-bold text-gray-100 uppercase">{t('name')}</p>
-            {StringHelper.truncateMiddle(name, 35)}
+            <p className="text-base">{StringHelper.truncateMiddle(name, 35)}</p>
           </div>
           <Separator />
 
@@ -95,9 +97,10 @@ export const ContactAddressFormModal = () => {
             loading={isValidatingAddressOrDomainAddress}
             disabled={!actionData.blockchain}
             error={isValidAddressOrDomainAddress === false}
+            contentClassName="bg-asphalt"
           />
 
-          {isNameService && <p className="text-gray-300">{validatedAddress}</p>}
+          {isNameService && <p className="text-blue">{validatedAddress}</p>}
 
           {isValidAddressOrDomainAddress !== undefined && (
             <Fragment>
@@ -113,12 +116,23 @@ export const ContactAddressFormModal = () => {
           )}
         </div>
 
-        <Button
-          label={isEditing ? t('updateAddressButtonLabel') : t('saveAddressButtonLabel')}
-          className="w-full"
-          type="submit"
-          disabled={!isValidAddressOrDomainAddress || isValidatingAddressOrDomainAddress}
-        />
+        <div className="flex gap-x-3 pt-4">
+          <Button
+            className="w-30"
+            onClick={modalNavigateWrapper(-1)}
+            label={commonT('cancel')}
+            variant="card"
+            colorSchema="gray"
+          />
+
+          <Button
+            label={isEditing ? t('updateAddressButtonLabel') : t('saveAddressButtonLabel')}
+            variant="card"
+            className="w-full"
+            type="submit"
+            disabled={!isValidAddressOrDomainAddress || isValidatingAddressOrDomainAddress}
+          />
+        </div>
       </form>
     </BottomModalLayout>
   )

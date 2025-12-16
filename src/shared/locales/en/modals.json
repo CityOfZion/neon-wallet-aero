@@ -278,7 +278,7 @@
     "copyAddressButtonLabel": "Copy address",
     "contactNotFound": "Could not open contact information",
     "editContactButtonLabel": "Edit contact",
-    "deleteContactButtonLabel": "Delete contact"
+    "deleteContactButtonLabel": "Delete"
   },
   "saveContact": {
     "addContact": "Add contact",
@@ -289,6 +289,8 @@
     "addAddressButtonLabel": "Add address",
     "addressesInputLabel": "Addresses",
     "saveContactButtonLabel": "Save contact",
+    "editAddressButtonLabel": "Edit address",
+    "deleteAddressButtonLabel": "Delete address",
     "warnings": {
       "emptyContactList": "You need to add at least one address to save the contact",
       "noAddressesFound": "No addresses found"
@@ -315,13 +317,13 @@
     "title": "Delete contact",
     "warningText": "Delete this contact?",
     "warningDescription": "All saved addresses will be unlinked from this contact",
-    "buttonDeleteLabel": "Delete this contact"
+    "buttonDeleteLabel": "Delete contact"
   },
   "deleteContactAddress": {
     "title": "Delete address",
     "warningText": "Delete this address?",
-    "warningDescription": "This address will be unlinked from",
-    "buttonDeleteLabel": "Delete this address",
+    "warningDescription": "This address will be unlinked from this contact",
+    "buttonDeleteLabel": "Delete address",
     "fromContact": "Contact"
   },
   "swapAboutExtraIdToReceive": {

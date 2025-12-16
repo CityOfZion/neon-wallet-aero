@@ -278,7 +278,7 @@
     "copyAddressButtonLabel": "複製地址",
     "contactNotFound": "無法開啟聯絡人資訊",
     "editContactButtonLabel": "編輯聯絡人",
-    "deleteContactButtonLabel": "刪除聯絡人"
+    "deleteContactButtonLabel": "刪除"
   },
   "saveContact": {
     "addContact": "新增聯絡人",
@@ -289,6 +289,8 @@
     "addAddressButtonLabel": "新增地址",
     "addressesInputLabel": "地址",
     "saveContactButtonLabel": "儲存聯絡人",
+    "editAddressButtonLabel": "編輯地址",
+    "deleteAddressButtonLabel": "刪除地址",
     "warnings": {
       "emptyContactList": "您需要至少新增一個地址才能儲存聯絡人",
       "noAddressesFound": "未找到地址"
@@ -315,13 +317,13 @@
     "title": "刪除聯絡人",
     "warningText": "刪除此聯絡人？",
     "warningDescription": "所有儲存的地址將與此聯絡人取消關聯",
-    "buttonDeleteLabel": "刪除此聯絡人"
+    "buttonDeleteLabel": "刪除聯絡人"
   },
   "deleteContactAddress": {
     "title": "刪除地址",
     "warningText": "刪除此地址？",
-    "warningDescription": "此地址將與聯絡人取消關聯",
-    "buttonDeleteLabel": "刪除此地址",
+    "warningDescription": "此地址將與該聯絡人斷開連接",
+    "buttonDeleteLabel": "刪除地址",
     "fromContact": "聯絡人"
   },
   "swapAboutExtraIdToReceive": {

@@ -33,9 +33,7 @@ export const MenuModal = () => {
 
   const handleOpenSearchModal = async () => {
     modalErase('bottom')
-    setTimeout(() => {
-      modalNavigate('search')
-    }, 500)
+    modalNavigate('search')
   }
 
   return (

@@ -278,7 +278,7 @@
     "copyAddressButtonLabel": "Copiar endereço",
     "contactNotFound": "Não foi possível abrir informações de contato",
     "editContactButtonLabel": "Editar contato",
-    "deleteContactButtonLabel": "Deletar contato"
+    "deleteContactButtonLabel": "Deletar"
   },
   "saveContact": {
     "addContact": "Adicionar contato",
@@ -289,6 +289,8 @@
     "addAddressButtonLabel": "Adicionar endereço",
     "addressesInputLabel": "Endereços",
     "saveContactButtonLabel": "Salvar contato",
+    "editAddressButtonLabel": "Editar endereço",
+    "deleteAddressButtonLabel": "Deletar endereço",
     "warnings": {
       "emptyContactList": "Você precisa adicionar pelo menos um endereço para salvar o contato",
       "noAddressesFound": "Nenhum endereço encontrado"
@@ -315,13 +317,13 @@
     "title": "Deletar contato",
     "warningText": "Deletar este contato?",
     "warningDescription": "Todos os endereços salvos serão deletados deste contato",
-    "buttonDeleteLabel": "Deletar este contato"
+    "buttonDeleteLabel": "Deletar contato"
   },
   "deleteContactAddress": {
     "title": "Deletar endereço",
     "warningText": "Deletar este endereço?",
-    "warningDescription": "Este endereço será deletado de",
-    "buttonDeleteLabel": "Deletar este endereço",
+    "warningDescription": "Este endereço será desvinculado deste contato",
+    "buttonDeleteLabel": "Deletar endereço",
     "fromContact": "Contato"
   },
   "swapAboutExtraIdToReceive": {

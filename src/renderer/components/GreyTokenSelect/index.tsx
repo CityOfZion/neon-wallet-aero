@@ -133,7 +133,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
         disabled={isDisabled}
         aria-disabled={isDisabled}
         className={StyleHelper.mergeStyles(
-          'bg-asphalt aria-expanded:bg-asphalt flex h-12 w-32 items-center gap-2 rounded px-2',
+          'bg-asphalt aria-expanded:bg-asphalt flex h-12 w-32 items-center gap-2 rounded px-2 aria-[disabled=false]:hover:cursor-pointer',
           {
             'aria-[disabled=false]:hover:bg-asphalt/60': !selectedToken && !isDisabled,
             'bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30': !isDisabled && selectedToken,

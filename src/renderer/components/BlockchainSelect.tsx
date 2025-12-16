@@ -43,7 +43,7 @@ export const BlockchainSelect = ({ value, onSelect }: TProps) => {
           <Fragment key={blockchain}>
             <Select.Item
               value={blockchain}
-              className="flex cursor-pointer items-center justify-start gap-x-2 text-sm text-gray-100 hover:bg-gray-300/15"
+              className="flex h-10 cursor-pointer items-center justify-start gap-x-2 text-sm text-gray-100 hover:bg-gray-300/15"
             >
               <BlockchainIcon blockchain={blockchain} type="white" />
               <Select.ItemText>{commonT(blockchain)}</Select.ItemText>

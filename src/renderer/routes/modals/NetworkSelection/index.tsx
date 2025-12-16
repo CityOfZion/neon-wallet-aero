@@ -73,7 +73,7 @@ export const NetworkSelectionModal = () => {
         <Radio.Group value={selectedNetwork.id} onValueChange={onSelectRadioItem}>
           {service.availableNetworks.map((network, index, array) => (
             <Radio.Item key={network.id} value={network.id} withSeparator={index !== array.length - 1}>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 text-sm">
                 <div
                   className={StyleHelper.mergeStyles('h-1.5 min-h-1.5 w-1.5 min-w-1.5 rounded-full', {
                     'bg-purple': network.type === 'testnet',

@@ -1,4 +1,4 @@
-import { type ChangeEvent, useCallback, useMemo } from 'react'
+import { type ChangeEvent, useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { search } from 'fast-fuzzy'
 import { debounce, orderBy } from 'lodash'
@@ -54,6 +54,7 @@ const SearchModal = () => {
   const { t: tSearch } = useTranslation('search')
   const modalActions = useModalNavigate()
   const popupNavigate = useNavigate()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const { actionData, setData } = useActions<TActionsData>({
     isSearching: false,
@@ -172,6 +173,12 @@ const SearchModal = () => {
     []
   )
 
+  useEffect(() => {
+    setTimeout(() => {
+      inputRef.current?.focus()
+    }, 500)
+  }, [])
+
   return (
     <BottomModalLayout heading={t('title')}>
       <Input
@@ -183,6 +190,7 @@ const SearchModal = () => {
         clearable
         autoFocus
         maxLength={200}
+        ref={inputRef}
       />
 
       {match(actionData)
