@@ -82,6 +82,7 @@ export const DappConnectionModal = () => {
 
         <Button
           className="mt-auto"
+          type="submit"
           label={t('buttonConnectLabel')}
           leftIcon={<TbLink aria-hidden />}
           iconsOnEdge={false}
