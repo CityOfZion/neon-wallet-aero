@@ -133,6 +133,7 @@ export const CreateAccountStep2Modal = () => {
           <Button
             className="w-full"
             variant="card"
+            type="submit"
             label={t('createAccountButtonLabel')}
             leftIcon={<TbCheck aria-hidden className="w-5" />}
             iconsOnEdge={false}
