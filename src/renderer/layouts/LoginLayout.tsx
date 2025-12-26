@@ -7,21 +7,16 @@ import NeonWalletFullImage from '@renderer/assets/images/neon-wallet-full.svg?re
 import type { TMainLayoutProps } from './ScreenLayout'
 import { ScreenLayout } from './ScreenLayout'
 
-type TProps = TMainLayoutProps & {
-  showBackButton?: boolean
-}
-
-export const LoginLayout = ({ contentClassName, children, showBackButton, ...props }: TProps) => {
+export const LoginLayout = ({ contentClassName, children, ...props }: TMainLayoutProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'login' })
 
   return (
     <ScreenLayout
+      heading={t('title')}
       contentClassName={StyleHelper.mergeStyles('items-center', contentClassName)}
       {...props}
-      heading={t('title')}
-      withBackButton={showBackButton}
     >
-      <NeonWalletFullImage aria-hidden className="-mt-3.5 h-11 max-h-11 min-h-11" />
+      <NeonWalletFullImage aria-hidden className="-mt-3 h-11 max-h-11 min-h-11" />
 
       {children}
     </ScreenLayout>

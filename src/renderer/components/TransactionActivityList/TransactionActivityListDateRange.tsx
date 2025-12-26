@@ -26,7 +26,7 @@ export const TransactionActivityListDateRange = ({
   const { language } = useLanguageSelector()
 
   return (
-    <div className="bg-asphalt flex h-9 max-w-72 min-w-56 items-center justify-center gap-x-0.5 rounded px-2">
+    <div className="bg-asphalt flex h-9 w-fit min-w-56 items-center justify-center gap-x-0.5 rounded px-2">
       <MdCalendarMonth aria-hidden className="mr-0.5 h-3 max-h-3 min-h-3 w-3 max-w-3 min-w-3 text-gray-100" />
 
       <DatePicker.Root>

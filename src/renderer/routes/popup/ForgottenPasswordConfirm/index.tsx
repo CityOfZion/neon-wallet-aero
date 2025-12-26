@@ -44,7 +44,7 @@ export const ForgottenPasswordConfirmPage = () => {
           <Banner type="warning" message={t('alertCard.text')} textClassName="py-4" iconClassName="text-pink" />
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-y-4">
+        <div className="mb-4 flex flex-col items-center justify-center gap-y-4">
           <p className="text-xs text-gray-300">{t('auxiliarText')}</p>
 
           <Swipe

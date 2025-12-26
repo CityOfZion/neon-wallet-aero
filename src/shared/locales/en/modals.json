@@ -369,6 +369,7 @@
     "refreshButtonLabel": "Refresh",
     "selectAutomaticallyLabel": "Select automatically",
     "blockHeight": "Block height: {{height}}",
+    "antiMevLabel": "Anti-MEV",
     "latency": "{{latency}}ms"
   },
   "accountReceiveSelection": {

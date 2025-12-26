@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 
+import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { NEON_ICONS_URL } from '@shared/constants/urls'
@@ -23,6 +24,8 @@ export const GreyTokenSelectItem = ({ token, blockchain, textClassName }: TProps
   const defaultImageUrl = `${NEON_ICONS_URL}/tokens/${blockchain || token.network}/${token.hash}.png`
 
   const [img, setImg] = useState(defaultImageUrl)
+
+  const formattedAmount = BSBigNumberHelper.format(token.amount, { decimals: token.decimals })
 
   const handleError = () => {
     const tokenImageUrl = token.imageUrl
@@ -46,16 +49,16 @@ export const GreyTokenSelectItem = ({ token, blockchain, textClassName }: TProps
               textClassName
             )}
           >
-            <span className="text-white">{token.symbol}</span>
+            <span className="text-white">{StringHelper.truncate(token.symbol, 4)}</span>
             {network && <span className="min-w-8 truncate text-gray-100">| {network}</span>}
           </span>
         </Tooltip>
       </span>
 
       {token.amount && (
-        <span className="text-1xs text-neon truncate">
-          {BSBigNumberHelper.format(token.amount, { decimals: token.decimals })}
-        </span>
+        <Tooltip title={formattedAmount}>
+          <span className="text-1xs text-neon inline-block w-fit max-w-14 truncate">{formattedAmount}</span>
+        </Tooltip>
       )}
     </Fragment>
   )

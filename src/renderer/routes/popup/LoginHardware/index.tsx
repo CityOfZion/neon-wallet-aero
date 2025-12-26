@@ -64,7 +64,7 @@ export const LoginHardwarePage = () => {
         onClick={modalNavigateWrapper('connect-hardware-wallet', { state: { onConnect: handleConnect, type: 'usb' } })}
       />
 
-      <TemporaryLimitsBox className="mt-auto" />
+      <TemporaryLimitsBox className="mt-auto mb-4 pt-4" />
     </div>
   )
 }

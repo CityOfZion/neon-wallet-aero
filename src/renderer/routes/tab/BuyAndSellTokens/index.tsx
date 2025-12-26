@@ -81,6 +81,7 @@ export const BuyAndSellTokensPage = () => {
   return (
     <ScreenLayout
       heading={t('title')}
+      headerClassName="pb-8"
       contentClassName="flex-row"
       withBackButton={false}
       icon={<TbShoppingBag aria-hidden />}

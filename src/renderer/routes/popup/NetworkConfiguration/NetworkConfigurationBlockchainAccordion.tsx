@@ -49,7 +49,7 @@ export const NetworkConfigurationBlockchainAccordion = ({ blockchain }: TProps) 
           className="border-none"
           label={t('nodeSelection')}
           subLabel={network.url}
-          disabled={service.availableNetworkURLs.length <= 1}
+          disabled={service.rpcNetworkUrls.length <= 1}
           onClick={modalNavigateWrapper('network-node-selection', {
             state: {
               blockchain,
