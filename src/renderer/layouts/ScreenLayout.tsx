@@ -57,7 +57,7 @@ export const ScreenLayout = ({
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.2 }}
       className={StyleHelper.mergeStyles(
-        'flex h-full w-full grow flex-col overflow-x-hidden overflow-y-auto bg-gray-900 px-4 py-3 text-white',
+        'flex h-full w-full grow flex-col overflow-x-hidden overflow-y-auto bg-gray-900 px-4 pt-3 pb-4 text-white',
         { 'pt-8': isTestnetSelected },
         className
       )}

@@ -369,6 +369,7 @@
     "refreshButtonLabel": "刷新",
     "selectAutomaticallyLabel": "自动选择",
     "blockHeight": "区块高度：{{height}}",
+    "antiMevLabel": "反MEV",
     "latency": "{{latency}}毫秒"
   },
   "accountReceiveSelection": {

@@ -12,7 +12,7 @@ export const OnboardingLoginNewWalletPage = () => {
   const currentStep = match ? Number(match.params.currentStep) : 1
 
   return (
-    <LoginLayout showBackButton={currentStep < 3}>
+    <LoginLayout withBackButton={currentStep < 3}>
       <Stepper steps={t('steps', { returnObjects: true })} className="mt-8" currentStep={currentStep} />
 
       <h2 className="mt-17 mb-7 text-lg text-white">{t('description')}</h2>

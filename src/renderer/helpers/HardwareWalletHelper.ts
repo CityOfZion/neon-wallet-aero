@@ -1,10 +1,10 @@
 import { BSKeychainHelper, hasLedger, type TBSAccount } from '@cityofzion/blockchain-service'
+import { getBluetoothServiceUuids, ledgerUSBVendorId } from '@ledgerhq/devices'
 import type Transport from '@ledgerhq/hw-transport'
 import TransportWebBluetooth from '@ledgerhq/hw-transport-web-ble'
 import TransportWebHID from '@ledgerhq/hw-transport-webhid'
 import cloneDeep from 'lodash/cloneDeep'
 
-import { getBluetoothServiceUuids, ledgerUSBVendorId } from '@ledgerhq/devices/lib-es/index'
 import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { getI18next } from '@renderer/libs/i18next'
 import { rendererApi } from '@shared/message-api/renderer'
@@ -41,7 +41,9 @@ export class HardwareWalletHelper {
       .requestDevice({
         filters: [{ vendorId: ledgerUSBVendorId }],
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error)
+
         throw new AppError(t('hardwareWallet.errors.userCancelled'))
       })
 

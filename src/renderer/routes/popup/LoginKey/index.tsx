@@ -102,11 +102,11 @@ export const LoginKeyPage = () => {
         onChange={handleChange}
       />
 
-      <TemporaryLimitsBox className="mt-auto w-full" />
+      <TemporaryLimitsBox className="mt-auto w-full pt-4" />
 
       <Button
         label={t('buttonContinueLabel')}
-        className="mt-4 w-full"
+        className="my-4 w-full"
         variant="card"
         type="submit"
         disabled={!actionState.isValid || actionState.isActing}

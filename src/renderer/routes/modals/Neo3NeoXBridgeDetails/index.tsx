@@ -105,9 +105,11 @@ export const Neo3NeoXBridgeDetailsModal = () => {
 
         <div className="flex w-full flex-col gap-3.5">
           <Details.Root>
-            <Details.Header leftElement={<TbReceipt aria-hidden />}>
-              <span className="text-sm text-white">{t('bridgeDetailsHeaderLabel')}</span>
-              {status === 'confirming' && <MdRefresh aria-hidden className="text-orange h-6 w-6 animate-spin" />}
+            <Details.Header className="mb-3" leftElement={<TbReceipt aria-hidden />}>
+              <div className="flex items-center gap-x-2">
+                <span className="text-sm text-white">{t('bridgeDetailsHeaderLabel')}</span>
+                {status === 'confirming' && <MdRefresh aria-hidden className="text-orange h-6 w-6 animate-spin" />}
+              </div>
             </Details.Header>
             <Details.Body>
               <Details.Panel label={t('bridgeStatusPanelLabel')}>

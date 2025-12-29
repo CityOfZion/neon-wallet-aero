@@ -80,7 +80,7 @@ export const LoginNeonAccountPasswordPage = () => {
 
       <Button
         label={t('buttonLoginLabel')}
-        className="mt-4 w-full"
+        className="my-4 w-full"
         variant="card"
         type="submit"
         disabled={!actionState.isValid || actionState.isActing}

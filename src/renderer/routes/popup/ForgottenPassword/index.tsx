@@ -22,7 +22,7 @@ export const ForgottenPasswordPage = () => {
           label={t('links.buttonContinueLabel')}
           colorSchema="error"
           variant="outlined"
-          className="flex w-full max-w-62.5 items-center justify-center"
+          className="mb-4 flex w-full max-w-64 items-center justify-center"
           iconsOnEdge={false}
           rightIcon={<TbArrowLeft aria-hidden className="rotate-180" />}
         />

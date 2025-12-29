@@ -18,7 +18,7 @@ export const OnboardingImportWalletPage = () => {
   }
 
   return (
-    <LoginLayout showBackButton={currentStep < 4}>
+    <LoginLayout withBackButton={currentStep < 4}>
       <Stepper steps={t('steps', { returnObjects: true })} className="mt-8" currentStep={currentStep} />
 
       <h2 className="mt-17 mb-7 text-lg text-white">{t('title')}</h2>
