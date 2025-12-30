@@ -39,6 +39,7 @@ export type TMessageBackgroundApi = {
   'wallet-connect:respond-request': TMessageApiListener<TWalletConnectRespondRequestArgs, void>
   'hardware-wallet:save-type': TMessageApiListener<THardwareWalletHelperConnectionType | undefined, void>
   'hardware-wallet:get-type': TMessageApiListener<undefined, THardwareWalletHelperConnectionType | undefined>
+  'popup:open': TMessageApiListener<undefined, void>
 }
 
 export type TMessageRendererApi = {

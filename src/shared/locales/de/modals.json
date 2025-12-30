@@ -662,12 +662,19 @@
       "errorToExecute": "Beim Ausführen der Aktion ist ein Fehler aufgetreten. Bitte kontaktieren Sie unseren Support."
     }
   },
-  "connectHardwareWalletModal": {
-    "title": "Verbindungshardware",
-    "subtitle": "Suche nach Ihrer Wallet",
-    "searchAgainButtonLabel": "Suche noch einmal",
-    "searchingUsbMessage": "Geräte suchen, die verbunden sind…",
-    "searchingBluetoothMessage": "Suchen nach nahegehenden Geräten...",
-    "alert": "Bitte sorgen Sie dafür, dass Ihr Hardware-Wallet freigegeben ist, mit einem unterstützten App verbunden und an diesem Gerät angeschlossen ist."
+  "hideFraudulentToken": {
+    "title": "Diesen betrügerischen Token ausblenden?",
+    "description": "Wenn Sie einen Token ausblenden, wird er nur aus der Ansicht Ihrer Wallet entfernt. Es wird keine Aktion auf der Blockchain ausgeführt.",
+    "details": "Details:",
+    "tokenHashLabel": "Hash:",
+    "tokenNameLabel": "Name:",
+    "blockchainLabel": "Blockchain:",
+    "amountLabel": "Betrag:",
+    "notFoundTokenLabel": "Der Token wurde nicht gefunden oder ist bereits ausgeblendet",
+    "hideTokenButtonLabel": "Token ausblenden",
+    "messages": {
+      "hideError": "Beim Ausblenden des betrügerischen Tokens ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut",
+      "hideSuccess": "Der betrügerische Token wurde ausgeblendet"
+    }
   }
 }

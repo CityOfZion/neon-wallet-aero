@@ -79,8 +79,7 @@
   "loginHardware": {
     "title": "Connect your hardware wallet",
     "byBluetoothButtonLabel": "By Bluetooth",
-    "byUSBButtonLabel": "By USB",
-    "successToastMessage": "Hardware wallet connected successfully"
+    "byUSBButtonLabel": "By USB"
   },
   "forgottenPassword": {
     "title": "Forgotten password",
@@ -539,12 +538,11 @@
       "submitButtonLabel": "Vote using this account"
     }
   },
-  "connectHardwareWallet": {
+  "createHardwareWallet": {
     "title": "Connect Hardware",
     "description": "How do you want to connect ?",
     "byBluetoothButtonLabel": "By Bluetooth",
     "byUSBButtonLabel": "By USB",
-    "successToastMessage": "Hardware wallet connected successfully",
     "disconnectButtonLabel": "Disconnect hardware wallet"
   },
   "notifications": {
@@ -563,5 +561,13 @@
         "system": "System"
       }
     }
+  },
+  "connectHardwareWallet": {
+    "title": "Looking for your hardware wallet",
+    "searchUsbButtonLabel": "Search connected devices",
+    "searchBluetoothButtonLabel": "Search nearby devices",
+    "alert": "Please ensure your hardware wallet is unlocked, connected to a supported app and connected to this device",
+    "successBannerMessage": "Hardware wallet connected successfully. Opening extension…",
+    "completeButtonLabel": "Complete"
   }
 }

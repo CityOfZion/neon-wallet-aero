@@ -61,7 +61,6 @@ const VoteNeo3InfoModal = lazy(() => import('./modals/VoteNeo3Info'))
 const AccountSelectionByBlockchainModal = lazy(() => import('./modals/AccountSelectionByBlockchain'))
 const ConfirmActionBottomModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionBottom'))
 const ConfirmActionSideModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionSide'))
-const ConnectHardwareWalletModal = lazy(() => import('./modals/ConnectHardwareWallet'))
 const HideFraudulentTokenModal = lazy(() => import('./modals/HideFraudulentToken'))
 
 export const modalsRouter: TRoute[] = [
@@ -123,6 +122,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'vote-neo3-confirmation', type: 'bottom', element: VoteNeo3ConfirmationModal },
   { name: 'vote-neo3-success', type: 'bottom', element: VoteNeo3SuccessModal },
   { name: 'search', type: 'bottom', element: SearchModal },
-  { name: 'connect-hardware-wallet', type: 'bottom', element: ConnectHardwareWalletModal },
   { name: 'hide-fraudulent-token', type: 'bottom', element: HideFraudulentTokenModal },
 ]

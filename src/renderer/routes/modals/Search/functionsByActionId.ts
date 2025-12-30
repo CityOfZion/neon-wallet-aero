@@ -53,10 +53,10 @@ export const functionsByActionId: TFunctionsByActionId = {
     })
   },
   buy: async () => {
-    rendererApi.send('tab:open', { path: `/buy-and-sell-tokens?tab=${EBuyAndSellTokensTab.BUY_TOKENS}` })
+    rendererApi.send('tab:open', { path: '/buy-and-sell-tokens', query: { tab: EBuyAndSellTokensTab.BUY_TOKENS } })
   },
   sell: async () => {
-    rendererApi.send('tab:open', { path: `/buy-and-sell-tokens?tab=${EBuyAndSellTokensTab.SELL_TOKENS}` })
+    rendererApi.send('tab:open', { path: '/buy-and-sell-tokens', query: { tab: EBuyAndSellTokensTab.SELL_TOKENS } })
   },
   createWallet: async ({ modalActions }) => {
     modalActions.modalNavigate('create-wallet-1', { replace: true })

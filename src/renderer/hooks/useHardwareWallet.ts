@@ -53,7 +53,7 @@ export const useCreateHardwareWallet = () => {
         }
       })
 
-      const newAccounts: IAccountState[] = []
+      const newAccounts: (IAccountState & { wallet: IWalletState })[] = []
 
       for (const [blockchain, accountInfos] of groupedAccountInfosByBlockchain.entries()) {
         const existentWallet = existentWalletsByBlockchain.get(blockchain)
@@ -100,7 +100,7 @@ export const useCreateHardwareWallet = () => {
             })
           }
 
-          newAccounts.push(account)
+          newAccounts.push({ ...account, wallet })
         }
       }
 

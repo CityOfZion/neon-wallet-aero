@@ -536,15 +536,13 @@
   "loginHardware": {
     "title": "连接硬件钱包",
     "byBluetoothButtonLabel": "由蓝牙",
-    "byUSBButtonLabel": "由USB",
-    "successToastMessage": "硬件钱包连接成功"
+    "byUSBButtonLabel": "由USB"
   },
-  "connectHardwareWallet": {
+  "createHardwareWallet": {
     "title": "连接硬件",
     "description": "?",
     "byBluetoothButtonLabel": "由蓝牙",
     "byUSBButtonLabel": "由USB",
-    "successToastMessage": "硬件钱包连接成功",
     "disconnectButtonLabel": "取出硬件钱包"
   },
   "notifications": {
@@ -564,5 +562,13 @@
         "system": "系统"
       }
     }
+  },
+  "connectHardwareWallet": {
+    "title": "正在查找您的硬件钱包",
+    "searchUsbButtonLabel": "搜索已连接的设备",
+    "searchBluetoothButtonLabel": "搜索附近的设备",
+    "alert": "请确保您的硬件钱包已解锁、已连接到受支持的应用，并已连接到此设备",
+    "successBannerMessage": "硬件钱包连接成功。正在打开扩展程序…",
+    "completeButtonLabel": "完成"
   }
 }

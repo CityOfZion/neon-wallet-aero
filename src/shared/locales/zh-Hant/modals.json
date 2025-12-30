@@ -671,14 +671,6 @@
       "errorToExecute": "執行操作時出錯。請聯絡我們的支援團隊。"
     }
   },
-  "connectHardwareWalletModal": {
-    "title": "連接硬體",
-    "subtitle": "尋找你的錢包",
-    "searchAgainButtonLabel": "重新搜尋",
-    "searchingUsbMessage": "掃描連接設備…",
-    "searchingBluetoothMessage": "搜索附近設備…",
-    "alert": "請確保您的硬體錢包已解鎖、連接到支持的應用程式並連接到本設備"
-  },
   "hideFraudulentToken": {
     "title": "隱藏此欺詐代幣？",
     "description": "如果您隱藏代幣，它只會從您錢包的視圖中移除。不會執行任何鏈上操作。",
