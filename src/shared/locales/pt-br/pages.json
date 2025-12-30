@@ -536,15 +536,13 @@
   "loginHardware": {
     "title": "Conecte sua carteira hardware",
     "byBluetoothButtonLabel": "Pela Tecnologia Bluetooth",
-    "byUSBButtonLabel": "Pela USB",
-    "successToastMessage": "Carteira de hardware conectada com sucesso"
+    "byUSBButtonLabel": "Pela USB"
   },
-  "connectHardwareWallet": {
+  "createHardwareWallet": {
     "title": "Conectar Equipamento",
     "description": "Como você gostaria de se conectar?",
     "byBluetoothButtonLabel": "Pela Bluetooth",
     "byUSBButtonLabel": "Pelo USB",
-    "successToastMessage": "Carteira hardware conectada com sucesso",
     "disconnectButtonLabel": "Desconectar carteira hardware"
   },
   "notifications": {
@@ -564,5 +562,13 @@
         "system": "Sistema"
       }
     }
+  },
+  "connectHardwareWallet": {
+    "title": "Procurando sua carteira de hardware",
+    "searchUsbButtonLabel": "Buscar dispositivos conectados",
+    "searchBluetoothButtonLabel": "Buscar dispositivos próximos",
+    "alert": "Certifique-se de que sua carteira de hardware esteja desbloqueada, conectada a um aplicativo compatível e conectada a este dispositivo",
+    "successBannerMessage": "Carteira de hardware conectada com sucesso. Abrindo extensão…",
+    "completeButtonLabel": "Concluir"
   }
 }

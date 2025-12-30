@@ -63,7 +63,7 @@ export const MenuModal = () => {
 
         <MenuItemLink
           label={t('connectHardwareWalletItemLabel')}
-          to="/connect-hardware-wallet"
+          to="/create-hardware-wallet"
           icon={<TbDeviceUsb aria-hidden className="rotate-45" />}
           isDisabled={!isPasswordLogin}
         />

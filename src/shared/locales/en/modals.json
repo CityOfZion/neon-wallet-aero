@@ -671,14 +671,6 @@
       "errorToExecute": "There was an error trying to execute the action. Please, contact our support."
     }
   },
-  "connectHardwareWalletModal": {
-    "title": "Connect hardware",
-    "subtitle": "Looking for your wallet",
-    "searchAgainButtonLabel": "Search again",
-    "searchingUsbMessage": "Scanning for connected devices…",
-    "searchingBluetoothMessage": "Searching for nearby devices…",
-    "alert": " Please ensure your hardware wallet is unlocked, connected to a supported app and connected to this device"
-  },
   "hideFraudulentToken": {
     "title": "Hide this fraudulent token?",
     "description": "If you hide a token, it will only be removed from your wallet's view. No on-chain action is executed.",

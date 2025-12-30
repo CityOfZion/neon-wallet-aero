@@ -31,9 +31,6 @@ export const RootPage = () => {
       await waitForBootstrap()
 
       const loginSession = await rendererApi.send('login:get-session')
-      if (!loginSession) {
-        throw new Error()
-      }
 
       store.dispatch(authReducerActions.setLoginSession(loginSession))
       setReady(true)

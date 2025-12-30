@@ -185,7 +185,6 @@ export const SaveContactModal = () => {
                     textClassName="text-sm"
                   />
                 )}
-
                 {actionState.errors.addresses && <AlertErrorBanner message={actionState.errors.addresses} />}
               </div>
             </div>

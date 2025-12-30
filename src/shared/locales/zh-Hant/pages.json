@@ -536,15 +536,13 @@
   "loginHardware": {
     "title": "連接硬體錢包",
     "byBluetoothButtonLabel": "「透過藍牙」",
-    "byUSBButtonLabel": "由USB",
-    "successToastMessage": "硬體錢包連線成功"
+    "byUSBButtonLabel": "由USB"
   },
-  "connectHardwareWallet": {
+  "createHardwareWallet": {
     "title": "連接硬體",
     "description": "你想怎麼連接？",
     "byBluetoothButtonLabel": "由藍牙",
     "byUSBButtonLabel": "由USB",
-    "successToastMessage": "硬體錢包連接成功",
     "disconnectButtonLabel": "斷接硬體錢包"
   },
   "notifications": {
@@ -564,5 +562,13 @@
         "system": "系統"
       }
     }
+  },
+  "connectHardwareWallet": {
+    "title": "正在尋找您的硬體錢包",
+    "searchUsbButtonLabel": "搜尋已連接的裝置",
+    "searchBluetoothButtonLabel": "搜尋附近的裝置",
+    "alert": "請確保您的硬體錢包已解鎖、已連接至支援的應用程式，並已連接到此裝置",
+    "successBannerMessage": "硬體錢包已成功連接。正在開啟擴充功能…",
+    "completeButtonLabel": "完成"
   }
 }

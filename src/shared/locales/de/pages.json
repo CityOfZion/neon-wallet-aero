@@ -517,15 +517,21 @@
   "loginHardware": {
     "title": "Verbinde deine Hardware-Wallet",
     "byBluetoothButtonLabel": "Über Bluetoth",
-    "byUSBButtonLabel": "Durch USB",
-    "successToastMessage": "Gerätewallet verbunden erfolgreich"
+    "byUSBButtonLabel": "Durch USB"
   },
-  "connectHardwareWallet": {
+  "createHardwareWallet": {
     "title": "Verbinden-Hardware",
     "description": "Wie möchten Sie sich verbinden?",
     "byBluetoothButtonLabel": "Über Bluetooth",
     "byUSBButtonLabel": "Mit USB",
-    "successToastMessage": "Hartenware-Portefeuille erfolgreich verbunden",
     "disconnectButtonLabel": "Hardware-Wallet-Abreissen"
+  },
+  "connectHardwareWallet": {
+    "title": "Suche nach Ihrer Hardware-Wallet",
+    "searchUsbButtonLabel": "Verbundene Geräte suchen",
+    "searchBluetoothButtonLabel": "Nach Geräten in der Nähe suchen",
+    "alert": "Bitte stellen Sie sicher, dass Ihre Hardware-Wallet entsperrt ist, mit einer unterstützten App verbunden ist und mit diesem Gerät verbunden ist",
+    "successBannerMessage": "Hardware-Wallet erfolgreich verbunden. Erweiterung wird geöffnet…",
+    "completeButtonLabel": "Fertig"
   }
 }

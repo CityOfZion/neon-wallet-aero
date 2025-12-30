@@ -671,14 +671,6 @@
       "errorToExecute": "Houve um erro ao tentar executar a ação. Por favor, entre em contato com nosso suporte."
     }
   },
-  "connectHardwareWalletModal": {
-    "title": "Conectar hardware",
-    "subtitle": "Procurando sua carteira",
-    "searchAgainButtonLabel": "Procure novamente",
-    "searchingUsbMessage": "Pesquisando dispositivos conectados…",
-    "searchingBluetoothMessage": "Pesquisando dispositivos próximos…",
-    "alert": "Por favor, certifique-se de que sua carteira hardware esteja desbloqueada, conectada à uma aplicação compatível e conectada a esse dispositivo."
-  },
   "hideFraudulentToken": {
     "title": "Ocultar este token fraudulento?",
     "description": "Se você ocultar um token, ele será removido apenas da visualização da sua carteira. Nenhuma ação on-chain é executada.",
