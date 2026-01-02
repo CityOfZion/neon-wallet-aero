@@ -1,7 +1,24 @@
+import { useEffect } from 'react'
+
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
+
+import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 
 export const NetworkBanner = () => {
   const { t } = useTranslation('components', { keyPrefix: 'networkBanner' })
+  const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
+  const { pathname } = useLocation()
+
+  const isTestnetSelected = Object.values(selectedNetworkByBlockchain).some(network => network.type === 'testnet')
+
+  useEffect(() => {
+    const element = document.getElementById('screen-layout-container')
+
+    if (element) element.style.paddingTop = isTestnetSelected ? '2rem' : ''
+  }, [isTestnetSelected, pathname])
+
+  if (!isTestnetSelected) return null
 
   return (
     <div className="border-purple fixed top-0 left-0 z-50 flex w-full justify-center border-t-3">
@@ -13,5 +30,3 @@ export const NetworkBanner = () => {
     </div>
   )
 }
-
-export default NetworkBanner

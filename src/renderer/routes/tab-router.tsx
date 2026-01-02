@@ -10,12 +10,13 @@ const ConnectHardwareWalletPage = lazy(() => import('./tab/ConnectHardwareWallet
 
 export const tabRouter = createHashRouter([
   {
-    path: '/',
     element: <RootPage />,
     children: [
-      { element: <PrivatePage />, children: [{ path: 'buy-and-sell-tokens', element: <BuyAndSellTokensPage /> }] },
-
       { path: 'connect-hardware-wallet', element: <ConnectHardwareWalletPage /> },
+      {
+        element: <PrivatePage />,
+        children: [{ path: 'buy-and-sell-tokens', element: <BuyAndSellTokensPage /> }],
+      },
     ],
   },
 ])

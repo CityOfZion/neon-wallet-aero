@@ -30,12 +30,13 @@ export const DappPermissionSuccessContent = ({ response }: TProps) => {
             <IconButton
               aria-label={commonT('copyToClipboard')}
               size="xs"
+              colorSchema="neon"
               icon={<MdContentCopy aria-hidden />}
               onClick={UtilsHelper.copyToClipboard.bind(null, stringifiedResponse)}
             />
           </div>
 
-          <p className="bg-asphalt whitespace-pre-wraps w-full overflow-y-auto rounded p-2 font-medium break-words text-white">
+          <p className="bg-asphalt max-h-64 w-full overflow-y-auto rounded p-2 font-medium break-words whitespace-pre-wrap text-white">
             {stringifiedResponse}
           </p>
         </div>

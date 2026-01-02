@@ -2,6 +2,8 @@ import { Fragment, Suspense } from 'react'
 
 import { Navigate, Outlet } from 'react-router-dom'
 
+import { NetworkBanner } from '@renderer/components/NetworkBanner'
+
 import { LazyHelper } from '@renderer/helpers/LazyHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
@@ -34,6 +36,8 @@ export const PrivatePage = () => {
       <Suspense fallback={null}>
         <HardwareWalletManagerSetup />
       </Suspense>
+
+      <NetworkBanner />
 
       <Outlet />
     </Fragment>
