@@ -47,6 +47,7 @@ export const WalletConnectManagerSetup = () => {
             sessionAccount!.encryptedKey,
             loginSessionRef.current!.encryptedPassword
           )
+
           const serviceAccount = AccountHelper.getServiceAccount({ account: sessionAccount!, key })
 
           const response = await WalletKitHelper.processRequest({
@@ -62,7 +63,7 @@ export const WalletConnectManagerSetup = () => {
 
           return response
         } catch (error: any) {
-          const appError = AppError.wrap(error)
+          const appError = AppError.wrap(error, error.message)
 
           await rendererApi.send('wallet-connect:respond-request', {
             topic: request.topic,

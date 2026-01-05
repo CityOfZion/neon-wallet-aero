@@ -1,6 +1,8 @@
-import { useLayoutEffect } from 'react'
+import { Fragment, useLayoutEffect } from 'react'
 
 import { Outlet } from 'react-router-dom'
+
+import { NetworkBanner } from '@renderer/components/NetworkBanner'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 
@@ -17,5 +19,11 @@ export const PrivatePage = () => {
     return null
   }
 
-  return <Outlet />
+  return (
+    <Fragment>
+      <NetworkBanner />
+
+      <Outlet />
+    </Fragment>
+  )
 }

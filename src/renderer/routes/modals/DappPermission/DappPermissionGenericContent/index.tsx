@@ -66,6 +66,7 @@ export const DappPermissionGenericContent = (props: TDappPermissionProps) => {
                     aria-label={commonT('copy')}
                     icon={<MdContentCopy aria-hidden />}
                     size="sm"
+                    colorSchema="neon"
                     onClick={() => UtilsHelper.copyToClipboard(content)}
                   />
                 </Tooltip>
@@ -77,7 +78,7 @@ export const DappPermissionGenericContent = (props: TDappPermissionProps) => {
 
             <Details.HeaderSeparator />
 
-            <Details.Body>
+            <Details.Body className="mt-2.5">
               <p className="rounded bg-gray-700/60 px-5 py-2.5 text-sm break-words whitespace-pre-wrap">
                 {typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
               </p>

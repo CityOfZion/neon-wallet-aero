@@ -121,7 +121,7 @@ export const DappConnectionRequestModal = () => {
             </Details.Body>
           </Details.Root>
 
-          <div className="mt-auto flex w-full items-end gap-x-2.5">
+          <div className="mt-auto flex w-full items-end gap-x-2.5 pt-4">
             <Button
               label={t('rejectButtonLabel')}
               colorSchema="gray"
