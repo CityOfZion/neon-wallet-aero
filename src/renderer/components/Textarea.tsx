@@ -14,11 +14,13 @@ import { IconButton } from './IconButton'
 type TProps = React.ComponentProps<'textarea'> & {
   containerClassName?: string
   errorMessage?: string
+  id: string
   error?: boolean
   clearable?: boolean
   pastable?: boolean
   compacted?: boolean
   multiline?: boolean
+  label?: string
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
@@ -27,12 +29,14 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
       className,
       containerClassName,
       errorMessage,
+      id,
       pastable,
       error,
       compacted,
       clearable,
       onChange,
       multiline = true,
+      label,
       ...props
     },
     ref
@@ -62,7 +66,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
     }
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (event.key === 'Enter') {
+      if (event.key === 'Enter' && !multiline) {
         event.preventDefault()
         event.stopPropagation()
       }
@@ -89,6 +93,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
 
     return (
       <div className={StyleHelper.mergeStyles('w-full', containerClassName)}>
+        {label && (
+          <label htmlFor={id} className="mb-2 block text-xs font-bold text-gray-100 uppercase">
+            {label}
+          </label>
+        )}
+
         <div
           className={StyleHelper.mergeStyles(
             'bg-asphalt flex w-full items-center gap-x-1 rounded px-5 font-medium text-white ring-2 ring-transparent outline-none placeholder:text-white/50',
@@ -108,6 +118,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
             onChange={setValue}
           >
             <textarea
+              id={id}
               className={StyleHelper.mergeStyles(
                 'min-h-[1rem] w-full flex-grow resize-none overflow-hidden bg-transparent outline-none',
                 {

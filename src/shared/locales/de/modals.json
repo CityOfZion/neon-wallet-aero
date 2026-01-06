@@ -8,7 +8,8 @@
     "editButtonLabel": "Ändern",
     "exportButtonLabel": "Export",
     "exportWalletTitle": "Wallet exportieren",
-    "exportError": "Fehler beim Exportieren der Wallet"
+    "exportError": "Fehler beim Exportieren der Wallet",
+    "walletWithoutBackupLabel": "Wallet ohne Backup"
   },
   "walletEdit": {
     "title": "Wallet bearbeiten",
@@ -460,6 +461,14 @@
       "insufficientFunds": "Unzureichendes Guthaben",
       "invalidAmount": "Ungültiger Betrag",
       "invalidAddress": "Ungültige Adresse"
+    },
+    "successNotification": {
+      "title": "Verkauf abgeschlossen",
+      "previewBody": "Ihre Verkaufstransaktion wurde abgeschlossen."
+    },
+    "failureNotification": {
+      "title": "Verkauf fehlgeschlagen",
+      "previewBody": "Wir konnten die Fertigstellung Ihrer Verkaufstransaktion nicht bestätigen."
     }
   },
   "sellTokensDepositSuccess": {
@@ -479,6 +488,27 @@
     "text": "Es tut mir leid, aber Ihre Transaktion konnte nicht verarbeitet werden.",
     "errorMessageLabel": "Fehlermeldung",
     "unknownError": "Unbekannter Fehler"
+  },
+  "supportTicket": {
+    "cancelButtonLabel": "Abbrechen",
+    "descriptionLabel": "Beschreibung",
+    "descriptionPlaceholder": "Beschreiben Sie Ihr Problem…",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "Geben Sie Ihre E-Mail ein…",
+    "errors": {
+      "emailRequired": "E-Mail ist erforderlich",
+      "nameRequired": "Name ist erforderlich",
+      "submitError": "Beim Absenden Ihres Tickets ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
+    },
+    "nameLabel": "Name",
+    "namePlaceholder": "Geben Sie Ihren Namen ein…",
+    "submitTicketButtonLabel": "Ticket absenden",
+    "successContent": {
+      "description": "Wir haben Ihr Support-Ticket erhalten und melden uns in Kürze bei Ihnen.",
+      "title": "Ticket erfolgreich eingereicht!",
+      "closeButtonLabel": "Schließen"
+    },
+    "title": "Support-Ticket öffnen"
   },
   "swapDetails": {
     "title": "Ihr Swap",

@@ -173,7 +173,8 @@
   },
   "help": {
     "title": "帮助",
-    "chatWithUsItemLabel": "与我们聊天"
+    "chatWithUsItemLabel": "与我们聊天",
+    "openSupportTicketItemLabel": "提交支持工单"
   },
   "import": {
     "title": "导入",

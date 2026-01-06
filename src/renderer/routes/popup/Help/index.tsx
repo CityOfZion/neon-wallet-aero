@@ -6,6 +6,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
+import HiOutlineTicket from '@renderer/assets/images/hi-outline-ticket.svg?react'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 import TbMessage from '@renderer/assets/images/tb-message.svg?react'
 
@@ -30,11 +31,17 @@ export const HelpPage = () => {
         />
       }
     >
-      <ul className="flex w-full flex-col">
+      <ul className="flex w-full flex-col py-2.5">
         <HelpLinkItem
           label={t('chatWithUsItemLabel')}
           to={DISCORD_LINK}
           icon={<TbMessage aria-hidden className="text-yellow" />}
+        />
+
+        <HelpLinkItem
+          label={t('openSupportTicketItemLabel')}
+          icon={<HiOutlineTicket aria-hidden className="text-yellow" />}
+          onClick={modalNavigateWrapper('support-ticket')}
           hideSeparator
         />
       </ul>

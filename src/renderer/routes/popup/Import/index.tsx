@@ -133,6 +133,7 @@ export const ImportPage = () => {
         <h2 className="mb-8">{t('subtitle')}</h2>
 
         <Textarea
+          id="import-value"
           autoFocus
           aria-label={t('form.valueLabel')}
           placeholder={t('form.valuePlaceholder')}

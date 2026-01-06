@@ -28,7 +28,7 @@ export type TInputProps = Omit<ComponentProps<'input'>, 'type' | 'ref' | 'id'> &
   compacted?: boolean
   copyable?: boolean
   pastable?: boolean
-  type?: 'text' | 'password' | 'number'
+  type?: 'text' | 'password' | 'number' | 'email'
   leftIcon?: React.JSX.Element
   loading?: boolean
   label?: string
@@ -107,7 +107,10 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
       if (readOnly) return
 
       internalRef.current?.focus()
-      internalRef.current?.setSelectionRange(internalRef.current?.value.length, internalRef.current?.value.length)
+
+      if (realType === 'text' || realType === 'password') {
+        internalRef.current?.setSelectionRange(internalRef.current?.value.length, internalRef.current?.value.length)
+      }
     }
 
     const handleClick = (event: MouseEvent<HTMLInputElement>) => {

@@ -228,6 +228,8 @@ export const OnboardingImportWalletStep3Page = () => {
         <div className="flex w-full flex-col items-center gap-2">
           {!state.isMigration && (
             <Textarea
+              id="import-value"
+              autoFocus
               aria-label={t('inputPlaceholder')}
               placeholder={t('inputPlaceholder')}
               containerClassName="mb-2.5"

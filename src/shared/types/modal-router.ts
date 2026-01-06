@@ -358,4 +358,5 @@ export type TModalRouterRouteTypes = {
   'dapp-permission-contract-details': TDappPermissionContractDetailsModalState
   search: undefined
   'hide-fraudulent-token': THideFraudulentTokenModalState
+  'support-ticket': undefined
 }
