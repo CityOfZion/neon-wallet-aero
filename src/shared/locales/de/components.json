@@ -85,7 +85,12 @@
   "tokenList": {
     "holdingsLabel": "Bestände",
     "valueLabel": "Wert",
-    "empty": "Keine Token-Guthaben vorhanden"
+    "empty": "Keine Token-Guthaben vorhanden",
+    "showHiddenTokensLabel": "Versteckte Token anzeigen",
+    "enableEditModeButtonLabel": "Bearbeitungsmodus aktivieren",
+    "disableEditModeButtonLabel": "Bearbeitungsmodus deaktivieren",
+    "showTokenButtonLabel": "Token anzeigen",
+    "hideTokenButtonLabel": "Token ausblenden"
   },
   "dappConnectionList": {
     "empty": "Keine Verbindungen vorhanden",

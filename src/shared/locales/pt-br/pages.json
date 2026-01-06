@@ -173,7 +173,8 @@
   },
   "help": {
     "title": "Ajuda",
-    "chatWithUsItemLabel": "Converse conosco"
+    "chatWithUsItemLabel": "Converse conosco",
+    "openSupportTicketItemLabel": "Abrir ticket de suporte"
   },
   "import": {
     "title": "Importar",

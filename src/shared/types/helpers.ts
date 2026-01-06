@@ -28,3 +28,9 @@ export type THardwareWalletHelperEnsureConnectionParams = {
 }
 
 export type THardwareWalletHelperConnectionType = 'usb' | 'bluetooth'
+
+export type TClickupHelperCreateSupportTicketParams = {
+  name: string
+  email: string
+  description: string
+}

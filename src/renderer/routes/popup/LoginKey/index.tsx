@@ -94,6 +94,8 @@ export const LoginKeyPage = () => {
       <h2 className="text-lg text-white">{t('description')}</h2>
 
       <Textarea
+        id="login-key-value"
+        autoFocus
         containerClassName="mt-5"
         placeholder={t('inputPlaceholder')}
         value={actionData.text}

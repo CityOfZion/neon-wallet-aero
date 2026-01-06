@@ -489,6 +489,27 @@
     "errorMessageLabel": "Error message",
     "unknownError": "Unknown error"
   },
+  "supportTicket": {
+    "cancelButtonLabel": "Cancel",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Describe your issue…",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email…",
+    "errors": {
+      "emailRequired": "Email is required",
+      "nameRequired": "Name is required",
+      "submitError": "There was an error trying to submit your ticket. Please try again later."
+    },
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your name…",
+    "submitTicketButtonLabel": "Submit ticket",
+    "successContent": {
+      "description": "We've received your support ticket and will get back to you soon.",
+      "title": "Ticket submitted successfully!",
+      "closeButtonLabel": "Close"
+    },
+    "title": "Open support ticket"
+  },
   "swapDetails": {
     "title": "Your swap",
     "detailsHeaderLabel": "Details",

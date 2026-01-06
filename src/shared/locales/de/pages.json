@@ -7,6 +7,22 @@
     },
     "hardwareWalletManagerSetup": {
       "requestingPermission": "Warten Sie Hardware-Gerät-Bestätigung..."
+    },
+    "accountTasksManagerSetup": {
+      "useFraudulentTokensNotificationProcess": {
+        "notificationTitle": "\"{{ value }}\" ist ein betrügerisches Token!",
+        "notificationDescription": "Wir haben \"{{ value }}\" identifiziert, das von der Community als betrügerisches Token markiert wurde. Wir empfehlen, es zu verbergen und jegliche weitere Interaktion zu vermeiden."
+      },
+      "useVotingNeo3NotificationProcess": {
+        "notificationTitle": "Sie verpassen kostenloses GAS!",
+        "notificationDescription": "Tippen Sie hier und geben Sie heute Ihre Stimme ab."
+      }
+    },
+    "walletTasksManagerSetup": {
+      "useBackupReminderNotificationProcess": {
+        "notificationTitle": "Erstellen Sie eine neue Sicherungsdatei!",
+        "notificationDescription": "Wir empfehlen, eine neue Sicherungsdatei unter \"Menü > Einstellungen > Backup & Restore\" zu erstellen, um Ihre Wallets zu schützen. Zur zusätzlichen Sicherheit können Sie außerdem Ihre Mnemonics unter \"Wallet > Export\" und privaten Schlüssel unter \"Account > Export\" manuell exportieren."
+      }
     }
   },
   "wallets": {
@@ -20,6 +36,7 @@
     "bridgeButtonLabel": "Bridge",
     "buyAndSellTokensButtonLabel": "Shop",
     "ariaLabels": {
+      "notificationsIconButton": "Benachrichtigungen",
       "menuIconButton": "Menü",
       "refreshIconButton": "Aktualisieren",
       "copyIconButton": "Kopieren"
@@ -162,7 +179,8 @@
   },
   "help": {
     "title": "Hilfe",
-    "chatWithUsItemLabel": "Chatten Sie mit uns"
+    "chatWithUsItemLabel": "Chatten Sie mit uns",
+    "openSupportTicketItemLabel": "Support-Ticket öffnen"
   },
   "import": {
     "title": "Importieren",
@@ -332,6 +350,14 @@
     },
     "sendFail": {
       "toast": "Transaktion konnte nicht gesendet werden"
+    },
+    "successNotification": {
+      "title": "Transaktion abgeschlossen",
+      "previewBody": "Ihre Transaktion wurde erfolgreich abgeschlossen."
+    },
+    "failureNotification": {
+      "title": "Transaktion fehlgeschlagen",
+      "previewBody": "Wir konnten die Fertigstellung Ihrer Transaktion nicht bestätigen."
     },
     "errors": {
       "feeError": "Fehler bei der Gebührenberechnung",
@@ -525,6 +551,23 @@
     "byBluetoothButtonLabel": "Über Bluetooth",
     "byUSBButtonLabel": "Mit USB",
     "disconnectButtonLabel": "Hardware-Wallet-Abreissen"
+  },
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "notFound": {
+      "title": "Nichts zu sehen",
+      "description": "Es gibt noch keine Benachrichtigungen"
+    },
+    "item": {
+      "relatedAddressLabel": "Adresse: {{ address }}",
+      "relatedAccountLabel": "Konto: {{ name }}",
+      "actionsButtonLabel": "Aktionen",
+      "markAsReadButtonLabel": "Als gelesen markieren",
+      "markAsUnreadButtonLabel": "Als ungelesen markieren",
+      "providerLabels": {
+        "system": "System"
+      }
+    }
   },
   "connectHardwareWallet": {
     "title": "Suche nach Ihrer Hardware-Wallet",

@@ -178,7 +178,8 @@
   },
   "help": {
     "title": "Help",
-    "chatWithUsItemLabel": "Chat with us"
+    "chatWithUsItemLabel": "Chat with us",
+    "openSupportTicketItemLabel": "Open support ticket"
   },
   "import": {
     "title": "Import",
