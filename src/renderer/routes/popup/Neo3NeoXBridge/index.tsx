@@ -149,7 +149,7 @@ export const Neo3NeoXBridgePage = () => {
     isBridgeValueValid(actionData.amountToReceive) &&
     isBridgeValueValid(actionData.bridgeFee)
 
-  const initializeOrRestartSwapService = async () => {
+  const initializeOrRestartBridgeService = async () => {
     reset()
 
     const neo3NeoXBridgeOrchestrator = new Neo3NeoXBridgeOrchestrator<TBlockchainServiceKey>({
@@ -318,11 +318,11 @@ export const Neo3NeoXBridgePage = () => {
                 confirmed: !transactionHash ? false : undefined,
               },
             })
+
+            initializeOrRestartBridgeService()
           } catch (error) {
             console.error(error)
             ToastHelper.error({ message: AppError.wrap(error).message })
-          } finally {
-            initializeOrRestartSwapService()
           }
         },
       },
@@ -330,7 +330,7 @@ export const Neo3NeoXBridgePage = () => {
   }
 
   useMountUnsafe(() => {
-    initializeOrRestartSwapService()
+    initializeOrRestartBridgeService()
 
     return () => {
       bridgeOrchestratorRef.current?.eventEmitter?.removeAllListeners()
@@ -370,7 +370,7 @@ export const Neo3NeoXBridgePage = () => {
           icon={<MdRestartAlt aria-hidden />}
           colorSchema={isRestartDisabled ? 'gray' : 'neon'}
           disabled={isRestartDisabled}
-          onClick={initializeOrRestartSwapService}
+          onClick={initializeOrRestartBridgeService}
         />
       }
     >
