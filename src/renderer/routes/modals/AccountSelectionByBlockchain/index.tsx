@@ -74,7 +74,7 @@ export const AccountSelectionByBlockchainModal = () => {
               <Select.Item
                 key={wallet.id}
                 value={wallet.id}
-                className="cursor-pointer px-2.5 py-3.5 text-sm text-white hover:bg-gray-300/15"
+                className="px-2.5 py-3.5 text-sm text-white hover:bg-gray-300/15 focus:bg-gray-300/15"
               >
                 <Select.ItemText>{wallet.name}</Select.ItemText>
               </Select.Item>

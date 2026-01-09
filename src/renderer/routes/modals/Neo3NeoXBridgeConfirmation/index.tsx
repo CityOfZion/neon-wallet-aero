@@ -68,7 +68,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
 
   return (
     <BottomModalLayout heading={t('title')}>
-      <div className="flex flex-grow flex-col items-center justify-between gap-6 px-4">
+      <div className="flex flex-grow flex-col items-center justify-between gap-6">
         <TbReplace2 aria-hidden className="text-blue h-21 w-21" />
 
         <p className="text-sm font-bold">{t('description')}</p>
