@@ -19,7 +19,7 @@ export const ConfirmPasswordModal = () => {
   const { onSubmit, heading, description, inputLabel, buttonLabel, inputPlaceholder } =
     useModalState<TModalState<'confirm-password'>>()
 
-  const { t } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
+  const { t } = useTranslation('modals', { keyPrefix: 'confirmPassword' })
 
   const { actionData, actionState, handleAct, setDataFromEventWrapper, setError } = useActions<TFormData>({
     password: '',

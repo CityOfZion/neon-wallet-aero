@@ -187,7 +187,7 @@
       "createAccount": "创建账户时出错，请稍后再试。"
     }
   },
-  "confirmPasswordExport": {
+  "confirmPassword": {
     "description": "为了保护您资产的安全，请确认您的密码",
     "inputPlaceholder": "输入密码…",
     "error": "密码未被识别！",

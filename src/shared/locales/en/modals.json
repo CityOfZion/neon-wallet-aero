@@ -187,7 +187,7 @@
       "createAccount": "There was an error creating the account, please try again later."
     }
   },
-  "confirmPasswordExport": {
+  "confirmPassword": {
     "description": "To protect access to your assets, please confirm your password",
     "inputPlaceholder": "Enter password…",
     "error": "Password not recognised!",

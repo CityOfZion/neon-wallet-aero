@@ -187,7 +187,7 @@
       "createAccount": "Houve um erro ao criar a conta, por favor, tente novamente mais tarde."
     }
   },
-  "confirmPasswordExport": {
+  "confirmPassword": {
     "description": "Para proteger o acesso aos seus ativos, confirme sua senha",
     "inputPlaceholder": "Digite a senha…",
     "error": "Senha não reconhecida!",

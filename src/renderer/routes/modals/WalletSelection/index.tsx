@@ -33,7 +33,7 @@ import type { IWalletState } from '@shared/types/store'
 
 export const WalletSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelection' })
-  const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPasswordExport' })
+  const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPassword' })
   const { wallets } = useWalletsSelector()
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
