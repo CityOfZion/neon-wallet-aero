@@ -38,14 +38,22 @@ export const WalletSelectionModal = () => {
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
-  const { onSelect, selectedWallet, hideActions } = useModalState<TModalState<'wallet-selection'>>()
+  const {
+    onSelect,
+    selectedWallet,
+    hideActions,
+    shouldPersistSelection = true,
+  } = useModalState<TModalState<'wallet-selection'>>()
   const dispatch = useAppDispatch()
   const [editMode, setEditMode] = useState(false)
 
   const isPasswordLogin = loginSession?.type === 'password'
 
   const handleSelect = (wallet: IWalletState) => {
-    dispatch(settingsReducerActions.setSelectedWallet(wallet))
+    if (shouldPersistSelection) {
+      dispatch(settingsReducerActions.setSelectedWallet(wallet))
+    }
+
     onSelect?.(wallet)
   }
 

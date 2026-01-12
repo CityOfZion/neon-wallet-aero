@@ -706,5 +706,23 @@
       "hideError": "隱藏欺詐代幣時出錯，請稍後重試",
       "hideSuccess": "已隱藏欺詐代幣"
     }
+  },
+  "exportTransactions": {
+    "title": "匯出 CSV",
+    "exportedContent": {
+      "description": "您的 CSV 檔案已成功匯出！",
+      "infoLabel": "匯出的數據",
+      "closeButtonLabel": "關閉"
+    },
+    "info": {
+      "description": "將 CSV 檔案保存到您的電腦，以便您可以查看定義時間段內的活動。",
+      "accountInfoLabel": "要匯出的帳戶",
+      "exportButtonLabel": "匯出您的 CSV",
+      "datePickerStepTip": "最長 12 個月",
+      "addressPlaceholder": "選擇地址…"
+    },
+    "messages": {
+      "exportError": "匯出 CSV 時發生錯誤。請重試。"
+    }
   }
 }

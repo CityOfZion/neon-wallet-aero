@@ -29,6 +29,7 @@ import type {
 type TWalletSelectionModalState = {
   selectedWallet?: IWalletState
   hideActions?: boolean
+  shouldPersistSelection?: boolean
   onSelect?(wallet: IWalletState): void
 }
 
@@ -45,6 +46,7 @@ type TAccountSelectionModalState = {
   selectedAccount?: IAccountState
   accountTypes?: TAccountType[]
   hideActions?: boolean
+  shouldPersistSelection?: boolean
   onSelect?(account: IAccountState): void
 }
 
@@ -298,6 +300,13 @@ type THideFraudulentTokenModalState = {
   account: IAccountState
 }
 
+type TExportTransactionsModalState = {
+  selectedAccount: IAccountState
+  dateFrom: Date
+  dateTo: Date
+  readOnly?: boolean
+}
+
 export type TModalRouterRouteTypes = {
   menu: undefined
   'wallet-selection': TWalletSelectionModalState
@@ -359,4 +368,5 @@ export type TModalRouterRouteTypes = {
   search: undefined
   'hide-fraudulent-token': THideFraudulentTokenModalState
   'support-ticket': undefined
+  'export-transactions': TExportTransactionsModalState
 }

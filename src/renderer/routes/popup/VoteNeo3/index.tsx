@@ -15,6 +15,7 @@ import { useAccountsByBlockchainsSelector } from '@renderer/hooks/useAccountSele
 import { useActions } from '@renderer/hooks/useActions'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { useSelectedWalletSelector } from '@renderer/hooks/useSettingsSelector'
 import {
   useVoteNeo3CalculateVoteFee,
   useVoteNeo3GetCandidatesToVote,
@@ -51,6 +52,7 @@ export const VoteNeo3Page = () => {
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { state } = useLocation() as Location<TLocationState>
   const { modalNavigateWrapper, modalNavigate, modalErase } = useModalNavigate()
+  const { selectedWallet } = useSelectedWalletSelector()
 
   const { accountsByBlockchains: neo3Accounts } = useAccountsByBlockchainsSelector(['neo3'])
 
@@ -60,7 +62,7 @@ export const VoteNeo3Page = () => {
     setDataFromEventWrapper,
   } = useActions<TActionsData>({
     neo3Account: state?.initialNeo3Account,
-    wallet: state?.initialNeo3Account ? state?.initialWallet : undefined,
+    wallet: state?.initialNeo3Account ? state?.initialWallet : selectedWallet,
     search: '',
   })
 

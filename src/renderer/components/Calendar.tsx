@@ -295,7 +295,7 @@ export const Calendar = ({
         week: 'mt-2 flex w-max items-start',
         day: 'flex size-9 flex-1 items-center justify-center p-0 text-sm',
         day_button:
-          'text-white enabled:hover:bg-gray-300/15 size-8 rounded p-0 font-normal transition-none aria-selected:opacity-100',
+          'text-white enabled:hover:bg-gray-300/15 enabled:cursor-pointer size-8 rounded p-0 font-normal transition-none aria-selected:opacity-100',
         range_start: 'day-range-start rounded bg-neon [&>button]:bg-neon [&>button]:hover:neon [&>button]:hover:neon',
         range_middle:
           'bg-gray-100/10 !text-white [&>button]:!bg-transparent [&>button]:!text-white [&>button]:hover:!bg-transparent [&>button]:hover:!text-white',
