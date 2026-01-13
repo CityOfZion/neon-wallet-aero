@@ -187,7 +187,7 @@
       "createAccount": "建立帳戶時發生錯誤，請稍後再試。"
     }
   },
-  "confirmPasswordExport": {
+  "confirmPassword": {
     "description": "為了保護您的資產存取，請確認您的密碼",
     "inputPlaceholder": "輸入密碼…",
     "error": "密碼不正確！",

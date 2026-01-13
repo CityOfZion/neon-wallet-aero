@@ -187,7 +187,7 @@
       "createAccount": "Beim Erstellen des Kontos ist ein Fehler aufgetreten, bitte versuchen Sie es später erneut."
     }
   },
-  "confirmPasswordExport": {
+  "confirmPassword": {
     "description": "Um den Zugriff auf Ihre Assets zu schützen, bestätigen Sie bitte Ihr Passwort",
     "inputPlaceholder": "Passwort eingeben…",
     "error": "Passwort nicht erkannt!",

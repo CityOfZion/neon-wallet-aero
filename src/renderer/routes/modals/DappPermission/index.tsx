@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { WalletConnectError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
+import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
 import { useSelectedNetworkSelector } from '@renderer/hooks/useSettingsSelector'
@@ -51,6 +52,7 @@ export const DappPermissionModal = () => {
   const { session, request, onAccept, onReject, sessionAccount, sessionDetails } =
     useModalState<TModalState<'dapp-permission'>>()
   const { modalErase, modalNavigate } = useModalNavigate()
+  const { confirmAction } = useConfirmAction()
 
   const blockchain = sessionAccount.blockchain || sessionDetails.blockchain
 
@@ -64,6 +66,8 @@ export const DappPermissionModal = () => {
 
   const [isAccepting, startAccept] = usePressOnce(async () => {
     try {
+      await confirmAction({ account: sessionAccount })
+
       const response = await onAccept()
 
       modalNavigate('success', {
