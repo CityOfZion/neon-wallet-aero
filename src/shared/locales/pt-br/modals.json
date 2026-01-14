@@ -706,5 +706,23 @@
       "hideError": "Ocorreu um erro ao ocultar o token fraudulento, tente novamente mais tarde, por favor",
       "hideSuccess": "Token fraudulento foi ocultado"
     }
+  },
+  "exportTransactions": {
+    "title": "Exportar CSV",
+    "exportedContent": {
+      "description": "Seu arquivo CSV foi exportado com sucesso!",
+      "infoLabel": "Dados exportados",
+      "closeButtonLabel": "Fechar"
+    },
+    "info": {
+      "description": "Salve um arquivo CSV em seu computador do histórico das suas transações durante o período definido.",
+      "accountInfoLabel": "Conta para exportar",
+      "exportButtonLabel": "Exportar seu CSV",
+      "datePickerStepTip": "Período máximo de 12 meses",
+      "addressPlaceholder": "Selecione endereço…"
+    },
+    "messages": {
+      "exportError": "Ocorreu um erro ao tentar exportar seu CSV. Por favor, tente novamente."
+    }
   }
 }

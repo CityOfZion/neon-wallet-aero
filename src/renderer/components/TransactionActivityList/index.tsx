@@ -1,20 +1,27 @@
 import { useRef } from 'react'
 
 import * as dateFns from 'date-fns'
+import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
 
 import { Separator } from '@renderer/components/Separator'
 
 import { DateHelper } from '@renderer/helpers/DateHelper'
+import { ExportTransactionsHelper } from '@renderer/helpers/ExportTransactionsHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useGetFullTransactions } from '@renderer/hooks/useGetFullTransactions'
+import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
 
+import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
+
 import type { IAccountState } from '@shared/types/store'
 
+import { IconButton } from '../IconButton'
+import { Tooltip } from '../Tooltip'
 import { TransactionActivityListDateRange } from './TransactionActivityListDateRange'
 import { TransactionActivityListEmpty } from './TransactionActivityListEmpty'
 import { TransactionActivityListItem } from './TransactionActivityListItem'
@@ -43,6 +50,8 @@ const heights = {
 export const TransactionActivityList = ({ selectedAccount }: TProps) => {
   const dateNow = new Date()
   const { language } = useLanguageSelector()
+  const { modalNavigateWrapper } = useModalNavigate()
+  const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList' })
 
   const { actionData, setData } = useActions<TActionsData>({
     accounts: [selectedAccount],
@@ -88,43 +97,12 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
     },
   })
 
-  const handleSelectDateFrom = async (date: Date) => {
-    const newDateFrom = dateFns.startOfDay(date)
-
-    setData({ dateFrom: newDateFrom })
-
-    if (dateTo && dateFns.isAfter(newDateFrom, dateTo)) {
-      const dateNow = new Date()
-      const newDateTo = dateFns.endOfDay(dateFns.min([dateNow, dateFns.add(newDateFrom, { weeks: 1 })]))
-
-      setData({ dateTo: dateFns.isSameDay(dateNow, newDateTo) ? dateNow : newDateTo })
-
-      return
-    }
-
-    if (dateTo && dateFns.differenceInYears(dateTo, newDateFrom) > 0) {
-      const dateNow = new Date()
-      const newDateTo = dateFns.endOfDay(dateFns.add(newDateFrom, { years: 1, days: -1 }))
-
-      setData({ dateTo: dateFns.isSameDay(dateNow, newDateTo) ? dateNow : newDateTo })
-    }
+  const handleSelectDateFrom = (dateFrom: Date) => {
+    setData(ExportTransactionsHelper.calculateDateFromSelectionMaxOneYear({ dateFrom, dateTo }))
   }
 
-  const handleSelectDateTo = async (date: Date) => {
-    const dateNow = new Date()
-    const newDateTo = dateFns.isSameDay(dateNow, date) ? dateNow : dateFns.endOfDay(date)
-
-    setData({ dateTo: newDateTo })
-
-    if (dateFrom && dateFns.isBefore(newDateTo, dateFrom)) {
-      setData({ dateFrom: dateFns.startOfDay(dateFns.sub(newDateTo, { weeks: 1 })) })
-
-      return
-    }
-
-    if (dateFrom && dateFns.differenceInYears(newDateTo, dateFrom) > 0) {
-      setData({ dateFrom: dateFns.startOfDay(dateFns.sub(newDateTo, { years: 1, days: -1 })) })
-    }
+  const handleSelectDateTo = (dateTo: Date) => {
+    setData(ExportTransactionsHelper.calculateDateToSelectionMaxOneYear({ dateFrom, dateTo }))
   }
 
   useInfiniteScrollVirtualization({
@@ -136,8 +114,27 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
   })
 
   return (
-    <div className="flex min-h-0 w-full flex-col gap-y-2 text-sm">
-      <div className="flex justify-end">
+    <div
+      className={StyleHelper.mergeStyles('flex min-h-0 w-full flex-col gap-y-6 text-sm', {
+        'gap-y-2': isLoading || data.length === 0,
+      })}
+    >
+      <div className="flex items-center justify-between">
+        <Tooltip title={t('exportTransactionsButtonLabel')} delayDuration={400}>
+          <IconButton
+            aria-label={t('exportTransactionsButtonLabel')}
+            icon={<TbFileExport className="text-blue" aria-hidden />}
+            onClick={modalNavigateWrapper('export-transactions', {
+              state: {
+                dateFrom,
+                dateTo,
+                readOnly: false,
+                selectedAccount,
+              },
+            })}
+          />
+        </Tooltip>
+
         <TransactionActivityListDateRange
           dateFrom={dateFrom}
           dateTo={dateTo}

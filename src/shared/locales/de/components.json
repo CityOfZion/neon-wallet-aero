@@ -52,6 +52,7 @@
     "value": "Wert"
   },
   "transactionActivityList": {
+    "exportTransactionsButtonLabel": "Transaktionen exportieren",
     "empty": {
       "notFoundTitle": "Keine Transaktionen vorhanden",
       "notFoundDescription": "Führen Sie eine Transaktion durch und sie wird hier erscheinen"

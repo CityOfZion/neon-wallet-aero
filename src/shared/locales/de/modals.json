@@ -706,5 +706,23 @@
       "hideError": "Beim Ausblenden des betrügerischen Tokens ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut",
       "hideSuccess": "Der betrügerische Token wurde ausgeblendet"
     }
+  },
+  "exportTransactions": {
+    "title": "CSV exportieren",
+    "exportedContent": {
+      "description": "Ihre CSV-Datei wurde erfolgreich exportiert!",
+      "infoLabel": "Exportierte Daten",
+      "closeButtonLabel": "Schließen"
+    },
+    "info": {
+      "description": "Speichern Sie eine CSV-Datei auf Ihrem Computer, mit der Sie Ihre Aktivitäten über den definierten Zeitraum überprüfen können.",
+      "accountInfoLabel": "Konto zum Exportieren",
+      "exportButtonLabel": "CSV exportieren",
+      "datePickerStepTip": "Max. 12 Monate",
+      "addressPlaceholder": "Adresse auswählen…"
+    },
+    "messages": {
+      "exportError": "Beim Exportieren Ihrer CSV ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    }
   }
 }

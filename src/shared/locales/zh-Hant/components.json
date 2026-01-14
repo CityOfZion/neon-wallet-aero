@@ -46,6 +46,7 @@
     "value": "數值"
   },
   "transactionActivityList": {
+    "exportTransactionsButtonLabel": "匯出交易記錄",
     "empty": {
       "notFoundTitle": "沒有交易記錄可顯示",
       "notFoundDescription": "進行交易後，記錄將會顯示在這裡"

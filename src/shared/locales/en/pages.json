@@ -550,7 +550,7 @@
     "title": "Notifications",
     "notFound": {
       "title": "Nothing to see here",
-      "description": "There is no notifications yet"
+      "description": "There are no notifications yet"
     },
     "item": {
       "relatedAddressLabel": "Address: {{ address }}",

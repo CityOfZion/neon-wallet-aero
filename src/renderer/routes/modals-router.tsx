@@ -63,6 +63,7 @@ const ConfirmActionBottomModal = lazy(() => import('./modals/ConfirmAction/Confi
 const ConfirmActionSideModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionSide'))
 const HideFraudulentTokenModal = lazy(() => import('./modals/HideFraudulentToken'))
 const SupportTicketModal = lazy(() => import('./modals/SupportTicket'))
+const ExportTransactionsModal = lazy(() => import('./modals/ExportTransactions'))
 
 export const modalsRouter: TRoute[] = [
   { name: 'wallet-selection', type: 'bottom', element: WalletSelectionModal },
@@ -125,4 +126,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'search', type: 'bottom', element: SearchModal },
   { name: 'hide-fraudulent-token', type: 'bottom', element: HideFraudulentTokenModal },
   { name: 'support-ticket', type: 'bottom', element: SupportTicketModal },
+  { name: 'export-transactions', type: 'bottom', element: ExportTransactionsModal },
 ]

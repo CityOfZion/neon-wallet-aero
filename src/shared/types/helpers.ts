@@ -1,5 +1,5 @@
 import type { TBlockchainServiceKey } from './blockchain'
-import type { IAccountState, TLastIndexesByWallet } from './store'
+import type { IAccountState, TLanguage, TLastIndexesByWallet } from './store'
 
 export type TAccountHelperPredicateParams = {
   address: string
@@ -33,4 +33,24 @@ export type TClickupHelperCreateSupportTicketParams = {
   name: string
   email: string
   description: string
+}
+
+export type TDateHelperFormatLocalizedOptions = {
+  format: string
+  language: TLanguage
+}
+
+export type TExportTransactionsHelperCalculateDateSelectionMaxOneYearParams = {
+  dateFrom: Date
+  dateTo: Date
+}
+
+export type TExportTransactionsHelperCalculateDateToSelectionMaxOneYearResponse = {
+  dateTo: Date
+  dateFrom?: Date
+}
+
+export type TExportTransactionsHelperCalculateDateFromSelectionMaxOneYearResponse = {
+  dateFrom: Date
+  dateTo?: Date
 }

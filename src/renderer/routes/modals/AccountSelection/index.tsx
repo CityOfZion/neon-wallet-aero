@@ -36,7 +36,13 @@ export const AccountSelectionModal = () => {
   const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPassword' })
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
-  const { walletId, onSelect, hideActions, accountTypes } = useModalState<TModalState<'account-selection'>>()
+  const {
+    walletId,
+    onSelect,
+    hideActions,
+    shouldPersistSelection = true,
+    accountTypes,
+  } = useModalState<TModalState<'account-selection'>>()
   const { wallet } = useWalletByIdSelector(walletId)
   const { hasHardwareAccount } = useHasHardwareAccountSelector()
   const { selectedAccount } = useSelectedAccountSelector()
@@ -51,7 +57,10 @@ export const AccountSelectionModal = () => {
   const dispatch = useAppDispatch()
 
   const handleSelect = (account: IAccountState) => {
-    dispatch(settingsReducerActions.setSelectedAccount(account))
+    if (shouldPersistSelection) {
+      dispatch(settingsReducerActions.setSelectedAccount(account))
+    }
+
     onSelect?.(account)
   }
 
