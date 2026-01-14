@@ -6,14 +6,13 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
+import { PasswordHelper } from '@renderer/helpers/PasswordHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useNeonCreateBackup } from '@renderer/hooks/useNeonBackup'
 
 import TbDeviceFloppy from '@renderer/assets/images/tb-device-floppy.svg?react'
-
-import { PASSWORD_MIN_LENGTH } from '@shared/constants/password'
 
 type TFormData = {
   password: string
@@ -49,8 +48,8 @@ export const BackupAndRestoreBackupStep1Page = () => {
 
     setData({ password: trimmedValue })
 
-    if (trimmedValue.length < PASSWORD_MIN_LENGTH) {
-      setError('password', t('error.backupPasswordLength', { minLength: PASSWORD_MIN_LENGTH }))
+    if (trimmedValue.length < PasswordHelper.minimumPasswordLength) {
+      setError('password', t('error.backupPasswordLength', { minLength: PasswordHelper.minimumPasswordLength }))
     }
 
     if (actionData.confirmPassword && trimmedValue !== actionData.confirmPassword) {
@@ -73,7 +72,7 @@ export const BackupAndRestoreBackupStep1Page = () => {
     !actionData.password ||
     !actionData.confirmPassword ||
     actionData.password !== actionData.confirmPassword ||
-    actionData.password.length < PASSWORD_MIN_LENGTH
+    actionData.password.length < PasswordHelper.minimumPasswordLength
 
   return (
     <form className="flex h-full w-full flex-col" onSubmit={handleAct(handleSubmitCreateBackup)}>

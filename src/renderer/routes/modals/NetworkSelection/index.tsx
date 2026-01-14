@@ -8,6 +8,7 @@ import { Button } from '@renderer/components/Button'
 import { Radio } from '@renderer/components/Radio'
 import { Separator } from '@renderer/components/Separator'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -19,7 +20,6 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbCheck from '@renderer/assets/images/tb-check.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { TNetwork } from '@shared/types/blockchain'
@@ -35,7 +35,7 @@ export const NetworkSelectionModal = () => {
 
   const [selectedNetwork, setSelectedNetwork] = useState<TNetwork>(network)
 
-  const service = bsAggregator.blockchainServicesByName[blockchain]
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
   const onSelectRadioItem = (selectedValue: string) => {
     const network = service.availableNetworks.find(network => network.id === selectedValue)

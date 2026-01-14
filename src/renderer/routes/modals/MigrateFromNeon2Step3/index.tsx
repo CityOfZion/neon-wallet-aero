@@ -9,10 +9,10 @@ import { Separator } from '@renderer/components/Separator'
 
 import { useAccountUtils } from '@renderer/hooks/useAccountUtils'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import type { TUseNeonMigrateFromNeon2Schema } from '@renderer/hooks/useNeonMigrate'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import type { TUseNeonMigrateAccountsSchema } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
 
 export const MigrateFromNeon2Step3Modal = () => {
@@ -21,9 +21,9 @@ export const MigrateFromNeon2Step3Modal = () => {
   const { modalNavigateWrapper } = useModalNavigate()
   const { doesAccountExist } = useAccountUtils()
 
-  const [selectedAccountsToMigrate, setSelectedAccountsToMigrate] = useState<TUseNeonMigrateFromNeon2Schema[]>([])
+  const [selectedAccountsToMigrate, setSelectedAccountsToMigrate] = useState<TUseNeonMigrateAccountsSchema[]>([])
 
-  const handleSelect = (account: TUseNeonMigrateFromNeon2Schema) => {
+  const handleSelect = (account: TUseNeonMigrateAccountsSchema) => {
     setSelectedAccountsToMigrate(prev => {
       const index = prev.findIndex(prevAccount => prevAccount.address === account.address)
 

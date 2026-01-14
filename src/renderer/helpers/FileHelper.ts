@@ -1,20 +1,12 @@
-export type TFilePickerOptions = {
-  accept?: string
-}
-
-export type TFileResult = {
-  name: string
-  content: string
-  size: number
-}
+import type { TFileHelperPickOptions, TFileHelperPickResult } from '@shared/types/helpers'
 
 export class FileHelper {
-  static async pickFiles(options: TFilePickerOptions = {}): Promise<TFileResult | null> {
+  static async pick(options?: TFileHelperPickOptions): Promise<TFileHelperPickResult | null> {
     return new Promise((resolve, reject) => {
       const input = document.createElement('input')
       input.type = 'file'
 
-      if (options.accept) {
+      if (options?.accept) {
         input.accept = options.accept
       }
 
@@ -41,6 +33,7 @@ export class FileHelper {
 
       input.oncancel = () => resolve(null)
       input.click()
+      input.remove()
     })
   }
 

@@ -4,9 +4,10 @@ import type { PersistConfig } from 'redux-persist'
 import { persistReducer } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
-import { AVAILABLE_CURRENCIES } from '@shared/constants/currency'
-import { DEFAULT_LANGUAGE } from '@shared/constants/language'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
+import { LanguageHelper } from '@renderer/helpers/LanguageHelper'
+
 import type { IAccountState, IWalletState, TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
 
 import { settingsSliceReducers } from './reducers'
@@ -28,16 +29,16 @@ export function getSettingsReducer() {
     data: {
       selectedWallet: undefined,
       selectedAccount: undefined,
-      currency: AVAILABLE_CURRENCIES[0],
-      language: DEFAULT_LANGUAGE,
+      currency: CurrencyHelper.defaultCurrency,
+      language: LanguageHelper.defaultLanguage,
       selectedNetworkByBlockchain: {
-        neo3: bsAggregator.blockchainServicesByName.neo3.defaultNetwork,
-        neoLegacy: bsAggregator.blockchainServicesByName.neoLegacy.defaultNetwork,
-        ethereum: bsAggregator.blockchainServicesByName.ethereum.defaultNetwork,
-        neox: bsAggregator.blockchainServicesByName.neox.defaultNetwork,
-        polygon: bsAggregator.blockchainServicesByName.polygon.defaultNetwork,
-        base: bsAggregator.blockchainServicesByName.base.defaultNetwork,
-        arbitrum: bsAggregator.blockchainServicesByName.arbitrum.defaultNetwork,
+        neo3: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3.defaultNetwork,
+        neoLegacy: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neoLegacy.defaultNetwork,
+        ethereum: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.ethereum.defaultNetwork,
+        neox: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neox.defaultNetwork,
+        polygon: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.polygon.defaultNetwork,
+        base: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.base.defaultNetwork,
+        arbitrum: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.arbitrum.defaultNetwork,
       },
     },
   }

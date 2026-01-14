@@ -79,7 +79,14 @@ export const DappPermissionModal = () => {
         },
       })
     } catch (error) {
+      console.error(error)
       const walletConnectError = WalletConnectError.wrap(error)
+
+      if (walletConnectError.fromAppError) {
+        ToastHelper.error({ message: walletConnectError.message, id: 'dapp-permission-error' })
+        return
+      }
+
       const hasNonce = !!request.params.request.params?.[0]?.nonce
 
       const isNeoxAntiMev =

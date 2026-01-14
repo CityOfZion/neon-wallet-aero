@@ -21,10 +21,11 @@ import { Separator } from '@renderer/components/Separator'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
@@ -49,7 +50,6 @@ import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { IAccountState } from '@shared/types/store'
 
@@ -153,8 +153,8 @@ export const Neo3NeoXBridgePage = () => {
     reset()
 
     const neo3NeoXBridgeOrchestrator = new Neo3NeoXBridgeOrchestrator<TBlockchainServiceKey>({
-      neo3Service: bsAggregator.blockchainServicesByName.neo3 as BSNeo3<TBlockchainServiceKey>,
-      neoXService: bsAggregator.blockchainServicesByName.neox as BSNeoX<TBlockchainServiceKey>,
+      neo3Service: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3<TBlockchainServiceKey>,
+      neoXService: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neox as BSNeoX<TBlockchainServiceKey>,
       initialFromServiceName:
         selectedAccount?.blockchain === 'neo3' || selectedAccount?.blockchain === 'neox'
           ? selectedAccount.blockchain
@@ -263,7 +263,7 @@ export const Neo3NeoXBridgePage = () => {
   const handleChangeAddressToReceive = (address: string) => {
     setData({ accountToReceive: { value: null, loading: false, error: null } })
     bridgeOrchestratorRef.current?.setAddressToReceive(
-      UtilsHelper.removeSpecialCharacters(address, { allowSpaces: false })
+      StringHelper.removeSpecialCharacters(address, { allowSpaces: false })
     )
   }
 

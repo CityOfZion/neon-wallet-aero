@@ -15,9 +15,10 @@ import { IconButton } from '@renderer/components/IconButton'
 import { Input } from '@renderer/components/Input'
 import { Separator } from '@renderer/components/Separator'
 
-import { NumberHelper } from '@renderer/helpers/NumberHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
+import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useDebounceFunction } from '@renderer/hooks/useDebounceFunction'
 import { useNameService } from '@renderer/hooks/useNameService'
@@ -28,7 +29,6 @@ import TbTrash from '@renderer/assets/images/tb-trash.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TTokenBalance, TUseBalanceResult } from '@shared/types/query'
 import type { IAccountState } from '@shared/types/store'
 
@@ -84,7 +84,7 @@ export const SendRecipient = ({
   const isAmountDisabled = isDisabled || !recipient.token || !recipient.address
 
   const handleChangeAddress = (event: ChangeEvent<HTMLInputElement>) => {
-    const address = UtilsHelper.removeSpecialCharacters(event.target.value, { allowSpaces: false, allowDots: true })
+    const address = StringHelper.removeSpecialCharacters(event.target.value, { allowSpaces: false, allowDots: true })
 
     onUpdateRecipient({ addressInput: address, address: undefined })
   }
@@ -94,7 +94,7 @@ export const SendRecipient = ({
 
     if (!blockchain) return
 
-    const service = bsAggregator.blockchainServicesByName[blockchain]
+    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
     const tokenBalance = balance.data?.tokensBalances?.find(tokenBalance =>
       service.tokenService.predicateByHash(token, tokenBalance.token)
@@ -105,7 +105,7 @@ export const SendRecipient = ({
 
   const handleChangeAmount = (value: string) => {
     try {
-      value = UtilsHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
+      value = StringHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
 
       onUpdateRecipient({ amount: value, isAmountLoading: true })
 
@@ -256,7 +256,7 @@ export const SendRecipient = ({
         <div className="flex w-full justify-between gap-x-4 pb-3 pl-6.5">
           <span className="text-xs text-gray-200 italic">{t('balanceLabel')}</span>
           <span className="truncate text-xs text-gray-100 italic">
-            {NumberHelper.currency(
+            {CurrencyHelper.format(
               recipient.amount && recipient.token
                 ? BSBigNumberHelper.fromNumber(recipient.amount)
                     .multipliedBy(recipient.token.exchangeConvertedPrice)

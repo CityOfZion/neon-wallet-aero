@@ -1,7 +1,8 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { REHYDRATE } from 'redux-persist'
 
-import { getI18next } from '@renderer/libs/i18next'
+import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
+
 import type { TRootState } from '@shared/types/redux'
 
 import { settingsReducerActions } from '../reducers/settings'
@@ -19,7 +20,7 @@ export function getLanguageMiddleware() {
       const language = state.settings?.data?.language
       if (!language) return
 
-      const i18next = getI18next()
+      const i18next = I18nextHelper.get()
       i18next.changeLanguage(language.value)
     },
   })

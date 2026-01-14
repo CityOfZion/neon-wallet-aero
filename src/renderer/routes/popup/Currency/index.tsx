@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { IconButton } from '@renderer/components/IconButton'
 import { Radio } from '@renderer/components/Radio'
 
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
+
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
@@ -12,7 +14,6 @@ import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
-import { AVAILABLE_CURRENCIES } from '@shared/constants/currency'
 import type { TAvailableCurrency } from '@shared/types/store'
 
 export const CurrencyPage = () => {
@@ -23,7 +24,7 @@ export const CurrencyPage = () => {
   const dispatch = useAppDispatch()
 
   const handleChangeCurrency = (currencyLabel: TAvailableCurrency) => {
-    const nextCurrency = AVAILABLE_CURRENCIES.find(({ label }) => label === currencyLabel)!
+    const nextCurrency = CurrencyHelper.availableCurrencies.find(({ label }) => label === currencyLabel)!
 
     dispatch(settingsReducerActions.setCurrency(nextCurrency))
   }
@@ -41,7 +42,7 @@ export const CurrencyPage = () => {
       }
     >
       <Radio.Group className="flex flex-col" required value={currency.label} onValueChange={handleChangeCurrency}>
-        {AVAILABLE_CURRENCIES.map(({ label, symbol }, index) => (
+        {CurrencyHelper.availableCurrencies.map(({ label, symbol }, index) => (
           <Radio.Item key={`${label}-${symbol}-${index}`} className="h-14 rounded" value={label}>
             <span className="grow truncate text-left text-sm">
               <strong className="font-bold">{symbol} -</strong> <span className="text-gray-100">{label}</span>

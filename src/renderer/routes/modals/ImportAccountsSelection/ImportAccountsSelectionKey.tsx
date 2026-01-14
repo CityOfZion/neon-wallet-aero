@@ -1,6 +1,7 @@
 import type { TBSAccount } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
@@ -10,7 +11,6 @@ import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import type { TBlockchainAccounts } from '.'
@@ -63,7 +63,7 @@ export const ImportAccountsSelectionKey = ({ value, onSubmit }: TProps) => {
   }
 
   const { isMounting } = useMountUnsafe(async () => {
-    const services = Object.values(bsAggregator.blockchainServicesByName)
+    const services = Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName)
     const newBlockchainAccounts: TBlockchainAccounts = {}
 
     await UtilsHelper.promiseAll(services, async service => {

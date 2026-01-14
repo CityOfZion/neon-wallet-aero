@@ -30,7 +30,7 @@ export const OnboardingLoginNewWalletStep1Page = ({ onSubmit }: TProps) => {
     setData({ password })
 
     if (!PasswordHelper.isWeakPassword(password)) {
-      setError('password', t('errors.passwordLength', { length: PasswordHelper.MINIMUM_PASSWORD_LENGTH }))
+      setError('password', t('errors.passwordLength', { length: PasswordHelper.minimumPasswordLength }))
     }
   }
 

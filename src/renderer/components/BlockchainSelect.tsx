@@ -2,9 +2,9 @@ import { Fragment } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { blockchainNames } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { BlockchainIcon } from './BlockchainIcon'
@@ -39,7 +39,7 @@ export const BlockchainSelect = ({ value, onSelect }: TProps) => {
       </Select.Trigger>
 
       <Select.Content>
-        {blockchainNames.map((blockchain, index) => (
+        {BlockchainServiceHelper.blockchainNames.map((blockchain, index) => (
           <Fragment key={blockchain}>
             <Select.Item
               value={blockchain}
@@ -49,7 +49,7 @@ export const BlockchainSelect = ({ value, onSelect }: TProps) => {
               <Select.ItemText>{commonT(blockchain)}</Select.ItemText>
             </Select.Item>
 
-            {index + 1 !== blockchainNames.length && <Select.Separator />}
+            {index + 1 !== BlockchainServiceHelper.blockchainNames.length && <Select.Separator />}
           </Fragment>
         ))}
       </Select.Content>

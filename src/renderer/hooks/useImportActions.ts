@@ -2,10 +2,10 @@ import { BSKeychainHelper } from '@cityofzion/blockchain-service'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+import { StringHelper } from '@renderer/helpers/StringHelper'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TUseImportActionInputType } from '@shared/types/hooks'
 
 import { useAccountUtils } from './useAccountUtils'
@@ -39,7 +39,7 @@ export const useImportActions = (
   }
 
   const isValidAddress = (address: string) =>
-    Object.values(bsAggregator.blockchainServicesByName).some(service => {
+    Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName).some(service => {
       if (!service.validateAddress(address)) return false
       if (verifyIfAddressAlreadyExists && doesAccountExist({ address, blockchain: service.name })) return false
 
@@ -47,14 +47,16 @@ export const useImportActions = (
     })
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = UtilsHelper.removeSpecialCharacters(event.target.value)
+    const value = StringHelper.removeSpecialCharacters(event.target.value)
     setData({ text: value, inputType: undefined })
 
     try {
       const checkFunctionsByInputType: Record<TUseImportActionInputType, (value: string) => boolean> = {
-        key: bsAggregator.validateKeyAllBlockchains.bind(bsAggregator),
+        key: BlockchainServiceHelper.bsAggregator.validateKeyAllBlockchains.bind(BlockchainServiceHelper.bsAggregator),
         mnemonic: BSKeychainHelper.isMnemonic,
-        encrypted: bsAggregator.validateEncryptedAllBlockchains.bind(bsAggregator),
+        encrypted: BlockchainServiceHelper.bsAggregator.validateEncryptedAllBlockchains.bind(
+          BlockchainServiceHelper.bsAggregator
+        ),
         address: isValidAddress,
       }
 
@@ -93,7 +95,7 @@ export const useImportActions = (
         throw new AppError(t('errors.invalid'))
       }
 
-      const fixedText = UtilsHelper.removeSpecialCharacters(data.text, { trimText: true })
+      const fixedText = StringHelper.removeSpecialCharacters(data.text, { trimText: true })
       const submit = submitByInputType[data.inputType]
 
       if (!submit) throw new AppError(t('errors.invalid'))

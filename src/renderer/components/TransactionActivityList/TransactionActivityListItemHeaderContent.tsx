@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
 
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
@@ -50,10 +50,6 @@ export const TransactionActivityListItemHeaderContent = ({ item: { txId, txIdUrl
 
       callback()
     }
-  }
-
-  const handleCopyTxId = () => {
-    UtilsHelper.copyToClipboard(txId)
   }
 
   return (
@@ -105,7 +101,7 @@ export const TransactionActivityListItemHeaderContent = ({ item: { txId, txIdUrl
               aria-label={t('copyTxIdLabel')}
               size="xs"
               icon={<MdContentCopy aria-hidden className="text-neon" />}
-              onClick={handleCopyTxId}
+              onClick={ClipboardHelper.write.bind(null, txId)}
             />
           </TransactionActivityListTooltip>
         </div>

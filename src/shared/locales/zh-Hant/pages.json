@@ -479,7 +479,6 @@
     "wrapperContent": {
       "tabBuyTokensLabel": "購買代幣",
       "tabSellTokensLabel": "出售代幣",
-      "notConfiguredLabel": "買入與賣出代幣尚未配置，請聯繫客服。",
       "walletsAndAccountsButtonLabel": "錢包與帳戶",
       "walletsAndAccountsOpenedLabel": "錢包與帳戶面板已展開",
       "walletsAndAccountsClosedLabel": "錢包與帳戶面板已收起",

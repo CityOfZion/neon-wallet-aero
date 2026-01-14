@@ -4,8 +4,8 @@ import type { ComponentProps, MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { match, P } from 'ts-pattern'
 
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import MdCancel from '@renderer/assets/images/md-cancel.svg?react'
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
@@ -87,10 +87,6 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
 
       internalRef.current.dispatchEvent(event)
       internalRef.current.focus()
-    }
-
-    const handleCopyInput = () => {
-      UtilsHelper.copyToClipboard(internalRef.current?.value ?? '')
     }
 
     const handlePaste = async () => {
@@ -219,7 +215,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
                 <IconButton
                   aria-label={t('copyIconButtonLabel')}
                   icon={<MdContentCopy aria-hidden />}
-                  onClick={handleCopyInput}
+                  onClick={ClipboardHelper.write.bind(null, internalRef.current?.value ?? '')}
                   colorSchema="neon"
                   type="button"
                   disabled={props.disabled}

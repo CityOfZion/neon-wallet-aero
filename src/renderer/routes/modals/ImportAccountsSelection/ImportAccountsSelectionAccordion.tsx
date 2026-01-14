@@ -4,7 +4,8 @@ import orderBy from 'lodash/orderBy'
 
 import { Accordion } from '@renderer/components/Accordion'
 
-import { blockchainNames } from '@renderer/libs/blockchain-service'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { ImportAccountsSelectionAccordionItem } from './ImportAccountsSelectionAccordionItem'
@@ -19,7 +20,7 @@ export const ImportAccountsSelectionAccordion = ({ blockchainAccounts, selectedA
         Object.entries(blockchainAccounts)
           .filter(([_key, accounts]) => accounts.length > 0)
           .map(([key]) => key) as TBlockchainServiceKey[],
-        [blockchain => blockchainNames.indexOf(blockchain), 'order']
+        [blockchain => BlockchainServiceHelper.blockchainNames.indexOf(blockchain), 'order']
       ),
     [blockchainAccounts]
   )

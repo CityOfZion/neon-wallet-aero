@@ -6,36 +6,40 @@ import { Outlet } from 'react-router-dom'
 
 import { SplashScreen } from '@renderer/components/SplashScreen'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { EnvHelper } from '@renderer/helpers/EnvHelper'
+import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
+import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
+import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
+
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
 import { modalsRouter } from '@renderer/routes/modals-router'
 
 import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
-import { setupBsAggregator } from '@renderer/libs/blockchain-service'
-import { setupI18next } from '@renderer/libs/i18next'
-import { queryClient } from '@renderer/libs/query'
-import { setupStore, store, waitForBootstrap } from '@renderer/libs/redux'
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { rendererApi } from '@shared/message-api/renderer'
 
-const ToastProvider = lazy(() => import('@renderer/libs/sonner'))
+const ToastProvider = lazy(() =>
+  import('@renderer/helpers/ToastHelper').then(module => ({ default: module.ToastHelper.Provider }))
+)
 
 export const RootPage = () => {
   const [ready, setReady] = useState(false)
 
   useMountUnsafe(async () => {
     try {
-      await Promise.allSettled([setupI18next(), setupBsAggregator()])
+      await Promise.allSettled([EnvHelper.setup(), I18nextHelper.setup(), BlockchainServiceHelper.setup()])
 
-      setupStore()
-      await waitForBootstrap()
+      ReduxHelper.setup()
+      await ReduxHelper.waitForBootstrap()
 
       const loginSession = await rendererApi.send('login:get-session')
 
-      store.dispatch(authReducerActions.setLoginSession(loginSession))
+      ReduxHelper.store.dispatch(authReducerActions.setLoginSession(loginSession))
       setReady(true)
     } catch {
-      store.dispatch(authReducerActions.resetTemporaryApplicationData())
+      ReduxHelper.store.dispatch(authReducerActions.resetTemporaryApplicationData())
       await rendererApi.send('tab:close-all')
     }
   })
@@ -43,8 +47,8 @@ export const RootPage = () => {
   if (!ready) return <SplashScreen />
 
   return (
-    <StoreProvider store={store}>
-      <QueryClientProvider client={queryClient}>
+    <StoreProvider store={ReduxHelper.store}>
+      <QueryClientProvider client={ReactQueryHelper.client}>
         <ModalRouterProvider routes={modalsRouter}>
           <Outlet />
 

@@ -3,13 +3,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
-import { getI18next } from '@renderer/libs/i18next'
 import { thunks } from '@renderer/store/thunks'
 import type { TNetwork } from '@shared/types/blockchain'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
@@ -21,7 +21,7 @@ import { useAppDispatch } from './useRedux'
 import { useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'
 import { useHasClaimPendingTransactionSelector } from './useUtilitySelector'
 
-const { t } = getI18next()
+const { t } = I18nextHelper.get()
 
 export const buildQueryKeyUnclaimed = (account: IAccountState, network?: TNetwork) => {
   const key: any[] = ['unclaimed', account.address]
@@ -38,7 +38,7 @@ const getUnclaimedInfos = async (
   hasClaimPendingTransaction: boolean,
   encryptedPassword?: string
 ): Promise<TUseUnclaimedResult> => {
-  const blockchainService = bsAggregator.blockchainServicesByName[account.blockchain]
+  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
 
   if (!isClaimable(blockchainService)) {
     throw new AppError(
@@ -116,7 +116,7 @@ export const useUnclaimedMutation = () => {
         throw new AppError(unclaimedT('errors.loginSessionIsNotDefined'))
       }
 
-      const blockchainService = bsAggregator.blockchainServicesByName[account.blockchain]
+      const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
       if (!isClaimable(blockchainService)) {
         throw new AppError(
           t('hooks:useUnclaimedQuery.errors.blockchainIsNotClaimable', {

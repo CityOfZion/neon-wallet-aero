@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { type BSNeo3, BSNeo3Constants } from '@cityofzion/bs-neo3'
+import { useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
 
@@ -11,11 +12,12 @@ import { DashedSeparator } from '@renderer/components/DashedSeparator'
 import { Separator } from '@renderer/components/Separator'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
-import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
@@ -37,8 +39,6 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbCheckbox from '@renderer/assets/images/tb-checkbox.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
-import { queryClient } from '@renderer/libs/query'
 import { thunks } from '@renderer/store/thunks'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
@@ -59,6 +59,7 @@ export const VoteNeo3ConfirmationModal = () => {
   const { currency } = useCurrencySelector()
   const { modalNavigate } = useModalNavigate()
   const { confirmAction } = useConfirmAction()
+  const queryClient = useQueryClient()
   const {
     selectedNetworkByBlockchain: { neo3: neo3Network },
   } = useSelectedNetworkByBlockchainSelector()
@@ -67,7 +68,7 @@ export const VoteNeo3ConfirmationModal = () => {
   const dispatch = useAppDispatch()
 
   const feeBn = BSBigNumberHelper.fromNumber(calculateVoteFeeQuery.data ?? '0')
-  const blockchainService = bsAggregator.blockchainServicesByName.neo3 as BSNeo3
+  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3
   const exchangeQuery = useExchange([{ blockchain: 'neo3', tokens: [blockchainService.feeToken] }])
 
   const isCurrentVote = voteDetailsByAddressQuery.data?.candidatePubKey === candidate.pubKey
@@ -99,7 +100,7 @@ export const VoteNeo3ConfirmationModal = () => {
           ExchangeHelper.getExchangeConvertedPrice(blockchainService.feeToken.hash, 'neo3', exchangeQuery.data)
         )
 
-      return NumberHelper.currency(value.toFixed(), { currency, maximumFractionDigits: 4 })
+      return CurrencyHelper.format(value.toFixed(), { currency, maximumFractionDigits: 4 })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [exchangeQuery.data, feeBn, currency]

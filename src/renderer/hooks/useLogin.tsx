@@ -11,7 +11,7 @@ import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
-import { LOGIN_CONTROL_VALUE } from '@shared/constants/password'
+import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@shared/types/blockchain'
 import type { TLoginSession } from '@shared/types/store'
@@ -20,6 +20,8 @@ import { useBlockchainActions } from './useBlockchainActions'
 import { useCreateHardwareWallet } from './useHardwareWallet'
 import { useAppDispatch } from './useRedux'
 import { useLoginControlSelector } from './useUtilitySelector'
+
+const LOGIN_CONTROL_VALUE = 'true'
 
 export const useLogin = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useLogin' })
@@ -131,5 +133,25 @@ export const useLogin = () => {
     loginWithHardwareWallet,
     encryptPassword,
     logout,
+  }
+}
+
+export const useSignup = () => {
+  const dispatch = useAppDispatch()
+
+  const signup = useCallback(
+    async (password: string, isAlreadyEncrypted?: boolean) => {
+      const encryptedPassword = !isAlreadyEncrypted ? await EncryptionHelper.encryptedPassword(password) : password
+
+      const encryptedLoginControl = await EncryptionHelper.encrypt(LOGIN_CONTROL_VALUE, encryptedPassword)
+
+      dispatch(utilityReducerActions.setEncryptedLoginControl(encryptedLoginControl))
+      dispatch(authReducerActions.setLoginSession({ type: 'password', encryptedPassword }))
+    },
+    [dispatch]
+  )
+
+  return {
+    signup,
   }
 }

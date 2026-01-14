@@ -1,21 +1,5 @@
 export class PasswordHelper {
-  static readonly MINIMUM_PASSWORD_LENGTH = 4
-
-  private static hasUppercaseChar(text: string) {
-    return /[A-Z]/.test(text)
-  }
-
-  private static hasLowercaseChar(text: string) {
-    return /[a-z]/.test(text)
-  }
-
-  private static hasNumberChar(text: string) {
-    return /\d/.test(text)
-  }
-
-  private static hasSpecialChar(text: string) {
-    return /[^a-zA-Z\d]/.test(text)
-  }
+  static readonly minimumPasswordLength = 4
 
   static #hasMinimumGoodPasswordLength(password: string) {
     return password.length >= 24
@@ -24,16 +8,16 @@ export class PasswordHelper {
   static #getPasswordConditions = (password: string) => {
     let conditions = 0
 
-    if (this.hasUppercaseChar(password)) conditions++
-    if (this.hasLowercaseChar(password)) conditions++
-    if (this.hasNumberChar(password)) conditions++
-    if (this.hasSpecialChar(password)) conditions++
+    if (/[A-Z]/.test(password)) conditions++
+    if (/[a-z]/.test(password)) conditions++
+    if (/\d/.test(password)) conditions++
+    if (/[^a-zA-Z\d]/.test(password)) conditions++
 
     return conditions
   }
 
   static isWeakPassword(password: string) {
-    return password.length >= this.MINIMUM_PASSWORD_LENGTH
+    return password.length >= this.minimumPasswordLength
   }
 
   static isGoodPassword(password: string) {

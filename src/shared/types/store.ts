@@ -100,25 +100,6 @@ export type TAccountType = 'standard' | 'watch' | 'hardware'
 
 export type TWalletType = 'standard' | 'hardware'
 
-export type TNftSkin = {
-  id: string
-  type: 'nft'
-  imgUrl: string
-  contractHash: string
-}
-
-type TColorSkin = {
-  id: string
-  type: 'color'
-}
-
-type TLocalSkin = {
-  id: string
-  type: 'local'
-}
-
-export type TSkin = TColorSkin | TLocalSkin | TNftSkin
-
 export interface IAccountState {
   id: string
   address: string
@@ -128,7 +109,6 @@ export interface IAccountState {
   blockchain: TBlockchainServiceKey
   encryptedKey?: string
   order: number
-  skin: TSkin
 }
 
 export type TWalletBackupStatus = 'successful' | 'unsuccessful'

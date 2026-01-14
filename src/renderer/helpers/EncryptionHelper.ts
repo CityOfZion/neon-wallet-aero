@@ -1,16 +1,15 @@
 import nodeCrypto from 'crypto'
 
-import { getI18next } from '@renderer/libs/i18next'
-
 import { AppError } from './ErrorHelper'
+import { I18nextHelper } from './I18nextHelper'
 
-const { t } = getI18next()
+const { t } = I18nextHelper.get()
 export class EncryptionHelper {
-  private static arrayBufferToHex(buffer: any) {
+  static #arrayBufferToHex(buffer: any) {
     return [...new Uint8Array(buffer)].map(byte => byte.toString(16).padStart(2, '0')).join('')
   }
 
-  private static hexToArrayBuffer(hex: string) {
+  static #hexToArrayBuffer(hex: string) {
     const bytes = new Uint8Array(hex.length / 2)
     for (let i = 0; i < hex.length; i += 2) {
       bytes[i / 2] = parseInt(hex.substr(i, 2), 16)
@@ -38,7 +37,7 @@ export class EncryptionHelper {
     )
 
     const keyBytes = await crypto.subtle.exportKey('raw', cryptoKey)
-    return this.arrayBufferToHex(keyBytes)
+    return this.#arrayBufferToHex(keyBytes)
   }
 
   static async encrypt(value: string, encryptedPassword?: string) {
@@ -46,7 +45,7 @@ export class EncryptionHelper {
       throw new AppError(t('common:encryption.errors.noPasswordEncryption'))
     }
 
-    const keyArrayBytes = this.hexToArrayBuffer(encryptedPassword)
+    const keyArrayBytes = this.#hexToArrayBuffer(encryptedPassword)
     const cryptoKey = await crypto.subtle.importKey('raw', keyArrayBytes, { name: 'AES-CBC', length: 256 }, false, [
       'encrypt',
       'decrypt',
@@ -57,7 +56,7 @@ export class EncryptionHelper {
     const iv = crypto.getRandomValues(new Uint8Array(16))
     const encrypted = await crypto.subtle.encrypt({ name: 'AES-CBC', iv }, cryptoKey, encoder.encode(value))
 
-    return this.arrayBufferToHex(iv) + this.arrayBufferToHex(encrypted)
+    return this.#arrayBufferToHex(iv) + this.#arrayBufferToHex(encrypted)
   }
 
   static async decrypt(encryptedValue?: string, encryptedPassword?: string) {
@@ -69,7 +68,7 @@ export class EncryptionHelper {
       throw new AppError(t('common:encryption.errors.noValueDecryption'))
     }
 
-    const keyArrayBytes = this.hexToArrayBuffer(encryptedPassword)
+    const keyArrayBytes = this.#hexToArrayBuffer(encryptedPassword)
     const cryptoKey = await crypto.subtle.importKey('raw', keyArrayBytes, { name: 'AES-CBC', length: 256 }, false, [
       'encrypt',
       'decrypt',
@@ -80,8 +79,8 @@ export class EncryptionHelper {
     const iv = encryptedValue.slice(0, 32)
     const encrypted = encryptedValue.slice(32)
 
-    const ivArray = this.hexToArrayBuffer(iv)
-    const encryptedArray = this.hexToArrayBuffer(encrypted)
+    const ivArray = this.#hexToArrayBuffer(iv)
+    const encryptedArray = this.#hexToArrayBuffer(encrypted)
 
     const decrypted = await crypto.subtle.decrypt({ name: 'AES-CBC', iv: ivArray }, cryptoKey, encryptedArray)
 

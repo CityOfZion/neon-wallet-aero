@@ -1,25 +1,23 @@
 import { format } from 'date-fns'
 import { useTranslation } from 'react-i18next'
-import zod from 'zod'
+import type zod from 'zod'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+import { NeonBackupHelper } from '@renderer/helpers/NeonBackupHelper'
 
-import { doesBlockchainSupported } from '@renderer/libs/blockchain-service'
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
-import { BACKUP_FILE_EXTENSION, BACKUP_VERSION } from '@shared/constants/backup'
+import { neonBackupContentSchema, neonBackupDataSchema } from '@shared/schemas/neon-backup'
 import type { TAccountsToImport, TCreateWalletAndAccountParam } from '@shared/types/blockchain'
 import type {
-  IAccountState,
-  IWalletState,
-  TAccountType,
-  TContactAddress,
-  TContactState,
-  TSkin,
-  TSwapRecord,
-} from '@shared/types/store'
+  TUseNeonBackupAccount,
+  TUseNeonBackupData,
+  TUseNeonBackupDataSchema,
+  TUseNeonBackupGeneratedData,
+} from '@shared/types/hooks'
+import type { TContactAddress, TContactState, TSwapRecord } from '@shared/types/store'
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useAccountUtils } from './useAccountUtils'
@@ -28,118 +26,6 @@ import { useBlockchainActions } from './useBlockchainActions'
 import { useContactsSelector } from './useContactSelector'
 import { useAppDispatch } from './useRedux'
 import { useWalletsSelector } from './useWalletSelector'
-
-export type TUseNeonBackupSchema = zod.infer<typeof backupFileSchema>
-export type TUseNeonBackupDataSchema = zod.infer<typeof backupDataSchema>
-export type TUseNeonBackupData = { content: TUseNeonBackupSchema; type: 'backup' }
-
-export type TUseNeonBackupGeneratedData = {
-  wallets: TCreateWalletAndAccountParam[]
-  swapRecords?: TSwapRecord[]
-  contacts?: TContactState[]
-}
-
-export const backupAccountSkinSchema = zod
-  .object({
-    id: zod.string(),
-    type: zod.union([zod.literal('nft'), zod.literal('local'), zod.literal('color')]),
-    imgUrl: zod.string().optional(),
-  })
-  .refine(data => (data.type === 'nft' ? !!data.imgUrl : true))
-
-export const backupAccountSchema = zod.object({
-  id: zod.string(),
-  address: zod.string(),
-  type: zod.union([zod.literal('standard'), zod.literal('watch'), zod.literal('hardware'), zod.literal('ledger')]),
-  idWallet: zod.string(),
-  name: zod.string(),
-  blockchain: zod.string(),
-  key: zod.string().optional(),
-  order: zod.number(),
-  skin: backupAccountSkinSchema,
-})
-
-export const backupWalletSchema = zod.object({
-  id: zod.string(),
-  type: zod.union([zod.literal('standard'), zod.literal('hardware'), zod.literal('ledger')]),
-  name: zod.string(),
-  mnemonic: zod.string().optional(),
-  accounts: zod.array(backupAccountSchema),
-})
-
-export const backupContactSchema = zod.object({
-  id: zod.string(),
-  name: zod.string(),
-  addresses: zod.array(
-    zod.object({
-      address: zod.string(),
-      blockchain: zod.string(),
-    })
-  ),
-})
-
-export const backupSwapSchema = zod.object({
-  account: backupAccountSchema,
-  txFrom: zod.string().optional(),
-  txTo: zod.string().optional(),
-  swapProvider: zod.literal('simpleswap'),
-  swapId: zod.string().optional(),
-  swapStatus: zod.any(),
-  tokenFrom: zod.any(),
-  tokenTo: zod.any(),
-  amountFrom: zod.string(),
-  amountTo: zod.string(),
-  addressTo: zod.string(),
-  extraIdTo: zod.string().optional(),
-  fee: zod.string().optional(),
-})
-
-export const backupDataSchema = zod.object({
-  wallets: zod.array(backupWalletSchema),
-  contacts: zod.array(backupContactSchema),
-  swapRecords: zod.array(backupSwapSchema).optional(),
-})
-
-export const backupFileSchema = zod.object({
-  version: zod.number(),
-  data: zod.string(),
-})
-
-const fixAccountProperties = (
-  backupAccount: zod.infer<typeof backupAccountSchema>
-): Omit<IAccountState, 'encryptedKey'> | undefined => {
-  if (!doesBlockchainSupported(backupAccount.blockchain)) return
-
-  const type: TAccountType =
-    backupAccount.type === 'ledger' || backupAccount.type === 'hardware' ? 'watch' : backupAccount.type
-
-  if (!backupAccount.skin || UtilsHelper.isHexadecimal(backupAccount.skin.id)) {
-    backupAccount.skin = { id: UtilsHelper.getSkinColor(), type: 'color' }
-  }
-
-  return {
-    address: backupAccount.address,
-    blockchain: backupAccount.blockchain,
-    id: backupAccount.id,
-    idWallet: backupAccount.idWallet,
-    name: backupAccount.name,
-    order: backupAccount.order,
-    skin: backupAccount.skin as TSkin,
-    type,
-  }
-}
-
-const fixWalletProperties = (
-  backupWallet: zod.infer<typeof backupWalletSchema>
-): Omit<IWalletState, 'accounts' | 'encryptedMnemonic' | 'backupStatus'> => {
-  const type = backupWallet.type === 'ledger' ? 'hardware' : backupWallet.type
-
-  return {
-    id: backupWallet.id,
-    name: backupWallet.name,
-    type,
-  }
-}
 
 export const useNeonImportBackup = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useNeonImportBackup' })
@@ -152,11 +38,11 @@ export const useNeonImportBackup = () => {
     fileContent: string
   ): Promise<TUseNeonBackupData | undefined> => {
     try {
-      if (filePath.endsWith(BACKUP_FILE_EXTENSION)) {
+      if (filePath.endsWith(NeonBackupHelper.fileExtension)) {
         const backupFile = JSON.parse(fileContent)
-        const validatedFile = await backupFileSchema.parseAsync(backupFile)
+        const validatedFile = await neonBackupContentSchema.parseAsync(backupFile)
 
-        if (validatedFile.version !== BACKUP_VERSION) {
+        if (validatedFile.version !== NeonBackupHelper.backupVersion) {
           return undefined
         }
 
@@ -177,20 +63,20 @@ export const useNeonImportBackup = () => {
       const decrypted = EncryptionHelper.decryptBackupOrMigrate(data.content.data, password)
       const parsedData = JSON.parse(decrypted)
 
-      return await backupDataSchema.parseAsync(parsedData)
+      return await neonBackupDataSchema.parseAsync(parsedData)
     } catch (error) {
       console.error(error)
       throw new AppError(t('errors.wrongPassword'), error)
     }
   }
 
-  const handleGenerateData = (data: zod.infer<typeof backupDataSchema>): TUseNeonBackupGeneratedData => {
+  const handleGenerateData = (data: zod.infer<typeof neonBackupDataSchema>): TUseNeonBackupGeneratedData => {
     const contactsToCreate: TContactState[] = []
     const swapRecordsToCreate: TSwapRecord[] = []
     const walletsToCreate: TCreateWalletAndAccountParam[] = []
 
     data.swapRecords?.forEach(swap => {
-      const account = fixAccountProperties(swap.account)
+      const account = NeonBackupHelper.fixAccountProperties(swap.account)
       if (!account) return
 
       swapRecordsToCreate.push({
@@ -214,7 +100,7 @@ export const useNeonImportBackup = () => {
       const addresses: TContactAddress[] = []
 
       contact.addresses.forEach(address => {
-        if (!doesBlockchainSupported(address.blockchain)) return
+        if (!BlockchainServiceHelper.doesBlockchainSupported(address.blockchain)) return
         addresses.push({ address: address.address, blockchain: address.blockchain })
       })
 
@@ -229,7 +115,7 @@ export const useNeonImportBackup = () => {
       const accountsToImport: TAccountsToImport = []
 
       backupWallet.accounts.forEach(backupAccount => {
-        const fixedAccount = fixAccountProperties(backupAccount)
+        const fixedAccount = NeonBackupHelper.fixAccountProperties(backupAccount)
         if (!fixedAccount || doesAccountExist(fixedAccount)) return
 
         accountsToImport.push({ ...fixedAccount, key: backupAccount.key })
@@ -237,7 +123,7 @@ export const useNeonImportBackup = () => {
 
       if (accountsToImport.length === 0) return
 
-      const fixedWallet = fixWalletProperties(backupWallet)
+      const fixedWallet = NeonBackupHelper.fixWalletProperties(backupWallet)
 
       walletsToCreate.push({
         ...fixedWallet,
@@ -296,7 +182,7 @@ export const useNeonCreateBackup = () => {
 
     const encryptedPassword = loginSessionRef.current.encryptedPassword
 
-    const backupFile: zod.infer<typeof backupDataSchema> = {
+    const backupFile: zod.infer<typeof neonBackupDataSchema> = {
       wallets: [],
       contacts: [],
     }
@@ -307,7 +193,7 @@ export const useNeonCreateBackup = () => {
       addresses: contact.addresses.map(address => ({ address: address.address, blockchain: address.blockchain })),
     }))
 
-    const backupAccountsByWalletId = new Map<string, zod.infer<typeof backupAccountSchema>[]>()
+    const backupAccountsByWalletId = new Map<string, TUseNeonBackupAccount[]>()
 
     const accountPromises = accounts.map(async account => {
       let key: string | undefined
@@ -316,7 +202,7 @@ export const useNeonCreateBackup = () => {
         key = await EncryptionHelper.decrypt(account.encryptedKey, encryptedPassword)
       }
 
-      const backupAccount: zod.infer<typeof backupAccountSchema> = {
+      const backupAccount: TUseNeonBackupAccount = {
         id: account.id,
         idWallet: account.idWallet,
         address: account.address,
@@ -325,7 +211,7 @@ export const useNeonCreateBackup = () => {
         order: account.order,
         type: account.type,
         key: key ?? undefined,
-        skin: account.skin,
+        skin: { type: 'color', id: 'green' },
       }
 
       const walletAccounts = backupAccountsByWalletId.get(backupAccount.idWallet) ?? []
@@ -364,8 +250,8 @@ export const useNeonCreateBackup = () => {
 
       const backupFileDataStringEncrypted = EncryptionHelper.encryptBackupOrMigrate(backupFileDataString, password)
 
-      const backupFile: zod.infer<typeof backupFileSchema> = {
-        version: BACKUP_VERSION,
+      const backupFile: zod.infer<typeof neonBackupContentSchema> = {
+        version: NeonBackupHelper.backupVersion,
         data: backupFileDataStringEncrypted,
       }
 
@@ -377,7 +263,7 @@ export const useNeonCreateBackup = () => {
         }
       })
 
-      const fileName = `Neon-Backup-${format(new Date(), 'yyyy-MM-dd')}.${BACKUP_FILE_EXTENSION}`
+      const fileName = `Neon-Backup-${format(new Date(), 'yyyy-MM-dd')}.${NeonBackupHelper.fileExtension}`
 
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
     } catch (error) {

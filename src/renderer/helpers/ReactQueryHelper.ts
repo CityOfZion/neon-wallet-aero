@@ -1,39 +1,46 @@
+import { QueryClient } from '@tanstack/react-query'
+
 import { buildQueryKeyBalance } from '@renderer/hooks/useBalances'
 import {
   buildGetFullTransactionsAggregatedQueryKey,
   buildGetFullTransactionsQueryKey,
 } from '@renderer/hooks/useGetFullTransactions'
 
-import { queryClient } from '@renderer/libs/query'
 import type { TNetwork } from '@shared/types/blockchain'
 import type { IAccountState } from '@shared/types/store'
 
-type TInvalidateTransactionQueryParams = {
-  account: IAccountState
-  toAccount?: IAccountState
-  network: TNetwork
-}
-
 export class ReactQueryHelper {
-  static invalidateTransactionQueries = ({ account, network, toAccount }: TInvalidateTransactionQueryParams) => {
-    queryClient.removeQueries({
+  static readonly client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        refetchOnMount: true,
+        refetchOnWindowFocus: false,
+        gcTime: Infinity,
+        staleTime: 60 * 1000, // 1 minute
+      },
+    },
+  })
+
+  static invalidateTransactionQueries(account: IAccountState, network: TNetwork, toAccount?: IAccountState) {
+    this.client.removeQueries({
       queryKey: buildGetFullTransactionsQueryKey({ account, network }),
     })
 
-    queryClient.removeQueries({
+    this.client.removeQueries({
       queryKey: buildGetFullTransactionsAggregatedQueryKey(),
     })
 
-    queryClient.removeQueries({
+    this.client.removeQueries({
       queryKey: buildQueryKeyBalance(account.address, account.blockchain, network),
     })
 
     if (toAccount) {
-      queryClient.removeQueries({
+      this.client.removeQueries({
         queryKey: buildQueryKeyBalance(toAccount.address, toAccount.blockchain, network),
       })
 
-      queryClient.removeQueries({
+      this.client.removeQueries({
         queryKey: buildGetFullTransactionsQueryKey({ account: toAccount, network }),
       })
     }

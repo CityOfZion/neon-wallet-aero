@@ -484,7 +484,6 @@
     "wrapperContent": {
       "tabBuyTokensLabel": "Buy tokens",
       "tabSellTokensLabel": "Sell tokens",
-      "notConfiguredLabel": "The Buy & Sell Tokens aren't configured, contact support, please.",
       "walletsAndAccountsButtonLabel": "Wallets & Accounts",
       "walletsAndAccountsOpenedLabel": "Wallets & accounts accordion is opened",
       "walletsAndAccountsClosedLabel": "Wallets & accounts accordion is closed",

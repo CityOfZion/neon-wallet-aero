@@ -15,7 +15,6 @@ import MdRestartAlt from '@renderer/assets/images/md-restart-alt.svg?react'
 import TbChevronDown from '@renderer/assets/images/tb-chevron-down.svg?react'
 import TbChevronUp from '@renderer/assets/images/tb-chevron-up.svg?react'
 
-import { BUY_AND_SELL_TOKENS_CONFIG } from '@shared/constants/buy-and-sell-tokens'
 import type { IAccountState } from '@shared/types/store'
 
 import type { TBuyAndSellTokensOnTabChange } from '.'
@@ -84,13 +83,9 @@ export const BuyAndSellWrapperContent = ({
           onValueChange={newTab => onTabChange(newTab as EBuyAndSellTokensTab)}
         >
           <Tabs.List className="gap-x-3">
-            <Tabs.Trigger disabled={!BUY_AND_SELL_TOKENS_CONFIG.isConfigured} value={EBuyAndSellTokensTab.BUY_TOKENS}>
-              {t('tabBuyTokensLabel')}
-            </Tabs.Trigger>
+            <Tabs.Trigger value={EBuyAndSellTokensTab.BUY_TOKENS}>{t('tabBuyTokensLabel')}</Tabs.Trigger>
 
-            <Tabs.Trigger disabled={!BUY_AND_SELL_TOKENS_CONFIG.isConfigured} value={EBuyAndSellTokensTab.SELL_TOKENS}>
-              {t('tabSellTokensLabel')}
-            </Tabs.Trigger>
+            <Tabs.Trigger value={EBuyAndSellTokensTab.SELL_TOKENS}>{t('tabSellTokensLabel')}</Tabs.Trigger>
           </Tabs.List>
         </Tabs.Root>
 
@@ -120,17 +115,9 @@ export const BuyAndSellWrapperContent = ({
         </div>
       </div>
 
-      {BUY_AND_SELL_TOKENS_CONFIG.isConfigured ? (
-        <Fragment>
-          {isLoading && <Loader className="text-neon mt-4 size-14" />}
+      {isLoading && <Loader className="text-neon mt-4 size-14" />}
 
-          <div className={StyleHelper.mergeStyles('flex min-h-0 w-full flex-grow', { hidden: isLoading })}>
-            {children}
-          </div>
-        </Fragment>
-      ) : (
-        <h2 className="w-full pt-4 text-center text-xl">{t('notConfiguredLabel')}</h2>
-      )}
+      <div className={StyleHelper.mergeStyles('flex min-h-0 w-full flex-grow', { hidden: isLoading })}>{children}</div>
 
       <AnimatePresence>
         {!isLoading && isAccordionAccountsOpened && <BuyAndSellTokensAccordionAccounts account={account} />}

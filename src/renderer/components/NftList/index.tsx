@@ -4,10 +4,11 @@ import type { TNftResponse } from '@cityofzion/blockchain-service'
 import { hasExplorerService } from '@cityofzion/blockchain-service'
 import { match } from 'ts-pattern'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import { useNfts } from '@renderer/hooks/useNfts'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { IAccountState } from '@shared/types/store'
 
 import { NftListEmpty } from './NftListEmpty'
@@ -23,7 +24,7 @@ export const NftList = ({ selectedAccount }: TProps) => {
 
   const getHref = (nft: TNftResponse) => {
     try {
-      const service = bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
       if (!hasExplorerService(service)) return ''
 
       return service.explorerService.buildNftUrl({

@@ -9,6 +9,7 @@ import { DappHeader } from '@renderer/components/DappHeader'
 import { Details } from '@renderer/components/Details'
 import { ScreenLoader } from '@renderer/components/ScreenLoader'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { WalletConnectError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -21,7 +22,6 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbPlug from '@renderer/assets/images/tb-plug.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { TModalState } from '@shared/types/modal'
 
@@ -64,7 +64,7 @@ export const DappConnectionRequestModal = () => {
         WalletKitHelper.getProposalDetails({
           proposal,
           address: account.address,
-          service: bsAggregator.blockchainServicesByName[account.blockchain],
+          service: BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain],
         })
       )
     } catch (error: any) {

@@ -14,6 +14,8 @@ import type { TStepperCurrentState } from '@renderer/components/Stepper'
 import { Stepper } from '@renderer/components/Stepper'
 import { Tooltip } from '@renderer/components/Tooltip'
 
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
+
 import { useContactByAddressSelector } from '@renderer/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
@@ -29,7 +31,6 @@ import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-
 import TbUsers from '@renderer/assets/images/tb-users.svg?react'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
-import { DISCORD_LINK } from '@shared/constants/links'
 import type { TModalState } from '@shared/types/modal'
 import type { TSwapRecord } from '@shared/types/store'
 
@@ -265,7 +266,7 @@ export const SwapDetailsModal = () => {
             label={t('helpButtonLabel')}
             className="flex-grow"
             target="_blank"
-            to={DISCORD_LINK}
+            to={ConstantsHelper.cozDiscordUrl}
             variant="card"
             iconsOnEdge={false}
             leftIcon={<TbLifebuoy aria-hidden />}

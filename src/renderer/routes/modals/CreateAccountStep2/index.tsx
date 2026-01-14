@@ -7,6 +7,7 @@ import { Button } from '@renderer/components/Button'
 import { Radio } from '@renderer/components/Radio'
 import { Separator } from '@renderer/components/Separator'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -19,7 +20,6 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbCheck from '@renderer/assets/images/tb-check.svg?react'
 
-import { blockchainNames } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
 import type { IAccountState, IWalletState } from '@shared/types/store'
@@ -103,7 +103,7 @@ export const CreateAccountStep2Modal = () => {
               value={selectedBlockchain}
               onValueChange={handleSelectBlockchain}
             >
-              {blockchainNames.map((blockchain, index) => (
+              {BlockchainServiceHelper.blockchainNames.map((blockchain, index) => (
                 <Radio.Item
                   key={`${blockchain}-${index}`}
                   className="bg-asphalt h-12 rounded px-1"

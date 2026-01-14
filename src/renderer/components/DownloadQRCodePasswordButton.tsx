@@ -25,7 +25,6 @@ export const DownloadQRCodePasswordButton = ({
 
   const handleDownload = async () => {
     await UtilsHelper.downloadSVGToPng('QRCode')
-
     if (onDownload) await onDownload()
   }
 

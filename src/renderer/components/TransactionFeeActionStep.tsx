@@ -1,6 +1,7 @@
 import type { IBlockchainService } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
@@ -75,7 +76,7 @@ export const TransactionFeeActionStep = ({
 
       <div className="flex w-full justify-between gap-x-2 pb-3 pl-6.5">
         <span className="text-xs text-gray-200 italic">{t('value')}</span>
-        <span className="truncate text-xs text-gray-100 italic">{NumberHelper.currency(fiatFee, { currency })}</span>
+        <span className="truncate text-xs text-gray-100 italic">{CurrencyHelper.format(fiatFee, { currency })}</span>
       </div>
     </div>
   )

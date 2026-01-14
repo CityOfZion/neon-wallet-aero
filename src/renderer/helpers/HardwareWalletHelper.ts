@@ -5,8 +5,6 @@ import TransportWebBluetooth from '@ledgerhq/hw-transport-web-ble'
 import TransportWebHID from '@ledgerhq/hw-transport-webhid'
 import cloneDeep from 'lodash/cloneDeep'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
-import { getI18next } from '@renderer/libs/i18next'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type {
@@ -16,9 +14,11 @@ import type {
   THardwareWalletHelperGetAccountParams,
 } from '@shared/types/helpers'
 
+import { BlockchainServiceHelper } from './BlockchainServiceHelper'
 import { AppError } from './ErrorHelper'
+import { I18nextHelper } from './I18nextHelper'
 
-const { t } = getI18next()
+const { t } = I18nextHelper.get()
 
 export class HardwareWalletHelper {
   static onDisconnect: (() => void | Promise<void>) | undefined
@@ -112,7 +112,7 @@ export class HardwareWalletHelper {
       throw new AppError(t('hardwareWallet.errors.hardwareWalletNotFound'))
     })
 
-    const services = Object.values(bsAggregator.blockchainServicesByName)
+    const services = Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName)
 
     const accounts: TBSAccount<TBlockchainServiceKey>[] = []
 
@@ -158,7 +158,7 @@ export class HardwareWalletHelper {
       throw new AppError(t('hardwareWallet.errors.hardwareWalletNotFound'))
     }
 
-    const service = bsAggregator.blockchainServicesByName[blockchain]
+    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
     if (!hasLedger(service)) {
       throw new AppError(t('hardwareWallet.errors.blockchainNotSupported', { blockchain }))
     }
@@ -175,7 +175,7 @@ export class HardwareWalletHelper {
   }: THardwareWalletHelperEnsureConnectionParams): Promise<Transport> {
     if (!bip44Path) throw new AppError(t('hardwareWallet.errors.missingBip44Path'))
 
-    const service = bsAggregator.blockchainServicesByName[blockchain]
+    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
     if (!hasLedger(service))
       throw new AppError(t('hardwareWallet.errors.blockchainNotSupported', { blockchain: blockchain }))
 

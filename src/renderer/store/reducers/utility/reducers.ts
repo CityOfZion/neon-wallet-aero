@@ -1,9 +1,9 @@
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import { cloneDeep } from 'lodash'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TSwapRecord } from '@shared/types/store'
@@ -65,20 +65,13 @@ const persistSwapRecord: CaseReducer<IUtilityReducer, PayloadAction<TSwapRecord>
   state.data.swapRecords[index] = swapRecord
 }
 
-// Unlocked Skins Reducers
-const setUnlockedSkinIds: CaseReducer<IUtilityReducer, PayloadAction<string[]>> = (state, action) => {
-  const { payload: skinIds } = action
-
-  state.data.unlockedSkinIds = skinIds
-}
-
 // Hidden Tokens Reducers
 const toggleHiddenToken: CaseReducer<IUtilityReducer, PayloadAction<THiddenTokenParams>> = (state, action) => {
   const { tokenHash, blockchain } = action.payload
 
   if (TokenHelper.isNativeToken(tokenHash, blockchain)) throw new Error("Native token can't be hidden")
 
-  const service = bsAggregator.blockchainServicesByName[blockchain]
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
   const normalizedTokenHash = service.tokenService.normalizeHash(tokenHash)
   const hiddenTokens = cloneDeep(state.data.hiddenTokensByBlockchain[blockchain] || [])
 
@@ -105,5 +98,4 @@ export const utilitySliceReducers = {
   setEncryptedLoginControl,
   persistSwapRecord,
   toggleHiddenToken,
-  setUnlockedSkinIds,
 }

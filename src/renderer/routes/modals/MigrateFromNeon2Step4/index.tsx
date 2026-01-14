@@ -7,14 +7,11 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import type {
-  TUseNeonMigrateDecryptedAccountSchema,
-  TUseNeonMigrateFromNeon2Schema,
-} from '@renderer/hooks/useNeonMigrate'
 import { useNeonImportMigrate } from '@renderer/hooks/useNeonMigrate'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import type { TUseNeonMigrateAccountsSchema, TUseNeonMigrateDecryptedAccountSchema } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
 
 import { MigrateFromNeon2Password } from './MigrateFromNeon2Password'
@@ -33,7 +30,7 @@ export const MigrateFromNeon2Step4Modal = () => {
   const { handleTryDecryptAccount, handleGenerateData, handleImportBackupData } = useNeonImportMigrate()
   const { modalNavigate, modalErase } = useModalNavigate()
 
-  const handlePasswordSubmit = async (accountToMigrate: TUseNeonMigrateFromNeon2Schema, password: string) => {
+  const handlePasswordSubmit = async (accountToMigrate: TUseNeonMigrateAccountsSchema, password: string) => {
     const decryptedAccount = await handleTryDecryptAccount(accountToMigrate, password)
 
     if (!decryptedAccount) return

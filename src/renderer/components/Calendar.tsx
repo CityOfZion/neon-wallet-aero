@@ -5,14 +5,13 @@ import type React from 'react'
 import { DayPicker, type DayPickerProps, labelNext, labelPrevious, useDayPicker } from 'react-day-picker'
 import { useTranslation } from 'react-i18next'
 
+import { DateHelper } from '@renderer/helpers/DateHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 
 import TbChevronLeft from '@renderer/assets/images/tb-chevron-left.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
-
-import { DATE_FNS_LOCALE_BY_LANGUAGE_VALUE } from '@shared/constants/language'
 
 import { Button } from './Button'
 import { IconButton } from './IconButton'
@@ -282,7 +281,7 @@ export const Calendar = ({
 
   return (
     <DayPicker
-      locale={DATE_FNS_LOCALE_BY_LANGUAGE_VALUE[language.value]}
+      locale={DateHelper.dateFnsLocaleByLanguage[language.value]}
       showOutsideDays={showOutsideDays}
       className={StyleHelper.mergeStyles('p-3', className)}
       classNames={{

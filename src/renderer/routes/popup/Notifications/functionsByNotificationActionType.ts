@@ -2,12 +2,12 @@ import type { useNavigate } from 'react-router-dom'
 import { match } from 'ts-pattern'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
 
 import { selectAccounts } from '@renderer/hooks/useAccountSelector'
 import type { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { selectWalletById } from '@renderer/hooks/useWalletSelector'
 
-import { store } from '@renderer/libs/redux'
 import type { TAccountHelperPredicateParams } from '@shared/types/helpers'
 import type { IAccountState, IWalletState, TNotificationAction } from '@shared/types/store'
 
@@ -22,7 +22,7 @@ type TFunctionsByNotificationActionType = {
 }
 
 const getAccount = (predicate: TAccountHelperPredicateParams): IAccountState => {
-  const state = store.getState()
+  const state = ReduxHelper.store.getState()
   const accounts = selectAccounts(state)
   const account = accounts.find(AccountHelper.predicate(predicate))
 
@@ -32,7 +32,7 @@ const getAccount = (predicate: TAccountHelperPredicateParams): IAccountState => 
 }
 
 const getWalletByAccount = (account: IAccountState): IWalletState => {
-  const state = store.getState()
+  const state = ReduxHelper.store.getState()
   const wallet = selectWalletById(account.idWallet)(state)
 
   if (!wallet) throw new Error('Wallet not found')

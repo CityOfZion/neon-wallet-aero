@@ -1,20 +1,6 @@
 import { format } from 'date-fns'
 import * as uuid from 'uuid'
 
-import { getI18next } from '@renderer/libs/i18next'
-import { ACCOUNT_COLOR_SKINS } from '@shared/constants/skins'
-
-import { ToastHelper } from './ToastHelper'
-
-type TRemoveSpecialCharacterOptions = {
-  allowSpaces?: boolean
-  allowDots?: boolean
-  allowCommas?: boolean
-  trimText?: boolean
-}
-
-const { t } = getI18next()
-
 export class UtilsHelper {
   static sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -73,20 +59,6 @@ export class UtilsHelper {
     })
   }
 
-  static getRandomNumber(max: number) {
-    return Math.floor(Math.random() * Math.floor(max))
-  }
-
-  static getSkinColor(index?: number) {
-    const newIndex = index ?? UtilsHelper.getRandomNumber(7)
-
-    return ACCOUNT_COLOR_SKINS[newIndex] ?? ACCOUNT_COLOR_SKINS[0]
-  }
-
-  static isHexadecimal(hexadecimal: string) {
-    return /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(hexadecimal)
-  }
-
   static async promiseAll<T, R>(array: T[], callback: (item: T) => Promise<R> | R): Promise<R[]> {
     const results: R[] = []
 
@@ -103,35 +75,6 @@ export class UtilsHelper {
     await Promise.all(promises)
 
     return results
-  }
-
-  static async copyToClipboard(text: string): Promise<void> {
-    ToastHelper.success({ message: t('common:general.successfullyCopied') })
-
-    return await navigator.clipboard.writeText(text)
-  }
-
-  static removeSpecialCharacters(text: string, options?: TRemoveSpecialCharacterOptions) {
-    options = { allowSpaces: true, trimText: false, ...options }
-
-    let regex = 'a-zA-Z0-9'
-    if (options.allowDots) {
-      regex += '.'
-    }
-
-    if (options.allowCommas) {
-      regex += ','
-    }
-
-    if (options.allowSpaces) {
-      regex += ' '
-    }
-
-    text = text.replace(new RegExp(`[^${regex}]`, 'g'), '')
-
-    if (options.trimText) text = text.trim()
-
-    return text
   }
 
   static parseJsonSafely(value: any): any {

@@ -1,10 +1,11 @@
 import { BSKeychainHelper, hasLedger } from '@cityofzion/blockchain-service'
 import orderBy from 'lodash/orderBy'
 
-import { blockchainNames, bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccountHelperGetServiceAccountParams, TAccountHelperPredicateParams } from '@shared/types/helpers'
 import type { IAccountState } from '@shared/types/store'
+
+import { BlockchainServiceHelper } from './BlockchainServiceHelper'
 
 export class AccountHelper {
   static predicate({ address, blockchain }: TAccountHelperPredicateParams) {
@@ -28,7 +29,7 @@ export class AccountHelper {
   }
 
   static getServiceAccount({ account, key }: TAccountHelperGetServiceAccountParams) {
-    const service = bsAggregator.blockchainServicesByName[account.blockchain]
+    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
 
     if (account.type === 'hardware' && hasLedger(service)) {
       const serviceAccount = service.generateAccountFromPublicKey(key)
@@ -46,6 +47,10 @@ export class AccountHelper {
   }
 
   static orderAccounts<T extends IAccountState = IAccountState>(accounts: T[]) {
-    return orderBy([...accounts], [({ blockchain }) => blockchainNames.indexOf(blockchain), 'order'], ['asc', 'asc'])
+    return orderBy(
+      [...accounts],
+      [({ blockchain }) => BlockchainServiceHelper.blockchainNames.indexOf(blockchain), 'order'],
+      ['asc', 'asc']
+    )
   }
 }

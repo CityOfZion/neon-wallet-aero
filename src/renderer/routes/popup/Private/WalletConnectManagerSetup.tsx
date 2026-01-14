@@ -4,6 +4,7 @@ import type { PendingRequestTypes } from '@walletconnect/types'
 import { useTranslation } from 'react-i18next'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -13,7 +14,6 @@ import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { rendererApi } from '@shared/message-api/renderer'
 
 export const WalletConnectManagerSetup = () => {
@@ -29,7 +29,10 @@ export const WalletConnectManagerSetup = () => {
       const session = sessions[request.topic]
       if (!session) return
 
-      const sessionDetails = WalletKitHelper.getSessionDetails({ session, services: bsAggregator.blockchainServices })
+      const sessionDetails = WalletKitHelper.getSessionDetails({
+        session,
+        services: BlockchainServiceHelper.bsAggregator.blockchainServices,
+      })
       const sessionAccount = accountsMapRef.current.get(AccountHelper.buildAccountKey(sessionDetails))
 
       async function handleReject(reason?: ErrorResponse) {

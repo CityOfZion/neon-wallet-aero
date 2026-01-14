@@ -1,9 +1,9 @@
 import { waitForAccountTransaction } from '@cityofzion/blockchain-service'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TRootState } from '@shared/types/redux'
 import type { TNotification } from '@shared/types/store'
@@ -30,7 +30,7 @@ export const waitTransaction = createAsyncThunk<void, TParams>(
     try {
       dispatch(utilityReducerActions.addPendingTransaction(transaction))
 
-      const service = bsAggregator.blockchainServicesByName[blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
       isSuccessfulTransaction = await waitForAccountTransaction({
         service,
@@ -42,7 +42,7 @@ export const waitTransaction = createAsyncThunk<void, TParams>(
       console.error(error)
     }
 
-    ReactQueryHelper.invalidateTransactionQueries({ account, network, toAccount: transaction.toAccount })
+    ReactQueryHelper.invalidateTransactionQueries(account, network, transaction.toAccount)
 
     dispatch(utilityReducerActions.removePendingTransaction(transaction.hash))
 

@@ -15,7 +15,6 @@ import { Tooltip } from '@renderer/components/Tooltip'
 
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useAccountsWithWalletSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
@@ -79,7 +78,7 @@ export const AccountReceiveSelectionModal = () => {
   }
 
   const handleInputAddressChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const fixedValue = UtilsHelper.removeSpecialCharacters(event.target.value, { allowSpaces: false, allowDots: true })
+    const fixedValue = StringHelper.removeSpecialCharacters(event.target.value, { allowSpaces: false, allowDots: true })
 
     setData({ address: fixedValue })
     validateAddressOrNS(fixedValue, blockchain)

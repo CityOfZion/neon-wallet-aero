@@ -10,7 +10,8 @@
   "scripts": {
     "prepare": "husky",
     "dev": "vite",
-    "build": "npm run lint && npm run typecheck && tsc -b && vite build",
+    "prebuild": "tsx scripts/check-env.ts",
+    "build": "npm run lint && tsc -p tsconfig.app.json && vite build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.app.json --composite false"
   },
@@ -87,6 +88,7 @@
     "@types/w3c-web-hid": "^1.0.6",
     "@vitejs/plugin-react": "~5.0.4",
     "@walletconnect/types": "~2.22.4",
+    "dotenv": "^17.2.3",
     "eslint": "~9.37.0",
     "eslint-config-prettier": "~10.1.8",
     "eslint-plugin-prettier": "~5.5.4",
@@ -98,6 +100,7 @@
     "lint-staged": "~16.2.4",
     "prettier": "~3.6.2",
     "prettier-plugin-tailwindcss": "~0.7.0",
+    "tsx": "^4.21.0",
     "typed-emitter": "~2.1.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "~8.46.1",

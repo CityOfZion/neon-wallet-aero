@@ -10,6 +10,7 @@ import { Details } from '@renderer/components/Details'
 import { IconButton } from '@renderer/components/IconButton'
 import { Tooltip } from '@renderer/components/Tooltip'
 
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
@@ -67,7 +68,7 @@ export const DappPermissionGenericContent = (props: TDappPermissionProps) => {
                     icon={<MdContentCopy aria-hidden />}
                     size="sm"
                     colorSchema="neon"
-                    onClick={() => UtilsHelper.copyToClipboard(content)}
+                    onClick={ClipboardHelper.write.bind(null, content)}
                   />
                 </Tooltip>
               }

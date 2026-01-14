@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next'
 import { Accordion } from '@renderer/components/Accordion'
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useSelectedNetworkSelector } from '@renderer/hooks/useSettingsSelector'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { NetworkConfigurationBlockchainButton } from './NetworkConfigurationBlockchainButton'
@@ -21,7 +22,7 @@ export const NetworkConfigurationBlockchainAccordion = ({ blockchain }: TProps) 
   const { modalNavigateWrapper } = useModalNavigate()
   const { network } = useSelectedNetworkSelector(blockchain)
 
-  const service = bsAggregator.blockchainServicesByName[blockchain]
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
   return (
     <Accordion.Item value={blockchain}>

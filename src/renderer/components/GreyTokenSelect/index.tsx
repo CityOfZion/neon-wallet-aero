@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next'
 import { RemoveScroll } from 'react-remove-scroll'
 import { match } from 'ts-pattern'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TBalance } from '@shared/types/query'
 
@@ -70,7 +70,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
     }
 
     if (balance) {
-      const service = bsAggregator.blockchainServicesByName[balance.blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[balance.blockchain]
 
       filtered = filtered.map(token => {
         const tokenBalance = balance.tokensBalances.find(tokenBalance =>

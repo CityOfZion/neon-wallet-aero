@@ -7,11 +7,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import { useActions } from '@renderer/hooks/useActions'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
-import { useNewPassword } from '@renderer/hooks/useNewPassword'
-
-import { blockchainNames } from '@renderer/libs/blockchain-service'
+import { useSignup } from '@renderer/hooks/useLogin'
 
 type TFormData = {
   confirmPassword: string
@@ -30,7 +30,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
   const { t: commonT } = useTranslation('common')
   const { state } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
-  const { setNewPassword } = useNewPassword()
+  const { signup } = useSignup()
   const { createWallet, createStandardAccount } = useBlockchainActions()
 
   const { actionData, actionState, setData, setError, handleAct } = useActions<TFormData>({ confirmPassword: '' })
@@ -50,7 +50,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
       return
     }
 
-    await setNewPassword(data.confirmPassword)
+    await signup(data.confirmPassword)
 
     const mnemonic = BSKeychainHelper.generateMnemonic()
 
@@ -59,7 +59,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
       mnemonic,
     })
 
-    const promises = blockchainNames.map(blockchain =>
+    const promises = BlockchainServiceHelper.blockchainNames.map(blockchain =>
       createStandardAccount({
         wallet,
         blockchain,

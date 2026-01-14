@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 import { z } from 'zod'
 
 const envSchema = z.object({
-  DEV: z.boolean(),
   VITE_UNLIMIT_MERCHANT_ID: z.string(),
   VITE_UNLIMIT_BUY_TOKENS_IFRAME_URL: z.url(),
   VITE_UNLIMIT_SELL_TOKENS_IFRAME_URL: z.url(),
@@ -10,4 +10,21 @@ const envSchema = z.object({
   VITE_CLICK_UP_KEY: z.string(),
 })
 
-export const EnvHelper = envSchema.parse(import.meta.env)
+type EnvSchema = z.infer<typeof envSchema>
+
+class EnvHelperClass {
+  static schema = envSchema
+
+  static setup(): EnvSchema {
+    const result = this.schema.parse(import.meta.env)
+    Object.assign(this, result)
+    return result
+  }
+}
+
+// Cast the class to include all env properties
+export const EnvHelper = EnvHelperClass as typeof EnvHelperClass & EnvSchema
+
+export namespace EnvHelper {
+  export type Schema = EnvSchema
+}

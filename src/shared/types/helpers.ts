@@ -1,5 +1,8 @@
+import type { JSX, ReactNode } from 'react'
+import type { ToastT } from 'sonner'
+
 import type { TBlockchainServiceKey } from './blockchain'
-import type { IAccountState, TLanguage, TLastIndexesByWallet } from './store'
+import type { IAccountState, TCurrency, TLanguage, TLastIndexesByWallet } from './store'
 
 export type TAccountHelperPredicateParams = {
   address: string
@@ -35,6 +38,25 @@ export type TClickupHelperCreateSupportTicketParams = {
   description: string
 }
 
+export type TBuyAndSellTokensHelperGetSellUrlParams = {
+  account?: IAccountState
+  currency: TCurrency
+}
+
+export type TBuyAndSellTokensHelperInitBuyParams = {
+  account?: IAccountState
+  currency: TCurrency
+  id: string
+}
+
+export type TCurrencyHelperFormatOptions = {
+  currency: TCurrency
+  minimumFractionDigits?: number
+  maximumFractionDigits?: number
+  showZero?: boolean
+  approximateSymbol?: boolean
+}
+
 export type TDateHelperFormatLocalizedOptions = {
   format: string
   language: TLanguage
@@ -53,4 +75,34 @@ export type TExportTransactionsHelperCalculateDateToSelectionMaxOneYearResponse 
 export type TExportTransactionsHelperCalculateDateFromSelectionMaxOneYearResponse = {
   dateFrom: Date
   dateTo?: Date
+}
+
+export type TFileHelperPickOptions = {
+  accept?: string
+}
+
+export type TFileHelperPickResult = {
+  name: string
+  content: string
+  size: number
+}
+
+export type TStringHelperRemoveSpecialCharacterOptions = {
+  allowSpaces?: boolean
+  allowDots?: boolean
+  allowCommas?: boolean
+  trimText?: boolean
+}
+
+export type TToastHelperToastProps = {
+  message: ReactNode
+  className?: string
+  sonnerId: string | number
+  icon?: JSX.Element
+  closeable?: boolean
+}
+
+export type TToastHelperToastOptions = Omit<ToastT, 'id'> & {
+  message: ReactNode
+  id?: string | number
 }

@@ -4,8 +4,8 @@ import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
 
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useContactsSelector } from '@renderer/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -30,10 +30,6 @@ export const ContactDetailsModal = () => {
   const { contacts } = useContactsSelector()
 
   const contact = contacts.find(({ id }) => id === contactId)
-
-  const handleCopyAddress = (address: string) => {
-    UtilsHelper.copyToClipboard(address)
-  }
 
   const handleOpenDeleteContactModal = () => {
     if (!contact) return
@@ -115,7 +111,7 @@ export const ContactDetailsModal = () => {
 
                       <Button
                         variant="text-slim"
-                        onClick={() => handleCopyAddress(address)}
+                        onClick={ClipboardHelper.write.bind(null, address)}
                         className="flex-shrink-0"
                         title={t('copyAddressButtonLabel')}
                       >

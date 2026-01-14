@@ -6,22 +6,25 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 import { SplashScreen } from '@renderer/components/SplashScreen'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { EnvHelper } from '@renderer/helpers/EnvHelper'
+import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
 import { LazyHelper } from '@renderer/helpers/LazyHelper'
+import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
+import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
 
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
 import { modalsRouter } from '@renderer/routes/modals-router'
 
 import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
-import { setupBsAggregator } from '@renderer/libs/blockchain-service'
-import { setupI18next } from '@renderer/libs/i18next'
-import { queryClient } from '@renderer/libs/query'
-import { setupStore, store, waitForBootstrap } from '@renderer/libs/redux'
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import { rendererApi } from '@shared/message-api/renderer'
 
-const ToastProvider = lazy(() => import('@renderer/libs/sonner'))
+const ToastProvider = lazy(() =>
+  import('@renderer/helpers/ToastHelper').then(module => ({ default: module.ToastHelper.Provider }))
+)
 const NetworkManagerSetup = LazyHelper.delayedLazy(() => import('./NetworkManagerSetup'), 1000)
 
 export const RootPage = () => {
@@ -30,19 +33,19 @@ export const RootPage = () => {
 
   useMountUnsafe(async () => {
     try {
-      await Promise.allSettled([setupI18next(), setupBsAggregator()])
-      setupStore()
-      await waitForBootstrap()
+      await Promise.allSettled([EnvHelper.setup(), I18nextHelper.setup(), BlockchainServiceHelper.setup()])
+      ReduxHelper.setup()
+      await ReduxHelper.waitForBootstrap()
 
       const loginSession = await rendererApi.send('login:get-session')
 
       if (loginSession) {
-        store.dispatch(authReducerActions.setLoginSession(loginSession))
+        ReduxHelper.store.dispatch(authReducerActions.setLoginSession(loginSession))
         navigate('/wallets', { replace: true })
       } else {
-        store.dispatch(settingsReducerActions.setSelectedWallet(undefined))
-        store.dispatch(settingsReducerActions.setSelectedAccount(undefined))
-        store.dispatch(authReducerActions.resetTemporaryApplicationData())
+        ReduxHelper.store.dispatch(settingsReducerActions.setSelectedWallet(undefined))
+        ReduxHelper.store.dispatch(settingsReducerActions.setSelectedAccount(undefined))
+        ReduxHelper.store.dispatch(authReducerActions.resetTemporaryApplicationData())
         navigate('/login', { replace: true })
       }
 
@@ -55,8 +58,8 @@ export const RootPage = () => {
   if (!ready) return <SplashScreen />
 
   return (
-    <StoreProvider store={store}>
-      <QueryClientProvider client={queryClient}>
+    <StoreProvider store={ReduxHelper.store}>
+      <QueryClientProvider client={ReactQueryHelper.client}>
         <ModalRouterProvider routes={modalsRouter}>
           <Outlet />
 
