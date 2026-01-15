@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
 
-import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
@@ -50,14 +49,6 @@ export const CreateWalletStep1Modal = () => {
     }
   }
 
-  const handleCopy = () => {
-    try {
-      UtilsHelper.copyToClipboard(mnemonic.join(' '))
-    } catch (err) {
-      ToastHelper.error({ message: t('message.copyError', { error: err }) })
-    }
-  }
-
   const { isMounting } = useMountUnsafe(async () => {
     const walletMnemonic = BSKeychainHelper.generateMnemonic()
     setData({ mnemonic: walletMnemonic.split(' ') })
@@ -92,7 +83,7 @@ export const CreateWalletStep1Modal = () => {
           variant="text-slim"
           leftIcon={<MdContentCopy aria-hidden className="w-4" />}
           label={t('copyButtonLabel')}
-          onClick={handleCopy}
+          onClick={ClipboardHelper.write.bind(null, mnemonic.join(' '))}
         />
         <Button
           variant="text-slim"

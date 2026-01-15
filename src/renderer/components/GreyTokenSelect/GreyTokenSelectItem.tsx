@@ -2,10 +2,10 @@ import { Fragment, useEffect, useState } from 'react'
 
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { NEON_ICONS_URL } from '@shared/constants/urls'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { Tooltip } from '../Tooltip'
@@ -17,11 +17,11 @@ type TProps = {
   textClassName?: string
 }
 
-const defaultTokenImageUrl = `${NEON_ICONS_URL}/tokens/default-token.png`
+const defaultTokenImageUrl = `${ConstantsHelper.neonIconsUrl}/tokens/default-token.png`
 
 export const GreyTokenSelectItem = ({ token, blockchain, textClassName }: TProps) => {
   const network = token.network || blockchain
-  const defaultImageUrl = `${NEON_ICONS_URL}/tokens/${blockchain || token.network}/${token.hash}.png`
+  const defaultImageUrl = `${ConstantsHelper.neonIconsUrl}/tokens/${blockchain || token.network}/${token.hash}.png`
 
   const [img, setImg] = useState(defaultImageUrl)
 

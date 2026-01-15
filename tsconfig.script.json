@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "composite": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": true
+  },
+  "include": ["scripts/**/*.ts", "src/renderer/helpers/EnvHelper.ts"]
+}

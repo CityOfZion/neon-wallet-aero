@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExportTransactionsHelper } from '@renderer/helpers/ExportTransactionsHelper'
@@ -15,7 +16,6 @@ import { useLanguageSelector, useSelectedWalletSelector } from '@renderer/hooks/
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TModalState } from '@shared/types/modal'
 import type { IAccountState } from '@shared/types/store'
 
@@ -83,7 +83,7 @@ export const ExportTransactionsModal = () => {
     try {
       if (isDisabled) return
 
-      const service = bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
 
       const csvData = await service.blockchainDataService.exportFullTransactionsByAddress({
         address: selectedAccount.address,

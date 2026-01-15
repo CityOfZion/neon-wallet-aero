@@ -1,24 +1,17 @@
 import { useRef } from 'react'
 
-import { hasNft } from '@cityofzion/blockchain-service'
 import intersection from 'lodash/intersection'
 
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 
+import { useOwnAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useLazyBalance } from '@renderer/hooks/useBalances'
-import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
-import { useLazyGetOwnerOfNftSkin } from '@renderer/hooks/useLazyGetOwnerOfNftSkin'
 import { useMount } from '@renderer/hooks/useMount'
 import { useUnreadNotificationsSelector } from '@renderer/hooks/useNotificationsSelector'
-import { useOwnAccountsSelector } from '@renderer/hooks/useOwnAccountsSelector'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useLazyVoteNeo3GetVoteDetailsByAddress } from '@renderer/hooks/useVoteNeo3'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { authReducerActions } from '@renderer/store/reducers/auth'
-import { utilityReducerActions } from '@renderer/store/reducers/utility'
-import { FRAUDULENT_TOKEN_HASHES_BY_BLOCKCHAIN } from '@shared/constants/fraudulent-tokens'
-import { LOCAL_SKINS } from '@shared/constants/skins'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TBalance } from '@shared/types/query'
 import type { IAccountState, TNotification } from '@shared/types/store'
@@ -56,7 +49,7 @@ const useFraudulentTokensNotificationProcess = () => {
     try {
       if (!balance) return
 
-      const fraudulentHashes = FRAUDULENT_TOKEN_HASHES_BY_BLOCKCHAIN[account.blockchain]
+      const fraudulentHashes = ConstantsHelper.fraudulentTokenHashesByBlockchain.get(account.blockchain)
 
       if (!fraudulentHashes) return
 
@@ -178,89 +171,6 @@ const useVotingNeo3NotificationProcess = () => {
   return { process, processNotification, finish }
 }
 
-const useUnlockLocalSkinsProcess = () => {
-  const dispatch = useAppDispatch()
-  const { editAccount } = useBlockchainActions()
-
-  const unlockLocalSkinsRef = useRef<Set<string>>(new Set())
-  const accountsWithLocalSkinsRef = useRef<IAccountState[]>([])
-
-  const process = async (account: IAccountState) => {
-    try {
-      if (account.skin.type === 'local') {
-        accountsWithLocalSkinsRef.current.push(account)
-      }
-
-      if (unlockLocalSkinsRef.current.size === LOCAL_SKINS.size) return
-
-      for (const [key, skin] of LOCAL_SKINS) {
-        const service = bsAggregator.blockchainServicesByName[account.blockchain]
-
-        if (unlockLocalSkinsRef.current.has(key) || account.blockchain !== skin.blockchain || !hasNft(service)) {
-          continue
-        }
-
-        const hasToken = await service.nftDataService.hasToken({
-          address: account.address,
-          collectionHash: skin.collectionHash,
-        })
-
-        if (!hasToken) continue
-
-        unlockLocalSkinsRef.current.add(key)
-      }
-    } catch (error) {
-      console.error('Error on process (useUnlockLocalSkinsProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
-    }
-  }
-
-  const finish = async () => {
-    try {
-      dispatch(utilityReducerActions.setUnlockedSkinIds([...unlockLocalSkinsRef.current]))
-
-      for (const account of accountsWithLocalSkinsRef.current) {
-        if (unlockLocalSkinsRef.current.has(account.skin.id)) continue
-
-        await editAccount({ account, data: { skin: { id: UtilsHelper.getSkinColor(), type: 'color' } } })
-      }
-
-      accountsWithLocalSkinsRef.current = []
-      unlockLocalSkinsRef.current.clear()
-    } catch (error) {
-      console.error('Error on finish (useUnlockLocalSkinsProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
-    }
-  }
-
-  return { process, finish }
-}
-
-const useCheckNftSkinOwnership = () => {
-  const { getOwnerOfNftSkin } = useLazyGetOwnerOfNftSkin()
-  const { editAccount } = useBlockchainActions()
-
-  const process = async (account: IAccountState) => {
-    try {
-      if (account.skin.type !== 'nft') return
-
-      const address = await getOwnerOfNftSkin(account, account.skin)
-
-      if (address === account.address) return
-
-      await editAccount({ account, data: { skin: { id: UtilsHelper.getSkinColor(), type: 'color' } } })
-    } catch (error) {
-      console.error('Error on process (useCheckNftSkinOwnership):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
-    }
-  }
-
-  return { process }
-}
-
 const AccountTasksManagerSetup = () => {
   const { ownAccounts } = useOwnAccountsSelector()
   const { unreadNotificationsRef } = useUnreadNotificationsSelector()
@@ -269,8 +179,6 @@ const AccountTasksManagerSetup = () => {
 
   const fraudulentTokens = useFraudulentTokensNotificationProcess()
   const votingNeo3 = useVotingNeo3NotificationProcess()
-  const unlockLocalSkins = useUnlockLocalSkinsProcess()
-  const checkNftSkinOwnership = useCheckNftSkinOwnership()
 
   const accountsAlreadyProcessedRef = useRef<Set<string>>(new Set())
 
@@ -291,13 +199,10 @@ const AccountTasksManagerSetup = () => {
 
           fraudulentTokens.process(account, balance)
           await votingNeo3.process(account)
-          await unlockLocalSkins.process(account)
-          await checkNftSkinOwnership.process(account)
         }
 
         fraudulentTokens.finish()
         votingNeo3.finish()
-        await unlockLocalSkins.finish()
       },
       { timeout: 15000 }
     )

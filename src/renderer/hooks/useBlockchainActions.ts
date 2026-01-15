@@ -6,6 +6,7 @@ import { cloneDeep } from 'lodash'
 import { useTranslation } from 'react-i18next'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ContactsHelper } from '@renderer/helpers/ContactsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
@@ -13,7 +14,6 @@ import { HardwareWalletHelper } from '@renderer/helpers/HardwareWalletHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { contactReducerActions } from '@renderer/store/reducers/contact'
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
@@ -80,7 +80,7 @@ export function useBlockchainActions() {
   )
 
   const createStandardAccount = useCallback(
-    async ({ blockchain, name, wallet, skin, id }: TAccountToCreate) => {
+    async ({ blockchain, name, wallet, id }: TAccountToCreate) => {
       if (!loginSessionRef.current) {
         throw new AppError(tCommon('errors.noLoginSession'))
       }
@@ -95,7 +95,7 @@ export function useBlockchainActions() {
       )
 
       const accountOrder = AccountHelper.getNextOrderOrMissing(wallet.accounts, blockchain)
-      const service = bsAggregator.blockchainServicesByName[blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
       const generatedAccount = service.generateAccountFromMnemonic(mnemonic, accountOrder)
 
       const encryptedKey = await EncryptionHelper.encrypt(
@@ -108,7 +108,6 @@ export function useBlockchainActions() {
         idWallet: wallet.id,
         name,
         blockchain,
-        skin: skin ?? { id: UtilsHelper.getSkinColor(), type: 'color' },
         address: generatedAccount.address,
         type: 'standard',
         encryptedKey,
@@ -132,7 +131,7 @@ export function useBlockchainActions() {
   )
 
   const importAccount = useCallback(
-    async ({ address, blockchain, type, wallet, key, name, order, skin }: TAccountToImport) => {
+    async ({ address, blockchain, type, wallet, key, name, order }: TAccountToImport) => {
       let encryptedKey: string | undefined
 
       if (!loginSessionRef.current) {
@@ -154,7 +153,6 @@ export function useBlockchainActions() {
         idWallet: wallet.id,
         name: name ?? tCommon('account.defaultName', { accountNumber: accountOrder + 1 }),
         blockchain,
-        skin: skin ?? { id: UtilsHelper.getSkinColor(), type: 'color' },
         address,
         type,
         encryptedKey,
@@ -196,7 +194,7 @@ export function useBlockchainActions() {
         return
       }
 
-      const service = bsAggregator.blockchainServicesByName[account.blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
 
       if (hasWalletConnect(service)) {
         const sessions = await rendererApi.send('wallet-connect:get-sessions')
@@ -236,7 +234,7 @@ export function useBlockchainActions() {
       const chains: string[] = []
 
       for (const account of wallet.accounts) {
-        const service = bsAggregator.blockchainServicesByName[account.blockchain]
+        const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
         if (!hasWalletConnect(service)) continue
 
         addresses.push(account.address)

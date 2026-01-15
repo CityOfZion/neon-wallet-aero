@@ -479,7 +479,6 @@
     "wrapperContent": {
       "tabBuyTokensLabel": "Comprar tokens",
       "tabSellTokensLabel": "Vender tokens",
-      "notConfiguredLabel": "Comprar e vender tokens não está configurado. Por favor, entre em contato com o suporte.",
       "walletsAndAccountsButtonLabel": "Carteiras e contas",
       "walletsAndAccountsOpenedLabel": "Acordeão de carteiras e contas está aberto",
       "walletsAndAccountsClosedLabel": "Acordeão de carteiras e contas está fechado",

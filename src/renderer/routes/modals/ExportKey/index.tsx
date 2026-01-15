@@ -6,9 +6,9 @@ import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
 import { Separator } from '@renderer/components/Separator'
 
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
@@ -102,7 +102,7 @@ export const ExportKeyModal = () => {
             variant="text"
             leftIcon={<MdContentCopy aria-hidden />}
             label={t('copyButtonLabel')}
-            onClick={() => UtilsHelper.copyToClipboard(decryptedKey)}
+            onClick={ClipboardHelper.write.bind(null, decryptedKey)}
             clickableProps={{ className: 'px-4' }}
             flat
             disabled={isDisabled}

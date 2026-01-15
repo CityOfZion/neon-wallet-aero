@@ -5,8 +5,8 @@ import { Button } from '@renderer/components/Button'
 import { Details } from '@renderer/components/Details'
 import { Tooltip } from '@renderer/components/Tooltip'
 
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
-import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -122,7 +122,7 @@ export const SwapConfirmationModal = () => {
                         <p className="text-xs text-gray-100 uppercase">{t('amount')}</p>
 
                         <p className="text-sm text-gray-100">
-                          {NumberHelper.currency(swapRecord.amountFrom, { currency })}
+                          {CurrencyHelper.format(swapRecord.amountFrom, { currency })}
                         </p>
                       </div>
 
@@ -161,7 +161,7 @@ export const SwapConfirmationModal = () => {
                         <p className="text-xs text-gray-100 uppercase">{t('amount')}</p>
 
                         <p className="text-sm text-gray-100">
-                          {NumberHelper.currency(swapRecord.amountTo, { currency })}
+                          {CurrencyHelper.format(swapRecord.amountTo, { currency })}
                         </p>
                       </div>
 

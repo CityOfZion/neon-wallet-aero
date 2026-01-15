@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Banner } from '@renderer/components/Banner'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -11,7 +12,6 @@ import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import type { TBlockchainAccounts } from '.'
@@ -62,7 +62,7 @@ export const ImportAccountsSelectionAddress = ({ value, onSubmit }: TProps) => {
   }
 
   const { isMounting } = useMountUnsafe(async () => {
-    const services = Object.values(bsAggregator.blockchainServicesByName)
+    const services = Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName)
 
     const servicesFromAddress = services.filter(
       service => service.validateAddress(value) && !doesAccountExist({ address: value, blockchain: service.name })

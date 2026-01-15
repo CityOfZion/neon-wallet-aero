@@ -10,6 +10,7 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Textarea } from '@renderer/components/Textarea'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
@@ -18,11 +19,10 @@ import { useBackupOrMigrate } from '@renderer/hooks/useBackupOrMigrate'
 import { useImportActions } from '@renderer/hooks/useImportActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useNeonImportBackup } from '@renderer/hooks/useNeonBackup'
-import type { TUseNeonMigrateGeneratedData } from '@renderer/hooks/useNeonMigrate'
 import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@shared/types/blockchain'
+import type { TUseNeonMigrateGeneratedData } from '@shared/types/hooks'
 
 type TLocationState = {
   password: string
@@ -45,7 +45,7 @@ export const OnboardingImportWalletStep3Page = () => {
     const wallet: TWalletToCreate = {
       name: commonT('wallet.watchAccount'),
     }
-    const serviceNames = bsAggregator.getBlockchainNameByAddress(address)
+    const serviceNames = BlockchainServiceHelper.bsAggregator.getBlockchainNameByAddress(address)
     const accounts: TAccountsToImport = serviceNames.map(serviceName => ({
       address: address,
       blockchain: serviceName,
@@ -58,10 +58,13 @@ export const OnboardingImportWalletStep3Page = () => {
   const submitKey = async (key: string) => {
     const accounts: TAccountsToImport = []
 
-    await UtilsHelper.promiseAll(Object.values(bsAggregator.blockchainServicesByName), async service => {
-      const account = service.generateAccountFromKey(key)
-      accounts.push({ address: account.address, blockchain: service.name, key, type: 'standard' })
-    })
+    await UtilsHelper.promiseAll(
+      Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName),
+      async service => {
+        const account = service.generateAccountFromKey(key)
+        accounts.push({ address: account.address, blockchain: service.name, key, type: 'standard' })
+      }
+    )
 
     const wallet: TWalletToCreate = {
       name: commonT('wallet.encryptedName'),
@@ -73,7 +76,10 @@ export const OnboardingImportWalletStep3Page = () => {
   }
 
   const submitMnemonic = async (mnemonic: string) => {
-    const mnemonicAccounts = await bsAggregator.generateAccountsFromMnemonic(mnemonic, lastIndexesByWalletRef.current)
+    const mnemonicAccounts = await BlockchainServiceHelper.bsAggregator.generateAccountsFromMnemonic(
+      mnemonic,
+      lastIndexesByWalletRef.current
+    )
 
     const accounts = Array.from(mnemonicAccounts.entries())
       .map<TAccountsToImport>(([blockchain, accounts]) => {

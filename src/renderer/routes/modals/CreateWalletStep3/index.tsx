@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import { useActions } from '@renderer/hooks/useActions'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -12,7 +14,6 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import MdiNumeric3Box from '@renderer/assets/images/mdi-numeric-3-box.svg?react'
 import TbWand from '@renderer/assets/images/tb-wand.svg?react'
 
-import { blockchainNames } from '@renderer/libs/blockchain-service'
 import type { TModalState } from '@shared/types/modal'
 
 type TFormData = {
@@ -42,7 +43,7 @@ export const CreateWalletStep3Modal = () => {
       mnemonic: mnemonic.join(' '),
     })
 
-    const promises = blockchainNames.map(blockchain =>
+    const promises = BlockchainServiceHelper.blockchainNames.map(blockchain =>
       createStandardAccount({
         wallet,
         blockchain,

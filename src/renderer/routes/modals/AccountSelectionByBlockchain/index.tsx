@@ -9,7 +9,6 @@ import { Radio } from '@renderer/components/Radio'
 import { Select } from '@renderer/components/Select'
 
 import { StringHelper } from '@renderer/helpers/StringHelper'
-import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalState } from '@renderer/hooks/useModalRouter'
 import { useWalletsByBlockchainsSelector } from '@renderer/hooks/useWalletSelector'
@@ -87,17 +86,11 @@ export const AccountSelectionByBlockchainModal = () => {
         <Accordion.Item value="accounts" className="w-full">
           <Accordion.Trigger className="bg-asphalt rounded border-none">
             <div className="flex items-center gap-x-2.5">
-              <MdCircle
-                className={StyleHelper.mergeStyles(
-                  'text-lemon size-3',
-                  selectedAccountInternal && selectedAccountInternal.skin.type === 'color'
-                    ? `text-${selectedAccountInternal.skin.id}`
-                    : ''
-                )}
-              />
+              <MdCircle className="text-lemon size-3" />
               {t('accountsSelectionLabel')}
             </div>
           </Accordion.Trigger>
+
           <Accordion.Content className="mt-2.5 px-0">
             <Radio.Group
               value={selectedAccountInternal?.id}

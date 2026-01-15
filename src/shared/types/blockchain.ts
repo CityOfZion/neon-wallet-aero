@@ -1,6 +1,6 @@
 import type { TBSNetwork } from '@cityofzion/blockchain-service'
 
-import type { IAccountState, IWalletState, TAccountType, TSkin, TWalletBackupStatus, TWalletType } from './store'
+import type { IAccountState, IWalletState, TAccountType, TWalletBackupStatus, TWalletType } from './store'
 
 export type TBlockchainServiceKey = 'neo3' | 'neoLegacy' | 'ethereum' | 'neox' | 'polygon' | 'base' | 'arbitrum'
 
@@ -12,7 +12,6 @@ export type TAccountToImport = {
   key?: string
   name?: string
   order?: number
-  skin?: TSkin
 }
 
 export type TAccountsToImport = Omit<TAccountToImport, 'wallet'>[]
@@ -31,7 +30,6 @@ export type TAccountToCreate = {
   wallet: IWalletState
   name: string
   blockchain: TBlockchainServiceKey
-  skin?: TSkin
 }
 
 export type TWalletToCreate = {

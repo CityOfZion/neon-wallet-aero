@@ -2,38 +2,27 @@ import axios from 'axios'
 
 import type { TClickupHelperCreateSupportTicketParams } from '@shared/types/helpers'
 
+import { EnvHelper } from './EnvHelper'
+
 export class ClickupHelper {
   static async createSupportTicket({ name, email, description }: TClickupHelperCreateSupportTicketParams) {
-    const nameTrimmed = name.trim()
-    const emailTrimmed = email.trim()
-    const descriptionTrimmed = description.trim()
-
-    if (!nameTrimmed || !emailTrimmed || !descriptionTrimmed) {
-      throw new Error('All fields are required')
-    }
-
-    const finalDescription = `- Name: ${nameTrimmed}
-- Email: ${emailTrimmed}
-
-- Description:
-
-    ${descriptionTrimmed}`.trim()
+    const finalDescription = [`- Name: ${name}`, `- Email: ${email}`, '- Description:', description].join('\n')
 
     const normalPriority = 3
 
     await axios.post(
-      `https://api.clickup.com/api/v2/list/${import.meta.env.VITE_CLICK_UP_LIST_ID}/task`,
+      `https://api.clickup.com/api/v2/list/${EnvHelper.VITE_CLICK_UP_LIST_ID}/task`,
       {
-        name: `NWA - Help - ${nameTrimmed}`,
+        name: `NWA - Help - ${name}`,
         markdown_content: finalDescription,
         tags: ['ProductSupport'],
         status: 'to-do',
         priority: normalPriority,
-        assignees: [import.meta.env.VITE_CLICK_UP_ASSIGNEE_ID],
+        assignees: [EnvHelper.VITE_CLICK_UP_ASSIGNEE_ID],
       },
       {
         headers: {
-          Authorization: import.meta.env.VITE_CLICK_UP_KEY,
+          Authorization: EnvHelper.VITE_CLICK_UP_KEY,
         },
       }
     )

@@ -126,11 +126,7 @@
     "printButtonLabel": "Print",
     "alertText": "Anyone with this phrase will be able to access your hard-earned assets and you won’t be able to get them back!",
     "cancelButtonLabel": "Cancel",
-    "nextButtonLabel": "Next",
-    "message": {
-      "copySuccess": "Security phrase copied to clipboard",
-      "copyError": "Failed to copy security phrase to clipboard. Error: {{ error }}"
-    }
+    "nextButtonLabel": "Next"
   },
   "createWalletStep2": {
     "title": "Create new BIP39 wallet",
@@ -498,6 +494,7 @@
     "errors": {
       "emailRequired": "Email is required",
       "nameRequired": "Name is required",
+      "descriptionRequired": "Description is required",
       "submitError": "There was an error trying to submit your ticket. Please try again later."
     },
     "nameLabel": "Name",

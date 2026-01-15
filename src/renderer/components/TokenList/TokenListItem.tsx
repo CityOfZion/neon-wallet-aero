@@ -9,7 +9,9 @@ import { IconButton } from '@renderer/components/IconButton'
 import { ImageWithFallback } from '@renderer/components/ImageWithFallback'
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { NumberHelper } from '@renderer/helpers/NumberHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
@@ -20,9 +22,7 @@ import { useHiddenTokensByBlockchainSelector } from '@renderer/hooks/useUtilityS
 import TbEye from '@renderer/assets/images/tb-eye.svg?react'
 import TbEyeOff from '@renderer/assets/images/tb-eye-off.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
-import { NEON_ICONS_URL } from '@shared/constants/urls'
 import type { TTokenBalance } from '@shared/types/query'
 
 type TProps = {
@@ -43,7 +43,7 @@ export const TokenListItem = ({ tokenBalance, isEditMode }: TProps) => {
   const isHiddenToken = useMemo(() => {
     if (!tokenHash) return false
 
-    const service = bsAggregator.blockchainServicesByName[blockchain]
+    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
     if (!service) return false
 
@@ -70,9 +70,9 @@ export const TokenListItem = ({ tokenBalance, isEditMode }: TProps) => {
       <div className={StyleHelper.mergeStyles('flex flex-1 flex-row items-center gap-x-3')}>
         <div className="flex min-w-0 flex-1 gap-2.5">
           <ImageWithFallback
-            src={`${NEON_ICONS_URL}/tokens/${tokenBalance.blockchain}/${tokenBalance.token.hash}.png`}
+            src={`${ConstantsHelper.neonIconsUrl}/tokens/${tokenBalance.blockchain}/${tokenBalance.token.hash}.png`}
             alt={tokenBalance.token.name || tokenBalance.token.symbol}
-            fallbackSrc={`${NEON_ICONS_URL}/tokens/default-token.png`}
+            fallbackSrc={`${ConstantsHelper.neonIconsUrl}/tokens/default-token.png`}
             containerClassName={StyleHelper.mergeStyles('mt-0.5 size-4.5 min-size-4.5 max-size-4.5', {
               grayscale: isHiddenToken,
             })}
@@ -113,7 +113,7 @@ export const TokenListItem = ({ tokenBalance, isEditMode }: TProps) => {
               'text-gray-100': isHiddenToken,
             })}
           >
-            {NumberHelper.currency(tokenBalance.exchangeAmount, { currency })}
+            {CurrencyHelper.format(tokenBalance.exchangeAmount, { currency })}
           </p>
         </div>
       </div>

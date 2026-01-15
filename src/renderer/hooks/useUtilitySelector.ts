@@ -1,6 +1,6 @@
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { IAccountState } from '@shared/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
@@ -15,7 +15,9 @@ const selectHasClaimPendingTransaction = (account: IAccountState) =>
 const selectSwapRecordByHash = (hash: string) =>
   createAppSelector([state => state.utility.data.swapRecords], swapRecords =>
     swapRecords.find(({ txFrom, account }) => {
-      const service = account ? bsAggregator.blockchainServicesByName[account.blockchain] : undefined
+      const service = account
+        ? BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
+        : undefined
       return !!txFrom && !!service && service.tokenService.predicateByHash(hash, txFrom)
     })
   )

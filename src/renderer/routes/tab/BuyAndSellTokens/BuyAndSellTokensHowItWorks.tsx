@@ -7,10 +7,10 @@ import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Link } from '@renderer/components/Link'
 import { Separator } from '@renderer/components/Separator'
 
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
+
 import MdInfoOutline from '@renderer/assets/images/md-info-outline.svg?react'
 import TbExternalLink from '@renderer/assets/images/tb-external-link.svg?react'
-
-import { DISCORD_LINK } from '@shared/constants/links'
 
 import { BuyAndSellTokensAboutButton } from './BuyAndSellTokensAboutButton'
 import { EBuyAndSellTokensTab } from '.'
@@ -104,7 +104,7 @@ export const BuyAndSellTokensHowItWorks = ({ tab }: TProps) => {
       <div className="mt-12 flex w-full flex-grow items-end">
         <Link
           label={t('helpButtonLabel')}
-          to={DISCORD_LINK}
+          to={ConstantsHelper.cozDiscordUrl}
           target="_blank"
           className="mx-auto mb-5"
           variant="outlined"

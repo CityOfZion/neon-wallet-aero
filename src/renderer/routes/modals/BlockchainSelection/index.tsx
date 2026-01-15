@@ -4,12 +4,13 @@ import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
 import { Radio } from '@renderer/components/Radio'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalState } from '@renderer/hooks/useModalRouter'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
-import { blockchainNames } from '@renderer/libs/blockchain-service'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
 
@@ -52,7 +53,7 @@ export const BlockchainSelectionModal = () => {
           value={selectedBlockchain}
           onValueChange={handleSelectBlockchain}
         >
-          {blockchainNames.map((blockchain, index) => (
+          {BlockchainServiceHelper.blockchainNames.map((blockchain, index) => (
             <Radio.Item
               key={`${blockchain}-${index}`}
               className="bg-asphalt h-12 rounded px-1"

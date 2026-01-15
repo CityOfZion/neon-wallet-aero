@@ -11,8 +11,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
-import { useLogin } from '@renderer/hooks/useLogin'
-import { useNewPassword } from '@renderer/hooks/useNewPassword'
+import { useLogin, useSignup } from '@renderer/hooks/useLogin'
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
@@ -31,7 +30,7 @@ export const ChangePasswordStep2Page = () => {
   const { loginSessionRef } = useLoginSessionSelector()
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
-  const { setNewPassword } = useNewPassword()
+  const { signup } = useSignup()
   const { encryptPassword } = useLogin()
   const dispatch = useAppDispatch()
   const {
@@ -74,7 +73,7 @@ export const ChangePasswordStep2Page = () => {
 
       await Promise.all(walletPromises)
 
-      await setNewPassword(newPassword)
+      await signup(encryptedNewPassword, true)
 
       navigate('/settings/change-password/3')
     } catch (error) {

@@ -16,6 +16,8 @@ import { IconButton } from '@renderer/components/IconButton'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
@@ -39,9 +41,7 @@ import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 import TbSend from '@renderer/assets/images/tb-send.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { thunks } from '@renderer/store/thunks'
-import { TIP_CONFIG } from '@shared/constants/tip'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { IAccountState } from '@shared/types/store'
 
@@ -93,12 +93,15 @@ const SendPage = () => {
   const service = useMemo(
     () =>
       actionData.selectedAccount
-        ? bsAggregator.blockchainServicesByName[actionData.selectedAccount.blockchain]
+        ? BlockchainServiceHelper.bsAggregator.blockchainServicesByName[actionData.selectedAccount.blockchain]
         : undefined,
     [actionData.selectedAccount]
   )
 
-  const tipConfig = useMemo(() => (service ? TIP_CONFIG.blockchains[service.name] : undefined), [service])
+  const tipConfig = useMemo(
+    () => (service ? ConstantsHelper.tipConfigByBlockchain.get(service.name) : undefined),
+    [service]
+  )
 
   const exchangeQuery = useExchange(
     service && tipConfig ? [{ blockchain: service.name, tokens: [tipConfig.token] }] : []
@@ -507,7 +510,7 @@ const SendPage = () => {
       exchangeQuery.data
     )
 
-    let tipFiatPriceBn = totalFiatPricesBn.multipliedBy(TIP_CONFIG.percentageBn)
+    let tipFiatPriceBn = totalFiatPricesBn.multipliedBy(ConstantsHelper.tipPercentageBn)
     let tipAmountBn = tipFiatPriceBn.div(tokenFiatPrice)
 
     if (tipAmountBn.isLessThan(tipConfig.minBn)) {

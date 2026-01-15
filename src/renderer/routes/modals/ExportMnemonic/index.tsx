@@ -5,8 +5,8 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
 
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
@@ -102,7 +102,7 @@ export const ExportMnemonicModal = () => {
               leftIcon={<MdContentCopy aria-hidden />}
               label={t('copyButtonLabel')}
               disabled={isDisabled}
-              onClick={() => UtilsHelper.copyToClipboard(walletMnemonic)}
+              onClick={ClipboardHelper.write.bind(null, walletMnemonic)}
               flat
             />
 

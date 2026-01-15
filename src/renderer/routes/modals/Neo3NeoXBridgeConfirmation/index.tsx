@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@renderer/components/Button'
 import { Details } from '@renderer/components/Details'
 
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
-import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
 import { useExchange } from '@renderer/hooks/useExchange'
 import { useModalState } from '@renderer/hooks/useModalRouter'
@@ -64,7 +64,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
     .times(tokenToReceiveFiatPrice)
     .toString()
 
-  const formattedTokenToReceiveFiat = NumberHelper.currency(amountToReceiveFiatPrice, { currency })
+  const formattedTokenToReceiveFiat = CurrencyHelper.format(amountToReceiveFiatPrice, { currency })
 
   return (
     <BottomModalLayout heading={t('title')}>

@@ -11,8 +11,8 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
+import { useSignup } from '@renderer/hooks/useLogin'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
-import { useNewPassword } from '@renderer/hooks/useNewPassword'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import NeonWalletIcon from '@renderer/assets/images/neon-wallet-icon.svg?react'
@@ -33,7 +33,7 @@ export const OnboardingImportWalletStep4Page = () => {
   const { state } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
   const { createWallet, importAccounts, saveContacts } = useBlockchainActions()
-  const { setNewPassword } = useNewPassword()
+  const { signup } = useSignup()
   const dispatch = useAppDispatch()
 
   const [progress, setProgress] = useState(0)
@@ -48,7 +48,7 @@ export const OnboardingImportWalletStep4Page = () => {
       const { wallets, contacts, password, swapRecords } = state
       const progressByStep = 100 / (wallets.length + 3)
 
-      await setNewPassword(password)
+      await signup(password)
 
       setProgress(progress => progress + progressByStep)
 

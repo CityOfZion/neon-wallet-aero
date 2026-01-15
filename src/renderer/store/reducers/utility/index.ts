@@ -18,7 +18,6 @@ export interface IUtilityReducer {
     swapRecords: TSwapRecord[]
     lastIndexesByWallet: TLastIndexesByWallet
     hiddenTokensByBlockchain: THiddenTokenByBlockchain
-    unlockedSkinIds: string[]
   }
 }
 
@@ -34,7 +33,6 @@ export function getUtilityReducer() {
       swapRecords: [],
       lastIndexesByWallet: {},
       hiddenTokensByBlockchain: {},
-      unlockedSkinIds: [],
     },
   }
 

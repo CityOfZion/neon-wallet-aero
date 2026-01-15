@@ -8,6 +8,7 @@ import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
 
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -24,7 +25,6 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import CozLogo from '@renderer/assets/images/coz-logo.svg?react'
 import TbCheckbox from '@renderer/assets/images/tb-checkbox.svg?react'
 
-import { VOTE_NEO3_COZ_PUB_KEY } from '@shared/constants/public-keys'
 import type { TModalState } from '@shared/types/modal'
 
 export const VoteNeo3CandidateDetailsModal = () => {
@@ -43,7 +43,7 @@ export const VoteNeo3CandidateDetailsModal = () => {
   const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account.address)
   const balanceQuery = useBalance(neo3Account)
   const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
-  const isCandidateCoz = VOTE_NEO3_COZ_PUB_KEY === pubKey
+  const isCandidateCoz = ConstantsHelper.voteNeo3CozPubKey === pubKey
 
   const neoAmount = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance ?? 0)
   const hasNeoAmount = neoAmount.isGreaterThan(0)

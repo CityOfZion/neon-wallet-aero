@@ -8,15 +8,16 @@ import { Input } from '@renderer/components/Input'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
-import type { TUseNeonMigrateFromNeon2Schema } from '@renderer/hooks/useNeonMigrate'
 
 import MdCheck from '@renderer/assets/images/md-check.svg?react'
 import MdChevronRight from '@renderer/assets/images/md-chevron-right.svg?react'
 import TbAlertTriangle from '@renderer/assets/images/tb-alert-triangle.svg?react'
 
+import type { TUseNeonMigrateAccountsSchema } from '@shared/types/hooks'
+
 type TProps = {
-  accountToMigrate: TUseNeonMigrateFromNeon2Schema
-  onSubmit: (accountToMigrate: TUseNeonMigrateFromNeon2Schema, password: string) => Promise<void>
+  accountToMigrate: TUseNeonMigrateAccountsSchema
+  onSubmit: (accountToMigrate: TUseNeonMigrateAccountsSchema, password: string) => Promise<void>
 }
 
 type TActionData = {

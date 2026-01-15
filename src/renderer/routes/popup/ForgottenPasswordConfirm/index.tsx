@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { Banner } from '@renderer/components/Banner'
 import { Swipe } from '@renderer/components/Swipe'
 
+import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
+
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
 import { useCurrencySelector, useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { ForgottenPasswordLayout } from '@renderer/layouts/ForgottenPasswordLayout'
 
-import { persistor, setupStore, store, waitForBootstrap } from '@renderer/libs/redux'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 
 export const ForgottenPasswordConfirmPage = () => {
@@ -21,14 +22,14 @@ export const ForgottenPasswordConfirmPage = () => {
 
   const [isCleaning, startClear] = usePressOnce(async () => {
     try {
-      await persistor.purge()
+      await ReduxHelper.persistor.purge()
 
-      setupStore()
+      ReduxHelper.setup()
 
-      await waitForBootstrap()
+      await ReduxHelper.waitForBootstrap()
 
-      store.dispatch(settingsReducerActions.setLanguage(language))
-      store.dispatch(settingsReducerActions.setCurrency(currency))
+      ReduxHelper.store.dispatch(settingsReducerActions.setLanguage(language))
+      ReduxHelper.store.dispatch(settingsReducerActions.setCurrency(currency))
 
       navigate('/forgotten-password-success')
     } catch (error) {

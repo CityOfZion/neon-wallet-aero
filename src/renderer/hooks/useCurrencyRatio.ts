@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TUseCurrencyRatioResult } from '@shared/types/query'
 import type { TCurrency } from '@shared/types/store'
@@ -15,7 +16,7 @@ const fetchCurrencyRatio = async (currency: TCurrency): Promise<number> => {
 
   try {
     if (currency.label !== 'USD') {
-      const service = bsAggregator.blockchainServicesByName[blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
       currencyRatio = await service.exchangeDataService.getCurrencyRatio(currency.label)
     }

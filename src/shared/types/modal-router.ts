@@ -5,16 +5,15 @@ import type { ErrorResponse } from '@walletconnect/jsonrpc-utils'
 import type { PendingRequestTypes, ProposalTypes, SessionTypes } from '@walletconnect/types'
 import type { JSX } from 'react'
 
-import type {
-  TUseNeonMigrateFromNeon2Schema,
-  TUseNeonMigrateGeneratedData,
-  TUseNeonMigrateSchema,
-} from '@renderer/hooks/useNeonMigrate'
-
 import type { TBuyAndSellTokensDepositActions } from '@renderer/routes/tab/BuyAndSellTokens'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { TTransactionsTransfer } from '@shared/types/hooks'
+import type {
+  TTransactionsTransfer,
+  TUseNeonMigrateAccountsSchema,
+  TUseNeonMigrateGeneratedData,
+  TUseNeonMigrateParsedContent,
+} from '@shared/types/hooks'
 
 import type {
   IAccountState,
@@ -127,13 +126,13 @@ type TExportMnemonicModalState = {
 }
 
 type TMigrateFromNeon2Step3ModalState = {
-  content: TUseNeonMigrateSchema
+  content: TUseNeonMigrateParsedContent
   onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
 }
 
 type TMigrateFromNeon2Step4ModalState = {
-  selectedAccountsToMigrate: TUseNeonMigrateFromNeon2Schema[]
-  content: TUseNeonMigrateSchema
+  selectedAccountsToMigrate: TUseNeonMigrateAccountsSchema[]
+  content: TUseNeonMigrateParsedContent
   onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
 }
 

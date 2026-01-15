@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
 
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
+
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
@@ -9,8 +11,6 @@ import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 import HiOutlineTicket from '@renderer/assets/images/hi-outline-ticket.svg?react'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 import TbMessage from '@renderer/assets/images/tb-message.svg?react'
-
-import { DISCORD_LINK } from '@shared/constants/links'
 
 import { HelpLinkItem } from './HelpLinkItem'
 
@@ -34,7 +34,7 @@ export const HelpPage = () => {
       <ul className="flex w-full flex-col py-2.5">
         <HelpLinkItem
           label={t('chatWithUsItemLabel')}
-          to={DISCORD_LINK}
+          to={ConstantsHelper.cozDiscordUrl}
           icon={<TbMessage aria-hidden className="text-yellow" />}
         />
 

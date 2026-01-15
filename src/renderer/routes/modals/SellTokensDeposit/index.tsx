@@ -17,12 +17,13 @@ import { Separator } from '@renderer/components/Separator'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
-import { NumberHelper } from '@renderer/helpers/NumberHelper'
+import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
@@ -42,7 +43,6 @@ import TbStepInto from '@renderer/assets/images/tb-step-into.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { thunks } from '@renderer/store/thunks'
 import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
@@ -80,7 +80,7 @@ export const SellTokensDepositModal = () => {
   const service = useMemo(() => {
     const account = actionData.account
 
-    return account ? bsAggregator.blockchainServicesByName[account.blockchain] : undefined
+    return account ? BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain] : undefined
   }, [actionData.account])
 
   const alertErrorMessage = actionState.errors.fee || actionState.errors.account || actionState.errors.amount
@@ -156,7 +156,7 @@ export const SellTokensDepositModal = () => {
   }
 
   const handleChangeAmount = (value: string) => {
-    value = UtilsHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
+    value = StringHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
 
     setData({ amount: value, isAmountLoading: !!value })
 
@@ -169,7 +169,7 @@ export const SellTokensDepositModal = () => {
   }
 
   const handleChangeAddress = (event: ChangeEvent<HTMLInputElement>) => {
-    const address = UtilsHelper.removeSpecialCharacters(event.target.value, { allowSpaces: false })
+    const address = StringHelper.removeSpecialCharacters(event.target.value, { allowSpaces: false })
 
     setData({ address })
   }
@@ -228,9 +228,16 @@ export const SellTokensDepositModal = () => {
     } catch (error: any) {
       console.error(error)
 
+      const appError = AppError.wrap(error, null)
+
+      if (appError.fromAppError) {
+        ToastHelper.error({ message: appError.message })
+        return
+      }
+
       modalNavigate('sell-tokens-deposit-error', {
         replace: true,
-        state: { errorMessage: AppError.wrap(error).message },
+        state: { errorMessage: appError.message },
       })
     } finally {
       reset()
@@ -438,7 +445,7 @@ export const SellTokensDepositModal = () => {
                       <p>{t('form.fiatLabel', { currencyLabel: currency.label })}</p>
 
                       <p className="whitespace-nowrap">
-                        {NumberHelper.currency(
+                        {CurrencyHelper.format(
                           actionData.amount && actionData.token
                             ? BSBigNumberHelper.fromNumber(actionData.amount)
                                 .multipliedBy(actionData.token.exchangeConvertedPrice)

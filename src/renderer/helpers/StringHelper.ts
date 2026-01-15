@@ -1,7 +1,4 @@
-type TRemoveSpecialCharacterOptions = {
-  allowSpaces?: boolean
-  trimText?: boolean
-}
+import type { TStringHelperRemoveSpecialCharacterOptions } from '@shared/types/helpers'
 
 export class StringHelper {
   static truncate(text: string, maxLength: number) {
@@ -32,12 +29,25 @@ export class StringHelper {
     return text
   }
 
-  static removeSpecialCharacters(text: string, options?: TRemoveSpecialCharacterOptions) {
-    const { allowSpaces = true, trimText = false } = options ?? {}
+  static removeSpecialCharacters(text: string, options?: TStringHelperRemoveSpecialCharacterOptions) {
+    options = { allowSpaces: true, trimText: false, ...options }
 
-    text = text.replace(allowSpaces ? /[^a-zA-Z0-9 ]/g : /[^a-zA-Z0-9]/g, '')
+    let regex = 'a-zA-Z0-9'
+    if (options.allowDots) {
+      regex += '.'
+    }
 
-    if (trimText) text = text.trim()
+    if (options.allowCommas) {
+      regex += ','
+    }
+
+    if (options.allowSpaces) {
+      regex += ' '
+    }
+
+    text = text.replace(new RegExp(`[^${regex}]`, 'g'), '')
+
+    if (options.trimText) text = text.trim()
 
     return text
   }

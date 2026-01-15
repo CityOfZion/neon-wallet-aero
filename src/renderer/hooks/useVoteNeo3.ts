@@ -5,12 +5,12 @@ import type { BSNeo3 } from '@cityofzion/bs-neo3'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TNetwork } from '@shared/types/blockchain'
 import type { TUseBalanceResult } from '@shared/types/query'
 import type { IAccountState } from '@shared/types/store'
@@ -69,7 +69,7 @@ export const useVoteNeo3GetCandidatesToVote = () => {
     selectedNetworkByBlockchain: { neo3: neo3Network },
   } = useSelectedNetworkByBlockchainSelector()
 
-  const blockchainService = bsAggregator.blockchainServicesByName.neo3 as BSNeo3
+  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3
 
   return useQuery({
     queryKey: buildVoteNeo3GetCandidatesToVoteQueryKey({ neo3Network }),
@@ -84,7 +84,7 @@ export const useVoteNeo3CalculateVoteFee = ({ neo3Account, candidatePubKey }: TC
     selectedNetworkByBlockchain: { neo3: neo3Network },
   } = useSelectedNetworkByBlockchainSelector()
 
-  const blockchainService = bsAggregator.blockchainServicesByName.neo3 as BSNeo3
+  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3
 
   return useQuery({
     queryKey: buildVoteNeo3CalculateVoteFeeQueryKey({ neo3Network, candidatePubKey, neo3Account }),
@@ -106,7 +106,7 @@ export const useVoteNeo3GetVoteDetailsByAddress = (address: string) => {
     selectedNetworkByBlockchain: { neo3: neo3Network },
   } = useSelectedNetworkByBlockchainSelector()
 
-  const blockchainService = bsAggregator.blockchainServicesByName.neo3 as BSNeo3
+  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3
 
   return useQuery({
     queryKey: buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network, address }),
@@ -125,7 +125,7 @@ export const useLazyVoteNeo3GetVoteDetailsByAddress = () => {
 
       if (!address || neo3Network.type !== 'mainnet') return
 
-      const blockchainService = bsAggregator.blockchainServicesByName.neo3 as BSNeo3
+      const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3
 
       return await queryClient.ensureQueryData({
         queryKey: buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network, address }),
@@ -139,7 +139,7 @@ export const useLazyVoteNeo3GetVoteDetailsByAddress = () => {
 }
 
 export const useVoteNeo3Validations = ({ balanceQuery, gasFee }: TValidationsParams) => {
-  const service = bsAggregator.blockchainServicesByName.neo3
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3
 
   const hasEnoughGasToPayFee = useMemo(() => {
     const gasAmount = balanceQuery.data?.tokensBalances?.find(({ token }) =>

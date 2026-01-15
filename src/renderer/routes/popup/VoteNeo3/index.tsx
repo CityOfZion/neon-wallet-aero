@@ -9,6 +9,7 @@ import { IconButton } from '@renderer/components/IconButton'
 import { Input } from '@renderer/components/Input'
 import { Tooltip } from '@renderer/components/Tooltip'
 
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 
 import { useAccountsByBlockchainsSelector } from '@renderer/hooks/useAccountSelector'
@@ -30,7 +31,6 @@ import MdSearch from '@renderer/assets/images/md-search.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 
-import { VOTE_NEO3_COZ_PUB_KEY } from '@shared/constants/public-keys'
 import type { IAccountState, IWalletState } from '@shared/types/store'
 
 import { VoteNeo3AvailableVotes } from './VoteNeo3AvailableVotes'
@@ -68,8 +68,11 @@ export const VoteNeo3Page = () => {
 
   const candidatesToVoteQuery = useVoteNeo3GetCandidatesToVote()
 
-  // We are using VOTE_NEO3_COZ_PUB_KEY only to calculate the fee
-  const calculateVoteFeeQuery = useVoteNeo3CalculateVoteFee({ neo3Account, candidatePubKey: VOTE_NEO3_COZ_PUB_KEY })
+  // We are using COZ address only to calculate the fee
+  const calculateVoteFeeQuery = useVoteNeo3CalculateVoteFee({
+    neo3Account,
+    candidatePubKey: ConstantsHelper.voteNeo3CozPubKey,
+  })
   const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address ?? '')
   const balanceQuery = useBalance(neo3Account)
   const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
@@ -101,7 +104,7 @@ export const VoteNeo3Page = () => {
         description: t('accountSelectionByBlockchain.description'),
         submitButtonLabel: t('accountSelectionByBlockchain.submitButtonLabel'),
         blockchain: 'neo3',
-        selectedWallet: wallet,
+        selectedWallet: wallet!,
         selectedAccount: neo3Account,
         onSelect: (account, wallet) => {
           setData({ neo3Account: account, wallet })
@@ -139,9 +142,8 @@ export const VoteNeo3Page = () => {
 
         {neo3Account ? (
           <div className="flex w-full gap-2.5 pb-6">
-            <div
-              className={`bg-${neo3Account.skin.type === 'color' ? neo3Account.skin.id : 'lemon'} mt-0.5 h-4 w-4 rounded-full`}
-            />
+            <div className="bg-lemon mt-0.5 size-4 rounded-full" />
+
             <div className="flex h-full w-full flex-col items-start justify-around gap-2">
               <p className="uppercase">{StringHelper.truncateMiddle(neo3Account.name, 30)}</p>
               <div className="flex">

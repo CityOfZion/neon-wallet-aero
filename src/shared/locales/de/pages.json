@@ -485,7 +485,6 @@
     "wrapperContent": {
       "tabBuyTokensLabel": "Token kaufen",
       "tabSellTokensLabel": "Token verkaufen",
-      "notConfiguredLabel": "Token kaufen & verkaufen ist nicht konfiguriert, kontaktieren Sie bitte den Support.",
       "walletsAndAccountsButtonLabel": "Wallets & Konten",
       "walletsAndAccountsOpenedLabel": "Wallets & Konten Akkordeon ist geöffnet",
       "walletsAndAccountsClosedLabel": "Wallets & Konten Akkordeon ist geschlossen",

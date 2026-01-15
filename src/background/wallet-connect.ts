@@ -3,8 +3,8 @@ import { WalletKit } from '@reown/walletkit'
 import { Core } from '@walletconnect/core'
 import type { ProposalTypes } from '@walletconnect/types'
 
-import { COZ_LINK } from '@shared/constants/links'
-import { NEON_ICONS_URL } from '@shared/constants/urls'
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
+
 import { backgroundApi } from '@shared/message-api/background'
 
 import pkg from '../../package.json'
@@ -22,8 +22,8 @@ async function setupWalletKit() {
     metadata: {
       name: pkg.name.charAt(0).toUpperCase() + pkg.name.slice(1),
       description: pkg.description,
-      url: COZ_LINK,
-      icons: [`${NEON_ICONS_URL}/neon-logo/128x128.png`],
+      url: ConstantsHelper.cozWebsiteUrl,
+      icons: [`${ConstantsHelper.neonIconsUrl}/neon-logo/128x128.png`],
     },
   })
 

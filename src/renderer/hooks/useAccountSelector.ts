@@ -88,6 +88,28 @@ const selectHardwareAccounts = createAppSelector(
   }
 )
 
+const selectOwnAccounts = createAppSelector(
+  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+  (applicationDataByLoginType, loginSession) => {
+    if (!loginSession) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+
+    const { wallets } = applicationDataByLoginType[loginSession.type]
+    const accounts: IAccountState[] = []
+
+    wallets
+      .flatMap(wallet => wallet.accounts)
+      .forEach(account => {
+        const wallet = wallets.find(wallet => wallet.id === account.idWallet)
+
+        if (account.type === 'watch' && (!wallet || wallet.type !== 'hardware')) return
+
+        accounts.push(account)
+      })
+
+    return AccountHelper.orderAccounts(accounts)
+  }
+)
+
 export const useAccountsSelector = () => {
   const { ref, value } = useAppSelector(selectAccounts)
 
@@ -157,4 +179,10 @@ export const useHasHardwareAccountSelector = () => {
     hasHardwareAccount: value,
     hasHardwareAccountRef: ref,
   }
+}
+
+export const useOwnAccountsSelector = () => {
+  const { value: ownAccounts, ref: ownAccountsRef } = useAppSelector(selectOwnAccounts)
+
+  return { ownAccounts, ownAccountsRef }
 }

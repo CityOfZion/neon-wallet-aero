@@ -9,10 +9,11 @@ import { Input } from '@renderer/components/Input'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
-import type { TUseNeonBackupData } from '@renderer/hooks/useNeonBackup'
 import { useNeonImportBackup } from '@renderer/hooks/useNeonBackup'
 
 import TbDeviceFloppy from '@renderer/assets/images/tb-device-floppy.svg?react'
+
+import type { TUseNeonBackupData } from '@shared/types/hooks'
 
 type TFormData = {
   password: string

@@ -49,12 +49,13 @@ export const SupportTicketModal = () => {
       return
     }
 
+    if (!description) {
+      setError('description', t('errors.descriptionRequired'))
+      return
+    }
+
     try {
-      await ClickupHelper.createSupportTicket({
-        name,
-        email,
-        description,
-      })
+      await ClickupHelper.createSupportTicket({ name, email, description })
 
       modalNavigate('success', {
         replace: true,

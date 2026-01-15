@@ -2,8 +2,9 @@ import { hasWalletConnect } from '@cityofzion/blockchain-service'
 import { WalletKitHelper } from '@cityofzion/bs-multichain'
 import { useQuery } from '@tanstack/react-query'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
-import { queryClient } from '@renderer/libs/query'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
+
 import { rendererApi } from '@shared/message-api/renderer'
 import type { IAccountState } from '@shared/types/store'
 
@@ -18,13 +19,13 @@ export const buildWalletConnectSessionKey = (account?: IAccountState) => {
 }
 
 export const invalidateWalletConnectSessions = (account?: IAccountState) => {
-  return queryClient.invalidateQueries({
+  return ReactQueryHelper.client.invalidateQueries({
     queryKey: buildWalletConnectSessionKey(account),
   })
 }
 
 const fetchSessions = async (account: IAccountState) => {
-  const service = bsAggregator.blockchainServicesByName[account.blockchain]
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
   if (!hasWalletConnect(service)) return []
 
   const sessions = await rendererApi.send('wallet-connect:get-sessions')

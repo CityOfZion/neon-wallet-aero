@@ -3,8 +3,8 @@ import { cloneElement } from 'react'
 import type { ComponentProps, JSX, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 
@@ -89,7 +89,7 @@ const Item = ({ label, children, copyable, className, contentClassName, rightEle
   const { t } = useTranslation('common')
 
   const handleCopy = () => {
-    if (copyable) UtilsHelper.copyToClipboard(copyable)
+    if (copyable) ClipboardHelper.write(copyable)
   }
 
   return (

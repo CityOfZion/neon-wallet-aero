@@ -29,11 +29,12 @@ import { Tooltip } from '@renderer/components/Tooltip'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
+import { SwapHelper } from '@renderer/helpers/SwapHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
@@ -56,8 +57,6 @@ import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import TbWand from '@renderer/assets/images/tb-wand.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
-import { SWAP_NETWORK_BY_BLOCKCHAIN_AND_NETWORK_ID } from '@shared/constants/swap'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { IAccountState, TSwapRecord } from '@shared/types/store'
 
@@ -90,21 +89,10 @@ export const SwapPage = () => {
   const { accountsRef } = useAccountsSelector()
   const { ref: amountInputRef, isFocused: isAmountInputFocused } = useIsFocused<HTMLInputElement>()
 
-  const swapChainsByServiceName = useMemo(() => {
-    const chainsByServiceName: Partial<Record<TBlockchainServiceKey, string[]>> = {}
-
-    for (const networkBlockchain in selectedNetworkByBlockchain) {
-      const blockchain = networkBlockchain as TBlockchainServiceKey
-      const network = selectedNetworkByBlockchain[blockchain]
-      const swapNetwork = SWAP_NETWORK_BY_BLOCKCHAIN_AND_NETWORK_ID?.[blockchain]?.[network.id]
-
-      if (swapNetwork) {
-        chainsByServiceName[blockchain] = swapNetwork
-      }
-    }
-
-    return chainsByServiceName
-  }, [selectedNetworkByBlockchain])
+  const swapChainsByServiceName = useMemo(
+    () => SwapHelper.getNetworks(selectedNetworkByBlockchain),
+    [selectedNetworkByBlockchain]
+  )
 
   const swapOrchestratorRef = useRef<SimpleSwapOrchestrator<TBlockchainServiceKey>>(null)
 
@@ -166,7 +154,9 @@ export const SwapPage = () => {
   const service = useMemo(
     () =>
       actionData.selectedAccountToUse.value
-        ? bsAggregator.blockchainServicesByName[actionData.selectedAccountToUse.value.blockchain]
+        ? BlockchainServiceHelper.bsAggregator.blockchainServicesByName[
+            actionData.selectedAccountToUse.value.blockchain
+          ]
         : undefined,
     [actionData.selectedAccountToUse.value]
   )
@@ -185,7 +175,7 @@ export const SwapPage = () => {
     reset()
 
     const swapService = new SimpleSwapOrchestrator({
-      blockchainServicesByName: bsAggregator.blockchainServicesByName,
+      blockchainServicesByName: BlockchainServiceHelper.bsAggregator.blockchainServicesByName,
       chainsByServiceName: swapChainsByServiceName,
     })
 
@@ -310,7 +300,7 @@ export const SwapPage = () => {
   const handleChangeAddressToReceive = (address: string) => {
     setData({ selectedAccountToReceive: { value: null, loading: false, valid: null } })
     swapOrchestratorRef.current?.setAddressToReceive(
-      UtilsHelper.removeSpecialCharacters(address, { allowSpaces: false })
+      StringHelper.removeSpecialCharacters(address, { allowSpaces: false })
     )
   }
 
@@ -320,7 +310,7 @@ export const SwapPage = () => {
 
   const handleChangeAmountToUse = (value: string) => {
     try {
-      value = UtilsHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
+      value = StringHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
 
       swapOrchestratorRef.current?.setAmountToUse(value)
     } catch (error) {

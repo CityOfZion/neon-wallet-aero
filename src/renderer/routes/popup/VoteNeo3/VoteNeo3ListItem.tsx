@@ -8,6 +8,7 @@ import { Button } from '@renderer/components/Button'
 import { DashedSeparator } from '@renderer/components/DashedSeparator'
 import { Tooltip } from '@renderer/components/Tooltip'
 
+import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
@@ -16,7 +17,6 @@ import { useVoteNeo3GetVoteDetailsByAddress } from '@renderer/hooks/useVoteNeo3'
 import MdCircle from '@renderer/assets/images/md-circle.svg?react'
 import TbPackages from '@renderer/assets/images/tb-packages.svg?react'
 
-import { VOTE_NEO3_COZ_PUB_KEY } from '@shared/constants/public-keys'
 import type { IAccountState } from '@shared/types/store'
 
 type TProps = {
@@ -46,7 +46,7 @@ export const VoteNeo3ListItem = ({
   const { position, pubKey, votes } = candidate
 
   const currentCandidatePubKey = voteDetailsByAddressQuery.data?.candidatePubKey
-  const isCozCandidate = VOTE_NEO3_COZ_PUB_KEY === currentCandidatePubKey
+  const isCozCandidate = ConstantsHelper.voteNeo3CozPubKey === currentCandidatePubKey
   const isCurrentVote = pubKey === currentCandidatePubKey
   const isVoteDisabled = isCurrentVote || !canVote || voteDetailsByAddressQuery.isLoading
 

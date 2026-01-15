@@ -1,11 +1,12 @@
 import isEqual from 'lodash/isEqual'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useLazyPingNodes } from '@renderer/hooks/useNodes'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 
 const NetworkManager = () => {
@@ -14,7 +15,7 @@ const NetworkManager = () => {
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
 
   useMountUnsafe(async () => {
-    const services = Object.values(bsAggregator.blockchainServicesByName)
+    const services = Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName)
 
     const updatedNetworks = { ...selectedNetworkByBlockchain }
 

@@ -1,9 +1,17 @@
 import { format } from 'date-fns/format'
+import * as dateFnsLocales from 'date-fns/locale'
 
-import { DATE_FNS_LOCALE_BY_LANGUAGE_VALUE } from '@shared/constants/language'
 import type { TDateHelperFormatLocalizedOptions } from '@shared/types/helpers'
 
 export class DateHelper {
+  static readonly dateFnsLocaleByLanguage: Record<string, dateFnsLocales.Locale> = {
+    en: dateFnsLocales.enUS,
+    de: dateFnsLocales.de,
+    'pt-BR': dateFnsLocales.ptBR,
+    zh: dateFnsLocales.zhCN,
+    'zh-Hant': dateFnsLocales.zhTW,
+  }
+
   static getNowUnix = (): number => {
     return Date.now() / 1000
   }
@@ -16,7 +24,7 @@ export class DateHelper {
     }
 
     return format(date, options.format, {
-      locale: DATE_FNS_LOCALE_BY_LANGUAGE_VALUE[options.language.value],
+      locale: this.dateFnsLocaleByLanguage[options.language.value],
     })
   }
 }

@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { hasLedger } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { HardwareWalletHelper } from '@renderer/helpers/HardwareWalletHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -11,8 +12,6 @@ import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useLogin } from '@renderer/hooks/useLogin'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
-
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 
 const HardwareWalletManagerSetup = () => {
   const { loginSessionRef } = useLoginSessionSelector()
@@ -47,7 +46,7 @@ const HardwareWalletManagerSetup = () => {
   })
 
   useEffect(() => {
-    Object.values(bsAggregator.blockchainServicesByName).forEach(service => {
+    Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName).forEach(service => {
       if (!hasLedger(service)) return
 
       service.ledgerService.emitter.on('getSignatureStart', () => {
@@ -60,7 +59,7 @@ const HardwareWalletManagerSetup = () => {
     })
 
     return () => {
-      Object.values(bsAggregator.blockchainServicesByName).forEach(service => {
+      Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName).forEach(service => {
         if (!hasLedger(service)) return
 
         service.ledgerService.emitter.removeAllListeners('getSignatureStart')

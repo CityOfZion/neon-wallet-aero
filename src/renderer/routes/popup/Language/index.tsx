@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { IconButton } from '@renderer/components/IconButton'
 import { Radio } from '@renderer/components/Radio'
 
+import { LanguageHelper } from '@renderer/helpers/LanguageHelper'
+
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
@@ -16,7 +18,6 @@ import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
-import { AVAILABLE_LANGUAGES, DEFAULT_LANGUAGE } from '@shared/constants/language'
 
 type TActionsData = {
   selectedLanguage: string
@@ -37,8 +38,8 @@ export const LanguagePage = () => {
 
   const handleSelectLanguage = (value: string) => {
     setData({ selectedLanguage: value })
-    const lang = AVAILABLE_LANGUAGES.find(item => item.value === value)
-    dispatch(settingsReducerActions.setLanguage(lang || DEFAULT_LANGUAGE))
+    const lang = LanguageHelper.availableLanguages.find(item => item.value === value)
+    dispatch(settingsReducerActions.setLanguage(lang || LanguageHelper.defaultLanguage))
 
     i18next.changeLanguage(value)
   }
@@ -75,7 +76,7 @@ export const LanguagePage = () => {
           value={selectedLanguage}
           onValueChange={handleSelectLanguage}
         >
-          {AVAILABLE_LANGUAGES.map((item, index) => (
+          {LanguageHelper.availableLanguages.map((item, index) => (
             <Radio.Item
               key={`${item.value}-${index}`}
               className="bg-asphalt h-12 rounded px-1"

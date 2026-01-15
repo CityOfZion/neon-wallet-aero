@@ -1,10 +1,10 @@
-import { getI18next } from '@renderer/libs/i18next'
+import { I18nextHelper } from './I18nextHelper'
 
 export class SynonymsHelper {
   static #synonymsMap = new Map<string, string[]>()
 
   static getSynonyms(word: string) {
-    const { t } = getI18next()
+    const { t } = I18nextHelper.get()
     if (this.#synonymsMap.has(word)) {
       return this.#synonymsMap.get(word)!
     }

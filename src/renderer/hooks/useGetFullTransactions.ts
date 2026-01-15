@@ -7,8 +7,8 @@ import * as dateFns from 'date-fns'
 import cloneDeep from 'lodash/cloneDeep'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TNetwork } from '@shared/types/blockchain'
 import type {
   TFullTransactionAssetEvent,
@@ -137,7 +137,7 @@ const getFullTransactions = async ({
 
     if (previousQuery && !nextCursor) return
 
-    const service = bsAggregator.blockchainServicesByName[blockchain]
+    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
     const queryData: TFullTransactionsByAddressResponse = {
       data: new Map<string, TFullTransactionsItem>(),
@@ -245,7 +245,7 @@ export const useGetFullTransactions = ({ accounts, dateFrom, dateTo }: TProps) =
         return
 
       const { blockchain } = account
-      const service = bsAggregator.blockchainServicesByName[blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
       let txTemplateUrl: string | undefined
       let addressTemplateUrl: string | undefined
@@ -316,7 +316,7 @@ export const useGetFullTransactions = ({ accounts, dateFrom, dateTo }: TProps) =
 
     items.forEach(item => {
       const hiddenTokens = hiddenTokensByBlockchain[item.blockchain]
-      const service = bsAggregator.blockchainServicesByName[item.blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[item.blockchain]
 
       const filteredEvents =
         !!hiddenTokens && hiddenTokens.length > 0

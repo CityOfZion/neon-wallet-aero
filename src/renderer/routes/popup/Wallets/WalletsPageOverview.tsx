@@ -15,9 +15,10 @@ import { TokenList } from '@renderer/components/TokenList'
 import { Tooltip } from '@renderer/components/Tooltip'
 import { TransactionActivityList } from '@renderer/components/TransactionActivityList'
 
-import { NumberHelper } from '@renderer/helpers/NumberHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
+import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -34,7 +35,6 @@ import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { IAccountState, IWalletState } from '@shared/types/store'
 
@@ -74,7 +74,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
   const blockchainService = useMemo(() => {
     if (!selectedAccount) return undefined
 
-    return bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
+    return BlockchainServiceHelper.bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
   }, [selectedAccount])
 
   const isWatchAccount = selectedAccount.type === 'watch'
@@ -131,7 +131,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
               colorSchema="neon"
               size="sm"
               icon={<MdContentCopy aria-hidden />}
-              onClick={() => UtilsHelper.copyToClipboard(selectedAccount.address)}
+              onClick={ClipboardHelper.write.bind(null, selectedAccount.address)}
             />
           </div>
         </div>
@@ -154,7 +154,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
           items={<Skeleton.Item className="h-12 w-64" />}
         >
           <p className="text-5xl text-white">
-            {NumberHelper.currency(balanceQuery.data?.exchangeTotal ?? 0, { currency })}
+            {CurrencyHelper.format(balanceQuery.data?.exchangeTotal ?? 0, { currency })}
           </p>
         </Skeleton.Root>
 

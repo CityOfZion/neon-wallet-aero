@@ -5,11 +5,19 @@ import type {
   TFullTransactionsByAddressResponse as TBSFullTransactionsByAddressResponse,
   TFullTransactionsItem as TBSFullTransactionsItem,
 } from '@cityofzion/blockchain-service'
+import type zod from 'zod'
 
-import type { TBlockchainServiceKey } from './blockchain'
+import type { neonBackupContentSchema, neonBackupDataSchema } from '@shared/schemas/neon-backup'
+
+import type {
+  TAccountsToImport,
+  TBlockchainServiceKey,
+  TCreateWalletAndAccountParam,
+  TWalletToCreate,
+} from './blockchain'
 import type { TModalRouterContextNavigateOptions, TRouteType } from './modal'
 import type { TModalRouterRouteTypes } from './modal-router'
-import type { IAccountState } from './store'
+import type { IAccountState, TContactState, TSwapRecord } from './store'
 
 export type TUseActionsData = Record<string, any>
 
@@ -93,3 +101,46 @@ export type TTransactionsTransfer = {
 }
 
 export type TUseHardwareWalletByUsbStatus = 'searching' | 'connected' | 'not-connected'
+
+export type TUseNeonBackupAccount = zod.infer<typeof neonBackupDataSchema>['wallets'][0]['accounts'][0]
+export type TUseNeonBackupWallet = zod.infer<typeof neonBackupDataSchema>['wallets'][0]
+
+export type TUseNeonBackupContentSchema = zod.infer<typeof neonBackupContentSchema>
+export type TUseNeonBackupDataSchema = zod.infer<typeof neonBackupDataSchema>
+export type TUseNeonBackupData = { content: TUseNeonBackupContentSchema; type: 'backup' }
+export type TUseNeonBackupDeprecatedData = { content: string; type: 'backup-deprecated' }
+
+export type TUseNeonBackupGeneratedData = {
+  wallets: TCreateWalletAndAccountParam[]
+  swapRecords?: TSwapRecord[]
+  contacts?: TContactState[]
+}
+
+export type TUseNeonMigrateAccountsSchema = {
+  address: string
+  label: string
+  key: string
+  blockchain: TBlockchainServiceKey
+}
+
+export type TUseNeonMigrateContactsSchema = {
+  addresses: { address: string; blockchain: TBlockchainServiceKey }[]
+  name: string
+}
+
+export type TUseNeonMigrateParsedContent = {
+  accounts: TUseNeonMigrateAccountsSchema[]
+  contacts: TUseNeonMigrateContactsSchema[]
+}
+
+export type TUseNeonMigrateData = { content: TUseNeonMigrateParsedContent; type: 'migrate' }
+
+export type TUseNeonMigrateDecryptedAccountSchema = TUseNeonMigrateAccountsSchema & {
+  decryptedKey: string
+}
+
+export type TUseNeonMigrateGeneratedData = {
+  walletToCreate: TWalletToCreate
+  accountsToCreate: TAccountsToImport
+  contactsToCreate: TContactState[]
+}

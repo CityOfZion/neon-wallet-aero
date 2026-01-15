@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -13,7 +14,6 @@ import { useModalState } from '@renderer/hooks/useModalRouter'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TModalState } from '@shared/types/modal'
 
 type TActionsData = {
@@ -41,7 +41,7 @@ export const DecryptKeyModal = () => {
     if (isDisabled) return
 
     try {
-      const service = bsAggregator.blockchainServicesByName[blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
       if (!hasEncryption(service)) {
         ToastHelper.error({ message: t('errors.noEncryptionInterfaceError') })

@@ -5,13 +5,13 @@ import { Button } from '@renderer/components/Button'
 import { TemporaryLimitsBox } from '@renderer/components/TemporaryLimitsBox'
 import { Textarea } from '@renderer/components/Textarea'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useImportActions } from '@renderer/hooks/useImportActions'
 import { useLogin } from '@renderer/hooks/useLogin'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
 import type { TAccountsToImport } from '@shared/types/blockchain'
 
 export const LoginKeyPage = () => {
@@ -64,7 +64,7 @@ export const LoginKeyPage = () => {
   }
 
   const submitAddress = async (address: string) => {
-    const blockchains = bsAggregator.getBlockchainNameByAddress(address)
+    const blockchains = BlockchainServiceHelper.bsAggregator.getBlockchainNameByAddress(address)
 
     const accountsToImport: TAccountsToImport = blockchains.map(blockchain => ({
       blockchain,

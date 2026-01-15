@@ -12,7 +12,6 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import MdChevronRight from '@renderer/assets/images/md-chevron-right.svg?react'
 
-import { BUY_AND_SELL_TOKENS_CONFIG } from '@shared/constants/buy-and-sell-tokens'
 import type { IAccountState } from '@shared/types/store'
 
 import type { EBuyAndSellTokensTab, TBuyAndSellTokensDepositActions, TBuyAndSellTokensOnTabChange } from '.'
@@ -45,11 +44,7 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
     hasIframeError: false,
   })
 
-  const url = BuyAndSellTokensHelper.buildUrl({
-    domainUrl: BUY_AND_SELL_TOKENS_CONFIG.sellTokensIframeUrl ?? '',
-    currency,
-    account,
-  })
+  const url = BuyAndSellTokensHelper.buildSellUrl({ currency, account })
 
   const handleRestart = () => {
     depositActions.reset()

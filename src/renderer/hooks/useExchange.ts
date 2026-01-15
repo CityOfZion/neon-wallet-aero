@@ -6,7 +6,8 @@ import { useQueries, useQueryClient } from '@tanstack/react-query'
 import assign from 'lodash/assign'
 import uniqBy from 'lodash/uniqBy'
 
-import { bsAggregator } from '@renderer/libs/blockchain-service'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
 import type { TExchange, TMultiExchange, TUseExchangeParams, TUseExchangeResult } from '@shared/types/query'
 import type { TCurrency } from '@shared/types/store'
@@ -18,7 +19,7 @@ function buildQueryKey(blockchain: TBlockchainServiceKey, currency: TCurrency, n
   const queryKey = ['exchange', blockchain, currency, network]
 
   if (token) {
-    const service = bsAggregator.blockchainServicesByName[blockchain]
+    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
     queryKey.push(service.tokenService.normalizeHash(token.hash))
   }
@@ -39,7 +40,7 @@ export async function fetchExchange(
   currencyRatio: number
 ) {
   const queryCache = queryClient.getQueryCache()
-  const service = bsAggregator.blockchainServicesByName[blockchain]
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
   const tokensToFetch = tokens.filter(token => {
     const queryKey = buildQueryKey(blockchain, currency, network, token)
@@ -52,7 +53,7 @@ export async function fetchExchange(
 
   if (tokensToFetch.length > 0) {
     try {
-      const service = bsAggregator.blockchainServicesByName[blockchain]
+      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
       const newTokenPrices = await service.exchangeDataService.getTokenPrices({ tokens: tokensToFetch })
 
       tokenPrices = uniqBy(newTokenPrices, 'token.hash')

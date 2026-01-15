@@ -1,11 +1,11 @@
 import { match } from 'ts-pattern'
 
-import { getI18next } from '@renderer/libs/i18next'
 import type { TNotification } from '@shared/types/store'
 
+import { I18nextHelper } from './I18nextHelper'
 import { UtilsHelper } from './UtilsHelper'
 
-const { t } = getI18next()
+const { t } = I18nextHelper.get()
 
 export class NotificationHelper {
   static async create({ title, previewBody, ...notification }: TNotification) {
