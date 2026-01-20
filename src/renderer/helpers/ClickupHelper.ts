@@ -16,7 +16,7 @@ export class ClickupHelper {
         name: `NWA - Help - ${name}`,
         markdown_content: finalDescription,
         tags: ['ProductSupport'],
-        status: 'to-do',
+        status: 'development',
         priority: normalPriority,
         assignees: [EnvHelper.VITE_CLICK_UP_ASSIGNEE_ID],
       },
