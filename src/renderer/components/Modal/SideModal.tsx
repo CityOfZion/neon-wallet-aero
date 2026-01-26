@@ -41,6 +41,7 @@ export const SideModal = () => {
           <FocusScope
             key={history.id}
             loop
+            trapped
             className={StyleHelper.mergeStyles(`min-w-modal-side-width h-full`, {
               'invisible hidden': index !== sideHistories.length - 1,
             })}
