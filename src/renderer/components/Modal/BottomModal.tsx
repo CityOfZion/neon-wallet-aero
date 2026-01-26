@@ -50,6 +50,7 @@ export const BottomModal = () => {
           <FocusScope
             key={history.id}
             loop
+            trapped
             className={StyleHelper.mergeStyles(`min-h-modal-bottom-height h-full w-full`, {
               'invisible hidden': index !== bottomHistories.length - 1,
             })}
