@@ -126,11 +126,7 @@
     "printButtonLabel": "Imprimir",
     "alertText": "Qualquer pessoa com essa frase será capaz de acessar seus ativos e você não conseguirá recuperá-los!",
     "cancelButtonLabel": "Cancelar",
-    "nextButtonLabel": "Próximo",
-    "message": {
-      "copySuccess": "Frase de segurança copiada para a área de transferência",
-      "copyError": "Falha ao copiar frase de segurança para a área de transferência. Erro: {{ error }}"
-    }
+    "nextButtonLabel": "Próximo"
   },
   "createWalletStep2": {
     "title": "Criar nova carteira BIP39",
@@ -498,6 +494,7 @@
     "errors": {
       "emailRequired": "E-mail obrigatório",
       "nameRequired": "Nome obrigatório",
+      "descriptionRequired": "A descrição é obrigatória",
       "submitError": "Ocorreu um erro ao enviar seu ticket. Tente novamente mais tarde."
     },
     "nameLabel": "Nome",

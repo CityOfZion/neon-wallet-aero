@@ -126,11 +126,7 @@
     "printButtonLabel": "列印",
     "alertText": "任何擁有這組助記詞的人都可以存取您的資產，且您將無法取回！",
     "cancelButtonLabel": "取消",
-    "nextButtonLabel": "下一步",
-    "message": {
-      "copySuccess": "助記詞已複製到剪貼簿",
-      "copyError": "複製助記詞到剪貼簿失敗。錯誤：{{ error }}"
-    }
+    "nextButtonLabel": "下一步"
   },
   "createWalletStep2": {
     "title": "建立新的 BIP39 錢包",
@@ -498,6 +494,7 @@
     "errors": {
       "emailRequired": "電子郵件為必填",
       "nameRequired": "姓名為必填",
+      "descriptionRequired": "描述為必填",
       "submitError": "提交工單時發生錯誤。請稍後再試。"
     },
     "nameLabel": "姓名",

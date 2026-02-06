@@ -141,7 +141,8 @@
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Ihre Wallet wurde erstellt!",
-    "buttonContinueLabel": "Wallet öffnen"
+    "backupWarning": "Bitte sichern Sie Ihren Mnemonic um die Einrichtung abzuschließen. Jeder mit diesem Satz kann auf Ihre Wallet zugreifen, daher halten Sie ihn sicher.",
+    "backupAndOpenWallet": "Sicherung und Wallet öffnen"
   },
   "onboardingImportWallet": {
     "title": "Wallet importieren",
