@@ -126,11 +126,7 @@
     "printButtonLabel": "Drucken",
     "alertText": "Jeder, der diese Phrase besitzt, kann auf Ihre hart verdienten Assets zugreifen und Sie können sie nicht zurückbekommen!",
     "cancelButtonLabel": "Abbrechen",
-    "nextButtonLabel": "Weiter",
-    "message": {
-      "copySuccess": "Sicherheitsphrase in Zwischenablage kopiert",
-      "copyError": "Fehler beim Kopieren der Sicherheitsphrase in die Zwischenablage. Fehler: {{ error }}"
-    }
+    "nextButtonLabel": "Weiter"
   },
   "createWalletStep2": {
     "title": "Neue BIP39 Wallet erstellen",
@@ -498,6 +494,7 @@
     "errors": {
       "emailRequired": "E-Mail ist erforderlich",
       "nameRequired": "Name ist erforderlich",
+      "descriptionRequired": "Beschreibung ist erforderlich",
       "submitError": "Beim Absenden Ihres Tickets ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
     },
     "nameLabel": "Name",

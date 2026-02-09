@@ -141,7 +141,8 @@
   },
   "onboardingLoginNewWalletStep3": {
     "description": "您的錢包已建立！",
-    "buttonContinueLabel": "打開您的錢包"
+    "backupWarning": "請備份您的助記詞以完成設置。任何擁有此短語的人都可以存取您的錢包，因此請妥善保管。",
+    "backupAndOpenWallet": "備份並打開錢包"
   },
   "onboardingImportWallet": {
     "title": "匯入錢包",

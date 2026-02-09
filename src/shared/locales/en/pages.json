@@ -146,7 +146,8 @@
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Your wallet is now created!",
-    "buttonContinueLabel": "Open your wallet"
+    "backupWarning": "Please backup your mnemonic to finish setup. Anyone with this phrase can access your wallet, so keep it secure.",
+    "backupAndOpenWallet": "Backup and open wallet"
   },
   "onboardingImportWallet": {
     "title": "Import a wallet",

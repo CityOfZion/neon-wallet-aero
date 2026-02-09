@@ -141,7 +141,8 @@
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Sua carteira foi criada!",
-    "buttonContinueLabel": "Abrir sua carteira"
+    "backupWarning": "Por favor, faça backup da sua frase mnemônica para finalizar a configuração. Qualquer pessoa com essa frase pode acessar sua carteira, então mantenha-a segura.",
+    "backupAndOpenWallet": "Fazer backup e abrir carteira"
   },
   "onboardingImportWallet": {
     "title": "Importar uma carteira",

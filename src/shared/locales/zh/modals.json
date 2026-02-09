@@ -126,11 +126,7 @@
     "printButtonLabel": "打印",
     "alertText": "任何拥有此短语的人都可以访问您的资产，且您无法找回！",
     "cancelButtonLabel": "取消",
-    "nextButtonLabel": "下一步",
-    "message": {
-      "copySuccess": "安全短语已复制到剪贴板",
-      "copyError": "复制安全短语到剪贴板失败。错误：{{ error }}"
-    }
+    "nextButtonLabel": "下一步"
   },
   "createWalletStep2": {
     "title": "创建新的 BIP39 钱包",
@@ -498,6 +494,7 @@
     "errors": {
       "emailRequired": "邮箱为必填项",
       "nameRequired": "姓名为必填项",
+      "descriptionRequired": "描述为必填项",
       "submitError": "提交工单时出错。请稍后再试。"
     },
     "nameLabel": "姓名",
