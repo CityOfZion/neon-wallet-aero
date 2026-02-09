@@ -141,8 +141,7 @@
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Sua carteira foi criada!",
-    "backupWarning": "Por favor, faça backup da sua frase mnemônica para finalizar a configuração. Qualquer pessoa com essa frase pode acessar sua carteira, então mantenha-a segura.",
-    "backupAndOpenWallet": "Fazer backup e abrir carteira"
+    "buttonContinueLabel": "Abrir sua carteira"
   },
   "onboardingImportWallet": {
     "title": "Importar uma carteira",
@@ -300,14 +299,12 @@
     "restoreLabel": "Restaurar",
     "backup": {
       "step1": {
-        "description": "Para proteger seu arquivo de backup, por favor, crie uma senha para seu backup:",
-        "backupPasswordLabel": "Crie uma senha de backup",
-        "confirmBackupPasswordLabel": "Confirme sua senha de backup",
+        "description": "Para criar seu arquivo de backup, por favor, digite sua senha Neon abaixo:",
+        "passwordInputLabel": "Senha Neon atual",
         "backup": "Backup",
         "warning": "Você precisará dessa senha para restaurar sua carteira. <1>Por favor, mantenha-a segura!</1>",
         "error": {
-          "confirmPassword": "Senha de backup não corresponde",
-          "backupPasswordLength": "A senha de backup deve ter pelo menos {{minLength}} caracteres",
+          "incorrectPassword": "Senha não reconhecida!",
           "unexpectedError": "Ocorreu um erro inesperado"
         }
       },
