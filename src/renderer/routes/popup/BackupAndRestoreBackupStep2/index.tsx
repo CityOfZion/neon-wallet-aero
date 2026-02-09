@@ -10,13 +10,13 @@ import TbDownload from '@renderer/assets/images/tb-download.svg?react'
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
 
 type TLocationState = {
-  backupPassword: string
+  password: string
 }
 
 export const BackupAndRestoreBackupStep2Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'backupAndRestore.backup.step2' })
   const {
-    state: { backupPassword },
+    state: { password },
   } = useLocation() as Location<TLocationState>
 
   return (
@@ -27,11 +27,7 @@ export const BackupAndRestoreBackupStep2Page = () => {
       </div>
 
       <div className="flex w-full flex-col">
-        <DownloadQRCodePasswordButton
-          leftIcon={<TbDownload aria-hidden />}
-          password={backupPassword}
-          className="w-full"
-        />
+        <DownloadQRCodePasswordButton leftIcon={<TbDownload aria-hidden />} password={password} className="w-full" />
         <Separator className="my-5 w-full" />
         <Link variant="card" className="w-full" label={t('returnToSettingsButtonLabel')} to="/settings" />
       </div>

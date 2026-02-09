@@ -305,14 +305,12 @@
     "restoreLabel": "Restore",
     "backup": {
       "step1": {
-        "description": "In order to secure your backup file, please create a password for your backup:",
-        "backupPasswordLabel": "Create a backup Password",
-        "confirmBackupPasswordLabel": "Confirm your backup Password",
+        "description": "In order to create your backup file, please provide your Neon password below:",
+        "passwordInputLabel": "Current Neon password",
         "backup": "Backup",
         "warning": "You’ll need this password to restore your wallet. <1>Please keep it safe!</1>",
         "error": {
-          "confirmPassword": "Confirm backup password does not match",
-          "backupPasswordLength": "Backup password must be at least {{minLength}} characters long",
+          "incorrectPassword": "Password not recognised!",
           "unexpectedError": "Unexpected error occurred"
         }
       },

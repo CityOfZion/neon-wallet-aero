@@ -306,14 +306,12 @@
     "restoreLabel": "Wiederherstellen",
     "backup": {
       "step1": {
-        "description": "Um Ihre Backup-Datei zu sichern, erstellen Sie bitte ein Passwort für Ihr Backup:",
-        "backupPasswordLabel": "Backup-Passwort erstellen",
-        "confirmBackupPasswordLabel": "Backup-Passwort bestätigen",
+        "description": "Um Ihre Backup-Datei zu erstellen, geben Sie bitte Ihr Neon-Passwort unten ein:",
+        "passwordInputLabel": "Aktuelles Neon-Passwort",
         "backup": "Backup",
         "warning": "Sie benötigen dieses Passwort, um Ihre Wallet wiederherzustellen. <1>Bitte bewahren Sie es sicher auf!</1>",
         "error": {
-          "confirmPassword": "Backup-Passwort-Bestätigung stimmt nicht überein",
-          "backupPasswordLength": "Backup-Passwort muss mindestens {{minLength}} Zeichen lang sein",
+          "incorrectPassword": "Passwort nicht erkannt!",
           "unexpectedError": "Unerwarteter Fehler aufgetreten"
         }
       },

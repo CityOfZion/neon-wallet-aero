@@ -300,14 +300,12 @@
     "restoreLabel": "還原",
     "backup": {
       "step1": {
-        "description": "為了保護您的備份檔案，請為備份建立一組密碼：",
-        "backupPasswordLabel": "建立備份密碼",
-        "confirmBackupPasswordLabel": "確認您的備份密碼",
+        "description": "為了建立備份檔案，請在下方提供您的 Neon 密碼：",
+        "passwordInputLabel": "目前的 Neon 密碼",
         "backup": "備份",
         "warning": "您需要此密碼來還原您的錢包。<1>請妥善保管！</1>",
         "error": {
-          "confirmPassword": "確認備份密碼不一致",
-          "backupPasswordLength": "必須輸入備份密碼",
+          "incorrectPassword": "密碼未被識別！",
           "unexpectedError": "發生未知錯誤"
         }
       },
