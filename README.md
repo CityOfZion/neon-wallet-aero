@@ -3,7 +3,7 @@ Your self-custodial and open-source blockchain wallet as browser extension.
 
 ## Environment
 Create `.env` file in root folder and setup it:
-```
+```env
 VITE_UNLIMIT_MERCHANT_ID=00000000-0000-0000-0000-000000000000
 VITE_UNLIMIT_BUY_TOKENS_IFRAME_URL=https://onramp.com
 VITE_UNLIMIT_SELL_TOKENS_IFRAME_URL=https://offramp.com
