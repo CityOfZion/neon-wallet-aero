@@ -76,7 +76,8 @@ type TImportAccountsSelectionModalState = {
 type TBlockchainSelectionModalState = {
   heading: string
   description: string
-  onSubmit: (blockchain: TBlockchainServiceKey) => void
+  isMulti?: boolean
+  onSelect: (blockchains: TBlockchainServiceKey[]) => void
 }
 
 type TDecryptKeyModalState = {

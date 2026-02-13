@@ -142,7 +142,9 @@
     "confirmPasswordInputPlaceholder": "Confirm your password…",
     "errors": {
       "passwordsDoNotMatch": "Passwords do not match"
-    }
+    },
+    "blockchainSelectionModalDescription": "Select the blockchains which you want to create an account for",
+    "blockchainSelectionModalTitle": "Select blockchains"
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Your wallet is now created!",

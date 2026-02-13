@@ -137,11 +137,14 @@
     "confirmPasswordInputPlaceholder": "Confirme sua senha…",
     "errors": {
       "passwordsDoNotMatch": "As senhas não correspondem"
-    }
+    },
+    "blockchainSelectionModalDescription": "Selecione as blockchains para as quais você deseja criar uma conta",
+    "blockchainSelectionModalTitle": "Selecione blockchains"
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Sua carteira foi criada!",
-    "buttonContinueLabel": "Abrir sua carteira"
+    "backupWarning": "Por favor, faça backup de sua frase mnemônica para concluir a configuração. Qualquer pessoa com essa frase pode acessar sua carteira, então mantenha-a segura.",
+    "backupAndOpenWallet": "Fazer backup e abrir carteira"
   },
   "onboardingImportWallet": {
     "title": "Importar uma carteira",
