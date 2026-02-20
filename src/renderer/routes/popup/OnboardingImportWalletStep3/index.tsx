@@ -107,7 +107,7 @@ export const OnboardingImportWalletStep3Page = () => {
       state: {
         heading: t('importEncryptedTitle'),
         description: t('importEncryptedSubtitle'),
-        onSubmit: (blockchain: TBlockchainServiceKey) => {
+        onSelect: ([blockchain]: TBlockchainServiceKey[]) => {
           modalNavigate('decrypt-key', {
             state: {
               heading: decryptKeyT('title'),

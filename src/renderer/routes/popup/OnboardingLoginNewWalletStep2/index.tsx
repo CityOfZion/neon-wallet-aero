@@ -7,11 +7,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
-import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-
 import { useActions } from '@renderer/hooks/useActions'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useSignup } from '@renderer/hooks/useLogin'
+import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 type TFormData = {
   confirmPassword: string
@@ -30,6 +31,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
   const { t: commonT } = useTranslation('common')
   const { state } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
+  const { modalNavigate, modalErase } = useModalNavigate()
   const { signup } = useSignup()
   const { createWallet, createStandardAccount } = useBlockchainActions()
 
@@ -50,26 +52,37 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
       return
     }
 
-    await signup(data.confirmPassword)
+    modalNavigate('blockchain-selection', {
+      state: {
+        heading: t('blockchainSelectionModalTitle'),
+        description: t('blockchainSelectionModalDescription'),
+        isMulti: true,
+        onSelect: async (blockchains: TBlockchainServiceKey[]) => {
+          await signup(data.confirmPassword)
 
-    const mnemonic = BSKeychainHelper.generateMnemonic()
+          const mnemonic = BSKeychainHelper.generateMnemonic()
 
-    const wallet = await createWallet({
-      name: commonT('wallet.firstWalletName'),
-      mnemonic,
+          const wallet = await createWallet({
+            name: commonT('wallet.firstWalletName'),
+            mnemonic,
+          })
+
+          const promises = blockchains.map(blockchain =>
+            createStandardAccount({
+              wallet,
+              blockchain,
+              name: commonT('account.defaultName', { accountNumber: 1 }),
+            })
+          )
+
+          await Promise.allSettled(promises)
+
+          modalErase('bottom')
+
+          navigate('/onboarding-login-new-wallet/3', { replace: true })
+        },
+      },
     })
-
-    const promises = BlockchainServiceHelper.blockchainNames.map(blockchain =>
-      createStandardAccount({
-        wallet,
-        blockchain,
-        name: commonT('account.defaultName', { accountNumber: 1 }),
-      })
-    )
-
-    await Promise.allSettled(promises)
-
-    navigate('/onboarding-login-new-wallet/3', { replace: true })
   }
 
   return (

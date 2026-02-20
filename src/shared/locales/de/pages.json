@@ -137,7 +137,9 @@
     "confirmPasswordInputPlaceholder": "Passwort bestätigen…",
     "errors": {
       "passwordsDoNotMatch": "Passwörter stimmen nicht überein"
-    }
+    },
+    "blockchainSelectionModalDescription": "Wählen Sie die Blockchains, für die Sie ein Konto erstellen möchten",
+    "blockchainSelectionModalTitle": "Blockchains auswählen"
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Ihre Wallet wurde erstellt!",

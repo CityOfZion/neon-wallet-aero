@@ -137,7 +137,9 @@
     "confirmPasswordInputPlaceholder": "确认您的密码…",
     "errors": {
       "passwordsDoNotMatch": "两次输入的密码不一致"
-    }
+    },
+    "blockchainSelectionModalDescription": "选择您想要创建账户的区块链",
+    "blockchainSelectionModalTitle": "选择区块链"
   },
   "onboardingLoginNewWalletStep3": {
     "description": "您的钱包已创建！",

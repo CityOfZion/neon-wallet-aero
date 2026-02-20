@@ -76,7 +76,7 @@ export const ImportPage = () => {
       state: {
         heading: t('title'),
         description: t('blockchainSelectionDescription'),
-        onSubmit: (blockchain: TBlockchainServiceKey) => {
+        onSelect: ([blockchain]: TBlockchainServiceKey[]) => {
           modalNavigate('decrypt-key', {
             state: {
               heading: t('title'),
