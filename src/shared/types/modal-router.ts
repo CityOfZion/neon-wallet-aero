@@ -369,4 +369,5 @@ export type TModalRouterRouteTypes = {
   'hide-fraudulent-token': THideFraudulentTokenModalState
   'support-ticket': undefined
   'export-transactions': TExportTransactionsModalState
+  survey: undefined
 }

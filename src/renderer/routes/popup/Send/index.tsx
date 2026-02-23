@@ -31,6 +31,7 @@ import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useExchange } from '@renderer/hooks/useExchange'
+import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 
@@ -76,6 +77,8 @@ const SendPage = () => {
   const { accountsMapRef } = useAccountsMapSelector()
   const { confirmAction } = useConfirmAction()
   const dispatch = useAppDispatch()
+
+  const { modalNavigate } = useModalNavigate()
 
   const { actionData, actionState, setData, setError, clearErrors, handleAct, reset } = useActions<TActionsData>({
     selectedAccount: undefined,
@@ -362,6 +365,9 @@ const SendPage = () => {
       })
 
       ToastHelper.success({ message: t('sendSuccess.toast') })
+
+      // TODO: Change the behavior after it's decided when the survey should be shown
+      modalNavigate('survey')
     } catch (error: any) {
       console.error(error)
       ToastHelper.error({ message: AppError.wrap(error, t('sendFail.toast')).message })

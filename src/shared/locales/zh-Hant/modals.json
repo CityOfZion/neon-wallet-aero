@@ -721,5 +721,18 @@
     "messages": {
       "exportError": "匯出 CSV 時發生錯誤。請重試。"
     }
+  },
+  "survey": {
+    "description": "我們很想聽聽您迄今為止對 NEON 的體驗。您的反饋幫助我們改進，如果您喜歡這款應用，在 Chrome 線上應用程式商店留下一條簡短的評價將大有幫助！",
+    "descriptionFeedbackSubmitted": "非常感謝您的反饋！",
+    "detailsInputLabel": "我們可以做得更好？",
+    "detailsInputPlaceholder": "在此添加更多詳情…",
+    "dislikeButtonLabel": "不喜歡",
+    "likeButtonLabel": "喜歡",
+    "notNowButtonLabel": "暫不",
+    "submitButtonLabel": "提交",
+    "title": "您的體驗如何？",
+    "titleFeedbackSubmitted": "謝謝！",
+    "closeButtonLabel": "關閉"
   }
 }
