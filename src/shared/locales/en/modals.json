@@ -721,5 +721,18 @@
     "messages": {
       "exportError": "There was an error trying to export your CSV. Please, try again."
     }
+  },
+  "survey": {
+    "description": "We'd love to hear how your experience with NEON has been so far. Your feedback helps us improve, and if you are enjoying the app, a quick review on the Chrome Web Store goes a long way!",
+    "descriptionFeedbackSubmitted": "Your feedback is really appreciated!",
+    "detailsInputLabel": "What can we do better?",
+    "detailsInputPlaceholder": "Add some more details here…",
+    "dislikeButtonLabel": "Dislike",
+    "likeButtonLabel": "Like",
+    "notNowButtonLabel": "Not now",
+    "submitButtonLabel": "Submit",
+    "title": "How was your experience?",
+    "titleFeedbackSubmitted": "Thank you!",
+    "closeButtonLabel": "Close"
   }
 }
