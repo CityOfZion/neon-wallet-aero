@@ -9,6 +9,7 @@ import NeoLegacyIcon from '@renderer/assets/blockchain/neo-legacy.svg?react'
 import Neo3Icon from '@renderer/assets/blockchain/neo3.svg?react'
 import NeoxIcon from '@renderer/assets/blockchain/neox.svg?react'
 import PolygonIcon from '@renderer/assets/blockchain/polygon.svg?react'
+import SolanaIcon from '@renderer/assets/blockchain/solana.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
@@ -24,6 +25,7 @@ const ICONS_BY_BLOCKCHAIN: Record<TBlockchainServiceKey, React.FC<React.SVGProps
   polygon: PolygonIcon,
   base: BaseIcon,
   arbitrum: ArbitrumIcon,
+  solana: SolanaIcon,
 }
 
 export const BlockchainIcon = React.memo(({ blockchain, ...props }: Props) => {

@@ -287,7 +287,7 @@ export const SwapPage = () => {
 
     const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
 
-    const serviceAccount = AccountHelper.getServiceAccount({ account, key })
+    const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
 
     swapOrchestratorRef.current?.setAccountToUse(serviceAccount)
   }

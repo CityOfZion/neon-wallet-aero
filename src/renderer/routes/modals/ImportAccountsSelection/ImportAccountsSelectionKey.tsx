@@ -67,7 +67,7 @@ export const ImportAccountsSelectionKey = ({ value, onSubmit }: TProps) => {
     const newBlockchainAccounts: TBlockchainAccounts = {}
 
     await UtilsHelper.promiseAll(services, async service => {
-      const account = service.generateAccountFromKey(value)
+      const account = await service.generateAccountFromKey(value)
 
       if (doesAccountExist(account)) return
 

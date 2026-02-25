@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
 
-import type { TTransactionsTransfer } from '@shared/types/hooks'
+import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 import type { TRootState } from '@shared/types/redux'
 import type { TNotification } from '@shared/types/store'
 
@@ -12,7 +12,7 @@ import { authReducerActions } from '../reducers/auth'
 import { utilityReducerActions } from '../reducers/utility'
 
 type TParams = {
-  transaction: TTransactionsTransfer
+  transaction: TUseTransactionsTransaction
   successNotification: Pick<TNotification, 'title' | 'previewBody'>
   failureNotification: Pick<TNotification, 'title' | 'previewBody'>
 }
@@ -34,7 +34,7 @@ export const waitTransaction = createAsyncThunk<void, TParams>(
 
       isSuccessfulTransaction = await waitForAccountTransaction({
         service,
-        txId: transaction.hash,
+        txId: transaction.txId,
         address,
         maxAttempts: 20,
       })
@@ -42,9 +42,9 @@ export const waitTransaction = createAsyncThunk<void, TParams>(
       console.error(error)
     }
 
-    ReactQueryHelper.invalidateTransactionQueries(account, network, transaction.toAccount)
+    ReactQueryHelper.invalidateTransactionQueries(account, network, transaction.account)
 
-    dispatch(utilityReducerActions.removePendingTransaction(transaction.hash))
+    dispatch(utilityReducerActions.removePendingTransaction(transaction.txId))
 
     if (isSuccessfulTransaction && successNotification) {
       dispatch(

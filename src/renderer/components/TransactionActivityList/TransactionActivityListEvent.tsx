@@ -6,7 +6,7 @@ import { match } from 'ts-pattern'
 import TbDiamond from '@renderer/assets/images/tb-diamond.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { TFullTransactionAssetEvent, TFullTransactionEvent, TFullTransactionNftEvent } from '@shared/types/hooks'
+import type { TUseTransactionsTransactionEvent } from '@shared/types/hooks'
 
 import { TransactionActivityListEventColumn } from './TransactionActivityListEventColumn'
 import { TransactionActivityListEventColumnDataAddress } from './TransactionActivityListEventColumnDataAddress'
@@ -14,14 +14,14 @@ import { TransactionActivityListTooltip } from './TransactionActivityListTooltip
 
 type TProps = {
   blockchain: TBlockchainServiceKey
-  event: TFullTransactionEvent
+  event: TUseTransactionsTransactionEvent
 }
 
 export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.event' })
   const { t: tCommon } = useTranslation('common')
 
-  const { eventType, amount, to, toUrl, toAccount, from, fromUrl, fromAccount } = event
+  const { amount, to, toUrl, toAccount, from, fromUrl, fromAccount } = event
 
   const toName = toAccount?.name
   const fromName = fromAccount?.name
@@ -65,9 +65,9 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
         }
       />
 
-      {match(eventType)
-        .with('nft', () => {
-          const { tokenHash, nftImageUrl, nftUrl, name, collectionName } = event as TFullTransactionNftEvent
+      {match(event)
+        .with({ eventType: 'nft' }, matchedEvent => {
+          const { tokenHash, nftImageUrl, nftUrl, name, collectionName } = matchedEvent
           const nftImageLabel = name ? t('nftImageAltWithNameLabel', { name }) : t('nftImageAltLabel')
 
           return (
@@ -94,8 +94,8 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
             </Fragment>
           )
         })
-        .otherwise(() => {
-          const { token } = event as TFullTransactionAssetEvent
+        .otherwise(matchedEvent => {
+          const { token } = matchedEvent
           const tokenSymbol = token?.symbol ?? ''
           const tokenName = token?.name ?? ''
           const hasTokenLabel = !!tokenSymbol || !!tokenName

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 
-import type { IBlockchainService, IBSWithFee, TBSToken, TIntentTransferParam } from '@cityofzion/blockchain-service'
+import type { TBSToken, TIntentTransferParam } from '@cityofzion/blockchain-service'
 import { BSBigNumberHelper, isCalculableFee } from '@cityofzion/blockchain-service'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -19,13 +19,13 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
-import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
+import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 
-import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -44,7 +44,6 @@ import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
 import { thunks } from '@renderer/store/thunks'
-import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
 import type { IAccountState } from '@shared/types/store'
 
@@ -53,12 +52,12 @@ export const SellTokensDepositModal = () => {
   const { account, depositActions } = useModalState<TModalState<'sell-tokens-deposit'>>()
   const { modalNavigate } = useModalNavigate()
   const { loginSessionRef } = useLoginSessionSelector()
-  const { accountsRef } = useAccountsSelector()
   const { currency } = useCurrencySelector()
   const { confirmAction } = useConfirmAction()
   const dispatch = useAppDispatch()
   const debounceAddress = useDebounceFunction()
   const debounceAmount = useDebounceFunction()
+  const { accountsMapRef } = useAccountsMapSelector()
 
   const { actionData, actionState, setData, setError, clearErrors, handleAct, reset } =
     useActions<TBuyAndSellTokensDepositActionsData>(
@@ -106,14 +105,15 @@ export const SellTokensDepositModal = () => {
 
     const account = actionData.account!
     const token = actionData.token!.token!
+    const address = actionData.address!
+    const amount = actionData.amount!
     const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current!.encryptedPassword)
-    const serviceAccount = AccountHelper.getServiceAccount({ account, key })
+    const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
 
     const intent: TIntentTransferParam = {
-      amount: actionData.amount,
-      receiverAddress: actionData.address,
-      tokenHash: token.hash,
-      tokenDecimals: token.decimals,
+      amount,
+      receiverAddress: address,
+      token,
     }
 
     return { serviceAccount, intent }
@@ -184,28 +184,32 @@ export const SellTokensDepositModal = () => {
     try {
       await confirmAction({ account, modalType: 'side' })
 
-      const address = actionData.address
-      const token = actionData.token!.token!
+      const { serviceAccount, intent } = transferParams
 
       const [transactionHash] = await service.transfer({
-        senderAccount: transferParams.serviceAccount,
-        intents: [transferParams.intent],
+        senderAccount: serviceAccount,
+        intents: [intent],
       })
 
-      const transaction: TTransactionsTransfer = {
-        account,
-        amount: actionData.amount,
-        asset: token.symbol,
-        assetHash: token.hash,
-        token,
-        to: address,
-        from: account.address,
-        hash: transactionHash,
-        time: DateHelper.getNowUnix(),
+      const toAccount = accountsMapRef.current.get(
+        AccountHelper.buildAccountKey({
+          address: intent.receiverAddress,
+          blockchain: account.blockchain,
+        })
+      )
+
+      const transaction = TransactionHelper.buildPendingTransaction({
         fromAccount: account,
-        toAccount: accountsRef.current.find(AccountHelper.predicate({ address, blockchain: account.blockchain })),
-        isPending: true,
-      }
+        txId: transactionHash,
+        events: [
+          {
+            amount: intent.amount,
+            toAccount: toAccount,
+            toAddress: intent.receiverAddress,
+            token: intent.token,
+          },
+        ],
+      })
 
       dispatch(
         thunks.waitTransaction({
@@ -270,7 +274,14 @@ export const SellTokensDepositModal = () => {
   useEffect(() => {
     const handleCalculateFee = async () => {
       try {
-        if (isBalanceLoading || actionData.isAmountLoading || !isServiceCalculableFee) return
+        if (
+          isBalanceLoading ||
+          actionData.isAmountLoading ||
+          !isServiceCalculableFee ||
+          !service ||
+          !isCalculableFee(service)
+        )
+          return
 
         setData({ isFeeLoading: true })
 
@@ -290,7 +301,7 @@ export const SellTokensDepositModal = () => {
 
         const { serviceAccount, intent } = transferParams
 
-        const fee = await (service as IBlockchainService & IBSWithFee).calculateTransferFee({
+        const fee = await service.calculateTransferFee({
           senderAccount: serviceAccount,
           intents: [intent],
         })
@@ -300,7 +311,7 @@ export const SellTokensDepositModal = () => {
         const amount = BSBigNumberHelper.fromNumber(intent.amount)
         let feeTotal = BSBigNumberHelper.fromNumber(fee)
 
-        if (service.tokenService.predicateByHash(service.feeToken, intent.tokenHash)) {
+        if (service.tokenService.predicateByHash(service.feeToken, intent.token)) {
           feeTotal = feeTotal.plus(intent.amount)
         }
 

@@ -18,19 +18,19 @@ import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbClock from '@renderer/assets/images/tb-clock.svg?react'
 import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
-import type { TFullTransactionsItem } from '@shared/types/hooks'
+import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 
 import { TransactionActivityListItemHeaderDetails } from './TransactionActivityListItemHeaderDetails'
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 type TProps = {
-  item: TFullTransactionsItem
+  transaction: TUseTransactionsTransaction
 }
 
-export const TransactionActivityListItemHeaderContent = ({ item: { txId, txIdUrl, date, isPending } }: TProps) => {
+export const TransactionActivityListItemHeaderContent = ({ transaction }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.item' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
-  const { swapRecord } = useSwapRecordByHashSelector(txId)
+  const { swapRecord } = useSwapRecordByHashSelector(transaction.txId)
   const { modalNavigate } = useModalNavigate()
   const { language } = useLanguageSelector()
 
@@ -56,12 +56,12 @@ export const TransactionActivityListItemHeaderContent = ({ item: { txId, txIdUrl
     <div className="flex h-full w-full items-center justify-between gap-x-2 rounded bg-gray-700/60 px-1">
       <div className="flex items-center gap-x-4 truncate whitespace-nowrap" onClick={handleCancelBubbleEvent}>
         <TransactionActivityListItemHeaderDetails
-          label={DateHelper.formatLocalized(date, { format: 'PP - p', language })}
-          data={DateHelper.formatLocalized(date, { format: 'p', language })}
+          label={DateHelper.formatLocalized(transaction.date, { format: 'PP - p', language })}
+          data={DateHelper.formatLocalized(transaction.date, { format: 'p', language })}
           icon={<TbClock aria-hidden />}
         />
 
-        {isPending && (
+        {transaction.isPending && (
           <TransactionActivityListItemHeaderDetails
             className="animate-pulse"
             data={
@@ -90,9 +90,9 @@ export const TransactionActivityListItemHeaderContent = ({ item: { txId, txIdUrl
         )}
 
         <div className="flex items-center gap-x-1 text-gray-300" onClick={handleCancelBubbleEvent}>
-          <TransactionActivityListTooltip data={txId}>
+          <TransactionActivityListTooltip data={transaction.txId}>
             <span>
-              {t('txIdLabel')} <span className="text-gray-100">{StringHelper.truncateStart(txId, 8)}</span>
+              {t('txIdLabel')} <span className="text-gray-100">{StringHelper.truncateStart(transaction.txId, 8)}</span>
             </span>
           </TransactionActivityListTooltip>
 
@@ -101,12 +101,12 @@ export const TransactionActivityListItemHeaderContent = ({ item: { txId, txIdUrl
               aria-label={t('copyTxIdLabel')}
               size="xs"
               icon={<MdContentCopy aria-hidden className="text-neon" />}
-              onClick={ClipboardHelper.write.bind(null, txId)}
+              onClick={ClipboardHelper.write.bind(null, transaction.txId)}
             />
           </TransactionActivityListTooltip>
         </div>
 
-        {!!txIdUrl && (
+        {!!transaction.txIdUrl && (
           <TbChevronRight aria-hidden className="text-neon -ml-1 h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4" />
         )}
       </div>

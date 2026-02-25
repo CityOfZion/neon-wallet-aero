@@ -29,7 +29,7 @@ export const NftList = ({ selectedAccount }: TProps) => {
 
       return service.explorerService.buildNftUrl({
         tokenHash: nft.hash,
-        collectionHash: nft.collection.hash,
+        collectionHash: nft.collection?.hash,
       })
     } catch (error) {
       console.error(error)

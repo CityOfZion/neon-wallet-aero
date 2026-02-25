@@ -42,7 +42,8 @@
     "neox": "Neo X",
     "polygon": "Polygon",
     "base": "Base",
-    "arbitrum": "Arbitrum"
+    "arbitrum": "Arbitrum",
+    "solana": "Solana"
   },
   "errors": {
     "noLoginSession": "Sie müssen sich anmelden, um auf diese Funktion zuzugreifen.",

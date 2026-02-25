@@ -16,7 +16,7 @@ import { Tooltip } from '../Tooltip'
 type TProps = {
   selectedAccount: IAccountState
   nft: TNftResponse
-  link: string
+  link?: string
 }
 
 export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
@@ -56,7 +56,11 @@ export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
             </div>
           )}
 
-          <p className="-mt-0.5 truncate text-xs text-gray-300 capitalize">{nft.creator.name ?? nft.creator.address}</p>
+          {(nft.creator?.name || nft.creator?.address) && (
+            <p className="-mt-0.5 truncate text-xs text-gray-300 capitalize">
+              {nft.creator.name || nft.creator.address}
+            </p>
+          )}
         </div>
       </div>
       <div className="flex items-center gap-5">

@@ -14,11 +14,11 @@ import { Separator } from '@renderer/components/Separator'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
-import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
+import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -40,7 +40,6 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import TbCheckbox from '@renderer/assets/images/tb-checkbox.svg?react'
 
 import { thunks } from '@renderer/store/thunks'
-import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
 
 import { VoteNeo3ConfirmationSkeleton } from './VoteNeo3ConfirmationSkeleton'
@@ -124,24 +123,18 @@ export const VoteNeo3ConfirmationModal = () => {
       await confirmAction({ account: neo3Account })
 
       const key = await EncryptionHelper.decrypt(neo3Account.encryptedKey, loginSessionRef.current?.encryptedPassword)
-      const account = AccountHelper.getServiceAccount({ account: neo3Account!, key })
+      const account = await AccountHelper.getServiceAccount({ account: neo3Account!, key })
 
-      const transactionHash = await blockchainService.voteService.vote({
+      const txId = await blockchainService.voteService.vote({
         account,
         candidatePubKey: candidate.pubKey,
       })
 
-      const transaction: TTransactionsTransfer = {
-        methodName: 'vote',
-        account: neo3Account,
-        amount: '0',
-        asset: BSNeo3Constants.NEO_TOKEN.symbol,
-        assetHash: BSNeo3Constants.NEO_TOKEN.hash,
-        token: BSNeo3Constants.NEO_TOKEN,
-        hash: transactionHash,
-        time: DateHelper.getNowUnix(),
-        isPending: true,
-      }
+      const transaction = TransactionHelper.buildPendingTransaction({
+        txId,
+        fromAccount: neo3Account,
+        events: [{ amount: '0', token: blockchainService.burnToken, method: 'vote' }],
+      })
 
       dispatch(
         thunks.waitTransaction({

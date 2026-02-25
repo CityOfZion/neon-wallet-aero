@@ -4,15 +4,14 @@ import { useTranslation } from 'react-i18next'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
+import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 
 import { thunks } from '@renderer/store/thunks'
 import type { TNetwork } from '@shared/types/blockchain'
-import type { TTransactionsTransfer } from '@shared/types/hooks'
 import type { TUseUnclaimedResult } from '@shared/types/query'
 import type { IAccountState } from '@shared/types/store'
 
@@ -66,7 +65,7 @@ const getUnclaimedInfos = async (
       throw new AppError(t('hooks:useUnclaimedQuery.errors.noKey', { address: account.address }))
     }
 
-    const serviceAccount = AccountHelper.getServiceAccount({ account, key })
+    const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
 
     fee = await blockchainService.calculateTransferFee({
       senderAccount: serviceAccount,
@@ -74,8 +73,7 @@ const getUnclaimedInfos = async (
         {
           amount: '0',
           receiverAddress: account.address,
-          tokenHash: blockchainService.burnToken.hash,
-          tokenDecimals: blockchainService.burnToken.decimals,
+          token: blockchainService.burnToken,
         },
       ],
     })
@@ -128,25 +126,23 @@ export const useUnclaimedMutation = () => {
 
       const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
 
-      const serviceAccount = AccountHelper.getServiceAccount({ account, key })
-      const transactionHash = await blockchainService.claim(serviceAccount)
+      const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
+      const txId = await blockchainService.claim(serviceAccount)
       const token = blockchainService.burnToken
 
-      const transaction: TTransactionsTransfer = {
-        hash: transactionHash,
-        time: DateHelper.getNowUnix(),
-        account: account,
-        toAccount: account,
-        isPending: true,
-        isClaim: true,
-        amount: '0',
-        to: account.address,
-        from: account.address,
-        asset: token.symbol,
-        assetHash: token.hash,
-        token,
+      const transaction = TransactionHelper.buildPendingTransaction({
         fromAccount: account,
-      }
+        txId,
+        events: [
+          {
+            toAccount: account,
+            token,
+            amount: '0',
+            toAddress: account.address,
+          },
+        ],
+        type: 'claim',
+      })
 
       dispatch(
         thunks.waitTransaction({

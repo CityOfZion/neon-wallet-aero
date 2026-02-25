@@ -1,10 +1,8 @@
 import { QueryClient } from '@tanstack/react-query'
 
 import { buildQueryKeyBalance } from '@renderer/hooks/useBalances'
-import {
-  buildGetFullTransactionsAggregatedQueryKey,
-  buildGetFullTransactionsQueryKey,
-} from '@renderer/hooks/useGetFullTransactions'
+import { buildTransactionsAggregatedQueryKey, buildTransactionsQueryKey } from '@renderer/hooks/useTransactions'
+import { buildVoteNeo3GetVoteDetailsByAddressQueryKey } from '@renderer/hooks/useVoteNeo3'
 
 import type { TNetwork } from '@shared/types/blockchain'
 import type { IAccountState } from '@shared/types/store'
@@ -22,26 +20,36 @@ export class ReactQueryHelper {
     },
   })
 
-  static invalidateTransactionQueries(account: IAccountState, network: TNetwork, toAccount?: IAccountState) {
+  static invalidateTransactionQueries = (account: IAccountState, network: TNetwork, toAccount?: IAccountState) => {
     this.client.removeQueries({
-      queryKey: buildGetFullTransactionsQueryKey({ account, network }),
+      queryKey: buildTransactionsQueryKey({ account, network }),
+      type: 'all',
     })
 
     this.client.removeQueries({
-      queryKey: buildGetFullTransactionsAggregatedQueryKey(),
+      queryKey: buildTransactionsAggregatedQueryKey(),
+      type: 'all',
     })
 
     this.client.removeQueries({
       queryKey: buildQueryKeyBalance(account.address, account.blockchain, network),
+      type: 'all',
+    })
+
+    this.client.removeQueries({
+      queryKey: buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network: network, address: account.address }),
+      type: 'all',
     })
 
     if (toAccount) {
       this.client.removeQueries({
         queryKey: buildQueryKeyBalance(toAccount.address, toAccount.blockchain, network),
+        type: 'all',
       })
 
       this.client.removeQueries({
-        queryKey: buildGetFullTransactionsQueryKey({ account: toAccount, network }),
+        queryKey: buildTransactionsQueryKey({ account: toAccount, network }),
+        type: 'all',
       })
     }
   }
