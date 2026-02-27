@@ -1,7 +1,9 @@
+import type { TBSToken } from '@cityofzion/blockchain-service'
 import type { JSX, ReactNode } from 'react'
 import type { ToastT } from 'sonner'
 
 import type { TBlockchainServiceKey } from './blockchain'
+import type { TUseTransactionsTransaction } from './hooks'
 import type { IAccountState, TCurrency, TLanguage, TLastIndexesByWallet } from './store'
 
 export type TAccountHelperPredicateParams = {
@@ -105,4 +107,11 @@ export type TToastHelperToastProps = {
 export type TToastHelperToastOptions = Omit<ToastT, 'id'> & {
   message: ReactNode
   id?: string | number
+}
+
+export type TTransactionHelperBuildPendingTransactionParams = {
+  txId: string
+  fromAccount: IAccountState
+  type?: Exclude<TUseTransactionsTransaction['type'], 'bridgeNeo3NeoX'>
+  events?: { toAccount?: IAccountState; toAddress?: string; token: TBSToken; amount: string; method?: string }[]
 }

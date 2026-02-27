@@ -243,7 +243,7 @@ export const Neo3NeoXBridgePage = () => {
 
     const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
 
-    const serviceAccount = AccountHelper.getServiceAccount({ account, key })
+    const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
 
     await bridgeOrchestratorRef.current.setAccountToUse(serviceAccount)
 

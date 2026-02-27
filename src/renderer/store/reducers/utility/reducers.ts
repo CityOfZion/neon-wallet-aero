@@ -5,7 +5,7 @@ import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelp
 import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { TTransactionsTransfer } from '@shared/types/hooks'
+import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 import type { TSwapRecord } from '@shared/types/store'
 
 import type { IUtilityReducer } from './index'
@@ -16,13 +16,16 @@ type THiddenTokenParams = {
 }
 
 // Pending Transaction Reducers
-const addPendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<TTransactionsTransfer>> = (state, action) => {
+const addPendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<TUseTransactionsTransaction>> = (
+  state,
+  action
+) => {
   state.inMemoryData.pendingTransactions = [...state.inMemoryData.pendingTransactions, action.payload]
 }
 
 const removePendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<string>> = (state, action) => {
   state.inMemoryData.pendingTransactions = state.inMemoryData.pendingTransactions.filter(
-    transaction => transaction.hash !== action.payload
+    transaction => transaction.txId !== action.payload
   )
 }
 

@@ -1,3 +1,4 @@
+import { hasFullTransactions } from '@cityofzion/blockchain-service'
 import { isSameDay } from 'date-fns/isSameDay'
 import { useTranslation } from 'react-i18next'
 
@@ -45,7 +46,11 @@ export const ExportTransactionsModal = () => {
 
   const { dateFrom, dateTo, selectedAccount } = actionData
 
-  const isDisabled = !selectedAccount || !!modalState.readOnly
+  const account = actionData.selectedAccount
+  const service = account
+    ? BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
+    : undefined
+  const isDisabled = !account || !!modalState.readOnly || !service || !hasFullTransactions(service)
 
   const handleSelectDateFrom = (dateFrom: Date) => {
     setData(ExportTransactionsHelper.calculateDateFromSelectionMaxOneYear({ dateFrom, dateTo }))
@@ -83,10 +88,8 @@ export const ExportTransactionsModal = () => {
     try {
       if (isDisabled) return
 
-      const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
-
-      const csvData = await service.blockchainDataService.exportFullTransactionsByAddress({
-        address: selectedAccount.address,
+      const csvData = await service.fullTransactionsDataService.exportFullTransactionsByAddress({
+        address: account.address,
         dateFrom: actionData.dateFrom.toJSON(),
         dateTo: (isSameDay(today, actionData.dateTo) ? today : actionData.dateTo).toJSON(),
       })

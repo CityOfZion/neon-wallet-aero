@@ -11,9 +11,9 @@ import { ExportTransactionsHelper } from '@renderer/helpers/ExportTransactionsHe
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
-import { useGetFullTransactions } from '@renderer/hooks/useGetFullTransactions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
+import { useTransactions } from '@renderer/hooks/useTransactions'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
 
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
@@ -59,7 +59,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
     dateTo: dateNow,
   })
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetFullTransactions(actionData)
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useTransactions(actionData)
 
   const { dateFrom, dateTo } = actionData
 
@@ -72,8 +72,8 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
     count: data.length,
     gap: heights.DATE_GAP,
     estimateSize: index => {
-      const { items } = data[index] // Get the transactions (items) for the current date group
-      const itemsLength = items.length // Number of transactions (items) in this group
+      const { transactions } = data[index] // Get the transactions (items) for the current date group
+      const itemsLength = transactions.length // Number of transactions (items) in this group
 
       // Base height includes date label, separator, and separator margin
       let height = heights.DATE + heights.SEPARATOR + heights.SEPARATOR_MARGIN
@@ -88,7 +88,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
       height += (itemsLength - 1) * heights.TRANSACTION_GAP
 
       // Calculate total number of events across all items in the group
-      const eventsLength = items.flatMap(({ events }) => events).length
+      const eventsLength = transactions.flatMap(({ events }) => events).length
 
       // Add height for each event
       height += eventsLength * heights.EVENT
@@ -155,7 +155,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
             ref={contentRef}
           >
             {virtualizer.getVirtualItems().map(virtualItem => {
-              const { date, items } = data[virtualItem.index]
+              const { date, transactions } = data[virtualItem.index]
 
               return (
                 <li
@@ -172,10 +172,10 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
 
                   <Separator className="h-px max-h-px min-h-px" containerClassName="mb-2" />
 
-                  {items.length > 0 && (
+                  {transactions.length > 0 && (
                     <ul className="flex flex-col gap-y-4">
-                      {items.map((item, index) => (
-                        <TransactionActivityListItem key={`${item.txId}-${index}`} item={item} />
+                      {transactions.map((transaction, index) => (
+                        <TransactionActivityListItem key={`${transaction.txId}-${index}`} transaction={transaction} />
                       ))}
                     </ul>
                   )}

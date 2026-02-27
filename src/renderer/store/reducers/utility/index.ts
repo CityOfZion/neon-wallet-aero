@@ -4,14 +4,14 @@ import type { PersistConfig } from 'redux-persist'
 import persistReducer from 'redux-persist/es/persistReducer'
 import { localStorage } from 'redux-persist-webextension-storage'
 
-import type { TTransactionsTransfer } from '@shared/types/hooks'
+import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 import type { THiddenTokenByBlockchain, TLastIndexesByWallet, TSwapRecord } from '@shared/types/store'
 
 import { utilitySliceReducers } from './reducers'
 
 export interface IUtilityReducer {
   inMemoryData: {
-    pendingTransactions: TTransactionsTransfer[]
+    pendingTransactions: TUseTransactionsTransaction[]
   }
   data: {
     encryptedLoginControl?: string

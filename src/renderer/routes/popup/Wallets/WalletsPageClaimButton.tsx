@@ -9,11 +9,12 @@ import { Skeleton } from '@renderer/components/Skeleton'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useUnclaimed, useUnclaimedMutation } from '@renderer/hooks/useUnclaimedQuery'
 
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { IAccountState } from '@shared/types/store'
 
 type TProps = {
   selectAccount: IAccountState
-  blockchainService: IBlockchainService & IBSWithClaim
+  blockchainService: IBlockchainService<TBlockchainServiceKey> & IBSWithClaim<TBlockchainServiceKey>
 }
 
 export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TProps) => {

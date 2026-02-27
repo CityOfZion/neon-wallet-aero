@@ -27,4 +27,12 @@ export class DateHelper {
       locale: this.dateFnsLocaleByLanguage[options.language.value],
     })
   }
+
+  static format(date: Date | string, formatStr: string): string {
+    if (typeof date === 'string') {
+      date = new Date(date)
+    }
+
+    return format(date, formatStr)
+  }
 }

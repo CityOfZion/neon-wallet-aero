@@ -42,7 +42,8 @@
     "neox": "Neo X",
     "polygon": "Polygon",
     "base": "Base",
-    "arbitrum": "Arbitrum"
+    "arbitrum": "Arbitrum",
+    "solana": "Solana"
   },
   "errors": {
     "noLoginSession": "您需要登入才能使用此功能。",

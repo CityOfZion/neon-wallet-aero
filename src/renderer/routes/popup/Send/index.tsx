@@ -18,11 +18,11 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
-import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
+import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
@@ -43,7 +43,7 @@ import TbSend from '@renderer/assets/images/tb-send.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
 import { thunks } from '@renderer/store/thunks'
-import type { TTransactionsTransfer } from '@shared/types/hooks'
+import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 import type { IAccountState } from '@shared/types/store'
 
 import type { TSendRecipient } from './SendRecipient'
@@ -131,32 +131,30 @@ const SendPage = () => {
     const intents: TIntentTransferParam[] = actionData.recipients.map(recipient => ({
       amount: recipient.amount!,
       receiverAddress: recipient.address!,
-      tokenHash: recipient.token!.token.hash,
-      tokenDecimals: recipient.token!.token.decimals,
+      token: recipient.token!.token,
     }))
+
+    const { isTipChecked, isTipDisabled, tipAmountBn, tipFiatPriceBn } = actionData
+    if (isTipChecked && !isTipDisabled && tipAmountBn && tipFiatPriceBn && tipConfig) {
+      intents.push({
+        amount: tipAmountBn.toFixed(),
+        receiverAddress: tipConfig.address,
+        token: tipConfig.token,
+      })
+    }
 
     const key = await EncryptionHelper.decrypt(
       actionData.selectedAccount.encryptedKey,
       loginSessionRef.current?.encryptedPassword
     )
 
-    const serviceAccount = AccountHelper.getServiceAccount({ account: actionData.selectedAccount, key })
-    const { isTipChecked, isTipDisabled, tipAmountBn, tipFiatPriceBn } = actionData
+    const serviceAccount = await AccountHelper.getServiceAccount({ account: actionData.selectedAccount, key })
 
     return {
       service,
       serviceAccount,
       selectedAccount: actionData.selectedAccount,
       intents,
-      tipIntent:
-        isTipChecked && !isTipDisabled && tipAmountBn && tipFiatPriceBn && tipConfig
-          ? {
-              amount: tipAmountBn.toFixed(),
-              receiverAddress: tipConfig.address,
-              tokenHash: tipConfig.token.hash,
-              tokenDecimals: tipConfig.token.decimals,
-            }
-          : undefined,
     }
   }
 
@@ -268,18 +266,18 @@ const SendPage = () => {
       const intents = actionData.recipients
         .map(currentRecipient => {
           const receiverAddress = currentRecipient.address
-          const tokenHash = currentRecipient.token?.token?.hash
+          const token = currentRecipient.token?.token
           const amount = currentRecipient.id === recipient.id ? currentRecipient.token?.amount : currentRecipient.amount
 
-          if (!receiverAddress || !tokenHash || !amount) return null
+          if (!receiverAddress || !token || !amount) return null
 
-          return { receiverAddress, tokenHash, amount, tokenDecimals: currentRecipient.token!.token.decimals }
+          return { receiverAddress, tokenHash: token.hash, amount, token }
         })
         .filter(recipient => recipient !== null) as TIntentTransferParam[]
 
       const key = await EncryptionHelper.decrypt(encryptedKey, encryptedPassword)
 
-      const senderAccount = AccountHelper.getServiceAccount({ account: selectedAccount, key })
+      const senderAccount = await AccountHelper.getServiceAccount({ account: selectedAccount, key })
 
       const fee = await service.calculateTransferFee({ senderAccount, intents })
 
@@ -322,33 +320,57 @@ const SendPage = () => {
       const transactionHashes = await fields.service.transfer({
         senderAccount: fields.serviceAccount,
         intents: fields.intents,
-        tipIntent: fields.tipIntent,
       })
 
-      transactionHashes.forEach((hash, index) => {
-        if (!hash) return
+      const transactions: TUseTransactionsTransaction[] = []
 
-        const recipient = actionData.recipients[index]
-        const address = recipient.address!
-        const token = recipient.token!.token
+      if (fields.service.isMultiTransferSupported) {
+        transactions.push(
+          TransactionHelper.buildPendingTransaction({
+            fromAccount: fields.selectedAccount,
+            txId: transactionHashes[0],
+            events: fields.intents.map(intent => ({
+              amount: intent.amount,
+              toAddress: intent.receiverAddress,
+              token: intent.token,
+              toAccount: accountsMapRef.current.get(
+                AccountHelper.buildAccountKey({
+                  address: intent.receiverAddress,
+                  blockchain: fields.service.name,
+                })
+              ),
+            })),
+          })
+        )
+      } else {
+        transactionHashes.forEach((txId, index) => {
+          if (!txId) return
 
-        const transaction: TTransactionsTransfer = {
-          account: fields.selectedAccount,
-          amount: recipient.amount!,
-          asset: token.symbol,
-          assetHash: token.hash,
-          token,
-          to: address,
-          from: fields.selectedAccount.address,
-          hash,
-          time: DateHelper.getNowUnix(),
-          fromAccount: fields.selectedAccount,
-          toAccount: accountsMapRef.current.get(
-            AccountHelper.buildAccountKey({ address, blockchain: fields.service.name })
-          ),
-          isPending: true,
-        }
+          const intent = fields.intents[index]
 
+          transactions.push(
+            TransactionHelper.buildPendingTransaction({
+              fromAccount: fields.selectedAccount,
+              txId,
+              events: [
+                {
+                  amount: intent.amount,
+                  toAddress: intent.receiverAddress,
+                  token: intent.token,
+                  toAccount: accountsMapRef.current.get(
+                    AccountHelper.buildAccountKey({
+                      address: intent.receiverAddress,
+                      blockchain: fields.service.name,
+                    })
+                  ),
+                },
+              ],
+            })
+          )
+        })
+      }
+
+      transactions.forEach(transaction => {
         dispatch(
           thunks.waitTransaction({
             transaction,
@@ -398,7 +420,6 @@ const SendPage = () => {
         const fee = await fields.service.calculateTransferFee({
           senderAccount: fields.serviceAccount,
           intents: fields.intents,
-          tipIntent: fields.tipIntent,
         })
 
         setData({ fee })
@@ -406,7 +427,7 @@ const SendPage = () => {
         let totalFeeAmount = BSBigNumberHelper.fromNumber(fee)
 
         fields.intents.forEach(intent => {
-          if (!service?.tokenService.predicateByHash(intent.tokenHash, fields.service.feeToken)) return
+          if (!service?.tokenService.predicateByHash(intent.token, fields.service.feeToken)) return
 
           totalFeeAmount = totalFeeAmount.plus(intent.amount)
         })

@@ -32,7 +32,7 @@ export const DappPermissionGenericContentFee = ({
       if (!loginSession) throw new AppError(commonT('errors.noLoginSession'))
 
       const key = await EncryptionHelper.decrypt(sessionAccount.encryptedKey, loginSession.encryptedPassword)
-      const serviceAccount = AccountHelper.getServiceAccount({ account: sessionAccount, key })
+      const serviceAccount = await AccountHelper.getServiceAccount({ account: sessionAccount, key })
 
       return await sessionDetails.service.walletConnectService.calculateRequestFee({
         account: serviceAccount,

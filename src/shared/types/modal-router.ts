@@ -9,10 +9,10 @@ import type { TBuyAndSellTokensDepositActions } from '@renderer/routes/tab/BuyAn
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type {
-  TTransactionsTransfer,
   TUseNeonMigrateAccountsSchema,
   TUseNeonMigrateGeneratedData,
   TUseNeonMigrateParsedContent,
+  TUseTransactionsTransaction,
 } from '@shared/types/hooks'
 
 import type {
@@ -230,7 +230,7 @@ type TSellTokensDepositModalState = {
 }
 
 type TSellTokensDepositSuccessModalState = {
-  transaction: TTransactionsTransfer
+  transaction: TUseTransactionsTransaction
 }
 
 type TSellTokensDepositErrorModalState = {

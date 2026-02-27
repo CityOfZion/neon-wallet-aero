@@ -2,7 +2,15 @@ import type { TBSNetwork } from '@cityofzion/blockchain-service'
 
 import type { IAccountState, IWalletState, TAccountType, TWalletBackupStatus, TWalletType } from './store'
 
-export type TBlockchainServiceKey = 'neo3' | 'neoLegacy' | 'ethereum' | 'neox' | 'polygon' | 'base' | 'arbitrum'
+export type TBlockchainServiceKey =
+  | 'neo3'
+  | 'neoLegacy'
+  | 'ethereum'
+  | 'neox'
+  | 'polygon'
+  | 'base'
+  | 'arbitrum'
+  | 'solana'
 
 export type TAccountToImport = {
   address: string

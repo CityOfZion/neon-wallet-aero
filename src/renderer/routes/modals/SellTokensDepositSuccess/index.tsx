@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime'
 import { useTranslation } from 'react-i18next'
 
 import { Details } from '@renderer/components/Details'
@@ -17,8 +18,8 @@ export const SellTokensDepositSuccessModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'sellTokensDepositSuccess' })
   const { transaction } = useModalState<TModalState<'sell-tokens-deposit-success'>>()
 
-  const { hash, to, toAccount } = transaction
-  const name = toAccount?.name
+  const event = transaction.events[0]
+  const name = event.toAccount?.name
 
   return (
     <SideModalLayout heading={t('title')} icon={<TbStepInto aria-hidden />}>
@@ -34,19 +35,24 @@ export const SellTokensDepositSuccessModal = () => {
         <Details.Root>
           <Details.Header leftElement={<TbReceipt aria-hidden />}>{t('details')}</Details.Header>
           <Details.HeaderSeparator />
+
           <Details.Body>
             <Details.Panel label={t('transactionLabel')}>
-              <Details.Item label={t('recipientLabel')} copyable={to}>
-                {name ? `${name} (${to})` : to}
+              <Details.Item label={t('recipientLabel')} copyable={event.to}>
+                {name ? `${name} (${event.to})` : event.to}
               </Details.Item>
 
-              <Details.Item label={t('amountLabel')}>
-                {transaction.amount} <span className="font-normal text-gray-100">{transaction.asset}</span>
-              </Details.Item>
+              {event.eventType === 'token' && (
+                <Fragment>
+                  <Details.Item label={t('amountLabel')}>
+                    {event.amount} <span className="font-normal text-gray-100">{event.token?.symbol}</span>
+                  </Details.Item>
 
-              <Details.Item label={t('transactionHashLabel')} copyable={hash}>
-                {hash}
-              </Details.Item>
+                  <Details.Item label={t('transactionHashLabel')} copyable={transaction.txId}>
+                    {transaction.txId}
+                  </Details.Item>
+                </Fragment>
+              )}
             </Details.Panel>
           </Details.Body>
         </Details.Root>

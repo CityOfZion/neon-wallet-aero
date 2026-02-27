@@ -8,7 +8,7 @@ import { NftListItemContent } from './NftListItemContent'
 type TProps = {
   nft: TNftResponse
   selectedAccount: IAccountState
-  link: string
+  link?: string
   virtualItem: VirtualItem
 }
 

@@ -61,7 +61,7 @@ export const OnboardingImportWalletStep3Page = () => {
     await UtilsHelper.promiseAll(
       Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName),
       async service => {
-        const account = service.generateAccountFromKey(key)
+        const account = await service.generateAccountFromKey(key)
         accounts.push({ address: account.address, blockchain: service.name, key, type: 'standard' })
       }
     )

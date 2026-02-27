@@ -1,20 +1,20 @@
 import { Separator } from '@renderer/components/Separator'
 
-import type { TFullTransactionsItem } from '@shared/types/hooks'
+import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 
 import { TransactionActivityListEvent } from './TransactionActivityListEvent'
 import { TransactionActivityListItemHeader } from './TransactionActivityListItemHeader'
 
 type TProps = {
-  item: TFullTransactionsItem
+  transaction: TUseTransactionsTransaction
 }
 
-export const TransactionActivityListItem = ({ item }: TProps) => {
-  const { blockchain, events } = item
+export const TransactionActivityListItem = ({ transaction }: TProps) => {
+  const { blockchain, events } = transaction
 
   return (
     <li className="flex w-full flex-col bg-gray-900">
-      <TransactionActivityListItemHeader item={item} />
+      <TransactionActivityListItemHeader transaction={transaction} />
 
       {events.length > 0 && (
         <ul className="flex w-full flex-col">
