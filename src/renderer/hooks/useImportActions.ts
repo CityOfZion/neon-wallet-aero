@@ -46,7 +46,7 @@ export const useImportActions = (
     })
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = event.target.value.trim()
+    const value = event.target.value
     setData({ text: value, inputType: undefined })
 
     try {
