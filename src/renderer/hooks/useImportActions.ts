@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
-import { StringHelper } from '@renderer/helpers/StringHelper'
 
 import type { TUseImportActionInputType } from '@shared/types/hooks'
 
@@ -47,7 +46,7 @@ export const useImportActions = (
     })
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = StringHelper.removeSpecialCharacters(event.target.value)
+    const value = event.target.value.trim()
     setData({ text: value, inputType: undefined })
 
     try {
@@ -95,12 +94,12 @@ export const useImportActions = (
         throw new AppError(t('errors.invalid'))
       }
 
-      const fixedText = StringHelper.removeSpecialCharacters(data.text, { trimText: true })
+      const trimmedText = data.text.trim()
       const submit = submitByInputType[data.inputType]
 
       if (!submit) throw new AppError(t('errors.invalid'))
 
-      await submit(fixedText, data.inputType)
+      await submit(trimmedText, data.inputType)
     } catch (error) {
       setError('text', AppError.wrap(error).message)
     }
