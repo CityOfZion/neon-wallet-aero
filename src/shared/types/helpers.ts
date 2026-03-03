@@ -115,3 +115,8 @@ export type TTransactionHelperBuildPendingTransactionParams = {
   type?: Exclude<TUseTransactionsTransaction['type'], 'bridgeNeo3NeoX'>
   events?: { toAccount?: IAccountState; toAddress?: string; token: TBSToken; amount: string; method?: string }[]
 }
+
+export type TLoggerHelperOptions = {
+  where: string
+  operation?: string
+}

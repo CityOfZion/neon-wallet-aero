@@ -5,6 +5,8 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Textarea } from '@renderer/components/Textarea'
 
+import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
+
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useImportActions } from '@renderer/hooks/useImportActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
@@ -36,6 +38,8 @@ export const ImportPage = () => {
 
           await importAccounts({ accounts: accountsToImport, wallet })
 
+          AnalyticsHelper.logEvent('wallet_imported')
+
           navigate('/wallets', {
             state: { wallet },
             replace: true,
@@ -61,6 +65,8 @@ export const ImportPage = () => {
           const wallet = await createWallet({ name: tCommonWallet('importedWalletName') })
 
           await importAccounts({ accounts: accountsToImport, wallet })
+
+          AnalyticsHelper.logEvent('wallet_imported')
 
           navigate('/wallets', {
             state: { wallet },
@@ -110,6 +116,8 @@ export const ImportPage = () => {
           })
 
           await importAccounts({ accounts: accountsToImport, wallet })
+
+          AnalyticsHelper.logEvent('wallet_imported')
 
           navigate('/wallets', {
             state: { wallet },

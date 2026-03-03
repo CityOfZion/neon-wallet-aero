@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 
+import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
@@ -33,6 +34,8 @@ export const OnboardingLoginNewWalletStep3Page = () => {
     await saveMnemonicToTextFile(decryptedMnemonic)
 
     dispatch(authReducerActions.saveWallet({ ...wallets[0], backupStatus: 'successful' }))
+
+    AnalyticsHelper.logEvent('onboarding_completed')
 
     navigate('/wallets')
   }

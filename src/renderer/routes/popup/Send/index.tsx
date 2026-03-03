@@ -16,6 +16,7 @@ import { IconButton } from '@renderer/components/IconButton'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
+import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
@@ -387,6 +388,8 @@ const SendPage = () => {
       })
 
       ToastHelper.success({ message: t('sendSuccess.toast') })
+
+      AnalyticsHelper.logEvent('transaction_executed')
 
       // TODO: Change the behavior after it's decided when the survey should be shown
       modalNavigate('survey')

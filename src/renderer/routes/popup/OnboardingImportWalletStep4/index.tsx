@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Progress } from '@renderer/components/Progress'
 
+import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
@@ -74,6 +75,8 @@ export const OnboardingImportWalletStep4Page = () => {
       setProgress(progress => progress + progressByStep)
 
       await UtilsHelper.sleep(250)
+
+      AnalyticsHelper.logEvent('onboarding_completed')
 
       navigate('/onboarding-import-wallet/5', {
         state: { password: state.password },

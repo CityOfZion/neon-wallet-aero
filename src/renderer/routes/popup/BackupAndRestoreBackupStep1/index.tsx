@@ -6,6 +6,7 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
+import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
@@ -41,6 +42,8 @@ export const BackupAndRestoreBackupStep1Page = () => {
 
     try {
       await handleCreateBackup(actionData.password)
+
+      await AnalyticsHelper.logEvent('backup_done')
 
       navigate('/settings/backup-and-restore/backup/2', {
         state: { password: actionData.password },
