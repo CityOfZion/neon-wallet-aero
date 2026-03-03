@@ -46,6 +46,7 @@
     "solana": "Solana"
   },
   "errors": {
+    "analyticsEventLoggingFailed": "记录分析事件失败。",
     "noLoginSession": "您需要登录才能访问此功能。",
     "noMnemonic": "无mnemonic可用",
     "noKey": "无密钥可用",

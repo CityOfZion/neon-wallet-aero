@@ -46,6 +46,7 @@
     "solana": "Solana"
   },
   "errors": {
+    "analyticsEventLoggingFailed": "Fehler beim Protokollieren des Analyseereignisses.",
     "noLoginSession": "Sie müssen sich anmelden, um auf diese Funktion zuzugreifen.",
     "noMnemonic": "Keine assoziative Verweisung verfügbar",
     "noKey": "Kein Schlüssel verfügbar",

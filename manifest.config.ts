@@ -36,4 +36,5 @@ export default defineManifest({
     'activeTab',
     'notifications',
   ],
+  host_permissions: ['https://www.google-analytics.com/*'],
 })

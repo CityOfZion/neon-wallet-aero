@@ -46,6 +46,7 @@
     "solana": "Solana"
   },
   "errors": {
+    "analyticsEventLoggingFailed": "Failed to log analytics event.",
     "noLoginSession": "You need to log in to access this feature.",
     "noMnemonic": "No mnemonic available",
     "noKey": "No key available",
