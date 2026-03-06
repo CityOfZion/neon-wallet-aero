@@ -31,8 +31,8 @@ export const NftList = ({ selectedAccount }: TProps) => {
         tokenHash: nft.hash,
         collectionHash: nft.collection?.hash,
       })
-    } catch (error) {
-      console.error(error)
+    } catch {
+      /* empty */
     }
 
     return ''

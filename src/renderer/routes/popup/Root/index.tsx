@@ -10,8 +10,10 @@ import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelp
 import { EnvHelper } from '@renderer/helpers/EnvHelper'
 import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
 import { LazyHelper } from '@renderer/helpers/LazyHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
 import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
+import { SentryHelper } from '@renderer/helpers/SentryHelper'
 
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
@@ -33,7 +35,8 @@ export const RootPage = () => {
 
   useMountUnsafe(async () => {
     try {
-      await Promise.allSettled([EnvHelper.setup(), I18nextHelper.setup(), BlockchainServiceHelper.setup()])
+      await EnvHelper.setup()
+      await Promise.all([SentryHelper.setup(), I18nextHelper.setup(), BlockchainServiceHelper.setup()])
       ReduxHelper.setup()
       await ReduxHelper.waitForBootstrap()
 
@@ -51,7 +54,7 @@ export const RootPage = () => {
 
       setReady(true)
     } catch (error) {
-      console.error(error)
+      LoggerHelper.sentry(error, { where: 'RootPage', operation: 'setup' })
     }
   })
 

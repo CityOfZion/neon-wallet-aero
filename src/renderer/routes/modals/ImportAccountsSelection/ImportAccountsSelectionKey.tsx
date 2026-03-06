@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
@@ -56,8 +57,7 @@ export const ImportAccountsSelectionKey = ({ value, onSubmit }: TProps) => {
 
       modalErase('bottom')
     } catch (error) {
-      console.error(error)
-
+      LoggerHelper.error(error, { where: 'ImportAccountsSelectionKey', operation: 'handleSubmit' })
       ToastHelper.error({ message: AppError.wrap(error, t('errors.walletAndAccounts')).message })
     }
   }

@@ -8,6 +8,7 @@ import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { WalletConnectError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
@@ -79,7 +80,7 @@ export const DappPermissionModal = () => {
         },
       })
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'DappPermissionModal', operation: 'startAccept' })
       const walletConnectError = WalletConnectError.wrap(error)
 
       if (walletConnectError.fromAppError) {

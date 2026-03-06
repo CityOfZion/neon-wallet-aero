@@ -9,6 +9,7 @@ import { Loader } from '@renderer/components/Loader'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 
@@ -45,8 +46,8 @@ export const DappPermissionGenericContentFee = ({
 
   useEffect(() => {
     if (!feeQuery.error) return
-    console.error(feeQuery.error)
     onReject(undefined, t('errors.fee'))
+    LoggerHelper.error(feeQuery.error, { where: 'DappPermissionGenericContentFee', operation: 'calculateRequestFee' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [feeQuery.error])
 

@@ -21,6 +21,7 @@ import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelp
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
@@ -230,7 +231,7 @@ export const SellTokensDepositModal = () => {
         state: { transaction },
       })
     } catch (error: any) {
-      console.error(error)
+      LoggerHelper.sentry(error, { where: 'SellTokensDeposit', operation: 'submitDeposit' })
 
       const appError = AppError.wrap(error, null)
 
@@ -262,7 +263,7 @@ export const SellTokensDepositModal = () => {
 
         setError('address', t('messages.invalidAddress'))
       } catch (error) {
-        console.error(error)
+        LoggerHelper.error(error, { where: 'SellTokensDeposit', operation: 'validateAddress' })
       } finally {
         setData({ isAddressLoading: false })
       }
@@ -328,7 +329,7 @@ export const SellTokensDepositModal = () => {
           clearErrors(['fee', 'amount'])
         }
       } catch (error) {
-        console.error(error)
+        LoggerHelper.error(error, { where: 'SellTokensDeposit', operation: 'calculateFee' })
 
         const errorMessage = t('messages.feeError')
 

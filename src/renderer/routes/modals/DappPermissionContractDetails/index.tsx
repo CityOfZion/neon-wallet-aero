@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 import { DappHeader } from '@renderer/components/DappHeader'
 import { Details } from '@renderer/components/Details'
-import { IconButton } from '@renderer/components/IconButton'
+import { IconLink } from '@renderer/components/IconLink'
 import { ScreenLoader } from '@renderer/components/ScreenLoader'
 import { Tooltip } from '@renderer/components/Tooltip'
 
@@ -111,13 +111,9 @@ export const DappPermissionContractDetailsModal = () => {
     return params
   }, [contractQuery.data, contractQuery.isLoading, operation, values])
 
-  const handleOpenContractHashUrl = () => {
-    if (!hasExplorerService(service)) return
-    try {
-      window.open(service.explorerService.buildContractUrl(hash), '_blank')
-    } catch (error) {
-      console.error(error)
-    }
+  const getContractHashUrl = () => {
+    if (!hasExplorerService(service)) return ''
+    return service.explorerService.buildContractUrl(hash) ?? ''
   }
 
   return (
@@ -148,11 +144,11 @@ export const DappPermissionContractDetailsModal = () => {
                 <p className="truncate text-xs font-bold text-gray-100">{hash}</p>
 
                 <Tooltip title={t('externalButtonLabel')}>
-                  <IconButton
+                  <IconLink
                     aria-label={t('externalButtonLabel')}
                     icon={<TbExternalLink aria-hidden className="text-neon" />}
                     size="xs"
-                    onClick={handleOpenContractHashUrl}
+                    to={getContractHashUrl()}
                   />
                 </Tooltip>
               </Details.Item>

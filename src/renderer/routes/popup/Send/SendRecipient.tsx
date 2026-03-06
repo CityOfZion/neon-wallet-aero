@@ -17,6 +17,7 @@ import { Separator } from '@renderer/components/Separator'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
@@ -116,7 +117,7 @@ export const SendRecipient = ({
         })
       })
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'SendRecipient', operation: 'handleChangeAmount' })
     }
   }
 

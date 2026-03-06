@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import intersection from 'lodash/intersection'
 
 import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 
 import { useOwnAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useLazyBalance } from '@renderer/hooks/useBalances'
@@ -39,9 +40,7 @@ const useFraudulentTokensNotificationProcess = () => {
 
       notificationKeysRef.current.add(key)
     } catch (error) {
-      console.error('Error on processNotification (useFraudulentTokensNotificationProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
+      LoggerHelper.error(error, { where: 'useFraudulentTokensNotificationProcess', operation: 'processNotification' })
     }
   }
 
@@ -88,9 +87,7 @@ const useFraudulentTokensNotificationProcess = () => {
         )
       }
     } catch (error) {
-      console.error('Error on process (useFraudulentTokensNotificationProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
+      LoggerHelper.error(error, { where: 'useFraudulentTokensNotificationProcess', operation: 'process' })
     }
   }
 
@@ -121,9 +118,7 @@ const useVotingNeo3NotificationProcess = () => {
 
       notificationKeysRef.current.add(key)
     } catch (error) {
-      console.error('Error on processNotification (useVotingNeo3NotificationProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
+      LoggerHelper.error(error, { where: 'useVotingNeo3NotificationProcess', operation: 'processNotification' })
     }
   }
 
@@ -158,9 +153,7 @@ const useVotingNeo3NotificationProcess = () => {
         })
       )
     } catch (error) {
-      console.error('Error on process (useVotingNeo3NotificationProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
+      LoggerHelper.error(error, { where: 'useVotingNeo3NotificationProcess', operation: 'process' })
     }
   }
 

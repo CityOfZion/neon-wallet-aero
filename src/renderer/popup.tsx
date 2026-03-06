@@ -3,11 +3,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 
+import { SentryHelper } from './helpers/SentryHelper'
 import { popupRouter } from './routes/popup-router'
 
 import '@renderer/assets/css/global.css'
 
-createRoot(document.getElementById('neon-root')!).render(
+createRoot(document.getElementById('neon-root')!, SentryHelper.options).render(
   <StrictMode>
     <RouterProvider router={popupRouter} />
   </StrictMode>

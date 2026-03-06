@@ -65,7 +65,6 @@ export const useNeonImportBackup = () => {
 
       return await neonBackupDataSchema.parseAsync(parsedData)
     } catch (error) {
-      console.error(error)
       throw new AppError(t('errors.wrongPassword'), error)
     }
   }

@@ -7,6 +7,7 @@ import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
@@ -41,7 +42,9 @@ export const WalletConnectManagerSetup = () => {
             topic: request.topic,
             response: WalletKitHelper.formatRequestError(request, reason ?? WalletKitHelper.getError('USER_REJECTED')),
           })
-          .catch(console.error)
+          .catch(error =>
+            LoggerHelper.error(error, { where: 'WalletConnectManagerSetup', operation: 'manualRejectRequest' })
+          )
       }
 
       async function handleAccept() {
@@ -102,7 +105,7 @@ export const WalletConnectManagerSetup = () => {
               message: AppError.wrap(error, t('autoAcceptErrorMessage')).message,
               id: 'auto-approve-walletconnect-request',
             })
-            console.error(error)
+            LoggerHelper.error(error, { where: 'WalletConnectManagerSetup', operation: 'autoAcceptRequest' })
           })
         return
       }

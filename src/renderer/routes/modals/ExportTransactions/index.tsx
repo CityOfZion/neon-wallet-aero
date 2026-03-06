@@ -9,6 +9,7 @@ import { DateHelper } from '@renderer/helpers/DateHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExportTransactionsHelper } from '@renderer/helpers/ExportTransactionsHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
@@ -119,7 +120,7 @@ export const ExportTransactionsModal = () => {
         },
       })
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'ExportTransactionsModal', operation: 'export' })
       ToastHelper.error({ message: AppError.wrap(error, t('messages.exportError')).message })
     }
   }

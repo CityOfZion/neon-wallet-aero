@@ -53,8 +53,7 @@ export class AnalyticsHelper {
         throw new AppError(t('errors.analyticsEventLoggingFailed'))
       }
     } catch (error) {
-      //TODO: Send to Sentry when it's set up
-      LoggerHelper.error(error, { where: 'AnalyticsHelper', operation: 'logEvent' })
+      LoggerHelper.sentry(error, { where: 'AnalyticsHelper', operation: 'logEvent' })
     }
   }
 }

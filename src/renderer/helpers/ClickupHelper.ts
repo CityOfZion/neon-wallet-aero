@@ -3,9 +3,18 @@ import axios from 'axios'
 import type { TClickupHelperCreateSupportTicketParams } from '@shared/types/helpers'
 
 import { EnvHelper } from './EnvHelper'
+import { LoggerHelper } from './LoggerHelper'
 
 export class ClickupHelper {
   static async createSupportTicket({ name, email, description }: TClickupHelperCreateSupportTicketParams) {
+    if (!EnvHelper.VITE_CLICK_UP_ASSIGNEE_ID || !EnvHelper.VITE_CLICK_UP_KEY || !EnvHelper.VITE_CLICK_UP_LIST_ID) {
+      LoggerHelper.warn('ClickupHelper: Missing ClickUp configuration. Skipping support ticket creation.', {
+        where: 'ClickupHelper',
+        operation: 'createSupportTicket',
+      })
+      return
+    }
+
     const finalDescription = [`- Name: ${name}`, `- Email: ${email}`, '- Description:', description].join('\n')
 
     const normalPriority = 3

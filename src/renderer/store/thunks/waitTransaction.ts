@@ -38,8 +38,8 @@ export const waitTransaction = createAsyncThunk<void, TParams>(
         address,
         maxAttempts: 20,
       })
-    } catch (error) {
-      console.error(error)
+    } catch {
+      /* empty */
     }
 
     ReactQueryHelper.invalidateTransactionQueries(account, network, transaction.account)

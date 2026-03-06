@@ -24,6 +24,7 @@ import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -222,7 +223,7 @@ export const Neo3NeoXBridgePage = () => {
     try {
       bridgeOrchestratorRef.current.setAmountToUse(value)
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'Neo3NeoxBridgePage', operation: 'changeAmountToUse' })
     }
   }
 
@@ -271,7 +272,7 @@ export const Neo3NeoXBridgePage = () => {
     try {
       bridgeOrchestratorRef.current?.setAmountToUse(actionData.amountToUseMax.value ?? '0')
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'Neo3NeoxBridgePage', operation: 'maxAmount' })
     }
   }
 
@@ -321,7 +322,7 @@ export const Neo3NeoXBridgePage = () => {
 
             initializeOrRestartBridgeService()
           } catch (error) {
-            console.error(error)
+            LoggerHelper.sentry(error, { where: 'Neo3NeoXBridgeContent', operation: 'submitBridge' })
             ToastHelper.error({ message: AppError.wrap(error).message })
           }
         },

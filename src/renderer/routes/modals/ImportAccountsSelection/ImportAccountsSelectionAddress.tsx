@@ -5,6 +5,7 @@ import { Banner } from '@renderer/components/Banner'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountUtils } from '@renderer/hooks/useAccountUtils'
@@ -50,13 +51,10 @@ export const ImportAccountsSelectionAddress = ({ value, onSubmit }: TProps) => {
 
     try {
       await onSubmit(selectedAccounts)
-
       ToastHelper.success({ message: t('successes.accountsImported') })
-
       modalErase('bottom')
     } catch (error) {
-      console.error(error)
-
+      LoggerHelper.error(error, { where: 'ImportAccountsSelectionAddress', operation: 'handleSubmit' })
       ToastHelper.error({ message: AppError.wrap(error, t('errors.walletAndAccounts')).message })
     }
   }

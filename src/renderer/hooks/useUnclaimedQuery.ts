@@ -7,6 +7,7 @@ import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelp
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 
@@ -159,7 +160,7 @@ export const useUnclaimedMutation = () => {
       )
     },
     onError: error => {
-      console.error(error)
+      LoggerHelper.sentry(error, { where: 'useUnclaimedMutation' })
       ToastHelper.error({ message: AppError.wrap(error, unclaimedT('errors.claimError')).message })
     },
     onSuccess: (_data, account) => {

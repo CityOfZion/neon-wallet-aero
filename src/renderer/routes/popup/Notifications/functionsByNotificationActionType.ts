@@ -74,6 +74,8 @@ export const functionsByNotificationActionType: TFunctionsByNotificationActionTy
         modalActions.modalErase('side')
         popupNavigate('/settings/backup-and-restore/backup/1', { replace: true })
       })
-      .otherwise(() => console.error('Invalid action'))
+      .otherwise(() => {
+        // No action needed for unhandled navigation types
+      })
   },
 }

@@ -1,5 +1,7 @@
 import { useRef } from 'react'
 
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
+
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useMount } from '@renderer/hooks/useMount'
 import { useUnreadNotificationsSelector } from '@renderer/hooks/useNotificationsSelector'
@@ -30,9 +32,7 @@ const useBackupReminderNotificationProcess = () => {
 
       hasUnreadNotificationRef.current = true
     } catch (error) {
-      console.error('Error on processNotification (useBackupReminderNotificationProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
+      LoggerHelper.error(error, { where: 'useBackupReminderNotificationProcess', operation: 'processNotification' })
     }
   }
 
@@ -48,9 +48,7 @@ const useBackupReminderNotificationProcess = () => {
 
       hasWalletWithoutBackupRef.current = true
     } catch (error) {
-      console.error('Error on processWallet (useBackupReminderNotificationProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
+      LoggerHelper.error(error, { where: 'useBackupReminderNotificationProcess', operation: 'process' })
     }
   }
 
@@ -75,9 +73,7 @@ const useBackupReminderNotificationProcess = () => {
         hasUnreadNotificationRef.current = false
       }, 2000)
     } catch (error) {
-      console.error('Error on finish (useBackupReminderNotificationProcess):', error)
-
-      // TODO: add Sentry.captureException(error) in the future
+      LoggerHelper.error(error, { where: 'useBackupReminderNotificationProcess', operation: 'finish' })
     }
   }
 

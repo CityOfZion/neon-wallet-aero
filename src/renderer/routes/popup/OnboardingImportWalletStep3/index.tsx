@@ -115,12 +115,8 @@ export const OnboardingImportWalletStep3Page = () => {
               encryptedKey,
               blockchain,
               onSubmit: async (key: string) => {
-                try {
-                  await submitKey(key)
-                  modalErase('bottom')
-                } catch (error) {
-                  console.error(error)
-                }
+                await submitKey(key)
+                modalErase('bottom')
               },
             },
           })

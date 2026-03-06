@@ -22,6 +22,7 @@ import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
@@ -217,7 +218,7 @@ const SendPage = () => {
           amount: BSBigNumberHelper.fromNumber(amount).toString(),
         })
       } catch (error) {
-        console.error(error)
+        LoggerHelper.error(error, { where: 'SendPage', operation: 'handleUpdateRecipientAmount' })
       }
     }
   }
@@ -287,7 +288,7 @@ const SendPage = () => {
         BSBigNumberHelper.fromNumber(recipient.token.amount).minus(fee).toNumber()
       )
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'SendPage', operation: 'handleMaxAmount' })
       ToastHelper.error({ message: AppError.wrap(error, t('errors.calculateMaxAmount')).message })
     } finally {
       isDisabledMaxAmountRef.current = false
@@ -394,7 +395,7 @@ const SendPage = () => {
       // TODO: Change the behavior after it's decided when the survey should be shown
       modalNavigate('survey')
     } catch (error: any) {
-      console.error(error)
+      LoggerHelper.sentry(error, { where: 'SendPage', operation: 'handleSubmit' })
       ToastHelper.error({ message: AppError.wrap(error, t('sendFail.toast')).message })
     } finally {
       handleReset()
@@ -446,7 +447,7 @@ const SendPage = () => {
           clearErrors('fee')
         }
       } catch (error) {
-        console.error(error)
+        LoggerHelper.error(error, { where: 'SendPage', operation: 'handleCalculateFee' })
         ToastHelper.error({ message: AppError.wrap(error, t('errors.feeError')).message })
         setError('fee', t('errors.feeError'))
         setData({ fee: undefined })

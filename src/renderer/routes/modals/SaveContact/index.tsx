@@ -94,12 +94,8 @@ export const SaveContactModal = () => {
       id: contact?.id ?? UtilsHelper.uuid(),
     }
 
-    try {
-      await saveContacts([contactData])
-      modalNavigate(-1)
-    } catch (error) {
-      console.error(error)
-    }
+    await saveContacts([contactData])
+    modalNavigate(-1)
   }
 
   return (
