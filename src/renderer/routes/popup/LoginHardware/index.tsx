@@ -26,7 +26,10 @@ export const LoginHardwarePage = () => {
         leftIcon={<TbBluetooth aria-hidden className="text-neon" />}
         rightIcon={<TbExternalLink aria-hidden className="text-gray-300" />}
         onClick={() =>
-          rendererApi.send('tab:open', { path: '/connect-hardware-wallet', query: { 'connection-type': 'bluetooth' } })
+          rendererApi.send('tab:open', {
+            href: '/connect-hardware-wallet',
+            query: { 'connection-type': 'bluetooth' },
+          })
         }
       />
 
@@ -40,7 +43,7 @@ export const LoginHardwarePage = () => {
         leftIcon={<TbDeviceUsb aria-hidden className="text-neon rotate-45" />}
         rightIcon={<TbExternalLink aria-hidden className="text-gray-300" />}
         onClick={() =>
-          rendererApi.send('tab:open', { path: '/connect-hardware-wallet', query: { 'connection-type': 'usb' } })
+          rendererApi.send('tab:open', { href: '/connect-hardware-wallet', query: { 'connection-type': 'usb' } })
         }
       />
 

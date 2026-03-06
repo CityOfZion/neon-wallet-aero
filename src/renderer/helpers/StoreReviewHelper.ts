@@ -4,6 +4,6 @@ export class StoreReviewHelper {
   static readonly #chromeStoreReviewUrl = `https://chromewebstore.google.com/detail/${chrome.runtime.id}/reviews`
 
   static openReview() {
-    rendererApi.send('tab:open', { path: this.#chromeStoreReviewUrl })
+    rendererApi.send('tab:open', { href: this.#chromeStoreReviewUrl })
   }
 }

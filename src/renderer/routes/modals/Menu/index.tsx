@@ -47,7 +47,7 @@ export const MenuModal = () => {
           label={t('buyAndSellTokensItemLabel')}
           isExternal
           icon={<TbShoppingBag aria-hidden />}
-          onClick={() => rendererApi.send('tab:open', { path: '/buy-and-sell-tokens' })}
+          onClick={() => rendererApi.send('tab:open', { href: '/buy-and-sell-tokens' })}
         />
 
         <MenuItemLink

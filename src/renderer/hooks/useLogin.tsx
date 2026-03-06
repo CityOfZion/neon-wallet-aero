@@ -145,8 +145,15 @@ export const useSignup = () => {
 
       const encryptedLoginControl = await EncryptionHelper.encrypt(LOGIN_CONTROL_VALUE, encryptedPassword)
 
+      const loginSession: TLoginSession = {
+        type: 'password',
+        encryptedPassword,
+      }
+
+      await rendererApi.send('login:save-session', loginSession)
+
       dispatch(utilityReducerActions.setEncryptedLoginControl(encryptedLoginControl))
-      dispatch(authReducerActions.setLoginSession({ type: 'password', encryptedPassword }))
+      dispatch(authReducerActions.setLoginSession(loginSession))
     },
     [dispatch]
   )
