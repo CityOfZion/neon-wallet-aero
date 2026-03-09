@@ -46,7 +46,7 @@ export const CreateHardwareWallet = () => {
         rightIcon={<TbExternalLink aria-hidden className="text-gray-300" />}
         onClick={() =>
           rendererApi.send('tab:open', {
-            path: '/connect-hardware-wallet',
+            href: '/connect-hardware-wallet',
             query: { 'connection-type': 'bluetooth', type: 'create' },
           })
         }
@@ -63,7 +63,7 @@ export const CreateHardwareWallet = () => {
         rightIcon={<TbExternalLink aria-hidden className="text-gray-300" />}
         onClick={() =>
           rendererApi.send('tab:open', {
-            path: '/connect-hardware-wallet',
+            href: '/connect-hardware-wallet',
             query: { 'connection-type': 'usb', type: 'create' },
           })
         }

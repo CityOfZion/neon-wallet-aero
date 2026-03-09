@@ -14,7 +14,7 @@ export type TMessageApiSendArgs<T> = T extends TMessageApiListener<infer U> ? U 
 export type TMessageApiSendResponse<T> = T extends TMessageApiListener<any, infer U> ? U : never
 
 export type TOpenTabArgs = {
-  path: string
+  href: string
   query?: Record<string, any>
 }
 

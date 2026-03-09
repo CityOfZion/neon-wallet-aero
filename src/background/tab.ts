@@ -1,15 +1,18 @@
+import isEmpty from 'lodash/isEmpty'
+
 import { backgroundApi } from '@shared/message-api/background'
 
-const BASE_URL = chrome.runtime.getURL('/src/renderer/tab.html')
+const INTERNAL_BASE_URL = chrome.runtime.getURL('/src/renderer/tab.html')
 
 export function registerTabHandlers() {
-  backgroundApi.listen('tab:open', async ({ args: { path, query } }) => {
-    const isFromOtherOrigin = path.startsWith('http')
-    const queryParams = new URLSearchParams(query).toString()
-    const fullPath = queryParams ? `${path}?${queryParams}` : path
-    const url = isFromOtherOrigin ? fullPath : `${BASE_URL}#${fullPath}`
+  backgroundApi.listen('tab:open', async ({ args }) => {
+    const isExternal = /^(https?:\/\/)/i.test(args.href)
 
-    chrome.tabs.query({ url: isFromOtherOrigin ? path : BASE_URL }, tabs => {
+    const baseUrl = isExternal ? args.href : INTERNAL_BASE_URL
+    const queryParams = !isEmpty(args.query) ? `?${new URLSearchParams(args.query).toString()}` : ''
+    const url = isExternal ? `${baseUrl}${queryParams}` : `${baseUrl}#${args.href}${queryParams}`
+
+    chrome.tabs.query({ url: baseUrl }, tabs => {
       const existentTab = tabs.find(tab => tab.url && tab.url === url)
       if (existentTab && existentTab.id) {
         chrome.tabs.update(existentTab.id, { active: true })
@@ -22,7 +25,7 @@ export function registerTabHandlers() {
   })
 
   backgroundApi.listen('tab:close-all', async () => {
-    chrome.tabs.query({ url: BASE_URL }, tabs => {
+    chrome.tabs.query({ url: INTERNAL_BASE_URL }, tabs => {
       for (const tab of tabs) {
         if (tab.id) {
           chrome.tabs.remove(tab.id)
