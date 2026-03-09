@@ -46,7 +46,7 @@ export const DappPermissionGenericContentFee = ({
 
   useEffect(() => {
     if (!feeQuery.error) return
-    onReject(undefined, t('errors.fee'))
+    onReject({ message: feeQuery.error.message, code: -32000 }, t('errors.fee'))
     LoggerHelper.error(feeQuery.error, { where: 'DappPermissionGenericContentFee', operation: 'calculateRequestFee' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [feeQuery.error])
