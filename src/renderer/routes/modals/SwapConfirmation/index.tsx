@@ -7,6 +7,7 @@ import { Tooltip } from '@renderer/components/Tooltip'
 
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -54,7 +55,7 @@ export const SwapConfirmationModal = () => {
 
       modalNavigate('swap-details', { state: { swapRecord }, replace: true })
     } catch (error: any) {
-      console.error(error)
+      LoggerHelper.sentry(error, { where: 'SwapConfirmation', operation: 'submitSwap' })
       ToastHelper.error({ message: AppError.wrap(error).message })
     }
   }

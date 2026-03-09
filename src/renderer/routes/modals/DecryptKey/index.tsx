@@ -7,6 +7,7 @@ import { Input } from '@renderer/components/Input'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
@@ -53,7 +54,7 @@ export const DecryptKeyModal = () => {
 
       await onSubmit(key)
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'DecryptKeyModal', operation: 'decrypt' })
       ToastHelper.error({ message: AppError.wrap(error, t('decryptKeyError')).message })
     }
   }

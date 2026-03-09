@@ -14,6 +14,7 @@ import { Stepper } from '@renderer/components/Stepper'
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 
 import { useContactsSelector } from '@renderer/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -90,7 +91,7 @@ export const Neo3NeoXBridgeDetailsModal = () => {
       })
       setStatus('complete')
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'Neo3NeoxBridgeDetailsModal', operation: 'waitForBridgeCompletion' })
       setStatus('error')
       setErrorMessage(
         error instanceof BSError

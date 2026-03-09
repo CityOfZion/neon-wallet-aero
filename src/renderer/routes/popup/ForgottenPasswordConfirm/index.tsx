@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Banner } from '@renderer/components/Banner'
 import { Swipe } from '@renderer/components/Swipe'
 
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
 
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
@@ -33,7 +34,7 @@ export const ForgottenPasswordConfirmPage = () => {
 
       navigate('/forgotten-password-success')
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'ForgottenPasswordConfirmPage', operation: 'clear' })
     }
   })
 

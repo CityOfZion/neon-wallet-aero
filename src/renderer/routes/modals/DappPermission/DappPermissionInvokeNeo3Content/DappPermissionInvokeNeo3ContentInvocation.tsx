@@ -6,6 +6,7 @@ import { match, P } from 'ts-pattern'
 
 import { Details } from '@renderer/components/Details'
 import { IconButton } from '@renderer/components/IconButton'
+import { IconLink } from '@renderer/components/IconLink'
 import { Loader } from '@renderer/components/Loader'
 import { Tooltip } from '@renderer/components/Tooltip'
 
@@ -40,12 +41,8 @@ export const DappPermissionInvokeNeo3ContentInvocation = ({
       ? invocation.args[2].value
       : null
 
-  const handleOpenContractHashUrl = () => {
-    try {
-      window.open(service.explorerService.buildContractUrl(invocation.scriptHash), '_blank')
-    } catch (error) {
-      console.error(error)
-    }
+  const getContractHashUrl = () => {
+    return service.explorerService.buildContractUrl(invocation.scriptHash) ?? ''
   }
 
   return (
@@ -93,11 +90,11 @@ export const DappPermissionInvokeNeo3ContentInvocation = ({
           <p className="truncate text-xs font-bold text-gray-100">{invocation.scriptHash}</p>
 
           <Tooltip title={t('externalButtonLabel')}>
-            <IconButton
+            <IconLink
               aria-label={t('externalButtonLabel')}
               icon={<TbExternalLink aria-hidden className="text-neon" />}
               size="xs"
-              onClick={handleOpenContractHashUrl}
+              to={getContractHashUrl()}
             />
           </Tooltip>
         </Details.Item>

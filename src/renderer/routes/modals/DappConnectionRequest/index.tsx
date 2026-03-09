@@ -11,6 +11,7 @@ import { ScreenLoader } from '@renderer/components/ScreenLoader'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { WalletConnectError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -68,13 +69,15 @@ export const DappConnectionRequestModal = () => {
         })
       )
     } catch (error: any) {
+      LoggerHelper.error(error, { where: 'DappConnectionRequestModal', operation: 'getProposalDetails' })
+
       rendererApi.send('wallet-connect:reject-proposal', {
         id: proposal.id,
         reason: WalletKitHelper.getError('UNSUPPORTED_NAMESPACE_KEY'),
       })
 
       ToastHelper.error({
-        message: t(`errorsByCode.${error.code}`, error.message),
+        message: WalletConnectError.wrap(error).message,
         id: 'dapp-connection-details-proposal-error',
       })
 

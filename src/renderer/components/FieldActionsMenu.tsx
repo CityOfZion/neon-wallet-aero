@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ToastHelper } from '@renderer/helpers/ToastHelper'
+import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
 
@@ -19,35 +19,17 @@ export const FieldActionsMenu = ({ value, disabled = false, readOnly = false, on
   const { t } = useTranslation('components', { keyPrefix: 'fieldActionsMenu' })
 
   const [isPressingCut, startPressCut] = usePressOnce(async () => {
-    try {
-      await navigator.clipboard.writeText(value)
-      onChange?.('')
-    } catch (error) {
-      console.error(error)
-      ToastHelper.error({ message: t('messages.error') })
-    }
+    await ClipboardHelper.write(value)
+    onChange?.('')
   })
 
   const [isPressingCopy, startPressCopy] = usePressOnce(async () => {
-    try {
-      await navigator.clipboard.writeText(value)
-
-      ToastHelper.success({ message: t('messages.copied') })
-    } catch (error) {
-      console.error(error)
-      ToastHelper.error({ message: t('messages.error') })
-    }
+    await ClipboardHelper.write(value)
   })
 
   const [isPressingPaste, startPressPaste] = usePressOnce(async () => {
-    try {
-      const text = await navigator.clipboard.readText()
-
-      onChange?.(`${value}${text.trim()}`)
-    } catch (error) {
-      console.error(error)
-      ToastHelper.error({ message: t('messages.error') })
-    }
+    const text = await ClipboardHelper.read()
+    onChange?.(`${value}${text.trim()}`)
   })
 
   const hasValue = value.length > 0

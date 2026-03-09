@@ -48,9 +48,7 @@ export class FileHelper {
         filename: fileName,
         saveAs: true,
       })
-    } catch (error) {
-      console.error(error)
-      // Fallback to anchor element
+    } catch {
       const a = document.createElement('a')
       a.href = url
       a.download = fileName

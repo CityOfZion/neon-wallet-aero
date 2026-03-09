@@ -32,6 +32,7 @@ import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { SwapHelper } from '@renderer/helpers/SwapHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -314,7 +315,7 @@ export const SwapPage = () => {
 
       swapOrchestratorRef.current?.setAmountToUse(value)
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'SwapPage', operation: 'handleChangeAmountToUse' })
     }
   }
 
@@ -363,7 +364,7 @@ export const SwapPage = () => {
     try {
       swapOrchestratorRef.current?.setAmountToUse(actionData.selectAmountToUseMinMax.value?.max ?? '0')
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'SwapPage', operation: 'handleMaxAmount' })
     }
   }
 

@@ -7,6 +7,7 @@ import { DownloadQRCodePasswordButton } from '@renderer/components/DownloadQRCod
 
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
@@ -77,7 +78,7 @@ export const ChangePasswordStep2Page = () => {
 
       navigate('/settings/change-password/3')
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'ChangePasswordStep2Page', operation: 'downloadPassword' })
       ToastHelper.error({ message: AppError.wrap(error, t('error')).message })
     }
   })

@@ -17,6 +17,7 @@ import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 
@@ -160,7 +161,8 @@ export const VoteNeo3ConfirmationModal = () => {
 
       modalNavigate('vote-neo3-success', { state: { candidate, neo3Account }, replace: true })
     } catch (error) {
-      console.error(error)
+      LoggerHelper.sentry(error, { where: 'VoteNeo3ConfirmationModal', operation: 'submitVote' })
+
       ToastHelper.error({ message: AppError.wrap(error, t('errors.castVoteFailed')).message, duration: 6000 })
     }
   }

@@ -9,6 +9,8 @@ import { IconButton } from '@renderer/components/IconButton'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
+import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -75,9 +77,9 @@ export const NotificationItem = ({ notification }: TProps) => {
       if (!fn) return
       await fn({ modalActions, popupNavigate, notificationAction })
       dispatch(authReducerActions.saveNotification({ ...notification, read: true }))
-    } catch (error: any) {
-      console.error(error)
-      ToastHelper.error({ message: error.message })
+    } catch (error) {
+      LoggerHelper.error(error, { where: 'Notification', operation: 'clickNotification' })
+      ToastHelper.error({ message: AppError.wrap(error).message })
     }
   })
 

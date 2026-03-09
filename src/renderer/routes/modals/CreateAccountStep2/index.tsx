@@ -9,6 +9,7 @@ import { Separator } from '@renderer/components/Separator'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
@@ -74,7 +75,7 @@ export const CreateAccountStep2Modal = () => {
       navigate('/wallets', { state: { account, wallet: selectedWallet }, replace: true })
       modalErase('bottom')
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'CreateAccountStep2Modal', operation: 'handleSubmit' })
       ToastHelper.error({ message: AppError.wrap(error, t('errors.createAccount')).message })
       modalErase('bottom')
     }

@@ -1,6 +1,7 @@
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 
 import { DateHelper } from '@renderer/helpers/DateHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { NotificationHelper } from '@renderer/helpers/NotificationHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
@@ -56,7 +57,9 @@ const saveNotification: CaseReducer<IAuthReducer, PayloadAction<TSaveNotificatio
   if (foundIndex < 0) {
     applicationData.notifications = [...applicationData.notifications, notification]
 
-    NotificationHelper.create(notification).catch(console.error)
+    NotificationHelper.create(notification).catch(error => {
+      LoggerHelper.error(error, { where: 'authSliceReducers', operation: 'saveNotification' })
+    })
 
     return
   }

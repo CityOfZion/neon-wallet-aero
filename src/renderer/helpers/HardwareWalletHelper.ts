@@ -17,6 +17,7 @@ import type {
 import { BlockchainServiceHelper } from './BlockchainServiceHelper'
 import { AppError } from './ErrorHelper'
 import { I18nextHelper } from './I18nextHelper'
+import { LoggerHelper } from './LoggerHelper'
 
 const { t } = I18nextHelper.get()
 
@@ -42,8 +43,7 @@ export class HardwareWalletHelper {
         filters: [{ vendorId: ledgerUSBVendorId }],
       })
       .catch(error => {
-        console.error(error)
-
+        LoggerHelper.error(error, { where: 'HardwareWalletHelper', operation: 'requestHidDevice' })
         throw new AppError(t('hardwareWallet.errors.userCancelled'))
       })
 

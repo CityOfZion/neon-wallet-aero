@@ -14,6 +14,7 @@ import { Input } from '@renderer/components/Input'
 import { Loader } from '@renderer/components/Loader'
 
 import { AppError } from '@renderer/helpers/ErrorHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { SynonymsHelper } from '@renderer/helpers/SynonymsHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -88,7 +89,7 @@ const SearchModal = () => {
 
       await func({ modalActions, popupNavigate })
     } catch (error) {
-      console.error(error)
+      LoggerHelper.error(error, { where: 'SearchModal', operation: 'clickSearchOption' })
       ToastHelper.error({ message: AppError.wrap(error, t('errors.errorToExecute')).message })
     }
   }

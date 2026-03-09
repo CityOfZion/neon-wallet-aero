@@ -10,6 +10,7 @@ const envSchema = z.object({
   VITE_CLICK_UP_KEY: z.string().nonempty(),
   VITE_GA_MEASUREMENT_ID: z.string().nonempty(),
   VITE_GA_API_SECRET: z.string().nonempty(),
+  VITE_SENTRY_DSN: z.string().nonempty(),
 })
 
 type EnvSchema = z.infer<typeof envSchema>
@@ -17,8 +18,8 @@ type EnvSchema = z.infer<typeof envSchema>
 class EnvHelperClass {
   static schema = envSchema
 
-  static setup(): EnvSchema {
-    const result = this.schema.parse(import.meta.env)
+  static async setup(): Promise<EnvSchema> {
+    const result = await this.schema.parseAsync(import.meta.env)
     Object.assign(this, result)
     return result
   }

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TUseCurrencyRatioResult } from '@shared/types/query'
@@ -21,7 +22,7 @@ const fetchCurrencyRatio = async (currency: TCurrency): Promise<number> => {
       currencyRatio = await service.exchangeDataService.getCurrencyRatio(currency.label)
     }
   } catch (error) {
-    console.error(error)
+    LoggerHelper.error(error, { where: 'useCurrencyRatio', operation: 'fetchCurrencyRatio' })
   }
 
   return currencyRatio
