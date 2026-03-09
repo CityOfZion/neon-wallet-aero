@@ -1,4 +1,4 @@
-import { cloneElement, useTransition } from 'react'
+import { cloneElement } from 'react'
 
 import type { JSX } from 'react'
 
@@ -7,6 +7,7 @@ import { Separator } from '@renderer/components/Separator'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { usePressOnce } from '@renderer/hooks/usePressOnce'
 
 import TbExternalLink from '@renderer/assets/images/tb-external-link.svg?react'
 
@@ -29,19 +30,14 @@ export const MenuItemButton = ({
 }: TProps) => {
   const { modalErase } = useModalNavigate()
 
-  const [isLoading, startIsLoading] = useTransition()
+  const [isLoading, startPress] = usePressOnce(() => {
+    if (isDisabled) return
+
+    onClick()
+    modalErase('side')
+  })
 
   const disabled = isDisabled || isLoading
-
-  const handleClick = () => {
-    if (disabled) return
-
-    startIsLoading(async () => {
-      await onClick()
-
-      modalErase('side')
-    })
-  }
 
   return (
     <li className="-mx-4 w-auto">
@@ -54,7 +50,7 @@ export const MenuItemButton = ({
           }
         )}
         disabled={disabled}
-        onClick={handleClick}
+        onClick={startPress}
       >
         <div className="flex w-full flex-row items-center gap-x-3.5 py-3.5">
           {cloneElement(icon, {
