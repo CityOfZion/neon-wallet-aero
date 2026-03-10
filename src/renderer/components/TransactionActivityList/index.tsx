@@ -1,11 +1,13 @@
 import { useRef } from 'react'
 
+import { hasFullTransactions } from '@cityofzion/blockchain-service'
 import * as dateFns from 'date-fns'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
 
 import { Separator } from '@renderer/components/Separator'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { ExportTransactionsHelper } from '@renderer/helpers/ExportTransactionsHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
@@ -97,6 +99,9 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
     },
   })
 
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[selectedAccount.blockchain]
+  const hasFullTransactionsService = hasFullTransactions(service)
+
   const handleSelectDateFrom = (dateFrom: Date) => {
     setData(ExportTransactionsHelper.calculateDateFromSelectionMaxOneYear({ dateFrom, dateTo }))
   }
@@ -119,30 +124,32 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
         'gap-y-2': isLoading || data.length === 0,
       })}
     >
-      <div className="flex items-center justify-between">
-        <Tooltip title={t('exportTransactionsButtonLabel')} delayDuration={400}>
-          <IconButton
-            aria-label={t('exportTransactionsButtonLabel')}
-            icon={<TbFileExport className="text-blue" aria-hidden />}
-            onClick={modalNavigateWrapper('export-transactions', {
-              state: {
-                dateFrom,
-                dateTo,
-                readOnly: false,
-                selectedAccount,
-              },
-            })}
-          />
-        </Tooltip>
+      {hasFullTransactionsService && (
+        <div className="flex items-center justify-between">
+          <Tooltip title={t('exportTransactionsButtonLabel')} delayDuration={400}>
+            <IconButton
+              aria-label={t('exportTransactionsButtonLabel')}
+              icon={<TbFileExport className="text-blue" aria-hidden />}
+              onClick={modalNavigateWrapper('export-transactions', {
+                state: {
+                  dateFrom,
+                  dateTo,
+                  readOnly: false,
+                  selectedAccount,
+                },
+              })}
+            />
+          </Tooltip>
 
-        <TransactionActivityListDateRange
-          dateFrom={dateFrom}
-          dateTo={dateTo}
-          isDisabled={isDateDisabled}
-          onSelectDateFrom={handleSelectDateFrom}
-          onSelectDateTo={handleSelectDateTo}
-        />
-      </div>
+          <TransactionActivityListDateRange
+            dateFrom={dateFrom}
+            dateTo={dateTo}
+            isDisabled={isDateDisabled}
+            onSelectDateFrom={handleSelectDateFrom}
+            onSelectDateTo={handleSelectDateTo}
+          />
+        </div>
+      )}
 
       {match({ isLoading, data })
         .with({ isLoading: true }, () => <TransactionActivityListSkeleton />)
