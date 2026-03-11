@@ -33,7 +33,6 @@ import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useExchange } from '@renderer/hooks/useExchange'
-import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
 
@@ -79,8 +78,6 @@ const SendPage = () => {
   const { accountsMapRef } = useAccountsMapSelector()
   const { confirmAction } = useConfirmAction()
   const dispatch = useAppDispatch()
-
-  const { modalNavigate } = useModalNavigate()
 
   const { actionData, actionState, setData, setError, clearErrors, handleAct, reset } = useActions<TActionsData>({
     selectedAccount: undefined,
@@ -392,8 +389,8 @@ const SendPage = () => {
 
       AnalyticsHelper.logEvent('transaction_executed')
 
-      // TODO: Change the behavior after it's decided when the survey should be shown
-      modalNavigate('survey')
+      // TODO: Uncomment and it is published to chrome web store
+      // modalNavigate('survey')
     } catch (error: any) {
       LoggerHelper.sentry(error, { where: 'SendPage', operation: 'handleSubmit' })
       ToastHelper.error({ message: AppError.wrap(error, t('sendFail.toast')).message })
