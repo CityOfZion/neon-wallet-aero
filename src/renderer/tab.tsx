@@ -8,6 +8,8 @@ import { tabRouter } from './routes/tab-router'
 
 import '@renderer/assets/css/global.css'
 
+chrome.runtime.connect({ name: 'tab' })
+
 createRoot(document.getElementById('neon-root')!, SentryHelper.options).render(
   <StrictMode>
     <RouterProvider router={tabRouter} />
