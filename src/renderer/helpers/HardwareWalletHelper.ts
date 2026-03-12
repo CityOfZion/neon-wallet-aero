@@ -22,7 +22,6 @@ import { LoggerHelper } from './LoggerHelper'
 const { t } = I18nextHelper.get()
 
 export class HardwareWalletHelper {
-  static onDisconnect: (() => void | Promise<void>) | undefined
   static transport?: Transport
 
   private static openTransportFnByType: Record<
@@ -90,8 +89,6 @@ export class HardwareWalletHelper {
 
   private static setTransport(transport: Transport) {
     this.transport = transport
-
-    transport.on('disconnect', HardwareWalletHelper.disconnect)
   }
 
   static async connect({ lastIndexesByWallet, type }: THardwareWalletHelperConnectParams) {
@@ -142,15 +139,11 @@ export class HardwareWalletHelper {
 
   static async disconnect() {
     if (this.transport) {
-      this.transport.off('disconnect', HardwareWalletHelper.disconnect)
       await this.transport.close()
     }
 
     await rendererApi.send('hardware-wallet:save-type', undefined)
-
     this.transport = undefined
-
-    await this.onDisconnect?.()
   }
 
   static async getAccount({ blockchain, index }: THardwareWalletHelperGetAccountParams) {

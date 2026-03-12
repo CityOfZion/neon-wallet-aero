@@ -2,7 +2,6 @@ import { useCallback } from 'react'
 
 import type { TBSAccount } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
@@ -16,8 +15,9 @@ import { rendererApi } from '@shared/message-api/renderer'
 import type { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@shared/types/blockchain'
 import type { TLoginSession } from '@shared/types/store'
 
+import { useLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
-import { useCreateHardwareWallet } from './useHardwareWallet'
+import { useCreateHardwareWallet, useTransformHardwareWalletToWatch } from './useHardwareWallet'
 import { useAppDispatch } from './useRedux'
 import { useLoginControlSelector } from './useUtilitySelector'
 
@@ -29,8 +29,6 @@ export const useLogin = () => {
   const { encryptedLoginControlRef } = useLoginControlSelector()
   const { createWallet, importAccounts } = useBlockchainActions()
   const { createHardwareWallet } = useCreateHardwareWallet()
-
-  const navigate = useNavigate()
 
   const encryptPassword = useCallback(
     async (password: string) => {
@@ -111,28 +109,11 @@ export const useLogin = () => {
     [createHardwareWallet, dispatch]
   )
 
-  const logout = useCallback(async () => {
-    const loginSession = undefined
-
-    await rendererApi.send('login:save-session', loginSession)
-
-    dispatch(settingsReducerActions.setSelectedWallet(undefined))
-    dispatch(settingsReducerActions.setSelectedAccount(undefined))
-    dispatch(authReducerActions.setLoginSession(loginSession))
-    dispatch(authReducerActions.resetTemporaryApplicationData())
-    await HardwareWalletHelper.disconnect()
-
-    navigate('/login', { replace: true })
-
-    await rendererApi.send('tab:close-all')
-  }, [dispatch, navigate])
-
   return {
     loginWithPassword,
     loginWithKey,
     loginWithHardwareWallet,
     encryptPassword,
-    logout,
   }
 }
 
@@ -161,4 +142,30 @@ export const useSignup = () => {
   return {
     signup,
   }
+}
+
+export const useLogout = () => {
+  const dispatch = useAppDispatch()
+  const { loginSessionRef } = useLoginSessionSelector()
+  const { transformHardwareWalletToWatch } = useTransformHardwareWalletToWatch()
+
+  const logout = useCallback(async () => {
+    const loginSession = undefined
+
+    await rendererApi.send('login:save-session', loginSession)
+
+    if (loginSessionRef.current?.type === 'password') {
+      transformHardwareWalletToWatch()
+      await HardwareWalletHelper.disconnect()
+    }
+
+    dispatch(settingsReducerActions.setSelectedWallet(undefined))
+    dispatch(settingsReducerActions.setSelectedAccount(undefined))
+    dispatch(authReducerActions.setLoginSession(loginSession))
+    dispatch(authReducerActions.resetTemporaryApplicationData())
+
+    await rendererApi.send('tab:close-all')
+  }, [dispatch, loginSessionRef, transformHardwareWalletToWatch])
+
+  return { logout }
 }
