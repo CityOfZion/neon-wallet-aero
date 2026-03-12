@@ -11,7 +11,7 @@ import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { IAccountState, IWalletState } from '@shared/types/store'
 
-import { useAccountsMapSelector } from './useAccountSelector'
+import { useAccountsMapSelector, useHardwareAccountsSelector } from './useAccountSelector'
 import { useLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useAppDispatch } from './useRedux'
@@ -159,5 +159,26 @@ export const useAddAccountHardwareWallet = () => {
 
   return {
     addHardwareAccount,
+  }
+}
+
+export const useTransformHardwareWalletToWatch = () => {
+  const { editAccount } = useBlockchainActions()
+
+  const { hardwareAccountsRef } = useHardwareAccountsSelector()
+
+  const transformHardwareWalletToWatch = useCallback(() => {
+    hardwareAccountsRef.current.forEach(account => {
+      editAccount({
+        account,
+        data: {
+          type: 'watch',
+        },
+      })
+    })
+  }, [editAccount, hardwareAccountsRef])
+
+  return {
+    transformHardwareWalletToWatch,
   }
 }

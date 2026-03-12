@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
-import { useLogin } from '@renderer/hooks/useLogin'
+import { useLogout } from '@renderer/hooks/useLogin'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import { SideModalLayout } from '@renderer/layouts/SideModalLayout'
@@ -25,7 +25,7 @@ import { MenuItemLink } from './MenuItemLink'
 
 export const MenuModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'menu' })
-  const { logout } = useLogin()
+  const { logout } = useLogout()
   const { modalErase, modalNavigate } = useModalNavigate()
   const { loginSession } = useLoginSessionSelector()
 
