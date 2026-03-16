@@ -2,15 +2,10 @@
   "versionLabel": "Version v{{version}}",
   "notes": [
     {
-      "version": "1.0.0",
+      "version": "0.9.0",
       "date": "01 Dec 2025",
-      "changes": ["Extension wallet launch"],
-      "url": "https://github.com/CityOfZion/neon-wallet-aero/releases/tag/v1.0.0"
-    },
-    {
-      "version": "0.0.0",
-      "date": "01 Apr 2025",
-      "changes": ["Extension wallet development"]
+      "changes": ["Initial Beta Release"],
+      "url": "https://github.com/CityOfZion/neon-wallet-aero/releases/tag/v0.9.0"
     }
   ]
 }
