@@ -33,7 +33,7 @@ import type { IAccountState } from '@shared/types/store'
 
 export const AccountSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'accountSelection' })
-  const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPassword' })
+  const { t: tConfirmPassword } = useTranslation('modals', { keyPrefix: 'confirmPassword' })
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
   const {
@@ -78,15 +78,15 @@ export const AccountSelectionModal = () => {
     modalNavigate('confirm-password', {
       state: {
         heading: t('exportAccountTitle'),
-        description: modalT('description'),
-        buttonLabel: modalT('buttonContinueLabel'),
-        inputPlaceholder: modalT('inputPlaceholder'),
+        description: tConfirmPassword('description'),
+        buttonLabel: tConfirmPassword('buttonContinueLabel'),
+        inputPlaceholder: tConfirmPassword('inputPlaceholder'),
         onSubmit: async (password: string) => {
           try {
             const encryptedPassword = await encryptPassword(password)
 
             if (loginSessionRef.current?.encryptedPassword !== encryptedPassword) {
-              throw new AppError(modalT('invalidPasswordError'))
+              throw new AppError(tConfirmPassword('invalidPasswordError'))
             }
 
             modalNavigate('export-key', {

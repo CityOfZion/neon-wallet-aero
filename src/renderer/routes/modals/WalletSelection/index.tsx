@@ -33,7 +33,7 @@ import type { IWalletState } from '@shared/types/store'
 
 export const WalletSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelection' })
-  const { t: modalT } = useTranslation('modals', { keyPrefix: 'confirmPassword' })
+  const { t: tConfirmPassword } = useTranslation('modals', { keyPrefix: 'confirmPassword' })
   const { wallets } = useWalletsSelector()
   const { loginSession, loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
@@ -71,15 +71,15 @@ export const WalletSelectionModal = () => {
     modalNavigate('confirm-password', {
       state: {
         heading: t('exportWalletTitle'),
-        description: modalT('description'),
-        inputPlaceholder: modalT('inputPlaceholder'),
-        buttonLabel: modalT('buttonContinueLabel'),
+        description: tConfirmPassword('description'),
+        inputPlaceholder: tConfirmPassword('inputPlaceholder'),
+        buttonLabel: tConfirmPassword('buttonContinueLabel'),
         onSubmit: async (password: string) => {
           try {
             const encryptedPassword = await encryptPassword(password)
 
             if (loginSessionRef.current?.encryptedPassword !== encryptedPassword) {
-              throw new AppError(modalT('invalidPasswordError'))
+              throw new AppError(tConfirmPassword('invalidPasswordError'))
             }
 
             modalNavigate('export-mnemonic', {

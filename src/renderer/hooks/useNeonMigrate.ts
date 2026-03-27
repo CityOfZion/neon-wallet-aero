@@ -19,7 +19,7 @@ import { useBlockchainActions } from './useBlockchainActions'
 import { useContactsSelector } from './useContactSelector'
 
 export const useNeonImportMigrate = () => {
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'wallet' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'wallet' })
   const { contactsRef } = useContactsSelector()
   const { saveContacts, createWallet, importAccounts } = useBlockchainActions()
 
@@ -57,7 +57,7 @@ export const useNeonImportMigrate = () => {
     decryptedAccounts: TUseNeonMigrateDecryptedAccountSchema[]
   ): TUseNeonMigrateGeneratedData => {
     const contactsToCreate: TContactState[] = []
-    const walletToCreate: TWalletToCreate = { name: commonT('migratedWalletName'), backupStatus: 'successful' }
+    const walletToCreate: TWalletToCreate = { name: tCommon('migratedWalletName'), backupStatus: 'successful' }
     const accountsToCreate: TAccountsToImport = []
 
     decryptedAccounts.map(({ address, blockchain, decryptedKey, label }) => {

@@ -27,7 +27,7 @@ import type { TModalState } from '@shared/types/modal'
 
 export const NetworkNodeSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'networkNodeSelection' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const dispatch = useAppDispatch()
   const { blockchain } = useModalState<TModalState<'network-node-selection'>>()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
@@ -161,14 +161,14 @@ export const NetworkNodeSelectionModal = () => {
             <Button
               className="w-30"
               onClick={modalNavigateWrapper(-1)}
-              label={commonT('cancel')}
+              label={tCommon('cancel')}
               variant="card"
               colorSchema="gray"
             />
 
             <Button
               className="w-full"
-              label={commonT('save')}
+              label={tCommon('save')}
               disabled={!selectedUrl}
               onClick={handleSave}
               variant="card"

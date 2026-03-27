@@ -75,7 +75,7 @@ const isBridgeValueValid = (value: TBridgeValue<any> | TBridgeValidateValue<any>
 
 export const Neo3NeoXBridgePage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'neo3NeoXBridge' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
   const { accountsMapRef } = useAccountsMapSelector()
   const { getBalance } = useLazyBalance()
@@ -359,7 +359,7 @@ export const Neo3NeoXBridgePage = () => {
       heading={t('title')}
       rightComponent={
         <IconButton
-          aria-label={commonT('menuIconButtonAriaLabel')}
+          aria-label={tCommon('menuIconButtonAriaLabel')}
           className="mb-0.5"
           icon={<TbMenu2 aria-hidden />}
           onClick={modalNavigateWrapper('menu')}

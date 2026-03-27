@@ -19,7 +19,7 @@ export const LoginKeyPage = () => {
   const { loginWithKey } = useLogin()
   const { modalNavigate } = useModalNavigate()
   const { t } = useTranslation('pages', { keyPrefix: 'loginKey' })
-  const { t: commonT } = useTranslation('common')
+  const { t: tCommon } = useTranslation('common')
 
   const submitKey = async (value: string) => {
     modalNavigate('import-accounts-selection', {
@@ -29,7 +29,7 @@ export const LoginKeyPage = () => {
         onSubmit: async selectedAccounts => {
           const accounts: TAccountsToImport = selectedAccounts.map(account => ({ ...account, type: 'standard' }))
 
-          await loginWithKey(accounts, { name: commonT('wallet.importedWalletName'), type: 'standard' })
+          await loginWithKey(accounts, { name: tCommon('wallet.importedWalletName'), type: 'standard' })
 
           // This adds a slight delay to improve user experience
           await UtilsHelper.sleep(1000)
@@ -49,7 +49,7 @@ export const LoginKeyPage = () => {
           const accounts: TAccountsToImport = selectedAccounts.map(account => ({ ...account, type: 'standard' }))
 
           await loginWithKey(accounts, {
-            name: commonT('wallet.mnemonicWalletName'),
+            name: tCommon('wallet.mnemonicWalletName'),
             type: 'standard',
             mnemonic: value,
           })
@@ -72,7 +72,7 @@ export const LoginKeyPage = () => {
       type: 'watch',
     }))
 
-    await loginWithKey(accountsToImport, { name: commonT('wallet.watchAccount'), type: 'standard' })
+    await loginWithKey(accountsToImport, { name: tCommon('wallet.watchAccount'), type: 'standard' })
 
     // This adds a slight delay to improve user experience
     await UtilsHelper.sleep(1000)

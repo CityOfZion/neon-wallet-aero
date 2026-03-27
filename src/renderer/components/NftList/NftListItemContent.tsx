@@ -20,7 +20,7 @@ type TProps = {
 }
 
 export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
-  const { t: tCommon } = useTranslation('common', { keyPrefix: 'blockchain' })
+  const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const [imageError, setImageError] = useState(false)
 
   return (
@@ -76,7 +76,7 @@ export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
 
           <div className="flex items-center gap-1.5">
             <BlockchainIcon blockchain={selectedAccount.blockchain} type="gray" className="h-3 w-3 opacity-60" />
-            <p className="text-xs text-gray-300">{tCommon(selectedAccount.blockchain)}</p>
+            <p className="text-xs text-gray-300">{tCommonBlockchain(selectedAccount.blockchain)}</p>
           </div>
         </div>
 

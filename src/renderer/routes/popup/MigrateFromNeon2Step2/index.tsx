@@ -36,7 +36,7 @@ const SuccessFooter = () => {
 
 export const MigrateFromNeon2Step2Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings.migrateFromNeon2.step2' })
-  const { t: confirmPasswordT } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
+  const { t: tConfirmPassword } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const { modalNavigate } = useModalNavigate()
   const { actionData, actionState, handleBrowse, handleAct } = useBackupOrMigrate()
   const { handleTryDecryptData, handleGenerateData, handleImportBackupData } = useNeonImportBackup()
@@ -51,11 +51,11 @@ export const MigrateFromNeon2Step2Page = () => {
 
     modalNavigate('confirm-password', {
       state: {
-        heading: confirmPasswordT('title'),
-        description: confirmPasswordT('description'),
-        inputLabel: confirmPasswordT('subtitle'),
-        buttonLabel: confirmPasswordT('buttonContinueLabel'),
-        inputPlaceholder: confirmPasswordT('inputPlaceholder'),
+        heading: tConfirmPassword('title'),
+        description: tConfirmPassword('description'),
+        inputLabel: tConfirmPassword('subtitle'),
+        buttonLabel: tConfirmPassword('buttonContinueLabel'),
+        inputPlaceholder: tConfirmPassword('inputPlaceholder'),
         onSubmit: async (backupPassword: string) => {
           try {
             const decryptedData = await handleTryDecryptData(data, backupPassword)
@@ -64,14 +64,14 @@ export const MigrateFromNeon2Step2Page = () => {
 
             modalNavigate('success', {
               state: {
-                heading: confirmPasswordT('title'),
-                subtitle: confirmPasswordT('importSuccess'),
+                heading: tConfirmPassword('title'),
+                subtitle: tConfirmPassword('importSuccess'),
                 footer: <SuccessFooter />,
               },
               replace: true,
             })
           } catch (error) {
-            throw new AppError(confirmPasswordT('passwordError'), error)
+            throw new AppError(tConfirmPassword('passwordError'), error)
           }
         },
       },

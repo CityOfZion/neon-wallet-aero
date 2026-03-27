@@ -14,7 +14,7 @@ import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 
 export const BackupAndRestoreRestoreStep1Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings.settingsRestoreWallet' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { actionData, actionState, handleBrowse, handleAct } = useBackupOrMigrate()
   const navigate = useNavigate()
   const { modalNavigate } = useModalNavigate()
@@ -64,7 +64,7 @@ export const BackupAndRestoreRestoreStep1Page = () => {
       </div>
 
       <Button
-        label={commonT('next')}
+        label={tCommon('next')}
         variant="card"
         iconsOnEdge={false}
         type="submit"

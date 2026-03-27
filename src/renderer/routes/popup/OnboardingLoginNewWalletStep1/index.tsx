@@ -19,7 +19,7 @@ type TProps = {
 
 export const OnboardingLoginNewWalletStep1Page = ({ onSubmit }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep1' })
-  const { t: commonT } = useTranslation('common')
+  const { t: tCommon } = useTranslation('common')
 
   const navigate = useNavigate()
 
@@ -58,7 +58,7 @@ export const OnboardingLoginNewWalletStep1Page = ({ onSubmit }: TProps) => {
       />
 
       <Button
-        label={commonT('general.continue')}
+        label={tCommon('general.continue')}
         className="w-full"
         type="submit"
         variant="card"

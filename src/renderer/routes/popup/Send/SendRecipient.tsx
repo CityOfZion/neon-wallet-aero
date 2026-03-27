@@ -68,7 +68,7 @@ export const SendRecipient = ({
   onMaxAmount,
 }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'send.sendRecipient' })
-  const { t: commonT } = useTranslation('common')
+  const { t: tCommon } = useTranslation('common')
   const { currency } = useCurrencySelector()
   const debounceAmount = useDebounceFunction()
   const isPresent = useIsPresent()
@@ -165,7 +165,7 @@ export const SendRecipient = ({
         >
           {removable && order > 1 && (
             <IconButton
-              aria-label={commonT('general.remove')}
+              aria-label={tCommon('general.remove')}
               icon={<TbTrash aria-hidden className="text-pink" />}
               type="button"
               disabled={isDisabled}

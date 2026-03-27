@@ -8,11 +8,11 @@ import TbExternalLink from '@renderer/assets/images/tb-external-link.svg?react'
 
 export const ReleaseNotesPage = () => {
   const { t } = useTranslation('changelog')
-  const { t: settingsT } = useTranslation('pages', { keyPrefix: 'settings.releaseNotes' })
+  const { t: tSettings } = useTranslation('pages', { keyPrefix: 'settings.releaseNotes' })
   const releaseNotes = t('notes', { returnObjects: true })
 
   return (
-    <SettingsLayout title={settingsT('title')}>
+    <SettingsLayout title={tSettings('title')}>
       <ul className="flex flex-col gap-6 px-4">
         {releaseNotes.map(note => (
           <li key={note.version} className="border-b-1 border-b-gray-300/15 pb-3 last:border-0">
@@ -29,7 +29,7 @@ export const ReleaseNotesPage = () => {
                 <Link
                   target="_blank"
                   to={note.url}
-                  label={settingsT('learnMoreButtonLabel')}
+                  label={tSettings('learnMoreButtonLabel')}
                   rightIcon={<TbExternalLink aria-hidden />}
                   variant="outlined"
                   iconsOnEdge={false}
