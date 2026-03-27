@@ -12,7 +12,6 @@ import { Tooltip } from '@renderer/components/Tooltip'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
-import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
@@ -82,11 +81,14 @@ export const TokenListItem = ({ tokenBalance, isEditMode }: TProps) => {
           <div className="flex min-w-0 flex-col gap-0.5">
             <Tooltip title={tokenBalance.token.symbol}>
               <p
-                className={StyleHelper.mergeStyles('min-w-0 truncate text-sm leading-5 text-white uppercase', {
-                  'text-gray-100': isHiddenToken,
-                })}
+                className={StyleHelper.mergeStyles(
+                  'w-fit max-w-28 min-w-0 truncate text-sm leading-5 text-white uppercase',
+                  {
+                    'text-gray-100': isHiddenToken,
+                  }
+                )}
               >
-                {StringHelper.truncate(tokenBalance.token.symbol, 10)}
+                {tokenBalance.token.symbol}
               </p>
             </Tooltip>
 
