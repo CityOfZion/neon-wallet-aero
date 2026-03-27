@@ -17,7 +17,7 @@ import type { TModalState } from '@shared/types/modal'
 export const DeleteContactAddressModal = () => {
   const { name, address, onDelete } = useModalState<TModalState<'delete-contact-address'>>()
   const { t } = useTranslation('modals', { keyPrefix: 'deleteContactAddress' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { modalNavigateWrapper } = useModalNavigate()
 
   return (
@@ -50,7 +50,7 @@ export const DeleteContactAddressModal = () => {
           <Button
             className="w-30"
             onClick={modalNavigateWrapper(-1)}
-            label={commonT('cancel')}
+            label={tCommon('cancel')}
             variant="card"
             colorSchema="gray"
           />

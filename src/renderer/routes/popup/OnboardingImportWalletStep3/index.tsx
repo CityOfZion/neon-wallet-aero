@@ -31,9 +31,9 @@ type TLocationState = {
 
 export const OnboardingImportWalletStep3Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step3' })
-  const { t: commonT } = useTranslation('common')
-  const { t: decryptKeyT } = useTranslation('modals', { keyPrefix: 'decryptKey' })
-  const { t: confirmPasswordT } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
+  const { t: tCommon } = useTranslation('common')
+  const { t: tDecryptKey } = useTranslation('modals', { keyPrefix: 'decryptKey' })
+  const { t: tConfirmPassword } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const navigate = useNavigate()
   const { state } = useLocation() as Location<TLocationState>
   const { lastIndexesByWalletRef } = useLastIndexesByWallet()
@@ -43,7 +43,7 @@ export const OnboardingImportWalletStep3Page = () => {
 
   const submitAddress = async (address: string) => {
     const wallet: TWalletToCreate = {
-      name: commonT('wallet.watchAccount'),
+      name: tCommon('wallet.watchAccount'),
     }
     const serviceNames = BlockchainServiceHelper.bsAggregator.getBlockchainNameByAddress(address)
     const accounts: TAccountsToImport = serviceNames.map(serviceName => ({
@@ -67,7 +67,7 @@ export const OnboardingImportWalletStep3Page = () => {
     )
 
     const wallet: TWalletToCreate = {
-      name: commonT('wallet.encryptedName'),
+      name: tCommon('wallet.encryptedName'),
     }
 
     navigate('/onboarding-import-wallet/4', {
@@ -93,7 +93,7 @@ export const OnboardingImportWalletStep3Page = () => {
       .flat()
 
     const wallet: TWalletToCreate = {
-      name: commonT('wallet.mnemonicWalletName'),
+      name: tCommon('wallet.mnemonicWalletName'),
       mnemonic,
     }
 
@@ -110,8 +110,8 @@ export const OnboardingImportWalletStep3Page = () => {
         onSelect: ([blockchain]: TBlockchainServiceKey[]) => {
           modalNavigate('decrypt-key', {
             state: {
-              heading: decryptKeyT('title'),
-              description: decryptKeyT('description'),
+              heading: tDecryptKey('title'),
+              description: tDecryptKey('description'),
               encryptedKey,
               blockchain,
               onSubmit: async (key: string) => {
@@ -149,11 +149,11 @@ export const OnboardingImportWalletStep3Page = () => {
 
     modalNavigate('confirm-password', {
       state: {
-        heading: confirmPasswordT('title'),
-        description: confirmPasswordT('description'),
-        inputLabel: confirmPasswordT('subtitle'),
-        buttonLabel: confirmPasswordT('buttonContinueLabel'),
-        inputPlaceholder: confirmPasswordT('inputPlaceholder'),
+        heading: tConfirmPassword('title'),
+        description: tConfirmPassword('description'),
+        inputLabel: tConfirmPassword('subtitle'),
+        buttonLabel: tConfirmPassword('buttonContinueLabel'),
+        inputPlaceholder: tConfirmPassword('inputPlaceholder'),
         onSubmit: async (backupPassword: string) => {
           try {
             const decryptedData = await handleTryDecryptData(data, backupPassword)
@@ -181,7 +181,7 @@ export const OnboardingImportWalletStep3Page = () => {
 
             modalErase('bottom')
           } catch (error) {
-            throw new AppError(confirmPasswordT('passwordError'), error)
+            throw new AppError(tConfirmPassword('passwordError'), error)
           }
         },
       },
@@ -274,7 +274,7 @@ export const OnboardingImportWalletStep3Page = () => {
             .otherwise(() => null)}
 
         <Button
-          label={commonT('general.next')}
+          label={tCommon('general.next')}
           className="mt-4 w-full"
           type="submit"
           variant="card"

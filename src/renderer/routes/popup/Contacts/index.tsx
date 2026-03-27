@@ -20,7 +20,7 @@ import type { TContactState } from '@shared/types/store'
 
 export const ContactsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'contacts' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { contacts } = useContactsSelector()
   const [search, setSearch] = useState<string | null>(null)
   const hasAlreadySelectedContact = useRef(false)
@@ -68,7 +68,7 @@ export const ContactsPage = () => {
       className="text-white"
       rightComponent={
         <IconButton
-          aria-label={commonT('menuIconButtonAriaLabel')}
+          aria-label={tCommon('menuIconButtonAriaLabel')}
           className="mb-0.5"
           icon={<TbMenu2 aria-hidden />}
           onClick={modalNavigateWrapper('menu')}

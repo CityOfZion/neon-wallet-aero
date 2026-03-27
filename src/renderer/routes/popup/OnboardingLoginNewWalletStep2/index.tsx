@@ -28,7 +28,7 @@ type TProps = {
 
 export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep2' })
-  const { t: commonT } = useTranslation('common')
+  const { t: tCommon } = useTranslation('common')
   const { state } = useLocation() as Location<TLocationState>
   const navigate = useNavigate()
   const { modalNavigate, modalErase } = useModalNavigate()
@@ -63,7 +63,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
           const mnemonic = BSKeychainHelper.generateMnemonic()
 
           const wallet = await createWallet({
-            name: commonT('wallet.firstWalletName'),
+            name: tCommon('wallet.firstWalletName'),
             mnemonic,
           })
 
@@ -71,7 +71,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
             createStandardAccount({
               wallet,
               blockchain,
-              name: commonT('account.defaultName', { accountNumber: 1 }),
+              name: tCommon('account.defaultName', { accountNumber: 1 }),
             })
           )
 
@@ -100,7 +100,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
       />
 
       <Button
-        label={commonT('general.continue')}
+        label={tCommon('general.continue')}
         className="w-full"
         type="submit"
         variant="card"

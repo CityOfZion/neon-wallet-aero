@@ -25,12 +25,12 @@ export const DappPermissionGenericContentFee = ({
 }: TDappPermissionProps) => {
   const { loginSession } = useLoginSessionSelector()
   const { t } = useTranslation('modals', { keyPrefix: 'dappPermission' })
-  const { t: commonT } = useTranslation('common')
+  const { t: tCommon } = useTranslation('common')
 
   const feeQuery = useQuery({
     queryKey: ['fee', request.id],
     queryFn: async () => {
-      if (!loginSession) throw new AppError(commonT('errors.noLoginSession'))
+      if (!loginSession) throw new AppError(tCommon('errors.noLoginSession'))
 
       const key = await EncryptionHelper.decrypt(sessionAccount.encryptedKey, loginSession.encryptedPassword)
       const serviceAccount = await AccountHelper.getServiceAccount({ account: sessionAccount, key })

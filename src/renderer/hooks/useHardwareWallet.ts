@@ -115,7 +115,7 @@ export const useCreateHardwareWallet = () => {
 }
 
 export const useAddAccountHardwareWallet = () => {
-  const { t: commonT } = useTranslation('common')
+  const { t: tCommon } = useTranslation('common')
   const { loginSessionRef } = useLoginSessionSelector()
   const { importAccount } = useBlockchainActions()
   const dispatch = useAppDispatch()
@@ -123,11 +123,11 @@ export const useAddAccountHardwareWallet = () => {
   const addHardwareAccount = useCallback(
     async (wallet: IWalletState, accountName?: string) => {
       if (!loginSessionRef.current) {
-        throw new AppError(commonT('errors.noLoginSession'))
+        throw new AppError(tCommon('errors.noLoginSession'))
       }
 
       if (wallet.type !== 'hardware') {
-        throw new AppError(commonT('hardwareWallet.errors.accountIsNotHardware'))
+        throw new AppError(tCommon('hardwareWallet.errors.accountIsNotHardware'))
       }
 
       // When a wallet is hardware, all accounts are from the same blockchain
@@ -154,7 +154,7 @@ export const useAddAccountHardwareWallet = () => {
       )
       return account
     },
-    [commonT, dispatch, importAccount, loginSessionRef]
+    [tCommon, dispatch, importAccount, loginSessionRef]
   )
 
   return {

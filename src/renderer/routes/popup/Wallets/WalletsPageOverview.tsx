@@ -55,7 +55,7 @@ const DEFAULT_TAB: TWalletsTab = 'tokens'
 
 export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTab }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'wallets' })
-  const { t: commonT } = useTranslation('common')
+  const { t: tCommon } = useTranslation('common')
   const { currency } = useCurrencySelector()
   const unclaimedQuery = useUnclaimed(selectedAccount)
   const navigate = useNavigate()
@@ -116,7 +116,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
         <div className="flex flex-col gap-y-1">
           <div className="flex items-center gap-x-2">
             <BlockchainIcon blockchain={selectedAccount.blockchain} className="text-green" />
-            <span className="text-sm text-white uppercase">{commonT(`blockchain.${selectedAccount.blockchain}`)}</span>
+            <span className="text-sm text-white uppercase">{tCommon(`blockchain.${selectedAccount.blockchain}`)}</span>
           </div>
 
           <div className="flex items-center gap-x-2">

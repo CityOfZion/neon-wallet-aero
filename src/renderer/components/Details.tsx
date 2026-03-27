@@ -135,14 +135,14 @@ type TTokenProps = {
 } & ComponentProps<'div'>
 
 const Token = ({ amount, blockchain, symbol, className, ...props }: TTokenProps) => {
-  const { t: commonT } = useTranslation('common')
+  const { t: tCommon } = useTranslation('common')
 
   return (
     <div className={StyleHelper.mergeStyles('flex w-full items-center gap-2.5', className)} {...props}>
       {blockchain && <BlockchainIcon blockchain={blockchain} />}
       <span className="uppercase">
         {symbol}
-        {blockchain && <span className="text-gray-100"> | {commonT(`blockchain.${blockchain}`)}</span>}
+        {blockchain && <span className="text-gray-100"> | {tCommon(`blockchain.${blockchain}`)}</span>}
       </span>
 
       {amount && <span className="flex-grow text-end">{amount}</span>}

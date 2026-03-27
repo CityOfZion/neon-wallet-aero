@@ -105,14 +105,14 @@ export const useUnclaimed = (account: IAccountState) => {
 export const useUnclaimedMutation = () => {
   const { loginSessionRef } = useLoginSessionSelector()
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
-  const { t: unclaimedT } = useTranslation('hooks', { keyPrefix: 'useUnclaimedMutation' })
+  const { t: tHook } = useTranslation('hooks', { keyPrefix: 'useUnclaimedMutation' })
   const queryClient = useQueryClient()
   const dispatch = useAppDispatch()
 
   return useMutation({
     mutationFn: async (account: IAccountState) => {
       if (!loginSessionRef.current) {
-        throw new AppError(unclaimedT('errors.loginSessionIsNotDefined'))
+        throw new AppError(tHook('errors.loginSessionIsNotDefined'))
       }
 
       const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
@@ -161,12 +161,12 @@ export const useUnclaimedMutation = () => {
     },
     onError: error => {
       LoggerHelper.sentry(error, { where: 'useUnclaimedMutation' })
-      ToastHelper.error({ message: AppError.wrap(error, unclaimedT('errors.claimError')).message })
+      ToastHelper.error({ message: AppError.wrap(error, tHook('errors.claimError')).message })
     },
     onSuccess: (_data, account) => {
       const queryKey = buildQueryKeyUnclaimed(account, selectedNetworkByBlockchain[account.blockchain])
       queryClient.setQueryData(queryKey, { unclaimed: '0', unclaimedNumber: 0, fee: '0', feeNumber: 0 })
-      ToastHelper.success({ message: unclaimedT('messages.claimedSuccess') })
+      ToastHelper.success({ message: tHook('messages.claimedSuccess') })
     },
   })
 }

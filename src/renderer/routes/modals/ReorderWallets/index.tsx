@@ -24,7 +24,7 @@ import { ReorderWalletsItem } from './ReorderWalletsItem'
 
 export const ReorderWalletsModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'reorderWallets' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { modalErase, modalNavigateWrapper } = useModalNavigate()
   const { wallets } = useWalletsSelector()
   const dispatch = useAppDispatch()
@@ -91,7 +91,7 @@ export const ReorderWalletsModal = () => {
       <div className="mt-auto flex gap-2.5">
         <Button
           variant="card"
-          label={commonT('cancel')}
+          label={tCommon('cancel')}
           colorSchema="gray"
           onClick={modalNavigateWrapper(-1)}
           clickableProps={{ className: 'px-4' }}
@@ -99,7 +99,7 @@ export const ReorderWalletsModal = () => {
         <Button
           className="w-full"
           variant="card"
-          label={commonT('confirm')}
+          label={tCommon('confirm')}
           rightIcon={<MdCheck aria-hidden />}
           iconsOnEdge={false}
           onClick={handleSave}

@@ -29,7 +29,7 @@ export const ContactAddressFormModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'contactAddressForm' })
   const { name, initialAddress, onSaveAddress } = useModalState<TModalState<'contact-address-form'>>()
   const { modalNavigate } = useModalNavigate()
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { modalNavigateWrapper } = useModalNavigate()
 
   const {
@@ -119,7 +119,7 @@ export const ContactAddressFormModal = () => {
           <Button
             className="w-30"
             onClick={modalNavigateWrapper(-1)}
-            label={commonT('cancel')}
+            label={tCommon('cancel')}
             variant="card"
             colorSchema="gray"
           />

@@ -16,7 +16,7 @@ import { HelpLinkItem } from './HelpLinkItem'
 
 export const HelpPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'help' })
-  const { t: commonT } = useTranslation('common', { keyPrefix: 'general' })
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { modalNavigateWrapper } = useModalNavigate()
 
   return (
@@ -25,7 +25,7 @@ export const HelpPage = () => {
       heading={t('title')}
       rightComponent={
         <IconButton
-          aria-label={commonT('menuIconButtonAriaLabel')}
+          aria-label={tCommon('menuIconButtonAriaLabel')}
           icon={<TbMenu2 aria-hidden />}
           onClick={modalNavigateWrapper('menu')}
         />
