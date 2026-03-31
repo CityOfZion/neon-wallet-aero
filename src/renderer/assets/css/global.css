@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'github-markdown-css/github-markdown.css';
 
 @theme {
   --color-*: initial;
@@ -183,4 +184,33 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-gray-600);
+}
+
+/* Override default markdown styles from github-markdown-css */
+.markdown-body {
+  @apply bg-transparent font-sans text-sm;
+}
+
+.markdown-body a {
+  @apply text-blue;
+}
+
+.markdown-body ul {
+  @apply list-disc;
+}
+
+.markdown-body ol {
+  @apply list-decimal;
+}
+
+.markdown-body pre {
+  @apply rounded bg-gray-700 p-2.5;
+}
+
+.markdown-body ul.contains-task-list {
+  @apply pl-2;
+}
+
+.markdown-body li.task-list-item input {
+  @apply mr-1;
 }

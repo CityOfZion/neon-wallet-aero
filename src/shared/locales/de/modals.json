@@ -74,6 +74,7 @@
     "connectHardwareWalletItemLabel": "Hardware Wallet verbinden",
     "helpItemLabel": "Hilfe",
     "contactsItemLabel": "Kontakte",
+    "newsItemLabel": "Nachrichten",
     "settingsItemLabel": "Einstellungen",
     "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Abmelden",
@@ -734,5 +735,10 @@
     "title": "Wie war Ihre Erfahrung?",
     "titleFeedbackSubmitted": "Danke!",
     "closeButtonLabel": "Schließen"
+  },
+  "news": {
+    "title": "Neueste Nachrichten",
+    "dontShowAgainLabel": "Nicht mehr anzeigen",
+    "noArticlesMessage": "Im Moment gibt es keine Nachrichtenartikel anzuzeigen. Bitte schauen Sie später wieder vorbei!"
   }
 }

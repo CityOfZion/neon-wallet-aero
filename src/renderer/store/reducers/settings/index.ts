@@ -21,6 +21,7 @@ export interface ISettingsReducer {
     currency: TCurrency
     language: TLanguage
     selectedNetworkByBlockchain: TSelectedNetworks
+    showNewsModal: boolean
   }
 }
 
@@ -41,6 +42,7 @@ export function getSettingsReducer() {
         arbitrum: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.arbitrum.defaultNetwork,
         solana: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.solana.defaultNetwork,
       },
+      showNewsModal: true,
     },
   }
 

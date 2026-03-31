@@ -65,6 +65,7 @@ const HideFraudulentTokenModal = lazy(() => import('./modals/HideFraudulentToken
 const SupportTicketModal = lazy(() => import('./modals/SupportTicket'))
 const ExportTransactionsModal = lazy(() => import('./modals/ExportTransactions'))
 const SurveyModal = lazy(() => import('./modals/Survey'))
+const NewsModal = lazy(() => import('./modals/News'))
 
 export const modalsRouter: TRoute[] = [
   { name: 'wallet-selection', type: 'bottom', element: WalletSelectionModal },
@@ -129,4 +130,5 @@ export const modalsRouter: TRoute[] = [
   { name: 'support-ticket', type: 'bottom', element: SupportTicketModal },
   { name: 'export-transactions', type: 'bottom', element: ExportTransactionsModal },
   { name: 'survey', type: 'bottom', element: SurveyModal },
+  { name: 'news', type: 'bottom', element: NewsModal },
 ]

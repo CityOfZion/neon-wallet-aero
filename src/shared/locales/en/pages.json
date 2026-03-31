@@ -570,5 +570,17 @@
     "alert": "Please ensure your hardware wallet is unlocked, connected to a supported app and connected to this device",
     "successBannerMessage": "Hardware wallet connected successfully. Opening extension…",
     "completeButtonLabel": "Complete"
+  },
+  "news": {
+    "title": "Latest news",
+    "sortDateAscending": "Date - Ascending",
+    "sortDateDescending": "Date - Descending",
+    "showModalOnLoginLabel": "Show news on login",
+    "noArticlesMessage": "There are no news articles to display at the moment. Please check back later!",
+    "viewArticle": {
+      "backToNewsButtonLabel": "News Home",
+      "nextArticleButtonLabel": "Next article",
+      "previousArticleButtonLabel": "Previous article"
+    }
   }
 }

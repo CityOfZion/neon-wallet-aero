@@ -576,5 +576,17 @@
     "alert": "Bitte stellen Sie sicher, dass Ihre Hardware-Wallet entsperrt ist, mit einer unterstützten App verbunden ist und mit diesem Gerät verbunden ist",
     "successBannerMessage": "Hardware-Wallet erfolgreich verbunden. Erweiterung wird geöffnet…",
     "completeButtonLabel": "Fertig"
+  },
+  "news": {
+    "title": "Neueste Nachrichten",
+    "sortDateAscending": "Datum - Aufsteigend",
+    "sortDateDescending": "Datum - Absteigend",
+    "showModalOnLoginLabel": "Nachrichten beim Login anzeigen",
+    "noArticlesMessage": "Im Moment gibt es keine Nachrichtenartikel anzuzeigen. Bitte schauen Sie später wieder vorbei!",
+    "viewArticle": {
+      "backToNewsButtonLabel": "Nachrichten Startseite",
+      "nextArticleButtonLabel": "Nächster Artikel",
+      "previousArticleButtonLabel": "Vorheriger Artikel"
+    }
   }
 }

@@ -370,4 +370,5 @@ export type TModalRouterRouteTypes = {
   'support-ticket': undefined
   'export-transactions': TExportTransactionsModalState
   survey: undefined
+  news: undefined
 }

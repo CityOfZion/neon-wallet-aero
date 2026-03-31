@@ -54,6 +54,10 @@ const setSelectedAccount: CaseReducer<ISettingsReducer, PayloadAction<IAccountSt
   state.data.selectedAccount = action.payload
 }
 
+const setShowNewsModal: CaseReducer<ISettingsReducer, PayloadAction<boolean>> = (state, action) => {
+  state.data.showNewsModal = action.payload
+}
+
 export const settingsSliceReducers = {
   setLanguage,
   setCurrency,
@@ -62,4 +66,5 @@ export const settingsSliceReducers = {
   setSelectedNetworkByBlockchain,
   setSelectedWallet,
   setSelectedAccount,
+  setShowNewsModal,
 }

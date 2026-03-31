@@ -88,3 +88,14 @@ export type TUseUnclaimedResult = {
 }
 
 export type TNode = Optional<TPingNetworkResponse, 'height' | 'latency'>
+
+export type TNewsArticle = {
+  id: number
+  title: string
+  body: string
+  is_published: boolean
+  created_at: string
+  updated_at: string
+  // TODO: the property below currently doesn't exist in the response, but is expected to be added in the full implementation
+  previewImage: string
+}

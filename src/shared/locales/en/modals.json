@@ -74,6 +74,7 @@
     "connectHardwareWalletItemLabel": "Connect hardware wallet",
     "helpItemLabel": "Help",
     "contactsItemLabel": "Contacts",
+    "newsItemLabel": "News",
     "settingsItemLabel": "Settings",
     "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Logout",
@@ -734,5 +735,10 @@
     "title": "How was your experience?",
     "titleFeedbackSubmitted": "Thank you!",
     "closeButtonLabel": "Close"
+  },
+  "news": {
+    "title": "Latest news",
+    "dontShowAgainLabel": "Don't show this again",
+    "noArticlesMessage": "There are no news articles to display at the moment. Please check back later!"
   }
 }
