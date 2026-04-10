@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+import { name, version } from '../../../package.json'
 import { EnvHelper } from './EnvHelper'
 import { AppError } from './ErrorHelper'
 import { I18nextHelper } from './I18nextHelper'
@@ -43,7 +44,14 @@ export class AnalyticsHelper {
             {
               name: eventName,
               // If you want to test, you should also send debug_mode: 1 in the params object
-              params: { ...params, session_id: this.#sessionId, engagement_time_msec: 100 },
+              params: {
+                ...params,
+                session_id: this.#sessionId,
+                engagement_time_msec: 100,
+                project: name,
+                platform: 'extension',
+                version,
+              },
             },
           ],
         }
