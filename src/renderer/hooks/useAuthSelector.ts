@@ -1,7 +1,7 @@
 import { useAppSelector } from './useRedux'
 
 export const useLoginSessionSelector = () => {
-  const { ref, value } = useAppSelector(state => state.auth.inMemoryData.loginSession)
+  const { value, ref } = useAppSelector(state => state.auth.memoryData.loginSession)
 
   return {
     loginSession: value,

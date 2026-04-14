@@ -19,13 +19,13 @@ import { useLanguageSelector, useSelectedWalletSelector } from '@renderer/hooks/
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import type { TModalState } from '@shared/types/modal'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { ExportFullTransactionInfo } from './ExportFullTransactionInfo'
 import { ExportTransactionsSuccessContent } from './ExportTransactionsSuccessContent'
 
 type TActionsData = {
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
   dateFrom: Date
   dateTo: Date
 }
@@ -74,7 +74,7 @@ export const ExportTransactionsModal = () => {
               selectedAccount,
               hideActions: true,
               shouldPersistSelection: false,
-              onSelect: (account: IAccountState) => {
+              onSelect: (account: TAccount) => {
                 setData({ selectedAccount: account })
                 modalNavigate(-2)
               },

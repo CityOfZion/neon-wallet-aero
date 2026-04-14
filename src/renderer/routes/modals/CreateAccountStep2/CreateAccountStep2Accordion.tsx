@@ -9,28 +9,28 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
-import type { IWalletState } from '@shared/types/store'
+import type { TWallet } from '@shared/types/store'
 
 type TProps = {
-  selectedWallet?: IWalletState
-  onSelect(wallet: IWalletState): void
+  selectedWallet?: TWallet
+  onSelect(wallet: TWallet): void
 }
 
 export const CreateAccountStep2Accordion = ({ selectedWallet, onSelect }: TProps) => {
   const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep2.accordionItem' })
   const { wallets } = useWalletsSelector()
 
-  const filteredWallets = useMemo<IWalletState[]>(() => {
+  const filteredWallets = useMemo<TWallet[]>(() => {
     return wallets.filter(wallet => !!wallet.encryptedMnemonic || wallet.type === 'hardware')
   }, [wallets])
 
   const walletsId = useMemo(() => filteredWallets.map(wallet => wallet.id), [filteredWallets])
   return (
     <Accordion.Root className="flex flex-col gap-y-3" type="multiple" defaultValue={walletsId}>
-      <Accordion.Item value={selectedWallet?.id ?? 'not-selected'} className="bg-asphalt rounded">
+      <Accordion.Item value={selectedWallet?.id || 'not-selected'} className="bg-asphalt rounded">
         <Accordion.Trigger className="flex flex-grow items-center gap-x-2 border-none px-4">
           <h3 className="flex flex-grow items-center gap-x-2 text-sm text-white">
-            {selectedWallet?.name ?? t('defaultWalletLabel')}
+            {selectedWallet?.name || t('defaultWalletLabel')}
           </h3>
         </Accordion.Trigger>
 

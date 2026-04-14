@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { hasNameService } from '@cityofzion/blockchain-service'
-import type { Query, QueryClient } from '@tanstack/react-query'
+import type { Query } from '@tanstack/react-query'
 import { useQueryClient } from '@tanstack/react-query'
 import { debounce } from 'lodash'
 
@@ -24,7 +24,7 @@ export const useNameService = (debounceTime = 1000) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const validateAddressOrNSDebounce = useCallback(
-    debounce(async (domainOrAddress: string, blockchain: TBlockchainServiceKey, queryClient: QueryClient) => {
+    debounce(async (domainOrAddress: string, blockchain: TBlockchainServiceKey) => {
       let isValid = false
       let address: string | undefined
       let isNS = false
@@ -80,9 +80,9 @@ export const useNameService = (debounceTime = 1000) => {
         return
       }
 
-      validateAddressOrNSDebounce(domainOrAddress, blockchain, queryClient)
+      validateAddressOrNSDebounce(domainOrAddress, blockchain)
     },
-    [validateAddressOrNSDebounce, queryClient]
+    [validateAddressOrNSDebounce]
   )
 
   return {

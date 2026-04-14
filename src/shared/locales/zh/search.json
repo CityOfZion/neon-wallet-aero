@@ -74,7 +74,7 @@
     },
     {
       "id": "neo3NeoXBridge",
-      "label": "Neo3 和 NeoX 跨链",
+      "label": "Neo 3 和 Neo X 跨链",
       "verbs": ["跨链", "兑换", "接收"],
       "nonVerbs": ["neox", "neo3", "n3", "跨链", "交换", "代币", "加密货币"]
     }

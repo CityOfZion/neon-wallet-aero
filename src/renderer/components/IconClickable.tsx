@@ -69,9 +69,9 @@ const Base = ({
         className: StyleHelper.mergeStyles(
           'object-contain',
           {
-            'w-4 h-4': isXs,
-            'w-5 h-5': isSm,
-            'w-6 h-6': isMd,
+            'size-4': isXs,
+            'size-5': isSm,
+            'size-6': isMd,
           },
           iconClassName
         ),

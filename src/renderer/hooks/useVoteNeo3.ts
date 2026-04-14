@@ -13,10 +13,10 @@ import { useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSetti
 
 import type { TNetwork } from '@shared/types/blockchain'
 import type { TUseBalanceResult } from '@shared/types/query'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 type TCalculateVoteFeeParams = {
-  neo3Account?: IAccountState
+  neo3Account?: TAccount
   candidatePubKey: string
 }
 
@@ -27,7 +27,7 @@ type TBuildVoteNeo3GetCandidatesToVoteQueryKeyParams = {
 type TBuildVoteNeo3CalculateVoteFeeQueryKeyParams = {
   neo3Network: TNetwork
   candidatePubKey: string
-  neo3Account?: IAccountState
+  neo3Account?: TAccount
 }
 
 type TBuildVoteNeo3GetVoteDetailsByAddressQueryKeyParams = {

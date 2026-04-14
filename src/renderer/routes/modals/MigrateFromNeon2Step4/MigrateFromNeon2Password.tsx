@@ -74,9 +74,9 @@ export const MigrateFromNeon2Password = ({ accountToMigrate, onSubmit }: TProps)
         {actionState.hasActed && (
           <Fragment>
             {actionState.isValid ? (
-              <MdCheck aria-hidden className="text-green h-6 w-6" />
+              <MdCheck aria-hidden className="text-green size-6" />
             ) : (
-              <TbAlertTriangle aria-hidden className="text-pink h-6 w-6" />
+              <TbAlertTriangle aria-hidden className="text-pink size-6" />
             )}
           </Fragment>
         )}

@@ -22,7 +22,7 @@ export const VoteNeo3SuccessModal = () => {
   const { modalEraseWrapper } = useModalNavigate()
 
   const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address)
-  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance ?? 0)
+  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
 
   return (
     <BottomModalLayout heading={t('title')} hideBackButton>

@@ -4,7 +4,8 @@ import type { TSelectedNetworks } from '@shared/types/store'
 import { useAppSelector } from './useRedux'
 
 export const useSelectedNetworkByBlockchainSelector = () => {
-  const { ref, value } = useAppSelector(state => state.settings.data.selectedNetworkByBlockchain)
+  const { value, ref } = useAppSelector(state => state.settings.data.selectedNetworkByBlockchain)
+
   return {
     selectedNetworkByBlockchain: value,
     selectedNetworkByBlockchainRef: ref,
@@ -12,9 +13,10 @@ export const useSelectedNetworkByBlockchainSelector = () => {
 }
 
 export const useSelectedNetworkSelector = <T extends TBlockchainServiceKey>(blockchain: T) => {
-  const { ref, value } = useAppSelector(
+  const { value, ref } = useAppSelector(
     state => state.settings.data.selectedNetworkByBlockchain[blockchain] as TSelectedNetworks[T]
   )
+
   return {
     network: value,
     networkRef: ref,
@@ -22,7 +24,8 @@ export const useSelectedNetworkSelector = <T extends TBlockchainServiceKey>(bloc
 }
 
 export const useCurrencySelector = () => {
-  const { ref, value } = useAppSelector(state => state.settings.data.currency)
+  const { value, ref } = useAppSelector(state => state.settings.data.currency)
+
   return {
     currency: value,
     currencyRef: ref,
@@ -30,7 +33,8 @@ export const useCurrencySelector = () => {
 }
 
 export const useLanguageSelector = () => {
-  const { ref, value } = useAppSelector(state => state.settings.data.language)
+  const { value, ref } = useAppSelector(state => state.settings.data.language)
+
   return {
     language: value,
     languageRef: ref,
@@ -38,7 +42,7 @@ export const useLanguageSelector = () => {
 }
 
 export const useSelectedWalletSelector = () => {
-  const { ref, value } = useAppSelector(state => state.settings.data.selectedWallet)
+  const { value, ref } = useAppSelector(state => state.settings.data.selectedWallet)
 
   return {
     selectedWallet: value,
@@ -47,7 +51,7 @@ export const useSelectedWalletSelector = () => {
 }
 
 export const useSelectedAccountSelector = () => {
-  const { ref, value } = useAppSelector(state => state.settings.data.selectedAccount)
+  const { value, ref } = useAppSelector(state => state.settings.data.selectedAccount)
 
   return {
     selectedAccount: value,

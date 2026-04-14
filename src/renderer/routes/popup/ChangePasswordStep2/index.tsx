@@ -84,10 +84,10 @@ export const ChangePasswordStep2Page = () => {
   })
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-between px-5 pb-10">
+    <div className="flex size-full flex-col items-center justify-between px-5 pb-10">
       <div className="flex flex-col items-center gap-5 pt-9">
         <div className="flex items-center justify-center rounded-full">
-          <TbQrCode aria-hidden className="text-blue h-20 w-20" />
+          <TbQrCode aria-hidden className="text-blue size-20" />
         </div>
         <span className="max-w-[16.8rem] text-center text-[1.2rem]">{t('subtitle')}</span>
         <span className="text-center text-xs text-gray-100">{t('description')}</span>

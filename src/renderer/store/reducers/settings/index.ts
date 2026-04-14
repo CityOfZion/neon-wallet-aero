@@ -8,16 +8,16 @@ import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelp
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { LanguageHelper } from '@renderer/helpers/LanguageHelper'
 
-import type { IAccountState, IWalletState, TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
+import type { TAccount, TCurrency, TLanguage, TSelectedNetworks, TWallet } from '@shared/types/store'
 
 import { settingsSliceReducers } from './reducers'
 
 export let settingsReducerActions: CaseReducerActions<typeof settingsSliceReducers, string>
 
-export interface ISettingsReducer {
+export type TSettingsReducer = {
   data: {
-    selectedWallet: IWalletState | undefined
-    selectedAccount: IAccountState | undefined
+    selectedWallet: TWallet | undefined
+    selectedAccount: TAccount | undefined
     currency: TCurrency
     language: TLanguage
     selectedNetworkByBlockchain: TSelectedNetworks
@@ -25,7 +25,7 @@ export interface ISettingsReducer {
 }
 
 export function getSettingsReducer() {
-  const settingsReducerInitialState: ISettingsReducer = {
+  const settingsReducerInitialState: TSettingsReducer = {
     data: {
       selectedWallet: undefined,
       selectedAccount: undefined,
@@ -44,10 +44,9 @@ export function getSettingsReducer() {
     },
   }
 
-  const settingsReducerConfig: PersistConfig<ISettingsReducer> = {
+  const settingsReducerConfig: PersistConfig<TSettingsReducer> = {
     key: 'settingsReducer',
     storage: localStorage,
-    blacklist: ['inMemoryData'],
   }
 
   const settingsSlice = createSlice({

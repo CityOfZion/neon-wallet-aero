@@ -34,9 +34,7 @@ export const AddressSelectionButton = ({ blockchain, address, disabled, placehol
       iconsOnEdge
       disabled={disabled}
       leftIcon={
-        showIcon ? (
-          <BlockchainIcon blockchain={blockchain} className="size-4 max-h-4 min-h-4 max-w-4 min-w-4" />
-        ) : undefined
+        showIcon ? <BlockchainIcon blockchain={blockchain} className="min-size-4 max-size-4 size-4" /> : undefined
       }
       onClick={onClick}
     />

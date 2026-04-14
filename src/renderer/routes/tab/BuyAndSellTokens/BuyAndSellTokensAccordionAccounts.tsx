@@ -5,12 +5,12 @@ import { Accordion } from '@renderer/components/Accordion'
 
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { BuyAndSellTokensAccordionWalletItem } from './BuyAndSellTokensAccordionWalletItem'
 
 type TProps = {
-  account?: IAccountState
+  account?: TAccount
 }
 
 export const BuyAndSellTokensAccordionAccounts = ({ account }: TProps) => {

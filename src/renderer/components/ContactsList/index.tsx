@@ -6,13 +6,13 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
-import type { TContactState } from '@shared/types/store'
+import type { TContact } from '@shared/types/store'
 
 import { Button } from '../Button'
 import { Separator } from '../Separator'
 
 type TProps = {
-  groupedContacts: [string, TContactState[]][]
+  groupedContacts: [string, TContact[]][]
 }
 
 export const ContactsList = ({ groupedContacts }: TProps) => {
@@ -44,13 +44,15 @@ export const ContactsList = ({ groupedContacts }: TProps) => {
                     },
                   })}
                   className={StyleHelper.mergeStyles(
-                    'hover:border-neon group flex h-12 w-full items-center justify-between border-l-4 border-transparent py-4 pl-0 hover:text-white'
+                    'group flex h-12 w-full items-center justify-between border-l-4 border-transparent py-4 pl-0',
+                    'hover:border-neon focus:border-neon active:border-neon hover:text-white focus:text-white active:text-white'
                   )}
                 >
                   <div className="flex w-full items-center">
                     <p
                       className={StyleHelper.mergeStyles(
-                        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-300/30 text-xs text-gray-100 transition-colors group-hover:bg-gray-200 group-hover:text-gray-800'
+                        'flex size-6 shrink-0 items-center justify-center rounded-full bg-gray-300/30 text-xs text-gray-100 transition-colors',
+                        'group-hover:bg-gray-200 group-hover:text-gray-800 group-focus:bg-gray-200 group-focus:text-gray-800 group-active:bg-gray-200 group-active:text-gray-800'
                       )}
                     >
                       {StringHelper.getInitials(contact.name)}

@@ -1,6 +1,6 @@
 import type { TBSNetwork } from '@cityofzion/blockchain-service'
 
-import type { IAccountState, IWalletState, TAccountType, TWalletBackupStatus, TWalletType } from './store'
+import type { TAccount, TAccountType, TWallet, TWalletBackupStatus, TWalletType } from './store'
 
 export type TBlockchainServiceKey =
   | 'neo3'
@@ -15,7 +15,7 @@ export type TBlockchainServiceKey =
 export type TAccountToImport = {
   address: string
   blockchain: TBlockchainServiceKey
-  wallet: IWalletState
+  wallet: TWallet
   type: TAccountType
   key?: string
   name?: string
@@ -29,13 +29,13 @@ export type TCreateWalletAndAccountParam = TWalletToCreate & {
 }
 
 export type TImportAccountsParam = {
-  wallet: IWalletState
+  wallet: TWallet
   accounts: TAccountsToImport
 }
 
 export type TAccountToCreate = {
   id?: string
-  wallet: IWalletState
+  wallet: TWallet
   name: string
   blockchain: TBlockchainServiceKey
 }
@@ -53,11 +53,11 @@ export type TNetwork = {
 } & TBSNetwork
 
 export type TAccountToEdit = {
-  account: IAccountState
-  data: Partial<Omit<IAccountState, 'address' | 'encryptedKey' | 'id'>> & { key?: string }
+  account: TAccount
+  data: Partial<Omit<TAccount, 'address' | 'encryptedKey' | 'id'>> & { key?: string }
 }
 
 export type TWalletToEdit = {
-  wallet: IWalletState
-  data: Partial<Omit<IWalletState, 'id' | 'encryptedMnemonic'>> & { mnemonic?: string }
+  wallet: TWallet
+  data: Partial<Omit<TWallet, 'id' | 'encryptedMnemonic'>> & { mnemonic?: string }
 }

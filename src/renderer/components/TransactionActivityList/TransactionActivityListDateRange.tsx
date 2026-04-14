@@ -27,7 +27,7 @@ export const TransactionActivityListDateRange = ({
 
   return (
     <div className="bg-asphalt flex h-9 w-fit min-w-56 items-center justify-center gap-x-0.5 rounded px-2">
-      <MdCalendarMonth aria-hidden className="mr-0.5 h-3 max-h-3 min-h-3 w-3 max-w-3 min-w-3 text-gray-100" />
+      <MdCalendarMonth aria-hidden className="min-size-3 max-size-3 mr-0.5 size-3 text-gray-100" />
 
       <DatePicker.Root>
         <DatePicker.Trigger asChild>
@@ -51,7 +51,7 @@ export const TransactionActivityListDateRange = ({
         />
       </DatePicker.Root>
 
-      <MdChevronRight aria-hidden className="h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4 text-gray-100" />
+      <MdChevronRight aria-hidden className="min-size-4 max-size-4 size-4 text-gray-100" />
 
       <DatePicker.Root>
         <DatePicker.Trigger asChild>

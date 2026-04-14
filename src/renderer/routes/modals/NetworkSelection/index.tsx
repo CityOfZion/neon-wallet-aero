@@ -75,7 +75,7 @@ export const NetworkSelectionModal = () => {
             <Radio.Item key={network.id} value={network.id} withSeparator={index !== array.length - 1}>
               <div className="flex items-center gap-4 text-sm">
                 <div
-                  className={StyleHelper.mergeStyles('h-1.5 min-h-1.5 w-1.5 min-w-1.5 rounded-full', {
+                  className={StyleHelper.mergeStyles('min-size-1.5 size-1.5 rounded-full', {
                     'bg-purple': network.type === 'testnet',
                     'bg-neon': network.type === 'mainnet',
                   })}

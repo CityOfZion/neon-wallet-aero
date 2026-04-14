@@ -16,7 +16,7 @@ import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 
-import type { TContactState } from '@shared/types/store'
+import type { TContact } from '@shared/types/store'
 
 export const ContactsPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'contacts' })
@@ -41,14 +41,14 @@ export const ContactsPage = () => {
 
     const sortedContacts = filteredContacts.sort((a, b) => a.name[0].localeCompare(b.name[0]))
 
-    const groupedContactsByFirstLetterMap = new Map<string, TContactState[]>()
+    const groupedContactsByFirstLetterMap = new Map<string, TContact[]>()
 
     sortedContacts.forEach(contact => {
       if (!contact.name) return
 
       const key = contact.name[0].toUpperCase()
 
-      const lastContacts = groupedContactsByFirstLetterMap.get(key) ?? []
+      const lastContacts = groupedContactsByFirstLetterMap.get(key) || []
 
       groupedContactsByFirstLetterMap.set(key, [...lastContacts, contact])
     })

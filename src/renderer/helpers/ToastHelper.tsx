@@ -40,7 +40,7 @@ export class ToastHelper {
             onClick={() => sonner.dismiss(sonnerId)}
             className="min-size-6 max-size-6 size-6 cursor-pointer opacity-50"
           >
-            <MdClose aria-hidden className="h-full w-full" />
+            <MdClose aria-hidden className="size-full" />
           </button>
         )}
       </div>
@@ -56,7 +56,7 @@ export class ToastHelper {
   }
 
   static success({ id, message, ...props }: TToastHelperToastOptions) {
-    const customId = id ?? UtilsHelper.uuid()
+    const customId = id || UtilsHelper.uuid()
 
     sonner.custom(
       sonnerId => (
@@ -76,7 +76,7 @@ export class ToastHelper {
   }
 
   static error({ id, message, ...props }: TToastHelperToastOptions) {
-    const customId = id ?? UtilsHelper.uuid()
+    const customId = id || UtilsHelper.uuid()
     sonner.custom(
       sonnerId => (
         <this.Toast
@@ -95,7 +95,7 @@ export class ToastHelper {
   }
 
   static info({ id, message, ...props }: TToastHelperToastOptions) {
-    const customId = id ?? UtilsHelper.uuid()
+    const customId = id || UtilsHelper.uuid()
     sonner.custom(
       sonnerId => (
         <this.Toast
@@ -114,7 +114,7 @@ export class ToastHelper {
   }
 
   static async loading({ id, message, ...props }: TToastHelperToastOptions) {
-    const customId = id ?? UtilsHelper.uuid()
+    const customId = id || UtilsHelper.uuid()
 
     sonner.custom(
       sonnerId => (

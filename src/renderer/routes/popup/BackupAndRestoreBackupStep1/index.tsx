@@ -56,7 +56,7 @@ export const BackupAndRestoreBackupStep1Page = () => {
   const isDisabled = !actionData.password
 
   return (
-    <form className="flex h-full w-full flex-col" onSubmit={handleAct(handleSubmitCreateBackup)}>
+    <form className="flex size-full flex-col" onSubmit={handleAct(handleSubmitCreateBackup)}>
       <p className="mb-7 text-sm">{t('description')}</p>
 
       <div className="flex flex-grow flex-col gap-y-4">

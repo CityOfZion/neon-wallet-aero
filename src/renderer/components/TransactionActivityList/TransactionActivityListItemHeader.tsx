@@ -14,7 +14,7 @@ export const TransactionActivityListItemHeader = ({ transaction }: TProps) => {
   return (
     <div className="flex h-8.5 max-h-8.5 min-h-8.5 w-full items-center gap-x-2">
       {txIdUrl ? (
-        <Link to={txIdUrl} target="_blank" className="block h-full w-full cursor-pointer">
+        <Link to={txIdUrl} target="_blank" className="block size-full cursor-pointer">
           <TransactionActivityListItemHeaderContent transaction={transaction} />
         </Link>
       ) : (

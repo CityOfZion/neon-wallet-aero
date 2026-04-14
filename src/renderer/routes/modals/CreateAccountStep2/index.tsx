@@ -23,13 +23,13 @@ import TbCheck from '@renderer/assets/images/tb-check.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
-import type { IAccountState, IWalletState } from '@shared/types/store'
+import type { TAccount, TWallet } from '@shared/types/store'
 
 import { CreateAccountStep2Accordion } from './CreateAccountStep2Accordion'
 
 type TActionsData = {
   selectedBlockchain?: TBlockchainServiceKey
-  selectedWallet?: IWalletState
+  selectedWallet?: TWallet
 }
 
 export const CreateAccountStep2Modal = () => {
@@ -60,7 +60,7 @@ export const CreateAccountStep2Modal = () => {
 
     try {
       const trimmedAccountName = accountName.trim()
-      let account: IAccountState
+      let account: TAccount
 
       if (selectedWallet.type === 'standard') {
         account = await createStandardAccount({
@@ -81,7 +81,7 @@ export const CreateAccountStep2Modal = () => {
     }
   }
 
-  const handleWallets = (wallet: IWalletState) => {
+  const handleWallets = (wallet: TWallet) => {
     setData({ selectedWallet: wallet })
   }
 

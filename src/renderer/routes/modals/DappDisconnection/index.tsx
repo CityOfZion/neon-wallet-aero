@@ -37,8 +37,8 @@ export const DappDisconnectionModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="flex flex-col items-center">
-        <div className="bg-asphalt flex h-36 w-36 items-center justify-center rounded-full">
-          <TbPlugX aria-hidden className="text-pink h-[5rem] w-[5rem]" />
+        <div className="bg-asphalt flex size-36 items-center justify-center rounded-full">
+          <TbPlugX aria-hidden className="text-pink size-[5rem]" />
         </div>
 
         <p className="pt-7 text-lg text-white">{sessions.length > 1 ? t('disconnectAllApps') : t('disconnectApp')}</p>

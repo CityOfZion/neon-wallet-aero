@@ -12,7 +12,7 @@ export const Neo3NeoXBridgeInfoModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="my-3 flex flex-grow flex-col items-center justify-between px-4">
-        <TbReplace2 aria-hidden className="text-blue h-21 w-21" />
+        <TbReplace2 aria-hidden className="text-blue size-21" />
 
         <div className="flex flex-col gap-4 text-sm text-white">
           <p className="font-bold">{t('description1')}</p>

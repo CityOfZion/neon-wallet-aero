@@ -85,7 +85,7 @@ export async function fetchExchange(
 
     const queryData: TExchange = {
       usdPrice: nextUsdPrice,
-      token: tokenPrice?.token ?? token,
+      token: tokenPrice?.token || token,
       convertedPrice: nextUsdPrice * currencyRatio,
     }
 
@@ -137,7 +137,7 @@ export function useExchange(params: TUseExchangeParams[]): TUseExchangeResult {
   }, [params])
 
   return useQueries({
-    queries: Object.entries(tokensToFetchByBlockchain ?? {}).map(([key, tokens]) => {
+    queries: Object.entries(tokensToFetchByBlockchain || {}).map(([key, tokens]) => {
       const blockchain = key as TBlockchainServiceKey
       const network = selectedNetworkByBlockchain[blockchain]
 
@@ -149,7 +149,7 @@ export function useExchange(params: TUseExchangeParams[]): TUseExchangeResult {
     }),
     combine: result => ({
       isLoading: isCurrencyRatioLoading || result.some(query => query.isLoading),
-      data: assign(emptyObject, ...result.map(query => query.data ?? {})) as TMultiExchange,
+      data: assign(emptyObject, ...result.map(query => query.data || {})) as TMultiExchange,
     }),
   })
 }

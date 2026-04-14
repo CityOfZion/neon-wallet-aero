@@ -29,7 +29,7 @@ import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import type { TModalState } from '@shared/types/modal'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 export const AccountSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'accountSelection' })
@@ -56,7 +56,7 @@ export const AccountSelectionModal = () => {
 
   const dispatch = useAppDispatch()
 
-  const handleSelect = (account: IAccountState) => {
+  const handleSelect = (account: TAccount) => {
     if (shouldPersistSelection) {
       dispatch(settingsReducerActions.setSelectedAccount(account))
     }
@@ -64,7 +64,7 @@ export const AccountSelectionModal = () => {
     onSelect?.(account)
   }
 
-  const handleEdit = (account: IAccountState) => {
+  const handleEdit = (account: TAccount) => {
     if (!selectedAccount) return
 
     modalNavigate('account-edit', {
@@ -91,7 +91,7 @@ export const AccountSelectionModal = () => {
 
             modalNavigate('export-key', {
               state: {
-                account: selectedAccount ?? wallet!.accounts[0],
+                account: selectedAccount || wallet!.accounts[0],
               },
               replace: true,
             })
@@ -106,7 +106,7 @@ export const AccountSelectionModal = () => {
   return (
     <BottomModalLayout heading={editMode ? t('titleEdit') : t('title')}>
       <div className="bg-asphalt flex items-center gap-4 rounded px-3.5 py-2">
-        <TbWallet className="text-blue h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6" aria-hidden />
+        <TbWallet className="text-blue min-size-6 max-size-6 size-6" aria-hidden />
         <p className="text-blue truncate text-sm">{wallet?.name}</p>
       </div>
 
@@ -124,7 +124,7 @@ export const AccountSelectionModal = () => {
                   <div className="flex min-w-0 items-center gap-5">
                     <BlockchainIcon
                       blockchain={account.blockchain}
-                      className={StyleHelper.mergeStyles('h-4 min-h-4 w-4 min-w-4 text-gray-100', {
+                      className={StyleHelper.mergeStyles('min-size-4 size-4 text-gray-100', {
                         'text-neon': editMode,
                       })}
                     />
@@ -138,7 +138,7 @@ export const AccountSelectionModal = () => {
                   </p>
                 </div>
 
-                <TbChevronRight aria-hidden className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6 text-gray-300" />
+                <TbChevronRight aria-hidden className="min-size-6 max-size-6 size-6 text-gray-300" />
               </button>
 
               {index + 1 !== array.length && <Separator />}

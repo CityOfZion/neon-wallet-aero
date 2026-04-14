@@ -9,9 +9,9 @@ import { HardwareWalletHelper } from '@renderer/helpers/HardwareWalletHelper'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { IAccountState, IWalletState } from '@shared/types/store'
+import type { TAccount, TAccountWithWallet, TWallet } from '@shared/types/store'
 
-import { useAccountsMapSelector, useHardwareAccountsSelector } from './useAccountSelector'
+import { useAccountsWithWalletMapSelector, useHardwareAccountsSelector } from './useAccountSelector'
 import { useLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useAppDispatch } from './useRedux'
@@ -20,7 +20,7 @@ export const useCreateHardwareWallet = () => {
   const { t: tCommon } = useTranslation('common')
   const { createWallet, editAccount, importAccount, editWallet } = useBlockchainActions()
   const { loginSessionRef } = useLoginSessionSelector()
-  const { accountsMapRef } = useAccountsMapSelector()
+  const { accountsWithWalletMapRef } = useAccountsWithWalletMapSelector()
 
   const createHardwareWallet = useCallback(
     async (accounts: TBSAccount<TBlockchainServiceKey>[]) => {
@@ -28,21 +28,21 @@ export const useCreateHardwareWallet = () => {
         throw new AppError(tCommon('errors.noLoginSession'))
       }
 
-      const existentWalletsByBlockchain = new Map<TBlockchainServiceKey, IWalletState>()
+      const existentWalletsByBlockchain = new Map<TBlockchainServiceKey, TWallet>()
       const groupedAccountInfosByBlockchain = new Map<
         TBlockchainServiceKey,
         {
-          existentAccount?: IAccountState
+          existentAccount?: TAccount
           account: TBSAccount<TBlockchainServiceKey>
         }[]
       >()
 
       // Group accounts by blockchain and check if the wallet already exists
       accounts.forEach(account => {
-        const existentAccount = accountsMapRef.current.get(AccountHelper.buildAccountKey(account))
+        const existentAccount = accountsWithWalletMapRef.current.get(AccountHelper.buildAccountKey(account))
         const existentWallet = existentAccount?.wallet
 
-        const groupedInfo = groupedAccountInfosByBlockchain.get(account.blockchain) ?? []
+        const groupedInfo = groupedAccountInfosByBlockchain.get(account.blockchain) || []
         groupedInfo.push({ existentAccount, account })
 
         groupedAccountInfosByBlockchain.set(account.blockchain, groupedInfo)
@@ -53,12 +53,12 @@ export const useCreateHardwareWallet = () => {
         }
       })
 
-      const newAccounts: (IAccountState & { wallet: IWalletState })[] = []
+      const newAccounts: TAccountWithWallet[] = []
 
       for (const [blockchain, accountInfos] of groupedAccountInfosByBlockchain.entries()) {
         const existentWallet = existentWalletsByBlockchain.get(blockchain)
 
-        let wallet: IWalletState
+        let wallet: TWallet
 
         const walletName = tCommon('wallet.hardwareName', { blockchain: tCommon(`blockchain.${blockchain}`) })
         const walletType = 'hardware'
@@ -79,7 +79,7 @@ export const useCreateHardwareWallet = () => {
         }
 
         for (const info of accountInfos) {
-          let account: IAccountState | undefined
+          let account: TAccount | undefined
 
           if (info.existentAccount) {
             account = await editAccount({
@@ -106,7 +106,7 @@ export const useCreateHardwareWallet = () => {
 
       return newAccounts
     },
-    [loginSessionRef, accountsMapRef, createWallet, tCommon, editWallet, editAccount, importAccount]
+    [loginSessionRef, accountsWithWalletMapRef, createWallet, tCommon, editWallet, editAccount, importAccount]
   )
 
   return {
@@ -121,7 +121,7 @@ export const useAddAccountHardwareWallet = () => {
   const dispatch = useAppDispatch()
 
   const addHardwareAccount = useCallback(
-    async (wallet: IWalletState, accountName?: string) => {
+    async (wallet: TWallet, accountName?: string) => {
       if (!loginSessionRef.current) {
         throw new AppError(tCommon('errors.noLoginSession'))
       }
@@ -140,7 +140,7 @@ export const useAddAccountHardwareWallet = () => {
         type: 'hardware',
         wallet,
         order: accountOrder,
-        name: accountName || `Account ${accountOrder + 1}`,
+        name: accountName || tCommon('account.defaultName', { accountNumber: accountOrder + 1 }),
       })
 
       const firstAccount = await HardwareWalletHelper.getAccount({ index: 0, blockchain })

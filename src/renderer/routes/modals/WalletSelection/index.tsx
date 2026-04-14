@@ -29,7 +29,7 @@ import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import type { TModalState } from '@shared/types/modal'
-import type { IWalletState } from '@shared/types/store'
+import type { TWallet } from '@shared/types/store'
 
 export const WalletSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelection' })
@@ -49,7 +49,7 @@ export const WalletSelectionModal = () => {
 
   const isPasswordLogin = loginSession?.type === 'password'
 
-  const handleSelect = (wallet: IWalletState) => {
+  const handleSelect = (wallet: TWallet) => {
     if (shouldPersistSelection) {
       dispatch(settingsReducerActions.setSelectedWallet(wallet))
     }
@@ -57,7 +57,7 @@ export const WalletSelectionModal = () => {
     onSelect?.(wallet)
   }
 
-  const handleEdit = (wallet: IWalletState) => {
+  const handleEdit = (wallet: TWallet) => {
     if (!selectedWallet || !editMode) return
 
     modalNavigate('wallet-edit', {
@@ -84,7 +84,7 @@ export const WalletSelectionModal = () => {
 
             modalNavigate('export-mnemonic', {
               state: {
-                wallet: selectedWallet ?? wallets[0],
+                wallet: selectedWallet || wallets[0],
               },
               replace: true,
             })

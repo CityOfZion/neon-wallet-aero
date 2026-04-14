@@ -23,7 +23,7 @@ import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 import TbTrash from '@renderer/assets/images/tb-trash.svg?react'
 
 import type { TModalState } from '@shared/types/modal'
-import type { TContactAddress, TContactState } from '@shared/types/store'
+import type { TContact, TContactAddress } from '@shared/types/store'
 
 type TFormData = {
   name: string
@@ -37,8 +37,8 @@ export const SaveContactModal = () => {
   const { saveContacts } = useBlockchainActions()
 
   const { actionData, actionState, handleAct, setData, setDataFromEventWrapper, setError } = useActions<TFormData>({
-    name: contact?.name ?? '',
-    addresses: contact?.addresses ?? addresses ?? [],
+    name: contact?.name || '',
+    addresses: contact?.addresses || addresses || [],
   })
 
   const isDisabled = actionData.addresses.length <= 0 || !actionState.isValid || actionState.isActing
@@ -88,10 +88,10 @@ export const SaveContactModal = () => {
       return
     }
 
-    const contactData: TContactState = {
+    const contactData: TContact = {
       name: nameTrimmed,
       addresses: data.addresses,
-      id: contact?.id ?? UtilsHelper.uuid(),
+      id: contact?.id || UtilsHelper.uuid(),
     }
 
     await saveContacts([contactData])
@@ -128,11 +128,7 @@ export const SaveContactModal = () => {
                       className="bg-asphalt flex h-8.5 w-full items-center justify-between rounded px-4 py-6"
                     >
                       <div className="flex min-w-0 flex-grow items-center gap-x-3">
-                        <BlockchainIcon
-                          blockchain={address.blockchain}
-                          type="white"
-                          className="size-4 min-h-4 min-w-4"
-                        />
+                        <BlockchainIcon blockchain={address.blockchain} type="white" className="min-size-4 size-4" />
                         <p className="truncate text-sm font-normal text-white">{address.address}</p>
                       </div>
 

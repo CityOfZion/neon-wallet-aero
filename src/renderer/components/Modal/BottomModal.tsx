@@ -51,7 +51,7 @@ export const BottomModal = () => {
             key={history.id}
             loop
             trapped
-            className={StyleHelper.mergeStyles(`min-h-modal-bottom-height h-full w-full`, {
+            className={StyleHelper.mergeStyles(`min-h-modal-bottom-height size-full`, {
               'invisible hidden': index !== bottomHistories.length - 1,
             })}
           >

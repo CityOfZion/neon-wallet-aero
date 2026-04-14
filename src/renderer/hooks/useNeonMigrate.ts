@@ -13,7 +13,7 @@ import type {
   TUseNeonMigrateGeneratedData,
   TUseNeonMigrateParsedContent,
 } from '@shared/types/hooks'
-import type { TContactAddress, TContactState } from '@shared/types/store'
+import type { TContact, TContactAddress } from '@shared/types/store'
 
 import { useBlockchainActions } from './useBlockchainActions'
 import { useContactsSelector } from './useContactSelector'
@@ -56,7 +56,7 @@ export const useNeonImportMigrate = () => {
     content: TUseNeonMigrateParsedContent,
     decryptedAccounts: TUseNeonMigrateDecryptedAccountSchema[]
   ): TUseNeonMigrateGeneratedData => {
-    const contactsToCreate: TContactState[] = []
+    const contactsToCreate: TContact[] = []
     const walletToCreate: TWalletToCreate = { name: tCommon('migratedWalletName'), backupStatus: 'successful' }
     const accountsToCreate: TAccountsToImport = []
 

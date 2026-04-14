@@ -5,7 +5,7 @@ import type { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { EBuyAndSellTokensTab } from '@renderer/routes/tab/BuyAndSellTokens'
 
 import { rendererApi } from '@shared/message-api/renderer'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 type TFunctionParams = {
   modalActions: ReturnType<typeof useModalNavigate>
@@ -43,7 +43,7 @@ export const functionsByActionId: TFunctionsByActionId = {
               walletId: wallet.id,
               hideActions: true,
               accountTypes: ['standard', 'hardware'],
-              onSelect: (account: IAccountState) => {
+              onSelect: (account: TAccount) => {
                 modalActions.modalNavigate('dapp-connection', { state: { account } })
               },
             },

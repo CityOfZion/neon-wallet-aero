@@ -21,7 +21,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { DappPermissionErrorContent } from './DappPermissionErrorContent'
 import { DappPermissionGenericContent } from './DappPermissionGenericContent'
@@ -32,7 +32,7 @@ export type TDappPermissionProps = {
   request: PendingRequestTypes.Struct
   session: SessionTypes.Struct
   sessionDetails: TWalletKitHelperSessionDetails<TBlockchainServiceKey>
-  sessionAccount: IAccountState
+  sessionAccount: TAccount
   onAccept: () => void
   onReject: (reason?: ErrorResponse, toastMessage?: string) => void
   isAccepting: boolean
@@ -62,7 +62,7 @@ export const DappPermissionModal = () => {
   const [isRejecting, startReject] = usePressOnce(async (reason?: ErrorResponse, toastMessage?: string) => {
     await onReject(reason)
     modalErase('bottom')
-    ToastHelper.error({ message: toastMessage ?? t('errors.cancelled'), id: 'dapp-permission-cancel' })
+    ToastHelper.error({ message: toastMessage || t('errors.cancelled'), id: 'dapp-permission-cancel' })
   })
 
   const [isAccepting, startAccept] = usePressOnce(async () => {
@@ -135,7 +135,7 @@ export const DappPermissionModal = () => {
     }
   }, [modalErase, request.id, t])
 
-  const Content = CUSTOM_CONTENT_BY_REQUEST[blockchain]?.[request.params.request.method] ?? DappPermissionGenericContent
+  const Content = CUSTOM_CONTENT_BY_REQUEST[blockchain]?.[request.params.request.method] || DappPermissionGenericContent
 
   return (
     <BottomModalLayout heading={t('title')} contentClassName="px-0 flex flex-col pb-5 min-h-0" onClose={startReject}>

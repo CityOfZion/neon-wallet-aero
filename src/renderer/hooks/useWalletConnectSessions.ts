@@ -6,9 +6,9 @@ import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelp
 import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
 
 import { rendererApi } from '@shared/message-api/renderer'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
-export const buildWalletConnectSessionKey = (account?: IAccountState) => {
+export const buildWalletConnectSessionKey = (account?: TAccount) => {
   const key = ['wallet-connect', 'sessions']
 
   if (account) {
@@ -18,13 +18,13 @@ export const buildWalletConnectSessionKey = (account?: IAccountState) => {
   return key
 }
 
-export const invalidateWalletConnectSessions = (account?: IAccountState) => {
+export const invalidateWalletConnectSessions = (account?: TAccount) => {
   return ReactQueryHelper.client.invalidateQueries({
     queryKey: buildWalletConnectSessionKey(account),
   })
 }
 
-const fetchSessions = async (account: IAccountState) => {
+const fetchSessions = async (account: TAccount) => {
   const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
   if (!hasWalletConnect(service)) return []
 
@@ -36,7 +36,7 @@ const fetchSessions = async (account: IAccountState) => {
   })
 }
 
-export const useWalletConnectSessionsByAccount = (account: IAccountState) => {
+export const useWalletConnectSessionsByAccount = (account: TAccount) => {
   return useQuery({
     queryKey: buildWalletConnectSessionKey(account),
     queryFn: fetchSessions.bind(null, account),

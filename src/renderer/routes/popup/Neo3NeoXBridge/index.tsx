@@ -52,18 +52,18 @@ import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 type TActionsData = {
   availableTokensToUse: TBridgeValue<TBridgeToken<TBlockchainServiceKey>[]>
   tokenToUse: TBridgeValue<TBridgeToken<TBlockchainServiceKey>>
   tokenToUseBalance: TBridgeValue<TBalanceResponse | undefined>
-  accountToUse: TBridgeValue<IAccountState>
+  accountToUse: TBridgeValue<TAccount>
   amountToUse: TBridgeValidateValue<string>
   amountToUseMin: TBridgeValue<string>
   amountToUseMax: TBridgeValue<string>
   tokenToReceive: TBridgeValue<TBridgeToken<TBlockchainServiceKey>>
-  accountToReceive: TBridgeValue<IAccountState>
+  accountToReceive: TBridgeValue<TAccount>
   addressToReceive: TBridgeValidateValue<string>
   amountToReceive: TBridgeValue<string>
   bridgeFee: TBridgeValue<string>
@@ -179,7 +179,7 @@ export const Neo3NeoXBridgePage = () => {
         ? accountsMapRef.current.get(AccountHelper.buildAccountKey(accountToUse.value))
         : undefined
 
-      setData({ accountToUse: { ...accountToUse, value: account ?? null } })
+      setData({ accountToUse: { ...accountToUse, value: account || null } })
     })
 
     neo3NeoXBridgeOrchestrator.eventEmitter.on('amountToUse', amountToUse => {
@@ -239,7 +239,7 @@ export const Neo3NeoXBridgePage = () => {
     })
   }
 
-  const handleSelectAccountToUse = async (account: IAccountState) => {
+  const handleSelectAccountToUse = async (account: TAccount) => {
     if (!loginSessionRef.current || !account.encryptedKey) return
 
     const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
@@ -253,7 +253,7 @@ export const Neo3NeoXBridgePage = () => {
     await bridgeOrchestratorRef.current.setBalances(data.tokensBalances)
   }
 
-  const handleSelectAccountToReceive = async (account: IAccountState) => {
+  const handleSelectAccountToReceive = async (account: TAccount) => {
     setData({
       accountToReceive: { value: account, error: null, loading: false },
     })
@@ -270,7 +270,7 @@ export const Neo3NeoXBridgePage = () => {
 
   const handleMaxAmount = async () => {
     try {
-      bridgeOrchestratorRef.current?.setAmountToUse(actionData.amountToUseMax.value ?? '0')
+      bridgeOrchestratorRef.current?.setAmountToUse(actionData.amountToUseMax.value || '0')
     } catch (error) {
       LoggerHelper.error(error, { where: 'Neo3NeoxBridgePage', operation: 'maxAmount' })
     }
@@ -398,13 +398,13 @@ export const Neo3NeoXBridgePage = () => {
 
                   <ActionStep
                     title={t('form.tokenToUseTitle')}
-                    leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                    leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   >
                     <GreyTokenSelect
-                      tokens={actionData.availableTokensToUse.value ?? []}
+                      tokens={actionData.availableTokensToUse.value || []}
                       loading={actionData.availableTokensToUse.loading || actionData.tokenToUse.loading}
                       onSelect={handleSelectTokenToUse}
-                      selectedToken={actionData.tokenToUse.value ?? undefined}
+                      selectedToken={actionData.tokenToUse.value || undefined}
                       blockchain={actionData.tokenToUse.value?.blockchain}
                     />
                   </ActionStep>
@@ -431,7 +431,7 @@ export const Neo3NeoXBridgePage = () => {
                       disabled
                       tokens={[]}
                       loading={actionData.tokenToReceive.loading}
-                      selectedToken={actionData.tokenToReceive.value ?? undefined}
+                      selectedToken={actionData.tokenToReceive.value || undefined}
                       blockchain={actionData.tokenToReceive.value?.blockchain}
                     />
                   </ActionStep>
@@ -442,7 +442,7 @@ export const Neo3NeoXBridgePage = () => {
                 <div className="mt-2.5 flex w-full flex-col items-center rounded bg-gray-300/15 px-4 pb-4">
                   <ActionStep
                     title={t('form.source')}
-                    leftIcon={<TbWallet aria-hidden className="h-6 min-h-6 w-6 min-w-6" />}
+                    leftIcon={<TbWallet aria-hidden className="min-size-6 size-6" />}
                     className="font-bold"
                   />
 
@@ -450,7 +450,7 @@ export const Neo3NeoXBridgePage = () => {
 
                   <ActionStep
                     title={t('form.accountToUseTitle')}
-                    leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                    leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   >
                     <GreyAccountSelect
                       selectedAccount={actionData.accountToUse.value}
@@ -464,17 +464,17 @@ export const Neo3NeoXBridgePage = () => {
 
                   <ActionStep
                     title={t('form.receiveHere')}
-                    leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                    leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   >
                     <AddressSelectionButton
                       blockchain={actionData.tokenToReceive.value?.blockchain}
-                      address={actionData.accountToReceive.value?.address ?? actionData.addressToReceive.value}
+                      address={actionData.accountToReceive.value?.address || actionData.addressToReceive.value}
                       disabled={isAddressesDisabled}
                       placeholder={t('form.receiverAddressPlaceholder')}
                       onClick={modalNavigateWrapper('account-receive-selection', {
                         state: {
-                          selectedAccount: actionData.accountToReceive.value ?? undefined,
-                          selectedAddress: actionData.addressToReceive.value ?? undefined,
+                          selectedAccount: actionData.accountToReceive.value || undefined,
+                          selectedAddress: actionData.addressToReceive.value || undefined,
                           handleChangeAccount: handleSelectAccountToReceive,
                           handleChangeAddress: handleChangeAddressToReceive,
                           blockchain: actionData.tokenToReceive.value?.blockchain,
@@ -490,7 +490,7 @@ export const Neo3NeoXBridgePage = () => {
                   <ActionStep
                     title={t('form.amounts')}
                     className="font-bold"
-                    leftIcon={<TbCoin aria-hidden className="h-6 min-h-6 w-6 min-w-6" />}
+                    leftIcon={<TbCoin aria-hidden className="min-size-6 size-6" />}
                   />
 
                   <Separator />
@@ -501,17 +501,17 @@ export const Neo3NeoXBridgePage = () => {
                         <p>{t('form.amountToUseTitle')}</p>
                         <span className="w-full text-left text-xs text-gray-200">
                           {t('form.amountToUseMinimumLabel', {
-                            amount: actionData.amountToUseMin.value ?? t('form.amountToUseMinimumPlaceholder'),
+                            amount: actionData.amountToUseMin.value || t('form.amountToUseMinimumPlaceholder'),
                           })}
                         </span>
                       </div>
                     }
-                    leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                    leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   >
                     <div className="flex gap-2.5">
                       <GreyAmountInput
                         className="w-36"
-                        value={actionData.amountToUse.value ?? ''}
+                        value={actionData.amountToUse.value || ''}
                         onChange={handleChangeAmountToUse}
                         disabled={isAmountsDisabled}
                         loading={actionData.amountToUse.loading}
@@ -549,14 +549,14 @@ export const Neo3NeoXBridgePage = () => {
                         <span className="text-xs text-gray-100">{` ${t('form.amountToReceiveTitleComplement')}`}</span>
                       </div>
                     }
-                    leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                    leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   >
                     <GreyAmountInput
                       readOnly
                       className="w-28 bg-transparent"
                       inputClassName="text-right"
                       disabled={isAmountsDisabled}
-                      value={actionData.amountToReceive.value ?? t('form.amountToReceivePlaceholder')}
+                      value={actionData.amountToReceive.value || t('form.amountToReceivePlaceholder')}
                       loading={actionData.amountToReceive.loading}
                     />
                   </ActionStep>
@@ -565,7 +565,7 @@ export const Neo3NeoXBridgePage = () => {
                 {errorMessage && <AlertErrorBanner className="mt-2.5 w-full" message={errorMessage} />}
 
                 <TransactionFeeActionStep
-                  fee={actionData.bridgeFee?.value ?? undefined}
+                  fee={actionData.bridgeFee?.value || undefined}
                   isCalculatingFee={actionData.bridgeFee?.loading}
                   service={fromService}
                   className="mt-1"

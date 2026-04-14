@@ -18,7 +18,7 @@ import MdCheck from '@renderer/assets/images/md-check.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
-import type { IWalletState } from '@shared/types/store'
+import type { TWallet } from '@shared/types/store'
 
 import { ReorderWalletsItem } from './ReorderWalletsItem'
 
@@ -41,7 +41,7 @@ export const ReorderWalletsModal = () => {
     })
   )
 
-  const [reorderedWallets, setReorderedWallets] = useState<IWalletState[]>(wallets)
+  const [reorderedWallets, setReorderedWallets] = useState<TWallet[]>(wallets)
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event

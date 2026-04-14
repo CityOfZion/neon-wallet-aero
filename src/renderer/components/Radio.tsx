@@ -26,7 +26,7 @@ const Item = forwardRef<ComponentRef<typeof RadixRadio.Item>, ItemProps>(
         className
       )}
     >
-      <div className="flex h-full w-full flex-row items-center justify-between gap-x-3 gap-y-1 px-3">{children}</div>
+      <div className="flex size-full flex-row items-center justify-between gap-x-3 gap-y-1 px-3">{children}</div>
 
       {withSeparator && <Separator containerClassName={StyleHelper.mergeStyles('w-full', separatorClassName)} />}
     </RadixRadio.Item>
@@ -37,12 +37,12 @@ const Indicator = forwardRef<
   ComponentRef<typeof RadixRadio.Indicator>,
   ComponentPropsWithoutRef<typeof RadixRadio.Indicator>
 >(({ className, ...props }, ref) => (
-  <div className="group-data-[state=checked]:border-neon h-4 min-h-4 w-4 min-w-4 cursor-pointer rounded-full border-2 bg-transparent outline-none group-data-[state=unchecked]:border-gray-300">
+  <div className="group-data-[state=checked]:border-neon min-size-4 size-4 cursor-pointer rounded-full border-2 bg-transparent outline-none group-data-[state=unchecked]:border-gray-300">
     <RadixRadio.Indicator
       {...props}
       ref={ref}
       className={StyleHelper.mergeStyles(
-        "after:bg-neon relative flex h-full w-full items-center justify-center after:block after:h-2 after:w-2 after:rounded-[50%] after:content-['']",
+        "after:bg-neon relative flex size-full items-center justify-center after:block after:h-2 after:w-2 after:rounded-[50%] after:content-['']",
         className
       )}
     />

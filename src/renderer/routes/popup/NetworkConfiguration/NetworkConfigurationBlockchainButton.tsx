@@ -23,8 +23,8 @@ export const NetworkConfigurationBlockchainButton = ({ label, subLabel, onClick,
       onClick={onClick}
     >
       <div className="flex items-center gap-2.5">
-        <div className="flex h-6 w-6 items-center justify-center">
-          <span className="h-1 w-1 rounded-full bg-gray-300" />
+        <div className="flex size-6 items-center justify-center">
+          <span className="size-1 rounded-full bg-gray-300" />
         </div>
 
         <span className="text-gray-100">{label}</span>
@@ -32,7 +32,7 @@ export const NetworkConfigurationBlockchainButton = ({ label, subLabel, onClick,
 
       <div className="flex items-center gap-4">
         <p className="max-w-56 min-w-0 flex-1 truncate text-gray-300">{subLabel}</p>
-        <MdChevronRight aria-hidden className="text-neon h-6 w-6" />
+        <MdChevronRight aria-hidden className="text-neon size-6" />
       </div>
     </Button>
   )

@@ -52,7 +52,7 @@ export const Swipe = ({ text, buttonAriaLabel, isDisabled = false, onComplete, .
           touchAction: 'none',
           boxShadow: '4px 8px 20px 0px #12151766, 1px 1px 0px 0px #D6D2D223 inset, -1px -1px 0px 0px #00000051 inset',
         }}
-        className={StyleHelper.mergeStyles('bg-pink relative z-[1] flex h-full w-full justify-end rounded', {
+        className={StyleHelper.mergeStyles('bg-pink relative z-[1] flex size-full justify-end rounded', {
           'pointer-events-none': isDisabled,
         })}
         tabIndex={0}
@@ -69,7 +69,7 @@ export const Swipe = ({ text, buttonAriaLabel, isDisabled = false, onComplete, .
         {...props}
       >
         <div style={{ width: `${DRAG_WIDTH}px` }} className="flex h-full cursor-pointer items-center justify-center">
-          <ArrowRightBoldOutlineIcon aria-hidden className="pointer-events-none h-6 w-6" />
+          <ArrowRightBoldOutlineIcon aria-hidden className="pointer-events-none size-6" />
         </div>
       </motion.div>
       <p

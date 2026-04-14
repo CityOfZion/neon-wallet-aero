@@ -60,14 +60,14 @@ export const TransactionFeeActionStep = ({
         title={t('title')}
         className={StyleHelper.mergeStyles('min-h-11 font-bold', className)}
         titleClassName={StyleHelper.mergeStyles('text-sm whitespace-nowrap mr-3 !overflow-visible', titleClassName)}
-        leftIcon={<TbReceipt aria-hidden className="h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6" />}
+        leftIcon={<TbReceipt aria-hidden className="min-size-6 max-size-6 size-6" />}
       >
         {isCalculatingFee ? (
-          <Loader className="h-4 w-4" containerClassName="w-min items-center" />
+          <Loader className="size-4" containerClassName="w-min items-center" />
         ) : (
           <div className={StyleHelper.mergeStyles('flex flex-col items-center gap-3 text-sm', textClassName)}>
             <span className="text-right leading-4 font-normal uppercase">
-              {feeNumber ?? '0.00'} {service?.feeToken.symbol}
+              {feeNumber || '0.00'} {service?.feeToken.symbol}
               {service ? <span className="text-gray-100">{` | ${service.name}`}</span> : null}
             </span>
           </div>

@@ -10,12 +10,12 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import Wallet from '@renderer/assets/images/wallet.svg?react'
 
-import type { IWalletState } from '@shared/types/store'
+import type { TWallet } from '@shared/types/store'
 
 import { BuyAndSellTokensAccordionAccountItem } from './BuyAndSellTokensAccordionAccountItem'
 
 type TProps = {
-  wallet: IWalletState
+  wallet: TWallet
 }
 
 export const BuyAndSellTokensAccordionWalletItem = ({ wallet }: TProps) => {
@@ -30,7 +30,7 @@ export const BuyAndSellTokensAccordionWalletItem = ({ wallet }: TProps) => {
         className="flex items-center justify-between gap-x-2 rounded border-none bg-gray-300/20"
         iconClassName="text-white"
       >
-        <Wallet aria-hidden className="text-blue h-7 max-h-7 min-h-7 w-7 max-w-7 min-w-7" />
+        <Wallet aria-hidden className="text-blue min-size-7 max-size-7 size-7" />
 
         <h4 className="flex-grow text-left text-xs font-semibold text-white">{wallet.name}</h4>
 

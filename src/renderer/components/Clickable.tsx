@@ -2,6 +2,7 @@ import { cloneElement } from 'react'
 
 import { match, P } from 'ts-pattern'
 
+import { ElementHelper } from '@renderer/helpers/ElementHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { Loader } from './Loader'
@@ -117,8 +118,8 @@ const Base = ({
     return StyleHelper.mergeStyles(
       'object-contain',
       {
-        'w-[1.5rem] h-[1.5rem] min-w-[1.5rem] min-h-[1.5rem]': !flat,
-        'w-[1.25rem] h-[1.25rem] min-w-[1.25rem] min-h-[1.25rem]': flat,
+        'size-6 min-size-6 size-6': !flat,
+        'size-5 min-size-5 size-5': flat,
       },
       className
     )
@@ -153,20 +154,24 @@ const Base = ({
         })}
 
       {match({ label, children })
-        .with({ children: P.nonNullable }, () => (typeof children === 'string' ? <span>{children}</span> : children))
-        .with({ label: P.string }, () => (
-          <span
-            className={StyleHelper.mergeStyles(
-              'truncate font-medium',
-              {
-                grow: iconsOnEdge,
-              },
-              textClassName
-            )}
-          >
-            {label}
-          </span>
-        ))
+        .with(
+          { label: P.when(value => ElementHelper.isTextContentValid(value)) },
+          { children: P.when(value => ElementHelper.isTextContentValid(value)) },
+          () => (
+            <span
+              className={StyleHelper.mergeStyles(
+                'truncate font-medium',
+                {
+                  grow: iconsOnEdge,
+                },
+                textClassName
+              )}
+            >
+              {label || children}
+            </span>
+          )
+        )
+        .with({ children: P.nonNullable }, () => children)
         .otherwise(() => label)}
 
       {rightIcon &&
@@ -177,8 +182,8 @@ const Base = ({
 
       <Loader
         className={StyleHelper.mergeStyles({
-          'h-6 w-6': !flat,
-          'h-5 w-5': flat,
+          'size-6': !flat,
+          'size-5': flat,
         })}
         containerClassName={StyleHelper.mergeStyles('absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2', {
           hidden: !loading,

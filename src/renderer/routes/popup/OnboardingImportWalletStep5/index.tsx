@@ -23,7 +23,7 @@ export const OnboardingImportWalletStep5Page = () => {
       <div className="flex flex-grow flex-col items-center justify-start gap-2.5">
         <p className="text-sm text-white">{t('title')}</p>
 
-        <TbRosetteDiscountCheck aria-hidden className="text-blue mt-3 h-[6.25rem] w-[6.25rem] stroke-1" />
+        <TbRosetteDiscountCheck aria-hidden className="text-blue mt-3 size-25 stroke-1" />
       </div>
 
       <div className="flex w-full flex-col items-center gap-4">

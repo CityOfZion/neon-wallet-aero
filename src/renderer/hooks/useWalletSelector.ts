@@ -7,31 +7,29 @@ import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TRootState } from '@shared/types/redux'
-import type { IWalletState } from '@shared/types/store'
+import type { TWallet } from '@shared/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
 
-const normalizeWallet = (wallet: IWalletState) => ({
+const normalizeWallet = (wallet: TWallet): TWallet => ({
   ...wallet,
   accounts: AccountHelper.orderAccounts(wallet.accounts),
 })
 
 const selectWallets = createAppSelector(
-  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+  [state => state.auth.data.applicationDataByLoginType, state => state.auth.memoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
-    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IWalletState>()
+    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TWallet>()
 
     const wallets = applicationDataByLoginType[loginSession.type].wallets
 
-    if (wallets.length === 0) return SelectorHelper.fallbackToEmptyArray<IWalletState>()
-
-    return wallets.map(normalizeWallet)
+    return SelectorHelper.fallbackToEmptyArray(wallets.map(normalizeWallet))
   }
 )
 
 export const selectWalletById = (walletId: string) =>
   createAppSelector(
-    [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+    [state => state.auth.data.applicationDataByLoginType, state => state.auth.memoryData.loginSession],
     (applicationDataByLoginType, loginSession) => {
       if (!loginSession?.type) return undefined
 
@@ -45,22 +43,20 @@ export const selectWalletById = (walletId: string) =>
 
 const selectWalletsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
   createAppSelector(
-    [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+    [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.memoryData.loginSession],
     (applicationDataByLoginType, loginSession) => {
-      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IWalletState>()
+      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TWallet>()
 
       const wallets = applicationDataByLoginType[loginSession.type].wallets.filter(wallet =>
         wallet.accounts.some(account => blockchains.includes(account.blockchain))
       )
 
-      if (wallets.length === 0) return SelectorHelper.fallbackToEmptyArray<IWalletState>()
-
-      return wallets.map(normalizeWallet)
+      return SelectorHelper.fallbackToEmptyArray(wallets.map(normalizeWallet))
     }
   )
 
 export const useWalletsSelector = () => {
-  const { ref, value } = useAppSelector(selectWallets)
+  const { value, ref } = useAppSelector(selectWallets)
 
   return {
     wallets: value,
@@ -86,7 +82,7 @@ export const useWalletsByBlockchainsSelector = (blockchains: TBlockchainServiceK
 }
 
 export const useWalletsMapSelector = () => {
-  const walletsMapRef = useRef<Map<string, IWalletState>>(new Map())
+  const walletsMapRef = useRef<Map<string, TWallet>>(new Map())
 
   useSelector((state: TRootState) => {
     const wallets = selectWallets(state)

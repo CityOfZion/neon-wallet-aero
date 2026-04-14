@@ -16,55 +16,55 @@ import type {
 } from '@shared/types/hooks'
 
 import type {
-  IAccountState,
-  IWalletState,
+  TAccount,
   TAccountType,
+  TContact,
   TContactAddress,
-  TContactState,
   TImportAccountsSelectionType,
   TSwapRecord,
+  TWallet,
 } from './store'
 
 type TWalletSelectionModalState = {
-  selectedWallet?: IWalletState
+  selectedWallet?: TWallet
   hideActions?: boolean
   shouldPersistSelection?: boolean
-  onSelect?(wallet: IWalletState): void
+  onSelect?(wallet: TWallet): void
 }
 
 type TWalletDeletionModalState = {
-  wallet: IWalletState
+  wallet: TWallet
 }
 
 type TWalletEditModalState = {
-  walletId: IWalletState['id']
+  walletId: TWallet['id']
 }
 
 type TAccountSelectionModalState = {
-  walletId: IWalletState['id']
-  selectedAccount?: IAccountState
+  walletId: TWallet['id']
+  selectedAccount?: TAccount
   accountTypes?: TAccountType[]
   hideActions?: boolean
   shouldPersistSelection?: boolean
-  onSelect?(account: IAccountState): void
+  onSelect?(account: TAccount): void
 }
 
 type TAccountDeletionModalState = {
-  account: IAccountState
-  wallet: IWalletState
+  account: TAccount
+  wallet: TWallet
 }
 
 type TAccountEditModalState = {
-  account: IAccountState
+  account: TAccount
 }
 
 type TAccountSelectionByBlockchainModalState = {
   description?: string
   submitButtonLabel?: string
   blockchain: TBlockchainServiceKey
-  selectedWallet: IWalletState
-  selectedAccount?: IAccountState
-  onSelect(account: IAccountState, wallet: IWalletState): void
+  selectedWallet: TWallet
+  selectedAccount?: TAccount
+  onSelect(account: TAccount, wallet: TWallet): void
 }
 
 type TImportAccountsSelectionModalState = {
@@ -97,7 +97,7 @@ type TCreateWalletStep3ModalState = {
 }
 
 type TCreateWalletStep4ModalState = {
-  selectedWallet: IWalletState
+  selectedWallet: TWallet
 }
 
 type TCreateAccountStep2ModalState = {
@@ -119,11 +119,11 @@ export type TConfirmActionModalState = {
 }
 
 type TExportKeyModalState = {
-  account: IAccountState
+  account: TAccount
 }
 
 type TExportMnemonicModalState = {
-  wallet: IWalletState
+  wallet: TWallet
 }
 
 type TMigrateFromNeon2Step3ModalState = {
@@ -151,11 +151,11 @@ type TErrorModalState = {
 }
 
 type TContactDetailsModalState = {
-  contactId: TContactState['id']
+  contactId: TContact['id']
 }
 
 type TSaveContactModalState = {
-  contact?: TContactState
+  contact?: TContact
   addresses?: TContactAddress[]
 }
 
@@ -196,16 +196,16 @@ type TNetworkNodeSelectionModalState = {
 type TAccountReceiveSelectionModalState = {
   accountTypes?: 'standard' | 'hardware'
   blockchain?: TBlockchainServiceKey
-  selectedAccount?: IAccountState
+  selectedAccount?: TAccount
   selectedAddress?: string
-  handleChangeAccount: (account: IAccountState) => void
+  handleChangeAccount: (account: TAccount) => void
   handleChangeAddress: (address: string) => void
 }
 
 type TNeo3NeoXBridgeConfirmationModalState = {
   tokenToUse?: TBridgeToken<TBlockchainServiceKey>
   tokenToReceive?: TBridgeToken<TBlockchainServiceKey>
-  accountToUse?: IAccountState
+  accountToUse?: TAccount
   amountToUse?: string
   amountToReceive?: string
   addressToReceive?: string
@@ -216,7 +216,7 @@ type TNeo3NeoXBridgeConfirmationModalState = {
 type TNeo3NeoXBridgeDetailsModalState = {
   tokenToUse: TBridgeToken<TBlockchainServiceKey>
   tokenToReceive: TBridgeToken<TBlockchainServiceKey>
-  accountToUse: IAccountState
+  accountToUse: TAccount
   amountToUse: string
   amountToReceive: string
   addressToReceive: string
@@ -225,7 +225,7 @@ type TNeo3NeoXBridgeDetailsModalState = {
 }
 
 type TSellTokensDepositModalState = {
-  account?: IAccountState
+  account?: TAccount
   depositActions: TBuyAndSellTokensDepositActions
 }
 
@@ -242,23 +242,23 @@ type TSwapDetailsLogModalState = {
 }
 
 type TVoteNeo3CandidateDetailsModalState = {
-  neo3Account: IAccountState
+  neo3Account: TAccount
   candidate: TVoteServiceCandidate
   candidateVotePercentage: string
 }
 
 type TVoteNeo3ConfirmationModalState = {
-  neo3Account: IAccountState
+  neo3Account: TAccount
   candidate: TVoteServiceCandidate
 }
 
 type TVoteNeo3SuccessModalState = {
   candidate: TVoteServiceCandidate
-  neo3Account: IAccountState
+  neo3Account: TAccount
 }
 
 type TDappConnectionModalState = {
-  account: IAccountState
+  account: TAccount
 }
 
 type TDappDisconnectionModalState = {
@@ -267,14 +267,14 @@ type TDappDisconnectionModalState = {
 
 type TDappConnectionRequestModalState = {
   proposal: ProposalTypes.Struct
-  account: IAccountState
+  account: TAccount
 }
 
 type TDappPermissionModalState = {
   session: SessionTypes.Struct
   request: PendingRequestTypes.Struct
   sessionDetails: TWalletKitHelperSessionDetails<TBlockchainServiceKey>
-  sessionAccount: IAccountState
+  sessionAccount: TAccount
   onReject: (reason?: ErrorResponse) => Promise<void>
   onAccept: () => Promise<any>
 }
@@ -297,11 +297,11 @@ type TDappPermissionContractDetailsModalState = {
 
 type THideFraudulentTokenModalState = {
   tokenHash: string
-  account: IAccountState
+  account: TAccount
 }
 
 type TExportTransactionsModalState = {
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
   dateFrom: Date
   dateTo: Date
   readOnly?: boolean

@@ -45,14 +45,14 @@ import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
 import { thunks } from '@renderer/store/thunks'
 import type { TUseTransactionsTransaction } from '@shared/types/hooks'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import type { TSendRecipient } from './SendRecipient'
 import { SendRecipient } from './SendRecipient'
 import { SendTip } from './SendTip'
 
 type TActionsData = {
-  selectedAccount?: IAccountState
+  selectedAccount?: TAccount
   recipients: TSendRecipient[]
   fee?: string
   isCalculatingFee: boolean
@@ -66,7 +66,7 @@ type TActionsData = {
 }
 
 type TLocationState = {
-  account?: IAccountState
+  account?: TAccount
 }
 
 const SendPage = () => {
@@ -178,7 +178,7 @@ const SendPage = () => {
       }
 
       const amountNumber = BSBigNumberHelper.fromNumber(recipient.amount)
-      const tokenHash = recipient.token?.token?.hash ?? ''
+      const tokenHash = recipient.token?.token?.hash || ''
       const tokenBalance = balanceQuery.data?.tokensBalances?.find(tokenBalance =>
         service?.tokenService.predicateByHash(tokenBalance.token, tokenHash)
       )
@@ -192,7 +192,7 @@ const SendPage = () => {
     clearErrors(['recipients', 'selectedAccount'])
   }
 
-  const handleSelectAccount = (account?: IAccountState) => {
+  const handleSelectAccount = (account?: TAccount) => {
     handleSetRecipients(() => [{ id: UtilsHelper.uuid() }])
     setData({ selectedAccount: account })
   }
@@ -251,7 +251,7 @@ const SendPage = () => {
       handleUpdateRecipientAmount(
         recipient.id,
         BSBigNumberHelper.fromNumber(recipient.token.amount)
-          .minus(actionData.fee ?? '0')
+          .minus(actionData.fee || '0')
           .toNumber()
       )
 
@@ -321,10 +321,10 @@ const SendPage = () => {
         intents: fields.intents,
       })
 
-      const transactions: TUseTransactionsTransaction[] = []
+      const pendingTransactions: TUseTransactionsTransaction[] = []
 
       if (fields.service.isMultiTransferSupported) {
-        transactions.push(
+        pendingTransactions.push(
           TransactionHelper.buildPendingTransaction({
             fromAccount: fields.selectedAccount,
             txId: transactionHashes[0],
@@ -347,7 +347,7 @@ const SendPage = () => {
 
           const intent = fields.intents[index]
 
-          transactions.push(
+          pendingTransactions.push(
             TransactionHelper.buildPendingTransaction({
               fromAccount: fields.selectedAccount,
               txId,
@@ -369,10 +369,10 @@ const SendPage = () => {
         })
       }
 
-      transactions.forEach(transaction => {
+      pendingTransactions.forEach(pendingTransaction => {
         dispatch(
-          thunks.waitTransaction({
-            transaction,
+          thunks.waitPendingTransaction({
+            pendingTransaction,
             successNotification: {
               title: 'pages:send.successNotification.title',
               previewBody: 'pages:send.successNotification.previewBody',
@@ -436,7 +436,7 @@ const SendPage = () => {
         const feeBalance =
           balanceQuery.data?.tokensBalances?.find(({ token }) =>
             service?.tokenService.predicateByHash(token, fields.service.feeToken)
-          )?.amount ?? '0'
+          )?.amount || '0'
 
         if (totalFeeAmount.isGreaterThan(feeBalance)) {
           setError('fee', t('errors.insufficientFunds'))
@@ -638,7 +638,7 @@ const SendPage = () => {
 
         {(!service || (service && isCalculableFee(service))) && (
           <TransactionFeeActionStep
-            fee={actionData.fee ?? '0'}
+            fee={actionData.fee || '0'}
             isCalculatingFee={actionData.isCalculatingFee}
             service={service}
           />

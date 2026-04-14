@@ -9,8 +9,8 @@ import type { THiddenTokenByBlockchain, TLastIndexesByWallet, TSwapRecord } from
 
 import { utilitySliceReducers } from './reducers'
 
-export interface IUtilityReducer {
-  inMemoryData: {
+export type TUtilityReducer = {
+  memoryData: {
     pendingTransactions: TUseTransactionsTransaction[]
   }
   data: {
@@ -24,8 +24,8 @@ export interface IUtilityReducer {
 export let utilityReducerActions: CaseReducerActions<typeof utilitySliceReducers, string>
 
 export function getUtilityReducer() {
-  const utilityReducerInitialState: IUtilityReducer = {
-    inMemoryData: {
+  const utilityReducerInitialState: TUtilityReducer = {
+    memoryData: {
       pendingTransactions: [],
     },
     data: {
@@ -36,10 +36,10 @@ export function getUtilityReducer() {
     },
   }
 
-  const utilityReducerConfig: PersistConfig<IUtilityReducer> = {
+  const utilityReducerConfig: PersistConfig<TUtilityReducer> = {
     key: 'utilityReducer',
     storage: localStorage,
-    blacklist: ['inMemoryData'],
+    blacklist: ['memoryData'],
   }
 
   const utilitySlice = createSlice({

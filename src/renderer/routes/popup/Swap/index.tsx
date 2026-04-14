@@ -59,21 +59,21 @@ import TbWand from '@renderer/assets/images/tb-wand.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { IAccountState, TSwapRecord } from '@shared/types/store'
+import type { TAccount, TSwapRecord } from '@shared/types/store'
 
 type TLocationState = {
-  account?: IAccountState
+  account?: TAccount
 }
 
 type TActionsData = {
   availableTokensToUse: TSwapLoadableValue<TSwapToken<TBlockchainServiceKey>[]>
   selectedTokenToUse: TSwapLoadableValue<TSwapToken<TBlockchainServiceKey>>
-  selectedAccountToUse: TSwapValidateValue<IAccountState>
+  selectedAccountToUse: TSwapValidateValue<TAccount>
   selectedAmountToUse: TSwapLoadableValue<string | null>
   availableTokensToReceive: TSwapLoadableValue<TSwapToken<TBlockchainServiceKey>[]>
   selectedTokenToReceive: TSwapLoadableValue<TSwapToken<TBlockchainServiceKey>>
   selectedAmountToReceive: TSwapLoadableValue<string | null>
-  selectedAccountToReceive: TSwapValidateValue<IAccountState>
+  selectedAccountToReceive: TSwapValidateValue<TAccount>
   selectedAddressToReceive: TSwapValidateValue<string | null>
   selectedExtraIdToReceive: TSwapValidateValue<string | null>
   selectAmountToUseMinMax: TSwapLoadableValue<TSwapMinMaxAmount>
@@ -88,7 +88,7 @@ export const SwapPage = () => {
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { loginSessionRef } = useLoginSessionSelector()
   const { accountsRef } = useAccountsSelector()
-  const { ref: amountInputRef, isFocused: isAmountInputFocused } = useIsFocused<HTMLInputElement>()
+  const { isFocused: isAmountInputFocused, ref: amountInputRef } = useIsFocused<HTMLInputElement>()
 
   const swapChainsByServiceName = useMemo(
     () => SwapHelper.getNetworks(selectedNetworkByBlockchain),
@@ -144,12 +144,12 @@ export const SwapPage = () => {
 
   const isExtraIdToReceiveWrong = hasExtraIdToReceive && actionData.selectedExtraIdToReceive.valid === false
 
-  const balanceQuery = useBalance(actionData.selectedAccountToUse.value ?? undefined)
+  const balanceQuery = useBalance(actionData.selectedAccountToUse.value || undefined)
 
   const errorMessage = useMemo(() => {
     if (isExtraIdToReceiveWrong) return t('form.errors.invalidExtraIdToReceive')
 
-    return actionState.errors.selectedAmountToUse ?? actionState.errors.fee
+    return actionState.errors.selectedAmountToUse || actionState.errors.fee
   }, [actionState.errors.fee, actionState.errors.selectedAmountToUse, isExtraIdToReceiveWrong, t])
 
   const service = useMemo(
@@ -207,7 +207,7 @@ export const SwapPage = () => {
           ? accountsRef.current.find(AccountHelper.predicate(accountToUse.value!))
           : undefined
 
-        setData({ selectedAccountToUse: { ...accountToUse, value: account ?? null } })
+        setData({ selectedAccountToUse: { ...accountToUse, value: account || null } })
       }
     )
 
@@ -283,7 +283,7 @@ export const SwapPage = () => {
     swapOrchestratorRef.current?.setTokenToReceive(token)
   }
 
-  const handleSelectAccountToUse = async (account: IAccountState) => {
+  const handleSelectAccountToUse = async (account: TAccount) => {
     if (!loginSessionRef.current || !account.encryptedKey) return
 
     const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
@@ -293,7 +293,7 @@ export const SwapPage = () => {
     swapOrchestratorRef.current?.setAccountToUse(serviceAccount)
   }
 
-  const handleSelectAccountToReceive = (account: IAccountState) => {
+  const handleSelectAccountToReceive = (account: TAccount) => {
     setData({ selectedAccountToReceive: { value: account, loading: false, valid: true } })
     swapOrchestratorRef.current?.setAddressToReceive(account.address)
   }
@@ -342,7 +342,7 @@ export const SwapPage = () => {
     const swapRecord: TSwapRecord = {
       account,
       addressTo: actionData.selectedAddressToReceive.value,
-      extraIdTo: actionData.selectedExtraIdToReceive.value ?? undefined,
+      extraIdTo: actionData.selectedExtraIdToReceive.value || undefined,
       amountFrom: actionData.selectedAmountToUse.value,
       amountTo: actionData.selectedAmountToReceive.value,
       tokenFrom: actionData.selectedTokenToUse.value,
@@ -362,7 +362,7 @@ export const SwapPage = () => {
 
   const handleMaxAmount = async () => {
     try {
-      swapOrchestratorRef.current?.setAmountToUse(actionData.selectAmountToUseMinMax.value?.max ?? '0')
+      swapOrchestratorRef.current?.setAmountToUse(actionData.selectAmountToUseMinMax.value?.max || '0')
     } catch (error) {
       LoggerHelper.error(error, { where: 'SwapPage', operation: 'handleMaxAmount' })
     }
@@ -407,7 +407,7 @@ export const SwapPage = () => {
         const feeBalanceNumber =
           balanceQuery.data?.tokensBalances?.find(({ token }) =>
             service.tokenService.predicateByHash(token, service.feeToken)
-          )?.amountNumber ?? 0
+          )?.amountNumber || 0
 
         if (totalFeeAmount.isGreaterThan(feeBalanceNumber)) {
           setError('fee', t('form.errors.insufficientFundsFee'))
@@ -456,7 +456,7 @@ export const SwapPage = () => {
         const amountNumber = BSBigNumberHelper.fromDecimals(actionData.selectedAmountToUse.value, decimals)
 
         if (actionData.selectAmountToUseMinMax.value) {
-          const minNumber = BSBigNumberHelper.fromDecimals(actionData.selectAmountToUseMinMax.value?.min ?? 0, decimals)
+          const minNumber = BSBigNumberHelper.fromDecimals(actionData.selectAmountToUseMinMax.value?.min || 0, decimals)
 
           if (amountNumber.isLessThan(minNumber)) {
             throw new AppError(
@@ -530,7 +530,7 @@ export const SwapPage = () => {
           onClick={initializeOrRestartSwapService}
           colorSchema={isRestartDisabled ? 'gray' : 'neon'}
           disabled={isRestartDisabled}
-          icon={<MdRestartAlt aria-hidden className="text-neon h-6 w-6" />}
+          icon={<MdRestartAlt aria-hidden className="text-neon size-6" />}
         />
       }
     >
@@ -559,13 +559,13 @@ export const SwapPage = () => {
 
               <ActionStep
                 title={t('form.tokenToUseTitle')}
-                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
               >
                 <GreyTokenSelect
-                  tokens={actionData.availableTokensToUse.value ?? []}
+                  tokens={actionData.availableTokensToUse.value || []}
                   loading={actionData.availableTokensToUse.loading || actionData.selectedTokenToUse.loading}
                   onSelect={handleSelectTokenToUse}
-                  selectedToken={actionData.selectedTokenToUse.value ?? undefined}
+                  selectedToken={actionData.selectedTokenToUse.value || undefined}
                   balance={balanceQuery.data}
                   blockchain={actionData.selectedAccountToUse.value?.blockchain}
                 />
@@ -575,14 +575,14 @@ export const SwapPage = () => {
 
               <ActionStep
                 title={t('form.tokenToReceiveTitle')}
-                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                 className="mb-2"
               >
                 <GreyTokenSelect
-                  tokens={actionData.availableTokensToReceive.value ?? []}
+                  tokens={actionData.availableTokensToReceive.value || []}
                   loading={actionData.availableTokensToReceive.loading}
                   onSelect={handleSelectTokenToReceive}
-                  selectedToken={actionData.selectedTokenToReceive.value ?? undefined}
+                  selectedToken={actionData.selectedTokenToReceive.value || undefined}
                   disabled={!actionData.selectedTokenToUse.value}
                 />
               </ActionStep>
@@ -593,7 +593,7 @@ export const SwapPage = () => {
             <div className="mt-2.5 flex w-full flex-col items-center rounded bg-gray-300/15 px-4 pb-4">
               <ActionStep
                 title={t('form.source')}
-                leftIcon={<TbWallet aria-hidden className="h-6 min-h-6 w-6 min-w-6" />}
+                leftIcon={<TbWallet aria-hidden className="min-size-6 size-6" />}
                 className="font-bold"
               />
 
@@ -601,7 +601,7 @@ export const SwapPage = () => {
 
               <ActionStep
                 title={t('form.accountToUseTitle')}
-                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
               >
                 <GreyAccountSelect
                   selectedAccount={actionData.selectedAccountToUse.value}
@@ -619,21 +619,21 @@ export const SwapPage = () => {
 
               <div className="mt-1 ml-1 flex w-full pr-0.5">
                 <div className="flex w-full items-center gap-1.5">
-                  <VscCircleFilled aria-hidden className="mx-1 h-2 w-2 text-gray-300" />
+                  <VscCircleFilled aria-hidden className="mx-1 size-2 text-gray-300" />
                   <span className="text-sm text-white">{t('form.receiveHere')}</span>
                 </div>
 
                 <AddressSelectionButton
                   blockchain={tokenToReceiveBlockchain}
                   address={
-                    actionData.selectedAccountToReceive.value?.address ?? actionData.selectedAddressToReceive.value
+                    actionData.selectedAccountToReceive.value?.address || actionData.selectedAddressToReceive.value
                   }
                   disabled={isAccountsSelectionDisabled}
                   placeholder={t('form.receiverAddressPlaceholder')}
                   onClick={modalNavigateWrapper('account-receive-selection', {
                     state: {
-                      selectedAccount: actionData.selectedAccountToReceive.value ?? undefined,
-                      selectedAddress: actionData.selectedAddressToReceive.value ?? undefined,
+                      selectedAccount: actionData.selectedAccountToReceive.value || undefined,
+                      selectedAddress: actionData.selectedAddressToReceive.value || undefined,
                       handleChangeAccount: handleSelectAccountToReceive,
                       handleChangeAddress: handleChangeAddressToReceive,
                       blockchain: tokenToReceiveBlockchain,
@@ -655,12 +655,12 @@ export const SwapPage = () => {
                           aria-label={t('form.openSwapAboutExtraIdToReceiveModal')}
                           colorSchema="neon"
                           type="button"
-                          icon={<TbHelp aria-hidden className="h-5 min-h-5 w-5 min-w-5" />}
+                          icon={<TbHelp aria-hidden className="min-size-5 size-5" />}
                           onClick={modalNavigateWrapper('swap-about-extra-id-to-receive')}
                         />
                       </div>
                     }
-                    leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                    leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   >
                     <Input
                       name="extra-id"
@@ -672,7 +672,7 @@ export const SwapPage = () => {
                       contentClassName="px-4 h-9"
                       containerClassName="w-42"
                       error={actionData.selectedExtraIdToReceive.valid === false}
-                      value={actionData.selectedExtraIdToReceive.value ?? ''}
+                      value={actionData.selectedExtraIdToReceive.value || ''}
                       required
                       disabled={!actionData.selectedAccountToUse.value || isAddressesDisabled}
                       onChange={handleChangeExtraIdToReceive}
@@ -688,20 +688,20 @@ export const SwapPage = () => {
               <ActionStep
                 title={t('form.amounts')}
                 className="font-bold"
-                leftIcon={<TbStepInto aria-hidden className="h-6 min-h-6 w-6 min-w-6" />}
+                leftIcon={<TbStepInto aria-hidden className="min-size-6 size-6" />}
               />
 
               <Separator />
 
               <ActionStep
                 title={
-                  <Tooltip title={actionData.selectAmountToUseMinMax.value?.min ?? '0'}>
+                  <Tooltip title={actionData.selectAmountToUseMinMax.value?.min || '0'}>
                     <div>
                       <p>{t('form.amountToUseTitle')}</p>
                       <span className="w-full text-left text-sm text-gray-200 italic">
                         {t('form.minimumAmountToUseLabel', {
                           amount: StringHelper.truncate(
-                            actionData.selectAmountToUseMinMax.value?.min ?? t('form.minimumAmountToUsePlaceholder'),
+                            actionData.selectAmountToUseMinMax.value?.min || t('form.minimumAmountToUsePlaceholder'),
                             8
                           ),
                         })}
@@ -709,19 +709,19 @@ export const SwapPage = () => {
                     </div>
                   </Tooltip>
                 }
-                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
               >
                 <div className="flex items-center gap-2.5">
                   <Tooltip
                     title={t('form.amountToUseTooltipLabel')}
-                    icon={<TbWand aria-hidden className="text-blue h-6 w-6" />}
+                    icon={<TbWand aria-hidden className="text-blue size-6" />}
                     open={isAmountInputFocused}
                     contentProps={{ side: 'top', className: 'text-center' }}
                   >
                     <GreyAmountInput
                       className="w-36"
                       ref={amountInputRef}
-                      value={actionData.selectedAmountToUse.value ?? ''}
+                      value={actionData.selectedAmountToUse.value || ''}
                       onChange={handleChangeAmountToUse}
                       disabled={isAmountsDisabled}
                       loading={actionData.selectedAmountToUse.loading}
@@ -760,9 +760,9 @@ export const SwapPage = () => {
                     <span className="text-gray-100">{` ${t('form.amountToReceiveTitleComplement')}`}</span>
                   </div>
                 }
-                leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
               >
-                <p className="text-right text-sm text-white">{actionData.selectedAmountToReceive.value ?? 0}</p>
+                <p className="text-right text-sm text-white">{actionData.selectedAmountToReceive.value || 0}</p>
               </ActionStep>
             </div>
 

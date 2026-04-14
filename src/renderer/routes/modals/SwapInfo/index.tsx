@@ -11,7 +11,7 @@ export const SwapInfoModal = () => {
       <div className="mb-3 flex flex-grow flex-col items-center justify-between px-4">
         <div className="flex flex-col gap-4 text-sm text-white">
           <div className="flex w-full justify-center pb-8">
-            <TbTransform aria-hidden className="text-blue h-20 w-20" />
+            <TbTransform aria-hidden className="text-blue size-20" />
           </div>
 
           <p className="font-bold">{t('description1')}</p>

@@ -15,7 +15,7 @@ import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TTokenBalance } from '@shared/types/query'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { BuyAndSellTokensBuyContent } from './BuyAndSellTokensBuyContent'
 import { BuyAndSellTokensHowItWorks } from './BuyAndSellTokensHowItWorks'
@@ -30,7 +30,7 @@ export type TBuyAndSellTokensOnTabChange = (newTab: EBuyAndSellTokensTab) => voi
 
 type TActionsData = {
   tab: EBuyAndSellTokensTab
-  account?: IAccountState
+  account?: TAccount
 }
 
 export type TBuyAndSellTokensDepositActionsData = {
@@ -41,7 +41,7 @@ export type TBuyAndSellTokensDepositActionsData = {
   isFeeLoading: boolean
   fee?: string
   token?: TTokenBalance
-  account?: IAccountState
+  account?: TAccount
 }
 
 export type TBuyAndSellTokensDepositActions = ReturnType<typeof useActions<TBuyAndSellTokensDepositActionsData>>

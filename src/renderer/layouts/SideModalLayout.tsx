@@ -68,10 +68,7 @@ export const SideModalLayout = ({
           {icon &&
             cloneElement(icon, {
               ...icon.props,
-              className: StyleHelper.mergeStyles(
-                'text-neon min-w-6 max-w-6 min-h-6 max-h-6 h-6 w-6',
-                icon.props.className
-              ),
+              className: StyleHelper.mergeStyles('text-neon size-6 min-size-6 max-size-6', icon.props.className),
             })}
 
           <span className="truncate">{heading}</span>

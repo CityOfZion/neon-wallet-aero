@@ -36,10 +36,10 @@ export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
           <Loader />
         ) : (
           <>
-            <FieldActionsMenu value={value ?? ''} disabled={isDisabled} readOnly={readOnly} onChange={onChange}>
+            <FieldActionsMenu value={value || ''} disabled={isDisabled} readOnly={readOnly} onChange={onChange}>
               <input
                 className={StyleHelper.mergeStyles(
-                  'text-neon h-full w-full [appearance:textfield] bg-transparent px-2 text-center outline-none disabled:cursor-not-allowed',
+                  'text-neon size-full [appearance:textfield] bg-transparent px-2 text-center outline-none disabled:cursor-not-allowed',
                   inputClassName
                 )}
                 ref={ref}

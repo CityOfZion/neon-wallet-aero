@@ -11,7 +11,7 @@ const Root = forwardRef<ElementRef<typeof CommandPrimitive>, ComponentPropsWitho
   ({ className, ...props }, ref) => (
     <CommandPrimitive
       ref={ref}
-      className={StyleHelper.mergeStyles('flex h-full w-full flex-col overflow-hidden text-white', className)}
+      className={StyleHelper.mergeStyles('flex size-full flex-col overflow-hidden text-white', className)}
       {...props}
     />
   )
@@ -22,11 +22,11 @@ const Input = forwardRef<
   ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
   <div className="bg-asphalt flex h-8.5 items-center rounded px-2" cmdk-input-wrapper="">
-    <MdSearch aria-hidden className="mr-2 h-6 w-6 shrink-0 text-gray-300" />
+    <MdSearch aria-hidden className="mr-2 size-6 shrink-0 text-gray-300" />
     <CommandPrimitive.Input
       ref={ref}
       className={StyleHelper.mergeStyles(
-        'flex h-full w-full bg-transparent text-sm outline-none placeholder:text-gray-300 disabled:cursor-not-allowed disabled:opacity-50',
+        'flex size-full bg-transparent text-sm outline-none placeholder:text-gray-300 disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       {...props}

@@ -39,7 +39,7 @@ export const Stepper = ({
             <div className="relative flex flex-col">
               <span
                 className={StyleHelper.mergeStyles(
-                  'flex h-6 w-6 items-center justify-center rounded-full text-sm font-bold transition-colors',
+                  'flex size-6 items-center justify-center rounded-full text-sm font-bold transition-colors',
                   {
                     'bg-blue text-asphalt': isPastStep && isDefaultTheme,
                     'bg-gray-300/30 text-gray-100': isFutureStep && isDefaultTheme,

@@ -1,15 +1,15 @@
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import { cloneDeep } from 'lodash'
 
-import type { TContactEncryptedAddress, TContactState } from '@shared/types/store'
+import type { TContact, TContactEncryptedAddress } from '@shared/types/store'
 
-import type { IContactReducer } from './index'
+import type { TContactReducer } from './index'
 
-const saveContact: CaseReducer<IContactReducer, PayloadAction<TContactState<TContactEncryptedAddress>>> = (
+const saveContact: CaseReducer<TContactReducer, PayloadAction<TContact<TContactEncryptedAddress>>> = (
   state,
   action
 ) => {
-  const encryptedContact: TContactState<TContactEncryptedAddress> = cloneDeep(action.payload)
+  const encryptedContact: TContact<TContactEncryptedAddress> = cloneDeep(action.payload)
   const index = state.data.findIndex(contact => contact.id === encryptedContact.id)
 
   if (index < 0) {
@@ -21,7 +21,7 @@ const saveContact: CaseReducer<IContactReducer, PayloadAction<TContactState<TCon
   state.data[index] = encryptedContact
 }
 
-const deleteContact: CaseReducer<IContactReducer, PayloadAction<string>> = (state, action) => {
+const deleteContact: CaseReducer<TContactReducer, PayloadAction<string>> = (state, action) => {
   const contactId = action.payload
 
   state.data = state.data.filter(contact => contact.id !== contactId)

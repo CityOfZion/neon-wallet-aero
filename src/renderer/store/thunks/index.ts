@@ -1,5 +1,5 @@
-import { waitTransaction } from './waitTransaction'
+import { waitPendingTransaction } from './waitPendingTransaction'
 
 export const thunks = {
-  waitTransaction,
+  waitPendingTransaction,
 }

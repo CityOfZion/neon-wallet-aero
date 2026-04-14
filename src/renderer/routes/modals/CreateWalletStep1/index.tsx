@@ -37,13 +37,11 @@ export const CreateWalletStep1Modal = () => {
     const printContent = mnemonic.join(' ')
     const printWindow = window.open('', '_blank')
     if (printWindow) {
-      printWindow.document.write(`
-      <html>
-      <body>
-        <pre>${printContent}</pre>
-      </body>
-      </html>
-    `)
+      printWindow.document.write(`<html lang="en" translate="no">
+  <body>
+    <pre>${printContent}</pre>
+  </body>
+</html>`)
       printWindow.document.close()
       printWindow.print()
     }
@@ -57,7 +55,7 @@ export const CreateWalletStep1Modal = () => {
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
       <div className="flex items-center gap-4 px-3.5 pt-2 pb-4">
-        <MdiNumeric1Box className="text-blue h-6 w-6" aria-hidden />
+        <MdiNumeric1Box className="text-blue size-6" aria-hidden />
         <h3 className="text-lg">{t('subtitle')}</h3>
       </div>
 

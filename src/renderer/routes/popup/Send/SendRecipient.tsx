@@ -31,7 +31,7 @@ import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
 import type { TTokenBalance, TUseBalanceResult } from '@shared/types/query'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 export type TSendRecipient = {
   id: string
@@ -44,7 +44,7 @@ export type TSendRecipient = {
 
 type TProps = {
   order: number
-  selectedAccount?: IAccountState
+  selectedAccount?: TAccount
   recipient: TSendRecipient
   onUpdateRecipient: (recipient: Partial<TSendRecipient>) => void
   onRemoveRecipient: () => void
@@ -121,7 +121,7 @@ export const SendRecipient = ({
     }
   }
 
-  const handleSelectAccount = (account: IAccountState) => {
+  const handleSelectAccount = (account: TAccount) => {
     const newAddress = account.address
 
     onUpdateRecipient({
@@ -179,10 +179,10 @@ export const SendRecipient = ({
         <ActionStep
           className="px-0"
           title={t('tokenToReceiveLabel')}
-          leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+          leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
         >
           <GreyTokenSelect
-            tokens={balance?.data?.tokensBalances.map(tokenBalance => tokenBalance.token) ?? []}
+            tokens={balance?.data?.tokensBalances.map(tokenBalance => tokenBalance.token) || []}
             balance={balance?.data}
             onSelect={handleSelectToken}
             selectedToken={recipient.token?.token}
@@ -196,14 +196,14 @@ export const SendRecipient = ({
 
         <div className="my-5 flex w-full flex-col">
           <div className="flex w-full items-center gap-1.5 pb-5">
-            <VscCircleFilled aria-hidden className="mx-1 h-2 w-2 text-gray-300" />
+            <VscCircleFilled aria-hidden className="mx-1 size-2 text-gray-300" />
             <span className="text-sm text-white">{t('receivingAddressLabel')}</span>
           </div>
           <div className="flex w-full items-start gap-3">
             <Input
               name="recipient-address"
               id="recipient-address"
-              value={recipient.addressInput ?? ''}
+              value={recipient.addressInput || ''}
               onChange={handleChangeAddress}
               className="w-full"
               placeholder={t('addressPlaceholder')}
@@ -237,9 +237,9 @@ export const SendRecipient = ({
         <ActionStep
           className="pt-1.5 pb-2.5"
           title={t('amountLabel')}
-          leftIcon={<VscCircleFilled aria-hidden className="h-2 w-2 text-gray-300" />}
+          leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
         >
-          <GreyAmountInput value={recipient.amount ?? ''} onChange={handleChangeAmount} disabled={isAmountDisabled}>
+          <GreyAmountInput value={recipient.amount || ''} onChange={handleChangeAmount} disabled={isAmountDisabled}>
             <Button
               label={t('max')}
               flat

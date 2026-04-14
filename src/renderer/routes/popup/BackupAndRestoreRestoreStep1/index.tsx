@@ -40,7 +40,7 @@ export const BackupAndRestoreRestoreStep1Page = () => {
           <Input
             name="backup-path"
             id="backup-path"
-            value={actionData?.path ?? ''}
+            value={actionData?.path || ''}
             placeholder={t('browse')}
             readOnly
             containerClassName="w-full"

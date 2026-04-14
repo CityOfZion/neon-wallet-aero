@@ -18,7 +18,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import MdCircle from '@renderer/assets/images/md-circle.svg?react'
 
 import type { TModalState } from '@shared/types/modal'
-import type { IAccountState, IWalletState } from '@shared/types/store'
+import type { TAccount, TWallet } from '@shared/types/store'
 
 export const AccountSelectionByBlockchainModal = () => {
   const { description, submitButtonLabel, blockchain, selectedWallet, selectedAccount, onSelect } =
@@ -28,8 +28,8 @@ export const AccountSelectionByBlockchainModal = () => {
 
   const { walletsByBlockchains } = useWalletsByBlockchainsSelector(['neo3'])
 
-  const [selectedAccountInternal, setSelectedAccountInternal] = useState<IAccountState | undefined>(selectedAccount)
-  const [selectedWalletInternal, setSelectedWalletInternal] = useState<IWalletState>(selectedWallet)
+  const [selectedAccountInternal, setSelectedAccountInternal] = useState<TAccount | undefined>(selectedAccount)
+  const [selectedWalletInternal, setSelectedWalletInternal] = useState<TWallet>(selectedWallet)
 
   const accountsByBlockchainWallet = useMemo(
     () => selectedWalletInternal.accounts.filter(account => account.blockchain === blockchain),
@@ -57,7 +57,7 @@ export const AccountSelectionByBlockchainModal = () => {
 
   return (
     <BottomModalLayout heading={t('title')}>
-      <p className="mb-6 text-center text-lg">{description ?? t('description')}</p>
+      <p className="mb-6 text-center text-lg">{description || t('description')}</p>
       <div className="flex items-center">
         <Select.Root value={selectedWalletInternal.id} onValueChange={onSelectWallet}>
           <Select.Trigger className="bg-asphalt w-full rounded py-2">
@@ -103,7 +103,7 @@ export const AccountSelectionByBlockchainModal = () => {
                     <div className="flex min-w-0 items-center gap-5">
                       <BlockchainIcon
                         blockchain={account.blockchain}
-                        className="mt-2 h-4 min-h-4 w-4 min-w-4 text-gray-100"
+                        className="min-size-4 mt-2 size-4 text-gray-100"
                       />
                       <p className="truncate text-sm text-white">{account.name}</p>
                     </div>
@@ -124,7 +124,7 @@ export const AccountSelectionByBlockchainModal = () => {
       <Button
         className="mt-auto w-full"
         variant="card"
-        label={submitButtonLabel ?? t('submitButtonLabel')}
+        label={submitButtonLabel || t('submitButtonLabel')}
         iconsOnEdge={false}
         onClick={handleSelect}
       />

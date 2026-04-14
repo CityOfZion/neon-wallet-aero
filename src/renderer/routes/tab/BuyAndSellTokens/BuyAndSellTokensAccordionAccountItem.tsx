@@ -14,10 +14,10 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 type TProps = {
-  account: IAccountState
+  account: TAccount
 }
 
 export const BuyAndSellTokensAccordionAccountItem = ({ account }: TProps) => {
@@ -25,12 +25,12 @@ export const BuyAndSellTokensAccordionAccountItem = ({ account }: TProps) => {
   const { currency } = useCurrencySelector()
   const { data, isLoading } = useBalance(account)
 
-  const total = CurrencyHelper.format(data?.exchangeTotal ?? 0, { currency })
+  const total = CurrencyHelper.format(data?.exchangeTotal || 0, { currency })
 
   return (
     <section className="flex items-center gap-x-3 px-4 py-3">
       <BlockchainIcon
-        className="mt-1 h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4 self-start"
+        className="min-size-4 max-size-4 mt-1 size-4 self-start"
         blockchain={account.blockchain}
         type="gray"
       />

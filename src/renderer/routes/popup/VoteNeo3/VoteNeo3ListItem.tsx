@@ -17,11 +17,11 @@ import { useVoteNeo3GetVoteDetailsByAddress } from '@renderer/hooks/useVoteNeo3'
 import MdCircle from '@renderer/assets/images/md-circle.svg?react'
 import TbPackages from '@renderer/assets/images/tb-packages.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 type TProps = {
   index: number
-  neo3Account?: IAccountState
+  neo3Account?: TAccount
   candidate: TVoteServiceCandidate
   votesTotalBn: BigNumber
   voteErrorMessage?: string
@@ -39,7 +39,7 @@ export const VoteNeo3ListItem = ({
   candidatesLength,
 }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'voteNeo3.listItem' })
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address ?? '')
+  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address || '')
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const ref = useRef<HTMLLIElement>(null)
 
@@ -80,7 +80,7 @@ export const VoteNeo3ListItem = ({
     <li ref={ref} className="flex w-full flex-col text-sm text-white" role="row">
       <div className="relative flex h-12 max-h-12 min-h-12 w-full items-center">
         <Button
-          className="h-full w-full"
+          className="size-full"
           clickableProps={{ className: 'h-full' }}
           role="cell"
           aria-labelledby="column-name"
@@ -91,7 +91,7 @@ export const VoteNeo3ListItem = ({
             state: { candidate, neo3Account: neo3Account!, candidateVotePercentage: votePercentage },
           })}
         >
-          <div className="flex h-full w-full">
+          <div className="flex size-full">
             <div
               className="pointer-events-none absolute top-0 bottom-0 left-0 h-full select-none"
               style={{
@@ -99,7 +99,7 @@ export const VoteNeo3ListItem = ({
               }}
             >
               <div
-                className={StyleHelper.mergeStyles('bg-lemon h-full w-full opacity-5', {
+                className={StyleHelper.mergeStyles('bg-lemon size-full opacity-5', {
                   'bg-neon': position === 1,
                   'bg-green-100': position === 2,
                   'bg-green': position === 3,

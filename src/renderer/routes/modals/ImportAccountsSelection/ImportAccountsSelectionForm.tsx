@@ -41,7 +41,7 @@ export const ImportAccountsSelectionForm = ({
   const hasBlockchainAccounts = useMemo(() => Object.values(blockchainAccounts).flat().length > 0, [blockchainAccounts])
 
   return match({ isMounting, hasBlockchainAccounts })
-    .with({ isMounting: true }, () => <Loader containerClassName="mt-6" className="h-8 w-8" />)
+    .with({ isMounting: true }, () => <Loader containerClassName="mt-6" className="size-8" />)
     .with({ hasBlockchainAccounts: false }, () => (
       <p className="mt-4 px-8 text-center text-sm text-gray-100">{t('notFoundLabel')}</p>
     ))

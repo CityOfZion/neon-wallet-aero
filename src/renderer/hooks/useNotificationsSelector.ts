@@ -20,16 +20,18 @@ const orderNotifications = <T extends TNotification>(notifications: T[]): T[] =>
   )
 
 const selectNotifications = createAppSelector(
-  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.memoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
     if (!loginSession) return SelectorHelper.fallbackToEmptyArray<TNotification>()
 
-    return orderNotifications(applicationDataByLoginType[loginSession.type].notifications)
+    return SelectorHelper.fallbackToEmptyArray(
+      orderNotifications(applicationDataByLoginType[loginSession.type].notifications)
+    )
   }
 )
 
 const selectHasUnreadNotification = createAppSelector(
-  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.memoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
     if (!loginSession) return false
 
@@ -38,11 +40,13 @@ const selectHasUnreadNotification = createAppSelector(
 )
 
 const selectUnreadNotifications = createAppSelector(
-  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.memoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
     if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TNotification>()
 
-    return applicationDataByLoginType[loginSession.type].notifications.filter(({ read }) => !read)
+    return SelectorHelper.fallbackToEmptyArray(
+      applicationDataByLoginType[loginSession.type].notifications.filter(({ read }) => !read)
+    )
   }
 )
 
@@ -53,13 +57,13 @@ export const useNotificationsSelector = () => {
 }
 
 export const useHasUnreadNotificationSelector = () => {
-  const { ref, value } = useAppSelector(selectHasUnreadNotification)
+  const { value, ref } = useAppSelector(selectHasUnreadNotification)
 
   return { hasUnreadNotification: value, hasUnreadNotificationRef: ref }
 }
 
 export const useUnreadNotificationsSelector = () => {
-  const { ref, value } = useAppSelector(selectUnreadNotifications)
+  const { value, ref } = useAppSelector(selectUnreadNotifications)
 
   return { unreadNotifications: value, unreadNotificationsRef: ref }
 }

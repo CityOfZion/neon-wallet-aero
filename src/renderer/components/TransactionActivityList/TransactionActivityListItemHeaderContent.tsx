@@ -53,7 +53,7 @@ export const TransactionActivityListItemHeaderContent = ({ transaction }: TProps
   }
 
   return (
-    <div className="flex h-full w-full items-center justify-between gap-x-2 rounded bg-gray-700/60 px-1">
+    <div className="flex size-full items-center justify-between gap-x-2 rounded bg-gray-700/60 px-1">
       <div className="flex items-center gap-x-4 truncate whitespace-nowrap" onClick={handleCancelBubbleEvent}>
         <TransactionActivityListItemHeaderDetails
           label={DateHelper.formatLocalized(transaction.date, { format: 'PP - p', language })}
@@ -107,7 +107,7 @@ export const TransactionActivityListItemHeaderContent = ({ transaction }: TProps
         </div>
 
         {!!transaction.txIdUrl && (
-          <TbChevronRight aria-hidden className="text-neon -ml-1 h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4" />
+          <TbChevronRight aria-hidden className="text-neon min-size-4 max-size-4 -ml-1 size-4" />
         )}
       </div>
     </div>

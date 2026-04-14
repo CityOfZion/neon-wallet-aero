@@ -34,7 +34,7 @@ const Step = ({ icon, colorSchema, label, className, ...props }: TStepProps) => 
         className
       )}
     >
-      {cloneElement(icon, { className: 'w-6 h-6' })}
+      {cloneElement(icon, { className: 'size-6' })}
       <span className="text-sm text-white">{label}</span>
     </div>
   )

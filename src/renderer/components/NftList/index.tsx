@@ -9,14 +9,14 @@ import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelp
 import { useNfts } from '@renderer/hooks/useNfts'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { NftListEmpty } from './NftListEmpty'
 import { NftListItem } from './NftListItem'
 import { NftListSkeleton } from './NftListSkeleton'
 
 type TProps = {
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
 }
 
 export const NftList = ({ selectedAccount }: TProps) => {

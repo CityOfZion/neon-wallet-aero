@@ -6,6 +6,7 @@ import { DayPicker, type DayPickerProps, labelNext, labelPrevious, useDayPicker 
 import { useTranslation } from 'react-i18next'
 
 import { DateHelper } from '@renderer/helpers/DateHelper'
+import { ElementHelper } from '@renderer/helpers/ElementHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
@@ -130,7 +131,7 @@ const Nav = ({
       <IconButton
         aria-label={isYearsView ? t('previousYearButtonLabel') : labelPrevious(previousMonth)}
         type="button"
-        className="absolute left-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
+        className="absolute left-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100"
         size="xs"
         tabIndex={isPreviousDisabled ? undefined : -1}
         disabled={isPreviousDisabled}
@@ -145,7 +146,7 @@ const Nav = ({
             : labelNext(nextMonth)
         }
         type="button"
-        className="absolute right-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
+        className="absolute right-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100"
         size="xs"
         tabIndex={isNextDisabled ? undefined : -1}
         disabled={isNextDisabled}
@@ -176,9 +177,9 @@ const CaptionLabel = ({
     <Button
       label={
         navView === 'days'
-          ? typeof children === 'string'
-            ? children
-            : (children?.toString() ?? '')
+          ? ElementHelper.isTextContentValid(children)
+            ? String(children)
+            : ''
           : `${displayYears.from} - ${displayYears.to}`
       }
       colorSchema="white"

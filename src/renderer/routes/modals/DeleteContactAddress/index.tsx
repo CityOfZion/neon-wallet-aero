@@ -24,7 +24,7 @@ export const DeleteContactAddressModal = () => {
     <BottomModalLayout heading={t('title')}>
       <div className="flex h-full flex-col justify-between">
         <div className="flex flex-col items-center gap-y-6 text-center">
-          <TbAlertTriangle aria-hidden className="text-pink h-21 w-21 stroke-1" />
+          <TbAlertTriangle aria-hidden className="text-pink size-21 stroke-1" />
 
           <p className="px-4 text-lg font-medium">{t('warningText')}</p>
 

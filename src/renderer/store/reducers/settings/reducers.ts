@@ -2,11 +2,11 @@ import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash/cloneDeep'
 
 import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
-import type { IAccountState, IWalletState, TCurrency, TLanguage, TSelectedNetworks } from '@shared/types/store'
+import type { TAccount, TCurrency, TLanguage, TSelectedNetworks, TWallet } from '@shared/types/store'
 
-import type { ISettingsReducer } from './index'
+import type { TSettingsReducer } from './index'
 
-const setSelectedNetworkByBlockchain: CaseReducer<ISettingsReducer, PayloadAction<TSelectedNetworks>> = (
+const setSelectedNetworkByBlockchain: CaseReducer<TSettingsReducer, PayloadAction<TSelectedNetworks>> = (
   state,
   action
 ) => {
@@ -14,7 +14,7 @@ const setSelectedNetworkByBlockchain: CaseReducer<ISettingsReducer, PayloadActio
 }
 
 const setSelectedNetwork = <T extends TBlockchainServiceKey>(
-  state: ISettingsReducer,
+  state: TSettingsReducer,
   action: PayloadAction<{ blockchain: T; network: TNetwork }>
 ) => {
   const { blockchain, network } = action.payload
@@ -26,7 +26,7 @@ const setSelectedNetwork = <T extends TBlockchainServiceKey>(
 }
 
 const setSelectedNetworkUrl: CaseReducer<
-  ISettingsReducer,
+  TSettingsReducer,
   PayloadAction<{ blockchain: TBlockchainServiceKey; url: string; isAutomatic?: boolean }>
 > = (state, action) => {
   const { blockchain, url, isAutomatic } = action.payload
@@ -38,19 +38,19 @@ const setSelectedNetworkUrl: CaseReducer<
   state.data.selectedNetworkByBlockchain = cloneSelectedNetworkByBlockchain
 }
 
-const setLanguage: CaseReducer<ISettingsReducer, PayloadAction<TLanguage>> = (state, action) => {
+const setLanguage: CaseReducer<TSettingsReducer, PayloadAction<TLanguage>> = (state, action) => {
   state.data.language = action.payload
 }
 
-const setCurrency: CaseReducer<ISettingsReducer, PayloadAction<TCurrency>> = (state, action) => {
+const setCurrency: CaseReducer<TSettingsReducer, PayloadAction<TCurrency>> = (state, action) => {
   state.data.currency = action.payload
 }
 
-const setSelectedWallet: CaseReducer<ISettingsReducer, PayloadAction<IWalletState | undefined>> = (state, action) => {
+const setSelectedWallet: CaseReducer<TSettingsReducer, PayloadAction<TWallet | undefined>> = (state, action) => {
   state.data.selectedWallet = action.payload
 }
 
-const setSelectedAccount: CaseReducer<ISettingsReducer, PayloadAction<IAccountState | undefined>> = (state, action) => {
+const setSelectedAccount: CaseReducer<TSettingsReducer, PayloadAction<TAccount | undefined>> = (state, action) => {
   state.data.selectedAccount = action.payload
 }
 

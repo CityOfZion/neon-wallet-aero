@@ -3,12 +3,12 @@ import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import type { TRouteType } from '@shared/types/modal'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { useModalNavigate } from './useModalRouter'
 
 type TConfirmActionParams = {
-  account: IAccountState
+  account: TAccount
   modalType?: TRouteType
 }
 
@@ -20,8 +20,7 @@ export const useConfirmAction = () => {
     async ({ account, modalType = 'bottom' }: TConfirmActionParams) => {
       return new Promise<void>((resolve, reject) => {
         const handleReject = () => {
-          const message = t('unauthorizedAction')
-          return reject(message)
+          return reject(t('unauthorizedAction'))
         }
 
         if (account.type === 'watch') {
@@ -30,6 +29,7 @@ export const useConfirmAction = () => {
 
         if (account.type === 'hardware') {
           resolve()
+
           return
         }
 

@@ -18,7 +18,7 @@ import type {
 } from './blockchain'
 import type { TModalRouterContextNavigateOptions, TRouteType } from './modal'
 import type { TModalRouterRouteTypes } from './modal-router'
-import type { IAccountState, TContactState, TSelectedNetworks, TSwapRecord } from './store'
+import type { TAccount, TContact, TSwapRecord } from './store'
 
 export type TUseActionsData = Record<string, any>
 
@@ -59,18 +59,18 @@ export type TUseModalNavigateResponse = {
 //* useTransactions types *//
 
 export type TUseTransactionsProps = {
-  accounts: IAccountState[]
+  account: TAccount
   dateTo: Date
   dateFrom: Date
 }
 
 export type TUseTransactionsTransactionEvent = (TTransactionTokenEvent | TTransactionNftEvent) & {
-  fromAccount?: IAccountState
-  toAccount?: IAccountState
+  fromAccount?: TAccount
+  toAccount?: TAccount
 }
 
 export type TUseTransactionsTransaction = TTransactionBase & {
-  account: IAccountState
+  account: TAccount
   blockchain: TBlockchainServiceKey
   isPending: boolean
   events: TUseTransactionsTransactionEvent[]
@@ -89,21 +89,11 @@ export type TUseTransactionsGroupedTransactionsByDate = {
 }
 
 export type TUseTransactionsBuildTransactionsQueryKeyParams = {
-  account: IAccountState
+  account: TAccount
   network: TNetwork
   dateFrom?: Date
   dateTo?: Date
-  page?: number
 }
-
-export type TUseTransactionsBuildTransactionsAggregatedQueryKeyParams = {
-  dateFrom?: Date
-  dateTo?: Date
-  accounts?: IAccountState[]
-  selectedNetworkByBlockchain?: TSelectedNetworks
-}
-
-export type TUseHardwareWalletByUsbStatus = 'searching' | 'connected' | 'not-connected'
 
 export type TUseNeonBackupAccount = zod.infer<typeof neonBackupDataSchema>['wallets'][0]['accounts'][0]
 export type TUseNeonBackupWallet = zod.infer<typeof neonBackupDataSchema>['wallets'][0]
@@ -111,12 +101,11 @@ export type TUseNeonBackupWallet = zod.infer<typeof neonBackupDataSchema>['walle
 export type TUseNeonBackupContentSchema = zod.infer<typeof neonBackupContentSchema>
 export type TUseNeonBackupDataSchema = zod.infer<typeof neonBackupDataSchema>
 export type TUseNeonBackupData = { content: TUseNeonBackupContentSchema; type: 'backup' }
-export type TUseNeonBackupDeprecatedData = { content: string; type: 'backup-deprecated' }
 
 export type TUseNeonBackupGeneratedData = {
   wallets: TCreateWalletAndAccountParam[]
   swapRecords?: TSwapRecord[]
-  contacts?: TContactState[]
+  contacts?: TContact[]
 }
 
 export type TUseNeonMigrateAccountsSchema = {
@@ -145,5 +134,5 @@ export type TUseNeonMigrateDecryptedAccountSchema = TUseNeonMigrateAccountsSchem
 export type TUseNeonMigrateGeneratedData = {
   walletToCreate: TWalletToCreate
   accountsToCreate: TAccountsToImport
-  contactsToCreate: TContactState[]
+  contactsToCreate: TContact[]
 }

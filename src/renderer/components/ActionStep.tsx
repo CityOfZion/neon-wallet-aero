@@ -2,6 +2,7 @@ import { cloneElement } from 'react'
 
 import type { JSX, ReactNode } from 'react'
 
+import { ElementHelper } from '@renderer/helpers/ElementHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 type TProps = {
@@ -41,19 +42,16 @@ export const ActionStep = ({
         >
           {leftIcon && (
             <div
-              className={StyleHelper.mergeStyles(
-                'flex h-5 w-5 items-center justify-center',
-                leftIconContainerClassName
-              )}
+              className={StyleHelper.mergeStyles('flex size-5 items-center justify-center', leftIconContainerClassName)}
             >
               {cloneElement(leftIcon, {
                 ...leftIcon.props,
-                className: StyleHelper.mergeStyles('text-blue w-full h-full', leftIcon.props.className),
+                className: StyleHelper.mergeStyles('text-blue size-full', leftIcon.props.className),
               })}
             </div>
           )}
 
-          {typeof title === 'string' ? (
+          {ElementHelper.isTextContentValid(title) ? (
             <span className={StyleHelper.mergeStyles('truncate text-sm text-white', titleClassName)}>{title}</span>
           ) : (
             title

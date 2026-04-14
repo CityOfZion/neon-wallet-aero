@@ -51,7 +51,7 @@ export const ScreenLayout = ({
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.2 }}
       className={StyleHelper.mergeStyles(
-        'flex h-full w-full grow flex-col overflow-x-hidden overflow-y-auto bg-gray-900 px-4 pt-3 pb-4 text-white',
+        'flex size-full grow flex-col overflow-x-hidden overflow-y-auto bg-gray-900 px-4 pt-3 pb-4 text-white',
         className
       )}
       ref={ref}
@@ -79,10 +79,7 @@ export const ScreenLayout = ({
             {icon &&
               cloneElement(icon, {
                 ...icon.props,
-                className: StyleHelper.mergeStyles(
-                  'text-neon min-w-6 max-w-6 min-h-6 max-h-6 h-6 w-6',
-                  icon.props.className
-                ),
+                className: StyleHelper.mergeStyles('text-neon size-6 min-size-6 max-size-6', icon.props.className),
               })}
 
             {heading}

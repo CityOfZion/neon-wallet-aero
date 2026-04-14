@@ -3,7 +3,7 @@ import orderBy from 'lodash/orderBy'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccountHelperGetServiceAccountParams, TAccountHelperPredicateParams } from '@shared/types/helpers'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { BlockchainServiceHelper } from './BlockchainServiceHelper'
 
@@ -16,7 +16,7 @@ export class AccountHelper {
     return (account: TAccountHelperPredicateParams) => address !== account.address || blockchain !== account.blockchain
   }
 
-  static getNextOrderOrMissing(accounts: IAccountState[], blockchain: TBlockchainServiceKey) {
+  static getNextOrderOrMissing(accounts: TAccount[], blockchain: TBlockchainServiceKey) {
     const orders = accounts.filter(account => account.blockchain === blockchain).map(({ order }) => order)
 
     if (orders.length === 0) return 0
@@ -46,7 +46,7 @@ export class AccountHelper {
     return `${address}-${blockchain}`
   }
 
-  static orderAccounts<T extends IAccountState = IAccountState>(accounts: T[]) {
+  static orderAccounts<T extends TAccount = TAccount>(accounts: T[]) {
     return orderBy(
       [...accounts],
       [({ blockchain }) => BlockchainServiceHelper.blockchainNames.indexOf(blockchain), 'order'],

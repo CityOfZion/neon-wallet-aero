@@ -66,7 +66,7 @@ export const CreateWalletStep3Modal = () => {
       <form className="flex w-full flex-grow flex-col justify-between" onSubmit={handleAct(handlePressContinue)}>
         <div className="min-h-0 overflow-y-auto">
           <div className="flex items-center gap-4 px-3.5 pt-2 pb-5">
-            <MdiNumeric3Box className="text-blue h-6 w-6" aria-hidden />
+            <MdiNumeric3Box className="text-blue size-6" aria-hidden />
             <h3 className="text-lg">{t('subtitle')}</h3>
           </div>
 

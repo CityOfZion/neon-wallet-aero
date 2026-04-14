@@ -36,7 +36,7 @@
     "defaultName": "Account {{accountNumber}}"
   },
   "blockchain": {
-    "neo3": "Neo N3",
+    "neo3": "Neo 3",
     "neoLegacy": "Neo Legacy",
     "ethereum": "Ethereum",
     "neox": "Neo X",
