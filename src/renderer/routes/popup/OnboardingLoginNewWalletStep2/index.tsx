@@ -2,7 +2,7 @@ import { BSKeychainHelper } from '@cityofzion/blockchain-service'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
@@ -11,6 +11,7 @@ import { useActions } from '@renderer/hooks/useActions'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useSignup } from '@renderer/hooks/useLogin'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
@@ -30,7 +31,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep2' })
   const { t: tCommon } = useTranslation('common')
   const { state } = useLocation() as Location<TLocationState>
-  const navigate = useNavigate()
+  const navigateReset = useNavigateReset()
   const { modalNavigate, modalErase } = useModalNavigate()
   const { signup } = useSignup()
   const { createWallet, createStandardAccount } = useBlockchainActions()
@@ -79,7 +80,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
 
           modalErase('bottom')
 
-          navigate('/onboarding-login-new-wallet/3', { replace: true })
+          navigateReset('/onboarding-login-new-wallet/3')
         },
       },
     })

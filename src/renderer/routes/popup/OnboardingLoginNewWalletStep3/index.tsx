@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
@@ -9,6 +8,7 @@ import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useExportMnemonic } from '@renderer/hooks/useExportMnemonic'
+import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
@@ -22,7 +22,7 @@ export const OnboardingLoginNewWalletStep3Page = () => {
   const { wallets } = useWalletsSelector()
   const { loginSessionRef } = useLoginSessionSelector()
   const { saveMnemonicToTextFile } = useExportMnemonic()
-  const navigate = useNavigate()
+  const navigateReset = useNavigateReset()
   const dispatch = useAppDispatch()
 
   const handleBackupAndOpenWallet = async () => {
@@ -37,7 +37,7 @@ export const OnboardingLoginNewWalletStep3Page = () => {
 
     AnalyticsHelper.logEvent('onboarding_completed')
 
-    navigate('/wallets')
+    navigateReset('/wallets')
   }
 
   return (

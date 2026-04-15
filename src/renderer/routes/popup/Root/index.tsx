@@ -2,7 +2,7 @@ import { lazy, Suspense, useState } from 'react'
 
 import { QueryClientProvider } from '@tanstack/react-query'
 import { Provider as StoreProvider } from 'react-redux'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 import { SplashScreen } from '@renderer/components/SplashScreen'
 
@@ -16,6 +16,7 @@ import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
 import { SentryHelper } from '@renderer/helpers/SentryHelper'
 
 import { useMountUnsafe } from '@renderer/hooks/useMount'
+import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 
 import { modalsRouter } from '@renderer/routes/modals-router'
 
@@ -31,7 +32,7 @@ const NetworkManagerSetup = LazyHelper.delayedLazy(() => import('./NetworkManage
 
 export const RootPage = () => {
   const [ready, setReady] = useState(false)
-  const navigate = useNavigate()
+  const navigateReset = useNavigateReset()
 
   useMountUnsafe(async () => {
     try {
@@ -44,12 +45,12 @@ export const RootPage = () => {
 
       if (loginSession) {
         ReduxHelper.store.dispatch(authReducerActions.setLoginSession(loginSession))
-        navigate('/wallets', { replace: true })
+        navigateReset('/wallets')
       } else {
         ReduxHelper.store.dispatch(settingsReducerActions.setSelectedWallet(undefined))
         ReduxHelper.store.dispatch(settingsReducerActions.setSelectedAccount(undefined))
         ReduxHelper.store.dispatch(authReducerActions.resetTemporaryApplicationData())
-        navigate('/login', { replace: true })
+        navigateReset('/login')
       }
 
       setReady(true)

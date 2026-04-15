@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
+import { Button } from '@renderer/components/Button'
 import { DownloadQRCodePasswordButton } from '@renderer/components/DownloadQRCodePasswordButton'
-import { Link } from '@renderer/components/Link'
+
+import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 
 import MdOutlineAutoAwesome from '@renderer/assets/images/md-outline-auto-awesome.svg?react'
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
@@ -17,6 +19,7 @@ type TLocationState = {
 export const OnboardingImportWalletStep5Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step5' })
   const { state } = useLocation() as Location<TLocationState>
+  const navigateReset = useNavigateReset()
 
   return (
     <Fragment>
@@ -28,8 +31,8 @@ export const OnboardingImportWalletStep5Page = () => {
 
       <div className="flex w-full flex-col items-center gap-4">
         <DownloadQRCodePasswordButton password={state.password} className="w-fit" />
-        <Link
-          to="/wallets"
+        <Button
+          onClick={() => navigateReset('/wallets')}
           label={t('openWalletButtonLabel')}
           rightIcon={<MdOutlineAutoAwesome aria-hidden />}
           variant="card"

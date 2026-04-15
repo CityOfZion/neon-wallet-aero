@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@renderer/components/Button'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
+import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -16,10 +16,10 @@ export const CreateWalletStep4Modal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep4' })
   const { selectedWallet } = useModalState<TModalState<'create-wallet-4'>>()
   const { modalErase } = useModalNavigate()
-  const navigate = useNavigate()
+  const navigateReset = useNavigateReset()
 
   const handlePressContinue = () => {
-    navigate('/wallets', { state: { wallet: selectedWallet }, replace: true })
+    navigateReset('/wallets', { state: { wallet: selectedWallet } })
     modalErase('bottom')
   }
 
