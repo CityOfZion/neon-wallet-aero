@@ -2,14 +2,14 @@ import React from 'react'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import ArbitrumIcon from '@renderer/assets/blockchain/arbitrum.svg?react'
-import BaseIcon from '@renderer/assets/blockchain/base.svg?react'
-import EthereumIcon from '@renderer/assets/blockchain/ethereum.svg?react'
-import NeoLegacyIcon from '@renderer/assets/blockchain/neo-legacy.svg?react'
-import Neo3Icon from '@renderer/assets/blockchain/neo3.svg?react'
-import NeoxIcon from '@renderer/assets/blockchain/neox.svg?react'
-import PolygonIcon from '@renderer/assets/blockchain/polygon.svg?react'
-import SolanaIcon from '@renderer/assets/blockchain/solana.svg?react'
+import ArbitrumIcon from '@renderer/assets/images/blockchains/arbitrum.svg?react'
+import BaseIcon from '@renderer/assets/images/blockchains/base.svg?react'
+import EthereumIcon from '@renderer/assets/images/blockchains/ethereum.svg?react'
+import NeoLegacyIcon from '@renderer/assets/images/blockchains/neo-legacy.svg?react'
+import Neo3Icon from '@renderer/assets/images/blockchains/neo3.svg?react'
+import NeoxIcon from '@renderer/assets/images/blockchains/neox.svg?react'
+import PolygonIcon from '@renderer/assets/images/blockchains/polygon.svg?react'
+import SolanaIcon from '@renderer/assets/images/blockchains/solana.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
@@ -32,9 +32,6 @@ export const BlockchainIcon = React.memo(({ blockchain, ...props }: Props) => {
   const Component = ICONS_BY_BLOCKCHAIN[blockchain]
 
   return (
-    <Component
-      {...props}
-      className={StyleHelper.mergeStyles('h-4 w-4 object-contain text-gray-100', props.className)}
-    />
+    <Component {...props} className={StyleHelper.mergeStyles('size-4 object-contain text-gray-100', props.className)} />
   )
 })

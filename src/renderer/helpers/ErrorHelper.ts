@@ -10,7 +10,7 @@ export class AppError extends Error {
   constructor(message: string, rootError?: unknown, fromAppError?: boolean) {
     super(message)
     this.name = 'AppError'
-    this.fromAppError = fromAppError ?? false
+    this.fromAppError = fromAppError || false
 
     if (rootError && rootError instanceof Error && rootError.stack && !(rootError instanceof AppError)) {
       this.stack += `\nCaused by: ${rootError.stack}`
@@ -19,8 +19,7 @@ export class AppError extends Error {
 
   static wrap(error: unknown, defaultMessage?: string | null | undefined) {
     if (error instanceof AppError) {
-      const appError = new AppError(error.message, undefined, true)
-      return appError
+      return new AppError(error.message, undefined, true)
     }
 
     if (defaultMessage === null && error instanceof Error) {
@@ -42,8 +41,7 @@ export class WalletConnectError extends AppError {
 
   static wrap(error: unknown, defaultMessage?: string) {
     if (error instanceof WalletConnectError) {
-      const walletConnectError = new WalletConnectError(error.message, error.code, undefined, true)
-      return walletConnectError
+      return new WalletConnectError(error.message, error.code, undefined, true)
     }
 
     if (error instanceof AppError) {
@@ -51,7 +49,7 @@ export class WalletConnectError extends AppError {
     }
 
     if (error instanceof BSError) {
-      let message = defaultMessage ?? t('walletConnect.errorsByCode.UNEXPECTED_ERROR')
+      let message = defaultMessage || t('walletConnect.errorsByCode.UNEXPECTED_ERROR')
       let code = 'UNEXPECTED_ERROR'
 
       if (i18next.exists(`common:walletConnect.errorsByCode.${error.code}`)) {
@@ -67,7 +65,7 @@ export class WalletConnectError extends AppError {
     }
 
     return new WalletConnectError(
-      defaultMessage ?? t('walletConnect.errorsByCode.UNEXPECTED_ERROR'),
+      defaultMessage || t('walletConnect.errorsByCode.UNEXPECTED_ERROR'),
       'UNEXPECTED_ERROR',
       error,
       false

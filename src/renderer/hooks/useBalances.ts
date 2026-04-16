@@ -143,7 +143,7 @@ export function useBalances(params: TUseBalancesParams[], options?: TUseBalances
   const { currency } = useCurrencySelector()
   const { hiddenTokensByBlockchain } = useHiddenTokensByBlockchainSelector()
 
-  const { showType = 'active', queryOptions } = options ?? {}
+  const { showType = 'active', queryOptions } = options || {}
   const hasCurrencyRatio = typeof currencyRatio === 'number'
 
   return useQueries({
@@ -161,7 +161,7 @@ export function useBalances(params: TUseBalancesParams[], options?: TUseBalances
         selectedNetworkByBlockchain[param.blockchain],
         queryClient,
         currency,
-        currencyRatio ?? 0
+        currencyRatio || 0
       ),
       enabled: !isCurrencyRatioLoading && hasCurrencyRatio,
       ...queryOptions,
@@ -187,7 +187,7 @@ export function useBalances(params: TUseBalancesParams[], options?: TUseBalances
           data.push(fixBalanceResult(result.data, showType, hiddenTokensByBlockchain))
         })
 
-        exchangeTotal = data.reduce((acc, result) => acc + (result.exchangeTotal ?? 0), 0)
+        exchangeTotal = data.reduce((acc, result) => acc + (result.exchangeTotal || 0), 0)
       }
 
       return {
@@ -211,8 +211,8 @@ export function useBalance(
   const { isLoading: isCurrencyRatioLoading, data: currencyRatio } = useCurrencyRatio()
   const { hiddenTokensByBlockchain } = useHiddenTokensByBlockchainSelector()
 
-  const params = balanceParams ?? { address: '', blockchain: 'neo3' }
-  const { showType = 'active', queryOptions } = options ?? {}
+  const params = balanceParams || { address: '', blockchain: 'neo3' }
+  const { showType = 'active', queryOptions } = options || {}
   const hasCurrencyRatio = typeof currencyRatio === 'number'
 
   const query = useQuery({
@@ -229,7 +229,7 @@ export function useBalance(
       selectedNetworkByBlockchain[params.blockchain],
       queryClient,
       currency,
-      currencyRatio ?? 0
+      currencyRatio || 0
     ),
     enabled: !!balanceParams && !isCurrencyRatioLoading && hasCurrencyRatio,
     ...queryOptions,
@@ -257,7 +257,7 @@ export function useLazyBalance() {
 
   const getBalance = useCallback(
     async (params: TUseBalancesParams, options?: TUseBalancesOptions) => {
-      const { showType = 'active', queryOptions } = options ?? {}
+      const { showType = 'active', queryOptions } = options || {}
 
       const network = selectedNetworkByBlockchain[params.blockchain]
 

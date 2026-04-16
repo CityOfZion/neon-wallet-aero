@@ -26,8 +26,8 @@ export const DappHeader = ({ proposerUri, proposerName, className, ...props }: T
           src={proposerUri}
           alt={proposerName}
           fallbackSrc={`${ConstantsHelper.neonIconsUrl}/dapps/default-dapp.png`}
-          className="h-full w-full rounded-full object-contain"
-          containerClassName="h-full w-full"
+          className="size-full rounded-full object-contain"
+          containerClassName="size-full"
         />
       </div>
     </div>

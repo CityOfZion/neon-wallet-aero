@@ -4,12 +4,12 @@ import { Button } from '@renderer/components/Button'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { ExportFullTransactionInfo } from './ExportFullTransactionInfo'
 
 type TProps = {
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
   dateFrom: Date
   dateTo: Date
 }
@@ -21,6 +21,7 @@ export const ExportTransactionsSuccessContent = ({ selectedAccount, dateFrom, da
   return (
     <div className="flex w-full grow flex-col">
       <p className="mt-7 text-xs font-bold text-gray-100 uppercase">{t('infoLabel')}</p>
+
       <ExportFullTransactionInfo
         className="mt-2"
         selectedAccount={selectedAccount}

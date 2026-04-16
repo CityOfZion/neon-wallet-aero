@@ -38,19 +38,13 @@ const Icon = forwardRef<ElementRef<typeof SelectPrimitive.Icon>, ComponentPropsW
   ({ className, ...props }, ref) => (
     <SelectPrimitive.Icon
       ref={ref}
-      className={StyleHelper.mergeStyles(
-        'max-h-[1.5rem] min-h-[1.5rem] max-w-[1.5rem] min-w-[1.5rem] text-white',
-        className
-      )}
+      className={StyleHelper.mergeStyles('min-size-6 max-size-6 size-6 text-white', className)}
       {...props}
     >
       <Fragment>
-        <MdExpandMore aria-hidden className={StyleHelper.mergeStyles('h-full w-full group-aria-expanded:hidden')} />
+        <MdExpandMore aria-hidden className={StyleHelper.mergeStyles('size-full group-aria-expanded:hidden')} />
 
-        <MdExpandLess
-          aria-hidden
-          className={StyleHelper.mergeStyles('hidden h-full w-full group-aria-expanded:block')}
-        />
+        <MdExpandLess aria-hidden className={StyleHelper.mergeStyles('hidden size-full group-aria-expanded:block')} />
       </Fragment>
     </SelectPrimitive.Icon>
   )
@@ -111,7 +105,7 @@ const ItemIndicator = forwardRef<
   ComponentPropsWithoutRef<typeof SelectPrimitive.ItemIndicator>
 >((props, ref) => (
   <SelectPrimitive.ItemIndicator ref={ref} asChild {...props}>
-    <FiCheck aria-hidden className="max-h-[1rem] min-h-[1rem] max-w-[1rem] min-w-[1rem]" />
+    <FiCheck aria-hidden className="min-size-4 max-size-4 size-4" />
   </SelectPrimitive.ItemIndicator>
 ))
 
@@ -119,12 +113,12 @@ const ItemRadialIndicator = forwardRef<
   ElementRef<typeof SelectPrimitive.ItemIndicator>,
   ComponentPropsWithoutRef<typeof SelectPrimitive.ItemIndicator>
 >((props, ref) => (
-  <div className="group-data-[state=checked]:border-neon h-[1rem] min-h-[1rem] w-[1rem] min-w-[1rem] rounded-full border-2 bg-transparent outline-none group-data-[state=unchecked]:border-gray-300">
+  <div className="group-data-[state=checked]:border-neon min-size-4 size-4 rounded-full border-2 bg-transparent outline-none group-data-[state=unchecked]:border-gray-300">
     <SelectPrimitive.ItemIndicator
       ref={ref}
       {...props}
       className={StyleHelper.mergeStyles(
-        "after:bg-neon relative flex h-full w-full items-center justify-center after:block after:h-2 after:w-2 after:rounded-[50%] after:content-['']",
+        "after:bg-neon relative flex size-full items-center justify-center after:block after:h-2 after:w-2 after:rounded-[50%] after:content-['']",
         props.className
       )}
     />

@@ -14,7 +14,7 @@ type TProps = {
 }
 
 export const Tooltip = ({ title, icon, open, delayDuration, arrowProps, children, ...props }: TProps) => {
-  const { className: contentClassName, ...contentProps } = props.contentProps ?? {}
+  const { className: contentClassName, ...contentProps } = props.contentProps || {}
 
   if (!title) return children
 

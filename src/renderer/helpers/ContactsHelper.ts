@@ -1,12 +1,12 @@
-import type { TContactAddress, TContactEncryptedAddress, TContactState } from '@shared/types/store'
+import type { TContact, TContactAddress, TContactEncryptedAddress } from '@shared/types/store'
 
 import { EncryptionHelper } from './EncryptionHelper'
 
 export class ContactsHelper {
   static async encryptContact(
-    contact: TContactState,
+    contact: TContact,
     encryptedPassword: string
-  ): Promise<TContactState<TContactEncryptedAddress>> {
+  ): Promise<TContact<TContactEncryptedAddress>> {
     const addresses: TContactEncryptedAddress[] = []
 
     const promises = contact.addresses.map(async contactAddress => {
@@ -23,10 +23,10 @@ export class ContactsHelper {
   }
 
   static async encryptContacts(
-    contacts: TContactState[],
+    contacts: TContact[],
     encryptedPassword: string
-  ): Promise<TContactState<TContactEncryptedAddress>[]> {
-    const encryptedContacts: TContactState<TContactEncryptedAddress>[] = []
+  ): Promise<TContact<TContactEncryptedAddress>[]> {
+    const encryptedContacts: TContact<TContactEncryptedAddress>[] = []
 
     const promises = contacts.map(async contact => {
       const encryptedContact = await ContactsHelper.encryptContact(contact, encryptedPassword)
@@ -39,9 +39,9 @@ export class ContactsHelper {
   }
 
   static async decryptContact(
-    contacts: TContactState<TContactEncryptedAddress>,
+    contacts: TContact<TContactEncryptedAddress>,
     encryptedPassword: string
-  ): Promise<TContactState> {
+  ): Promise<TContact> {
     const addresses: TContactAddress[] = []
 
     const promises = contacts.addresses.map(async contactAddress => {
@@ -58,10 +58,10 @@ export class ContactsHelper {
   }
 
   static async decryptContacts(
-    contacts: TContactState<TContactEncryptedAddress>[],
+    contacts: TContact<TContactEncryptedAddress>[],
     encryptedPassword: string
-  ): Promise<TContactState[]> {
-    const decryptedContacts: TContactState[] = []
+  ): Promise<TContact[]> {
+    const decryptedContacts: TContact[] = []
 
     const promises = contacts.map(async contact => {
       const decryptedContact = await ContactsHelper.decryptContact(contact, encryptedPassword)

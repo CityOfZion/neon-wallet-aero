@@ -31,19 +31,19 @@ import MdSearch from '@renderer/assets/images/md-search.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 
-import type { IAccountState, IWalletState } from '@shared/types/store'
+import type { TAccount, TWallet } from '@shared/types/store'
 
 import { VoteNeo3AvailableVotes } from './VoteNeo3AvailableVotes'
 import { VoteNeo3List } from './VoteNeo3List'
 
 type TLocationState = {
-  initialNeo3Account?: IAccountState
-  initialWallet?: IWalletState
+  initialNeo3Account?: TAccount
+  initialWallet?: TWallet
 }
 
 type TActionsData = {
-  neo3Account?: IAccountState
-  wallet?: IWalletState
+  neo3Account?: TAccount
+  wallet?: TWallet
   search: string
 }
 
@@ -73,7 +73,8 @@ export const VoteNeo3Page = () => {
     neo3Account,
     candidatePubKey: ConstantsHelper.voteNeo3CozPubKey,
   })
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address ?? '')
+
+  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address || '')
   const balanceQuery = useBalance(neo3Account)
   const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
 
@@ -83,7 +84,7 @@ export const VoteNeo3Page = () => {
     voteDetailsByAddressQuery.isLoading ||
     balanceQuery.isLoading
 
-  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance ?? 0)
+  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
   const hasNeoAmount = neoAmountBn.isGreaterThan(0)
   const hasNeo3Accounts = neo3Accounts.length > 0
   const isSearchDisabled = candidatesToVoteQuery.isLoading || !hasNeo3Accounts
@@ -144,7 +145,7 @@ export const VoteNeo3Page = () => {
           <div className="flex w-full gap-2.5 pb-6">
             <div className="bg-lemon mt-0.5 size-4 rounded-full" />
 
-            <div className="flex h-full w-full flex-col items-start justify-around gap-2">
+            <div className="flex size-full flex-col items-start justify-around gap-2">
               <p className="uppercase">{StringHelper.truncateMiddle(neo3Account.name, 30)}</p>
               <div className="flex">
                 <Tooltip title={neo3Account.address}>
@@ -178,7 +179,7 @@ export const VoteNeo3Page = () => {
           maxLength={100}
           value={search}
           disabled={isSearchDisabled}
-          leftIcon={<MdSearch aria-hidden className="text-neon h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
+          leftIcon={<MdSearch aria-hidden className="text-neon min-size-5 max-size-5 size-5" />}
           onChange={setDataFromEventWrapper('search')}
         />
 

@@ -39,8 +39,8 @@ export const ConnectHardwareWalletPage = () => {
   const dispatch = useAppDispatch()
   const [searchParams] = useSearchParams()
 
-  const connectionType = (searchParams.get('connection-type') ?? 'usb') as THardwareWalletHelperConnectionType
-  const type = (searchParams.get('type') ?? 'login') as THardwareWalletHelperConnectType
+  const connectionType = (searchParams.get('connection-type') || 'usb') as THardwareWalletHelperConnectionType
+  const type = (searchParams.get('type') || 'login') as THardwareWalletHelperConnectType
 
   const hardwareWalletConnectionMutation = useMutation({
     mutationFn: async () => {

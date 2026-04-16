@@ -64,13 +64,13 @@
 }
 
 @utility min-size-* {
-  min-width: calc(var(--spacing) * --value(number));
-  min-height: calc(var(--spacing) * --value(number));
+  min-width: --value(--spacing-*, [length], [percentage]);
+  min-height: --value(--spacing-*, [length], [percentage]);
 }
 
 @utility max-size-* {
-  max-width: calc(var(--spacing) * --value(number));
-  max-height: calc(var(--spacing) * --value(number));
+  max-width: --value(--spacing-*, [length], [percentage]);
+  max-height: --value(--spacing-*, [length], [percentage]);
 }
 
 /*

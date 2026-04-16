@@ -20,12 +20,12 @@ import NeonWalletIcon from '@renderer/assets/images/neon-wallet-icon.svg?react'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import type { TCreateWalletAndAccountParam } from '@shared/types/blockchain'
-import type { TContactState, TSwapRecord } from '@shared/types/store'
+import type { TContact, TSwapRecord } from '@shared/types/store'
 
 type TLocationState = {
   wallets: TCreateWalletAndAccountParam[]
   swapRecords?: TSwapRecord[]
-  contacts?: TContactState[]
+  contacts?: TContact[]
   password: string
 }
 

@@ -20,7 +20,7 @@ import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/ho
 
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { IconButton } from '../IconButton'
 import { Tooltip } from '../Tooltip'
@@ -30,13 +30,12 @@ import { TransactionActivityListItem } from './TransactionActivityListItem'
 import { TransactionActivityListSkeleton } from './TransactionActivityListSkeleton'
 
 type TActionsData = {
-  accounts: IAccountState[]
   dateFrom: Date
   dateTo: Date
 }
 
 type TProps = {
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
 }
 
 const heights = {
@@ -56,12 +55,14 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList' })
 
   const { actionData, setData } = useActions<TActionsData>({
-    accounts: [selectedAccount],
     dateFrom: dateFns.startOfMonth(dateNow),
     dateTo: dateNow,
   })
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useTransactions(actionData)
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useTransactions({
+    account: selectedAccount,
+    ...actionData,
+  })
 
   const { dateFrom, dateTo } = actionData
 

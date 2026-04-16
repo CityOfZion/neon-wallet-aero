@@ -13,14 +13,14 @@ import { useVoteNeo3GetCandidatesToVote } from '@renderer/hooks/useVoteNeo3'
 
 import TbAlertTriangle from '@renderer/assets/images/tb-alert-triangle.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { VoteNeo3ListItem } from './VoteNeo3ListItem'
 import { VoteNeo3NotFound } from './VoteNeo3NotFound'
 import { VoteNeo3Skeleton } from './VoteNeo3Skeleton'
 
 type TProps = {
-  neo3Account?: IAccountState
+  neo3Account?: TAccount
   search: string
   voteErrorMessage?: string
   canVote: boolean
@@ -33,7 +33,7 @@ export const VoteNeo3List = ({ neo3Account, search, voteErrorMessage, canVote }:
 
   const candidates = useMemo(
     () =>
-      candidatesToVoteQuery.data?.toSorted(({ pubKey }) => (pubKey === ConstantsHelper.voteNeo3CozPubKey ? -1 : 1)) ??
+      candidatesToVoteQuery.data?.toSorted(({ pubKey }) => (pubKey === ConstantsHelper.voteNeo3CozPubKey ? -1 : 1)) ||
       [],
     [candidatesToVoteQuery.data]
   )

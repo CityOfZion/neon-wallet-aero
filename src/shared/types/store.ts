@@ -20,14 +20,14 @@ export type TContactAddress = {
   blockchain: TBlockchainServiceKey
 }
 
-export type TContactState<A = TContactAddress> = {
+export type TContact<A = TContactAddress> = {
   id: string
   name: string
   addresses: A[]
 }
 
 export type TSwapRecord = {
-  account: IAccountState
+  account: TAccount
   txFrom?: string
   txTo?: string
   swapProvider: 'simpleswap'
@@ -100,7 +100,7 @@ export type TAccountType = 'standard' | 'watch' | 'hardware'
 
 export type TWalletType = 'standard' | 'hardware'
 
-export interface IAccountState {
+export type TAccount = {
   id: string
   address: string
   type: TAccountType
@@ -113,17 +113,17 @@ export interface IAccountState {
 
 export type TWalletBackupStatus = 'successful' | 'unsuccessful'
 
-export interface IWalletState {
+export type TWallet = {
   id: string
   name: string
   type: TWalletType
   encryptedMnemonic?: string
-  accounts: IAccountState[]
+  accounts: TAccount[]
   backupStatus: TWalletBackupStatus
 }
 
-export type TAccountWithWallet = IAccountState & {
-  wallet: IWalletState
+export type TAccountWithWallet = TAccount & {
+  wallet: TWallet
 }
 
 export type TLoginSessionType = 'password' | 'key' | 'hardware'

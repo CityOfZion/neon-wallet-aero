@@ -45,7 +45,7 @@ export const VoteNeo3CandidateDetailsModal = () => {
   const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
   const isCandidateCoz = ConstantsHelper.voteNeo3CozPubKey === pubKey
 
-  const neoAmount = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance ?? 0)
+  const neoAmount = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
   const hasNeoAmount = neoAmount.isGreaterThan(0)
   const isLoading = voteDetailsByAddressQuery.isLoading || calculateVoteFeeQuery.isLoading || balanceQuery.isLoading
   const isCurrentVote = voteDetailsByAddressQuery.data?.candidatePubKey === pubKey

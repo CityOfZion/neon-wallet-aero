@@ -15,7 +15,7 @@ import { useLazyVoteNeo3GetVoteDetailsByAddress } from '@renderer/hooks/useVoteN
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TBalance } from '@shared/types/query'
-import type { IAccountState, TNotification } from '@shared/types/store'
+import type { TAccount, TNotification } from '@shared/types/store'
 
 const SETUP_PREFIX = 'pages:private.accountTasksManagerSetup'
 const VOTING_NOTIFICATION_PREFIX = `${SETUP_PREFIX}.useVotingNeo3NotificationProcess`
@@ -44,7 +44,7 @@ const useFraudulentTokensNotificationProcess = () => {
     }
   }
 
-  const process = (account: IAccountState, balance?: TBalance) => {
+  const process = (account: TAccount, balance?: TBalance) => {
     try {
       if (!balance) return
 
@@ -122,7 +122,7 @@ const useVotingNeo3NotificationProcess = () => {
     }
   }
 
-  const process = async (account: IAccountState) => {
+  const process = async (account: TAccount) => {
     try {
       if (account.blockchain !== 'neo3') return
 

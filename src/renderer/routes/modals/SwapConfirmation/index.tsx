@@ -65,13 +65,13 @@ export const SwapConfirmationModal = () => {
       <div className="flex h-full flex-col justify-between gap-3">
         <div className="flex flex-col text-sm">
           <div className="flex w-full justify-center pb-8">
-            <TbTransform aria-hidden className="text-blue h-20 w-20" />
+            <TbTransform aria-hidden className="text-blue size-20" />
           </div>
 
           <p className="my-4 text-left">{t('description')}</p>
 
           <Details.Root className="my-6">
-            <Details.Header leftElement={<TbReceipt aria-hidden className="text-blue h-4 min-h-4 w-4 min-w-4" />}>
+            <Details.Header leftElement={<TbReceipt aria-hidden className="text-blue min-size-4 size-4" />}>
               {t('transactionDetails')}
             </Details.Header>
 

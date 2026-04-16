@@ -12,8 +12,8 @@ export const SuccessModal = () => {
   return (
     <BottomModalLayout heading={heading} hideBackButton>
       <div className="flex min-h-0 flex-grow flex-col items-center">
-        <div className="bg-asphalt flex h-28 w-28 items-center rounded-full p-2">
-          <TbRosetteDiscountCheck aria-hidden className="text-blue h-24 w-24" />
+        <div className="bg-asphalt flex size-28 items-center rounded-full p-2">
+          <TbRosetteDiscountCheck aria-hidden className="text-blue size-24" />
         </div>
 
         <p className="mt-7 px-10 text-center text-lg text-white">{subtitle}</p>

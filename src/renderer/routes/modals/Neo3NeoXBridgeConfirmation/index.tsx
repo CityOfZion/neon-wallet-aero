@@ -69,7 +69,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="flex flex-grow flex-col items-center justify-between gap-6">
-        <TbReplace2 aria-hidden className="text-blue h-21 w-21" />
+        <TbReplace2 aria-hidden className="text-blue size-21" />
 
         <p className="text-sm font-bold">{t('description')}</p>
 
@@ -81,7 +81,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
               <Details.Item label={t('bridgeDetailsItemLabel')}>
                 <Details.Token symbol={tokenToUse.symbol} blockchain={tokenToUse.blockchain} className="w-fit" />
 
-                <TbArrowRight aria-hidden className="text-orange min-h-6 min-w-6" />
+                <TbArrowRight aria-hidden className="text-orange min-size-6" />
 
                 <Details.Token
                   symbol={tokenToReceive.symbol}

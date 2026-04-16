@@ -14,10 +14,10 @@ import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 import MdCalendarMonth from '@renderer/assets/images/md-calendar-month.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 type TProps = {
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
   dateFrom: Date
   dateTo: Date
   readOnly?: boolean

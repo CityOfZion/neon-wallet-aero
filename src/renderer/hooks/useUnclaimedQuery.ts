@@ -14,7 +14,7 @@ import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 import { thunks } from '@renderer/store/thunks'
 import type { TNetwork } from '@shared/types/blockchain'
 import type { TUseUnclaimedResult } from '@shared/types/query'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { useLoginSessionSelector } from './useAuthSelector'
 import { useAppDispatch } from './useRedux'
@@ -23,7 +23,7 @@ import { useHasClaimPendingTransactionSelector } from './useUtilitySelector'
 
 const { t } = I18nextHelper.get()
 
-export const buildQueryKeyUnclaimed = (account: IAccountState, network?: TNetwork) => {
+export const buildQueryKeyUnclaimed = (account: TAccount, network?: TNetwork) => {
   const key: any[] = ['unclaimed', account.address]
 
   if (network) {
@@ -34,7 +34,7 @@ export const buildQueryKeyUnclaimed = (account: IAccountState, network?: TNetwor
 }
 
 const getUnclaimedInfos = async (
-  account: IAccountState,
+  account: TAccount,
   hasClaimPendingTransaction: boolean,
   encryptedPassword?: string
 ): Promise<TUseUnclaimedResult> => {
@@ -83,7 +83,7 @@ const getUnclaimedInfos = async (
   return { unclaimed, unclaimedNumber, fee, feeNumber: parseFloat(fee) }
 }
 
-export const useUnclaimed = (account: IAccountState) => {
+export const useUnclaimed = (account: TAccount) => {
   const { hasClaimPendingTransactionRef } = useHasClaimPendingTransactionSelector(account)
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { loginSessionRef } = useLoginSessionSelector()
@@ -110,7 +110,7 @@ export const useUnclaimedMutation = () => {
   const dispatch = useAppDispatch()
 
   return useMutation({
-    mutationFn: async (account: IAccountState) => {
+    mutationFn: async (account: TAccount) => {
       if (!loginSessionRef.current) {
         throw new AppError(tHook('errors.loginSessionIsNotDefined'))
       }
@@ -126,12 +126,11 @@ export const useUnclaimedMutation = () => {
       }
 
       const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
-
       const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
       const txId = await blockchainService.claim(serviceAccount)
       const token = blockchainService.burnToken
 
-      const transaction = TransactionHelper.buildPendingTransaction({
+      const pendingTransaction = TransactionHelper.buildPendingTransaction({
         fromAccount: account,
         txId,
         events: [
@@ -146,8 +145,8 @@ export const useUnclaimedMutation = () => {
       })
 
       dispatch(
-        thunks.waitTransaction({
-          transaction,
+        thunks.waitPendingTransaction({
+          pendingTransaction,
           successNotification: {
             title: 'hooks:useUnclaimedMutation.successNotification.title',
             previewBody: 'hooks:useUnclaimedMutation.successNotification.previewBody',

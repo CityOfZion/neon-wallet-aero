@@ -76,7 +76,7 @@ export const CreateWalletStep2Modal = () => {
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
       <div className="flex items-center gap-4 px-3.5 pt-2 pb-4">
-        <MdiNumeric2Box className="text-blue h-6 w-6" aria-hidden />
+        <MdiNumeric2Box className="text-blue size-6" aria-hidden />
         <h3 className="text-lg">{t('subtitle')}</h3>
       </div>
 

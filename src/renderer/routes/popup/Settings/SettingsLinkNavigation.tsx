@@ -39,12 +39,12 @@ export const SettingsLinkNavigation = ({ label, to, icon, hideSeparator = false,
           <div className="flex w-full flex-row items-center gap-x-3.5 py-3.5">
             {cloneElement(icon, {
               ...icon.props,
-              className: StyleHelper.mergeStyles('text-neon ml-2 w-6 h-6', icon.props.className),
+              className: StyleHelper.mergeStyles('text-neon ml-2 size-6', icon.props.className),
             })}
 
             <p className="text-sm text-white">{label}</p>
           </div>
-          <TbChevronRight aria-hidden className="h-6 w-6 text-gray-300" />
+          <TbChevronRight aria-hidden className="size-6 text-gray-300" />
         </div>
       </NavLink>
 

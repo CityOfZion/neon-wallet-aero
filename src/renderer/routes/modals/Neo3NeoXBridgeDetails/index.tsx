@@ -104,14 +104,14 @@ export const Neo3NeoXBridgeDetailsModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="flex flex-grow flex-col items-center justify-between gap-6">
-        <TbRosetteDiscountCheck aria-hidden className="text-blue h-21 w-21" />
+        <TbRosetteDiscountCheck aria-hidden className="text-blue size-21" />
 
         <div className="flex w-full flex-col gap-3.5">
           <Details.Root>
             <Details.Header className="mb-3" leftElement={<TbReceipt aria-hidden />}>
               <div className="flex items-center justify-between gap-x-2">
                 <span className="text-sm text-white">{t('bridgeDetailsHeaderLabel')}</span>
-                {status === 'confirming' && <MdRefresh aria-hidden className="text-orange h-6 w-6 animate-spin" />}
+                {status === 'confirming' && <MdRefresh aria-hidden className="text-orange size-6 animate-spin" />}
               </div>
             </Details.Header>
             <Details.Body>

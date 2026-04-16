@@ -17,7 +17,7 @@ export const TemporaryLimitsBox = (props: TProps) => {
       <div className="mt-3.5 grid w-full grid-cols-2 justify-items-stretch gap-x-6.5 gap-y-2.5 rounded bg-gray-300/15 px-4 py-3">
         {limits.map((limit, index) => (
           <div className="flex items-center gap-1.5" key={`limits-${index}`}>
-            <TbX aria-hidden className="text-pink h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4 stroke-[3px]" />
+            <TbX aria-hidden className="text-pink min-size-4 max-size-4 size-4 stroke-[3px]" />
             <p className="relative -top-px text-xs text-gray-100">{limit}</p>
           </div>
         ))}

@@ -5,8 +5,8 @@ const SECOND_PATH_LENGTH = 139.654
 
 export const ScreenLoader = () => {
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <svg viewBox="0 0 118 107" fill="none" className="h-32 w-32">
+    <div className="flex size-full items-center justify-center">
+      <svg viewBox="0 0 118 107" fill="none" className="size-32">
         <motion.path
           className="stroke-neon stroke-3"
           d="M52.9 103 4 54 52.9 5.1 65 17.3 77.3 5.1l12.3 12.2L101.9 5 114 17.3 89.6 41.8 101.9 54l-50.1 50.1"

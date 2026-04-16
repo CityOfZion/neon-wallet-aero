@@ -40,7 +40,7 @@ export const WalletDeletionModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="bg-asphalt flex items-center gap-4 rounded px-3.5 py-2">
-        <TbWallet className="text-blue h-6 max-h-6 min-h-6 w-6 max-w-6 min-w-6" aria-hidden />
+        <TbWallet className="text-blue min-size-6 max-size-6 size-6" aria-hidden />
         <p className="text-blue truncate text-sm">{wallet.name}</p>
       </div>
 

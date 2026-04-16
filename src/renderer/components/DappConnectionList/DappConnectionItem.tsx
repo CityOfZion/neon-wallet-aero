@@ -27,7 +27,7 @@ export const DappConnectionItem = ({ session, onDisconnect }: TProps) => {
         src={session.peer.metadata.icons[0]}
         alt={session.peer.metadata.name}
         fallbackSrc={`${ConstantsHelper.neonIconsUrl}/dapps/default-dapp.png`}
-        className="h-5 min-h-5 w-5 min-w-5 rounded-full bg-gray-300/15"
+        className="min-size-5 size-5 rounded-full bg-gray-300/15"
       />
 
       <p className="min-w-30 text-white">{session.peer.metadata.name}</p>

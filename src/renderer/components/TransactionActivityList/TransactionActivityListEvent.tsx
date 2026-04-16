@@ -96,8 +96,8 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
         })
         .otherwise(matchedEvent => {
           const { token } = matchedEvent
-          const tokenSymbol = token?.symbol ?? ''
-          const tokenName = token?.name ?? ''
+          const tokenSymbol = token?.symbol || ''
+          const tokenName = token?.name || ''
           const hasTokenLabel = !!tokenSymbol || !!tokenName
           const blockchainName = tCommon(`blockchain.${blockchain}`)
 

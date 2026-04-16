@@ -8,7 +8,7 @@ import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 import type { TSwapRecord } from '@shared/types/store'
 
-import type { IUtilityReducer } from './index'
+import type { TUtilityReducer } from './index'
 
 type THiddenTokenParams = {
   tokenHash: string
@@ -16,26 +16,26 @@ type THiddenTokenParams = {
 }
 
 // Pending Transaction Reducers
-const addPendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<TUseTransactionsTransaction>> = (
+const addPendingTransaction: CaseReducer<TUtilityReducer, PayloadAction<TUseTransactionsTransaction>> = (
   state,
   action
 ) => {
-  state.inMemoryData.pendingTransactions = [...state.inMemoryData.pendingTransactions, action.payload]
+  state.memoryData.pendingTransactions = [...state.memoryData.pendingTransactions, action.payload]
 }
 
-const removePendingTransaction: CaseReducer<IUtilityReducer, PayloadAction<string>> = (state, action) => {
-  state.inMemoryData.pendingTransactions = state.inMemoryData.pendingTransactions.filter(
+const removePendingTransaction: CaseReducer<TUtilityReducer, PayloadAction<string>> = (state, action) => {
+  state.memoryData.pendingTransactions = state.memoryData.pendingTransactions.filter(
     transaction => transaction.txId !== action.payload
   )
 }
 
-const setEncryptedLoginControl: CaseReducer<IUtilityReducer, PayloadAction<string | undefined>> = (state, action) => {
+const setEncryptedLoginControl: CaseReducer<TUtilityReducer, PayloadAction<string | undefined>> = (state, action) => {
   state.data.encryptedLoginControl = action.payload
 }
 
 // Last Indexes By Wallet Reducers
 const saveLastIndexByWallet: CaseReducer<
-  IUtilityReducer,
+  TUtilityReducer,
   PayloadAction<{
     index: number
     firstAccountAddress: string
@@ -50,7 +50,7 @@ const saveLastIndexByWallet: CaseReducer<
 }
 
 // Swap Reducers
-const persistSwapRecord: CaseReducer<IUtilityReducer, PayloadAction<TSwapRecord>> = (state, action) => {
+const persistSwapRecord: CaseReducer<TUtilityReducer, PayloadAction<TSwapRecord>> = (state, action) => {
   const swapRecord = cloneDeep(action.payload)
 
   // We don't want to save this long information in the storage
@@ -69,7 +69,7 @@ const persistSwapRecord: CaseReducer<IUtilityReducer, PayloadAction<TSwapRecord>
 }
 
 // Hidden Tokens Reducers
-const toggleHiddenToken: CaseReducer<IUtilityReducer, PayloadAction<THiddenTokenParams>> = (state, action) => {
+const toggleHiddenToken: CaseReducer<TUtilityReducer, PayloadAction<THiddenTokenParams>> = (state, action) => {
   const { tokenHash, blockchain } = action.payload
 
   if (TokenHelper.isNativeToken(tokenHash, blockchain)) throw new Error("Native token can't be hidden")

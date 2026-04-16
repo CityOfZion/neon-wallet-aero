@@ -23,16 +23,16 @@ type TBanner = {
 type TProps = TBanner & ComponentProps<'div'>
 
 const bannerIconByType: Record<TBannerType, JSX.Element> = {
-  error: <TbAlertHexagon aria-hidden className="text-pink h-6 w-6" />,
-  info: <MdInfoOutline aria-hidden className="text-blue h-6 w-6" />,
-  watch: <TbEyePlus aria-hidden className="text-blue h-6 w-6" />,
-  success: <MdVerified aria-hidden className="text-green h-6 w-6" />,
-  warning: <TbAlertTriangle aria-hidden className="text-yellow h-6 w-6" />,
+  error: <TbAlertHexagon aria-hidden className="text-pink size-6" />,
+  info: <MdInfoOutline aria-hidden className="text-blue size-6" />,
+  watch: <TbEyePlus aria-hidden className="text-blue size-6" />,
+  success: <MdVerified aria-hidden className="text-green size-6" />,
+  warning: <TbAlertTriangle aria-hidden className="text-yellow size-6" />,
   warningOrange: (
     <div className="relative flex h-full items-center justify-center">
-      <TbAlertSmall aria-hidden className="text-orange h-6 w-6" />
+      <TbAlertSmall aria-hidden className="text-orange size-6" />
 
-      <div className="border-orange absolute h-4 w-4 rotate-45 rounded-sm border-2" />
+      <div className="border-orange absolute size-4 rotate-45 rounded-sm border-2" />
     </div>
   ),
 }

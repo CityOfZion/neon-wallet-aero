@@ -17,7 +17,7 @@ import type {
   TUseNeonBackupDataSchema,
   TUseNeonBackupGeneratedData,
 } from '@shared/types/hooks'
-import type { TContactAddress, TContactState, TSwapRecord } from '@shared/types/store'
+import type { TContact, TContactAddress, TSwapRecord } from '@shared/types/store'
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useAccountUtils } from './useAccountUtils'
@@ -70,7 +70,7 @@ export const useNeonImportBackup = () => {
   }
 
   const handleGenerateData = (data: zod.infer<typeof neonBackupDataSchema>): TUseNeonBackupGeneratedData => {
-    const contactsToCreate: TContactState[] = []
+    const contactsToCreate: TContact[] = []
     const swapRecordsToCreate: TSwapRecord[] = []
     const walletsToCreate: TCreateWalletAndAccountParam[] = []
 
@@ -209,11 +209,11 @@ export const useNeonCreateBackup = () => {
         name: account.name,
         order: account.order,
         type: account.type,
-        key: key ?? undefined,
+        key: key || undefined,
         skin: { type: 'color', id: 'green' },
       }
 
-      const walletAccounts = backupAccountsByWalletId.get(backupAccount.idWallet) ?? []
+      const walletAccounts = backupAccountsByWalletId.get(backupAccount.idWallet) || []
       backupAccountsByWalletId.set(backupAccount.idWallet, [...walletAccounts, backupAccount])
     })
 
@@ -226,13 +226,13 @@ export const useNeonCreateBackup = () => {
         mnemonic = await EncryptionHelper.decrypt(wallet.encryptedMnemonic, encryptedPassword)
       }
 
-      const walletAccounts = backupAccountsByWalletId.get(wallet.id) ?? []
+      const walletAccounts = backupAccountsByWalletId.get(wallet.id) || []
 
       backupFile.wallets.push({
         id: wallet.id,
         name: wallet.name,
         type: wallet.type,
-        mnemonic: mnemonic ?? undefined,
+        mnemonic: mnemonic || undefined,
         accounts: walletAccounts,
       })
     })

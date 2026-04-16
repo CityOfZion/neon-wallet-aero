@@ -12,7 +12,7 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import MdChevronRight from '@renderer/assets/images/md-chevron-right.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import type { EBuyAndSellTokensTab, TBuyAndSellTokensDepositActions, TBuyAndSellTokensOnTabChange } from '.'
 import { BuyAndSellWrapperContent } from './BuyAndSellWrapperContent'
@@ -27,7 +27,7 @@ type TProps = ComponentProps<'div'> & {
   depositActions: TBuyAndSellTokensDepositActions
   tab: EBuyAndSellTokensTab
   onTabChange: TBuyAndSellTokensOnTabChange
-  account?: IAccountState
+  account?: TAccount
 }
 
 export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, account, ...props }: TProps) => {
@@ -75,7 +75,7 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
           variant="text-slim"
           colorSchema={isIframeLoading ? 'gray' : 'neon'}
           disabled={isIframeLoading}
-          rightIcon={<MdChevronRight aria-hidden className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
+          rightIcon={<MdChevronRight aria-hidden className="min-size-5 max-size-5 size-5" />}
           onClick={modalNavigateWrapper('sell-tokens-deposit', {
             state: { account, depositActions },
           })}

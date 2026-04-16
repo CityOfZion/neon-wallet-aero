@@ -4,12 +4,12 @@ import type { PersistConfig } from 'redux-persist'
 import persistReducer from 'redux-persist/es/persistReducer'
 import { localStorage } from 'redux-persist-webextension-storage'
 
-import type { TContactEncryptedAddress, TContactState } from '@shared/types/store'
+import type { TContact, TContactEncryptedAddress } from '@shared/types/store'
 
 import { contactSliceReducers } from './reducer'
 
-export interface IContactReducer {
-  data: TContactState<TContactEncryptedAddress>[]
+export type TContactReducer = {
+  data: TContact<TContactEncryptedAddress>[]
 }
 
 export let contactReducerActions: CaseReducerActions<typeof contactSliceReducers, string>
@@ -17,9 +17,9 @@ export let contactReducerActions: CaseReducerActions<typeof contactSliceReducers
 export function getContactReducer() {
   const contactReducerInitialState = {
     data: [],
-  } as IContactReducer
+  } as TContactReducer
 
-  const contactReducerConfig: PersistConfig<IContactReducer> = {
+  const contactReducerConfig: PersistConfig<TContactReducer> = {
     key: 'contactReducer',
     storage: localStorage,
   }

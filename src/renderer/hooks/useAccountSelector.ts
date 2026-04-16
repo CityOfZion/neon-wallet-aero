@@ -7,94 +7,89 @@ import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TRootState } from '@shared/types/redux'
-import type { IAccountState, TAccountWithWallet } from '@shared/types/store'
+import type { TAccount, TAccountWithWallet } from '@shared/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
 
 export const selectAccounts = createAppSelector(
-  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+  [state => state.auth.data.applicationDataByLoginType, state => state.auth.memoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
-    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TAccount>()
 
     const accounts = applicationDataByLoginType[loginSession.type].wallets.flatMap(wallet => wallet.accounts)
 
-    if (accounts.length === 0) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
-
-    return AccountHelper.orderAccounts(accounts)
+    return SelectorHelper.fallbackToEmptyArray(AccountHelper.orderAccounts(accounts))
   }
 )
 
 const selectAccountsWithWallet = createAppSelector(
-  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+  [state => state.auth.data.applicationDataByLoginType, state => state.auth.memoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
     if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TAccountWithWallet>()
 
-    const accounts = applicationDataByLoginType[loginSession.type].wallets.flatMap(wallet =>
+    const accounts = applicationDataByLoginType[loginSession.type].wallets.flatMap<TAccountWithWallet>(wallet =>
       wallet.accounts.map(account => ({ ...account, wallet }))
     )
 
-    if (accounts.length === 0) return SelectorHelper.fallbackToEmptyArray<TAccountWithWallet>()
-
-    return AccountHelper.orderAccounts<TAccountWithWallet>(accounts)
+    return SelectorHelper.fallbackToEmptyArray(AccountHelper.orderAccounts(accounts))
   }
 )
 
 const selectAccountsByWalletId = (walletId: string) =>
   createAppSelector(
-    [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+    [state => state.auth.data.applicationDataByLoginType, state => state.auth.memoryData.loginSession],
     (applicationDataByLoginType, loginSession) => {
-      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TAccount>()
 
-      const accounts = applicationDataByLoginType[loginSession.type].wallets.find(
-        wallet => wallet.id === walletId
-      )?.accounts
+      const accounts =
+        applicationDataByLoginType[loginSession.type].wallets.find(({ id }) => id === walletId)?.accounts || []
 
-      if (!accounts || accounts.length === 0) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
-
-      return AccountHelper.orderAccounts(accounts)
+      return SelectorHelper.fallbackToEmptyArray(AccountHelper.orderAccounts(accounts))
     }
   )
 
 const selectAccountsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
   createAppSelector(
-    [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+    [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.memoryData.loginSession],
     (applicationDataByLoginType, loginSession) => {
-      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+      if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TAccount>()
 
-      return applicationDataByLoginType[loginSession.type].wallets
-        .flatMap(wallet => wallet.accounts)
-        .filter(account => blockchains.some(blockchain => blockchain === account.blockchain))
+      return SelectorHelper.fallbackToEmptyArray(
+        applicationDataByLoginType[loginSession.type].wallets
+          .flatMap(wallet => wallet.accounts)
+          .filter(account => blockchains.some(blockchain => blockchain === account.blockchain))
+      )
     }
   )
 
 const selectHasHardwareAccount = createAppSelector(
-  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+  [state => state.auth.data.applicationDataByLoginType, state => state.auth.memoryData.loginSession],
   (applicationDataByLoginType, currentLoginSession) => {
-    return applicationDataByLoginType[currentLoginSession?.type ?? 'password'].wallets.some(wallet =>
+    return applicationDataByLoginType[currentLoginSession?.type || 'password'].wallets.some(wallet =>
       wallet.accounts.some(account => account.type === 'hardware')
     )
   }
 )
 
 const selectHardwareAccounts = createAppSelector(
-  [state => state.auth.data.applicationDataByLoginType, state => state.auth.inMemoryData.loginSession],
+  [state => state.auth.data.applicationDataByLoginType, state => state.auth.memoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
-    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+    if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TAccount>()
 
     const accounts = applicationDataByLoginType[loginSession.type].wallets.flatMap(wallet => wallet.accounts)
     const hardwareAccounts = accounts.filter(account => account.type === 'hardware')
 
-    return AccountHelper.orderAccounts(hardwareAccounts)
+    return SelectorHelper.fallbackToEmptyArray(AccountHelper.orderAccounts(hardwareAccounts))
   }
 )
 
 const selectOwnAccounts = createAppSelector(
-  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.inMemoryData.loginSession],
+  [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.memoryData.loginSession],
   (applicationDataByLoginType, loginSession) => {
-    if (!loginSession) return SelectorHelper.fallbackToEmptyArray<IAccountState>()
+    if (!loginSession) return SelectorHelper.fallbackToEmptyArray<TAccount>()
 
     const { wallets } = applicationDataByLoginType[loginSession.type]
-    const accounts: IAccountState[] = []
+    const accounts: TAccount[] = []
 
     wallets
       .flatMap(wallet => wallet.accounts)
@@ -106,12 +101,12 @@ const selectOwnAccounts = createAppSelector(
         accounts.push(account)
       })
 
-    return AccountHelper.orderAccounts(accounts)
+    return SelectorHelper.fallbackToEmptyArray(AccountHelper.orderAccounts(accounts))
   }
 )
 
 export const useAccountsSelector = () => {
-  const { ref, value } = useAppSelector(selectAccounts)
+  const { value, ref } = useAppSelector(selectAccounts)
 
   return {
     accounts: value,
@@ -120,7 +115,7 @@ export const useAccountsSelector = () => {
 }
 
 export const useAccountsWithWalletSelector = () => {
-  const { ref, value } = useAppSelector(selectAccountsWithWallet)
+  const { value, ref } = useAppSelector(selectAccountsWithWallet)
 
   return {
     accountsWithWallet: value,
@@ -146,14 +141,12 @@ export const useAccountsByBlockchainsSelector = (blockchains: TBlockchainService
 }
 
 export const useAccountsMapSelector = () => {
-  const accountsMapRef = useRef(new Map<string, TAccountWithWallet>())
+  const accountsMapRef = useRef(new Map<string, TAccount>())
 
   useSelector((state: TRootState) => {
-    const accounts = selectAccountsWithWallet(state)
+    const accounts = selectAccounts(state)
 
     accountsMapRef.current.clear()
-
-    accountsMapRef.current = new Map<string, TAccountWithWallet>()
 
     accounts.forEach(account => {
       accountsMapRef.current.set(AccountHelper.buildAccountKey(account), account)
@@ -163,8 +156,24 @@ export const useAccountsMapSelector = () => {
   return { accountsMapRef }
 }
 
+export const useAccountsWithWalletMapSelector = () => {
+  const accountsWithWalletMapRef = useRef(new Map<string, TAccountWithWallet>())
+
+  useSelector((state: TRootState) => {
+    const accountsWithWallets = selectAccountsWithWallet(state)
+
+    accountsWithWalletMapRef.current.clear()
+
+    accountsWithWallets.forEach(account => {
+      accountsWithWalletMapRef.current.set(AccountHelper.buildAccountKey(account), account)
+    })
+  })
+
+  return { accountsWithWalletMapRef }
+}
+
 export const useHardwareAccountsSelector = () => {
-  const { ref, value } = useAppSelector(selectHardwareAccounts)
+  const { value, ref } = useAppSelector(selectHardwareAccounts)
 
   return {
     hardwareAccounts: value,
@@ -173,7 +182,7 @@ export const useHardwareAccountsSelector = () => {
 }
 
 export const useHasHardwareAccountSelector = () => {
-  const { ref, value } = useAppSelector(selectHasHardwareAccount)
+  const { value, ref } = useAppSelector(selectHasHardwareAccount)
 
   return {
     hasHardwareAccount: value,

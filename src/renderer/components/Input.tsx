@@ -154,8 +154,8 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
               className: StyleHelper.mergeStyles(
                 'text-gray-300 pointer-events-none',
                 {
-                  'min-w-[1.25rem] min-h-[1.25rem] max-w-[1.25rem] max-h-[1.25rem]': compacted,
-                  'min-w-[1.5rem] min-h-[1.5rem] max-w-[1.5rem] max-h-[1.5rem]': !compacted,
+                  'min-size-5 max-size-5 size-5': compacted,
+                  'min-size-6 max-size-6 size-6': !compacted,
                 },
                 leftIcon.props.className
               ),
@@ -186,7 +186,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
 
           {(loading || isTypePassword || pastable || copyable || clearable || buttons) && (
             <div className={StyleHelper.mergeStyles('flex items-center gap-x-2', actionsClassName)}>
-              {loading && <Loader className="mr-1 h-4 w-4" />}
+              {loading && <Loader className="mr-1 size-4" />}
 
               {isTypePassword && (
                 <IconButton
@@ -215,7 +215,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
                 <IconButton
                   aria-label={t('copyIconButtonLabel')}
                   icon={<MdContentCopy aria-hidden />}
-                  onClick={ClipboardHelper.write.bind(null, internalRef.current?.value ?? '')}
+                  onClick={ClipboardHelper.write.bind(null, internalRef.current?.value || '')}
                   colorSchema="neon"
                   type="button"
                   disabled={props.disabled}

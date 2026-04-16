@@ -10,8 +10,9 @@ import type { TBaseOptions, TNode } from '@shared/types/query'
 
 import { useSelectedNetworkByBlockchainSelector, useSelectedNetworkSelector } from './useSettingsSelector'
 
+// TODO: rename to ping networks in the Bitcoin issue
 const buildNodesQueryKey = (blockchain: TBlockchainServiceKey, id: TBSNetworkId) => {
-  return ['nodes', blockchain, id]
+  return ['ping-networks', blockchain, id]
 }
 
 const pingNodes = async (blockchain: TBlockchainServiceKey): Promise<TNode[]> => {
@@ -28,16 +29,14 @@ const pingNodes = async (blockchain: TBlockchainServiceKey): Promise<TNode[]> =>
   const data = await Promise.all(promises)
 
   return data.sort((a, b) => {
-    // Prioritize successful requests over failed ones
-    if (a && !b) return -1
-    if (!a && b) return 1
+    const latencyA = a.latency
+    const latencyB = b.latency
+    const isLatencyAInvalid = typeof latencyA !== 'number' || isNaN(latencyA)
+    const isLatencyBInvalid = typeof latencyB !== 'number' || isNaN(latencyB)
 
-    // If both failed, maintain original order
-    if (!a && !b) return 0
-
-    // Both successful - sort by latency (ascending)
-    const latencyA = a?.latency ?? Infinity
-    const latencyB = b?.latency ?? Infinity
+    if (isLatencyAInvalid && isLatencyBInvalid) return 0
+    if (isLatencyAInvalid) return 1
+    if (isLatencyBInvalid) return -1
 
     return latencyA - latencyB
   })

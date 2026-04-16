@@ -24,7 +24,7 @@ import TbBell from '@renderer/assets/images/tb-bell.svg?react'
 import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
-import type { IAccountState, IWalletState } from '@shared/types/store'
+import type { TAccount, TWallet } from '@shared/types/store'
 
 import { WalletsPageOverview } from './WalletsPageOverview'
 import { WalletsPageSelectButton } from './WalletsPageSelectButton'
@@ -32,8 +32,8 @@ import { WalletsPageSelectButton } from './WalletsPageSelectButton'
 export type TWalletsTab = 'tokens' | 'nfts' | 'transactions' | 'dappConnections'
 
 type TLocationState = {
-  account?: IAccountState
-  wallet?: IWalletState
+  account?: TAccount
+  wallet?: TWallet
   tab?: TWalletsTab
 }
 
@@ -85,29 +85,29 @@ export const WalletsPage = () => {
       const firstWallet = wallets[0]
 
       if (stateWallet) {
-        return walletsMapRef.current.get(stateWallet.id) ?? firstWallet
+        return walletsMapRef.current.get(stateWallet.id) || firstWallet
       }
 
       if (stateAccount) {
-        return walletsMapRef.current.get(stateAccount.idWallet) ?? firstWallet
+        return walletsMapRef.current.get(stateAccount.idWallet) || firstWallet
       }
 
       if (selectedWallet) {
-        return walletsMapRef.current.get(selectedWallet.id) ?? firstWallet
+        return walletsMapRef.current.get(selectedWallet.id) || firstWallet
       }
 
       return firstWallet
     }
 
-    const getNextSelectedAccount = (nextSelectedWallet: IWalletState) => {
+    const getNextSelectedAccount = (nextSelectedWallet: TWallet) => {
       const firstAccount = nextSelectedWallet.accounts[0]
 
       if (stateAccount?.idWallet === nextSelectedWallet.id) {
-        return accountsMapRef.current.get(AccountHelper.buildAccountKey(stateAccount)) ?? firstAccount
+        return accountsMapRef.current.get(AccountHelper.buildAccountKey(stateAccount)) || firstAccount
       }
 
       if (selectedAccount?.idWallet === nextSelectedWallet.id) {
-        return accountsMapRef.current.get(AccountHelper.buildAccountKey(selectedAccount)) ?? firstAccount
+        return accountsMapRef.current.get(AccountHelper.buildAccountKey(selectedAccount)) || firstAccount
       }
 
       return nextSelectedWallet.accounts[0]
@@ -133,13 +133,13 @@ export const WalletsPage = () => {
         <div className="-ml-2 flex gap-2">
           <WalletsPageSelectButton
             label={t('labelWalletSelectButton')}
-            selectedLabel={selectedWallet?.name ?? t('placeholderWalletSelectButton')}
+            selectedLabel={selectedWallet?.name || t('placeholderWalletSelectButton')}
             onClick={handleWalletSelect}
           />
 
           <WalletsPageSelectButton
             label={t('labelAccountSelectButton')}
-            selectedLabel={selectedAccount?.name ?? t('placeholderAccountSelectButton')}
+            selectedLabel={selectedAccount?.name || t('placeholderAccountSelectButton')}
             onClick={handleAccountSelect}
             disabled={!selectedWallet}
           />

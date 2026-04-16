@@ -7,7 +7,7 @@ import { BuyAndSellTokensHelper } from '@renderer/helpers/BuyAndSellTokensHelper
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import type { EBuyAndSellTokensTab, TBuyAndSellTokensOnTabChange } from '.'
 import { BuyAndSellWrapperContent } from './BuyAndSellWrapperContent'
@@ -17,7 +17,7 @@ const IFRAME_CONTAINER_ID = 'buy-tokens-iframe'
 type TProps = ComponentProps<'div'> & {
   tab: EBuyAndSellTokensTab
   onTabChange: TBuyAndSellTokensOnTabChange
-  account?: IAccountState
+  account?: TAccount
 }
 
 export const BuyAndSellTokensBuyContent = ({ tab, onTabChange, account, ...props }: TProps) => {
@@ -34,8 +34,7 @@ export const BuyAndSellTokensBuyContent = ({ tab, onTabChange, account, ...props
       destroySdkCallbackRef.current()
     }
 
-    const destroySdkCallback = await BuyAndSellTokensHelper.initBuy({ account, currency, id: IFRAME_CONTAINER_ID })
-    destroySdkCallbackRef.current = destroySdkCallback
+    destroySdkCallbackRef.current = await BuyAndSellTokensHelper.initBuy({ account, currency, id: IFRAME_CONTAINER_ID })
 
     setIsIframeLoading(false)
   }

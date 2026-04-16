@@ -8,9 +8,9 @@ export const BackupAndRestoreRestoreStep3Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
 
   return (
-    <div className="flex h-full w-full flex-grow flex-col items-center">
+    <div className="flex size-full flex-grow flex-col items-center">
       <div className="flex flex-grow flex-col items-center gap-6">
-        <TbRosetteDiscountCheck className="text-blue h-25 w-25 stroke-1" aria-hidden />
+        <TbRosetteDiscountCheck className="text-blue size-25 stroke-1" aria-hidden />
         <h3 className="text-center text-lg text-white">{t('importSuccess')}</h3>
       </div>
 

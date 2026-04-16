@@ -50,7 +50,7 @@ export const ModalRouterProvider = ({ routes, children }: TModalRouterProviderPr
             id: UtilsHelper.uuid(),
             state: options?.state,
             route: routeExist,
-            replace: options?.replace ?? false,
+            replace: options?.replace || false,
           }
 
           if (options?.replace) {

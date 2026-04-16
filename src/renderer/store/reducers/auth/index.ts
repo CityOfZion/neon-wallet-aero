@@ -4,19 +4,19 @@ import type { PersistConfig } from 'redux-persist'
 import { persistReducer } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
 
-import type { IWalletState, TLoginSession, TLoginSessionType, TNotification } from '@shared/types/store'
+import type { TLoginSession, TLoginSessionType, TNotification, TWallet } from '@shared/types/store'
 
 import { authSliceReducers } from './reducers'
 
 type TApplicationDataByLoginType = {
   [K in TLoginSessionType]: {
-    wallets: IWalletState[]
+    wallets: TWallet[]
     notifications: TNotification[]
   }
 }
 
-export interface IAuthReducer {
-  inMemoryData: {
+export type TAuthReducer = {
+  memoryData: {
     loginSession: TLoginSession | undefined
   }
   data: {
@@ -27,8 +27,8 @@ export interface IAuthReducer {
 export let authReducerActions: CaseReducerActions<typeof authSliceReducers, string>
 
 export function getAuthReducer() {
-  const authReducerInitialState: IAuthReducer = {
-    inMemoryData: {
+  const authReducerInitialState: TAuthReducer = {
+    memoryData: {
       loginSession: undefined,
     },
     data: {
@@ -40,10 +40,10 @@ export function getAuthReducer() {
     },
   }
 
-  const authReducerConfig: PersistConfig<IAuthReducer> = {
+  const authReducerConfig: PersistConfig<TAuthReducer> = {
     key: 'authReducer',
     storage: localStorage,
-    blacklist: ['inMemoryData'],
+    blacklist: ['memoryData'],
   }
 
   const authSlice = createSlice({

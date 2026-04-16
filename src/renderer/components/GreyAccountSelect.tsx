@@ -11,15 +11,15 @@ import { useAccountsWithWalletSelector } from '@renderer/hooks/useAccountSelecto
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { IAccountState, TAccountType } from '@shared/types/store'
+import type { TAccount, TAccountType } from '@shared/types/store'
 
 import { BlockchainIcon } from './BlockchainIcon'
 import { Loader } from './Loader'
 import { Select } from './Select'
 
 type TProps = {
-  selectedAccount?: IAccountState | null
-  onSelect: (account: IAccountState) => void
+  selectedAccount?: TAccount | null
+  onSelect: (account: TAccount) => void
   children?: JSX.Element
   blockchains?: TBlockchainServiceKey[]
   disabled?: boolean
@@ -68,7 +68,7 @@ export const GreyAccountSelect = ({
   }
 
   return (
-    <Select.Root open={open} onOpenChange={setOpen} value={selectedAccount?.id ?? ''} onValueChange={handleChangeValue}>
+    <Select.Root open={open} onOpenChange={setOpen} value={selectedAccount?.id || ''} onValueChange={handleChangeValue}>
       {children ? (
         <Select.RawTrigger asChild disabled={isDisabled}>
           {children}
@@ -114,7 +114,7 @@ export const GreyAccountSelect = ({
                 <Fragment key={`grey-account-select-item-${account.id}`}>
                   <Select.Item value={account.id} className="justify-start gap-2.5">
                     <BlockchainIcon
-                      className="h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4"
+                      className="min-size-4 max-size-4 size-4"
                       blockchain={account.blockchain}
                       type="gray"
                     />

@@ -59,7 +59,7 @@ export const neonMigrateSchemaWithTransform = neonMigrateSchema.transform(data =
       }
     })
 
-    return { name: contact.name ?? t('hooks:useBackupOrMigrate.defaultContactName'), addresses: transformedAddresses }
+    return { name: contact.name || t('hooks:useBackupOrMigrate.defaultContactName'), addresses: transformedAddresses }
   })
 
   return {

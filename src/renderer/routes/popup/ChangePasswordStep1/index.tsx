@@ -53,10 +53,10 @@ export const ChangePasswordStep1Page = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col items-center px-3">
+    <div className="flex size-full flex-col items-center px-3">
       <form className="flex h-full flex-grow flex-col items-center" onSubmit={handleAct(handleSubmit)}>
         <span className="mb-6 text-sm">{t('subtitle')}</span>
-        <div className="flex h-full w-full flex-col justify-between">
+        <div className="flex size-full flex-col justify-between">
           <div className="flex h-full flex-col">
             <span className="mb-2 text-xs font-bold text-gray-100 uppercase">{t('titleInput1')}</span>
             <div className="mb-5 flex flex-col items-center">

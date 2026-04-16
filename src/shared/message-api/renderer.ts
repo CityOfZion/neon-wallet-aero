@@ -26,7 +26,7 @@ async function send<
     throw new Error(response?.error)
   }
 
-  return (response ?? undefined) as R
+  return (response || undefined) as R
 }
 
 function listen<
@@ -52,6 +52,7 @@ async function handleMessage(message: any, sender: any, sendResponse: any) {
       args: message?.args,
       sender,
     })
+
     return sendResponse(result)
   } catch (error: any) {
     return sendResponse({ error: error?.message })

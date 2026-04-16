@@ -19,7 +19,7 @@ import TbTrash from '@renderer/assets/images/tb-trash.svg?react'
 
 import { contactReducerActions } from '@renderer/store/reducers/contact'
 import type { TModalState } from '@shared/types/modal'
-import type { TContactState } from '@shared/types/store'
+import type { TContact } from '@shared/types/store'
 
 export const ContactDetailsModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'contactDetails' })
@@ -42,7 +42,7 @@ export const ContactDetailsModal = () => {
     })
   }
 
-  const handleDeleteContact = (contact: TContactState) => {
+  const handleDeleteContact = (contact: TContact) => {
     dispatch(contactReducerActions.deleteContact(contact.id))
     modalErase('bottom')
   }
@@ -61,7 +61,7 @@ export const ContactDetailsModal = () => {
     <BottomModalLayout heading={t('title')}>
       <div className="flex min-h-0 flex-grow flex-col items-center gap-6 pt-2">
         <div className="flex flex-col gap-4">
-          <div className="flex h-21 w-21 shrink-0 items-center justify-center rounded-full bg-gray-300/15 text-xs text-gray-100">
+          <div className="flex size-21 shrink-0 items-center justify-center rounded-full bg-gray-300/15 text-xs text-gray-100">
             <p className="text-2xl">{StringHelper.getInitials(contact.name)}</p>
           </div>
 
@@ -115,7 +115,7 @@ export const ContactDetailsModal = () => {
                         className="flex-shrink-0"
                         title={t('copyAddressButtonLabel')}
                       >
-                        <MdContentCopy aria-hidden className="size-5 max-h-5 min-h-5 max-w-5 min-w-5" />
+                        <MdContentCopy aria-hidden className="min-size-5 max-size-5 size-5" />
                       </Button>
                     </div>
                   </div>

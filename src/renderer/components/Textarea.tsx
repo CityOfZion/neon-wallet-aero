@@ -120,7 +120,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
             <textarea
               id={id}
               className={StyleHelper.mergeStyles(
-                'min-h-[1rem] w-full flex-grow resize-none overflow-hidden bg-transparent outline-none',
+                'min-h-4 w-full flex-grow resize-none overflow-hidden bg-transparent outline-none',
                 {
                   'whitespace-nowrap': !multiline,
                 },

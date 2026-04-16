@@ -36,7 +36,7 @@ import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
 import { rendererApi } from '@shared/message-api/renderer'
-import type { IAccountState, IWalletState } from '@shared/types/store'
+import type { TAccount, TWallet } from '@shared/types/store'
 
 import { WalletPageClaimButton } from './WalletsPageClaimButton'
 
@@ -46,8 +46,8 @@ type TActionsData = {
 }
 
 type TProps = {
-  selectedAccount: IAccountState
-  selectedWallet: IWalletState
+  selectedAccount: TAccount
+  selectedWallet: TWallet
   defaultTab?: TWalletsTab
 }
 
@@ -154,7 +154,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
           items={<Skeleton.Item className="h-12 w-64" />}
         >
           <p className="text-5xl text-white">
-            {CurrencyHelper.format(balanceQuery.data?.exchangeTotal ?? 0, { currency })}
+            {CurrencyHelper.format(balanceQuery.data?.exchangeTotal || 0, { currency })}
           </p>
         </Skeleton.Root>
 

@@ -10,10 +10,10 @@ import { useBalance } from '@renderer/hooks/useBalances'
 import { useUnclaimed, useUnclaimedMutation } from '@renderer/hooks/useUnclaimedQuery'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 type TProps = {
-  selectAccount: IAccountState
+  selectAccount: TAccount
   blockchainService: IBlockchainService<TBlockchainServiceKey> & IBSWithClaim<TBlockchainServiceKey>
 }
 

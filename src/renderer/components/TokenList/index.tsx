@@ -14,7 +14,7 @@ import { useVirtualization } from '@renderer/hooks/useVirtualization'
 import TbEyeOff from '@renderer/assets/images/tb-eye-off.svg?react'
 import TbPencil from '@renderer/assets/images/tb-pencil.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { Separator } from '../Separator'
 import { TokenListEmpty } from './TokenListEmpty'
@@ -22,7 +22,7 @@ import { TokenListItem } from './TokenListItem'
 import { TokenListSkeleton } from './TokenListSkeleton'
 
 type TProps = {
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
   showHiddenTokens: boolean
   onToggleShowHiddenTokens: (nextShowHiddenTokens: boolean) => void
 }

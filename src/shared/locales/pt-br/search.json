@@ -74,7 +74,7 @@
     },
     {
       "id": "neo3NeoXBridge",
-      "label": "Bridge Neo3 e NeoX",
+      "label": "Bridge Neo 3 e Neo X",
       "verbs": ["bridge", "trocar", "receber"],
       "nonVerbs": ["neox", "neo3", "n3", "bridge", "troca", "token", "cripto"]
     }

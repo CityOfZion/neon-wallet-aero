@@ -88,7 +88,7 @@ export const MigrateFromNeon2Step2Page = () => {
             <Input
               name="migrate-path"
               id="migrate-path"
-              value={actionData?.path ?? ''}
+              value={actionData?.path || ''}
               placeholder={t('buttonPlaceholder')}
               readOnly
               containerClassName="w-full"

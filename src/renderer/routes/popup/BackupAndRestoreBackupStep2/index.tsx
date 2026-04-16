@@ -20,9 +20,9 @@ export const BackupAndRestoreBackupStep2Page = () => {
   } = useLocation() as Location<TLocationState>
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-between pt-4">
+    <div className="flex size-full flex-col items-center justify-between pt-4">
       <div className="mb-4 flex w-full flex-col items-center justify-center">
-        <TbRosetteDiscountCheck className="text-blue mb-6 h-20 w-20" aria-hidden />
+        <TbRosetteDiscountCheck className="text-blue mb-6 size-20" aria-hidden />
         <p className="text-lg">{t('subtitle')}</p>
       </div>
 

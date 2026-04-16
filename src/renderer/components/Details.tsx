@@ -4,6 +4,7 @@ import type { ComponentProps, JSX, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
+import { ElementHelper } from '@renderer/helpers/ElementHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
@@ -43,7 +44,7 @@ const Header = ({ leftElement, rightElement, children, className, ...props }: TH
         })}
 
       <div className="flex-grow">
-        {typeof children === 'string' ? <span className="text-sm text-white">{children}</span> : children}
+        {ElementHelper.isTextContentValid(children) ? <span className="text-sm text-white">{children}</span> : children}
       </div>
 
       {rightElement}
@@ -97,9 +98,13 @@ const Item = ({ label, children, copyable, className, contentClassName, rightEle
       <div className={StyleHelper.mergeStyles('flex flex-col gap-2.5 py-4', className)} {...props}>
         {label && (
           <div className="flex justify-between">
-            {typeof label === 'string' ? <p className="text-xs text-gray-100 uppercase">{label}</p> : label}
+            {ElementHelper.isTextContentValid(label) ? (
+              <p className="text-xs text-gray-100 uppercase">{label}</p>
+            ) : (
+              label
+            )}
 
-            {typeof rightElement === 'string' ? (
+            {ElementHelper.isTextContentValid(rightElement) ? (
               <p className="text-gray-100 uppercase">{rightElement}</p>
             ) : (
               rightElement
@@ -108,7 +113,11 @@ const Item = ({ label, children, copyable, className, contentClassName, rightEle
         )}
 
         <div className={StyleHelper.mergeStyles('flex items-center justify-between gap-2.5', contentClassName)}>
-          {typeof children === 'string' ? <p className="text-sm break-all text-white">{children}</p> : children}
+          {ElementHelper.isTextContentValid(children) ? (
+            <p className="text-sm break-all text-white">{children}</p>
+          ) : (
+            children
+          )}
 
           {copyable && (
             <Tooltip title={t('general.copyToClipboard')}>

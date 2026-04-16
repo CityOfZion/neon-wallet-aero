@@ -36,15 +36,18 @@ export const useModalNavigate = (): TUseModalNavigateResponse => {
 
 export const useModalState = <T>(): T => {
   const { value } = useContext(ModalRouterCurrentHistoryContext)
-  return (value?.state ?? {}) as T
+
+  return (value?.state || {}) as T
 }
 
 export const useModalHistories = () => {
   const { histories, historiesRef } = useContext(ModalRouterContext)
+
   return { histories, historiesRef }
 }
 
 export const useModalFocused = () => {
   const { isFocused } = useContext(ModalRouterCurrentHistoryContext)
+
   return isFocused
 }

@@ -15,7 +15,7 @@ import MdRestartAlt from '@renderer/assets/images/md-restart-alt.svg?react'
 import TbChevronDown from '@renderer/assets/images/tb-chevron-down.svg?react'
 import TbChevronUp from '@renderer/assets/images/tb-chevron-up.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import type { TBuyAndSellTokensOnTabChange } from '.'
 import { BuyAndSellTokensAccordionAccounts } from './BuyAndSellTokensAccordionAccounts'
@@ -23,7 +23,7 @@ import { EBuyAndSellTokensTab } from '.'
 
 type TProps = ComponentProps<'div'> & {
   isLoading: boolean
-  account?: IAccountState
+  account?: TAccount
   tab: EBuyAndSellTokensTab
   onTabChange: TBuyAndSellTokensOnTabChange
   onRestart: () => void
@@ -64,7 +64,7 @@ export const BuyAndSellWrapperContent = ({
             variant="text-slim"
             colorSchema={isLoading ? 'gray' : 'neon'}
             disabled={isLoading}
-            leftIcon={<MdRestartAlt aria-hidden className="h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5" />}
+            leftIcon={<MdRestartAlt aria-hidden className="min-size-5 max-size-5 size-5" />}
             onClick={onRestart}
           />
 

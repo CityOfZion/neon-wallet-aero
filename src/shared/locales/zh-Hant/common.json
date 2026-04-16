@@ -36,7 +36,7 @@
     "defaultName": "帳戶 {{accountNumber}}"
   },
   "blockchain": {
-    "neo3": "Neo N3",
+    "neo3": "Neo 3",
     "neoLegacy": "Neo 傳統",
     "ethereum": "以太坊",
     "neox": "Neo X",

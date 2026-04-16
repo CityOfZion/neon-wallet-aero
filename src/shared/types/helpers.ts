@@ -5,7 +5,7 @@ import type { ToastT } from 'sonner'
 
 import type { TBlockchainServiceKey } from './blockchain'
 import type { TUseTransactionsTransaction } from './hooks'
-import type { IAccountState, TCurrency, TLanguage, TLastIndexesByWallet } from './store'
+import type { TAccount, TCurrency, TLanguage, TLastIndexesByWallet } from './store'
 
 export type TAccountHelperPredicateParams = {
   address: string
@@ -13,7 +13,7 @@ export type TAccountHelperPredicateParams = {
 }
 
 export type TAccountHelperGetServiceAccountParams = {
-  account: IAccountState
+  account: TAccount
   key: string
 }
 
@@ -42,12 +42,12 @@ export type TClickupHelperCreateSupportTicketParams = {
 }
 
 export type TBuyAndSellTokensHelperGetSellUrlParams = {
-  account?: IAccountState
+  account?: TAccount
   currency: TCurrency
 }
 
 export type TBuyAndSellTokensHelperInitBuyParams = {
-  account?: IAccountState
+  account?: TAccount
   currency: TCurrency
   id: string
 }
@@ -112,9 +112,9 @@ export type TToastHelperToastOptions = Omit<ToastT, 'id'> & {
 
 export type TTransactionHelperBuildPendingTransactionParams = {
   txId: string
-  fromAccount: IAccountState
+  fromAccount: TAccount
   type?: Exclude<TUseTransactionsTransaction['type'], 'bridgeNeo3NeoX'>
-  events?: { toAccount?: IAccountState; toAddress?: string; token: TBSToken; amount: string; method?: string }[]
+  events?: { toAccount?: TAccount; toAddress?: string; token: TBSToken; amount: string; method?: string }[]
 }
 
 export type TLoggerHelperOptions = {

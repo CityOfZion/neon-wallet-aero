@@ -9,7 +9,7 @@ import { useWalletConnectSessionsByAccount } from '@renderer/hooks/useWalletConn
 
 import TbPlug from '@renderer/assets/images/tb-plug.svg?react'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { Button } from '../Button'
 import { DappConnectionHeader } from './DappConnectionHeader'
@@ -18,7 +18,7 @@ import { DappConnectionListEmpty } from './DappConnectionListEmpty'
 import { DappConnectionListSkeleton } from './DappConnectionListSkeleton'
 
 type TProps = {
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
 }
 
 export const DappConnectionList = ({ selectedAccount }: TProps) => {

@@ -26,13 +26,13 @@ import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import type { TModalState } from '@shared/types/modal'
-import type { IAccountState, TContactState } from '@shared/types/store'
+import type { TAccount, TContact } from '@shared/types/store'
 
 type TTab = 'enter-address' | 'my-accounts' | 'my-contacts'
 
 type TActionsData = {
   address?: string
-  account?: IAccountState
+  account?: TAccount
   contactAddress?: string
 }
 
@@ -55,8 +55,8 @@ export const AccountReceiveSelectionModal = () => {
   } = useNameService()
 
   const { actionData, setData, reset } = useActions<TActionsData>({
-    address: selectedAddress ?? '',
-    account: selectedAccount ?? undefined,
+    address: selectedAddress || '',
+    account: selectedAccount || undefined,
     contactAddress: undefined,
   })
 
@@ -84,7 +84,7 @@ export const AccountReceiveSelectionModal = () => {
     validateAddressOrNS(fixedValue, blockchain)
   }
 
-  const handleSelectMyAccount = (accountSelected: IAccountState) => {
+  const handleSelectMyAccount = (accountSelected: TAccount) => {
     setData({ account: accountSelected })
   }
 
@@ -137,14 +137,14 @@ export const AccountReceiveSelectionModal = () => {
 
     const sortedContacts = filteredContacts.sort((a, b) => a.name[0].localeCompare(b.name[0]))
 
-    const groupedContactsByFirstLetterMap = new Map<string, TContactState[]>()
+    const groupedContactsByFirstLetterMap = new Map<string, TContact[]>()
 
     sortedContacts.forEach(contact => {
       if (!contact.name) return
 
       const key = contact.name[0].toUpperCase()
 
-      const lastContacts = groupedContactsByFirstLetterMap.get(key) ?? []
+      const lastContacts = groupedContactsByFirstLetterMap.get(key) || []
 
       groupedContactsByFirstLetterMap.set(key, [...lastContacts, contact])
     })
@@ -155,7 +155,7 @@ export const AccountReceiveSelectionModal = () => {
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-clip pb-4">
       <div className="relative flex h-full flex-col items-center justify-between px-4 pb-3">
-        <div className="flex h-full w-full flex-col gap-4 text-sm text-white">
+        <div className="flex size-full flex-col gap-4 text-sm text-white">
           <Tabs.Root
             className="flex h-full flex-col"
             value={selectedTab}
@@ -221,7 +221,7 @@ export const AccountReceiveSelectionModal = () => {
                         clickableProps={{ className: 'px-0 pr-3 relative' }}
                       >
                         <div
-                          className={StyleHelper.mergeStyles('flex h-full w-full flex-col justify-end pl-3', {
+                          className={StyleHelper.mergeStyles('flex size-full flex-col justify-end pl-3', {
                             'after:bg-neon after:absolute after:top-0 after:left-0 after:h-full after:w-1.5':
                               isSelected,
                           })}
@@ -229,7 +229,7 @@ export const AccountReceiveSelectionModal = () => {
                           <div className="flex h-full items-center justify-between gap-2.5 text-sm">
                             <div className="flex w-full items-center">
                               <BlockchainIcon
-                                className="mr-3.5 h-6 min-h-6 w-6 min-w-6"
+                                className="min-size-6 mr-3.5 size-6"
                                 blockchain={account.blockchain}
                                 type="gray"
                               />
@@ -289,7 +289,7 @@ export const AccountReceiveSelectionModal = () => {
                                   >
                                     <div className="flex w-full items-center">
                                       <BlockchainIcon
-                                        className="h-6 min-h-6 w-6 min-w-6"
+                                        className="min-size-6 size-6"
                                         blockchain={address.blockchain}
                                         type="gray"
                                       />

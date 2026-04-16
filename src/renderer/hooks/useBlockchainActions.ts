@@ -26,7 +26,7 @@ import type {
   TWalletToCreate,
   TWalletToEdit,
 } from '@shared/types/blockchain'
-import type { IAccountState, IWalletState, TContactState } from '@shared/types/store'
+import type { TAccount, TContact, TWallet } from '@shared/types/store'
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useLoginSessionSelector } from './useAuthSelector'
@@ -41,7 +41,7 @@ export function useBlockchainActions() {
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
 
-  const saveContacts = async (contacts: TContactState[]) => {
+  const saveContacts = async (contacts: TContact[]) => {
     if (!loginSessionRef.current?.encryptedPassword) return
 
     const encryptedContacts = await ContactsHelper.encryptContacts(contacts, loginSessionRef.current.encryptedPassword)
@@ -63,9 +63,9 @@ export function useBlockchainActions() {
         encryptedMnemonic = await EncryptionHelper.encrypt(mnemonic, loginSessionRef.current.encryptedPassword)
       }
 
-      const newWallet: IWalletState = {
+      const newWallet: TWallet = {
         name,
-        id: id ?? UtilsHelper.uuid(),
+        id: id || UtilsHelper.uuid(),
         encryptedMnemonic,
         type,
         accounts: [],
@@ -103,8 +103,8 @@ export function useBlockchainActions() {
         loginSessionRef.current.encryptedPassword
       )
 
-      const newAccount: IAccountState = {
-        id: id ?? UtilsHelper.uuid(),
+      const newAccount: TAccount = {
+        id: id || UtilsHelper.uuid(),
         idWallet: wallet.id,
         name,
         blockchain,
@@ -148,10 +148,10 @@ export function useBlockchainActions() {
 
       const accountOrder = order ?? AccountHelper.getNextOrderOrMissing(wallet.accounts, blockchain)
 
-      const newAccount: IAccountState = {
+      const newAccount: TAccount = {
         id: UtilsHelper.uuid(),
         idWallet: wallet.id,
-        name: name ?? tCommon('account.defaultName', { accountNumber: accountOrder + 1 }),
+        name: name || tCommon('account.defaultName', { accountNumber: accountOrder + 1 }),
         blockchain,
         address,
         type,
@@ -186,7 +186,7 @@ export function useBlockchainActions() {
   )
 
   const deleteAccount = useCallback(
-    async (account: IAccountState) => {
+    async (account: TAccount) => {
       const filteredAccounts = accounts.filter(({ idWallet }) => idWallet === account.idWallet)
 
       if (filteredAccounts.length === 1) {
@@ -220,7 +220,7 @@ export function useBlockchainActions() {
   )
 
   const deleteWallet = useCallback(
-    async (wallet: IWalletState) => {
+    async (wallet: TWallet) => {
       const isLastWallet = wallets.length === 1
 
       if (isLastWallet) {
@@ -277,7 +277,7 @@ export function useBlockchainActions() {
         delete data.key
       }
 
-      const editedAccount: IAccountState = { ...account, ...data, encryptedKey }
+      const editedAccount: TAccount = { ...account, ...data, encryptedKey }
 
       dispatch(authReducerActions.saveAccount(editedAccount))
 
@@ -300,7 +300,7 @@ export function useBlockchainActions() {
         delete data.mnemonic
       }
 
-      const editedWallet: IWalletState = { ...wallet, ...data, encryptedMnemonic }
+      const editedWallet: TWallet = { ...wallet, ...data, encryptedMnemonic }
 
       dispatch(authReducerActions.saveWallet(editedWallet))
 

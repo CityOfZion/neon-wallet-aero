@@ -18,7 +18,8 @@ export const SellTokensDepositSuccessModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'sellTokensDepositSuccess' })
   const { transaction } = useModalState<TModalState<'sell-tokens-deposit-success'>>()
 
-  const event = transaction.events[0]
+  // TODO: use transaction.events.at(-1)
+  const event = transaction.events[transaction.events.length - 1]
   const name = event.toAccount?.name
 
   return (

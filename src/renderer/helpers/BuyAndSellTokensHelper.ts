@@ -33,7 +33,7 @@ export class BuyAndSellTokensHelper {
       lang: this.#lang,
       themeMode: this.#theme,
       hideBrand: String(this.#hideBrand),
-      wallet: account?.address ?? '',
+      wallet: account?.address || '',
     })
 
     return `${EnvHelper.VITE_UNLIMIT_SELL_TOKENS_IFRAME_URL}?${params.toString()}`
@@ -68,6 +68,7 @@ export class BuyAndSellTokensHelper {
 
       sdk.subscribe(GateFiEventTypes.onLoad, async () => {
         await UtilsHelper.sleep(500)
+
         resolve(() => {
           sdk.destroy()
         })

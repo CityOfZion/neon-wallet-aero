@@ -36,7 +36,7 @@ export const NetworkNodeSelectionModal = () => {
   const pingNodesQuery = usePingNodes(blockchain, { refetchInterval: 5000 })
 
   const [selectedUrl, setSelectedUrl] = useState(network.url)
-  const [isAutomatic, setIsAutomatic] = useState(network.isAutomatic ?? false)
+  const [isAutomatic, setIsAutomatic] = useState(network.isAutomatic || false)
 
   const handleIsAutomaticChange = (value: boolean) => {
     const firstNode = pingNodesQuery.data?.[0]
@@ -59,12 +59,12 @@ export const NetworkNodeSelectionModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="flex h-full flex-col text-sm">
-        <div className="mb-4 flex flex-shrink-0 flex-col gap-y-4">
+        <div className="mb-4 flex shrink-0 flex-col gap-y-4">
           <p>{t('description')}</p>
           <p className="text-xs font-bold text-gray-100 uppercase">{t('listLabel')}</p>
         </div>
 
-        <div className="bg-asphalt mb-2 flex flex-shrink-0 justify-between px-4 py-4">
+        <div className="bg-asphalt mb-2 flex shrink-0 justify-between px-4 py-4">
           <Button
             label={t('refreshButtonLabel')}
             leftIcon={<TbReload aria-hidden className="text-neon" />}
@@ -88,7 +88,7 @@ export const NetworkNodeSelectionModal = () => {
           </div>
         </div>
 
-        <div className="min-h-0 flex-grow overflow-auto">
+        <div className="min-h-0 grow overflow-auto">
           {pingNodesQuery.isLoading ? (
             <Loader className="mt-4" />
           ) : (
@@ -105,12 +105,12 @@ export const NetworkNodeSelectionModal = () => {
                     className="h-17"
                     withSeparator={index !== array.length - 1}
                   >
-                    <div className="flex min-w-0 flex-grow items-center gap-4">
+                    <div className="flex min-w-0 grow items-center gap-4">
                       <div className="flex flex-col items-center justify-center gap-0.5">
-                        <div className="flex h-4 w-4 items-center justify-center">
+                        <div className="flex size-4 items-center justify-center">
                           <div
                             className={StyleHelper.mergeStyles(
-                              'h-1.5 min-h-1.5 w-1.5 min-w-1.5 rounded-full',
+                              'min-size-1.5 size-1.5 rounded-full',
                               match(node.latency)
                                 .with(undefined, () => 'bg-gray-300')
                                 .with(
@@ -127,11 +127,13 @@ export const NetworkNodeSelectionModal = () => {
                         </div>
 
                         <p className="min-w-12 text-gray-300">
-                          {typeof node.latency === 'number' ? t('latency', { latency: node.latency }) : '--'}
+                          {typeof node.latency === 'number'
+                            ? t('latency', { latency: node.latency })
+                            : tCommon('emptyColumn')}
                         </p>
                       </div>
 
-                      <div className="flex-start flex min-w-0 flex-grow flex-col">
+                      <div className="flex-start flex min-w-0 grow flex-col">
                         {isNeoxAntiMev && (
                           <span className="bg-neon/70 text-asphalt text-1xs block w-fit rounded px-1.25 py-px text-center font-semibold">
                             {t('antiMevLabel')}
@@ -141,7 +143,9 @@ export const NetworkNodeSelectionModal = () => {
                         <p className="block w-full truncate text-left">{node.url}</p>
 
                         <p className="text-left leading-3.5 text-gray-300">
-                          {t('blockHeight', { height: node.height ?? '--' })}
+                          {typeof node.height === 'number'
+                            ? t('blockHeight', { height: node.height })
+                            : tCommon('emptyColumn')}
                         </p>
                       </div>
                     </div>
@@ -154,7 +158,7 @@ export const NetworkNodeSelectionModal = () => {
           )}
         </div>
 
-        <div className="flex flex-shrink-0 flex-col gap-y-5">
+        <div className="flex shrink-0 flex-col gap-y-5">
           <Separator />
 
           <div className="flex gap-x-3">

@@ -67,13 +67,13 @@ export const VoteNeo3ConfirmationModal = () => {
   const [isSubmitting, startSubmit] = usePressOnce()
   const dispatch = useAppDispatch()
 
-  const feeBn = BSBigNumberHelper.fromNumber(calculateVoteFeeQuery.data ?? '0')
+  const feeBn = BSBigNumberHelper.fromNumber(calculateVoteFeeQuery.data || '0')
   const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3
   const exchangeQuery = useExchange([{ blockchain: 'neo3', tokens: [blockchainService.feeToken] }])
 
   const isCurrentVote = voteDetailsByAddressQuery.data?.candidatePubKey === candidate.pubKey
   const isWatchAccount = neo3Account?.type === 'watch'
-  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance ?? 0)
+  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
   const hasNeoAmount = neoAmountBn.isGreaterThan(0)
 
   const isLoading =
@@ -131,15 +131,15 @@ export const VoteNeo3ConfirmationModal = () => {
         candidatePubKey: candidate.pubKey,
       })
 
-      const transaction = TransactionHelper.buildPendingTransaction({
+      const pendingTransaction = TransactionHelper.buildPendingTransaction({
         txId,
         fromAccount: neo3Account,
         events: [{ amount: '0', token: blockchainService.burnToken, method: 'vote' }],
       })
 
       dispatch(
-        thunks.waitTransaction({
-          transaction,
+        thunks.waitPendingTransaction({
+          pendingTransaction,
           successNotification: {
             title: 'modals:voteNeo3Confirmation.notifications.voteSuccessNotification.title',
             previewBody: 'modals:voteNeo3Confirmation.notifications.voteSuccessNotification.previewBody',

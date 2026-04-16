@@ -9,7 +9,7 @@ import type { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { selectWalletById } from '@renderer/hooks/useWalletSelector'
 
 import type { TAccountHelperPredicateParams } from '@shared/types/helpers'
-import type { IAccountState, IWalletState, TNotificationAction } from '@shared/types/store'
+import type { TAccount, TNotificationAction, TWallet } from '@shared/types/store'
 
 type TFunctionParams<T> = {
   modalActions: ReturnType<typeof useModalNavigate>
@@ -21,7 +21,7 @@ type TFunctionsByNotificationActionType = {
   [K in TNotificationAction['type']]: (params: TFunctionParams<TNotificationAction & { type: K }>) => Promise<void>
 }
 
-const getAccount = (predicate: TAccountHelperPredicateParams): IAccountState => {
+const getAccount = (predicate: TAccountHelperPredicateParams): TAccount => {
   const state = ReduxHelper.store.getState()
   const accounts = selectAccounts(state)
   const account = accounts.find(AccountHelper.predicate(predicate))
@@ -31,7 +31,7 @@ const getAccount = (predicate: TAccountHelperPredicateParams): IAccountState => 
   return account
 }
 
-const getWalletByAccount = (account: IAccountState): IWalletState => {
+const getWalletByAccount = (account: TAccount): TWallet => {
   const state = ReduxHelper.store.getState()
   const wallet = selectWalletById(account.idWallet)(state)
 

@@ -86,8 +86,8 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
     }
 
     filtered = filtered.sort((a, b) =>
-      BSBigNumberHelper.fromNumber(a.amount ?? 0)
-        .minus(b.amount ?? 0)
+      BSBigNumberHelper.fromNumber(a.amount || 0)
+        .minus(b.amount || 0)
         .toNumber()
     )
 
@@ -186,7 +186,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
                         transform: `translateY(${virtualItem.start}px)`,
                       }}
                     >
-                      <div className="flex h-full w-full items-center gap-2">
+                      <div className="flex size-full items-center gap-2">
                         <GreyTokenSelectItem
                           token={row}
                           blockchain={row.blockchain || fallbackBlockchain}

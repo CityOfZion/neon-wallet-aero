@@ -9,7 +9,7 @@ export const ActionStepSeparator = ({ className }: TProps) => (
     <TbArrowLeft
       aria-hidden
       className={StyleHelper.mergeStyles(
-        'absolute top-1 left-1/2 box-content h-5 w-5 -translate-x-1/2 -translate-y-1/2 rotate-[270deg] rounded-full border-8 border-gray-900 bg-gray-800 p-1',
+        'absolute top-1 left-1/2 box-content size-5 -translate-x-1/2 -translate-y-1/2 rotate-[270deg] rounded-full border-8 border-gray-900 bg-gray-800 p-1',
         className
       )}
     />

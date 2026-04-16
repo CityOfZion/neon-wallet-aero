@@ -1,13 +1,13 @@
 import type { TNftResponse } from '@cityofzion/blockchain-service'
 import type { VirtualItem } from '@tanstack/react-virtual'
 
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 import { NftListItemContent } from './NftListItemContent'
 
 type TProps = {
   nft: TNftResponse
-  selectedAccount: IAccountState
+  selectedAccount: TAccount
   link?: string
   virtualItem: VirtualItem
 }
@@ -26,7 +26,7 @@ export const NftListItem = ({ nft, selectedAccount, link, virtualItem }: TProps)
         <a
           href={link}
           target="_blank"
-          className="flex w-full min-w-0 cursor-pointer items-center gap-5 rounded-md bg-gray-900 p-2.5 text-sm transition-colors hover:bg-gray-700/60"
+          className="flex w-full min-w-0 cursor-pointer items-center gap-5 rounded-md bg-gray-900 p-2.5 text-sm transition-colors hover:bg-gray-700/60 focus:bg-gray-700/60 active:bg-gray-700/40"
           rel="noreferrer"
         >
           <NftListItemContent selectedAccount={selectedAccount} nft={nft} link={link} />

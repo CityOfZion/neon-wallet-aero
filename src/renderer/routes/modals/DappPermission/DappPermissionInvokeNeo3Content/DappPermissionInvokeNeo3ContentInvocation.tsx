@@ -42,7 +42,7 @@ export const DappPermissionInvokeNeo3ContentInvocation = ({
       : null
 
   const getContractHashUrl = () => {
-    return service.explorerService.buildContractUrl(invocation.scriptHash) ?? ''
+    return service.explorerService.buildContractUrl(invocation.scriptHash) || ''
   }
 
   return (
@@ -50,7 +50,7 @@ export const DappPermissionInvokeNeo3ContentInvocation = ({
       <Details.Header
         leftElement={<TbArrowsSort className="rotate-90" aria-hidden />}
         rightElement={match(contractQuery)
-          .with({ isLoading: true }, () => <Loader className="h-4 w-4" containerClassName="w-fit" />)
+          .with({ isLoading: true }, () => <Loader className="size-4" containerClassName="w-fit" />)
           .with({ data: P.nullish }, () => <Fragment />)
           .otherwise(({ data }) => (
             <div className="flex items-center gap-2">
@@ -68,7 +68,7 @@ export const DappPermissionInvokeNeo3ContentInvocation = ({
                       hash: invocation.scriptHash,
                       operation: invocation.operation,
                       blockchain: sessionDetails.blockchain,
-                      values: invocation.args?.map(arg => arg.value) ?? [],
+                      values: invocation.args?.map(arg => arg.value) || [],
                       onReject,
                     },
                   })}

@@ -27,7 +27,7 @@ export class TransactionHelper {
       systemFeeAmount: undefined,
       isPending: true,
       blockchain: fromAccount.blockchain,
-      type: type ?? 'default',
+      type: type || 'default',
       events: [],
     }
 
@@ -35,7 +35,7 @@ export class TransactionHelper {
       transaction.events = events.map(({ amount, toAddress, token, toAccount, method }) => {
         return {
           eventType: 'token',
-          methodName: method ?? 'transfer',
+          methodName: method || 'transfer',
           contractHash: token.hash,
           from: fromAccount.address,
           to: toAddress,

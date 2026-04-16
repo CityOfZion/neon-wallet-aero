@@ -46,7 +46,7 @@ import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react
 
 import { thunks } from '@renderer/store/thunks'
 import type { TModalState } from '@shared/types/modal'
-import type { IAccountState } from '@shared/types/store'
+import type { TAccount } from '@shared/types/store'
 
 export const SellTokensDepositModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'sellTokensDeposit' })
@@ -99,7 +99,7 @@ export const SellTokensDepositModal = () => {
     actionData.isAmountLoading ||
     isInvalidForm ||
     (isServiceCalculableFee && !actionData.fee) ||
-    Object.values(actionState.errors ?? {}).length > 0
+    Object.values(actionState.errors || {}).length > 0
 
   const buildTransferParams = async () => {
     if (isInvalidForm) return
@@ -140,7 +140,7 @@ export const SellTokensDepositModal = () => {
     setData({ token: tokenBalance, amount: '' })
   }
 
-  const handleChangeAccount = (account: IAccountState) => {
+  const handleChangeAccount = (account: TAccount) => {
     setData({
       account,
       ...(account.blockchain === actionData.account?.blockchain
@@ -199,7 +199,7 @@ export const SellTokensDepositModal = () => {
         })
       )
 
-      const transaction = TransactionHelper.buildPendingTransaction({
+      const pendingTransaction = TransactionHelper.buildPendingTransaction({
         fromAccount: account,
         txId: transactionHash,
         events: [
@@ -213,8 +213,8 @@ export const SellTokensDepositModal = () => {
       })
 
       dispatch(
-        thunks.waitTransaction({
-          transaction,
+        thunks.waitPendingTransaction({
+          pendingTransaction,
           successNotification: {
             title: 'modals:sellTokensDeposit.successNotification.title',
             previewBody: 'modals:sellTokensDeposit.successNotification.previewBody',
@@ -228,7 +228,7 @@ export const SellTokensDepositModal = () => {
 
       modalNavigate('sell-tokens-deposit-success', {
         replace: true,
-        state: { transaction },
+        state: { transaction: pendingTransaction },
       })
     } catch (error: any) {
       LoggerHelper.sentry(error, { where: 'SellTokensDeposit', operation: 'submitDeposit' })
@@ -323,7 +323,7 @@ export const SellTokensDepositModal = () => {
 
         if (amount.isZero() || amount.isNegative()) {
           setError('amount', t('messages.invalidAmount'))
-        } else if (amount.isGreaterThan(actionData?.token?.amount ?? '0') || feeTotal.isGreaterThan(feeTokenAmount)) {
+        } else if (amount.isGreaterThan(actionData?.token?.amount || '0') || feeTotal.isGreaterThan(feeTokenAmount)) {
           setError('amount', t('messages.insufficientFunds'))
         } else {
           clearErrors(['fee', 'amount'])
@@ -411,7 +411,7 @@ export const SellTokensDepositModal = () => {
                     className="h-10 w-28 max-w-28 min-w-28 text-xs"
                     textClassName="text-xs"
                     selectedToken={actionData.token?.token}
-                    tokens={(balanceQuery.data?.tokensBalances ?? []).map(tokenBalance => tokenBalance.token)}
+                    tokens={(balanceQuery.data?.tokensBalances || []).map(tokenBalance => tokenBalance.token)}
                     balance={balanceQuery.data}
                     sideOffset={-40}
                     loading={isBalanceLoading}
@@ -436,7 +436,7 @@ export const SellTokensDepositModal = () => {
                     className="w-full"
                     contentClassName="pl-3 bg-asphalt"
                     containerClassName="max-w-44"
-                    value={actionData.address ?? ''}
+                    value={actionData.address || ''}
                     compacted
                     pastable
                     disabled={isRecipientDisabled}
