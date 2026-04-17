@@ -58,3 +58,9 @@ export const useSelectedAccountSelector = () => {
     selectedAccountRef: ref,
   }
 }
+
+export const useShowNewsModalSelector = () => {
+  const { ref, value } = useAppSelector(state => state.settings.data.showNewsModal)
+
+  return { showNewsModal: value, showNewsModalRef: ref }
+}

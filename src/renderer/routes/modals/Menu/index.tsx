@@ -11,6 +11,7 @@ import TbDeviceUsb from '@renderer/assets/images/tb-device-usb.svg?react'
 import TbDoorExit from '@renderer/assets/images/tb-door-exit.svg?react'
 import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 import TbHelp from '@renderer/assets/images/tb-help.svg?react'
+import TbNews from '@renderer/assets/images/tb-news.svg?react'
 import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbSearch from '@renderer/assets/images/tb-search.svg?react'
 import TbSettings from '@renderer/assets/images/tb-settings.svg?react'
@@ -67,6 +68,8 @@ export const MenuModal = () => {
           icon={<TbDeviceUsb aria-hidden className="rotate-45" />}
           isDisabled={!isPasswordLogin}
         />
+
+        <MenuItemLink label={t('newsItemLabel')} to="/news" icon={<TbNews aria-hidden />} />
 
         <MenuItemLink label={t('contactsItemLabel')} to="/contacts" icon={<TbUsers aria-hidden />} />
 

@@ -571,5 +571,17 @@
     "alert": "請確保您的硬體錢包已解鎖、已連接至支援的應用程式，並已連接到此裝置",
     "successBannerMessage": "硬體錢包已成功連接。正在開啟擴充功能…",
     "completeButtonLabel": "完成"
+  },
+  "news": {
+    "title": "最新新聞",
+    "sortDateAscending": "日期 - 升序",
+    "sortDateDescending": "日期 - 降序",
+    "showModalOnLoginLabel": "登入時顯示新聞",
+    "noArticlesMessage": "目前沒有新聞文章可顯示。請稍後再查看！",
+    "viewArticle": {
+      "backToNewsButtonLabel": "新聞首頁",
+      "nextArticleButtonLabel": "下一篇文章",
+      "previousArticleButtonLabel": "上一篇文章"
+    }
   }
 }

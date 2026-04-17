@@ -74,6 +74,7 @@
     "connectHardwareWalletItemLabel": "Conectar carteira de hardware",
     "helpItemLabel": "Ajuda",
     "contactsItemLabel": "Contatos",
+    "newsItemLabel": "Notícias",
     "settingsItemLabel": "Configurações",
     "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Sair",
@@ -734,5 +735,10 @@
     "title": "Como foi sua experiência?",
     "titleFeedbackSubmitted": "Obrigado!",
     "closeButtonLabel": "Fechar"
+  },
+  "news": {
+    "title": "Últimas notícias",
+    "dontShowAgainLabel": "Não mostrar novamente",
+    "noArticlesMessage": "Não há notícias para exibir no momento. Por favor, volte mais tarde!"
   }
 }

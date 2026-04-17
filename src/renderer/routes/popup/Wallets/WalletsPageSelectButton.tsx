@@ -21,7 +21,7 @@ export const WalletsPageSelectButton = ({ label, selectedLabel, ...props }: TPro
         <MdChevronDown aria-hidden />
       </div>
 
-      <span className="w-32 max-w-32 min-w-32 truncate text-left text-sm text-white">{selectedLabel}</span>
+      <span className="w-30 max-w-30 min-w-30 truncate text-left text-sm text-white">{selectedLabel}</span>
     </Button>
   )
 }

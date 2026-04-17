@@ -50,6 +50,7 @@ const HelpPage = lazy(() => import('./popup/Help'))
 const Neo3NeoXBridgePage = lazy(() => import('./popup/Neo3NeoXBridge'))
 const VoteNeo3Page = lazy(() => import('./popup/VoteNeo3'))
 const NotificationsPage = lazy(() => import('./popup/Notifications'))
+const NewsPage = lazy(() => import('./popup/News'))
 
 export const popupRouter = createHashRouter([
   {
@@ -112,6 +113,7 @@ export const popupRouter = createHashRouter([
             path: 'notifications',
             element: <NotificationsPage />,
           },
+          { path: 'news', element: <NewsPage /> },
           {
             path: 'import',
             element: <ImportPage />,

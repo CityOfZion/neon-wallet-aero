@@ -571,5 +571,17 @@
     "alert": "Certifique-se de que sua carteira de hardware esteja desbloqueada, conectada a um aplicativo compatível e conectada a este dispositivo",
     "successBannerMessage": "Carteira de hardware conectada com sucesso. Abrindo extensão…",
     "completeButtonLabel": "Concluir"
+  },
+  "news": {
+    "title": "Últimas notícias",
+    "sortDateAscending": "Data - Crescente",
+    "sortDateDescending": "Data - Decrescente",
+    "showModalOnLoginLabel": "Mostrar notícias no login",
+    "noArticlesMessage": "Não há artigos de notícias para exibir no momento. Por favor, volte mais tarde!",
+    "viewArticle": {
+      "backToNewsButtonLabel": "Início das notícias",
+      "nextArticleButtonLabel": "Próximo artigo",
+      "previousArticleButtonLabel": "Artigo anterior"
+    }
   }
 }

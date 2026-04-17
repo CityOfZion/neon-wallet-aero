@@ -74,6 +74,7 @@
     "connectHardwareWalletItemLabel": "连接硬件钱包",
     "helpItemLabel": "帮助",
     "contactsItemLabel": "联系人",
+    "newsItemLabel": "新闻",
     "settingsItemLabel": "设置",
     "neo3NeoXBridgeItemLabel": "桥接",
     "logoutItemLabel": "注销",
@@ -734,5 +735,10 @@
     "title": "您的体验如何？",
     "titleFeedbackSubmitted": "谢谢！",
     "closeButtonLabel": "关闭"
+  },
+  "news": {
+    "title": "最新新闻",
+    "dontShowAgainLabel": "不再显示",
+    "noArticlesMessage": "目前没有新闻文章可显示。请稍后再查看！"
   }
 }

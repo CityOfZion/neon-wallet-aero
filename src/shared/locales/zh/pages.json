@@ -571,5 +571,17 @@
     "alert": "请确保您的硬件钱包已解锁、已连接到受支持的应用，并已连接到此设备",
     "successBannerMessage": "硬件钱包连接成功。正在打开扩展程序…",
     "completeButtonLabel": "完成"
+  },
+  "news": {
+    "title": "最新新闻",
+    "sortDateAscending": "日期 - 升序",
+    "sortDateDescending": "日期 - 降序",
+    "showModalOnLoginLabel": "登录时显示新闻",
+    "noArticlesMessage": "目前没有新闻文章可显示。请稍后再查看！",
+    "viewArticle": {
+      "backToNewsButtonLabel": "新闻首页",
+      "nextArticleButtonLabel": "下一篇文章",
+      "previousArticleButtonLabel": "上一篇文章"
+    }
   }
 }
