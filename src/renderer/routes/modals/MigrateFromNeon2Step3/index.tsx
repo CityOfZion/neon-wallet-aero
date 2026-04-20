@@ -63,7 +63,7 @@ export const MigrateFromNeon2Step3Modal = () => {
               <li key={account.address} className="flex w-full flex-col">
                 <div className="flex items-center justify-between py-4">
                   <div className="flex items-center">
-                    <BlockchainIcon className="mr-2" blockchain={account.blockchain} type="gray" />
+                    <BlockchainIcon className="mr-2" blockchain={account.blockchain} />
 
                     <div className="flex flex-col gap-1">
                       <div className="flex gap-2">

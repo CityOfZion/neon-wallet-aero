@@ -31,7 +31,7 @@ const ImportAccountsSelectionModal = lazy(() => import('./modals/ImportAccountsS
 const MenuModal = lazy(() => import('./modals/Menu'))
 const MigrateFromNeon2Step3Modal = lazy(() => import('./modals/MigrateFromNeon2Step3'))
 const MigrateFromNeon2Step4Modal = lazy(() => import('./modals/MigrateFromNeon2Step4'))
-const NetworkNodeSelectionModal = lazy(() => import('./modals/NetworkNodeSelection'))
+const NetworkUrlSelectionModal = lazy(() => import('./modals/NetworkUrlSelection'))
 const NetworkSelectionModal = lazy(() => import('./modals/NetworkSelection'))
 const SaveContactModal = lazy(() => import('./modals/SaveContact'))
 const SearchModal = lazy(() => import('./modals/Search'))
@@ -109,7 +109,7 @@ export const modalsRouter: TRoute[] = [
   { name: 'swap-details', type: 'bottom', element: SwapDetailsModal },
   { name: 'swap-confirmation', type: 'bottom', element: SwapConfirmationModal },
   { name: 'network-selection', type: 'bottom', element: NetworkSelectionModal },
-  { name: 'network-node-selection', type: 'bottom', element: NetworkNodeSelectionModal },
+  { name: 'network-url-selection', type: 'bottom', element: NetworkUrlSelectionModal },
   { name: 'account-receive-selection', type: 'bottom', element: AccountReceiveSelectionModal },
   { name: 'neo3-neox-bridge-info', type: 'bottom', element: Neo3NeoXBridgeInfoModal },
   { name: 'neo3-neox-bridge-confirmation', type: 'bottom', element: Neo3NeoXBridgeConfirmationModal },

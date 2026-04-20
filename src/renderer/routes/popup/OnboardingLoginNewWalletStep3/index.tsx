@@ -41,8 +41,8 @@ export const OnboardingLoginNewWalletStep3Page = () => {
   }
 
   return (
-    <div className="flex w-full flex-grow flex-col items-center">
-      <div className="flex flex-grow flex-col items-center gap-y-5">
+    <div className="flex w-full grow flex-col items-center">
+      <div className="flex grow flex-col items-center gap-y-5">
         <div className="flex flex-col items-center">
           <TbRosetteDiscountCheck className="text-blue size-25 stroke-1" aria-hidden />
           <h3 className="mt-3 text-center text-sm font-bold text-white">{t('description')}</h3>

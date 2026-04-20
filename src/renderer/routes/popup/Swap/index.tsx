@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 
 import type {
   TBSAccount,
@@ -453,6 +453,9 @@ export const SwapPage = () => {
 
       try {
         const decimals = actionData.selectedTokenToUse.value.decimals
+
+        if (decimals === undefined || decimals === null) return
+
         const amountNumber = BSBigNumberHelper.fromDecimals(actionData.selectedAmountToUse.value, decimals)
 
         if (actionData.selectAmountToUseMinMax.value) {
@@ -534,7 +537,7 @@ export const SwapPage = () => {
         />
       }
     >
-      <div className="flex min-h-0 flex-grow flex-col items-center pr-2 text-sm text-white">
+      <div className="flex min-h-0 grow flex-col items-center pr-2 text-sm text-white">
         <div className="flex w-full items-center justify-between gap-2 pb-3">
           <Button
             leftIcon={
@@ -550,8 +553,8 @@ export const SwapPage = () => {
           />
         </div>
 
-        <div className="flex w-full flex-grow flex-col items-center pt-2">
-          <div className="mx-auto flex w-full max-w-[36rem] flex-col items-center pt-2 pb-12">
+        <div className="flex w-full grow flex-col items-center pt-2">
+          <div className="mx-auto flex w-full max-w-xl flex-col items-center pt-2 pb-12">
             <div className="flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
               <ActionStep title={t('form.assets')} leftIcon={<TbDiamond aria-hidden />} className="font-bold" />
 
@@ -643,7 +646,7 @@ export const SwapPage = () => {
               </div>
 
               {hasExtraIdToReceive && (
-                <>
+                <Fragment>
                   <Separator />
 
                   <ActionStep
@@ -678,7 +681,7 @@ export const SwapPage = () => {
                       onChange={handleChangeExtraIdToReceive}
                     />
                   </ActionStep>
-                </>
+                </Fragment>
               )}
             </div>
 

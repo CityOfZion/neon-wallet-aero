@@ -37,9 +37,9 @@ export const ImportAccountsSelectionAccordionItem = ({
 
   return (
     <Accordion.Item value={blockchainName} className="bg-asphalt rounded">
-      <Accordion.Trigger className="flex flex-grow items-center gap-x-2 border-none px-4">
-        <h3 className="flex flex-grow items-center gap-x-2 text-sm text-white">
-          <BlockchainIcon blockchain={blockchainName} type="white" />
+      <Accordion.Trigger className="flex grow items-center gap-x-2 border-none px-4">
+        <h3 className="flex grow items-center gap-x-2 text-sm text-white">
+          <BlockchainIcon blockchain={blockchainName} />
 
           {tCommonBlockchain(blockchainName)}
         </h3>
@@ -72,9 +72,7 @@ export const ImportAccountsSelectionAccordionItem = ({
                     {account.address}
                   </p>
 
-                  {account.bip44Path && (
-                    <p className="block min-w-0 truncate text-xs text-gray-300">{account.bip44Path}</p>
-                  )}
+                  {account.bipPath && <p className="block min-w-0 truncate text-xs text-gray-300">{account.bipPath}</p>}
                 </div>
 
                 <Tooltip title={isDisabled ? t('accountAlreadyExistsLabel') : ''} delayDuration={0}>

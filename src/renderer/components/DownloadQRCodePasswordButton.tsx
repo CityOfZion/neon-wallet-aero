@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+
 import { QRCodeSVG } from 'qrcode.react'
 import { useTranslation } from 'react-i18next'
 
@@ -7,7 +9,7 @@ import type { TButtonProps } from './Button'
 import { Button } from './Button'
 
 type TProps = {
-  onDownload?: () => void
+  onDownload?: () => Promise<void> | void
   password: string
 } & TButtonProps
 
@@ -25,12 +27,16 @@ export const DownloadQRCodePasswordButton = ({
 
   const handleDownload = async () => {
     await UtilsHelper.downloadSVGToPng('QRCode')
+
     if (onDownload) await onDownload()
   }
 
   return (
-    <>
-      {password && <QRCodeSVG id="QRCode" size={172} value={password} includeMargin className="hidden" />}
+    <Fragment>
+      {password && (
+        <QRCodeSVG id="QRCode" aria-label={password} size={172} value={password} includeMargin className="hidden" />
+      )}
+
       <Button
         label={label ? label : t('downloadQRCodePassword')}
         rightIcon={rightIcon}
@@ -41,6 +47,6 @@ export const DownloadQRCodePasswordButton = ({
         loading={loading}
         onClick={handleDownload}
       />
-    </>
+    </Fragment>
   )
 }

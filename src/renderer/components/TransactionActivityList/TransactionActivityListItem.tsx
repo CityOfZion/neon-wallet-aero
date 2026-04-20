@@ -9,27 +9,28 @@ type TProps = {
   transaction: TUseTransactionsTransaction
 }
 
-export const TransactionActivityListItem = ({ transaction }: TProps) => {
-  const { blockchain, events } = transaction
+export const TransactionActivityListItem = ({ transaction }: TProps) => (
+  <li className="flex w-full flex-col bg-gray-900">
+    <TransactionActivityListItemHeader transaction={transaction} />
 
-  return (
-    <li className="flex w-full flex-col bg-gray-900">
-      <TransactionActivityListItemHeader transaction={transaction} />
+    {/* TODO: change component names and improve the skeleton height on UTXO task */}
+    {transaction.view === 'default' && transaction.events.length > 0 && (
+      <ul className="flex w-full flex-col">
+        {transaction.events.map((event, index) => {
+          const hash = event.eventType === 'nft' ? event.nft?.hash : event.token?.hash
 
-      {events.length > 0 && (
-        <ul className="flex w-full flex-col">
-          {events.map((event, index, array) => (
+          return (
             <li
-              key={`${event.eventType}-${event.methodName}-${event.eventType === 'nft' ? event.collectionHash : event.contractHash}-${blockchain}-${index}`}
-              className="flex h-[3.3125rem] max-h-[3.3125rem] min-h-[3.3125rem] w-full flex-col justify-center"
+              key={`${event.eventType}-${hash}-${event.methodName}-${transaction.blockchain}-${index}`}
+              className="group/item flex h-13.25 max-h-13.25 min-h-13.25 w-full flex-col justify-center"
             >
-              <TransactionActivityListEvent event={event} blockchain={blockchain} />
+              <TransactionActivityListEvent event={event} />
 
-              {index !== array.length - 1 && <Separator className="h-px max-h-px min-h-px" />}
+              <Separator className="h-px max-h-px min-h-px" containerClassName="group-last/item:hidden" />
             </li>
-          ))}
-        </ul>
-      )}
-    </li>
-  )
-}
+          )
+        })}
+      </ul>
+    )}
+  </li>
+)

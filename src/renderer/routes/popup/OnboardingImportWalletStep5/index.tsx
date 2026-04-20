@@ -31,6 +31,7 @@ export const OnboardingImportWalletStep5Page = () => {
 
       <div className="flex w-full flex-col items-center gap-4">
         <DownloadQRCodePasswordButton password={state.password} className="w-fit" />
+
         <Button
           onClick={() => navigateReset('/wallets')}
           label={t('openWalletButtonLabel')}

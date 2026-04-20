@@ -127,8 +127,8 @@ export const SaveContactModal = () => {
                       key={index}
                       className="bg-asphalt flex h-8.5 w-full items-center justify-between rounded px-4 py-6"
                     >
-                      <div className="flex min-w-0 flex-grow items-center gap-x-3">
-                        <BlockchainIcon blockchain={address.blockchain} type="white" className="min-size-4 size-4" />
+                      <div className="flex min-w-0 grow items-center gap-x-3">
+                        <BlockchainIcon blockchain={address.blockchain} className="min-size-4 size-4" />
                         <p className="truncate text-sm font-normal text-white">{address.address}</p>
                       </div>
 

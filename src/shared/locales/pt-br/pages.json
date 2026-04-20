@@ -265,9 +265,9 @@
   },
   "networkConfiguration": {
     "title": "Configuração de rede",
-    "connectedNeoAndEthLabel": "Você está conectado às redes Neo e Ethereum",
+    "connectedNetworksLabel": "Você está conectado em algumas redes",
     "currentNetwork": "Rede",
-    "nodeSelection": "Nó"
+    "urlSelection": "URL"
   },
   "language": {
     "title": "Idioma",

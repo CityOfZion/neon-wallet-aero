@@ -5,7 +5,6 @@ import { match } from 'ts-pattern'
 
 import TbDiamond from '@renderer/assets/images/tb-diamond.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TUseTransactionsTransactionEvent } from '@shared/types/hooks'
 
 import { TransactionActivityListEventColumn } from './TransactionActivityListEventColumn'
@@ -13,21 +12,19 @@ import { TransactionActivityListEventColumnDataAddress } from './TransactionActi
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 type TProps = {
-  blockchain: TBlockchainServiceKey
   event: TUseTransactionsTransactionEvent
 }
 
-export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
+export const TransactionActivityListEvent = ({ event }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.event' })
   const { t: tCommon } = useTranslation('common')
 
   const { amount, to, toUrl, toAccount, from, fromUrl, fromAccount } = event
-
   const toName = toAccount?.name
   const fromName = fromAccount?.name
 
   return (
-    <div className="flex h-13 max-h-13 min-h-13 flex-grow items-center gap-x-2 overflow-x-auto overflow-y-hidden px-2 whitespace-nowrap">
+    <div className="flex h-13 max-h-13 min-h-13 grow items-center gap-x-2 overflow-x-auto overflow-y-hidden px-2 whitespace-nowrap">
       <TransactionActivityListEventColumn
         label={t('columns.fromLabel')}
         data={
@@ -67,20 +64,30 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
 
       {match(event)
         .with({ eventType: 'nft' }, matchedEvent => {
-          const { tokenHash, nftImageUrl, nftUrl, name, collectionName } = matchedEvent
-          const nftImageLabel = name ? t('nftImageAltWithNameLabel', { name }) : t('nftImageAltLabel')
+          const { nft } = matchedEvent
+          const nftName = nft?.name
+          const nftImageLabel = nftName ? t('nftImageAltWithNameLabel', { name: nftName }) : t('nftImageAltLabel')
 
           return (
             <Fragment>
-              {!!tokenHash && <TransactionActivityListEventColumn label={t('columns.tokenIdLabel')} data={tokenHash} />}
+              {!!nft?.hash && <TransactionActivityListEventColumn label={t('columns.tokenIdLabel')} data={nft.hash} />}
 
-              {!!collectionName && (
-                <TransactionActivityListEventColumn label={t('columns.collectionNameLabel')} data={collectionName} />
+              {!!nftName && (
+                <TransactionActivityListEventColumn
+                  label={t('columns.nameLabel')}
+                  data={nftName}
+                  url={nft.explorerUri}
+                />
               )}
 
-              {!!name && <TransactionActivityListEventColumn label={t('columns.nameLabel')} data={name} url={nftUrl} />}
+              {!!nft?.collection?.name && (
+                <TransactionActivityListEventColumn
+                  label={t('columns.collectionNameLabel')}
+                  data={nft.collection.name}
+                />
+              )}
 
-              {!!nftImageUrl && (
+              {!!nft?.image && (
                 <TransactionActivityListEventColumn
                   className="mt-2"
                   data={
@@ -88,7 +95,7 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
                       <TbDiamond aria-hidden />
                     </TransactionActivityListTooltip>
                   }
-                  url={nftUrl}
+                  url={nft.explorerUri}
                 />
               )}
             </Fragment>
@@ -99,7 +106,6 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
           const tokenSymbol = token?.symbol || ''
           const tokenName = token?.name || ''
           const hasTokenLabel = !!tokenSymbol || !!tokenName
-          const blockchainName = tCommon(`blockchain.${blockchain}`)
 
           return (
             <TransactionActivityListEventColumn
@@ -108,14 +114,8 @@ export const TransactionActivityListEvent = ({ event, blockchain }: TProps) => {
                 !hasTokenLabel ? (
                   <span className="inline-block">{tCommon('general.emptyColumn')}</span>
                 ) : (
-                  <TransactionActivityListTooltip
-                    className="uppercase"
-                    data={`${tokenName || tokenSymbol} | ${blockchainName}`}
-                  >
-                    <div className="inline-block truncate uppercase">
-                      {tokenSymbol || tokenName}
-                      <span className="text-gray-300"> | {blockchainName}</span>
-                    </div>
+                  <TransactionActivityListTooltip className="uppercase" data={tokenName || tokenSymbol}>
+                    <div className="inline-block truncate uppercase">{tokenSymbol || tokenName}</div>
                   </TransactionActivityListTooltip>
                 )
               }

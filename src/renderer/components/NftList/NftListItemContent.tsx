@@ -16,66 +16,76 @@ import { Tooltip } from '../Tooltip'
 type TProps = {
   selectedAccount: TAccount
   nft: TNftResponse
-  link?: string
 }
 
-export const NftListItemContent = ({ selectedAccount, nft, link }: TProps) => {
+export const NftListItemContent = ({ selectedAccount, nft }: TProps) => {
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const [imageError, setImageError] = useState(false)
 
   return (
     <Fragment>
-      <div className="mi-h-[3.5rem] h-[3.5rem] w-[5rem] min-w-[5rem] overflow-hidden rounded-xs bg-gray-300/30">
+      <div className="h-14 max-h-14 min-h-14 w-20 max-w-20 min-w-20 overflow-hidden rounded-xs bg-gray-300/30">
         {imageError || !nft.image ? (
           <div className="flex size-full items-center justify-center">
             <TbDiamond aria-hidden className="text-neon" />
           </div>
         ) : (
-          <img className="size-full object-cover" src={nft.image} alt={nft.name} onError={() => setImageError(true)} />
+          <img
+            className="pointer-events-none size-full object-cover"
+            src={nft.image}
+            alt={nft.name}
+            onError={() => setImageError(true)}
+          />
         )}
       </div>
-      <div className="flex min-w-0 flex-grow flex-col gap-2.5">
-        <Tooltip
-          title={nft.name || ''}
-          contentProps={{ className: 'bg-asphalt' }}
-          arrowProps={{ className: 'fill-asphalt' }}
-          delayDuration={0}
-        >
-          <span className="w-fit max-w-32 truncate text-white capitalize">{nft.name}</span>
-        </Tooltip>
+      <div className="flex h-11.5 min-w-0 grow flex-col justify-between gap-2">
+        {nft.name && (
+          <Tooltip
+            title={nft.name}
+            contentProps={{ className: 'bg-asphalt' }}
+            arrowProps={{ className: 'fill-asphalt' }}
+            delayDuration={0}
+          >
+            <span className="w-fit max-w-32 truncate text-white">{nft.name}</span>
+          </Tooltip>
+        )}
 
-        <div className="flex items-center gap-1.5">
-          {nft.collection?.image && (
-            <div className="min-size-4 size-4 overflow-hidden rounded-full bg-gray-300/30">
-              <img className="size-full object-cover" src={nft.collection.image} alt={nft.collection.name} />
-            </div>
-          )}
+        {(nft.collection?.image || nft.creator?.name || nft.creator?.address) && (
+          <div className="flex items-center gap-1">
+            {nft.collection?.image && (
+              <div className="min-size-4 size-4 overflow-hidden rounded-full bg-gray-300/30">
+                <img
+                  className="pointer-events-none size-full object-cover"
+                  src={nft.collection.image}
+                  alt={nft.collection.name}
+                />
+              </div>
+            )}
 
-          {(nft.creator?.name || nft.creator?.address) && (
-            <p className="-mt-0.5 truncate text-xs text-gray-300 capitalize">
-              {nft.creator.name || nft.creator.address}
-            </p>
-          )}
-        </div>
+            {(nft.creator?.name || nft.creator?.address) && (
+              <p className="-mt-0.5 truncate text-xs text-gray-300">{nft.creator.name || nft.creator.address}</p>
+            )}
+          </div>
+        )}
       </div>
-      <div className="flex items-center gap-5">
-        <div className="flex w-18 flex-col items-end gap-2.5">
+      <div className="flex h-11.5 items-center gap-4">
+        <div className="flex h-full flex-col items-end justify-between gap-2">
           <Tooltip
             title={nft.hash}
             contentProps={{ className: 'bg-asphalt' }}
             arrowProps={{ className: 'fill-asphalt' }}
             delayDuration={0}
           >
-            <p className="text-blue">{StringHelper.truncateMiddle(nft.hash, 8)}</p>
+            <p className="text-blue max-w-18 truncate">{StringHelper.truncateMiddle(nft.hash, 8)}</p>
           </Tooltip>
 
-          <div className="flex items-center gap-1.5">
-            <BlockchainIcon blockchain={selectedAccount.blockchain} type="gray" className="size-3 opacity-60" />
-            <p className="text-xs text-gray-300">{tCommonBlockchain(selectedAccount.blockchain)}</p>
+          <div className="flex items-center gap-1">
+            <BlockchainIcon blockchain={selectedAccount.blockchain} className="size-3 text-gray-300" />
+            <p className="max-w-18 truncate text-xs text-gray-300">{tCommonBlockchain(selectedAccount.blockchain)}</p>
           </div>
         </div>
 
-        {link && <TbChevronRight aria-hidden className="size-6 text-gray-300" />}
+        {nft.explorerUri && <TbChevronRight aria-hidden className="size-6 text-gray-300" />}
       </div>
     </Fragment>
   )

@@ -23,6 +23,7 @@ import type { TContact } from '@shared/types/store'
 
 export const ContactDetailsModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'contactDetails' })
+  const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { contactId } = useModalState<TModalState<'contact-details'>>()
   const { modalNavigate, modalErase, modalNavigateWrapper } = useModalNavigate()
   const dispatch = useAppDispatch()
@@ -59,7 +60,7 @@ export const ContactDetailsModal = () => {
 
   return (
     <BottomModalLayout heading={t('title')}>
-      <div className="flex min-h-0 flex-grow flex-col items-center gap-6 pt-2">
+      <div className="flex min-h-0 grow flex-col items-center gap-6 pt-2">
         <div className="flex flex-col gap-4">
           <div className="flex size-21 shrink-0 items-center justify-center rounded-full bg-gray-300/15 text-xs text-gray-100">
             <p className="text-2xl">{StringHelper.getInitials(contact.name)}</p>
@@ -89,7 +90,7 @@ export const ContactDetailsModal = () => {
 
         <Separator />
 
-        <div className="flex min-h-0 w-full flex-grow flex-col space-y-4">
+        <div className="flex min-h-0 w-full grow flex-col space-y-4">
           <p className="text-xs font-bold text-gray-100 uppercase">{t('walletAddresses')}</p>
           <ul className="max-h-60 space-y-2.5 overflow-y-auto">
             {contact.addresses.map((addressItem, index) => {
@@ -97,14 +98,14 @@ export const ContactDetailsModal = () => {
 
               return (
                 <li key={index} className="bg-asphalt flex items-start gap-3 rounded px-4 py-3">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <BlockchainIcon blockchain={blockchain} className="min-size-4 max-size-4 mt-1 size-4" />
                   </div>
 
-                  <div className="min-w-0 flex-grow">
+                  <div className="min-w-0 grow">
                     <div className="flex items-center justify-between">
-                      <div className="min-w-0 flex-grow">
-                        <p className="mb-1 text-sm text-gray-100 capitalize">{blockchain}</p>
+                      <div className="min-w-0 grow">
+                        <p className="mb-1 text-sm text-gray-100">{tCommonBlockchain(blockchain)}</p>
 
                         <p className="truncate text-sm">{StringHelper.truncateMiddle(address, 34)}</p>
                       </div>
@@ -112,7 +113,7 @@ export const ContactDetailsModal = () => {
                       <Button
                         variant="text-slim"
                         onClick={ClipboardHelper.write.bind(null, address)}
-                        className="flex-shrink-0"
+                        className="shrink-0"
                         title={t('copyAddressButtonLabel')}
                       >
                         <MdContentCopy aria-hidden className="min-size-5 max-size-5 size-5" />

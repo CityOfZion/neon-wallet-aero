@@ -20,19 +20,19 @@ export class ReactQueryHelper {
     },
   })
 
-  static invalidateTransactionQueries = (account: TAccount, network: TNetwork) => {
+  static invalidateTransactionQueries = ({ address, blockchain }: TAccount, network: TNetwork) => {
     this.client.removeQueries({
-      queryKey: buildTransactionsQueryKey({ account, network }),
+      queryKey: buildTransactionsQueryKey({ address, blockchain, network }),
       type: 'all',
     })
 
     this.client.removeQueries({
-      queryKey: buildQueryKeyBalance(account.address, account.blockchain, network),
+      queryKey: buildQueryKeyBalance(address, blockchain, network),
       type: 'all',
     })
 
     this.client.removeQueries({
-      queryKey: buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network: network, address: account.address }),
+      queryKey: buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network: network, address }),
       type: 'all',
     })
   }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 import { SimpleSwapService } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
@@ -46,6 +46,7 @@ const STEPS_BY_STATUS: Record<TSwapRecord['swapStatus'], number> = {
 
 export const SwapDetailsModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'swapDetails' })
+  const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const modalState = useModalState<TModalState<'swap-details'>>()
   const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
 
@@ -150,21 +151,22 @@ export const SwapDetailsModal = () => {
               <Details.Root className="mt-5">
                 <Details.Body>
                   <Details.Panel label={t('routingPanelTransactionFromLabel')}>
-                    {swapRecord.txFrom && (
-                      <>
+                    {swapRecord.txFrom && swapRecord.tokenFrom.blockchain && (
+                      <Fragment>
                         <Details.Item label={t('sentPanelTokenLabel')} contentClassName="flex w-full justify-between">
-                          <div className="flex items-center gap-1 text-sm">
-                            <BlockchainIcon blockchain={swapRecord.tokenFrom.blockchain!} />
+                          <div className="flex items-center text-sm">
+                            <BlockchainIcon blockchain={swapRecord.tokenFrom.blockchain} />
 
-                            <span className="whitespace-nowrap text-gray-300 capitalize">
-                              | {swapRecord.tokenFrom.blockchain}
+                            <span className="whitespace-nowrap text-gray-300">
+                              {` | ${tCommonBlockchain(swapRecord.tokenFrom.blockchain)}`}
                             </span>
                           </div>
 
                           <p className="text-sm">{swapRecord.amountFrom}</p>
                         </Details.Item>
+
                         <Separator />
-                      </>
+                      </Fragment>
                     )}
 
                     <Details.Item label={t('sentPanelAddressLabel')}>
@@ -186,11 +188,11 @@ export const SwapDetailsModal = () => {
                                       <BlockchainIcon blockchain={swapRecord.tokenTo.blockchain} />
 
                                       <div className="flex shrink flex-wrap">
-                                        <span className="mr-1 whitespace-nowrap text-white uppercase">
+                                        <span className="whitespace-nowrap text-white uppercase">
                                           {swapRecord.tokenTo.symbol}
                                         </span>
-                                        <span className="whitespace-nowrap text-gray-300 capitalize">
-                                          | {swapRecord.tokenTo.blockchain}
+                                        <span className="whitespace-nowrap text-gray-300">
+                                          {` | ${tCommonBlockchain(swapRecord.tokenTo.blockchain)}`}
                                         </span>
                                       </div>
                                     </div>
@@ -264,7 +266,7 @@ export const SwapDetailsModal = () => {
 
           <Link
             label={t('helpButtonLabel')}
-            className="flex-grow"
+            className="grow"
             target="_blank"
             to={ConstantsHelper.cozDiscordUrl}
             variant="card"

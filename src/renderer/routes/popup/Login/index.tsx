@@ -16,15 +16,15 @@ export const LoginPage = () => {
     <LoginLayout withBackButton={false}>
       <Tabs.Root className="my-10" value={value}>
         <Tabs.List>
-          <Tabs.Trigger value="neon-account" onClick={() => navigate('/login/neon-account', { replace: true })}>
+          <Tabs.Trigger value="neon-account" onClick={() => navigate('/login/neon-account')}>
             {t('neonAccountTabLabel')}
           </Tabs.Trigger>
 
-          <Tabs.Trigger value="hardware-wallet" onClick={() => navigate('/login/hardware-wallet', { replace: true })}>
+          <Tabs.Trigger value="hardware-wallet" onClick={() => navigate('/login/hardware-wallet')}>
             {t('hardwareWalletTabLabel')}
           </Tabs.Trigger>
 
-          <Tabs.Trigger value="address-or-key" onClick={() => navigate('/login/address-or-key', { replace: true })}>
+          <Tabs.Trigger value="address-or-key" onClick={() => navigate('/login/address-or-key')}>
             {t('addressOrKeyTabLabel')}
           </Tabs.Trigger>
         </Tabs.List>

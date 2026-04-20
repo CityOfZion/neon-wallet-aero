@@ -26,6 +26,7 @@ export const ExportKeyModal = () => {
   const { account } = useModalState<TModalState<'export-key'>>()
   const { loginSessionRef } = useLoginSessionSelector()
   const { t } = useTranslation('modals', { keyPrefix: 'exportKey' })
+
   const {
     actionData: { decryptedKey },
     actionState,
@@ -40,14 +41,13 @@ export const ExportKeyModal = () => {
   const handlePrint = () => {
     const printContent = decryptedKey
     const printWindow = window.open('', '_blank')
+
     if (printWindow) {
-      printWindow.document.write(`
-      <html>
-      <body>
-        <pre>${printContent}</pre>
-      </body>
-      </html>
-    `)
+      printWindow.document.write(`<html lang="en" translate="no">
+  <body>
+    <pre>${printContent}</pre>
+  </body>
+</html>`)
       printWindow.document.close()
       printWindow.print()
     }
@@ -59,6 +59,7 @@ export const ExportKeyModal = () => {
         account.encryptedKey,
         loginSessionRef.current?.encryptedPassword
       )
+
       setData({ decryptedKey: decryptedKey })
     } catch {
       setError('decryptedKey', t('error'))
@@ -75,7 +76,7 @@ export const ExportKeyModal = () => {
         <p className="pt-4 text-center text-sm text-gray-100 print:hidden">{t('subtitle')}</p>
         <div className="mt-8 flex justify-center rounded-md">
           <div className="rounded">
-            <QRCodeSVG id="QRCode" size={174} value={decryptedKey} includeMargin />
+            <QRCodeSVG id="QRCode" aria-label={decryptedKey} size={174} value={decryptedKey} includeMargin />
           </div>
         </div>
 
@@ -88,11 +89,11 @@ export const ExportKeyModal = () => {
 
           <Separator />
 
-          <div className="flex flex-col">
+          <div className="flex flex-col px-3 pt-6 pb-4">
             {isMounting || decryptedKey === '' ? (
-              <Loader />
+              <Loader className="size-8" />
             ) : (
-              <span className="px-3 pt-8 pb-6 text-wrap break-all">{decryptedKey}</span>
+              <span className="text-wrap break-all">{decryptedKey}</span>
             )}
           </div>
         </div>

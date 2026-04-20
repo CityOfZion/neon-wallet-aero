@@ -105,7 +105,7 @@ export const ExportTransactionsModal = () => {
         format,
       })
 
-      const filename = `NWA-transactions-${selectedAccount.address}-${selectedAccount.blockchain}-${formattedDateFrom}-${formattedDateTo}.csv`
+      const filename = `NEON-transactions-${selectedAccount.address}-${selectedAccount.blockchain}-${formattedDateFrom}-${formattedDateTo}.csv`
 
       FileHelper.download(csvData, { type: 'text/csv' }, filename)
 

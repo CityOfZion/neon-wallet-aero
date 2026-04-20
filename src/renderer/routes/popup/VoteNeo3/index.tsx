@@ -149,7 +149,7 @@ export const VoteNeo3Page = () => {
               <p className="uppercase">{StringHelper.truncateMiddle(neo3Account.name, 30)}</p>
               <div className="flex">
                 <Tooltip title={neo3Account.address}>
-                  <p className="mr-12 text-gray-100">{StringHelper.truncateMiddle(neo3Account.address, 10)}</p>
+                  <p className="mr-8 text-gray-100">{StringHelper.truncateMiddle(neo3Account.address, 10)}</p>
                 </Tooltip>
                 <Button
                   variant="text-slim"

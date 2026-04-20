@@ -1,9 +1,10 @@
 import type {
   TGetTransactionsByAddressResponse,
-  TTransactionBase,
-  TTransactionBridgeNeo3NeoX,
+  TTransactionDefault,
+  TTransactionInputOutput,
   TTransactionNftEvent,
   TTransactionTokenEvent,
+  TTransactionUtxo,
 } from '@cityofzion/blockchain-service'
 import type zod from 'zod'
 
@@ -60,21 +61,43 @@ export type TUseModalNavigateResponse = {
 
 export type TUseTransactionsProps = {
   account: TAccount
-  dateTo: Date
   dateFrom: Date
+  dateTo: Date
 }
 
-export type TUseTransactionsTransactionEvent = (TTransactionTokenEvent | TTransactionNftEvent) & {
+type TUseTransactionsTransactionEventBase = {
   fromAccount?: TAccount
   toAccount?: TAccount
 }
 
-export type TUseTransactionsTransaction = TTransactionBase & {
+export type TUseTransactionsTransactionEventToken = TTransactionTokenEvent & TUseTransactionsTransactionEventBase
+
+export type TUseTransactionsTransactionEventNft = TTransactionNftEvent & TUseTransactionsTransactionEventBase
+
+export type TUseTransactionsTransactionEvent =
+  | TUseTransactionsTransactionEventToken
+  | TUseTransactionsTransactionEventNft
+
+export type TUseTransactionsTransactionInputOutput = TTransactionInputOutput & {
+  account?: TAccount
+}
+
+type TUseTransactionsTransactionBase = {
   account: TAccount
   blockchain: TBlockchainServiceKey
   isPending: boolean
-  events: TUseTransactionsTransactionEvent[]
-} & ({ type: 'default' } | { type: 'claim' } | { type: 'vote' } | TTransactionBridgeNeo3NeoX<TBlockchainServiceKey>)
+}
+
+export type TUseTransactionsTransactionDefault = TTransactionDefault<TBlockchainServiceKey> &
+  TUseTransactionsTransactionBase & { events: TUseTransactionsTransactionEvent[] }
+
+export type TUseTransactionsTransactionUtxo = TTransactionUtxo<TBlockchainServiceKey> &
+  TUseTransactionsTransactionBase & {
+    inputs: TUseTransactionsTransactionInputOutput[]
+    outputs: TUseTransactionsTransactionInputOutput[]
+  }
+
+export type TUseTransactionsTransaction = TUseTransactionsTransactionDefault | TUseTransactionsTransactionUtxo
 
 export type TUseTransactionsQueryData = Omit<
   TGetTransactionsByAddressResponse<TBlockchainServiceKey>,
@@ -89,7 +112,8 @@ export type TUseTransactionsGroupedTransactionsByDate = {
 }
 
 export type TUseTransactionsBuildTransactionsQueryKeyParams = {
-  account: TAccount
+  address: string
+  blockchain: TBlockchainServiceKey
   network: TNetwork
   dateFrom?: Date
   dateTo?: Date

@@ -44,7 +44,7 @@ export const AccountDeletionModal = () => {
         <p className="text-blue truncate text-sm">{wallet.name}</p>
       </div>
 
-      <div className="my-4 flex flex-grow flex-col items-center justify-around px-4">
+      <div className="my-4 flex grow flex-col items-center justify-around">
         <p className="text-xl">{t('subtitle')}</p>
 
         <div className="w-full rounded bg-gray-300/15 px-4 py-3 text-center">
@@ -59,7 +59,7 @@ export const AccountDeletionModal = () => {
         <p className="text-sm">{t('deleteAccountConfirmationLabel')}</p>
       </div>
 
-      <div className="flex w-full gap-3 px-4">
+      <div className="flex w-full gap-3">
         <Button label={tCommon('cancel')} variant="card" colorSchema="gray" onClick={modalNavigateWrapper(-1)} />
         <Button
           label={t('deleteAccountButtonLabel')}

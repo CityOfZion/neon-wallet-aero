@@ -37,6 +37,7 @@ export const TransactionFeeActionStep = ({
   textClassName,
 }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionFeeActionStep' })
+  const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { currency } = useCurrencySelector()
 
   const exchange = useExchange(service ? [{ blockchain: service.name, tokens: [service.feeToken] }] : [])
@@ -59,7 +60,7 @@ export const TransactionFeeActionStep = ({
       <ActionStep
         title={t('title')}
         className={StyleHelper.mergeStyles('min-h-11 font-bold', className)}
-        titleClassName={StyleHelper.mergeStyles('text-sm whitespace-nowrap mr-3 !overflow-visible', titleClassName)}
+        titleClassName={StyleHelper.mergeStyles('text-sm whitespace-nowrap mr-3 overflow-visible!', titleClassName)}
         leftIcon={<TbReceipt aria-hidden className="min-size-6 max-size-6 size-6" />}
       >
         {isCalculatingFee ? (
@@ -68,7 +69,7 @@ export const TransactionFeeActionStep = ({
           <div className={StyleHelper.mergeStyles('flex flex-col items-center gap-3 text-sm', textClassName)}>
             <span className="text-right leading-4 font-normal uppercase">
               {feeNumber || '0.00'} {service?.feeToken.symbol}
-              {service ? <span className="text-gray-100">{` | ${service.name}`}</span> : null}
+              {service ? <span className="text-gray-100">{` | ${tCommonBlockchain(service.name)}`}</span> : null}
             </span>
           </div>
         )}

@@ -87,7 +87,7 @@ export const CreateAccountStep2Modal = () => {
 
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
-      <form className="mt-2 flex flex-grow flex-col px-3.5" onSubmit={handleAct(handleSubmit)}>
+      <form className="mt-2 flex flex-grow flex-col" onSubmit={handleAct(handleSubmit)}>
         <p className="mb-2 block text-xs font-bold text-gray-100 uppercase">{t('selectWalletLabel')}</p>
 
         <CreateAccountStep2Accordion onSelect={handleWallets} selectedWallet={selectedWallet} />

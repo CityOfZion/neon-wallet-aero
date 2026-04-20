@@ -228,11 +228,7 @@ export const AccountReceiveSelectionModal = () => {
                         >
                           <div className="flex h-full items-center justify-between gap-2.5 text-sm">
                             <div className="flex w-full items-center">
-                              <BlockchainIcon
-                                className="min-size-6 mr-3.5 size-6"
-                                blockchain={account.blockchain}
-                                type="gray"
-                              />
+                              <BlockchainIcon className="min-size-6 mr-3.5 size-6" blockchain={account.blockchain} />
 
                               <p className="text-white">{StringHelper.truncateMiddle(account.address, 8)}</p>
                             </div>
@@ -288,11 +284,7 @@ export const AccountReceiveSelectionModal = () => {
                                     )}
                                   >
                                     <div className="flex w-full items-center">
-                                      <BlockchainIcon
-                                        className="min-size-6 size-6"
-                                        blockchain={address.blockchain}
-                                        type="gray"
-                                      />
+                                      <BlockchainIcon className="min-size-6 size-6" blockchain={address.blockchain} />
 
                                       <Tooltip title={contact.name}>
                                         <p className="ml-3.5 max-w-40 truncate text-sm">{contact.name}</p>

@@ -21,15 +21,15 @@ export const MigrateFromNeon2Success = ({ accounts }: TProps) => {
 
   const handleView = () => {
     modalErase('bottom')
-    navigate('/wallets')
+    navigate('/wallets', { replace: true })
   }
 
   return (
-    <div className="mt-7 flex min-h-0 w-full flex-grow flex-col justify-between">
+    <div className="mt-7 flex min-h-0 w-full grow flex-col justify-between">
       <ul className="flex min-h-0 w-full flex-col gap-1.5 overflow-auto">
         {accounts.map(account => (
           <li key={account.id} className="flex items-center rounded bg-gray-300/15 px-5 py-2">
-            <div className="flex min-w-0 flex-grow flex-col gap-1">
+            <div className="flex min-w-0 grow flex-col gap-1">
               <p className="text-sm text-white">{account.name}</p>
               <p className="truncate text-xs text-gray-300">{account.address}</p>
             </div>

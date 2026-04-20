@@ -39,9 +39,9 @@ export const GreyTokenSelectItem = ({ token, blockchain, textClassName }: TProps
 
   return (
     <Fragment>
-      <img src={img} alt={token.symbol} className="size-4 rounded-full" onError={handleError} />
+      <img src={img} alt={token.symbol} className="pointer-events-none size-4 rounded-full" onError={handleError} />
 
-      <span className="flex min-w-0 flex-grow items-center">
+      <span className="flex min-w-0 grow items-center">
         <Tooltip title={network ? `${token.symbol} | ${network}` : ''} contentProps={{ className: 'uppercase' }}>
           <span
             className={StyleHelper.mergeStyles(

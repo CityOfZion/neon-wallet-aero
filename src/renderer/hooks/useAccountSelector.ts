@@ -64,8 +64,10 @@ const selectAccountsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
 
 const selectHasHardwareAccount = createAppSelector(
   [state => state.auth.data.applicationDataByLoginType, state => state.auth.memoryData.loginSession],
-  (applicationDataByLoginType, currentLoginSession) => {
-    return applicationDataByLoginType[currentLoginSession?.type || 'password'].wallets.some(wallet =>
+  (applicationDataByLoginType, loginSession) => {
+    if (!loginSession?.type) return false
+
+    return applicationDataByLoginType[loginSession.type].wallets.some(wallet =>
       wallet.accounts.some(account => account.type === 'hardware')
     )
   }

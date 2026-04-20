@@ -42,6 +42,7 @@
     "neox": "Neo X",
     "polygon": "Polygon",
     "base": "Base",
+    "bitcoin": "Bitcoin",
     "arbitrum": "Arbitrum",
     "solana": "Solana"
   },
@@ -89,7 +90,7 @@
       "hardwareWalletNotFound": "未偵測到已連接的硬體錢包",
       "hardwareWalletIsNotConnectOrUnlocked": "請確保您的硬體錢包已解鎖以繼續操作",
       "blockchainNotSupported": "區塊鏈 {{blockchain}} 不支援硬體錢包",
-      "missingBip44Path": "硬體錢包帳戶缺少 BIP44 路徑",
+      "missingBipPath": "硬體錢包帳戶缺少 BIP 路徑",
       "accountIsNotHardware": "所選帳戶不是硬體錢包帳戶",
       "userCancelled": "操作已被使用者取消",
       "hidNotSupported": "此瀏覽器不支援 WebHID",

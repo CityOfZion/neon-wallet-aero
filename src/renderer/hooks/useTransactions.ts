@@ -24,7 +24,8 @@ import { useSelectedNetworkSelector } from './useSettingsSelector'
 import { useHiddenTokensByBlockchainSelector, usePendingTransactionsSelector } from './useUtilitySelector'
 
 export const buildTransactionsQueryKey = ({
-  account: { address, blockchain },
+  address,
+  blockchain,
   network,
   dateFrom,
   dateTo,
@@ -62,8 +63,8 @@ const fetchTransactions = async (
       address: account.address,
       dateFrom: dateFrom.toJSON(),
       dateTo: (dateFns.isSameDay(dateTo, dateNow) ? dateNow : dateTo).toJSON(),
-      nextPageParams,
       pageSize: 50,
+      nextPageParams,
     })
   } else {
     response = await service.blockchainDataService.getTransactionsByAddress({
@@ -73,21 +74,29 @@ const fetchTransactions = async (
   }
 
   response.transactions.forEach(transaction => {
-    const events = transaction.events.map(({ from, to, ...event }) => ({
-      ...event,
-      from,
-      to,
-      fromAccount: from ? accountsMap.get(AccountHelper.buildAccountKey({ address: from, blockchain })) : undefined,
-      toAccount: to ? accountsMap.get(AccountHelper.buildAccountKey({ address: to, blockchain })) : undefined,
-    }))
+    const newTransaction: TUseTransactionsTransaction = { ...transaction, account, blockchain, isPending: false }
 
-    transactionsMap.set(transaction.txId, {
-      ...transaction,
-      account,
-      blockchain,
-      isPending: false,
-      events,
-    })
+    if (newTransaction.view === 'utxo') {
+      newTransaction.inputs = newTransaction.inputs.map(({ address, ...input }) => ({
+        ...input,
+        account: address ? accountsMap.get(AccountHelper.buildAccountKey({ address, blockchain })) : undefined,
+      }))
+
+      newTransaction.outputs = newTransaction.outputs.map(({ address, ...output }) => ({
+        ...output,
+        account: address ? accountsMap.get(AccountHelper.buildAccountKey({ address, blockchain })) : undefined,
+      }))
+    } else {
+      newTransaction.events = newTransaction.events.map(({ from, to, ...event }) => ({
+        ...event,
+        from,
+        to,
+        fromAccount: from ? accountsMap.get(AccountHelper.buildAccountKey({ address: from, blockchain })) : undefined,
+        toAccount: to ? accountsMap.get(AccountHelper.buildAccountKey({ address: to, blockchain })) : undefined,
+      }))
+    }
+
+    transactionsMap.set(transaction.txId, newTransaction)
   })
 
   return { ...response, transactions: Array.from(transactionsMap.values()) }
@@ -101,7 +110,8 @@ export const useTransactions = ({ account, dateFrom, dateTo }: TUseTransactionsP
 
   const query = useInfiniteQuery({
     queryKey: buildTransactionsQueryKey({
-      account,
+      address: account.address,
+      blockchain: account.blockchain,
       network,
       dateFrom,
       dateTo,
@@ -146,11 +156,24 @@ export const useTransactions = ({ account, dateFrom, dateTo }: TUseTransactionsP
       const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[transaction.blockchain]
 
       if (!!hiddenTokens && hiddenTokens.length > 0) {
-        transaction.events = transaction.events.filter(event => {
-          if (event.eventType !== 'token') return true
+        const isHiddenToken = (tokenHash: string) => {
+          return hiddenTokens.includes(service.tokenService.normalizeHash(tokenHash))
+        }
 
-          return !hiddenTokens.includes(service.tokenService.normalizeHash(event.contractHash))
-        })
+        if (transaction.view === 'utxo') {
+          transaction.inputs = transaction.inputs.filter(({ token }) => !isHiddenToken(token.hash))
+          transaction.outputs = transaction.outputs.filter(({ token }) => !isHiddenToken(token.hash))
+        } else {
+          transaction.events = transaction.events.filter(event => {
+            if (event.eventType !== 'token') return true
+
+            const tokenHash = event.token?.hash
+
+            if (!tokenHash) return true
+
+            return !isHiddenToken(tokenHash)
+          })
+        }
       }
 
       const date = DateHelper.format(transaction.date, 'MM-dd-yyyy')

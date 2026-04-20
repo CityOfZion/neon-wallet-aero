@@ -37,7 +37,6 @@ export const TokenList = ({ selectedAccount, showHiddenTokens, onToggleShowHidde
   const contentRef = useRef<HTMLUListElement>(null)
 
   const tokenBalances = balance?.tokensBalances || []
-
   const isActionsDisabled = isLoading || tokenBalances.length === 0
 
   const { virtualizer, ready } = useVirtualization({
@@ -102,6 +101,7 @@ export const TokenList = ({ selectedAccount, showHiddenTokens, onToggleShowHidde
                   return (
                     <motion.li
                       key={`${tokenBalance?.token?.hash}-${tokenBalance?.blockchain}`}
+                      className="group/item"
                       initial={{ opacity: 0, y: virtualItem.start - 30 }}
                       animate={{ opacity: 1, y: virtualItem.start }}
                       exit={{ opacity: 0 }}
@@ -115,9 +115,7 @@ export const TokenList = ({ selectedAccount, showHiddenTokens, onToggleShowHidde
                     >
                       <TokenListItem tokenBalance={tokenBalance} isEditMode={isEditMode} />
 
-                      {virtualItem.index + 1 !== tokenBalances.length && (
-                        <Separator containerClassName="absolute bottom-0 w-full" />
-                      )}
+                      <Separator containerClassName="absolute bottom-0 w-full group-last/item:hidden" />
                     </motion.li>
                   )
                 })}

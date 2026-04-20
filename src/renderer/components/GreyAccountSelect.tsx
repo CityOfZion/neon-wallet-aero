@@ -90,7 +90,7 @@ export const GreyAccountSelect = ({
             .with({ loading: true }, () => <Loader />)
             .with({ isSelectedAccount: true }, () => (
               <div className="flex min-w-0 items-center gap-x-2 whitespace-nowrap">
-                <BlockchainIcon blockchain={selectedAccount!.blockchain} type="gray" />
+                <BlockchainIcon blockchain={selectedAccount!.blockchain} />
 
                 <span className="text-start text-white">
                   {StringHelper.truncateMiddle(selectedAccount!.address, 8)}
@@ -113,11 +113,7 @@ export const GreyAccountSelect = ({
               return (
                 <Fragment key={`grey-account-select-item-${account.id}`}>
                   <Select.Item value={account.id} className="justify-start gap-2.5">
-                    <BlockchainIcon
-                      className="min-size-4 max-size-4 size-4"
-                      blockchain={account.blockchain}
-                      type="gray"
-                    />
+                    <BlockchainIcon className="min-size-4 max-size-4 size-4" blockchain={account.blockchain} />
 
                     <div className="flex min-w-0 flex-grow flex-col gap-0.5">
                       <Select.ItemText>{StringHelper.truncateMiddle(account.address, 8)}</Select.ItemText>

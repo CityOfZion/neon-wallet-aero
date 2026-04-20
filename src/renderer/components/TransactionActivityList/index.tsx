@@ -20,6 +20,7 @@ import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/ho
 
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
 
+import type { TUseTransactionsTransactionDefault } from '@shared/types/hooks'
 import type { TAccount } from '@shared/types/store'
 
 import { IconButton } from '../IconButton'
@@ -42,10 +43,10 @@ const heights = {
   DATE: 40,
   DATE_GAP: 16,
   HEADER: 34,
-  EVENT: 53,
+  ITEM: 53,
   SEPARATOR: 1,
   SEPARATOR_MARGIN: 8,
-  TRANSACTION_GAP: 16,
+  TRANSACTION_GAP: 8,
 }
 
 export const TransactionActivityList = ({ selectedAccount }: TProps) => {
@@ -70,31 +71,37 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
 
   const contentRef = useRef<HTMLUListElement>(null)
 
+  // TODO: change variable names, comments and height when UTXO is implemented
   const { virtualizer } = useVirtualization({
     contentRef,
     count: data.length,
     gap: heights.DATE_GAP,
     estimateSize: index => {
-      const { transactions } = data[index] // Get the transactions (items) for the current date group
-      const itemsLength = transactions.length // Number of transactions (items) in this group
+      const { transactions } = data[index] // Get the transactions for the current date group
+      const transactionsLength = transactions.length // Number of transactions in this group
 
       // Base height includes date label, separator, and separator margin
       let height = heights.DATE + heights.SEPARATOR + heights.SEPARATOR_MARGIN
 
-      // If there aren't transactions (items), return the base height
-      if (itemsLength === 0) return height
+      // If there aren't transactions, return the base height
+      if (transactionsLength === 0) return height
 
       // Add height for each header
-      height += itemsLength * heights.HEADER
+      height += transactionsLength * heights.HEADER
 
-      // Add gaps between transactions (items), except after the last one
-      height += (itemsLength - 1) * heights.TRANSACTION_GAP
+      // Add gaps between transactions, except after the last one
+      height += (transactionsLength - 1) * heights.TRANSACTION_GAP
 
-      // Calculate total number of events across all items in the group
-      const eventsLength = transactions.flatMap(({ events }) => events).length
+      const [firstTransaction] = transactions
 
-      // Add height for each event
-      height += eventsLength * heights.EVENT
+      // Calculate total number of items across all transactions in the group
+      const itemsLength =
+        firstTransaction.view === 'default'
+          ? (transactions as TUseTransactionsTransactionDefault[]).flatMap(({ events }) => events).length
+          : 0
+
+      // Add height for each item
+      height += itemsLength * heights.ITEM
 
       return height // Return the final estimated height
     },
@@ -181,7 +188,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
                   <Separator className="h-px max-h-px min-h-px" containerClassName="mb-2" />
 
                   {transactions.length > 0 && (
-                    <ul className="flex flex-col gap-y-4">
+                    <ul className="flex flex-col gap-y-2">
                       {transactions.map((transaction, index) => (
                         <TransactionActivityListItem key={`${transaction.txId}-${index}`} transaction={transaction} />
                       ))}
