@@ -19,6 +19,7 @@ import { useLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useCreateHardwareWallet, useTransformHardwareWalletToWatch } from './useHardwareWallet'
 import { useAppDispatch } from './useRedux'
+import { useResetHistory } from './useResetHistory'
 import { useLoginControlSelector } from './useUtilitySelector'
 
 const LOGIN_CONTROL_VALUE = 'true'
@@ -29,6 +30,7 @@ export const useLogin = () => {
   const { encryptedLoginControlRef } = useLoginControlSelector()
   const { createWallet, importAccounts } = useBlockchainActions()
   const { createHardwareWallet } = useCreateHardwareWallet()
+  const { resetHistory } = useResetHistory()
 
   const encryptPassword = useCallback(
     async (password: string) => {
@@ -59,8 +61,10 @@ export const useLogin = () => {
       await rendererApi.send('login:save-session', loginSession)
 
       dispatch(authReducerActions.setLoginSession(loginSession))
+
+      resetHistory('/wallets')
     },
-    [encryptPassword, encryptedLoginControlRef, dispatch, t]
+    [encryptPassword, encryptedLoginControlRef, dispatch, t, resetHistory]
   )
 
   const loginWithKey = useCallback(
@@ -83,8 +87,12 @@ export const useLogin = () => {
         accounts: accountsToCreate,
         wallet,
       })
+
+      await UtilsHelper.sleep(1000)
+
+      resetHistory('/wallets')
     },
-    [createWallet, dispatch, importAccounts]
+    [createWallet, dispatch, importAccounts, resetHistory]
   )
 
   const loginWithHardwareWallet = useCallback(
@@ -148,6 +156,7 @@ export const useLogout = () => {
   const dispatch = useAppDispatch()
   const { loginSessionRef } = useLoginSessionSelector()
   const { transformHardwareWalletToWatch } = useTransformHardwareWalletToWatch()
+  const { resetHistory } = useResetHistory()
 
   const logout = useCallback(async () => {
     const loginSession = undefined
@@ -165,7 +174,9 @@ export const useLogout = () => {
     dispatch(authReducerActions.resetTemporaryApplicationData())
 
     await rendererApi.send('tab:close-all')
-  }, [dispatch, loginSessionRef, transformHardwareWalletToWatch])
+
+    resetHistory('/login')
+  }, [dispatch, loginSessionRef, transformHardwareWalletToWatch, resetHistory])
 
   return { logout }
 }

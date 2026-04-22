@@ -1,12 +1,10 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@renderer/components/Button'
 import { TemporaryLimitsBox } from '@renderer/components/TemporaryLimitsBox'
 import { Textarea } from '@renderer/components/Textarea'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useImportActions } from '@renderer/hooks/useImportActions'
 import { useLogin } from '@renderer/hooks/useLogin'
@@ -15,7 +13,6 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import type { TAccountsToImport } from '@shared/types/blockchain'
 
 export const LoginKeyPage = () => {
-  const navigate = useNavigate()
   const { loginWithKey } = useLogin()
   const { modalNavigate } = useModalNavigate()
   const { t } = useTranslation('pages', { keyPrefix: 'loginKey' })
@@ -30,11 +27,6 @@ export const LoginKeyPage = () => {
           const accounts: TAccountsToImport = selectedAccounts.map(account => ({ ...account, type: 'standard' }))
 
           await loginWithKey(accounts, { name: tCommon('wallet.importedWalletName'), type: 'standard' })
-
-          // This adds a slight delay to improve user experience
-          await UtilsHelper.sleep(1000)
-
-          navigate('/wallets', { replace: true })
         },
       },
     })
@@ -53,11 +45,6 @@ export const LoginKeyPage = () => {
             type: 'standard',
             mnemonic: value,
           })
-
-          // This adds a slight delay to improve user experience
-          await UtilsHelper.sleep(1000)
-
-          navigate('/wallets', { replace: true })
         },
       },
     })
@@ -73,11 +60,6 @@ export const LoginKeyPage = () => {
     }))
 
     await loginWithKey(accountsToImport, { name: tCommon('wallet.watchAccount'), type: 'standard' })
-
-    // This adds a slight delay to improve user experience
-    await UtilsHelper.sleep(1000)
-
-    navigate('/wallets', { replace: true })
   }
 
   const { actionData, actionState, handleAct, handleSubmit, handleChange } = useImportActions(

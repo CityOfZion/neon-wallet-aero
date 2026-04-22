@@ -38,8 +38,6 @@ export const LoginNeonAccountPasswordPage = () => {
   const handleSubmit = async (data: TFormData) => {
     try {
       await loginWithPassword(data.password)
-
-      navigate('/wallets', { replace: true })
     } catch {
       setError('password', t('error.invalidPassword'))
     }

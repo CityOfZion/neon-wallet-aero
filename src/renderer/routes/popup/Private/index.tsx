@@ -17,7 +17,9 @@ const WalletTasksManagerSetup = LazyHelper.delayedLazy(() => import('./WalletTas
 export const PrivatePage = () => {
   const { loginSession } = useLoginSessionSelector()
 
-  if (!loginSession) return <Navigate to="/login" />
+  if (!loginSession) {
+    return <Navigate to="/login" replace />
+  }
 
   return (
     <Fragment>
