@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Tooltip } from '@renderer/components/Tooltip'
 
@@ -10,14 +11,20 @@ type TProps = {
   className?: string
 }
 
-export const TransactionActivityListTooltip = ({ data, className, children }: TProps) => (
-  <Tooltip
-    title={data.toString()}
-    delayDuration={0}
-    contentProps={{
-      className: StyleHelper.mergeStyles('text-center inline-block max-w-44 break-words', className),
-    }}
-  >
-    {children}
-  </Tooltip>
-)
+export const TransactionActivityListTooltip = ({ data, className, children }: TProps) => {
+  const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
+  const dataText = data.toString()
+  const title = !dataText || tCommonGeneral('emptyColumn') === dataText ? '' : dataText
+
+  return (
+    <Tooltip
+      title={title}
+      delayDuration={0}
+      contentProps={{
+        className: StyleHelper.mergeStyles('text-center inline-block max-w-44 wrap-break-word', className),
+      }}
+    >
+      {children}
+    </Tooltip>
+  )
+}

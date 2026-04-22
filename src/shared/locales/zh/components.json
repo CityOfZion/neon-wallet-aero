@@ -47,28 +47,27 @@
   },
   "transactionActivityList": {
     "exportTransactionsButtonLabel": "导出交易记录",
-    "empty": {
-      "notFoundTitle": "没有交易记录可显示",
-      "notFoundDescription": "进行交易后，记录将会显示在这里"
-    },
-    "item": {
+    "items": {
       "txIdLabel": "交易ID",
       "copyTxIdLabel": "复制交易ID",
       "pendingDataLabel": "处理中…",
-      "pendingTooltipLabel": "您的交易正在处理中 — 请稍候"
-    },
-    "event": {
+      "pendingTooltipLabel": "您的交易正在处理中，请稍候",
+      "copyAddressButtonLabel": "复制地址",
       "nftImageAltWithNameLabel": "NFT图片: {{ name }}",
       "nftImageAltLabel": "NFT图片",
       "columns": {
         "fromLabel": "发送方",
         "toLabel": "接收方",
-        "tokenLabel": "代币",
-        "tokenIdLabel": "代币ID",
         "amountLabel": "数量",
-        "collectionNameLabel": "合集",
-        "nameLabel": "名称"
+        "tokenLabel": "代币",
+        "tokenHashLabel": "代币哈希",
+        "nameLabel": "名称",
+        "collectionLabel": "合集"
       }
+    },
+    "empty": {
+      "notFoundTitle": "没有交易记录可显示",
+      "notFoundDescription": "进行交易后，记录将会显示在这里"
     }
   },
   "contactsList": {

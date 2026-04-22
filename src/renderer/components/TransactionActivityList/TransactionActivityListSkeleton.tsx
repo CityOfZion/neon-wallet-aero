@@ -10,8 +10,8 @@ export const TransactionActivityListSkeleton = () => (
         items={[
           <Skeleton.Item className="h-10 rounded-xs" />,
           <Skeleton.Item className="h-8.5 rounded-xs" />,
-          <Skeleton.Item className="h-13.25 rounded-xs" />,
-          <Skeleton.Item className="h-13.25 rounded-xs" />,
+          <Skeleton.Item className="h-14 rounded-xs" />,
+          <Skeleton.Item className="h-14 rounded-xs" />,
         ]}
       />
     ))}

@@ -12,23 +12,23 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 import { useSwapRecordByHashSelector } from '@renderer/hooks/useUtilitySelector'
 
-import MdCoffee from '@renderer/assets/images/md-coffee.svg?react'
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 import TbClock from '@renderer/assets/images/tb-clock.svg?react'
+import TbMug from '@renderer/assets/images/tb-mug.svg?react'
 import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
 import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 
-import { TransactionActivityListItemHeaderDetails } from './TransactionActivityListItemHeaderDetails'
+import { TransactionActivityListItemsHeaderContentDetails } from './TransactionActivityListItemsHeaderContentDetails'
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 type TProps = {
   transaction: TUseTransactionsTransaction
 }
 
-export const TransactionActivityListItemHeaderContent = ({ transaction }: TProps) => {
-  const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.item' })
+export const TransactionActivityListItemsHeaderContent = ({ transaction }: TProps) => {
+  const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.items' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { swapRecord } = useSwapRecordByHashSelector(transaction.txId)
   const { modalNavigate } = useModalNavigate()
@@ -54,22 +54,22 @@ export const TransactionActivityListItemHeaderContent = ({ transaction }: TProps
 
   return (
     <div className="flex size-full items-center justify-between gap-x-2 rounded bg-gray-700/60 px-1">
-      <div className="flex items-center gap-x-4 truncate whitespace-nowrap" onClick={handleCancelBubbleEvent}>
-        <TransactionActivityListItemHeaderDetails
+      <div className="flex items-center gap-x-2 truncate whitespace-nowrap" onClick={handleCancelBubbleEvent}>
+        <TransactionActivityListItemsHeaderContentDetails
           label={DateHelper.formatLocalized(transaction.date, { format: 'PP - p', language })}
           data={DateHelper.formatLocalized(transaction.date, { format: 'p', language })}
           icon={<TbClock aria-hidden />}
         />
 
         {transaction.isPending && (
-          <TransactionActivityListItemHeaderDetails
+          <TransactionActivityListItemsHeaderContentDetails
             className="animate-pulse"
             data={
               <TransactionActivityListTooltip data={t('pendingTooltipLabel')}>
                 <span className="text-orange">{t('pendingDataLabel')}</span>
               </TransactionActivityListTooltip>
             }
-            icon={<MdCoffee aria-hidden className="text-orange" />}
+            icon={<TbMug aria-hidden className="text-orange" />}
           />
         )}
       </div>
@@ -77,11 +77,11 @@ export const TransactionActivityListItemHeaderContent = ({ transaction }: TProps
       <div className="flex items-center gap-x-2 truncate whitespace-nowrap">
         {swapRecord && (
           <div className="flex items-center gap-x-2" onClick={handleCancelBubbleEvent}>
-            <TransactionActivityListItemHeaderDetails
+            <TransactionActivityListItemsHeaderContentDetails
               role="button"
               tabIndex={0}
               className="hover:opacity-90 focus:opacity-90 active:opacity-80"
-              data={<p className="text-blue">{tCommonGeneral('swap')}</p>}
+              data={<span className="text-blue">{tCommonGeneral('swap')}</span>}
               icon={<TbTransform aria-hidden className="text-blue" />}
               onKeyDown={handleKeyDownWrapper(handleGoToSwapDetails)}
               onClick={handleGoToSwapDetails}
