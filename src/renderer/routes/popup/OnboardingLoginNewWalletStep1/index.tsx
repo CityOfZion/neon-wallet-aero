@@ -40,7 +40,7 @@ export const OnboardingLoginNewWalletStep1Page = ({ onSubmit }: TProps) => {
       return
     }
 
-    navigate('/onboarding-login-new-wallet/2', { state: { password: data.password }, replace: true })
+    navigate('/onboarding-login-new-wallet/2', { state: { password: data.password } })
   }
 
   return (

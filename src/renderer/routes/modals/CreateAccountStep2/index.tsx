@@ -1,6 +1,5 @@
 import { Fragment } from 'react/jsx-runtime'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
@@ -16,6 +15,7 @@ import { useActions } from '@renderer/hooks/useActions'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useAddAccountHardwareWallet } from '@renderer/hooks/useHardwareWallet'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
+import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -39,7 +39,7 @@ export const CreateAccountStep2Modal = () => {
   const { modalErase, modalNavigateWrapper } = useModalNavigate()
   const { createStandardAccount } = useBlockchainActions()
   const { addHardwareAccount } = useAddAccountHardwareWallet()
-  const navigate = useNavigate()
+  const navigateReset = useNavigateReset()
 
   const {
     actionData: { selectedBlockchain, selectedWallet },
@@ -72,7 +72,7 @@ export const CreateAccountStep2Modal = () => {
         account = await addHardwareAccount(selectedWallet, trimmedAccountName)
       }
 
-      navigate('/wallets', { state: { account, wallet: selectedWallet }, replace: true })
+      navigateReset('/wallets', { state: { account, wallet: selectedWallet } })
       modalErase('bottom')
     } catch (error) {
       LoggerHelper.error(error, { where: 'CreateAccountStep2Modal', operation: 'handleSubmit' })

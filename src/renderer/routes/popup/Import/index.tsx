@@ -70,7 +70,6 @@ export const ImportPage = () => {
 
           navigate('/wallets', {
             state: { wallet },
-            replace: true,
           })
         },
       },

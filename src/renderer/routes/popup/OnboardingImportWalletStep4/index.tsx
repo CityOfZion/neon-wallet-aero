@@ -14,6 +14,7 @@ import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useSignup } from '@renderer/hooks/useLogin'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
+import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import NeonWalletIcon from '@renderer/assets/images/neon-wallet-icon.svg?react'
@@ -35,6 +36,7 @@ export const OnboardingImportWalletStep4Page = () => {
   const navigate = useNavigate()
   const { createWallet, importAccounts, saveContacts } = useBlockchainActions()
   const { signup } = useSignup()
+  const navigateReset = useNavigateReset()
   const dispatch = useAppDispatch()
 
   const [progress, setProgress] = useState(0)
@@ -78,7 +80,7 @@ export const OnboardingImportWalletStep4Page = () => {
 
       AnalyticsHelper.logEvent('onboarding_completed')
 
-      navigate('/onboarding-import-wallet/5', {
+      navigateReset('/onboarding-import-wallet/5', {
         state: { password: state.password },
       })
     } catch (error) {

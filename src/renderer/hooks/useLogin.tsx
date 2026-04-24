@@ -18,6 +18,7 @@ import type { TLoginSession } from '@shared/types/store'
 import { useLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useCreateHardwareWallet, useTransformHardwareWalletToWatch } from './useHardwareWallet'
+import { useNavigateReset } from './useNavigateReset'
 import { useAppDispatch } from './useRedux'
 import { useLoginControlSelector } from './useUtilitySelector'
 
@@ -29,6 +30,7 @@ export const useLogin = () => {
   const { encryptedLoginControlRef } = useLoginControlSelector()
   const { createWallet, importAccounts } = useBlockchainActions()
   const { createHardwareWallet } = useCreateHardwareWallet()
+  const navigateReset = useNavigateReset()
 
   const encryptPassword = useCallback(
     async (password: string) => {
@@ -59,8 +61,10 @@ export const useLogin = () => {
       await rendererApi.send('login:save-session', loginSession)
 
       dispatch(authReducerActions.setLoginSession(loginSession))
+
+      navigateReset('/wallets')
     },
-    [encryptPassword, encryptedLoginControlRef, dispatch, t]
+    [encryptPassword, encryptedLoginControlRef, dispatch, t, navigateReset]
   )
 
   const loginWithKey = useCallback(
@@ -83,8 +87,12 @@ export const useLogin = () => {
         accounts: accountsToCreate,
         wallet,
       })
+
+      await UtilsHelper.sleep(1000)
+
+      navigateReset('/wallets')
     },
-    [createWallet, dispatch, importAccounts]
+    [createWallet, dispatch, importAccounts, navigateReset]
   )
 
   const loginWithHardwareWallet = useCallback(
@@ -148,6 +156,7 @@ export const useLogout = () => {
   const dispatch = useAppDispatch()
   const { loginSessionRef } = useLoginSessionSelector()
   const { transformHardwareWalletToWatch } = useTransformHardwareWalletToWatch()
+  const navigateReset = useNavigateReset()
 
   const logout = useCallback(async () => {
     const loginSession = undefined
@@ -165,7 +174,9 @@ export const useLogout = () => {
     dispatch(authReducerActions.resetTemporaryApplicationData())
 
     await rendererApi.send('tab:close-all')
-  }, [dispatch, loginSessionRef, transformHardwareWalletToWatch])
+
+    navigateReset('/login')
+  }, [dispatch, loginSessionRef, transformHardwareWalletToWatch, navigateReset])
 
   return { logout }
 }
