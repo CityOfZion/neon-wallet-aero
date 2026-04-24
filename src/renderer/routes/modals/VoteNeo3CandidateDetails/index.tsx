@@ -73,11 +73,15 @@ export const VoteNeo3CandidateDetailsModal = () => {
 
   return (
     <BottomModalLayout heading={t('title')}>
-      <div className="flex flex-grow flex-col items-center gap-y-5 text-white">
+      <div className="flex grow flex-col items-center gap-y-5 text-white">
         {(logoUrl || isCandidateCoz) && (
           <div className="flex h-12 w-full max-w-44 items-center justify-center rounded-full bg-gray-800">
             {cloneElement(
-              !logoUrl && isCandidateCoz ? <CozLogo aria-label={name} /> : <img src={logoUrl} alt={name} />,
+              !logoUrl && isCandidateCoz ? (
+                <CozLogo aria-label={name} />
+              ) : (
+                <img src={logoUrl} alt={name} className="pointer-events-none" />
+              ),
               {
                 className: 'h-full max-h-8 w-fit max-w-32',
               }

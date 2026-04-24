@@ -57,7 +57,7 @@ const SubContent = forwardRef<
   <ContextMenuPrimitive.SubContent
     ref={ref}
     className={StyleHelper.mergeStyles(
-      'border-neon bg-asphalt data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-[1012] min-w-[10rem] overflow-hidden rounded-md border-t-3 p-1 shadow-lg',
+      'border-neon bg-asphalt data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-1012 min-w-40 overflow-hidden rounded-md border-t-3 p-1 shadow-lg',
       className
     )}
     {...props}
@@ -74,7 +74,7 @@ const Content = forwardRef<
     <ContextMenuPrimitive.Content
       ref={ref}
       className={StyleHelper.mergeStyles(
-        'border-neon bg-asphalt data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-[1012] min-w-[10rem] overflow-hidden rounded-md border-t-3 p-1 shadow-md',
+        'border-neon bg-asphalt data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-1012 min-w-40 overflow-hidden rounded-md border-t-3 p-1 shadow-md',
         className
       )}
       {...props}
@@ -91,7 +91,7 @@ const Item = forwardRef<
   <ContextMenuPrimitive.Item
     ref={ref}
     className={StyleHelper.mergeStyles(
-      'hover:bg-neon/10 focus:bg-neon/10 relative flex cursor-pointer items-center rounded-sm px-2 py-1.5 text-xs text-white transition-colors outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:cursor-default data-[disabled]:opacity-50',
+      'hover:bg-neon/10 focus:bg-neon/10 relative flex cursor-pointer items-center rounded-sm px-2 py-1.5 text-xs text-white transition-colors outline-none select-none data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50',
       { 'pl-8': inset },
       className
     )}
@@ -108,7 +108,7 @@ const CheckboxItem = forwardRef<
   <ContextMenuPrimitive.CheckboxItem
     ref={ref}
     className={StyleHelper.mergeStyles(
-      'hover:bg-neon/10 focus:bg-neon/10 relative flex cursor-pointer items-center rounded-sm py-1.5 pr-2 pl-8 text-xs text-white transition-colors outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:cursor-default data-[disabled]:opacity-50',
+      'hover:bg-neon/10 focus:bg-neon/10 relative flex cursor-pointer items-center rounded-sm py-1.5 pr-2 pl-8 text-xs text-white transition-colors outline-none select-none data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50',
       className
     )}
     checked={checked}
@@ -133,7 +133,7 @@ const RadioItem = forwardRef<
   <ContextMenuPrimitive.RadioItem
     ref={ref}
     className={StyleHelper.mergeStyles(
-      'hover:bg-neon/10 focus:bg-neon/10 relative flex cursor-pointer items-center rounded-sm py-1.5 pr-2 pl-8 text-xs text-white transition-colors outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:cursor-default data-[disabled]:opacity-50',
+      'hover:bg-neon/10 focus:bg-neon/10 relative flex cursor-pointer items-center rounded-sm py-1.5 pr-2 pl-8 text-xs text-white transition-colors outline-none select-none data-disabled:pointer-events-none data-disabled:cursor-default data-disabled:opacity-50',
       className
     )}
     {...props}

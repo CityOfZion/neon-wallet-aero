@@ -151,10 +151,10 @@ const Token = ({ amount, blockchain, symbol, className, ...props }: TTokenProps)
       {blockchain && <BlockchainIcon blockchain={blockchain} />}
       <span className="uppercase">
         {symbol}
-        {blockchain && <span className="text-gray-100"> | {tCommon(`blockchain.${blockchain}`)}</span>}
+        {blockchain && <span className="text-gray-100">{` | ${tCommon(`blockchain.${blockchain}`)}`}</span>}
       </span>
 
-      {amount && <span className="flex-grow text-end">{amount}</span>}
+      {amount && <span className="grow text-end">{amount}</span>}
     </div>
   )
 }

@@ -54,19 +54,19 @@ export const CreateWalletStep1Modal = () => {
 
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
-      <div className="flex items-center gap-4 px-3.5 pt-2 pb-4">
+      <div className="flex items-center gap-4 pt-2 pb-4">
         <MdiNumeric1Box className="text-blue size-6" aria-hidden />
         <h3 className="text-lg">{t('subtitle')}</h3>
       </div>
 
-      <div className="flex flex-col px-3.5 pb-5">
+      <div className="flex flex-col pb-5">
         <div className="border-b border-gray-100/30 pb-5">
           <p className="text-sm text-gray-100">{t('secretWordsText')}</p>
         </div>
         <p className="pt-3.5 text-sm text-gray-100">{t('writeDownText')}</p>
       </div>
 
-      <div className="bg-asphalt mx-3.5 flex items-center gap-4 rounded py-2">
+      <div className="bg-asphalt flex items-center gap-4 rounded py-2">
         <div className="flex w-full flex-wrap items-center justify-center gap-x-2 px-10 py-2 text-center text-lg">
           {isMounting || mnemonic.length === 0 ? (
             <Loader />
@@ -91,7 +91,7 @@ export const CreateWalletStep1Modal = () => {
         />
       </div>
 
-      <div className="mx-3.5 mt-2.5 mb-5 flex rounded-sm bg-gray-300/30">
+      <div className="mt-2.5 mb-5 flex rounded-sm bg-gray-300/30">
         <div className="rounded-l-sm bg-gray-300/30 px-3 py-5">
           <MdiRhombusOutline aria-hidden className="text-pink w-6" />
         </div>
@@ -100,7 +100,7 @@ export const CreateWalletStep1Modal = () => {
         </div>
       </div>
 
-      <div className="mt-auto flex gap-2.5 px-3.5">
+      <div className="mt-auto flex gap-2.5">
         <Button
           variant="card"
           label={t('cancelButtonLabel')}

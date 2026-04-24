@@ -63,18 +63,18 @@ export const CreateWalletStep3Modal = () => {
 
   return (
     <BottomModalLayout heading={t('title')}>
-      <form className="flex w-full flex-grow flex-col justify-between" onSubmit={handleAct(handlePressContinue)}>
+      <form className="flex w-full grow flex-col justify-between" onSubmit={handleAct(handlePressContinue)}>
         <div className="min-h-0 overflow-y-auto">
-          <div className="flex items-center gap-4 px-3.5 pt-2 pb-5">
+          <div className="flex items-center gap-4 pt-2 pb-5">
             <MdiNumeric3Box className="text-blue size-6" aria-hidden />
             <h3 className="text-lg">{t('subtitle')}</h3>
           </div>
 
-          <div className="mx-3.5 mb-5 border-b border-gray-100/30 pb-5">
+          <div className="mb-5 border-b border-gray-100/30 pb-5">
             <p className="text-sm text-gray-100">{t('walletNameText')}</p>
           </div>
 
-          <div className="flex flex-col items-center rounded px-3.5 py-2">
+          <div className="flex flex-col items-center rounded py-2">
             <Input
               name="name"
               id="name"
@@ -89,7 +89,7 @@ export const CreateWalletStep3Modal = () => {
           </div>
         </div>
 
-        <div className="mt-auto flex gap-2.5 px-3.5">
+        <div className="mt-auto flex gap-2.5">
           <Button
             variant="card"
             label={t('cancelButtonLabel')}

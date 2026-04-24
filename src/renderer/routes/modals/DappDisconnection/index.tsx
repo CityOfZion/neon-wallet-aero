@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+
 import { WalletKitHelper } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
@@ -38,19 +40,19 @@ export const DappDisconnectionModal = () => {
     <BottomModalLayout heading={t('title')}>
       <div className="flex flex-col items-center">
         <div className="bg-asphalt flex size-36 items-center justify-center rounded-full">
-          <TbPlugX aria-hidden className="text-pink size-[5rem]" />
+          <TbPlugX aria-hidden className="text-pink size-20" />
         </div>
 
         <p className="pt-7 text-lg text-white">{sessions.length > 1 ? t('disconnectAllApps') : t('disconnectApp')}</p>
 
         {sessions.length === 1 ? (
-          <>
-            <div className="mt-3 flex min-h-[2rem] w-full items-center justify-center rounded bg-gray-300/15 px-3">
+          <Fragment>
+            <div className="mt-3 flex min-h-8 w-full items-center justify-center rounded bg-gray-300/15 px-3">
               <p className="p-2 text-center text-xs">{sessions[0].peer.metadata.name}</p>
             </div>
 
             <span className="px-2 pt-4 text-center text-xs text-gray-100">{sessions[0].peer.metadata.description}</span>
-          </>
+          </Fragment>
         ) : (
           <div className="flex flex-col px-2 pt-4 text-center text-sm text-gray-100">
             <span>{t('totalDapps', { totalDapps: sessions.length })}</span>

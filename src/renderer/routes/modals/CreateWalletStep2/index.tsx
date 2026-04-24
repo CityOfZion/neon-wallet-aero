@@ -75,12 +75,12 @@ export const CreateWalletStep2Modal = () => {
 
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
-      <div className="flex items-center gap-4 px-3.5 pt-2 pb-4">
+      <div className="flex items-center gap-4 pt-2 pb-4">
         <MdiNumeric2Box className="text-blue size-6" aria-hidden />
         <h3 className="text-lg">{t('subtitle')}</h3>
       </div>
 
-      <div className="px-3.5 pb-5 text-sm text-gray-100">
+      <div className="pb-5 text-sm text-gray-100">
         <Trans t={t} i18nKey="selectWordsText">
           start
           <span className="font-bold text-white">middle</span>
@@ -88,7 +88,7 @@ export const CreateWalletStep2Modal = () => {
         </Trans>
       </div>
 
-      <div className="flex flex-col items-center rounded px-3.5 py-2">
+      <div className="flex flex-col items-center rounded py-2">
         <div className="grid w-full grid-cols-3 items-center justify-center gap-2 text-center text-lg">
           {shuffledWords.map((item, index) => {
             const isWordPressed = wordWasAlreadyPressed(index)
@@ -109,7 +109,7 @@ export const CreateWalletStep2Modal = () => {
         </div>
       </div>
 
-      <div className="mx-3.5 mt-2.5 mb-5 flex rounded-sm bg-gray-300/30">
+      <div className="mt-2.5 mb-5 flex rounded-sm bg-gray-300/30">
         <div className="rounded-l-sm bg-gray-300/30 px-3 py-5">
           <MdiInformationOutline aria-hidden className="w-6 text-gray-100" />
         </div>
@@ -118,7 +118,7 @@ export const CreateWalletStep2Modal = () => {
         </div>
       </div>
 
-      <div className="mt-auto flex gap-2.5 px-3.5">
+      <div className="mt-auto flex gap-2.5">
         <Button variant="card" label={t('cancelButtonLabel')} colorSchema="gray" onClick={modalNavigateWrapper(-1)} />
         <Button
           className="w-full"

@@ -358,10 +358,10 @@
     "title": "Rede",
     "selectNetwork": "Selecione uma rede"
   },
-  "networkNodeSelection": {
-    "title": "Seleção de nó",
-    "description": "Se você estiver tendo problemas de desempenho, tente selecionar um nó personalizado abaixo",
-    "listLabel": "Top 10 nós listados por latência",
+  "networkUrlSelection": {
+    "title": "Seleção de URL de rede",
+    "description": "Se você estiver tendo problemas de desempenho, tente selecionar outra rede abaixo",
+    "listLabel": "Lista de URLs de rede",
     "refreshButtonLabel": "Atualizar",
     "selectAutomaticallyLabel": "Selecionar automaticamente",
     "blockHeight": "Altura do bloco: {{height}}",

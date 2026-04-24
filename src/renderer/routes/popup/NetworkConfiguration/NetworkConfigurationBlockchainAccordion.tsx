@@ -39,6 +39,7 @@ export const NetworkConfigurationBlockchainAccordion = ({ blockchain }: TProps) 
         <NetworkConfigurationBlockchainButton
           label={t('currentNetwork')}
           subLabel={network.name}
+          disabled={service.availableNetworks.length <= 1 && !service.isCustomNetworkSupported}
           onClick={modalNavigateWrapper('network-selection', {
             state: {
               blockchain,
@@ -48,10 +49,10 @@ export const NetworkConfigurationBlockchainAccordion = ({ blockchain }: TProps) 
 
         <NetworkConfigurationBlockchainButton
           className="border-none"
-          label={t('nodeSelection')}
+          label={t('urlSelection')}
           subLabel={network.url}
-          disabled={service.rpcNetworkUrls.length <= 1}
-          onClick={modalNavigateWrapper('network-node-selection', {
+          disabled={service.networkUrls.length <= 1}
+          onClick={modalNavigateWrapper('network-url-selection', {
             state: {
               blockchain,
             },

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef } from 'react'
 
-import type { TIntentTransferParam } from '@cityofzion/blockchain-service'
+import type { TTransferIntent } from '@cityofzion/blockchain-service'
 import { BSBigNumberHelper, isCalculableFee } from '@cityofzion/blockchain-service'
-import { lte } from 'lodash'
+import lte from 'lodash/lte'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
@@ -127,7 +127,7 @@ const SendPage = () => {
     )
       return
 
-    const intents: TIntentTransferParam[] = actionData.recipients.map(recipient => ({
+    const intents: TTransferIntent[] = actionData.recipients.map(recipient => ({
       amount: recipient.amount!,
       receiverAddress: recipient.address!,
       token: recipient.token!.token,
@@ -272,7 +272,7 @@ const SendPage = () => {
 
           return { receiverAddress, tokenHash: token.hash, amount, token }
         })
-        .filter(recipient => recipient !== null) as TIntentTransferParam[]
+        .filter(recipient => recipient !== null) as TTransferIntent[]
 
       const key = await EncryptionHelper.decrypt(encryptedKey, encryptedPassword)
 
@@ -313,77 +313,64 @@ const SendPage = () => {
 
     if (!fields || isCalculatingForm || actionState.isActing || isFeeInvalid) return
 
-    await confirmAction({ account: fields.selectedAccount })
+    const { selectedAccount, serviceAccount, intents, service } = fields
+
+    await confirmAction({ account: selectedAccount })
 
     try {
-      const transactionHashes = await fields.service.transfer({
-        senderAccount: fields.serviceAccount,
-        intents: fields.intents,
-      })
-
+      const transactions = await service.transfer({ senderAccount: serviceAccount, intents })
       const pendingTransactions: TUseTransactionsTransaction[] = []
+      const blockchain = service.name
+      const notificationPrefix = 'pages:send'
+      const notificationSuccessPrefix = `${notificationPrefix}.successNotification`
+      const notificationFailurePrefix = `${notificationPrefix}.failureNotification`
 
-      if (fields.service.isMultiTransferSupported) {
-        pendingTransactions.push(
-          TransactionHelper.buildPendingTransaction({
-            fromAccount: fields.selectedAccount,
-            txId: transactionHashes[0],
-            events: fields.intents.map(intent => ({
-              amount: intent.amount,
-              toAddress: intent.receiverAddress,
-              token: intent.token,
-              toAccount: accountsMapRef.current.get(
-                AccountHelper.buildAccountKey({
-                  address: intent.receiverAddress,
-                  blockchain: fields.service.name,
-                })
-              ),
-            })),
-          })
+      const waitTransactionParams = {
+        successNotification: {
+          title: `${notificationSuccessPrefix}.title`,
+          previewBody: `${notificationSuccessPrefix}.previewBody`,
+        },
+        failureNotification: {
+          title: `${notificationFailurePrefix}.title`,
+          previewBody: `${notificationFailurePrefix}.previewBody`,
+        },
+      }
+
+      if (service.isMultiTransferSupported) {
+        const receiverAccounts = intents.map(({ receiverAddress }) =>
+          accountsMapRef.current.get(AccountHelper.buildAccountKey({ address: receiverAddress, blockchain }))
         )
+
+        const pendingTransaction = TransactionHelper.buildPendingTransaction({
+          transaction: transactions[0],
+          account: selectedAccount,
+          senderAccount: selectedAccount,
+          receiverAccounts,
+        })
+
+        pendingTransactions.push(pendingTransaction)
       } else {
-        transactionHashes.forEach((txId, index) => {
-          if (!txId) return
+        transactions.forEach((transaction, index) => {
+          const intent = intents[index]
 
-          const intent = fields.intents[index]
-
-          pendingTransactions.push(
-            TransactionHelper.buildPendingTransaction({
-              fromAccount: fields.selectedAccount,
-              txId,
-              events: [
-                {
-                  amount: intent.amount,
-                  toAddress: intent.receiverAddress,
-                  token: intent.token,
-                  toAccount: accountsMapRef.current.get(
-                    AccountHelper.buildAccountKey({
-                      address: intent.receiverAddress,
-                      blockchain: fields.service.name,
-                    })
-                  ),
-                },
-              ],
-            })
+          const receiverAccount = accountsMapRef.current.get(
+            AccountHelper.buildAccountKey({ address: intent?.receiverAddress, blockchain })
           )
+
+          const pendingTransaction = TransactionHelper.buildPendingTransaction({
+            transaction,
+            account: selectedAccount,
+            senderAccount: selectedAccount,
+            receiverAccounts: receiverAccount ? [receiverAccount] : undefined,
+          })
+
+          pendingTransactions.push(pendingTransaction)
         })
       }
 
-      pendingTransactions.forEach(pendingTransaction => {
-        dispatch(
-          thunks.waitPendingTransaction({
-            pendingTransaction,
-            successNotification: {
-              title: 'pages:send.successNotification.title',
-              previewBody: 'pages:send.successNotification.previewBody',
-            },
-            failureNotification: {
-              title: 'pages:send.failureNotification.title',
-              previewBody: 'pages:send.failureNotification.previewBody',
-            },
-          })
-        )
-      })
+      pendingTransactions.forEach(pendingTransaction =>
+        dispatch(thunks.waitPendingTransaction({ ...waitTransactionParams, pendingTransaction }))
+      )
 
       ToastHelper.success({ message: t('sendSuccess.toast') })
 

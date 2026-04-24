@@ -34,7 +34,7 @@ export class AccountHelper {
     if (account.type === 'hardware' && hasLedger(service)) {
       const serviceAccount = await service.generateAccountFromPublicKey(key)
       serviceAccount.isHardware = true
-      serviceAccount.bip44Path = BSKeychainHelper.getBip44Path(service.bip44DerivationPath, account.order)
+      serviceAccount.bipPath = BSKeychainHelper.getBipPath(service.bipDerivationPath, account.order)
 
       return serviceAccount
     }

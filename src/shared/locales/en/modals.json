@@ -358,10 +358,10 @@
     "title": "Network",
     "selectNetwork": "Select a network"
   },
-  "networkNodeSelection": {
-    "title": "Node Selection",
-    "description": "If you're experiencing performance issues, try selecting a custom node below",
-    "listLabel": "Top 10 nodes listed by latency",
+  "networkUrlSelection": {
+    "title": "Network URL selection",
+    "description": "If you're experiencing performance issues, try selecting an another network below",
+    "listLabel": "Network URLs list",
     "refreshButtonLabel": "Refresh",
     "selectAutomaticallyLabel": "Select automatically",
     "blockHeight": "Block height: {{height}}",

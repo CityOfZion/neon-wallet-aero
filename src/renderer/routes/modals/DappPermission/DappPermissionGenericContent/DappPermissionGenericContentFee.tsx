@@ -60,14 +60,14 @@ export const DappPermissionGenericContentFee = ({
             {feeQuery.isLoading || !feeQuery.data ? (
               <Loader />
             ) : (
-              <p className="text-sm font-semibold text-gray-100 capitalize">
+              <p className="text-sm font-semibold text-gray-100">
                 {feeQuery.data} {sessionDetails.service.feeToken.symbol}
               </p>
             )}
           </div>
         }
       >
-        <p className="text-sm text-white capitalize">{t('feeLabel')}</p>
+        <p className="text-sm text-white">{t('feeLabel')}</p>
       </Details.Header>
     </Details.Root>
   )

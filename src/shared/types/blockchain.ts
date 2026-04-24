@@ -5,6 +5,7 @@ import type { TAccount, TAccountType, TWallet, TWalletBackupStatus, TWalletType 
 export type TBlockchainServiceKey =
   | 'neo3'
   | 'neoLegacy'
+  | 'bitcoin'
   | 'ethereum'
   | 'neox'
   | 'polygon'

@@ -262,7 +262,7 @@ export const useNeonCreateBackup = () => {
         }
       })
 
-      const fileName = `Neon-Backup-${format(new Date(), 'yyyy-MM-dd')}.${NeonBackupHelper.fileExtension}`
+      const fileName = `NEON-backup-${format(new Date(), 'yyyy-MM-dd')}.${NeonBackupHelper.fileExtension}`
 
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
     } catch (error) {

@@ -10,9 +10,9 @@ type TProps = {
 export const TokenListSkeleton = ({ isLoading, children }: TProps) => (
   <Skeleton.Root
     loading={isLoading}
-    className="mt-2 mb-4 flex min-h-0 w-full flex-col gap-y-2"
+    className="my-4 flex min-h-0 w-full flex-col gap-y-2"
     items={Array.from({ length: 4 }, () => null).map((_, index) => (
-      <Skeleton.Item key={`token-list-skeleton-item-${index}`} className="h-15.5 rounded-xs" />
+      <Skeleton.Item key={`token-list-skeleton-item-${index}`} className="h-14 rounded-xs" />
     ))}
   >
     {children}

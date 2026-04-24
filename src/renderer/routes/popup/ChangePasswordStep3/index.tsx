@@ -17,10 +17,12 @@ export const ChangePasswordStep3Page = () => {
     <div className="flex size-full flex-col items-center justify-between px-5 pb-10">
       <div className="flex flex-col items-center gap-5">
         <div className="bg-asphalt flex size-36 items-center justify-center rounded-full">
-          <TbRosetteDiscountCheck aria-hidden className="text-blue size-[7rem]" />
+          <TbRosetteDiscountCheck aria-hidden className="text-blue size-28" />
         </div>
+
         <span className="w-80 text-center text-lg">{t('subtitle')}</span>
       </div>
+
       <Button
         label={t('buttonLabel')}
         type="button"

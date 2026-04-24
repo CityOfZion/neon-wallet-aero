@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, Fragment } from 'react'
 
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -35,7 +35,7 @@ export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
         {loading ? (
           <Loader />
         ) : (
-          <>
+          <Fragment>
             <FieldActionsMenu value={value || ''} disabled={isDisabled} readOnly={readOnly} onChange={onChange}>
               <input
                 className={StyleHelper.mergeStyles(
@@ -52,7 +52,7 @@ export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
             </FieldActionsMenu>
 
             {children}
-          </>
+          </Fragment>
         )}
       </div>
     )

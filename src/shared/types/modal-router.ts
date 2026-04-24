@@ -189,7 +189,7 @@ type TNetworkSelectionModalState = {
   blockchain: TBlockchainServiceKey
 }
 
-type TNetworkNodeSelectionModalState = {
+type TNetworkUrlSelectionModalState = {
   blockchain: TBlockchainServiceKey
 }
 
@@ -344,7 +344,7 @@ export type TModalRouterRouteTypes = {
   'swap-details': TSwapDetailsModalState
   'swap-confirmation': TSwapConfirmationModalState
   'network-selection': TNetworkSelectionModalState
-  'network-node-selection': TNetworkNodeSelectionModalState
+  'network-url-selection': TNetworkUrlSelectionModalState
   'account-receive-selection': TAccountReceiveSelectionModalState
   'neo3-neox-bridge-info': undefined
   'neo3-neox-bridge-confirmation': TNeo3NeoXBridgeConfirmationModalState

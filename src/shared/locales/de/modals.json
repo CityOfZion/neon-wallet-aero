@@ -358,10 +358,10 @@
     "title": "Netzwerk",
     "selectNetwork": "Netzwerk auswählen"
   },
-  "networkNodeSelection": {
-    "title": "Node-Auswahl",
-    "description": "Wenn Sie Leistungsprobleme haben, versuchen Sie, einen benutzerdefinierten Node unten auszuwählen",
-    "listLabel": "Top 10 Nodes nach Latenz sortiert",
+  "networkUrlSelection": {
+    "title": "Netzwerk-URL-Auswahl",
+    "description": "Wenn Sie Leistungsprobleme haben, versuchen Sie, ein anderes Netzwerk unten auszuwählen",
+    "listLabel": "Liste der Netzwerk-URLs",
     "refreshButtonLabel": "Aktualisieren",
     "selectAutomaticallyLabel": "Automatisch auswählen",
     "blockHeight": "Blockhöhe: {{height}}",

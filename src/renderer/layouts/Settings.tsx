@@ -38,6 +38,7 @@ export const SettingsLayout = ({ children, title, hideBackButton }: TProps) => {
           {!hideBackButton && (
             <IconButton
               type="button"
+              className="mr-auto"
               icon={<TbArrowLeft aria-hidden />}
               onClick={handleBack}
               aria-label={tCommonGeneral('back')}

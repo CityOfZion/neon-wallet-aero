@@ -1,4 +1,4 @@
-import { isCalculableFee, isClaimable } from '@cityofzion/blockchain-service'
+import { isClaimable } from '@cityofzion/blockchain-service'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
@@ -59,25 +59,20 @@ const getUnclaimedInfos = async (
 
   let fee = '0'
 
-  if (isCalculableFee(blockchainService) && unclaimedNumber > 0) {
-    const key = await EncryptionHelper.decrypt(account.encryptedKey, encryptedPassword)
+  if (unclaimedNumber > 0) {
+    try {
+      const key = await EncryptionHelper.decrypt(account.encryptedKey, encryptedPassword)
 
-    if (!key) {
-      throw new AppError(t('hooks:useUnclaimedQuery.errors.noKey', { address: account.address }))
+      if (!key) {
+        throw new AppError(t('hooks:useUnclaimedQuery.errors.noKey', { address: account.address }))
+      }
+
+      const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
+
+      fee = await blockchainService.calculateClaimFee(serviceAccount)
+    } catch {
+      /* empty */
     }
-
-    const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
-
-    fee = await blockchainService.calculateTransferFee({
-      senderAccount: serviceAccount,
-      intents: [
-        {
-          amount: '0',
-          receiverAddress: account.address,
-          token: blockchainService.burnToken,
-        },
-      ],
-    })
   }
 
   return { unclaimed, unclaimedNumber, fee, feeNumber: parseFloat(fee) }
@@ -116,6 +111,7 @@ export const useUnclaimedMutation = () => {
       }
 
       const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
+
       if (!isClaimable(blockchainService)) {
         throw new AppError(
           t('hooks:useUnclaimedQuery.errors.blockchainIsNotClaimable', {
@@ -127,33 +123,29 @@ export const useUnclaimedMutation = () => {
 
       const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
       const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
-      const txId = await blockchainService.claim(serviceAccount)
-      const token = blockchainService.burnToken
+      const transaction = await blockchainService.claim(serviceAccount)
 
       const pendingTransaction = TransactionHelper.buildPendingTransaction({
-        fromAccount: account,
-        txId,
-        events: [
-          {
-            toAccount: account,
-            token,
-            amount: '0',
-            toAddress: account.address,
-          },
-        ],
-        type: 'claim',
+        transaction,
+        account,
+        senderAccount: account,
+        receiverAccounts: [account],
       })
+
+      const notificationPrefix = 'hooks:useUnclaimedMutation'
+      const notificationSuccessPrefix = `${notificationPrefix}.successNotification`
+      const notificationFailurePrefix = `${notificationPrefix}.failureNotification`
 
       dispatch(
         thunks.waitPendingTransaction({
           pendingTransaction,
           successNotification: {
-            title: 'hooks:useUnclaimedMutation.successNotification.title',
-            previewBody: 'hooks:useUnclaimedMutation.successNotification.previewBody',
+            title: `${notificationSuccessPrefix}.title`,
+            previewBody: `${notificationSuccessPrefix}.previewBody`,
           },
           failureNotification: {
-            title: 'hooks:useUnclaimedMutation.failureNotification.title',
-            previewBody: 'hooks:useUnclaimedMutation.failureNotification.previewBody',
+            title: `${notificationFailurePrefix}.title`,
+            previewBody: `${notificationFailurePrefix}.previewBody`,
           },
         })
       )
@@ -164,7 +156,9 @@ export const useUnclaimedMutation = () => {
     },
     onSuccess: (_data, account) => {
       const queryKey = buildQueryKeyUnclaimed(account, selectedNetworkByBlockchain[account.blockchain])
+
       queryClient.setQueryData(queryKey, { unclaimed: '0', unclaimedNumber: 0, fee: '0', feeNumber: 0 })
+
       ToastHelper.success({ message: tHook('messages.claimedSuccess') })
     },
   })

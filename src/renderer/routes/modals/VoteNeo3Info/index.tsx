@@ -11,7 +11,7 @@ export const VoteNeo3InfoModal = () => {
 
   return (
     <BottomModalLayout heading={t('title')}>
-      <div className="mb-3 flex flex-grow flex-col items-center justify-between gap-y-4 px-4 text-sm text-white">
+      <div className="mb-3 flex grow flex-col justify-between gap-y-4 px-4 text-sm text-white">
         <div className="flex w-full justify-center pb-2">
           <TbChartBar aria-hidden className="text-blue size-20 stroke-1" />
         </div>

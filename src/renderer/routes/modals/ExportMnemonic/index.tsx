@@ -43,13 +43,11 @@ export const ExportMnemonicModal = () => {
     const printContent = walletMnemonic
     const printWindow = window.open('', '_blank')
     if (printWindow) {
-      printWindow.document.write(`
-      <html>
-      <body>
-        <pre>${printContent}</pre>
-      </body>
-      </html>
-    `)
+      printWindow.document.write(`<html lang="en" translate="no">
+  <body>
+    <pre>${printContent}</pre>
+  </body>
+</html>`)
       printWindow.document.close()
       printWindow.print()
     }
@@ -74,9 +72,9 @@ export const ExportMnemonicModal = () => {
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
       <div className="flex h-[84%] w-full flex-col items-center justify-between">
         <div className="flex w-full flex-col gap-6 pb-8">
-          <div className="bg-asphalt flex h-[34px] items-center justify-center rounded">{wallet.name}</div>
+          <div className="bg-asphalt flex h-8.5 items-center justify-center rounded">{wallet.name}</div>
           <div className="text-center text-sm text-gray-100 print:hidden">{t('description')}</div>
-          <div className="bg-asphalt flex min-h-[6rem] flex-col rounded p-2">
+          <div className="bg-asphalt flex min-h-24 flex-col rounded p-2">
             <div className="flex items-center justify-center gap-2">
               <p className="mb-2 text-center text-sm text-white">{t('yourMnemonic')}</p>
             </div>
@@ -85,7 +83,7 @@ export const ExportMnemonicModal = () => {
 
             <div className="flex flex-wrap justify-center gap-2 px-10 py-5">
               {isMounting || walletMnemonic.length === 0 ? (
-                <Loader />
+                <Loader className="size-8" />
               ) : (
                 walletMnemonic.split(' ').map((word, index) => (
                   <span className="text-lg text-white" key={`${word}-${index}`}>

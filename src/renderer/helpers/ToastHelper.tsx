@@ -22,7 +22,7 @@ export class ToastHelper {
     return (
       <div
         className={StyleHelper.mergeStyles(
-          'mx-auto flex w-[var(--width)] items-center gap-5 rounded p-5 text-sm font-medium shadow-lg',
+          'mx-auto flex w-(--width) items-center gap-5 rounded p-5 text-sm font-medium shadow-lg',
           className
         )}
       >
@@ -31,7 +31,7 @@ export class ToastHelper {
             className: StyleHelper.mergeStyles('size-6 min-size-6 max-size-6', icon.props.className),
           })}
 
-        <div className="flex-grow">{message}</div>
+        <div className="grow">{message}</div>
 
         {closeable && (
           <button

@@ -77,7 +77,7 @@ export const ExportFullTransactionInfo = ({
             />
           )
         }
-        leftIcon={<BlockchainIcon blockchain={selectedAccount.blockchain} type="blue" className="size-4" />}
+        leftIcon={<BlockchainIcon blockchain={selectedAccount.blockchain} className="size-4" />}
       />
 
       <Separator />

@@ -6,7 +6,7 @@
       "autoAcceptErrorMessage": "WalletConnect-Anfrage Verarbeitung fehlgeschlagen"
     },
     "hardwareWalletManagerSetup": {
-      "requestingPermission": "Warten Sie Hardware-Gerät-Bestätigung..."
+      "requestingPermission": "Warten Sie Hardware-Gerät-Bestätigung…"
     },
     "accountTasksManagerSetup": {
       "useFraudulentTokensNotificationProcess": {
@@ -271,9 +271,9 @@
   },
   "networkConfiguration": {
     "title": "Netzwerkkonfiguration",
-    "connectedNeoAndEthLabel": "Sie sind mit den Neo- und Ethereum-Netzwerken verbunden",
+    "connectedNetworksLabel": "Sie sind mit einigen Netzwerken verbunden",
     "currentNetwork": "Netzwerk",
-    "nodeSelection": "Node"
+    "urlSelection": "URL"
   },
   "language": {
     "title": "Sprache",

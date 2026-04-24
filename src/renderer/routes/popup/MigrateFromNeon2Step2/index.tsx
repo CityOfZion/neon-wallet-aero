@@ -23,11 +23,11 @@ const SuccessFooter = () => {
 
   const handleView = () => {
     modalErase('bottom')
-    navigate('/wallets')
+    navigate('/wallets', { replace: true })
   }
 
   return (
-    <div className="flex w-full flex-grow flex-col items-center justify-end gap-7">
+    <div className="flex w-full grow flex-col items-center justify-end gap-7">
       <Separator />
       <Button variant="card" label={t('returnToSettingsButtonLabel')} onClick={handleView} className="w-full" />
     </div>

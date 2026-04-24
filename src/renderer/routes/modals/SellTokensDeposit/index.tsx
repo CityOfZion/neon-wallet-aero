@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 
-import type { TBSToken, TIntentTransferParam } from '@cityofzion/blockchain-service'
+import type { TBSToken, TTransferIntent } from '@cityofzion/blockchain-service'
 import { BSBigNumberHelper, isCalculableFee } from '@cityofzion/blockchain-service'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -111,7 +111,7 @@ export const SellTokensDepositModal = () => {
     const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current!.encryptedPassword)
     const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
 
-    const intent: TIntentTransferParam = {
+    const intent: TTransferIntent = {
       amount,
       receiverAddress: address,
       token,
@@ -187,12 +187,12 @@ export const SellTokensDepositModal = () => {
 
       const { serviceAccount, intent } = transferParams
 
-      const [transactionHash] = await service.transfer({
+      const [transaction] = await service.transfer({
         senderAccount: serviceAccount,
         intents: [intent],
       })
 
-      const toAccount = accountsMapRef.current.get(
+      const receiverAccount = accountsMapRef.current.get(
         AccountHelper.buildAccountKey({
           address: intent.receiverAddress,
           blockchain: account.blockchain,
@@ -200,28 +200,26 @@ export const SellTokensDepositModal = () => {
       )
 
       const pendingTransaction = TransactionHelper.buildPendingTransaction({
-        fromAccount: account,
-        txId: transactionHash,
-        events: [
-          {
-            amount: intent.amount,
-            toAccount: toAccount,
-            toAddress: intent.receiverAddress,
-            token: intent.token,
-          },
-        ],
+        transaction,
+        account,
+        senderAccount: account,
+        receiverAccounts: receiverAccount ? [receiverAccount] : undefined,
       })
+
+      const notificationPrefix = 'modals:sellTokensDeposit'
+      const notificationSuccessPrefix = `${notificationPrefix}.successNotification`
+      const notificationFailurePrefix = `${notificationPrefix}.failureNotification`
 
       dispatch(
         thunks.waitPendingTransaction({
           pendingTransaction,
           successNotification: {
-            title: 'modals:sellTokensDeposit.successNotification.title',
-            previewBody: 'modals:sellTokensDeposit.successNotification.previewBody',
+            title: `${notificationSuccessPrefix}.title`,
+            previewBody: `${notificationSuccessPrefix}.previewBody`,
           },
           failureNotification: {
-            title: 'modals:sellTokensDeposit.failureNotification.title',
-            previewBody: 'modals:sellTokensDeposit.failureNotification.previewBody',
+            title: `${notificationFailurePrefix}.title`,
+            previewBody: `${notificationFailurePrefix}.previewBody`,
           },
         })
       )

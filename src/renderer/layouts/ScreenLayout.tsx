@@ -61,7 +61,7 @@ export const ScreenLayout = ({
       {heading && (
         <header
           className={StyleHelper.mergeStyles(
-            'relative flex items-center justify-between pb-5 text-white',
+            'relative mb-5 flex items-center justify-between text-white',
             headerClassName
           )}
         >

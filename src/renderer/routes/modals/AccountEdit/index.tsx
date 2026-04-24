@@ -63,7 +63,7 @@ export const AccountEditModal = () => {
         <p className="text-blue truncate text-sm">{wallet?.name}</p>
       </div>
 
-      <form className="mt-6 flex flex-1 flex-col gap-y-4 px-4" onSubmit={handleAct(handleSubmit)}>
+      <form className="mt-6 flex flex-1 flex-col gap-y-4" onSubmit={handleAct(handleSubmit)}>
         <Input
           contentClassName="bg-asphalt"
           maxLength={20}
@@ -108,7 +108,7 @@ export const AccountEditModal = () => {
 
       <Separator className="mt-auto mb-2" />
 
-      <div className="flex flex-col gap-y-4 px-4">
+      <div className="flex flex-col gap-y-4">
         <p className="mt-2 text-xs font-bold text-gray-300 uppercase">{t('deleteAccountLabel')}</p>
         <p className="text-sm">{t('deleteAccountDescription')}</p>
 

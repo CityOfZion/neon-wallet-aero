@@ -64,13 +64,13 @@
 }
 
 @utility min-size-* {
-  min-width: --value(--spacing-*, [length], [percentage]);
-  min-height: --value(--spacing-*, [length], [percentage]);
+  min-width: calc(var(--spacing) * --value(number));
+  min-height: calc(var(--spacing) * --value(number));
 }
 
 @utility max-size-* {
-  max-width: --value(--spacing-*, [length], [percentage]);
-  max-height: --value(--spacing-*, [length], [percentage]);
+  max-width: calc(var(--spacing) * --value(number));
+  max-height: calc(var(--spacing) * --value(number));
 }
 
 /*
@@ -115,7 +115,7 @@
   }
 
   .buy-and-sell-tokens-iframe-container iframe {
-    @apply !h-[720px] !w-[420px] !border-none;
+    @apply h-180! w-105! border-none!;
   }
 }
 

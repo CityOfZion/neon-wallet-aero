@@ -96,7 +96,7 @@ export const useCreateHardwareWallet = () => {
               type: 'hardware',
               key: info.account.key,
               wallet,
-              order: BSKeychainHelper.extractIndexFromPath(info.account.bip44Path!),
+              order: BSKeychainHelper.extractIndexFromPath(info.account.bipPath!),
             })
           }
 

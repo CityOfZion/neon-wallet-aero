@@ -4,6 +4,7 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import ArbitrumIcon from '@renderer/assets/images/blockchains/arbitrum.svg?react'
 import BaseIcon from '@renderer/assets/images/blockchains/base.svg?react'
+import BitcoinIcon from '@renderer/assets/images/blockchains/bitcoin.svg?react'
 import EthereumIcon from '@renderer/assets/images/blockchains/ethereum.svg?react'
 import NeoLegacyIcon from '@renderer/assets/images/blockchains/neo-legacy.svg?react'
 import Neo3Icon from '@renderer/assets/images/blockchains/neo3.svg?react'
@@ -22,6 +23,7 @@ const ICONS_BY_BLOCKCHAIN: Record<TBlockchainServiceKey, React.FC<React.SVGProps
   neoLegacy: NeoLegacyIcon,
   ethereum: EthereumIcon,
   neox: NeoxIcon,
+  bitcoin: BitcoinIcon,
   polygon: PolygonIcon,
   base: BaseIcon,
   arbitrum: ArbitrumIcon,

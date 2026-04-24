@@ -24,11 +24,11 @@ type TFormData = {
 }
 
 export const ChangePasswordStep1Page = () => {
-  const { loginSessionRef } = useLoginSessionSelector()
   const { t } = useTranslation('pages', { keyPrefix: 'changePassword.step1' })
   const navigate = useNavigate()
-  const [isPasswordValid, setIsPasswordValid] = useState(false)
+  const { loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
+  const [isPasswordValid, setIsPasswordValid] = useState(false)
 
   const { handleAct, actionState, actionData, setData, setDataFromEventWrapper, setError } = useActions<TFormData>({
     newPassword: '',
@@ -53,8 +53,8 @@ export const ChangePasswordStep1Page = () => {
   }
 
   return (
-    <div className="flex size-full flex-col items-center px-3">
-      <form className="flex h-full flex-grow flex-col items-center" onSubmit={handleAct(handleSubmit)}>
+    <div className="flex size-full flex-col items-center">
+      <form className="flex h-full grow flex-col items-center" onSubmit={handleAct(handleSubmit)}>
         <span className="mb-6 text-sm">{t('subtitle')}</span>
         <div className="flex size-full flex-col justify-between">
           <div className="flex h-full flex-col">

@@ -59,7 +59,7 @@ export class HardwareWalletHelper {
       throw new AppError(t('hardwareWallet.errors.bluetoothNotSupported'))
     }
 
-    const device = await navigator.bluetooth
+    return await navigator.bluetooth
       .requestDevice({
         filters: getBluetoothServiceUuids().map(uuid => ({
           services: [uuid],
@@ -68,8 +68,6 @@ export class HardwareWalletHelper {
       .catch(() => {
         throw new AppError(t('hardwareWallet.errors.userCancelled'))
       })
-
-    return device
   }
 
   private static async getGrantedHidDevices() {
@@ -164,15 +162,15 @@ export class HardwareWalletHelper {
   static async ensureConnection({
     address,
     blockchain,
-    bip44Path,
+    bipPath,
   }: THardwareWalletHelperEnsureConnectionParams): Promise<Transport> {
-    if (!bip44Path) throw new AppError(t('hardwareWallet.errors.missingBip44Path'))
+    if (!bipPath) throw new AppError(t('hardwareWallet.errors.missingBipPath'))
 
     const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
     if (!hasLedger(service))
       throw new AppError(t('hardwareWallet.errors.blockchainNotSupported', { blockchain: blockchain }))
 
-    const index = BSKeychainHelper.extractIndexFromPath(bip44Path)
+    const index = BSKeychainHelper.extractIndexFromPath(bipPath)
 
     if (this.transport) {
       const hardwareAccount = await service.ledgerService.getAccount(this.transport, index)

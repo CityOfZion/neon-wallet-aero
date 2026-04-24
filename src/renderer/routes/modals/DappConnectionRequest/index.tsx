@@ -104,7 +104,7 @@ export const DappConnectionRequestModal = () => {
           <Details.Root className="mt-3">
             <Details.Header
               rightElement={
-                <span className="text-right text-sm text-gray-300">
+                <span className="text-right text-sm break-all text-gray-300">
                   {proposalDetails.service.walletConnectService.chain}
                 </span>
               }
@@ -128,7 +128,7 @@ export const DappConnectionRequestModal = () => {
             <Button
               label={t('rejectButtonLabel')}
               colorSchema="gray"
-              className="min-w-[7.5rem]"
+              className="min-w-30"
               onClick={startReject}
               loading={isRejecting}
               disabled={isAccepting}
@@ -136,7 +136,7 @@ export const DappConnectionRequestModal = () => {
 
             <Button
               label={t('acceptButtonLabel')}
-              className="flex-grow"
+              className="grow"
               onClick={startAccept}
               loading={isAccepting}
               disabled={isRejecting}

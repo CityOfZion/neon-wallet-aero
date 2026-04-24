@@ -12,11 +12,11 @@ export class DateHelper {
     'zh-Hant': dateFnsLocales.zhTW,
   }
 
-  static getNowUnix = (): number => {
+  static getNowUnix(): number {
     return Date.now() / 1000
   }
 
-  static formatLocalized = (date: Date | string | number, options: TDateHelperFormatLocalizedOptions): string => {
+  static formatLocalized(date: Date | string | number, options: TDateHelperFormatLocalizedOptions): string {
     if (typeof date === 'string') {
       date = new Date(date)
     } else if (typeof date === 'number') {
@@ -28,11 +28,11 @@ export class DateHelper {
     })
   }
 
-  static format(date: Date | string, formatStr: string): string {
+  static format(date: Date | string, formatString: string): string {
     if (typeof date === 'string') {
       date = new Date(date)
     }
 
-    return format(date, formatStr)
+    return format(date, formatString)
   }
 }

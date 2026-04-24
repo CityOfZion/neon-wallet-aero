@@ -1,10 +1,9 @@
-import type { TBSToken } from '@cityofzion/blockchain-service'
+import type { TTransaction } from '@cityofzion/blockchain-service'
 import type { Event } from '@sentry/react'
 import type { JSX, ReactNode } from 'react'
 import type { ToastT } from 'sonner'
 
 import type { TBlockchainServiceKey } from './blockchain'
-import type { TUseTransactionsTransaction } from './hooks'
 import type { TAccount, TCurrency, TLanguage, TLastIndexesByWallet } from './store'
 
 export type TAccountHelperPredicateParams = {
@@ -30,7 +29,7 @@ export type THardwareWalletHelperGetAccountParams = {
 export type THardwareWalletHelperEnsureConnectionParams = {
   blockchain: TBlockchainServiceKey
   address: string
-  bip44Path?: string
+  bipPath?: string
 }
 
 export type THardwareWalletHelperConnectionType = 'usb' | 'bluetooth'
@@ -111,10 +110,10 @@ export type TToastHelperToastOptions = Omit<ToastT, 'id'> & {
 }
 
 export type TTransactionHelperBuildPendingTransactionParams = {
-  txId: string
-  fromAccount: TAccount
-  type?: Exclude<TUseTransactionsTransaction['type'], 'bridgeNeo3NeoX'>
-  events?: { toAccount?: TAccount; toAddress?: string; token: TBSToken; amount: string; method?: string }[]
+  transaction: TTransaction<TBlockchainServiceKey>
+  account: TAccount
+  senderAccount?: TAccount
+  receiverAccounts?: (TAccount | undefined)[]
 }
 
 export type TLoggerHelperOptions = {

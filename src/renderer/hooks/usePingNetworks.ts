@@ -6,21 +6,20 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { TBaseOptions, TNode } from '@shared/types/query'
+import type { TBaseOptions, TPingNetwork } from '@shared/types/query'
 
 import { useSelectedNetworkByBlockchainSelector, useSelectedNetworkSelector } from './useSettingsSelector'
 
-// TODO: rename to ping networks in the Bitcoin issue
-const buildNodesQueryKey = (blockchain: TBlockchainServiceKey, id: TBSNetworkId) => {
+const buildPingNetworksQueryKey = (blockchain: TBlockchainServiceKey, id: TBSNetworkId) => {
   return ['ping-networks', blockchain, id]
 }
 
-const pingNodes = async (blockchain: TBlockchainServiceKey): Promise<TNode[]> => {
+const pingNetworks = async (blockchain: TBlockchainServiceKey): Promise<TPingNetwork[]> => {
   const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
-  const promises = service.rpcNetworkUrls.map(async url => {
+  const promises = service.networkUrls.map(async url => {
     try {
-      return await service.pingNode(url)
+      return await service.pingNetwork(url)
     } catch {
       return { height: undefined, latency: undefined, url }
     }
@@ -42,32 +41,32 @@ const pingNodes = async (blockchain: TBlockchainServiceKey): Promise<TNode[]> =>
   })
 }
 
-export const usePingNodes = (blockchain: TBlockchainServiceKey, queryOptions?: TBaseOptions<TNode[]>) => {
+export const usePingNetworks = (blockchain: TBlockchainServiceKey, queryOptions?: TBaseOptions<TPingNetwork[]>) => {
   const { network } = useSelectedNetworkSelector(blockchain)
 
   return useQuery({
-    queryKey: buildNodesQueryKey(blockchain, network.id),
-    queryFn: pingNodes.bind(null, blockchain),
+    queryKey: buildPingNetworksQueryKey(blockchain, network.id),
+    queryFn: pingNetworks.bind(null, blockchain),
     ...queryOptions,
   })
 }
 
-export const useLazyPingNodes = () => {
+export const useLazyPingNetworks = () => {
   const queryClient = useQueryClient()
   const { selectedNetworkByBlockchainRef } = useSelectedNetworkByBlockchainSelector()
 
-  const getPingNodes = useCallback(
+  const getPingNetworks = useCallback(
     async (blockchain: TBlockchainServiceKey) => {
       const selectedNetwork = selectedNetworkByBlockchainRef.current[blockchain]
 
       return await queryClient.ensureQueryData({
-        queryKey: buildNodesQueryKey(blockchain, selectedNetwork.id),
-        queryFn: pingNodes.bind(null, blockchain),
+        queryKey: buildPingNetworksQueryKey(blockchain, selectedNetwork.id),
+        queryFn: pingNetworks.bind(null, blockchain),
         staleTime: 0,
       })
     },
     [queryClient, selectedNetworkByBlockchainRef]
   )
 
-  return { getPingNodes }
+  return { getPingNetworks }
 }

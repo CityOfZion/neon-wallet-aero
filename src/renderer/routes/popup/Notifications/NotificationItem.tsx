@@ -116,15 +116,15 @@ export const NotificationItem = ({ notification }: TProps) => {
           }),
         })}
 
-        <div className="flex w-full min-w-0 grow flex-col gap-y-1 text-left">
-          <div className="flex items-center gap-x-2">
+        <div className="flex w-full min-w-0 grow flex-col text-left">
+          <div className="mb-0.5 flex items-center gap-x-2">
             <p className="text-1xs text-gray-300">
               {DateHelper.formatLocalized(notification.date, { format: 'Pp', language })}
             </p>
 
             {notification.provider && (
               <p
-                className={StyleHelper.mergeStyles('text-1xs rounded-full bg-gray-800 px-2 py-0.25 text-gray-300', {
+                className={StyleHelper.mergeStyles('text-1xs rounded-full bg-gray-800 px-2 py-px text-gray-300', {
                   'bg-gray-300/15 text-gray-100/50': notification.read,
                 })}
               >
@@ -153,7 +153,7 @@ export const NotificationItem = ({ notification }: TProps) => {
           </p>
 
           {notification.related?.address && (
-            <div className="text-1xs flex items-center gap-x-2 text-gray-300">
+            <div className="text-1xs mt-0.5 flex items-center gap-x-2 text-gray-300">
               {account && (
                 <p className="w-full max-w-[50%] truncate">{t('relatedAccountLabel', { name: account.name })}</p>
               )}

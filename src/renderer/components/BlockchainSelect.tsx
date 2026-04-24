@@ -29,7 +29,7 @@ export const BlockchainSelect = ({ value, onSelect }: TProps) => {
         <Select.Value placeholder={t('selectPlaceholder')}>
           {value && (
             <div className="flex items-center gap-x-2 text-sm text-gray-100">
-              <BlockchainIcon blockchain={value} type="white" />
+              <BlockchainIcon blockchain={value} />
               {tCommonBlockchain(value)}
             </div>
           )}
@@ -45,7 +45,7 @@ export const BlockchainSelect = ({ value, onSelect }: TProps) => {
               value={blockchain}
               className="flex h-10 items-center justify-start gap-x-2 text-sm text-gray-100 hover:bg-gray-300/15 focus:bg-gray-300/15"
             >
-              <BlockchainIcon blockchain={blockchain} type="white" />
+              <BlockchainIcon blockchain={blockchain} />
               <Select.ItemText>{tCommonBlockchain(blockchain)}</Select.ItemText>
             </Select.Item>
 

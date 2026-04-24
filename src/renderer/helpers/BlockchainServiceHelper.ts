@@ -1,4 +1,5 @@
 import type { TBSAccount } from '@cityofzion/blockchain-service'
+import { BSBitcoinConstants } from '@cityofzion/bs-bitcoin'
 import type { BSAggregator } from '@cityofzion/bs-multichain'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
@@ -16,6 +17,7 @@ export class BlockchainServiceHelper {
     try {
       // Dynamically import to avoid circular dependency
       const { HardwareWalletHelper } = await import('./HardwareWalletHelper')
+
       return await HardwareWalletHelper.ensureConnection(account)
     } catch (error) {
       throw new AppError(t('hardwareWallet.errors.hardwareWalletIsNotConnectOrUnlocked'), error)
@@ -29,21 +31,28 @@ export class BlockchainServiceHelper {
   static async setup() {
     if (this.bsAggregator) return
 
-    const [{ BSAggregator }, { BSNeo3 }, { BSNeoLegacy }, { BSNeoX }, { BSEthereum }, { BSSolana }] = await Promise.all(
-      [
+    const [{ BSAggregator }, { BSNeo3 }, { BSNeoLegacy }, { BSNeoX }, { BSBitcoin }, { BSEthereum }, { BSSolana }] =
+      await Promise.all([
         import('@cityofzion/bs-multichain'),
         import('@cityofzion/bs-neo3'),
         import('@cityofzion/bs-neo-legacy'),
         import('@cityofzion/bs-neox'),
+        import('@cityofzion/bs-bitcoin'),
         import('@cityofzion/bs-ethereum'),
         import('@cityofzion/bs-solana'),
-      ]
-    )
+      ])
 
     const services = await Promise.all([
       Promise.resolve(new BSNeo3('neo3', undefined, this.#getHardwareWalletTransport.bind(this))),
       Promise.resolve(new BSNeoLegacy('neoLegacy', undefined, this.#getHardwareWalletTransport.bind(this))),
       Promise.resolve(new BSNeoX('neox', undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(
+        new BSBitcoin(
+          'bitcoin',
+          import.meta.env.PROD ? undefined : BSBitcoinConstants.TESTNET_NETWORK,
+          this.#getHardwareWalletTransport.bind(this)
+        )
+      ),
       Promise.resolve(new BSSolana('solana', undefined, this.#getHardwareWalletTransport.bind(this))),
       Promise.resolve(new BSEthereum('ethereum', 'ethereum', undefined, this.#getHardwareWalletTransport.bind(this))),
       Promise.resolve(new BSEthereum('polygon', 'polygon', undefined, this.#getHardwareWalletTransport.bind(this))),

@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 
+import type { TBSAccount } from '@cityofzion/blockchain-service'
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { type BSNeo3, BSNeo3Constants } from '@cityofzion/bs-neo3'
 import { useQueryClient } from '@tanstack/react-query'
@@ -68,7 +69,7 @@ export const VoteNeo3ConfirmationModal = () => {
   const dispatch = useAppDispatch()
 
   const feeBn = BSBigNumberHelper.fromNumber(calculateVoteFeeQuery.data || '0')
-  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3
+  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3<'neo3'>
   const exchangeQuery = useExchange([{ blockchain: 'neo3', tokens: [blockchainService.feeToken] }])
 
   const isCurrentVote = voteDetailsByAddressQuery.data?.candidatePubKey === candidate.pubKey
@@ -124,29 +125,32 @@ export const VoteNeo3ConfirmationModal = () => {
       await confirmAction({ account: neo3Account })
 
       const key = await EncryptionHelper.decrypt(neo3Account.encryptedKey, loginSessionRef.current?.encryptedPassword)
-      const account = await AccountHelper.getServiceAccount({ account: neo3Account!, key })
+      const account = (await AccountHelper.getServiceAccount({ account: neo3Account!, key })) as TBSAccount<'neo3'>
 
-      const txId = await blockchainService.voteService.vote({
+      const transaction = await blockchainService.voteService.vote({
         account,
         candidatePubKey: candidate.pubKey,
       })
 
       const pendingTransaction = TransactionHelper.buildPendingTransaction({
-        txId,
-        fromAccount: neo3Account,
-        events: [{ amount: '0', token: blockchainService.burnToken, method: 'vote' }],
+        transaction,
+        account: neo3Account,
       })
+
+      const notificationPrefix = 'modals:voteNeo3Confirmation.notifications'
+      const notificationSuccessPrefix = `${notificationPrefix}.voteSuccessNotification`
+      const notificationFailurePrefix = `${notificationPrefix}.voteFailureNotification`
 
       dispatch(
         thunks.waitPendingTransaction({
           pendingTransaction,
           successNotification: {
-            title: 'modals:voteNeo3Confirmation.notifications.voteSuccessNotification.title',
-            previewBody: 'modals:voteNeo3Confirmation.notifications.voteSuccessNotification.previewBody',
+            title: `${notificationSuccessPrefix}.title`,
+            previewBody: `${notificationSuccessPrefix}.previewBody`,
           },
           failureNotification: {
-            title: 'modals:voteNeo3Confirmation.notifications.voteFailureNotification.title',
-            previewBody: 'modals:voteNeo3Confirmation.notifications.voteFailureNotification.previewBody',
+            title: `${notificationFailurePrefix}.title`,
+            previewBody: `${notificationFailurePrefix}.previewBody`,
           },
         })
       )
@@ -211,7 +215,7 @@ export const VoteNeo3ConfirmationModal = () => {
             </ul>
 
             <div className="flex w-full rounded bg-gray-900/50 px-4 py-3 whitespace-nowrap">
-              <span className="text-blue flex-grow">{t('feeLabel')}</span>
+              <span className="text-blue grow">{t('feeLabel')}</span>
               <div className="flex flex-col">
                 <span className="truncate text-right">
                   {feeBn.toFixed()} {blockchainService.feeToken.symbol}

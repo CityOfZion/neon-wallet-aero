@@ -61,7 +61,7 @@ export const WalletEditModal = () => {
         <h3 className="text-blue text-sm">{t('subtitle')}</h3>
       </div>
 
-      <form className="mt-6 flex flex-1 flex-col gap-y-4 px-4" onSubmit={handleAct(handleSubmit)}>
+      <form className="mt-6 flex flex-1 flex-col gap-y-4" onSubmit={handleAct(handleSubmit)}>
         <Input
           name="name"
           id="name"
@@ -93,7 +93,7 @@ export const WalletEditModal = () => {
 
       <Separator className="mt-auto mb-2" />
 
-      <div className="mt-2 flex flex-col gap-y-4 px-4">
+      <div className="mt-2 flex flex-col gap-y-4">
         <div className="flex flex-col gap-2">
           <p className="text-xs font-bold text-gray-300 uppercase">{t('deleteWalletLabel')}</p>
           <p className="text-sm">{t('deleteWalletDescription')}</p>

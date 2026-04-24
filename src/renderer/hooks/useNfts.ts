@@ -21,7 +21,7 @@ export const useNfts = (account: TAccount) => {
 
       return await blockchainService.nftDataService.getNftsByAddress({
         address: account.address,
-        cursor: pageParam,
+        nextPageParams: pageParam,
       })
     },
     initialPageParam: undefined as string | undefined,
@@ -32,5 +32,5 @@ export const useNfts = (account: TAccount) => {
     return query.data?.pages?.flatMap(page => page.items) || []
   }, [query.data])
 
-  return { aggregatedData, ...query }
+  return { ...query, aggregatedData }
 }

@@ -13,7 +13,7 @@ import { Separator } from '@renderer/components/Separator'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { usePingNodes } from '@renderer/hooks/useNodes'
+import { usePingNetworks } from '@renderer/hooks/usePingNetworks'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useSelectedNetworkSelector } from '@renderer/hooks/useSettingsSelector'
 
@@ -25,23 +25,22 @@ import TbReload from '@renderer/assets/images/tb-reload.svg?react'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import type { TModalState } from '@shared/types/modal'
 
-export const NetworkNodeSelectionModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'networkNodeSelection' })
+export const NetworkUrlSelectionModal = () => {
+  const { t } = useTranslation('modals', { keyPrefix: 'networkUrlSelection' })
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const dispatch = useAppDispatch()
-  const { blockchain } = useModalState<TModalState<'network-node-selection'>>()
+  const { blockchain } = useModalState<TModalState<'network-url-selection'>>()
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const { network } = useSelectedNetworkSelector(blockchain)
-
-  const pingNodesQuery = usePingNodes(blockchain, { refetchInterval: 5000 })
+  const pingNetworksQuery = usePingNetworks(blockchain, { refetchInterval: 5000 })
 
   const [selectedUrl, setSelectedUrl] = useState(network.url)
   const [isAutomatic, setIsAutomatic] = useState(network.isAutomatic || false)
 
   const handleIsAutomaticChange = (value: boolean) => {
-    const firstNode = pingNodesQuery.data?.[0]
+    const firstNetwork = pingNetworksQuery.data?.[0]
 
-    if (value && firstNode) setSelectedUrl(firstNode.url)
+    if (value && firstNetwork) setSelectedUrl(firstNetwork.url)
 
     setIsAutomatic(value)
   }
@@ -72,7 +71,7 @@ export const NetworkNodeSelectionModal = () => {
             flat
             colorSchema="white"
             clickableProps={{ className: 'text-sm' }}
-            onClick={() => pingNodesQuery.refetch()}
+            onClick={() => pingNetworksQuery.refetch()}
           />
 
           <div className="flex gap-2.5">
@@ -83,25 +82,25 @@ export const NetworkNodeSelectionModal = () => {
               id="isAutomatic"
               checked={isAutomatic}
               onCheckedChange={handleIsAutomaticChange}
-              disabled={pingNodesQuery.isLoading}
+              disabled={pingNetworksQuery.isLoading}
             />
           </div>
         </div>
 
         <div className="min-h-0 grow overflow-auto">
-          {pingNodesQuery.isLoading ? (
+          {pingNetworksQuery.isLoading ? (
             <Loader className="mt-4" />
           ) : (
             <Radio.Group value={selectedUrl} onValueChange={handleSelectRadioItem}>
-              {pingNodesQuery.data?.map((node, index, array) => {
+              {pingNetworksQuery.data?.map((currentNetwork, index, array) => {
                 const isNeoxAntiMev =
                   blockchain === 'neox' &&
-                  BSNeoXConstants.ANTI_MEV_RPC_LIST_BY_NETWORK_ID[network.id].some(url => url === node.url)
+                  BSNeoXConstants.ANTI_MEV_RPC_LIST_BY_NETWORK_ID[network.id].some(url => url === currentNetwork.url)
 
                 return (
                   <Radio.Item
-                    key={node.url}
-                    value={node.url}
+                    key={currentNetwork.url}
+                    value={currentNetwork.url}
                     className="h-17"
                     withSeparator={index !== array.length - 1}
                   >
@@ -111,7 +110,7 @@ export const NetworkNodeSelectionModal = () => {
                           <div
                             className={StyleHelper.mergeStyles(
                               'min-size-1.5 size-1.5 rounded-full',
-                              match(node.latency)
+                              match(currentNetwork.latency)
                                 .with(undefined, () => 'bg-gray-300')
                                 .with(
                                   P.when(value => value < 400),
@@ -127,8 +126,8 @@ export const NetworkNodeSelectionModal = () => {
                         </div>
 
                         <p className="min-w-12 text-gray-300">
-                          {typeof node.latency === 'number'
-                            ? t('latency', { latency: node.latency })
+                          {typeof currentNetwork.latency === 'number'
+                            ? t('latency', { latency: currentNetwork.latency })
                             : tCommon('emptyColumn')}
                         </p>
                       </div>
@@ -140,12 +139,15 @@ export const NetworkNodeSelectionModal = () => {
                           </span>
                         )}
 
-                        <p className="block w-full truncate text-left">{node.url}</p>
+                        <p className="block w-full truncate text-left">{currentNetwork.url}</p>
 
                         <p className="text-left leading-3.5 text-gray-300">
-                          {typeof node.height === 'number'
-                            ? t('blockHeight', { height: node.height })
-                            : tCommon('emptyColumn')}
+                          {t('blockHeight', {
+                            height:
+                              typeof currentNetwork.height === 'number'
+                                ? currentNetwork.height
+                                : tCommon('emptyColumn'),
+                          })}
                         </p>
                       </div>
                     </div>
@@ -186,4 +188,4 @@ export const NetworkNodeSelectionModal = () => {
   )
 }
 
-export default NetworkNodeSelectionModal
+export default NetworkUrlSelectionModal

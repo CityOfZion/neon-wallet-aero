@@ -11,13 +11,15 @@ export const ForgottenPasswordSuccessPage = () => {
 
   return (
     <ForgottenPasswordLayout heading={t('title')} withBackButton={false}>
-      <div className="flex flex-grow flex-col items-center gap-y-8 text-center">
+      <div className="flex grow flex-col items-center gap-y-8 text-center">
         <TbRosetteDiscountCheck className="bg-asphalt text-blue mt-8 size-25 rounded-full stroke-1 p-1.5" aria-hidden />
+
         <p className="text-white">{t('text')}</p>
-        <p className="flex-grow text-sm text-gray-300">{t('description')}</p>
+        <p className="grow text-sm text-gray-300">{t('description')}</p>
 
         <Link
           to="/login/neon-account/onboarding"
+          replace
           label={t('goToWelcomeLinkLabel')}
           colorSchema="neon"
           variant="card"

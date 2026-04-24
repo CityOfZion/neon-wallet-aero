@@ -99,7 +99,7 @@ export const OnboardingImportWalletStep4Page = () => {
 
       <Progress value={progress} className="mt-7" />
 
-      <NeonWalletIcon aria-hidden className="absolute -bottom-11 -left-11 h-[12.5rem] w-[13.75rem] fill-gray-700/30" />
+      <NeonWalletIcon aria-hidden className="absolute -bottom-11 -left-11 h-50 w-55 fill-gray-700/30" />
     </Fragment>
   )
 }

@@ -376,8 +376,8 @@ export const Neo3NeoXBridgePage = () => {
       }
     >
       <div>
-        <section className="flex min-h-0 flex-grow flex-col rounded text-white">
-          <div className="flex min-h-0 flex-grow flex-col items-center text-sm">
+        <section className="flex min-h-0 grow flex-col rounded text-white">
+          <div className="flex min-h-0 grow flex-col items-center text-sm">
             <Button
               label={t('explanation.title')}
               colorSchema="neon"
@@ -389,8 +389,8 @@ export const Neo3NeoXBridgePage = () => {
 
             <Separator />
 
-            <div className="flex w-full flex-grow flex-col items-center py-2">
-              <div className="mx-auto flex w-full max-w-[36rem] flex-col items-center pt-2 pb-4">
+            <div className="flex w-full grow flex-col items-center py-2">
+              <div className="mx-auto flex w-full max-w-xl flex-col items-center pt-2 pb-4">
                 <div className="flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
                   <ActionStep title={t('form.assets')} leftIcon={<TbDiamond aria-hidden />} className="font-bold" />
 

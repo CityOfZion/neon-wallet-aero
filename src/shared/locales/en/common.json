@@ -42,6 +42,7 @@
     "neox": "Neo X",
     "polygon": "Polygon",
     "base": "Base",
+    "bitcoin": "Bitcoin",
     "arbitrum": "Arbitrum",
     "solana": "Solana"
   },
@@ -61,7 +62,7 @@
       "hardwareWalletNotFound": "There is no hardware wallet connected",
       "hardwareWalletIsNotConnectOrUnlocked": "To proceed with this operation, please make sure your hardware wallet is unlocked",
       "blockchainNotSupported": "The blockchain {{blockchain}} does not support hardware wallets",
-      "missingBip44Path": "BIP44 path is missing for the hardware wallet account",
+      "missingBipPath": "BIP path is missing for the hardware wallet account",
       "accountIsNotHardware": "The selected account is not a hardware wallet account",
       "userCancelled": "The operation was cancelled by the user",
       "hidNotSupported": "WebHID is not supported in this browser",
