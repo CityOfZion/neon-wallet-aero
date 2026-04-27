@@ -13,6 +13,7 @@ type TProps = {
   label?: string
   url?: string
   className?: string
+  labelClassName?: string
 }
 
 const Content = ({ data }: TContentProps) =>
@@ -24,20 +25,18 @@ const Content = ({ data }: TContentProps) =>
     data
   )
 
-export const TransactionActivityListEventColumn = ({ data, label, url, className }: TProps) => {
-  return (
-    <div className={StyleHelper.mergeStyles('flex max-w-20.5 min-w-20.5 flex-col', className)}>
-      {label && <p className="font-medium text-gray-300">{label}</p>}
+export const TransactionActivityListItemsColumn = ({ data, label, url, className, labelClassName }: TProps) => (
+  <div className={StyleHelper.mergeStyles('flex w-20.5 max-w-20.5 min-w-20.5 flex-col', className)}>
+    {label && <p className={StyleHelper.mergeStyles('font-medium text-gray-300', labelClassName)}>{label}</p>}
 
-      {url ? (
-        <Link to={url} target="_blank" className="text-neon flex">
-          <Content data={data} />
-        </Link>
-      ) : (
-        <span className="flex text-white">
-          <Content data={data} />
-        </span>
-      )}
-    </div>
-  )
-}
+    {url ? (
+      <Link to={url} target="_blank" className="text-neon flex max-w-fit">
+        <Content data={data} />
+      </Link>
+    ) : (
+      <span className="flex max-w-fit text-white">
+        <Content data={data} />
+      </span>
+    )}
+  </div>
+)

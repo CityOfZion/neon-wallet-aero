@@ -9,7 +9,6 @@ import { Separator } from '@renderer/components/Separator'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
-import { ExportTransactionsHelper } from '@renderer/helpers/ExportTransactionsHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
@@ -20,14 +19,13 @@ import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/ho
 
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
 
-import type { TUseTransactionsTransactionDefault } from '@shared/types/hooks'
 import type { TAccount } from '@shared/types/store'
 
 import { IconButton } from '../IconButton'
 import { Tooltip } from '../Tooltip'
 import { TransactionActivityListDateRange } from './TransactionActivityListDateRange'
 import { TransactionActivityListEmpty } from './TransactionActivityListEmpty'
-import { TransactionActivityListItem } from './TransactionActivityListItem'
+import { TransactionActivityListItems } from './TransactionActivityListItems'
 import { TransactionActivityListSkeleton } from './TransactionActivityListSkeleton'
 
 type TActionsData = {
@@ -43,7 +41,7 @@ const heights = {
   DATE: 40,
   DATE_GAP: 16,
   HEADER: 34,
-  ITEM: 53,
+  ITEM: 56,
   SEPARATOR: 1,
   SEPARATOR_MARGIN: 8,
   TRANSACTION_GAP: 8,
@@ -66,12 +64,10 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
   })
 
   const { dateFrom, dateTo } = actionData
-
   const isDateDisabled = isLoading ? true : { after: dateNow }
 
   const contentRef = useRef<HTMLUListElement>(null)
 
-  // TODO: change variable names, comments and height when UTXO is implemented
   const { virtualizer } = useVirtualization({
     contentRef,
     count: data.length,
@@ -80,11 +76,14 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
       const { transactions } = data[index] // Get the transactions for the current date group
       const transactionsLength = transactions.length // Number of transactions in this group
 
-      // Base height includes date label, separator, and separator margin
-      let height = heights.DATE + heights.SEPARATOR + heights.SEPARATOR_MARGIN
+      // Base height includes date label and separator
+      let height = heights.DATE + heights.SEPARATOR
 
       // If there aren't transactions, return the base height
       if (transactionsLength === 0) return height
+
+      // Add height for separator margin
+      height += heights.SEPARATOR_MARGIN
 
       // Add height for each header
       height += transactionsLength * heights.HEADER
@@ -92,13 +91,18 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
       // Add gaps between transactions, except after the last one
       height += (transactionsLength - 1) * heights.TRANSACTION_GAP
 
-      const [firstTransaction] = transactions
+      let itemsLength = 0
 
       // Calculate total number of items across all transactions in the group
-      const itemsLength =
-        firstTransaction.view === 'default'
-          ? (transactions as TUseTransactionsTransactionDefault[]).flatMap(({ events }) => events).length
-          : 0
+      transactions.forEach(transaction => {
+        if (transaction.view === 'utxo') {
+          itemsLength += Math.max(transaction.inputs.length, transaction.outputs.length) + transaction.nfts.length
+
+          return
+        }
+
+        itemsLength += transaction.events.length
+      })
 
       // Add height for each item
       height += itemsLength * heights.ITEM
@@ -111,11 +115,11 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
   const hasFullTransactionsService = hasFullTransactions(service)
 
   const handleSelectDateFrom = (dateFrom: Date) => {
-    setData(ExportTransactionsHelper.calculateDateFromSelectionMaxOneYear({ dateFrom, dateTo }))
+    setData(DateHelper.calculateDateFromSelectionMaxOneYear({ dateFrom, dateTo }))
   }
 
   const handleSelectDateTo = (dateTo: Date) => {
-    setData(ExportTransactionsHelper.calculateDateToSelectionMaxOneYear({ dateFrom, dateTo }))
+    setData(DateHelper.calculateDateToSelectionMaxOneYear({ dateFrom, dateTo }))
   }
 
   useInfiniteScrollVirtualization({
@@ -171,6 +175,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
           >
             {virtualizer.getVirtualItems().map(virtualItem => {
               const { date, transactions } = data[virtualItem.index]
+              const hasTransactions = transactions.length > 0
 
               return (
                 <li
@@ -185,12 +190,12 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
                     {DateHelper.formatLocalized(date, { format: 'PPP', language })}
                   </h3>
 
-                  <Separator className="h-px max-h-px min-h-px" containerClassName="mb-2" />
+                  <Separator containerClassName={StyleHelper.mergeStyles({ 'mb-2': hasTransactions })} />
 
-                  {transactions.length > 0 && (
+                  {hasTransactions && (
                     <ul className="flex flex-col gap-y-2">
-                      {transactions.map((transaction, index) => (
-                        <TransactionActivityListItem key={`${transaction.txId}-${index}`} transaction={transaction} />
+                      {transactions.map(transaction => (
+                        <TransactionActivityListItems key={transaction.txId} transaction={transaction} />
                       ))}
                     </ul>
                   )}

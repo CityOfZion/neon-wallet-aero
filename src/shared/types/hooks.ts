@@ -65,22 +65,24 @@ export type TUseTransactionsProps = {
   dateTo: Date
 }
 
-type TUseTransactionsTransactionEventBase = {
+type TUseTransactionsTransactionDefaultEventBase = {
   fromAccount?: TAccount
   toAccount?: TAccount
 }
 
-export type TUseTransactionsTransactionEventToken = TTransactionTokenEvent & TUseTransactionsTransactionEventBase
+export type TUseTransactionsTransactionDefaultEventToken = TUseTransactionsTransactionDefaultEventBase &
+  TTransactionTokenEvent
 
-export type TUseTransactionsTransactionEventNft = TTransactionNftEvent & TUseTransactionsTransactionEventBase
+export type TUseTransactionsTransactionDefaultEventNft = TUseTransactionsTransactionDefaultEventBase &
+  TTransactionNftEvent
 
-export type TUseTransactionsTransactionEvent =
-  | TUseTransactionsTransactionEventToken
-  | TUseTransactionsTransactionEventNft
+export type TUseTransactionsTransactionDefaultEvent =
+  | TUseTransactionsTransactionDefaultEventToken
+  | TUseTransactionsTransactionDefaultEventNft
 
-export type TUseTransactionsTransactionInputOutput = TTransactionInputOutput & {
+export type TUseTransactionsTransactionUtxoInputOutput = {
   account?: TAccount
-}
+} & TTransactionInputOutput
 
 type TUseTransactionsTransactionBase = {
   account: TAccount
@@ -88,14 +90,16 @@ type TUseTransactionsTransactionBase = {
   isPending: boolean
 }
 
-export type TUseTransactionsTransactionDefault = TTransactionDefault<TBlockchainServiceKey> &
-  TUseTransactionsTransactionBase & { events: TUseTransactionsTransactionEvent[] }
+export type TUseTransactionsTransactionDefault = {
+  events: TUseTransactionsTransactionDefaultEvent[]
+} & TUseTransactionsTransactionBase &
+  TTransactionDefault<TBlockchainServiceKey>
 
-export type TUseTransactionsTransactionUtxo = TTransactionUtxo<TBlockchainServiceKey> &
-  TUseTransactionsTransactionBase & {
-    inputs: TUseTransactionsTransactionInputOutput[]
-    outputs: TUseTransactionsTransactionInputOutput[]
-  }
+export type TUseTransactionsTransactionUtxo = {
+  inputs: TUseTransactionsTransactionUtxoInputOutput[]
+  outputs: TUseTransactionsTransactionUtxoInputOutput[]
+} & TUseTransactionsTransactionBase &
+  TTransactionUtxo<TBlockchainServiceKey>
 
 export type TUseTransactionsTransaction = TUseTransactionsTransactionDefault | TUseTransactionsTransactionUtxo
 

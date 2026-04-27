@@ -53,28 +53,27 @@
   },
   "transactionActivityList": {
     "exportTransactionsButtonLabel": "Export transactions",
-    "empty": {
-      "notFoundTitle": "No transactions to display",
-      "notFoundDescription": "Make a transaction and it'll appear here"
-    },
-    "item": {
+    "items": {
       "txIdLabel": "Tx ID",
-      "copyTxIdLabel": "Copy tx ID",
+      "copyTxIdLabel": "Copy transaction ID",
       "pendingDataLabel": "Pending",
-      "pendingTooltipLabel": "Your transaction is being processed — please wait"
-    },
-    "event": {
+      "pendingTooltipLabel": "Your transaction is being processed, please wait",
+      "copyAddressButtonLabel": "Copy address",
       "nftImageAltWithNameLabel": "NFT image: {{ name }}",
       "nftImageAltLabel": "NFT image",
       "columns": {
         "fromLabel": "From",
         "toLabel": "To",
-        "tokenLabel": "Token",
-        "tokenIdLabel": "Token ID",
         "amountLabel": "Amount",
-        "collectionNameLabel": "Collection",
-        "nameLabel": "Name"
+        "tokenLabel": "Token",
+        "tokenHashLabel": "Token hash",
+        "nameLabel": "Name",
+        "collectionLabel": "Collection"
       }
+    },
+    "empty": {
+      "notFoundTitle": "No transactions to display",
+      "notFoundDescription": "Make a transaction and it'll appear here"
     }
   },
   "contactsList": {

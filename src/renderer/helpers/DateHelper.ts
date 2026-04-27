@@ -1,7 +1,12 @@
-import { format } from 'date-fns/format'
+import * as dateFns from 'date-fns'
 import * as dateFnsLocales from 'date-fns/locale'
 
-import type { TDateHelperFormatLocalizedOptions } from '@shared/types/helpers'
+import type {
+  TDateHelperCalculateDateFromSelectionMaxOneYearResponse,
+  TDateHelperCalculateDateSelectionMaxOneYearParams,
+  TDateHelperCalculateDateToSelectionMaxOneYearResponse,
+  TDateHelperFormatLocalizedOptions,
+} from '@shared/types/helpers'
 
 export class DateHelper {
   static readonly dateFnsLocaleByLanguage: Record<string, dateFnsLocales.Locale> = {
@@ -23,7 +28,7 @@ export class DateHelper {
       date *= 1000
     }
 
-    return format(date, options.format, {
+    return dateFns.format(date, options.format, {
       locale: this.dateFnsLocaleByLanguage[options.language.value],
     })
   }
@@ -33,6 +38,55 @@ export class DateHelper {
       date = new Date(date)
     }
 
-    return format(date, formatString)
+    return dateFns.format(date, formatString)
+  }
+
+  static calculateDateFromSelectionMaxOneYear = ({
+    dateFrom,
+    dateTo,
+  }: TDateHelperCalculateDateSelectionMaxOneYearParams) => {
+    const newDateFrom = dateFns.startOfDay(dateFrom)
+    const dateSelection: TDateHelperCalculateDateFromSelectionMaxOneYearResponse = {
+      dateFrom: newDateFrom,
+    }
+
+    if (dateFns.isAfter(newDateFrom, dateTo)) {
+      const dateNow = new Date()
+      const newDateTo = dateFns.endOfDay(dateFns.min([dateNow, dateFns.add(newDateFrom, { weeks: 1 })]))
+
+      dateSelection.dateTo = dateFns.isSameDay(dateNow, newDateTo) ? dateNow : newDateTo
+
+      return dateSelection
+    }
+
+    if (dateFns.differenceInYears(dateTo, newDateFrom) > 0) {
+      const dateNow = new Date()
+      const newDateTo = dateFns.endOfDay(dateFns.add(newDateFrom, { years: 1, days: -1 }))
+
+      dateSelection.dateTo = dateFns.isSameDay(dateNow, newDateTo) ? dateNow : newDateTo
+    }
+
+    return dateSelection
+  }
+
+  static calculateDateToSelectionMaxOneYear = ({
+    dateFrom,
+    dateTo,
+  }: TDateHelperCalculateDateSelectionMaxOneYearParams) => {
+    const dateNow = new Date()
+    const newDateTo = dateFns.isSameDay(dateNow, dateTo) ? dateNow : dateFns.endOfDay(dateTo)
+    const dateSelection: TDateHelperCalculateDateToSelectionMaxOneYearResponse = { dateTo: newDateTo }
+
+    if (dateFns.isBefore(newDateTo, dateFrom)) {
+      dateSelection.dateFrom = dateFns.startOfDay(dateFns.sub(newDateTo, { weeks: 1 }))
+
+      return dateSelection
+    }
+
+    if (dateFns.differenceInYears(newDateTo, dateFrom) > 0) {
+      dateSelection.dateFrom = dateFns.startOfDay(dateFns.sub(newDateTo, { years: 1, days: -1 }))
+    }
+
+    return dateSelection
   }
 }

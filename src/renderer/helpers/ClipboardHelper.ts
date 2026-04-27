@@ -7,6 +7,7 @@ const { t } = getI18n()
 export class ClipboardHelper {
   static async write(text: string) {
     await navigator.clipboard.writeText(text)
+
     ToastHelper.success({ message: t('common:general.successfullyCopied') })
   }
 

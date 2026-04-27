@@ -79,11 +79,13 @@ const fetchTransactions = async (
     if (newTransaction.view === 'utxo') {
       newTransaction.inputs = newTransaction.inputs.map(({ address, ...input }) => ({
         ...input,
+        address,
         account: address ? accountsMap.get(AccountHelper.buildAccountKey({ address, blockchain })) : undefined,
       }))
 
       newTransaction.outputs = newTransaction.outputs.map(({ address, ...output }) => ({
         ...output,
+        address,
         account: address ? accountsMap.get(AccountHelper.buildAccountKey({ address, blockchain })) : undefined,
       }))
     } else {

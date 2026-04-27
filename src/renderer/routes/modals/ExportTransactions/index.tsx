@@ -7,7 +7,6 @@ import { Button } from '@renderer/components/Button'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
-import { ExportTransactionsHelper } from '@renderer/helpers/ExportTransactionsHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -54,11 +53,11 @@ export const ExportTransactionsModal = () => {
   const isDisabled = !account || !!modalState.readOnly || !service || !hasFullTransactions(service)
 
   const handleSelectDateFrom = (dateFrom: Date) => {
-    setData(ExportTransactionsHelper.calculateDateFromSelectionMaxOneYear({ dateFrom, dateTo }))
+    setData(DateHelper.calculateDateFromSelectionMaxOneYear({ dateFrom, dateTo }))
   }
 
   const handleSelectDateTo = (dateTo: Date) => {
-    setData(ExportTransactionsHelper.calculateDateToSelectionMaxOneYear({ dateFrom, dateTo }))
+    setData(DateHelper.calculateDateToSelectionMaxOneYear({ dateFrom, dateTo }))
   }
 
   const handleSelectWallet = () => {

@@ -13,9 +13,9 @@ import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 import TbStepInto from '@renderer/assets/images/tb-step-into.svg?react'
 
 import type {
-  TUseTransactionsTransactionEvent,
-  TUseTransactionsTransactionEventToken,
-  TUseTransactionsTransactionInputOutput,
+  TUseTransactionsTransactionDefaultEvent,
+  TUseTransactionsTransactionDefaultEventToken,
+  TUseTransactionsTransactionUtxoInputOutput,
 } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
 
@@ -28,23 +28,23 @@ export const SellTokensDepositSuccessModal = () => {
 
   const { address, account } = match(isUtxo)
     .with(true, () => {
-      const { address, account } = item as TUseTransactionsTransactionInputOutput
+      const { address, account } = item as TUseTransactionsTransactionUtxoInputOutput
 
       return { address, account }
     })
     .otherwise(() => {
-      const { to, toAccount } = item as TUseTransactionsTransactionEvent
+      const { to, toAccount } = item as TUseTransactionsTransactionDefaultEvent
 
       return { address: to, account: toAccount }
     })
 
   const token = match({ isUtxo, item })
     .with({ isUtxo: true }, () => {
-      return (item as TUseTransactionsTransactionInputOutput).token
+      return (item as TUseTransactionsTransactionUtxoInputOutput).token
     })
     .with(
-      { item: P.when(value => (value as TUseTransactionsTransactionEvent).eventType === 'token') },
-      () => (item as TUseTransactionsTransactionEventToken).token
+      { item: P.when(value => (value as TUseTransactionsTransactionDefaultEvent).eventType === 'token') },
+      () => (item as TUseTransactionsTransactionDefaultEventToken).token
     )
     .otherwise(() => undefined)
 
