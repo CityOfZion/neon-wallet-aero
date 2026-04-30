@@ -37,7 +37,7 @@ export const NotificationsPage = () => {
                 >
                   <NotificationItem notification={notification} />
 
-                  <Separator className="my-2 group-last:hidden" />
+                  <Separator className="my-2" containerClassName="group-last:hidden" />
                 </motion.li>
               ))}
             </AnimatePresence>

@@ -29,7 +29,7 @@ export const BackupAndRestoreBackupStep2Page = () => {
       <div className="flex w-full flex-col">
         <DownloadQRCodePasswordButton leftIcon={<TbDownload aria-hidden />} password={password} className="w-full" />
         <Separator className="my-5 w-full" />
-        <Link variant="card" className="w-full" label={t('returnToSettingsButtonLabel')} to="/settings" />
+        <Link variant="card" className="w-full" replace label={t('returnToSettingsButtonLabel')} to="/settings" />
       </div>
     </div>
   )

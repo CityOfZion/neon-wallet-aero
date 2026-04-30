@@ -107,7 +107,12 @@ type TCreateWalletStep4ModalState = {
   selectedWallet: TWallet
 }
 
+type TCreateAccountStep1ModalState = {
+  walletId: string
+}
+
 type TCreateAccountStep2ModalState = {
+  walletId: string
   accountName: string
 }
 
@@ -341,7 +346,7 @@ export type TModalRouterRouteTypes = {
   'create-wallet-2': TCreateWalletStep2ModalState
   'create-wallet-3': TCreateWalletStep3ModalState
   'create-wallet-4': TCreateWalletStep4ModalState
-  'create-account-1': undefined
+  'create-account-1': TCreateAccountStep1ModalState
   'create-account-2': TCreateAccountStep2ModalState
   'confirm-password': TConfirmPasswordModalState
   'confirm-action-side': TConfirmActionModalState

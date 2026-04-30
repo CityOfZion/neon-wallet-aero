@@ -407,7 +407,7 @@ export const Neo3NeoXBridgePage = () => {
 
                   <ActionStep
                     title={t('form.tokenToReceiveTitle')}
-                    leftIcon={<TbLock aria-hidden className="text-gray-300" />}
+                    leftIcon={<TbLock aria-hidden className="size-4 text-gray-300" />}
                     className="mb-2"
                   >
                     <GreyTokenSelect
@@ -527,8 +527,8 @@ export const Neo3NeoXBridgePage = () => {
 
                   <ActionStep
                     title={
-                      <div className="flex flex-wrap items-center gap-1">
-                        <p className="text-sm text-white">{t('form.amountToReceiveTitle')}</p>
+                      <div className="text-sm text-white">
+                        <span>{t('form.amountToReceiveTitle')}</span>
                         <span className="text-xs text-gray-100">{` ${t('form.amountToReceiveTitleComplement')}`}</span>
                       </div>
                     }

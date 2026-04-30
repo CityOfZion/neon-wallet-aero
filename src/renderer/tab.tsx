@@ -6,7 +6,7 @@ import { RouterProvider } from 'react-router-dom'
 import { SentryHelper } from './helpers/SentryHelper'
 import { tabRouter } from './routes/tab-router'
 
-import '@renderer/assets/css/global.css'
+import '@renderer/assets/css/styles.css'
 
 chrome.runtime.connect({ name: 'tab' })
 

@@ -41,7 +41,7 @@ const List = forwardRef<
   <CommandPrimitive.List
     ref={ref}
     className={StyleHelper.mergeStyles(
-      'max-h-96 overflow-x-hidden overflow-y-auto rounded bg-gray-900 [scrollbar-width:none]',
+      'max-h-96 [scrollbar-width:none] overflow-x-hidden overflow-y-auto rounded bg-gray-900',
       className
     )}
     {...props}

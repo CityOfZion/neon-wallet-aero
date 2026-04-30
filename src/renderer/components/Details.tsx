@@ -132,7 +132,7 @@ const Item = ({ label, children, copyable, className, contentClassName, rightEle
         </div>
       </div>
 
-      <Separator className="group-last:hidden" />
+      <Separator containerClassName="group-last:hidden" />
     </div>
   )
 }
@@ -149,6 +149,7 @@ const Token = ({ amount, blockchain, symbol, className, ...props }: TTokenProps)
   return (
     <div className={StyleHelper.mergeStyles('flex w-full items-center gap-2.5', className)} {...props}>
       {blockchain && <BlockchainIcon blockchain={blockchain} />}
+
       <span className="uppercase">
         {symbol}
         {blockchain && <span className="text-gray-100">{` | ${tCommon(`blockchain.${blockchain}`)}`}</span>}

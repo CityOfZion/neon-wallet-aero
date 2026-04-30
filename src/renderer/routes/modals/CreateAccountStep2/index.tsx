@@ -16,7 +16,7 @@ import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useAddAccountHardwareWallet } from '@renderer/hooks/useHardwareWallet'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
-import { useSelectedWalletSelector } from '@renderer/hooks/useSettingsSelector'
+import { useWalletByIdSelector } from '@renderer/hooks/useWalletSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -36,19 +36,19 @@ type TActionsData = {
 export const CreateAccountStep2Modal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep2' })
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
-  const { accountName } = useModalState<TModalState<'create-account-2'>>()
+  const { walletId, accountName } = useModalState<TModalState<'create-account-2'>>()
   const { modalErase, modalNavigateWrapper } = useModalNavigate()
   const { createStandardAccount } = useBlockchainActions()
   const { addHardwareAccount } = useAddAccountHardwareWallet()
+  const { walletRef: firstSelectedWallet } = useWalletByIdSelector(walletId)
   const navigateReset = useNavigateReset()
-  const { selectedWallet: defaultSelectedWallet } = useSelectedWalletSelector()
 
   const {
     actionData: { selectedBlockchain, selectedWallet },
     actionState,
     setData,
     handleAct,
-  } = useActions<TActionsData>({ selectedBlockchain: undefined, selectedWallet: defaultSelectedWallet })
+  } = useActions<TActionsData>({ selectedBlockchain: undefined, selectedWallet: firstSelectedWallet.current })
 
   const isDisabled =
     actionState.isActing || !selectedWallet || (selectedWallet.type !== 'hardware' && !selectedBlockchain)
@@ -115,7 +115,7 @@ export const CreateAccountStep2Modal = () => {
                 >
                   <BlockchainIcon blockchain={blockchain} className="text-gray-100" />
 
-                  <span className="flex-grow text-left">{tCommonBlockchain(blockchain)}</span>
+                  <span className="grow text-left">{tCommonBlockchain(blockchain)}</span>
 
                   <Radio.Indicator />
                 </Radio.Item>

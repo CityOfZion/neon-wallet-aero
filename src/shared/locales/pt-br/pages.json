@@ -276,7 +276,6 @@
   },
   "networkConfiguration": {
     "title": "Configuração de rede",
-    "connectedNetworksLabel": "Você está conectado em algumas redes",
     "currentNetwork": "Rede",
     "urlSelection": "URL"
   },

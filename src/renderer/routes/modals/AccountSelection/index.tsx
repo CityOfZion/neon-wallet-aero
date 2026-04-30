@@ -192,7 +192,7 @@ export const AccountSelectionModal = () => {
                   label={t('addButtonLabel')}
                   leftIcon={<TbPlus aria-hidden />}
                   iconsOnEdge={false}
-                  onClick={modalNavigateWrapper('create-account-1', { replace: true })}
+                  onClick={modalNavigateWrapper('create-account-1', { state: { walletId: wallet.id }, replace: true })}
                 />
               )}
             </Fragment>

@@ -38,7 +38,7 @@ export const BlockchainSelect = ({ value, onSelect }: TProps) => {
         <Select.Icon className="text-neon" />
       </Select.Trigger>
 
-      <Select.Content>
+      <Select.Content className="max-h-64">
         {BlockchainServiceHelper.blockchainNames.map((blockchain, index) => (
           <Fragment key={blockchain}>
             <Select.Item

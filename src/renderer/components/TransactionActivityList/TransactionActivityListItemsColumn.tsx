@@ -26,7 +26,7 @@ const Content = ({ data }: TContentProps) =>
   )
 
 export const TransactionActivityListItemsColumn = ({ data, label, url, className, labelClassName }: TProps) => (
-  <div className={StyleHelper.mergeStyles('flex w-20.5 max-w-20.5 min-w-20.5 flex-col', className)}>
+  <div className={StyleHelper.mergeStyles('flex w-21 max-w-21 min-w-21 flex-col', className)}>
     {label && <p className={StyleHelper.mergeStyles('font-medium text-gray-300', labelClassName)}>{label}</p>}
 
     {url ? (

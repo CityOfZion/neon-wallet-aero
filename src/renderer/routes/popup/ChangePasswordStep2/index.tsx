@@ -84,7 +84,7 @@ export const ChangePasswordStep2Page = () => {
   })
 
   return (
-    <div className="flex size-full flex-col items-center justify-between px-5 pb-10">
+    <div className="flex size-full flex-col items-center justify-between pb-10">
       <div className="flex flex-col items-center gap-5 pt-9">
         <div className="flex items-center justify-center rounded-full">
           <TbQrCode aria-hidden className="text-blue size-20" />

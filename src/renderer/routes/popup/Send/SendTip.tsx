@@ -1,3 +1,4 @@
+import type { BSBigNumber } from '@cityofzion/blockchain-service'
 import { BSBigHumanAmount, type TBSToken } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
@@ -11,8 +12,8 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 type TProps = {
   className?: string
-  amountBn: BigNumber
-  fiatPriceBn: BigNumber
+  amountBn: BSBigNumber
+  fiatPriceBn: BSBigNumber
   token: TBSToken
   isChecked: boolean
   isDisabled: boolean

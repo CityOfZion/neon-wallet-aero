@@ -1,5 +1,6 @@
-import { format } from 'date-fns'
 import * as uuid from 'uuid'
+
+import { DateHelper } from '@renderer/helpers/DateHelper'
 
 export class UtilsHelper {
   static sleep(ms: number) {
@@ -10,7 +11,7 @@ export class UtilsHelper {
     return uuid.v4()
   }
 
-  static downloadSVGToPng(elementId: string, suggestedFileName?: string) {
+  static downloadSVGToPng(elementId: string) {
     return new Promise<void>((resolve, reject) => {
       const svg = document.getElementById(elementId)
       if (!svg) {
@@ -29,7 +30,7 @@ export class UtilsHelper {
 
       const img = new Image()
 
-      const fileName = suggestedFileName || `neon3-qr-code-${format(new Date(), 'yyyy-MM-dd')}.png`
+      const fileName = `NEON-qr-code-${DateHelper.getNowUnix()}.png`
 
       img.onload = () => {
         canvas.width = img.width

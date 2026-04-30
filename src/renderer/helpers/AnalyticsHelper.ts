@@ -29,6 +29,7 @@ export class AnalyticsHelper {
         where: 'AnalyticsHelper',
         operation: 'logEvent',
       })
+
       return
     }
 

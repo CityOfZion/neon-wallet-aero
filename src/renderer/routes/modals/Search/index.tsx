@@ -100,6 +100,7 @@ const SearchModal = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSearch = useCallback(
+    // eslint-disable-next-line react-hooks/use-memo
     debounce(async (text: string) => {
       const doc = nlp.readDoc(text.toLowerCase())
       const tokens = doc.tokens().filter(t => t.out(nlp.its.type) === 'word')

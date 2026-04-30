@@ -1,3 +1,4 @@
+import type { BSBigNumber } from '@cityofzion/blockchain-service'
 import type { TBSNeo3Name } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
 
@@ -11,7 +12,7 @@ import { useNeo3VoteGetVoteDetailsByAddress } from '@renderer/hooks/useNeo3Vote'
 import type { TAccount } from '@shared/types/store'
 
 type TProps = {
-  neoAmountBn: BigNumber
+  neoAmountBn: BSBigNumber
   voteErrorMessage?: string
   hasNeoAmount: boolean
   neo3Account?: TAccount<TBSNeo3Name>
