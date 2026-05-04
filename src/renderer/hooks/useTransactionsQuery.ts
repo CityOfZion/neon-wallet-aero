@@ -3,7 +3,6 @@ import { useMemo } from 'react'
 import { hasFullTransactions, type TGetTransactionsByAddressResponse } from '@cityofzion/blockchain-service'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import * as dateFns from 'date-fns'
-import { cloneDeep } from 'lodash'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
@@ -14,12 +13,10 @@ import {
   type TUseTransactionsBuildTransactionsQueryKeyParams,
   type TUseTransactionsGroupedTransactionsByDate,
   type TUseTransactionsProps,
-  type TUseTransactionsQueryData,
   type TUseTransactionsTransaction,
 } from '@shared/types/hooks'
 import type { TAccount } from '@shared/types/store'
 
-import { useAccountsMapSelector } from './useAccountSelector'
 import { useSelectedNetworkSelector } from './useSettingsSelector'
 import { useHiddenTokensByBlockchainSelector, usePendingTransactionsSelector } from './useUtilitySelector'
 
@@ -43,16 +40,9 @@ export const buildTransactionsQueryKey = ({
   return queryKey
 }
 
-const fetchTransactions = async (
-  account: TAccount,
-  dateFrom: Date,
-  dateTo: Date,
-  nextPageParams: any,
-  accountsMap: Map<string, TAccount>
-) => {
+const fetchTransactions = async (account: TAccount, dateFrom: Date, dateTo: Date, nextPageParams: any) => {
   const { blockchain } = account
   const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
-  const transactionsMap: TUseTransactionsQueryData['transactions'] = new Map()
 
   let response: TGetTransactionsByAddressResponse<TBlockchainServiceKey>
 
@@ -73,39 +63,10 @@ const fetchTransactions = async (
     })
   }
 
-  response.transactions.forEach(transaction => {
-    const newTransaction: TUseTransactionsTransaction = { ...transaction, account, blockchain, isPending: false }
-
-    if (newTransaction.view === 'utxo') {
-      newTransaction.inputs = newTransaction.inputs.map(({ address, ...input }) => ({
-        ...input,
-        address,
-        account: address ? accountsMap.get(AccountHelper.buildAccountKey({ address, blockchain })) : undefined,
-      }))
-
-      newTransaction.outputs = newTransaction.outputs.map(({ address, ...output }) => ({
-        ...output,
-        address,
-        account: address ? accountsMap.get(AccountHelper.buildAccountKey({ address, blockchain })) : undefined,
-      }))
-    } else {
-      newTransaction.events = newTransaction.events.map(({ from, to, ...event }) => ({
-        ...event,
-        from,
-        to,
-        fromAccount: from ? accountsMap.get(AccountHelper.buildAccountKey({ address: from, blockchain })) : undefined,
-        toAccount: to ? accountsMap.get(AccountHelper.buildAccountKey({ address: to, blockchain })) : undefined,
-      }))
-    }
-
-    transactionsMap.set(transaction.txId, newTransaction)
-  })
-
-  return { ...response, transactions: Array.from(transactionsMap.values()) }
+  return response
 }
 
-export const useTransactions = ({ account, dateFrom, dateTo }: TUseTransactionsProps) => {
-  const { accountsMapRef } = useAccountsMapSelector()
+export const useTransactionsQuery = ({ account, dateFrom, dateTo }: TUseTransactionsProps) => {
   const { network } = useSelectedNetworkSelector(account.blockchain)
   const { pendingTransactions } = usePendingTransactionsSelector()
   const { hiddenTokensByBlockchain } = useHiddenTokensByBlockchainSelector()
@@ -118,8 +79,7 @@ export const useTransactions = ({ account, dateFrom, dateTo }: TUseTransactionsP
       dateFrom,
       dateTo,
     }),
-    queryFn: ({ pageParam: nextPageParams }) =>
-      fetchTransactions(account, dateFrom, dateTo, nextPageParams, accountsMapRef.current),
+    queryFn: ({ pageParam: nextPageParams }) => fetchTransactions(account, dateFrom, dateTo, nextPageParams),
     initialPageParam: undefined,
     getNextPageParam: ({ nextPageParams }) => nextPageParams,
   })
@@ -127,14 +87,16 @@ export const useTransactions = ({ account, dateFrom, dateTo }: TUseTransactionsP
   const data = useMemo(() => {
     if (query.isLoading || !query.data) return []
 
-    const groupedTransactionsMap = new Map<string, TUseTransactionsTransaction>()
-    const transactionsMap = cloneDeep(query.data.pages.flatMap(page => page.transactions))
+    const allTransactions = query.data.pages.flatMap(page => page.transactions)
 
-    transactionsMap.forEach(transaction => groupedTransactionsMap.set(transaction.txId, transaction))
+    const groupedTransactionsMap = new Map<string, TUseTransactionsTransaction>(
+      allTransactions.map(transaction => [transaction.txId, transaction])
+    )
 
     pendingTransactions.forEach(transaction => {
       if (
-        AccountHelper.predicate(transaction.account)(account) &&
+        transaction.relatedAddress &&
+        AccountHelper.predicate({ address: transaction.relatedAddress, blockchain: transaction.blockchain })(account) &&
         dateFns.isWithinInterval(transaction.date, { start: dateFrom, end: dateTo })
       ) {
         groupedTransactionsMap.set(transaction.txId, transaction)

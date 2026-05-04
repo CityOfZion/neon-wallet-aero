@@ -2,14 +2,11 @@ import { isClaimable } from '@cityofzion/blockchain-service'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
-import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 
 import { thunks } from '@renderer/store/thunks'
 import type { TNetwork } from '@shared/types/blockchain'
@@ -35,8 +32,7 @@ export const buildQueryKeyUnclaimed = (account: TAccount, network?: TNetwork) =>
 
 const getUnclaimedInfos = async (
   account: TAccount,
-  hasClaimPendingTransaction: boolean,
-  encryptedPassword?: string
+  hasClaimPendingTransaction: boolean
 ): Promise<TUseUnclaimedResult> => {
   const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
 
@@ -52,7 +48,7 @@ const getUnclaimedInfos = async (
   let unclaimed = '0'
 
   if (!hasClaimPendingTransaction) {
-    unclaimed = await blockchainService.claimDataService.getUnclaimed(account.address)
+    unclaimed = await blockchainService.claimService.getUnclaimed(account.address)
   }
 
   const unclaimedNumber = parseFloat(unclaimed)
@@ -61,15 +57,8 @@ const getUnclaimedInfos = async (
 
   if (unclaimedNumber > 0) {
     try {
-      const key = await EncryptionHelper.decrypt(account.encryptedKey, encryptedPassword)
-
-      if (!key) {
-        throw new AppError(t('hooks:useUnclaimedQuery.errors.noKey', { address: account.address }))
-      }
-
-      const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
-
-      fee = await blockchainService.calculateClaimFee(serviceAccount)
+      const serviceAccount = await BlockchainServiceHelper.getServiceAccount(account)
+      fee = await blockchainService.claimService.calculateFee(serviceAccount)
     } catch {
       /* empty */
     }
@@ -81,19 +70,13 @@ const getUnclaimedInfos = async (
 export const useUnclaimed = (account: TAccount) => {
   const { hasClaimPendingTransactionRef } = useHasClaimPendingTransactionSelector(account)
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
-  const { loginSessionRef } = useLoginSessionSelector()
 
   return useQuery({
     queryKey: buildQueryKeyUnclaimed(account, selectedNetworkByBlockchain[account.blockchain]),
     staleTime: 0,
     gcTime: 0,
     retry: false,
-    queryFn: getUnclaimedInfos.bind(
-      null,
-      account,
-      hasClaimPendingTransactionRef.current,
-      loginSessionRef.current?.encryptedPassword
-    ),
+    queryFn: getUnclaimedInfos.bind(null, account, hasClaimPendingTransactionRef.current),
   })
 }
 
@@ -121,16 +104,8 @@ export const useUnclaimedMutation = () => {
         )
       }
 
-      const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
-      const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
-      const transaction = await blockchainService.claim(serviceAccount)
-
-      const pendingTransaction = TransactionHelper.buildPendingTransaction({
-        transaction,
-        account,
-        senderAccount: account,
-        receiverAccounts: [account],
-      })
+      const serviceAccount = await BlockchainServiceHelper.getServiceAccount(account)
+      const pendingTransaction = await blockchainService.claimService.claim(serviceAccount)
 
       const notificationPrefix = 'hooks:useUnclaimedMutation'
       const notificationSuccessPrefix = `${notificationPrefix}.successNotification`

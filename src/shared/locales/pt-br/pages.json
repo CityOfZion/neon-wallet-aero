@@ -35,6 +35,7 @@
     "votingButtonLabel": "Votação",
     "bridgeButtonLabel": "Bridge",
     "buyAndSellTokensButtonLabel": "Shop",
+    "trustlinesButtonLabel": "Trustlines",
     "ariaLabels": {
       "notificationsIconButton": "Notificações",
       "menuIconButton": "Menu",
@@ -500,7 +501,7 @@
   "currency": {
     "title": "Moeda"
   },
-  "voteNeo3": {
+  "neo3Vote": {
     "title": "Votar",
     "howDoesItWorkButtonLabel": "Como funciona?",
     "searchPlaceholder": "Pesquisar um candidato…",
@@ -571,5 +572,10 @@
     "alert": "Certifique-se de que sua carteira de hardware esteja desbloqueada, conectada a um aplicativo compatível e conectada a este dispositivo",
     "successBannerMessage": "Carteira de hardware conectada com sucesso. Abrindo extensão…",
     "completeButtonLabel": "Concluir"
+  },
+  "stellarTrustlines": {
+    "title": "Trustlines",
+    "emptyMessage": "Nenhuma trustline encontrada",
+    "addTrustlineButtonLabel": "Adicionar trustline"
   }
 }

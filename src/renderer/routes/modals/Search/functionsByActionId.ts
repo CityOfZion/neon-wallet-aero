@@ -76,9 +76,9 @@ export const functionsByActionId: TFunctionsByActionId = {
     modalActions.modalErase('bottom')
     popupNavigate('/settings/backup-and-restore/restore/1', { state: { tab: 'restore' } })
   },
-  voteNeo3: async ({ modalActions, popupNavigate }) => {
+  neo3Vote: async ({ modalActions, popupNavigate }) => {
     modalActions.modalErase('bottom')
-    popupNavigate('/vote-neo3')
+    popupNavigate('/neo3-vote')
   },
   neo3NeoXBridge: async ({ modalActions, popupNavigate }) => {
     modalActions.modalErase('bottom')

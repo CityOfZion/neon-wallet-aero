@@ -11,6 +11,16 @@
     "exportError": "导出钱包时出错",
     "walletWithoutBackupLabel": "未备份的钱包"
   },
+  "stellarPersistTrustlines": {
+    "title": "信任线",
+    "errors": {
+      "invalidLimit": "无效限额"
+    },
+    "limitLabel": "限额（可选）",
+    "limitPlaceholder": "输入限额…",
+    "saveButtonLabel": "保存",
+    "tokenLabel": "代币"
+  },
   "walletEdit": {
     "title": "编辑钱包",
     "subtitle": "所有钱包",
@@ -77,7 +87,7 @@
     "settingsItemLabel": "设置",
     "neo3NeoXBridgeItemLabel": "桥接",
     "logoutItemLabel": "注销",
-    "voteNeo3ItemLabel": "投票",
+    "neo3VoteItemLabel": "投票",
     "searchItemLabel": "搜索"
   },
   "importAccountsSelection": {
@@ -534,7 +544,7 @@
     "title": "重新排序您的钱包",
     "subtitle": "所有钱包"
   },
-  "voteNeo3CandidateDetails": {
+  "neo3VoteCandidateDetails": {
     "title": "关于此候选人",
     "candidateNameLabel": "候选人",
     "positionLabel": "当前排名",
@@ -551,7 +561,7 @@
       "accountCanNotBeWatch": "您无法使用观察账户进行投票"
     }
   },
-  "voteNeo3Confirmation": {
+  "neo3VoteConfirmation": {
     "title": "审核并确认您的投票",
     "highlightLabel": "作为代币持有者，您可以影响重要的协议决策，使网络的发展方向符合社区利益。",
     "detailsLabel": "详细的提案研究和明智的投票实践至关重要。系统使用可靠的验证和清晰的流程，让个人能够有意义地为 NEO 生态系统的发展做出贡献。",
@@ -582,7 +592,7 @@
       }
     }
   },
-  "voteNeo3Success": {
+  "neo3VoteSuccess": {
     "title": "您的投票",
     "subtitle": "您的投票已投出！",
     "votingDetailsLabel": "您的投票",
@@ -652,7 +662,7 @@
     "parametersDetailsLabel": "请求参数",
     "externalButtonLabel": "在区块浏览器中查看"
   },
-  "voteNeo3Info": {
+  "neo3VoteInfo": {
     "title": "它是如何工作的？",
     "description": "您持有的 NEO 数量等于您可以投票支持候选人的票数。",
     "whyVoteLabel": "为什么要投票？",

@@ -70,5 +70,17 @@
   },
   "useExportMnemonic": {
     "fileTemplate": "Importante: Mantenha este arquivo seguro e nunca o compartilhe com ninguém! Qualquer pessoa com este mnemônico poderá acessar seus ativos.\n\n--- FRASE MNEMÔNICA ---\n\n{{mnemonic}}\n\n-----------------------\n\n{{generatedAt}}"
+  },
+  "usePersistTrustlineMutation": {
+    "errorToastMessage": "Falha ao persistir trustline",
+    "failureNotification": {
+      "previewBody": "Não conseguimos verificar a conclusão da sua trustline",
+      "title": "Alteração de Trustline falhou"
+    },
+    "successNotification": {
+      "previewBody": "Sua trustline foi alterada com sucesso",
+      "title": "Alteração de Trustline concluída"
+    },
+    "successToastMessage": "Trustline persistida com sucesso"
   }
 }

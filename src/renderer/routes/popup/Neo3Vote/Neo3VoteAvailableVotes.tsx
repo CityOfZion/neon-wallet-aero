@@ -1,3 +1,4 @@
+import type { TBSNeo3Name } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
 
 import { Skeleton } from '@renderer/components/Skeleton'
@@ -5,7 +6,7 @@ import { Tooltip } from '@renderer/components/Tooltip'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { useVoteNeo3GetVoteDetailsByAddress } from '@renderer/hooks/useVoteNeo3'
+import { useNeo3VoteGetVoteDetailsByAddress } from '@renderer/hooks/useNeo3Vote'
 
 import type { TAccount } from '@shared/types/store'
 
@@ -13,12 +14,12 @@ type TProps = {
   neoAmountBn: BigNumber
   voteErrorMessage?: string
   hasNeoAmount: boolean
-  neo3Account?: TAccount
+  neo3Account?: TAccount<TBSNeo3Name>
 }
 
-export const VoteNeo3AvailableVotes = ({ neoAmountBn, voteErrorMessage, hasNeoAmount, neo3Account }: TProps) => {
-  const { t } = useTranslation('pages', { keyPrefix: 'voteNeo3.availableVotes' })
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address || '')
+export const Neo3VoteAvailableVotes = ({ neoAmountBn, voteErrorMessage, hasNeoAmount, neo3Account }: TProps) => {
+  const { t } = useTranslation('pages', { keyPrefix: 'neo3Vote.availableVotes' })
+  const voteDetailsByAddressQuery = useNeo3VoteGetVoteDetailsByAddress(neo3Account?.address || '')
 
   return (
     <span className="flex w-full items-center justify-between gap-x-4 pt-6 pr-5 pb-6 text-lg">

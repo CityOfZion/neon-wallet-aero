@@ -1,4 +1,3 @@
-import type { TTransaction } from '@cityofzion/blockchain-service'
 import type { Event } from '@sentry/react'
 import type { JSX, ReactNode } from 'react'
 import type { ToastT } from 'sonner'
@@ -9,11 +8,6 @@ import type { TAccount, TCurrency, TLanguage, TLastIndexesByWallet } from './sto
 export type TAccountHelperPredicateParams = {
   address: string
   blockchain: TBlockchainServiceKey
-}
-
-export type TAccountHelperGetServiceAccountParams = {
-  account: TAccount
-  key: string
 }
 
 export type THardwareWalletHelperConnectParams = {
@@ -107,13 +101,6 @@ export type TToastHelperToastProps = {
 export type TToastHelperToastOptions = Omit<ToastT, 'id'> & {
   message: ReactNode
   id?: string | number
-}
-
-export type TTransactionHelperBuildPendingTransactionParams = {
-  transaction: TTransaction<TBlockchainServiceKey>
-  account: TAccount
-  senderAccount?: TAccount
-  receiverAccounts?: (TAccount | undefined)[]
 }
 
 export type TLoggerHelperOptions = {

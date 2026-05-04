@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 
 @theme {
   --color-*: initial;
@@ -96,6 +97,10 @@
 
   * {
     font-family: 'SofiaPro', sans-serif;
+  }
+
+  svg {
+    shape-rendering: geometricPrecision;
   }
 
   *,

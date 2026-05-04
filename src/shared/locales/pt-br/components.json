@@ -69,12 +69,21 @@
         "tokenHashLabel": "Hash do token",
         "nameLabel": "Nome",
         "collectionLabel": "Coleção"
+      },
+      "columnsByKey": {
+        "limit": "Limite",
+        "token": "Token"
       }
     },
     "empty": {
       "notFoundTitle": "Nenhuma transação para exibir",
       "notFoundDescription": "Faça uma transação e ela aparecerá aqui"
     }
+  },
+  "searchableToken": {
+    "placeholder": "Pesquisar token…",
+    "emptyMessage": "Digite para pesquisar um token",
+    "notFoundMessage": "Nenhum token encontrado"
   },
   "contactsList": {
     "noContactAddresses": "Nenhum endereço de contato encontrado"

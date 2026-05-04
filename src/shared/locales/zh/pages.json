@@ -35,6 +35,7 @@
     "votingButtonLabel": "投票",
     "bridgeButtonLabel": "跨链桥",
     "buyAndSellTokensButtonLabel": "买入 + 卖出",
+    "trustlinesButtonLabel": "信任线",
     "ariaLabels": {
       "notificationsIconButton": "通知",
       "menuIconButton": "菜单",
@@ -500,7 +501,7 @@
   "currency": {
     "title": "货币"
   },
-  "voteNeo3": {
+  "neo3Vote": {
     "title": "投票",
     "howDoesItWorkButtonLabel": "它是如何工作的？",
     "searchPlaceholder": "搜索候选人…",
@@ -571,5 +572,10 @@
     "alert": "请确保您的硬件钱包已解锁、已连接到受支持的应用，并已连接到此设备",
     "successBannerMessage": "硬件钱包连接成功。正在打开扩展程序…",
     "completeButtonLabel": "完成"
+  },
+  "stellarTrustlines": {
+    "title": "信任线",
+    "emptyMessage": "未找到信任线",
+    "addTrustlineButtonLabel": "添加信任线"
   }
 }

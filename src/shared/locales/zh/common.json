@@ -44,7 +44,8 @@
     "base": "Base",
     "bitcoin": "Bitcoin",
     "arbitrum": "Arbitrum",
-    "solana": "Solana"
+    "solana": "Solana",
+    "stellar": "Stellar"
   },
   "errors": {
     "analyticsEventLoggingFailed": "记录分析事件失败。",

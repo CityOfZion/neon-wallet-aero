@@ -43,6 +43,7 @@ export function getSettingsReducer() {
         base: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.base.defaultNetwork,
         arbitrum: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.arbitrum.defaultNetwork,
         solana: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.solana.defaultNetwork,
+        stellar: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.stellar.defaultNetwork,
       },
     },
   }

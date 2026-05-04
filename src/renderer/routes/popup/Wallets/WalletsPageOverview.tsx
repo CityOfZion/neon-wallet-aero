@@ -32,6 +32,7 @@ import TbChartBar from '@renderer/assets/images/tb-chart-bar.svg?react'
 import TbRefresh from '@renderer/assets/images/tb-refresh.svg?react'
 import TbReplace from '@renderer/assets/images/tb-replace.svg?react'
 import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
+import TbShieldCheck from '@renderer/assets/images/tb-shield-check.svg?react'
 import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
@@ -206,7 +207,7 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
                 className="w-full"
                 icon={<TbChartBar aria-hidden />}
                 onClick={() =>
-                  navigate('/vote-neo3', {
+                  navigate('/neo3-vote', {
                     state: { initialWallet: selectedWallet, initialNeo3Account: selectedAccount },
                   })
                 }
@@ -237,6 +238,20 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
                 onClick={() => navigate('/neo3-neox-bridge')}
               >
                 {t('bridgeButtonLabel')}
+              </IconButton>
+            </Fragment>
+          ))
+          .with('stellar', () => (
+            <Fragment>
+              <IconButton
+                variant="boxed"
+                colorSchema="neon"
+                className="w-full"
+                disabled={isWatchAccount}
+                icon={<TbShieldCheck aria-hidden />}
+                onClick={() => navigate('/stellar-trustlines', { state: { stellarAccount: selectedAccount } })}
+              >
+                {t('trustlinesButtonLabel')}
               </IconButton>
             </Fragment>
           ))
@@ -291,8 +306,8 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
         </Tabs.Content>
       </Tabs.Root>
 
-      <div className="relative -bottom-0 left-0 -z-1 w-full pb-10" />
-      <div className="absolute -bottom-10 left-0 -z-1 w-full pb-20" />
+      <div className="relative bottom-0 left-0 -z-1 w-full pb-10" />
+      <div className="absolute bottom-10 left-0 -z-1 w-full pb-20" />
     </Fragment>
   )
 }

@@ -4,6 +4,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
 
+import { buildQueryKeyBalance } from '@renderer/hooks/useBalances'
+import { buildNeo3VoteGetVoteDetailsByAddressQueryKey } from '@renderer/hooks/useNeo3Vote'
+import { buildTransactionsQueryKey } from '@renderer/hooks/useTransactionsQuery'
+
 import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 import type { TRootState } from '@shared/types/redux'
 import type { TNotification, TSaveNotification } from '@shared/types/store'
@@ -13,22 +17,27 @@ import { utilityReducerActions } from '../reducers/utility'
 
 type TParams = {
   pendingTransaction: TUseTransactionsTransaction
-  successNotification: Pick<TNotification, 'title' | 'previewBody'>
-  failureNotification: Pick<TNotification, 'title' | 'previewBody'>
+  successNotification?: Pick<TNotification, 'title' | 'previewBody'>
+  failureNotification?: Pick<TNotification, 'title' | 'previewBody'>
 }
 
 export const waitPendingTransaction = createAsyncThunk<void, TParams>(
   'waitPendingTransaction',
   async ({ pendingTransaction, successNotification, failureNotification }, { getState, dispatch }) => {
     const state = getState() as TRootState
-    const account = pendingTransaction.account
-    const { address, blockchain } = account
+    const { txId, blockchain, relatedAddress } = pendingTransaction
+    const address = relatedAddress!
     const network = state.settings.data.selectedNetworkByBlockchain[blockchain]
+    const hasNotifications = !!successNotification && !!failureNotification
 
-    const notification: TSaveNotification = {
-      title: failureNotification.title,
-      previewBody: failureNotification.previewBody,
-      related: { address, blockchain },
+    let notification: TSaveNotification | undefined
+
+    if (hasNotifications) {
+      notification = {
+        title: failureNotification.title,
+        previewBody: failureNotification.previewBody,
+        related: { address, blockchain },
+      }
     }
 
     try {
@@ -38,12 +47,12 @@ export const waitPendingTransaction = createAsyncThunk<void, TParams>(
 
       const isCompleted = await waitForAccountTransaction({
         service,
-        txId: pendingTransaction.txId,
+        txId,
         address,
         maxAttempts: 20,
       })
 
-      if (isCompleted) {
+      if (isCompleted && notification && hasNotifications) {
         notification.title = successNotification.title
         notification.previewBody = successNotification.previewBody
         notification.action = {
@@ -55,9 +64,25 @@ export const waitPendingTransaction = createAsyncThunk<void, TParams>(
       /* empty */
     }
 
-    ReactQueryHelper.invalidateTransactionQueries(account, network)
+    ReactQueryHelper.client.removeQueries({
+      queryKey: buildTransactionsQueryKey({ address, blockchain, network }),
+      type: 'all',
+    })
 
-    dispatch(authReducerActions.saveNotification(notification))
+    ReactQueryHelper.client.removeQueries({
+      queryKey: buildQueryKeyBalance(address, blockchain, network),
+      type: 'all',
+    })
+
+    ReactQueryHelper.client.removeQueries({
+      queryKey: buildNeo3VoteGetVoteDetailsByAddressQueryKey({ neo3Network: network, address }),
+      type: 'all',
+    })
+
     dispatch(utilityReducerActions.removePendingTransaction(pendingTransaction.txId))
+
+    if (notification) {
+      dispatch(authReducerActions.saveNotification(notification))
+    }
   }
 )

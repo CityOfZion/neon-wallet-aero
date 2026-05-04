@@ -7,13 +7,13 @@ type TProps = {
   children: ReactNode
 }
 
-export const VoteNeo3ConfirmationSkeleton = ({ isLoading, children }: TProps) => (
+export const Neo3VoteConfirmationSkeleton = ({ isLoading, children }: TProps) => (
   <Skeleton.Root
     loading={isLoading}
     className="flex w-full flex-col gap-y-2.5"
     items={[
-      <Skeleton.Item key="vote-neo3-confirmation-skeleton-item-1" className="h-66 w-full" />,
-      <Skeleton.Item key="vote-neo3-confirmation-skeleton-item-2" className="h-15 w-full" />,
+      <Skeleton.Item key="neo3-vote-confirmation-skeleton-item-1" className="h-66 w-full" />,
+      <Skeleton.Item key="neo3-vote-confirmation-skeleton-item-2" className="h-15 w-full" />,
     ]}
   >
     {children}

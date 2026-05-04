@@ -1,6 +1,13 @@
-import type { IBlockchainService, TBridgeToken, TBSAccount } from '@cityofzion/blockchain-service'
+import type {
+  IBlockchainService,
+  TBridgeToken,
+  TBSAccount,
+  TBSBridgeName,
+  TBSToken,
+} from '@cityofzion/blockchain-service'
 import type { SimpleSwapOrchestrator, TWalletKitHelperSessionDetails } from '@cityofzion/bs-multichain'
-import type { TVoteServiceCandidate } from '@cityofzion/bs-neo3'
+import type { TBSNeo3Name, TVoteServiceCandidate } from '@cityofzion/bs-neo3'
+import type { TBSStellarName } from '@cityofzion/bs-stellar'
 import type { ErrorResponse } from '@walletconnect/jsonrpc-utils'
 import type { PendingRequestTypes, ProposalTypes, SessionTypes } from '@walletconnect/types'
 import type { JSX } from 'react'
@@ -182,7 +189,7 @@ type TSwapDetailsModalState = {
 
 type TSwapConfirmationModalState = {
   swapRecord: TSwapRecord
-  swapOrchestrator: SimpleSwapOrchestrator<TBlockchainServiceKey>
+  swapOrchestrator: SimpleSwapOrchestrator
 }
 
 type TNetworkSelectionModalState = {
@@ -193,30 +200,30 @@ type TNetworkUrlSelectionModalState = {
   blockchain: TBlockchainServiceKey
 }
 
-type TAccountReceiveSelectionModalState = {
+type TAccountReceiveSelectionModalState<N extends TBlockchainServiceKey = TBlockchainServiceKey> = {
   accountTypes?: 'standard' | 'hardware'
-  blockchain?: TBlockchainServiceKey
-  selectedAccount?: TAccount
+  blockchain?: N
+  selectedAccount?: TAccount<N>
   selectedAddress?: string
-  handleChangeAccount: (account: TAccount) => void
+  handleChangeAccount: (account: TAccount<N>) => void
   handleChangeAddress: (address: string) => void
 }
 
 type TNeo3NeoXBridgeConfirmationModalState = {
-  tokenToUse?: TBridgeToken<TBlockchainServiceKey>
-  tokenToReceive?: TBridgeToken<TBlockchainServiceKey>
-  accountToUse?: TAccount
+  tokenToUse?: TBridgeToken<TBSBridgeName>
+  tokenToReceive?: TBridgeToken<TBSBridgeName>
+  accountToUse?: TAccount<TBSBridgeName>
   amountToUse?: string
   amountToReceive?: string
   addressToReceive?: string
-  fromService: IBlockchainService<TBlockchainServiceKey>
+  fromService: IBlockchainService<TBSBridgeName>
   onConfirm(): Promise<void>
 }
 
 type TNeo3NeoXBridgeDetailsModalState = {
-  tokenToUse: TBridgeToken<TBlockchainServiceKey>
-  tokenToReceive: TBridgeToken<TBlockchainServiceKey>
-  accountToUse: TAccount
+  tokenToUse: TBridgeToken<TBSBridgeName>
+  tokenToReceive: TBridgeToken<TBSBridgeName>
+  accountToUse: TAccount<TBSBridgeName>
   amountToUse: string
   amountToReceive: string
   addressToReceive: string
@@ -241,20 +248,20 @@ type TSwapDetailsLogModalState = {
   swapRecord: TSwapRecord
 }
 
-type TVoteNeo3CandidateDetailsModalState = {
-  neo3Account: TAccount
+type TNeo3VoteCandidateDetailsModalState = {
+  neo3Account: TAccount<TBSNeo3Name>
   candidate: TVoteServiceCandidate
   candidateVotePercentage: string
 }
 
-type TVoteNeo3ConfirmationModalState = {
-  neo3Account: TAccount
+type TNeo3VoteConfirmationModalState = {
+  neo3Account: TAccount<TBSNeo3Name>
   candidate: TVoteServiceCandidate
 }
 
-type TVoteNeo3SuccessModalState = {
+type TNeo3VoteSuccessModalState = {
   candidate: TVoteServiceCandidate
-  neo3Account: TAccount
+  neo3Account: TAccount<TBSNeo3Name>
 }
 
 type TDappConnectionModalState = {
@@ -273,7 +280,7 @@ type TDappConnectionRequestModalState = {
 type TDappPermissionModalState = {
   session: SessionTypes.Struct
   request: PendingRequestTypes.Struct
-  sessionDetails: TWalletKitHelperSessionDetails<TBlockchainServiceKey>
+  sessionDetails: TWalletKitHelperSessionDetails
   sessionAccount: TAccount
   onReject: (reason?: ErrorResponse) => Promise<void>
   onAccept: () => Promise<any>
@@ -305,6 +312,12 @@ type TExportTransactionsModalState = {
   dateFrom: Date
   dateTo: Date
   readOnly?: boolean
+}
+
+type TStellarPersistTrustlinesModalState = {
+  stellarAccount: TAccount<TBSStellarName>
+  token?: TBSToken
+  limit?: string
 }
 
 export type TModalRouterRouteTypes = {
@@ -355,10 +368,10 @@ export type TModalRouterRouteTypes = {
   'sell-tokens-deposit-success': TSellTokensDepositSuccessModalState
   'sell-tokens-deposit-error': TSellTokensDepositErrorModalState
   'reorder-wallets': undefined
-  'vote-neo3-candidate-details': TVoteNeo3CandidateDetailsModalState
-  'vote-neo3-info': undefined
-  'vote-neo3-confirmation': TVoteNeo3ConfirmationModalState
-  'vote-neo3-success': TVoteNeo3SuccessModalState
+  'neo3-vote-candidate-details': TNeo3VoteCandidateDetailsModalState
+  'neo3-vote-info': undefined
+  'neo3-vote-confirmation': TNeo3VoteConfirmationModalState
+  'neo3-vote-success': TNeo3VoteSuccessModalState
   'dapp-connection': TDappConnectionModalState
   'dapp-connection-request': TDappConnectionRequestModalState
   'dapp-disconnection': TDappDisconnectionModalState
@@ -370,4 +383,5 @@ export type TModalRouterRouteTypes = {
   'support-ticket': undefined
   'export-transactions': TExportTransactionsModalState
   survey: undefined
+  'stellar-persist-trustline': TStellarPersistTrustlinesModalState
 }

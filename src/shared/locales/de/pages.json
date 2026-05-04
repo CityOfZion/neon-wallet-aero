@@ -35,6 +35,7 @@
     "votingButtonLabel": "Wahl",
     "bridgeButtonLabel": "Bridge",
     "buyAndSellTokensButtonLabel": "Shop",
+    "trustlinesButtonLabel": "Trustlines",
     "ariaLabels": {
       "notificationsIconButton": "Benachrichtigungen",
       "menuIconButton": "Menü",
@@ -506,7 +507,7 @@
   "currency": {
     "title": "Währung"
   },
-  "voteNeo3": {
+  "neo3Vote": {
     "title": "Abstimmung",
     "howDoesItWorkButtonLabel": "Wie funktioniert es?",
     "searchPlaceholder": "Nach einem Kandidaten suchen…",
@@ -576,5 +577,10 @@
     "alert": "Bitte stellen Sie sicher, dass Ihre Hardware-Wallet entsperrt ist, mit einer unterstützten App verbunden ist und mit diesem Gerät verbunden ist",
     "successBannerMessage": "Hardware-Wallet erfolgreich verbunden. Erweiterung wird geöffnet…",
     "completeButtonLabel": "Fertig"
+  },
+  "stellarTrustlines": {
+    "title": "Trustlines",
+    "emptyMessage": "Keine Trustlines gefunden",
+    "addTrustlineButtonLabel": "Trustline hinzufügen"
   }
 }

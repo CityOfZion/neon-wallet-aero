@@ -1,4 +1,5 @@
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import type { TBSNeo3Name } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
@@ -16,13 +17,13 @@ import { useAccountsByBlockchainsSelector } from '@renderer/hooks/useAccountSele
 import { useActions } from '@renderer/hooks/useActions'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useSelectedWalletSelector } from '@renderer/hooks/useSettingsSelector'
 import {
-  useVoteNeo3CalculateVoteFee,
-  useVoteNeo3GetCandidatesToVote,
-  useVoteNeo3GetVoteDetailsByAddress,
-  useVoteNeo3Validations,
-} from '@renderer/hooks/useVoteNeo3'
+  useNeo3VoteCalculateVoteFee,
+  useNeo3VoteGetCandidatesToVote,
+  useNeo3VoteGetVoteDetailsByAddress,
+  useNeo3VoteValidations,
+} from '@renderer/hooks/useNeo3Vote'
+import { useSelectedWalletSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
@@ -33,22 +34,22 @@ import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 
 import type { TAccount, TWallet } from '@shared/types/store'
 
-import { VoteNeo3AvailableVotes } from './VoteNeo3AvailableVotes'
-import { VoteNeo3List } from './VoteNeo3List'
+import { Neo3VoteAvailableVotes } from './Neo3VoteAvailableVotes'
+import { Neo3VoteList } from './Neo3VoteList'
 
 type TLocationState = {
-  initialNeo3Account?: TAccount
+  initialNeo3Account?: TAccount<TBSNeo3Name>
   initialWallet?: TWallet
 }
 
 type TActionsData = {
-  neo3Account?: TAccount
+  neo3Account?: TAccount<TBSNeo3Name>
   wallet?: TWallet
   search: string
 }
 
-export const VoteNeo3Page = () => {
-  const { t } = useTranslation('pages', { keyPrefix: 'voteNeo3' })
+export const Neo3VotePage = () => {
+  const { t } = useTranslation('pages', { keyPrefix: 'neo3Vote' })
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { state } = useLocation() as Location<TLocationState>
   const { modalNavigateWrapper, modalNavigate, modalErase } = useModalNavigate()
@@ -66,17 +67,17 @@ export const VoteNeo3Page = () => {
     search: '',
   })
 
-  const candidatesToVoteQuery = useVoteNeo3GetCandidatesToVote()
+  const candidatesToVoteQuery = useNeo3VoteGetCandidatesToVote()
 
   // We are using COZ address only to calculate the fee
-  const calculateVoteFeeQuery = useVoteNeo3CalculateVoteFee({
+  const calculateVoteFeeQuery = useNeo3VoteCalculateVoteFee({
     neo3Account,
-    candidatePubKey: ConstantsHelper.voteNeo3CozPubKey,
+    candidatePubKey: ConstantsHelper.neo3VoteCozPubKey,
   })
 
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address || '')
+  const voteDetailsByAddressQuery = useNeo3VoteGetVoteDetailsByAddress(neo3Account?.address || '')
   const balanceQuery = useBalance(neo3Account)
-  const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
+  const { hasEnoughGasToPayFee } = useNeo3VoteValidations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
 
   const isLoading =
     calculateVoteFeeQuery.isLoading ||
@@ -108,7 +109,7 @@ export const VoteNeo3Page = () => {
         selectedWallet: wallet!,
         selectedAccount: neo3Account,
         onSelect: (account, wallet) => {
-          setData({ neo3Account: account, wallet })
+          setData({ neo3Account: account as TAccount<TBSNeo3Name>, wallet })
           modalErase('bottom')
         },
       },
@@ -136,7 +137,7 @@ export const VoteNeo3Page = () => {
             colorSchema="white"
             rightIcon={<TbChevronRight aria-hidden className="text-gray-300" />}
             textClassName="text-left"
-            onClick={modalNavigateWrapper('vote-neo3-info')}
+            onClick={modalNavigateWrapper('neo3-vote-info')}
             className="w-full"
           />
         </div>
@@ -174,8 +175,8 @@ export const VoteNeo3Page = () => {
           className="placeholder:text-neon"
           contentClassName="h-10"
           containerClassName="w-full max-w-96"
-          id="vote-neo3-search-input"
-          name="vote-neo3-search-input"
+          id="neo3-vote-search-input"
+          name="neo3-vote-search-input"
           maxLength={100}
           value={search}
           disabled={isSearchDisabled}
@@ -183,17 +184,17 @@ export const VoteNeo3Page = () => {
           onChange={setDataFromEventWrapper('search')}
         />
 
-        <VoteNeo3AvailableVotes
+        <Neo3VoteAvailableVotes
           neoAmountBn={neoAmountBn}
           voteErrorMessage={voteErrorMessage}
           hasNeoAmount={hasNeoAmount}
           neo3Account={neo3Account}
         />
 
-        <VoteNeo3List neo3Account={neo3Account} search={search} voteErrorMessage={voteErrorMessage} canVote={canVote} />
+        <Neo3VoteList neo3Account={neo3Account} search={search} voteErrorMessage={voteErrorMessage} canVote={canVote} />
       </div>
     </ScreenLayout>
   )
 }
 
-export default VoteNeo3Page
+export default Neo3VotePage

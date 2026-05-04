@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -49,12 +48,7 @@ export const WalletConnectManagerSetup = () => {
 
       async function handleAccept() {
         try {
-          const key = await EncryptionHelper.decrypt(
-            sessionAccount!.encryptedKey,
-            loginSessionRef.current!.encryptedPassword
-          )
-
-          const serviceAccount = await AccountHelper.getServiceAccount({ account: sessionAccount!, key })
+          const serviceAccount = await BlockchainServiceHelper.getServiceAccount(sessionAccount!)
 
           const response = await WalletKitHelper.processRequest({
             account: serviceAccount,

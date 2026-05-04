@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 
-import type { TBSAccount } from '@cityofzion/blockchain-service'
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
-import { type BSNeo3, BSNeo3Constants } from '@cityofzion/bs-neo3'
+import { BSNeo3Constants } from '@cityofzion/bs-neo3'
 import { useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
@@ -12,30 +11,26 @@ import { Button } from '@renderer/components/Button'
 import { DashedSeparator } from '@renderer/components/DashedSeparator'
 import { Separator } from '@renderer/components/Separator'
 
-import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 
-import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useExchange } from '@renderer/hooks/useExchange'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
+import {
+  buildNeo3VoteGetVoteDetailsByAddressQueryKey,
+  useNeo3VoteCalculateVoteFee,
+  useNeo3VoteGetVoteDetailsByAddress,
+  useNeo3VoteValidations,
+} from '@renderer/hooks/useNeo3Vote'
 import { usePressOnce } from '@renderer/hooks/usePressOnce'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useCurrencySelector, useSelectedNetworkByBlockchainSelector } from '@renderer/hooks/useSettingsSelector'
-import {
-  buildVoteNeo3GetVoteDetailsByAddressQueryKey,
-  useVoteNeo3CalculateVoteFee,
-  useVoteNeo3GetVoteDetailsByAddress,
-  useVoteNeo3Validations,
-} from '@renderer/hooks/useVoteNeo3'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -44,19 +39,18 @@ import TbCheckbox from '@renderer/assets/images/tb-checkbox.svg?react'
 import { thunks } from '@renderer/store/thunks'
 import type { TModalState } from '@shared/types/modal'
 
-import { VoteNeo3ConfirmationSkeleton } from './VoteNeo3ConfirmationSkeleton'
+import { Neo3VoteConfirmationSkeleton } from './Neo3VoteConfirmationSkeleton'
 
-export const VoteNeo3ConfirmationModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'voteNeo3Confirmation' })
-  const { loginSessionRef } = useLoginSessionSelector()
-  const { candidate, neo3Account } = useModalState<TModalState<'vote-neo3-confirmation'>>()
-  const calculateVoteFeeQuery = useVoteNeo3CalculateVoteFee({
+export const Neo3VoteConfirmationModal = () => {
+  const { t } = useTranslation('modals', { keyPrefix: 'neo3VoteConfirmation' })
+  const { candidate, neo3Account } = useModalState<TModalState<'neo3-vote-confirmation'>>()
+  const calculateVoteFeeQuery = useNeo3VoteCalculateVoteFee({
     neo3Account,
     candidatePubKey: candidate.pubKey,
   })
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address)
+  const voteDetailsByAddressQuery = useNeo3VoteGetVoteDetailsByAddress(neo3Account?.address)
   const balanceQuery = useBalance(neo3Account)
-  const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
+  const { hasEnoughGasToPayFee } = useNeo3VoteValidations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
   const { currency } = useCurrencySelector()
   const { modalNavigate } = useModalNavigate()
   const { confirmAction } = useConfirmAction()
@@ -69,7 +63,7 @@ export const VoteNeo3ConfirmationModal = () => {
   const dispatch = useAppDispatch()
 
   const feeBn = BSBigNumberHelper.fromNumber(calculateVoteFeeQuery.data || '0')
-  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3<'neo3'>
+  const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3
   const exchangeQuery = useExchange([{ blockchain: 'neo3', tokens: [blockchainService.feeToken] }])
 
   const isCurrentVote = voteDetailsByAddressQuery.data?.candidatePubKey === candidate.pubKey
@@ -124,20 +118,14 @@ export const VoteNeo3ConfirmationModal = () => {
     try {
       await confirmAction({ account: neo3Account })
 
-      const key = await EncryptionHelper.decrypt(neo3Account.encryptedKey, loginSessionRef.current?.encryptedPassword)
-      const account = (await AccountHelper.getServiceAccount({ account: neo3Account!, key })) as TBSAccount<'neo3'>
+      const serviceAccount = await BlockchainServiceHelper.getServiceAccount(neo3Account)
 
-      const transaction = await blockchainService.voteService.vote({
-        account,
+      const pendingTransaction = await blockchainService.voteService.vote({
+        account: serviceAccount,
         candidatePubKey: candidate.pubKey,
       })
 
-      const pendingTransaction = TransactionHelper.buildPendingTransaction({
-        transaction,
-        account: neo3Account,
-      })
-
-      const notificationPrefix = 'modals:voteNeo3Confirmation.notifications'
+      const notificationPrefix = 'modals:neo3VoteConfirmation.notifications'
       const notificationSuccessPrefix = `${notificationPrefix}.voteSuccessNotification`
       const notificationFailurePrefix = `${notificationPrefix}.voteFailureNotification`
 
@@ -155,7 +143,7 @@ export const VoteNeo3ConfirmationModal = () => {
         })
       )
 
-      const queryKey = buildVoteNeo3GetVoteDetailsByAddressQueryKey({ neo3Network, address: account.address })
+      const queryKey = buildNeo3VoteGetVoteDetailsByAddressQueryKey({ neo3Network, address: serviceAccount.address })
 
       queryClient.setQueryData(queryKey, {
         ...voteDetailsByAddressQuery.data,
@@ -163,9 +151,9 @@ export const VoteNeo3ConfirmationModal = () => {
         candidateName: candidate.name,
       })
 
-      modalNavigate('vote-neo3-success', { state: { candidate, neo3Account }, replace: true })
+      modalNavigate('neo3-vote-success', { state: { candidate, neo3Account }, replace: true })
     } catch (error) {
-      LoggerHelper.sentry(error, { where: 'VoteNeo3ConfirmationModal', operation: 'submitVote' })
+      LoggerHelper.sentry(error, { where: 'Neo3VoteConfirmationModal', operation: 'submitVote' })
 
       ToastHelper.error({ message: AppError.wrap(error, t('errors.castVoteFailed')).message, duration: 6000 })
     }
@@ -184,7 +172,7 @@ export const VoteNeo3ConfirmationModal = () => {
         <p className="-mb-2 text-gray-100 uppercase">{t('votingDetailsLabel')}</p>
 
         <div className="flex w-full flex-col items-center gap-y-2.5">
-          <VoteNeo3ConfirmationSkeleton isLoading={isLoading}>
+          <Neo3VoteConfirmationSkeleton isLoading={isLoading}>
             <ul className="flex w-full flex-col gap-y-2 rounded bg-gray-900/50 p-4 text-xs break-all">
               <li className="flex flex-col">
                 <p className="text-blue">{t('accountNameLabel')}</p>
@@ -225,7 +213,7 @@ export const VoteNeo3ConfirmationModal = () => {
             </div>
 
             {!isLoading && !!errorMessage && <AlertErrorBanner className="mt-2 w-full gap-3" message={errorMessage} />}
-          </VoteNeo3ConfirmationSkeleton>
+          </Neo3VoteConfirmationSkeleton>
 
           <Button
             label={isCurrentVote ? t('voteAlreadyCastButtonLabel') : t('confirmationButtonLabel')}
@@ -243,4 +231,4 @@ export const VoteNeo3ConfirmationModal = () => {
   )
 }
 
-export default VoteNeo3ConfirmationModal
+export default Neo3VoteConfirmationModal

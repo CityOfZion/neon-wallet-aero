@@ -15,19 +15,15 @@ import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
 import { IconButton } from '@renderer/components/IconButton'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 
-import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -44,7 +40,6 @@ import TbSend from '@renderer/assets/images/tb-send.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
 import { thunks } from '@renderer/store/thunks'
-import type { TUseTransactionsTransaction } from '@shared/types/hooks'
 import type { TAccount } from '@shared/types/store'
 
 import type { TSendRecipient } from './SendRecipient'
@@ -75,7 +70,6 @@ const SendPage = () => {
   const { state } = useLocation() as Location<TLocationState>
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const { loginSessionRef } = useLoginSessionSelector()
-  const { accountsMapRef } = useAccountsMapSelector()
   const { confirmAction } = useConfirmAction()
   const dispatch = useAppDispatch()
 
@@ -95,7 +89,7 @@ const SendPage = () => {
   const service = useMemo(
     () =>
       actionData.selectedAccount
-        ? BlockchainServiceHelper.bsAggregator.blockchainServicesByName[actionData.selectedAccount.blockchain]
+        ? BlockchainServiceHelper.bsAggregator.blockchainServicesByNameRecord[actionData.selectedAccount.blockchain]
         : undefined,
     [actionData.selectedAccount]
   )
@@ -142,12 +136,7 @@ const SendPage = () => {
       })
     }
 
-    const key = await EncryptionHelper.decrypt(
-      actionData.selectedAccount.encryptedKey,
-      loginSessionRef.current?.encryptedPassword
-    )
-
-    const serviceAccount = await AccountHelper.getServiceAccount({ account: actionData.selectedAccount, key })
+    const serviceAccount = await BlockchainServiceHelper.getServiceAccount(actionData.selectedAccount)
 
     return {
       service,
@@ -274,9 +263,7 @@ const SendPage = () => {
         })
         .filter(recipient => recipient !== null) as TTransferIntent[]
 
-      const key = await EncryptionHelper.decrypt(encryptedKey, encryptedPassword)
-
-      const senderAccount = await AccountHelper.getServiceAccount({ account: selectedAccount, key })
+      const senderAccount = await BlockchainServiceHelper.getServiceAccount(selectedAccount)
 
       const fee = await service.calculateTransferFee({ senderAccount, intents })
 
@@ -319,57 +306,25 @@ const SendPage = () => {
 
     try {
       const transactions = await service.transfer({ senderAccount: serviceAccount, intents })
-      const pendingTransactions: TUseTransactionsTransaction[] = []
-      const blockchain = service.name
+
       const notificationPrefix = 'pages:send'
       const notificationSuccessPrefix = `${notificationPrefix}.successNotification`
       const notificationFailurePrefix = `${notificationPrefix}.failureNotification`
 
-      const waitTransactionParams = {
-        successNotification: {
-          title: `${notificationSuccessPrefix}.title`,
-          previewBody: `${notificationSuccessPrefix}.previewBody`,
-        },
-        failureNotification: {
-          title: `${notificationFailurePrefix}.title`,
-          previewBody: `${notificationFailurePrefix}.previewBody`,
-        },
-      }
-
-      if (service.isMultiTransferSupported) {
-        const receiverAccounts = intents.map(({ receiverAddress }) =>
-          accountsMapRef.current.get(AccountHelper.buildAccountKey({ address: receiverAddress, blockchain }))
-        )
-
-        const pendingTransaction = TransactionHelper.buildPendingTransaction({
-          transaction: transactions[0],
-          account: selectedAccount,
-          senderAccount: selectedAccount,
-          receiverAccounts,
-        })
-
-        pendingTransactions.push(pendingTransaction)
-      } else {
-        transactions.forEach((transaction, index) => {
-          const intent = intents[index]
-
-          const receiverAccount = accountsMapRef.current.get(
-            AccountHelper.buildAccountKey({ address: intent?.receiverAddress, blockchain })
-          )
-
-          const pendingTransaction = TransactionHelper.buildPendingTransaction({
-            transaction,
-            account: selectedAccount,
-            senderAccount: selectedAccount,
-            receiverAccounts: receiverAccount ? [receiverAccount] : undefined,
+      transactions.forEach(transaction =>
+        dispatch(
+          thunks.waitPendingTransaction({
+            pendingTransaction: transaction,
+            successNotification: {
+              title: `${notificationSuccessPrefix}.title`,
+              previewBody: `${notificationSuccessPrefix}.previewBody`,
+            },
+            failureNotification: {
+              title: `${notificationFailurePrefix}.title`,
+              previewBody: `${notificationFailurePrefix}.previewBody`,
+            },
           })
-
-          pendingTransactions.push(pendingTransaction)
-        })
-      }
-
-      pendingTransactions.forEach(pendingTransaction =>
-        dispatch(thunks.waitPendingTransaction({ ...waitTransactionParams, pendingTransaction }))
+        )
       )
 
       ToastHelper.success({ message: t('sendSuccess.toast') })

@@ -1,10 +1,11 @@
+import type { TTransactionUtxo } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { Separator } from '@renderer/components/Separator'
 
 import { StringHelper } from '@renderer/helpers/StringHelper'
 
-import type { TUseTransactionsTransactionUtxo } from '@shared/types/hooks'
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { TransactionActivityListItemsColumn } from './TransactionActivityListItemsColumn'
 import { TransactionActivityListItemsColumnNftImage } from './TransactionActivityListItemsColumnNftImage'
@@ -12,12 +13,14 @@ import { TransactionActivityListItemsUtxoInputOutput } from './TransactionActivi
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 type TProps = {
-  transaction: TUseTransactionsTransactionUtxo
+  transaction: TTransactionUtxo<TBlockchainServiceKey>
 }
 
-export const TransactionActivityListItemsUtxo = ({ transaction: { blockchain, inputs, outputs, nfts } }: TProps) => {
+export const TransactionActivityListItemsUtxo = ({ transaction }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.items' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
+
+  const { blockchain, inputs, outputs, nfts } = transaction
 
   const hasInputs = inputs.length > 0
   const hasOutputs = outputs.length > 0

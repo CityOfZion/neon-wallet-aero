@@ -43,7 +43,7 @@
       "label": "Token verkaufen"
     },
     {
-      "id": "voteNeo3",
+      "id": "neo3Vote",
       "verbs": ["abstimmen"],
       "nonVerbs": ["abstimmung", "neo", "n3", "node", "mitglied", "konsens", "rat", "governance"],
       "label": "Abstimmen (Neo 3)"

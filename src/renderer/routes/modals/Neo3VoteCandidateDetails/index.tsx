@@ -13,12 +13,12 @@ import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 import {
-  useVoteNeo3CalculateVoteFee,
-  useVoteNeo3GetVoteDetailsByAddress,
-  useVoteNeo3Validations,
-} from '@renderer/hooks/useVoteNeo3'
+  useNeo3VoteCalculateVoteFee,
+  useNeo3VoteGetVoteDetailsByAddress,
+  useNeo3VoteValidations,
+} from '@renderer/hooks/useNeo3Vote'
+import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -27,23 +27,23 @@ import TbCheckbox from '@renderer/assets/images/tb-checkbox.svg?react'
 
 import type { TModalState } from '@shared/types/modal'
 
-export const VoteNeo3CandidateDetailsModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'voteNeo3CandidateDetails' })
+export const Neo3VoteCandidateDetailsModal = () => {
+  const { t } = useTranslation('modals', { keyPrefix: 'neo3VoteCandidateDetails' })
   const { neo3Account, candidate, candidateVotePercentage } =
-    useModalState<TModalState<'vote-neo3-candidate-details'>>()
+    useModalState<TModalState<'neo3-vote-candidate-details'>>()
   const { modalNavigate } = useModalNavigate()
   const { currency } = useCurrencySelector()
 
   const { position, logoUrl, hash, description, pubKey, name, votes } = candidate
 
-  const calculateVoteFeeQuery = useVoteNeo3CalculateVoteFee({
+  const calculateVoteFeeQuery = useNeo3VoteCalculateVoteFee({
     neo3Account,
     candidatePubKey: pubKey,
   })
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account.address)
+  const voteDetailsByAddressQuery = useNeo3VoteGetVoteDetailsByAddress(neo3Account.address)
   const balanceQuery = useBalance(neo3Account)
-  const { hasEnoughGasToPayFee } = useVoteNeo3Validations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
-  const isCandidateCoz = ConstantsHelper.voteNeo3CozPubKey === pubKey
+  const { hasEnoughGasToPayFee } = useNeo3VoteValidations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
+  const isCandidateCoz = ConstantsHelper.neo3VoteCozPubKey === pubKey
 
   const neoAmount = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
   const hasNeoAmount = neoAmount.isGreaterThan(0)
@@ -68,7 +68,7 @@ export const VoteNeo3CandidateDetailsModal = () => {
   const handleConfirmVote = () => {
     if (isDisabled) return
 
-    modalNavigate('vote-neo3-confirmation', { state: { neo3Account, candidate }, replace: true })
+    modalNavigate('neo3-vote-confirmation', { state: { neo3Account, candidate }, replace: true })
   }
 
   return (
@@ -140,4 +140,4 @@ export const VoteNeo3CandidateDetailsModal = () => {
   )
 }
 
-export default VoteNeo3CandidateDetailsModal
+export default Neo3VoteCandidateDetailsModal

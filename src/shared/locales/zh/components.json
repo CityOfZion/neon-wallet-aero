@@ -63,12 +63,21 @@
         "tokenHashLabel": "代币哈希",
         "nameLabel": "名称",
         "collectionLabel": "合集"
+      },
+      "columnsByKey": {
+        "limit": "限额",
+        "token": "代币"
       }
     },
     "empty": {
       "notFoundTitle": "没有交易记录可显示",
       "notFoundDescription": "进行交易后，记录将会显示在这里"
     }
+  },
+  "searchableToken": {
+    "placeholder": "搜索代币…",
+    "emptyMessage": "输入以搜索代币",
+    "notFoundMessage": "未找到代币"
   },
   "contactsList": {
     "noContactAddresses": "未找到联系人"

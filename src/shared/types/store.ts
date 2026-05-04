@@ -63,7 +63,7 @@ type TNotificationNavigateAction = {
         tokenHash: string
       }
     | {
-        to: 'vote-neo3'
+        to: 'neo3-vote'
         address: string
         blockchain: TBlockchainServiceKey
       }
@@ -100,16 +100,18 @@ export type TAccountType = 'standard' | 'watch' | 'hardware'
 
 export type TWalletType = 'standard' | 'hardware'
 
-export type TAccount = {
-  id: string
-  address: string
-  type: TAccountType
-  idWallet: string
-  name: string
-  blockchain: TBlockchainServiceKey
-  encryptedKey?: string
-  order: number
-}
+export type TAccount<N extends TBlockchainServiceKey = TBlockchainServiceKey> = N extends TBlockchainServiceKey
+  ? {
+      id: string
+      address: string
+      type: TAccountType
+      idWallet: string
+      name: string
+      blockchain: N
+      encryptedKey?: string
+      order: number
+    }
+  : never
 
 export type TWalletBackupStatus = 'successful' | 'unsuccessful'
 
@@ -122,7 +124,7 @@ export type TWallet = {
   backupStatus: TWalletBackupStatus
 }
 
-export type TAccountWithWallet = TAccount & {
+export type TAccountWithWallet<N extends TBlockchainServiceKey = TBlockchainServiceKey> = TAccount<N> & {
   wallet: TWallet
 }
 

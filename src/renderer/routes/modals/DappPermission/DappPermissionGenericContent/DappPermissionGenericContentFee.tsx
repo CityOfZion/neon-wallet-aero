@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { Details } from '@renderer/components/Details'
 import { Loader } from '@renderer/components/Loader'
 
-import { AccountHelper } from '@renderer/helpers/AccountHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 
@@ -32,8 +31,7 @@ export const DappPermissionGenericContentFee = ({
     queryFn: async () => {
       if (!loginSession) throw new AppError(tCommon('errors.noLoginSession'))
 
-      const key = await EncryptionHelper.decrypt(sessionAccount.encryptedKey, loginSession.encryptedPassword)
-      const serviceAccount = await AccountHelper.getServiceAccount({ account: sessionAccount, key })
+      const serviceAccount = await BlockchainServiceHelper.getServiceAccount(sessionAccount)
 
       return await sessionDetails.service.walletConnectService.calculateRequestFee({
         account: serviceAccount,

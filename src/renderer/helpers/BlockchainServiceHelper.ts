@@ -1,16 +1,18 @@
-import type { TBSAccount } from '@cityofzion/blockchain-service'
+import { BSKeychainHelper, hasLedger, type TBSAccount } from '@cityofzion/blockchain-service'
 import { BSBitcoinConstants } from '@cityofzion/bs-bitcoin'
-import type { BSAggregator } from '@cityofzion/bs-multichain'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TBlockchainServiceKey, TBSAggregator } from '@shared/types/blockchain'
+import type { TAccount } from '@shared/types/store'
 
+import { EncryptionHelper } from './EncryptionHelper'
 import { AppError } from './ErrorHelper'
 import { I18nextHelper } from './I18nextHelper'
+import { ReduxHelper } from './ReduxHelper'
 
 const { t } = I18nextHelper.get()
 
 export class BlockchainServiceHelper {
-  static bsAggregator: BSAggregator<TBlockchainServiceKey>
+  static bsAggregator: TBSAggregator
   static blockchainNames: TBlockchainServiceKey[]
 
   static async #getHardwareWalletTransport(account: TBSAccount<TBlockchainServiceKey>) {
@@ -31,36 +33,75 @@ export class BlockchainServiceHelper {
   static async setup() {
     if (this.bsAggregator) return
 
-    const [{ BSAggregator }, { BSNeo3 }, { BSNeoLegacy }, { BSNeoX }, { BSBitcoin }, { BSEthereum }, { BSSolana }] =
-      await Promise.all([
-        import('@cityofzion/bs-multichain'),
-        import('@cityofzion/bs-neo3'),
-        import('@cityofzion/bs-neo-legacy'),
-        import('@cityofzion/bs-neox'),
-        import('@cityofzion/bs-bitcoin'),
-        import('@cityofzion/bs-ethereum'),
-        import('@cityofzion/bs-solana'),
-      ])
+    const [
+      { BSAggregator },
+      { BSNeo3 },
+      { BSNeoLegacy },
+      { BSNeoX },
+      { BSBitcoin },
+      { BSEthereum },
+      { BSSolana },
+      { BSStellar },
+    ] = await Promise.all([
+      import('@cityofzion/bs-multichain'),
+      import('@cityofzion/bs-neo3'),
+      import('@cityofzion/bs-neo-legacy'),
+      import('@cityofzion/bs-neox'),
+      import('@cityofzion/bs-bitcoin'),
+      import('@cityofzion/bs-ethereum'),
+      import('@cityofzion/bs-solana'),
+      import('@cityofzion/bs-stellar'),
+    ])
 
     const services = await Promise.all([
-      Promise.resolve(new BSNeo3('neo3', undefined, this.#getHardwareWalletTransport.bind(this))),
-      Promise.resolve(new BSNeoLegacy('neoLegacy', undefined, this.#getHardwareWalletTransport.bind(this))),
-      Promise.resolve(new BSNeoX('neox', undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSNeo3(undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSNeoLegacy(undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSNeoX(undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSStellar(undefined, this.#getHardwareWalletTransport.bind(this))),
       Promise.resolve(
         new BSBitcoin(
-          'bitcoin',
           import.meta.env.PROD ? undefined : BSBitcoinConstants.TESTNET_NETWORK,
           this.#getHardwareWalletTransport.bind(this)
         )
       ),
-      Promise.resolve(new BSSolana('solana', undefined, this.#getHardwareWalletTransport.bind(this))),
-      Promise.resolve(new BSEthereum('ethereum', 'ethereum', undefined, this.#getHardwareWalletTransport.bind(this))),
-      Promise.resolve(new BSEthereum('polygon', 'polygon', undefined, this.#getHardwareWalletTransport.bind(this))),
-      Promise.resolve(new BSEthereum('base', 'base', undefined, this.#getHardwareWalletTransport.bind(this))),
-      Promise.resolve(new BSEthereum('arbitrum', 'arbitrum', undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSSolana(undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSEthereum('ethereum', undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSEthereum('polygon', undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSEthereum('base', undefined, this.#getHardwareWalletTransport.bind(this))),
+      Promise.resolve(new BSEthereum('arbitrum', undefined, this.#getHardwareWalletTransport.bind(this))),
     ])
 
     this.bsAggregator = new BSAggregator(services)
     this.blockchainNames = services.map(service => service.name) as TBlockchainServiceKey[]
+  }
+  static async getServiceAccount<T extends TBlockchainServiceKey>(account: TAccount<T>): Promise<TBSAccount<T>> {
+    if (!account.encryptedKey) {
+      throw new AppError(t('common:errors.unexpectedError'))
+    }
+
+    const {
+      auth: {
+        memoryData: { loginSession },
+      },
+    } = ReduxHelper.store.getState()
+
+    if (!loginSession) {
+      throw new AppError(t('common:errors.noLoginSession'))
+    }
+
+    const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSession.encryptedPassword)
+
+    const service = this.bsAggregator.blockchainServicesByNameRecord[account.blockchain]
+
+    if (account.type === 'hardware' && hasLedger(service)) {
+      const serviceAccount = await service.generateAccountFromPublicKey(key)
+      serviceAccount.isHardware = true
+      serviceAccount.bipPath = BSKeychainHelper.getBipPath(service.bipDerivationPath, account.order)
+
+      return serviceAccount as TBSAccount<T>
+    }
+
+    const serviceAccount = await service.generateAccountFromKey(key)
+    return serviceAccount as TBSAccount<T>
   }
 }

@@ -70,5 +70,17 @@
   },
   "useExportMnemonic": {
     "fileTemplate": "重要：請保持此檔案安全，切勿與任何人分享！任何擁有此助記詞的人都可以存取您的資產。\n\n--- 助記詞 ---\n\n{{mnemonic}}\n\n-----------------------\n\n{{generatedAt}}"
+  },
+  "usePersistTrustlineMutation": {
+    "errorToastMessage": "保存信任线失败",
+    "failureNotification": {
+      "previewBody": "我们无法验证您的信任线是否完成",
+      "title": "更改信任线失败"
+    },
+    "successNotification": {
+      "previewBody": "您的信任线已成功更改",
+      "title": "更改信任线完成"
+    },
+    "successToastMessage": "信任线保存成功"
   }
 }

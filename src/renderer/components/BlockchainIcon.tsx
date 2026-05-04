@@ -11,6 +11,7 @@ import Neo3Icon from '@renderer/assets/images/blockchains/neo3.svg?react'
 import NeoxIcon from '@renderer/assets/images/blockchains/neox.svg?react'
 import PolygonIcon from '@renderer/assets/images/blockchains/polygon.svg?react'
 import SolanaIcon from '@renderer/assets/images/blockchains/solana.svg?react'
+import StellarIcon from '@renderer/assets/images/blockchains/stellar.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
@@ -28,12 +29,20 @@ const ICONS_BY_BLOCKCHAIN: Record<TBlockchainServiceKey, React.FC<React.SVGProps
   base: BaseIcon,
   arbitrum: ArbitrumIcon,
   solana: SolanaIcon,
+  stellar: StellarIcon,
 }
 
 export const BlockchainIcon = React.memo(({ blockchain, ...props }: Props) => {
   const Component = ICONS_BY_BLOCKCHAIN[blockchain]
 
   return (
-    <Component {...props} className={StyleHelper.mergeStyles('size-4 object-contain text-gray-100', props.className)} />
+    <Component
+      {...props}
+      className={StyleHelper.mergeStyles(
+        'size-4 object-contain',
+        { '[--blockchain-icon-color:currentColor]': props.className?.includes('text-') },
+        props.className
+      )}
+    />
   )
 })
