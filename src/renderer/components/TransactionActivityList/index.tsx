@@ -14,7 +14,7 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
-import { useTransactions } from '@renderer/hooks/useTransactions'
+import { useTransactionsQuery } from '@renderer/hooks/useTransactionsQuery'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
 
 import TbFileExport from '@renderer/assets/images/tb-file-export.svg?react'
@@ -58,7 +58,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
     dateTo: dateNow,
   })
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useTransactions({
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useTransactionsQuery({
     account: selectedAccount,
     ...actionData,
   })

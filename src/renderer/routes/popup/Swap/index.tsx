@@ -30,7 +30,6 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
@@ -39,7 +38,6 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
-import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useIsFocused } from '@renderer/hooks/useIsFocused'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
@@ -86,7 +84,6 @@ export const SwapPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'swap' })
   const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
-  const { loginSessionRef } = useLoginSessionSelector()
   const { accountsRef } = useAccountsSelector()
   const { isFocused: isAmountInputFocused, ref: amountInputRef } = useIsFocused<HTMLInputElement>()
 
@@ -95,7 +92,7 @@ export const SwapPage = () => {
     [selectedNetworkByBlockchain]
   )
 
-  const swapOrchestratorRef = useRef<SimpleSwapOrchestrator<TBlockchainServiceKey>>(null)
+  const swapOrchestratorRef = useRef<SimpleSwapOrchestrator>(null)
 
   const { actionData, actionState, setData, setError, clearErrors, reset, handleAct } = useActions<TActionsData>(
     {
@@ -284,12 +281,7 @@ export const SwapPage = () => {
   }
 
   const handleSelectAccountToUse = async (account: TAccount) => {
-    if (!loginSessionRef.current || !account.encryptedKey) return
-
-    const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
-
-    const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
-
+    const serviceAccount = await BlockchainServiceHelper.getServiceAccount(account)
     swapOrchestratorRef.current?.setAccountToUse(serviceAccount)
   }
 
@@ -512,7 +504,6 @@ export const SwapPage = () => {
     if (!state?.account) return
 
     handleSelectAccountToUse(state.account)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.account])
 
   useEffect(() => {

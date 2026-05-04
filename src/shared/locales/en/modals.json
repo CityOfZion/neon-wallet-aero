@@ -11,6 +11,16 @@
     "exportError": "Error exporting wallet",
     "walletWithoutBackupLabel": "Wallet without backup"
   },
+  "stellarPersistTrustlines": {
+    "title": "Trustline",
+    "errors": {
+      "invalidLimit": "Invalid limit"
+    },
+    "limitLabel": "Limit (Optional)",
+    "limitPlaceholder": "Enter limit…",
+    "saveButtonLabel": "Save",
+    "tokenLabel": "Token"
+  },
   "walletEdit": {
     "title": "Edit wallet",
     "subtitle": "All wallets",
@@ -77,7 +87,7 @@
     "settingsItemLabel": "Settings",
     "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Logout",
-    "voteNeo3ItemLabel": "Voting",
+    "neo3VoteItemLabel": "Voting",
     "searchItemLabel": "Search"
   },
   "importAccountsSelection": {
@@ -409,7 +419,10 @@
     "title": "Your bridge",
     "bridgeDetailsHeaderLabel": "Details",
     "bridgeStatusPanelLabel": "Status",
-    "bridgeStatusPanelSteps": ["Sent", "Complete"],
+    "bridgeStatusPanelSteps": [
+      "Sent",
+      "Complete"
+    ],
     "fromDetailsPanelLabel": "From",
     "fromAddressDetailsItemLabel": "Sending address",
     "fromTokenDetailsItemLabel": "Token",
@@ -510,7 +523,11 @@
   "swapDetails": {
     "title": "Your swap",
     "detailsHeaderLabel": "Details",
-    "statusPanelSteps": ["Confirm", "Exchange", "Complete"],
+    "statusPanelSteps": [
+      "Confirm",
+      "Exchange",
+      "Complete"
+    ],
     "routingPanelLabel": "Routing",
     "routingPanelTransactionFromLabel": "From",
     "routingPanelTransactionToLabel": "To",
@@ -534,7 +551,7 @@
     "title": "Reorder your wallets",
     "subtitle": "All wallets"
   },
-  "voteNeo3CandidateDetails": {
+  "neo3VoteCandidateDetails": {
     "title": "About this candidate",
     "candidateNameLabel": "Candidate",
     "positionLabel": "Current position",
@@ -551,7 +568,7 @@
       "accountCanNotBeWatch": "You cannot vote with a watch account"
     }
   },
-  "voteNeo3Confirmation": {
+  "neo3VoteConfirmation": {
     "title": "Review & confirm your vote",
     "highlightLabel": "As a token holder, you can influence important protocol decisions so the network has a development path that matches community interests.",
     "detailsLabel": "Detailed proposal research and smart voting practices matter greatly. The system uses reliable verification and clear processes that let individuals meaningfully contribute to the NEO ecosystem’s growth and development.",
@@ -582,7 +599,7 @@
       }
     }
   },
-  "voteNeo3Success": {
+  "neo3VoteSuccess": {
     "title": "Your vote",
     "subtitle": "Your vote has been cast!",
     "votingDetailsLabel": "Your vote",
@@ -652,7 +669,7 @@
     "parametersDetailsLabel": "Request parameters",
     "externalButtonLabel": "View on explorer"
   },
-  "voteNeo3Info": {
+  "neo3VoteInfo": {
     "title": "How does it work?",
     "description": "The number of NEO you hold equates to the number of votes you can cast to vote for a candidate.",
     "whyVoteLabel": "Why vote?",

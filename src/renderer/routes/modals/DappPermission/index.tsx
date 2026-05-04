@@ -31,7 +31,7 @@ import { DappPermissionSuccessContent } from './DappPermissionSuccessContent'
 export type TDappPermissionProps = {
   request: PendingRequestTypes.Struct
   session: SessionTypes.Struct
-  sessionDetails: TWalletKitHelperSessionDetails<TBlockchainServiceKey>
+  sessionDetails: TWalletKitHelperSessionDetails
   sessionAccount: TAccount
   onAccept: () => void
   onReject: (reason?: ErrorResponse, toastMessage?: string) => void

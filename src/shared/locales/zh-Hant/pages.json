@@ -35,6 +35,7 @@
     "votingButtonLabel": "投票",
     "bridgeButtonLabel": "跨鏈橋",
     "buyAndSellTokensButtonLabel": "買入 + 賣出",
+    "trustlinesButtonLabel": "信任額度",
     "ariaLabels": {
       "notificationsIconButton": "通知",
       "menuIconButton": "選單",
@@ -500,7 +501,7 @@
   "currency": {
     "title": "貨幣"
   },
-  "voteNeo3": {
+  "neo3Vote": {
     "title": "投票",
     "howDoesItWorkButtonLabel": "它是如何运作的？",
     "searchPlaceholder": "搜索候选人…",
@@ -571,5 +572,10 @@
     "alert": "請確保您的硬體錢包已解鎖、已連接至支援的應用程式，並已連接到此裝置",
     "successBannerMessage": "硬體錢包已成功連接。正在開啟擴充功能…",
     "completeButtonLabel": "完成"
+  },
+  "stellarTrustlines": {
+    "title": "信任額度",
+    "emptyMessage": "未找到信任額度",
+    "addTrustlineButtonLabel": "新增信任額度"
   }
 }

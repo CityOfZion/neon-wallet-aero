@@ -16,19 +16,14 @@ import { Input } from '@renderer/components/Input'
 import { Separator } from '@renderer/components/Separator'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 
-import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { TransactionHelper } from '@renderer/helpers/TransactionHelper'
 
-import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
-import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useDebounceFunction } from '@renderer/hooks/useDebounceFunction'
@@ -52,13 +47,11 @@ export const SellTokensDepositModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'sellTokensDeposit' })
   const { account, depositActions } = useModalState<TModalState<'sell-tokens-deposit'>>()
   const { modalNavigate } = useModalNavigate()
-  const { loginSessionRef } = useLoginSessionSelector()
   const { currency } = useCurrencySelector()
   const { confirmAction } = useConfirmAction()
   const dispatch = useAppDispatch()
   const debounceAddress = useDebounceFunction()
   const debounceAmount = useDebounceFunction()
-  const { accountsMapRef } = useAccountsMapSelector()
 
   const { actionData, actionState, setData, setError, clearErrors, handleAct, reset } =
     useActions<TBuyAndSellTokensDepositActionsData>(
@@ -80,7 +73,7 @@ export const SellTokensDepositModal = () => {
   const service = useMemo(() => {
     const account = actionData.account
 
-    return account ? BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain] : undefined
+    return account ? BlockchainServiceHelper.bsAggregator.blockchainServicesByNameRecord[account.blockchain] : undefined
   }, [actionData.account])
 
   const alertErrorMessage = actionState.errors.fee || actionState.errors.account || actionState.errors.amount
@@ -108,8 +101,8 @@ export const SellTokensDepositModal = () => {
     const token = actionData.token!.token!
     const address = actionData.address!
     const amount = actionData.amount!
-    const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current!.encryptedPassword)
-    const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
+
+    const serviceAccount = await BlockchainServiceHelper.getServiceAccount(account)
 
     const intent: TTransferIntent = {
       amount,
@@ -187,23 +180,9 @@ export const SellTokensDepositModal = () => {
 
       const { serviceAccount, intent } = transferParams
 
-      const [transaction] = await service.transfer({
+      const [pendingTransaction] = await service.transfer({
         senderAccount: serviceAccount,
         intents: [intent],
-      })
-
-      const receiverAccount = accountsMapRef.current.get(
-        AccountHelper.buildAccountKey({
-          address: intent.receiverAddress,
-          blockchain: account.blockchain,
-        })
-      )
-
-      const pendingTransaction = TransactionHelper.buildPendingTransaction({
-        transaction,
-        account,
-        senderAccount: account,
-        receiverAccounts: receiverAccount ? [receiverAccount] : undefined,
       })
 
       const notificationPrefix = 'modals:sellTokensDeposit'

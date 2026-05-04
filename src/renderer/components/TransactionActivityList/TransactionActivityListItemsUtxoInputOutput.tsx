@@ -1,30 +1,31 @@
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { BSBigNumberHelper, type TTransactionUtxoInputOutput } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
 import { Separator } from '@renderer/components/Separator'
 
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useExchange } from '@renderer/hooks/useExchange'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { TUseTransactionsTransactionUtxoInputOutput } from '@shared/types/hooks'
 
 import { TransactionActivityListItemsColumn } from './TransactionActivityListItemsColumn'
 import { TransactionActivityListItemsColumnDataAddress } from './TransactionActivityListItemsColumnDataAddress'
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 type TProps = {
-  input?: TUseTransactionsTransactionUtxoInputOutput
-  output?: TUseTransactionsTransactionUtxoInputOutput
+  input?: TTransactionUtxoInputOutput
+  output?: TTransactionUtxoInputOutput
   blockchain: TBlockchainServiceKey
   index: number
   contentClassName?: string
@@ -40,10 +41,13 @@ export const TransactionActivityListItemsUtxoInputOutput = ({
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.items' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { currency } = useCurrencySelector()
+  const { accountsMap } = useAccountsMapSelector()
 
   const hasInput = !!input
-  const { address, addressUrl, account, amount, token } = (hasInput ? input : output)!
+  const { address, addressUrl, amount, token } = (hasInput ? input : output)!
   const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
+
+  const account = address ? accountsMap.get(AccountHelper.buildAccountKey({ blockchain, address })) : undefined
 
   const exchange = useExchange(service ? [{ blockchain, tokens: [token] }] : [])
 

@@ -54,10 +54,10 @@ const SellTokensDepositSuccessModal = lazy(() => import('./modals/SellTokensDepo
 const SellTokensDepositErrorModal = lazy(() => import('./modals/SellTokensDepositError'))
 const SwapDetailsLogModal = lazy(() => import('./modals/SwapDetailsLog'))
 const ReorderWalletsModal = lazy(() => import('./modals/ReorderWallets'))
-const VoteNeo3CandidateDetailsModal = lazy(() => import('./modals/VoteNeo3CandidateDetails'))
-const VoteNeo3ConfirmationModal = lazy(() => import('./modals/VoteNeo3Confirmation'))
-const VoteNeo3SuccessModal = lazy(() => import('./modals/VoteNeo3Success'))
-const VoteNeo3InfoModal = lazy(() => import('./modals/VoteNeo3Info'))
+const Neo3VoteCandidateDetailsModal = lazy(() => import('./modals/Neo3VoteCandidateDetails'))
+const Neo3VoteConfirmationModal = lazy(() => import('./modals/Neo3VoteConfirmation'))
+const Neo3VoteSuccessModal = lazy(() => import('./modals/Neo3VoteSuccess'))
+const Neo3VoteInfoModal = lazy(() => import('./modals/Neo3VoteInfo'))
 const AccountSelectionByBlockchainModal = lazy(() => import('./modals/AccountSelectionByBlockchain'))
 const ConfirmActionBottomModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionBottom'))
 const ConfirmActionSideModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionSide'))
@@ -65,6 +65,7 @@ const HideFraudulentTokenModal = lazy(() => import('./modals/HideFraudulentToken
 const SupportTicketModal = lazy(() => import('./modals/SupportTicket'))
 const ExportTransactionsModal = lazy(() => import('./modals/ExportTransactions'))
 const SurveyModal = lazy(() => import('./modals/Survey'))
+const StellarPersistTrustlineModal = lazy(() => import('./modals/StellarPersistTrustline'))
 
 export const modalsRouter: TRoute[] = [
   { name: 'wallet-selection', type: 'bottom', element: WalletSelectionModal },
@@ -120,13 +121,14 @@ export const modalsRouter: TRoute[] = [
   { name: 'sell-tokens-deposit-error', type: 'side', element: SellTokensDepositErrorModal },
   { name: 'swap-details-log', type: 'bottom', element: SwapDetailsLogModal },
   { name: 'reorder-wallets', type: 'bottom', element: ReorderWalletsModal },
-  { name: 'vote-neo3-candidate-details', type: 'bottom', element: VoteNeo3CandidateDetailsModal },
-  { name: 'vote-neo3-info', type: 'bottom', element: VoteNeo3InfoModal },
-  { name: 'vote-neo3-confirmation', type: 'bottom', element: VoteNeo3ConfirmationModal },
-  { name: 'vote-neo3-success', type: 'bottom', element: VoteNeo3SuccessModal },
+  { name: 'neo3-vote-candidate-details', type: 'bottom', element: Neo3VoteCandidateDetailsModal },
+  { name: 'neo3-vote-info', type: 'bottom', element: Neo3VoteInfoModal },
+  { name: 'neo3-vote-confirmation', type: 'bottom', element: Neo3VoteConfirmationModal },
+  { name: 'neo3-vote-success', type: 'bottom', element: Neo3VoteSuccessModal },
   { name: 'search', type: 'bottom', element: SearchModal },
   { name: 'hide-fraudulent-token', type: 'bottom', element: HideFraudulentTokenModal },
   { name: 'support-ticket', type: 'bottom', element: SupportTicketModal },
   { name: 'export-transactions', type: 'bottom', element: ExportTransactionsModal },
   { name: 'survey', type: 'bottom', element: SurveyModal },
+  { name: 'stellar-persist-trustline', type: 'bottom', element: StellarPersistTrustlineModal },
 ]

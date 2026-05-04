@@ -63,12 +63,12 @@ export const functionsByNotificationActionType: TFunctionsByNotificationActionTy
         modalActions.modalErase('side')
         modalActions.modalNavigate('hide-fraudulent-token', { state: { tokenHash, account } })
       })
-      .with({ to: 'vote-neo3' }, payload => {
+      .with({ to: 'neo3-vote' }, payload => {
         const initialNeoAccount = getAccount(payload)
         const initialWallet = getWalletByAccount(initialNeoAccount)
 
         modalActions.modalErase('side')
-        popupNavigate('/vote-neo3', { state: { initialNeoAccount, initialWallet }, replace: true })
+        popupNavigate('/neo3-vote', { state: { initialNeoAccount, initialWallet }, replace: true })
       })
       .with({ to: 'backup-wallet' }, () => {
         modalActions.modalErase('side')

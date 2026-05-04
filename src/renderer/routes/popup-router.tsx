@@ -48,8 +48,9 @@ const SwapPage = lazy(() => import('./popup/Swap'))
 const WalletsPage = lazy(() => import('./popup/Wallets'))
 const HelpPage = lazy(() => import('./popup/Help'))
 const Neo3NeoXBridgePage = lazy(() => import('./popup/Neo3NeoXBridge'))
-const VoteNeo3Page = lazy(() => import('./popup/VoteNeo3'))
+const Neo3VotePage = lazy(() => import('./popup/Neo3Vote'))
 const NotificationsPage = lazy(() => import('./popup/Notifications'))
+const StellarTrustlinesPage = lazy(() => import('./popup/StellarTrustlines'))
 
 export const popupRouter = createHashRouter([
   {
@@ -195,12 +196,17 @@ export const popupRouter = createHashRouter([
             element: <Neo3NeoXBridgePage />,
           },
           {
-            path: 'vote-neo3',
-            element: <VoteNeo3Page />,
+            path: 'neo3-vote',
+            element: <Neo3VotePage />,
           },
           {
             path: 'create-hardware-wallet',
             element: <CreateHardwareWalletPage />,
+          },
+
+          {
+            path: 'stellar-trustlines',
+            element: <StellarTrustlinesPage />,
           },
         ],
       },

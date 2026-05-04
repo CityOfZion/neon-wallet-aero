@@ -11,17 +11,17 @@ import { useAccountsWithWalletSelector } from '@renderer/hooks/useAccountSelecto
 import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { TAccount, TAccountType } from '@shared/types/store'
+import type { TAccount, TAccountType, TAccountWithWallet } from '@shared/types/store'
 
 import { BlockchainIcon } from './BlockchainIcon'
 import { Loader } from './Loader'
 import { Select } from './Select'
 
-type TProps = {
-  selectedAccount?: TAccount | null
-  onSelect: (account: TAccount) => void
+type TProps<N extends TBlockchainServiceKey> = {
+  selectedAccount?: TAccount<N> | null
+  onSelect: (account: TAccount<N>) => void
   children?: JSX.Element
-  blockchains?: TBlockchainServiceKey[]
+  blockchains?: N[]
   disabled?: boolean
   withoutIndicator?: boolean
   loading?: boolean
@@ -30,7 +30,7 @@ type TProps = {
   accountTypes?: TAccountType[]
 }
 
-export const GreyAccountSelect = ({
+export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
   onSelect,
   selectedAccount,
   blockchains,
@@ -40,7 +40,7 @@ export const GreyAccountSelect = ({
   loading,
   triggerClassName,
   accountTypes = ['standard', 'hardware'],
-}: TProps) => {
+}: TProps<N>) => {
   const { accountsWithWallet } = useAccountsWithWalletSelector()
   const { walletsRef } = useWalletsSelector()
   const { t } = useTranslation('components', { keyPrefix: 'greyAccountSelect' })
@@ -51,7 +51,7 @@ export const GreyAccountSelect = ({
     let filtered = accountsWithWallet.filter(account => (accountTypes ? accountTypes.includes(account.type) : true))
 
     if (blockchains) {
-      filtered = filtered.filter(account => blockchains.includes(account.blockchain))
+      filtered = filtered.filter(account => blockchains.includes(account.blockchain as N))
     }
 
     return filtered
@@ -63,7 +63,7 @@ export const GreyAccountSelect = ({
     const account = accountsWithWallet.find(account => account.id === value)
     if (!account) return
 
-    onSelect(account)
+    onSelect(account as TAccountWithWallet<N>)
     setOpen(false)
   }
 

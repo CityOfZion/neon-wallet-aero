@@ -7,7 +7,7 @@ import { DashedSeparator } from '@renderer/components/DashedSeparator'
 import { Separator } from '@renderer/components/Separator'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { useVoteNeo3GetVoteDetailsByAddress } from '@renderer/hooks/useVoteNeo3'
+import { useNeo3VoteGetVoteDetailsByAddress } from '@renderer/hooks/useNeo3Vote'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -16,12 +16,12 @@ import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-
 
 import type { TModalState } from '@shared/types/modal'
 
-export const VoteNeo3SuccessModal = () => {
-  const { candidate, neo3Account } = useModalState<TModalState<'vote-neo3-success'>>()
-  const { t } = useTranslation('modals', { keyPrefix: 'voteNeo3Success' })
+export const Neo3VoteSuccessModal = () => {
+  const { candidate, neo3Account } = useModalState<TModalState<'neo3-vote-success'>>()
+  const { t } = useTranslation('modals', { keyPrefix: 'neo3VoteSuccess' })
   const { modalEraseWrapper } = useModalNavigate()
 
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address)
+  const voteDetailsByAddressQuery = useNeo3VoteGetVoteDetailsByAddress(neo3Account?.address)
   const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
 
   return (
@@ -77,4 +77,4 @@ export const VoteNeo3SuccessModal = () => {
   )
 }
 
-export default VoteNeo3SuccessModal
+export default Neo3VoteSuccessModal

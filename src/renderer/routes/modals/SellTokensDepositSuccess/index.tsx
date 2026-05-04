@@ -1,9 +1,12 @@
+import type { TBSToken } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
-import { match, P } from 'ts-pattern'
 
 import { Details } from '@renderer/components/Details'
 import { Separator } from '@renderer/components/Separator'
 
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
+
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useModalState } from '@renderer/hooks/useModalRouter'
 
 import { SideModalLayout } from '@renderer/layouts/SideModalLayout'
@@ -12,41 +15,40 @@ import PiSealCheck from '@renderer/assets/images/pi-seal-check.svg?react'
 import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 import TbStepInto from '@renderer/assets/images/tb-step-into.svg?react'
 
-import type {
-  TUseTransactionsTransactionDefaultEvent,
-  TUseTransactionsTransactionDefaultEventToken,
-  TUseTransactionsTransactionUtxoInputOutput,
-} from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
+import type { TAccount } from '@shared/types/store'
 
 export const SellTokensDepositSuccessModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'sellTokensDepositSuccess' })
   const { transaction } = useModalState<TModalState<'sell-tokens-deposit-success'>>()
+  const { accountsMapRef } = useAccountsMapSelector()
 
-  const isUtxo = transaction.view === 'utxo'
-  const item = isUtxo ? transaction.outputs.at(-1)! : transaction.events.at(-1)!
+  let token: TBSToken | undefined
+  let amount: string | undefined
+  let receiverAddress: string | undefined
+  let receiverAccount: TAccount | undefined
 
-  const { address, account } = match(isUtxo)
-    .with(true, () => {
-      const { address, account } = item as TUseTransactionsTransactionUtxoInputOutput
-
-      return { address, account }
-    })
-    .otherwise(() => {
-      const { to, toAccount } = item as TUseTransactionsTransactionDefaultEvent
-
-      return { address: to, account: toAccount }
-    })
-
-  const token = match({ isUtxo, item })
-    .with({ isUtxo: true }, () => {
-      return (item as TUseTransactionsTransactionUtxoInputOutput).token
-    })
-    .with(
-      { item: P.when(value => (value as TUseTransactionsTransactionDefaultEvent).eventType === 'token') },
-      () => (item as TUseTransactionsTransactionDefaultEventToken).token
-    )
-    .otherwise(() => undefined)
+  if (transaction.view === 'utxo') {
+    const output = transaction.outputs.at(-1)
+    token = output?.token
+    amount = output?.amount
+    receiverAddress = output?.address
+    receiverAccount = output?.address
+      ? accountsMapRef.current.get(
+          AccountHelper.buildAccountKey({ address: output.address, blockchain: transaction.blockchain })
+        )
+      : undefined
+  } else {
+    const event = transaction.events.at(-1)
+    token = event?.eventType === 'token' ? event.token : undefined
+    amount = event?.amount
+    receiverAddress = event?.to
+    receiverAccount = event?.to
+      ? accountsMapRef.current.get(
+          AccountHelper.buildAccountKey({ address: event.to, blockchain: transaction.blockchain })
+        )
+      : undefined
+  }
 
   return (
     <SideModalLayout heading={t('title')} icon={<TbStepInto aria-hidden />}>
@@ -65,12 +67,12 @@ export const SellTokensDepositSuccessModal = () => {
 
           <Details.Body>
             <Details.Panel label={t('transactionLabel')}>
-              <Details.Item label={t('recipientLabel')} copyable={address}>
-                {account?.name ? `${account.name} (${address})` : address}
+              <Details.Item label={t('recipientLabel')} copyable={receiverAddress}>
+                {receiverAccount?.name ? `${receiverAccount.name} (${receiverAccount.address})` : receiverAddress}
               </Details.Item>
 
               <Details.Item label={t('amountLabel')}>
-                {item.amount} {token && <span className="font-normal text-gray-100">{token.symbol}</span>}
+                {amount} {token && <span className="font-normal text-gray-100">{token.symbol}</span>}
               </Details.Item>
 
               <Details.Item label={t('transactionHashLabel')} copyable={transaction.txId}>

@@ -1,13 +1,17 @@
 import { Fragment } from 'react'
 
+import type { TTransactionDefault } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
 
 import { Separator } from '@renderer/components/Separator'
 
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 
-import type { TUseTransactionsTransactionDefault } from '@shared/types/hooks'
+import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
+
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { TransactionActivityListItemsColumn } from './TransactionActivityListItemsColumn'
 import { TransactionActivityListItemsColumnDataAddress } from './TransactionActivityListItemsColumnDataAddress'
@@ -15,22 +19,34 @@ import { TransactionActivityListItemsColumnNftImage } from './TransactionActivit
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
 
 type TProps = {
-  transaction: TUseTransactionsTransactionDefault
+  transaction: TTransactionDefault<TBlockchainServiceKey>
 }
 
 export const TransactionActivityListItemsDefault = ({ transaction }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.items' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
+  const { accountsMap } = useAccountsMapSelector()
 
   if (transaction.events.length === 0) return null
+
+  const blockchain = transaction.blockchain
 
   return (
     <ul className="flex w-full flex-col">
       {transaction.events.map((event, index) => {
-        const { amount, to, toUrl, toAccount, from, fromUrl, fromAccount } = event
-        const hash = event.eventType === 'nft' ? event.nft?.hash : event.token?.hash
-        const toName = toAccount?.name
-        const fromName = fromAccount?.name
+        const { amount, to, toUrl, from, fromUrl } = event
+
+        let hash: string | undefined
+        if (event.eventType === 'nft') {
+          hash = event.nft?.hash
+        } else if (event.eventType === 'token') {
+          hash = event.token?.hash
+        }
+
+        const fromAccount = from
+          ? accountsMap.get(AccountHelper.buildAccountKey({ address: from, blockchain }))
+          : undefined
+        const toAccount = to ? accountsMap.get(AccountHelper.buildAccountKey({ address: to, blockchain })) : undefined
 
         return (
           <li
@@ -44,7 +60,7 @@ export const TransactionActivityListItemsDefault = ({ transaction }: TProps) => 
                   !from ? (
                     <span className="inline-block">{tCommonGeneral('emptyColumn')}</span>
                   ) : (
-                    <TransactionActivityListItemsColumnDataAddress address={from} accountName={fromName} />
+                    <TransactionActivityListItemsColumnDataAddress address={from} accountName={fromAccount?.name} />
                   )
                 }
                 url={fromUrl}
@@ -56,7 +72,7 @@ export const TransactionActivityListItemsDefault = ({ transaction }: TProps) => 
                   !to ? (
                     <span className="inline-block">{tCommonGeneral('emptyColumn')}</span>
                   ) : (
-                    <TransactionActivityListItemsColumnDataAddress address={to} accountName={toName} />
+                    <TransactionActivityListItemsColumnDataAddress address={to} accountName={toAccount?.name} />
                   )
                 }
                 url={toUrl}
@@ -113,7 +129,7 @@ export const TransactionActivityListItemsDefault = ({ transaction }: TProps) => 
                     </Fragment>
                   )
                 })
-                .otherwise(matchedEvent => {
+                .with({ eventType: 'token' }, matchedEvent => {
                   const { token } = matchedEvent
                   const tokenSymbol = token?.symbol || ''
                   const tokenName = token?.name || ''
@@ -133,7 +149,20 @@ export const TransactionActivityListItemsDefault = ({ transaction }: TProps) => 
                       }
                     />
                   )
-                })}
+                })
+                .otherwise(matchedEvent => (
+                  <Fragment>
+                    {!!matchedEvent.data &&
+                      Object.entries(matchedEvent.data).map(([key, value]) => (
+                        <TransactionActivityListItemsColumn
+                          labelClassName="capitalize"
+                          key={t(`columnsByKey.${key}`, { defaultValue: key })}
+                          label={key}
+                          data={!value ? tCommonGeneral('emptyColumn') : value}
+                        />
+                      ))}
+                  </Fragment>
+                ))}
             </div>
 
             <Separator containerClassName="group-last/item:hidden" />

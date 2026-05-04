@@ -1,12 +1,7 @@
-import { useRef } from 'react'
-
-import { useSelector } from 'react-redux'
-
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-import type { TRootState } from '@shared/types/redux'
 import type { TAccount, TAccountWithWallet } from '@shared/types/store'
 
 import { createAppSelector, useAppSelector } from './useRedux'
@@ -107,6 +102,22 @@ const selectOwnAccounts = createAppSelector(
   }
 )
 
+const selectAccountsWithWalletMap = createAppSelector([selectAccountsWithWallet], accountsWithWallet => {
+  const map = new Map<string, TAccountWithWallet>()
+  accountsWithWallet.forEach(account => {
+    map.set(AccountHelper.buildAccountKey(account), account)
+  })
+  return map
+})
+
+const selectAccountsMap = createAppSelector([selectAccounts], accounts => {
+  const map = new Map<string, TAccount>()
+  accounts.forEach(account => {
+    map.set(AccountHelper.buildAccountKey(account), account)
+  })
+  return map
+})
+
 export const useAccountsSelector = () => {
   const { value, ref } = useAppSelector(selectAccounts)
 
@@ -143,35 +154,13 @@ export const useAccountsByBlockchainsSelector = (blockchains: TBlockchainService
 }
 
 export const useAccountsMapSelector = () => {
-  const accountsMapRef = useRef(new Map<string, TAccount>())
-
-  useSelector((state: TRootState) => {
-    const accounts = selectAccounts(state)
-
-    accountsMapRef.current.clear()
-
-    accounts.forEach(account => {
-      accountsMapRef.current.set(AccountHelper.buildAccountKey(account), account)
-    })
-  })
-
-  return { accountsMapRef }
+  const { value, ref } = useAppSelector(selectAccountsMap)
+  return { accountsMap: value, accountsMapRef: ref }
 }
 
 export const useAccountsWithWalletMapSelector = () => {
-  const accountsWithWalletMapRef = useRef(new Map<string, TAccountWithWallet>())
-
-  useSelector((state: TRootState) => {
-    const accountsWithWallets = selectAccountsWithWallet(state)
-
-    accountsWithWalletMapRef.current.clear()
-
-    accountsWithWallets.forEach(account => {
-      accountsWithWalletMapRef.current.set(AccountHelper.buildAccountKey(account), account)
-    })
-  })
-
-  return { accountsWithWalletMapRef }
+  const { value, ref } = useAppSelector(selectAccountsWithWalletMap)
+  return { accountsWithWalletMap: value, accountsWithWalletMapRef: ref }
 }
 
 export const useHardwareAccountsSelector = () => {

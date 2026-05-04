@@ -59,7 +59,7 @@ export const MenuModal = () => {
 
         <MenuItemLink label={t('neo3NeoXBridgeItemLabel')} to="/neo3-neox-bridge" icon={<TbReplace2 aria-hidden />} />
 
-        <MenuItemLink label={t('voteNeo3ItemLabel')} to="/vote-neo3" icon={<TbChartBar aria-hidden />} />
+        <MenuItemLink label={t('neo3VoteItemLabel')} to="/neo3-vote" icon={<TbChartBar aria-hidden />} />
 
         <MenuItemLink
           label={t('connectHardwareWalletItemLabel')}

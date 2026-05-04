@@ -8,9 +8,9 @@ import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { useOwnAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useLazyBalance } from '@renderer/hooks/useBalances'
 import { useMount } from '@renderer/hooks/useMount'
+import { useLazyNeo3VoteGetVoteDetailsByAddress } from '@renderer/hooks/useNeo3Vote'
 import { useUnreadNotificationsSelector } from '@renderer/hooks/useNotificationsSelector'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
-import { useLazyVoteNeo3GetVoteDetailsByAddress } from '@renderer/hooks/useVoteNeo3'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
@@ -100,7 +100,7 @@ const useFraudulentTokensNotificationProcess = () => {
 
 const useVotingNeo3NotificationProcess = () => {
   const dispatch = useAppDispatch()
-  const { getVoteDetails } = useLazyVoteNeo3GetVoteDetailsByAddress()
+  const { getVoteDetails } = useLazyNeo3VoteGetVoteDetailsByAddress()
 
   const notificationKeysRef = useRef<Set<string>>(new Set())
 
@@ -112,7 +112,7 @@ const useVotingNeo3NotificationProcess = () => {
     try {
       const payload = notification.action?.payload
 
-      if (!payload || payload.to !== 'vote-neo3' || payload.blockchain !== 'neo3' || !payload.address) return
+      if (!payload || payload.to !== 'neo3-vote' || payload.blockchain !== 'neo3' || !payload.address) return
 
       const key = generateNotificationKey(payload.blockchain, payload.address)
 
@@ -141,7 +141,7 @@ const useVotingNeo3NotificationProcess = () => {
           action: {
             type: 'navigate',
             payload: {
-              to: 'vote-neo3',
+              to: 'neo3-vote',
               blockchain: 'neo3',
               address: voteDetails.address,
             },

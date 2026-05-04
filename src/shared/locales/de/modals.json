@@ -11,6 +11,16 @@
     "exportError": "Fehler beim Exportieren der Wallet",
     "walletWithoutBackupLabel": "Wallet ohne Backup"
   },
+  "stellarPersistTrustlines": {
+    "title": "Trustline",
+    "errors": {
+      "invalidLimit": "Ungültiges Limit"
+    },
+    "limitLabel": "Limit (Optional)",
+    "limitPlaceholder": "Limit eingeben…",
+    "saveButtonLabel": "Speichern",
+    "tokenLabel": "Token"
+  },
   "walletEdit": {
     "title": "Wallet bearbeiten",
     "subtitle": "Alle Wallets",
@@ -77,7 +87,7 @@
     "settingsItemLabel": "Einstellungen",
     "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Abmelden",
-    "voteNeo3ItemLabel": "Abstimmung",
+    "neo3VoteItemLabel": "Abstimmung",
     "searchItemLabel": "Suchen"
   },
   "importAccountsSelection": {
@@ -534,7 +544,7 @@
     "title": "Ihre Wallets neu anordnen",
     "subtitle": "Alle Wallets"
   },
-  "voteNeo3CandidateDetails": {
+  "neo3VoteCandidateDetails": {
     "title": "Über diesen Kandidaten",
     "candidateNameLabel": "Kandidat",
     "positionLabel": "Aktuelle Position",
@@ -551,7 +561,7 @@
       "accountCanNotBeWatch": "Sie können nicht mit einem Watch Account abstimmen"
     }
   },
-  "voteNeo3Confirmation": {
+  "neo3VoteConfirmation": {
     "title": "Überprüfen & bestätigen Sie Ihre Stimme",
     "highlightLabel": "Als Token-Inhaber können Sie wichtige Protokollentscheidungen beeinflussen, damit das Netzwerk einen Entwicklungspfad hat, der den Interessen der Community entspricht.",
     "detailsLabel": "Detaillierte Vorschlagsforschung und intelligente Abstimmungspraktiken sind von großer Bedeutung. Das System verwendet zuverlässige Verifizierung und klare Prozesse, die es Einzelpersonen ermöglichen, sinnvoll zum Wachstum und zur Entwicklung des NEO-Ökosystems beizutragen.",
@@ -582,7 +592,7 @@
       }
     }
   },
-  "voteNeo3Success": {
+  "neo3VoteSuccess": {
     "title": "Ihre Stimme",
     "subtitle": "Ihre Stimme wurde abgegeben!",
     "votingDetailsLabel": "Ihre Stimme",
@@ -652,7 +662,7 @@
     "parametersDetailsLabel": "Anfrageparameter",
     "externalButtonLabel": "Im Explorer anzeigen"
   },
-  "voteNeo3Info": {
+  "neo3VoteInfo": {
     "title": "Wie funktioniert es?",
     "description": "Die Anzahl der NEO, die Sie halten, entspricht der Anzahl der Stimmen, die Sie für einen Kandidaten abgeben können.",
     "whyVoteLabel": "Warum abstimmen?",

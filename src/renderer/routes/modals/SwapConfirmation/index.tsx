@@ -25,6 +25,7 @@ import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
+import { thunks } from '@renderer/store/thunks'
 import type { TModalState } from '@shared/types/modal'
 
 export const SwapConfirmationModal = () => {
@@ -44,6 +45,11 @@ export const SwapConfirmationModal = () => {
       await confirmAction({ account: swapRecord.account })
 
       const swapResponse = await swapOrchestrator.swap()
+
+      if (swapResponse.transaction) {
+        dispatch(thunks.waitPendingTransaction({ pendingTransaction: swapResponse.transaction }))
+      }
+
       const txId = swapResponse.transaction?.txId
       const newSwapRecord = cloneDeep(swapRecord)
 

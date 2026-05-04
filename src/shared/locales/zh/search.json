@@ -43,7 +43,7 @@
       "label": "出售代币"
     },
     {
-      "id": "voteNeo3",
+      "id": "neo3Vote",
       "verbs": ["投票"],
       "nonVerbs": ["投票", "neo", "n3", "节点", "成员", "共识", "委员会", "治理"],
       "label": "投票（Neo 3）"

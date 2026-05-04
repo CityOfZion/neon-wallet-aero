@@ -6,8 +6,8 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbChartBar from '@renderer/assets/images/tb-chart-bar.svg?react'
 
-export const VoteNeo3InfoModal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'voteNeo3Info' })
+export const Neo3VoteInfoModal = () => {
+  const { t } = useTranslation('modals', { keyPrefix: 'neo3VoteInfo' })
 
   return (
     <BottomModalLayout heading={t('title')}>
@@ -34,4 +34,4 @@ export const VoteNeo3InfoModal = () => {
   )
 }
 
-export default VoteNeo3InfoModal
+export default Neo3VoteInfoModal

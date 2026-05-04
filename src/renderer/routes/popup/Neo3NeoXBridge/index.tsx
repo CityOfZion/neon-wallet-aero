@@ -1,10 +1,14 @@
 import { useEffect, useRef } from 'react'
 
-import type { TBalanceResponse, TBridgeToken, TBridgeValidateValue, TBridgeValue } from '@cityofzion/blockchain-service'
+import type {
+  TBalanceResponse,
+  TBridgeToken,
+  TBridgeValidateValue,
+  TBridgeValue,
+  TBSBridgeName,
+} from '@cityofzion/blockchain-service'
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { Neo3NeoXBridgeOrchestrator } from '@cityofzion/bs-multichain'
-import type { BSNeo3 } from '@cityofzion/bs-neo3'
-import type { BSNeoX } from '@cityofzion/bs-neox'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -22,7 +26,6 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
@@ -30,7 +33,6 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
-import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLazyBalance } from '@renderer/hooks/useBalances'
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
@@ -51,19 +53,18 @@ import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccount } from '@shared/types/store'
 
 type TActionsData = {
-  availableTokensToUse: TBridgeValue<TBridgeToken<TBlockchainServiceKey>[]>
-  tokenToUse: TBridgeValue<TBridgeToken<TBlockchainServiceKey>>
+  availableTokensToUse: TBridgeValue<TBridgeToken<TBSBridgeName>[]>
+  tokenToUse: TBridgeValue<TBridgeToken<TBSBridgeName>>
   tokenToUseBalance: TBridgeValue<TBalanceResponse | undefined>
-  accountToUse: TBridgeValue<TAccount>
+  accountToUse: TBridgeValue<TAccount<TBSBridgeName>>
   amountToUse: TBridgeValidateValue<string>
   amountToUseMin: TBridgeValue<string>
   amountToUseMax: TBridgeValue<string>
-  tokenToReceive: TBridgeValue<TBridgeToken<TBlockchainServiceKey>>
-  accountToReceive: TBridgeValue<TAccount>
+  tokenToReceive: TBridgeValue<TBridgeToken<TBSBridgeName>>
+  accountToReceive: TBridgeValue<TAccount<TBSBridgeName>>
   addressToReceive: TBridgeValidateValue<string>
   amountToReceive: TBridgeValue<string>
   bridgeFee: TBridgeValue<string>
@@ -79,7 +80,6 @@ export const Neo3NeoXBridgePage = () => {
   const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
   const { accountsMapRef } = useAccountsMapSelector()
   const { getBalance } = useLazyBalance()
-  const { loginSessionRef } = useLoginSessionSelector()
   const { selectedAccount } = useSelectedAccountSelector()
   const { selectedNetworkByBlockchain } = useSelectedNetworkByBlockchainSelector()
   const isGoingBack = useRef(false)
@@ -101,7 +101,7 @@ export const Neo3NeoXBridgePage = () => {
     bridgeFee: { value: null, error: null, loading: false },
   })
 
-  const bridgeOrchestratorRef = useRef({} as Neo3NeoXBridgeOrchestrator<TBlockchainServiceKey>)
+  const bridgeOrchestratorRef = useRef({} as Neo3NeoXBridgeOrchestrator)
 
   const fromService = bridgeOrchestratorRef.current?.fromService
 
@@ -153,9 +153,9 @@ export const Neo3NeoXBridgePage = () => {
   const initializeOrRestartBridgeService = async () => {
     reset()
 
-    const neo3NeoXBridgeOrchestrator = new Neo3NeoXBridgeOrchestrator<TBlockchainServiceKey>({
-      neo3Service: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3 as BSNeo3<TBlockchainServiceKey>,
-      neoXService: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neox as BSNeoX<TBlockchainServiceKey>,
+    const neo3NeoXBridgeOrchestrator = new Neo3NeoXBridgeOrchestrator({
+      neo3Service: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3,
+      neoXService: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neox,
       initialFromServiceName:
         selectedAccount?.blockchain === 'neo3' || selectedAccount?.blockchain === 'neox'
           ? selectedAccount.blockchain
@@ -177,9 +177,9 @@ export const Neo3NeoXBridgePage = () => {
     neo3NeoXBridgeOrchestrator.eventEmitter.on('accountToUse', accountToUse => {
       const account = accountToUse.value
         ? accountsMapRef.current.get(AccountHelper.buildAccountKey(accountToUse.value))
-        : undefined
+        : null
 
-      setData({ accountToUse: { ...accountToUse, value: account || null } })
+      setData({ accountToUse: { ...accountToUse, value: account as TAccount<TBSBridgeName> | null } })
     })
 
     neo3NeoXBridgeOrchestrator.eventEmitter.on('amountToUse', amountToUse => {
@@ -227,7 +227,7 @@ export const Neo3NeoXBridgePage = () => {
     }
   }
 
-  const handleSelectTokenToUse = async (token: TBridgeToken<TBlockchainServiceKey>) => {
+  const handleSelectTokenToUse = async (token: TBridgeToken<TBSBridgeName>) => {
     await bridgeOrchestratorRef.current.setTokenToUse(token)
   }
 
@@ -239,12 +239,8 @@ export const Neo3NeoXBridgePage = () => {
     })
   }
 
-  const handleSelectAccountToUse = async (account: TAccount) => {
-    if (!loginSessionRef.current || !account.encryptedKey) return
-
-    const key = await EncryptionHelper.decrypt(account.encryptedKey, loginSessionRef.current.encryptedPassword)
-
-    const serviceAccount = await AccountHelper.getServiceAccount({ account, key })
+  const handleSelectAccountToUse = async (account: TAccount<TBSBridgeName>) => {
+    const serviceAccount = await BlockchainServiceHelper.getServiceAccount(account)
 
     await bridgeOrchestratorRef.current.setAccountToUse(serviceAccount)
 
@@ -253,10 +249,8 @@ export const Neo3NeoXBridgePage = () => {
     await bridgeOrchestratorRef.current.setBalances(data.tokensBalances)
   }
 
-  const handleSelectAccountToReceive = async (account: TAccount) => {
-    setData({
-      accountToReceive: { value: account, error: null, loading: false },
-    })
+  const handleSelectAccountToReceive = async (account: TAccount<TBSBridgeName>) => {
+    setData({ accountToReceive: { value: account, error: null, loading: false } })
 
     bridgeOrchestratorRef.current.setAddressToReceive(account.address)
   }
@@ -475,7 +469,9 @@ export const Neo3NeoXBridgePage = () => {
                         state: {
                           selectedAccount: actionData.accountToReceive.value || undefined,
                           selectedAddress: actionData.addressToReceive.value || undefined,
-                          handleChangeAccount: handleSelectAccountToReceive,
+                          handleChangeAccount: account => {
+                            handleSelectAccountToReceive(account as TAccount<TBSBridgeName>)
+                          },
                           handleChangeAddress: handleChangeAddressToReceive,
                           blockchain: actionData.tokenToReceive.value?.blockchain,
                         },

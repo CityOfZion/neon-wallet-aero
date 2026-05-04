@@ -11,6 +11,16 @@
     "exportError": "Erro ao exportar carteira",
     "walletWithoutBackupLabel": "Carteira sem backup"
   },
+  "stellarPersistTrustlines": {
+    "title": "Trustline",
+    "errors": {
+      "invalidLimit": "Limite inválido"
+    },
+    "limitLabel": "Limite (Opcional)",
+    "limitPlaceholder": "Digite o limite…",
+    "saveButtonLabel": "Salvar",
+    "tokenLabel": "Token"
+  },
   "walletEdit": {
     "title": "Editar carteira",
     "subtitle": "Todas as carteiras",
@@ -77,7 +87,7 @@
     "settingsItemLabel": "Configurações",
     "neo3NeoXBridgeItemLabel": "Bridge",
     "logoutItemLabel": "Sair",
-    "voteNeo3ItemLabel": "Votar",
+    "neo3VoteItemLabel": "Votar",
     "searchItemLabel": "Pesquisar"
   },
   "importAccountsSelection": {
@@ -534,7 +544,7 @@
     "title": "Reordenar suas carteiras",
     "subtitle": "Todas as carteiras"
   },
-  "voteNeo3CandidateDetails": {
+  "neo3VoteCandidateDetails": {
     "title": "Sobre este candidato",
     "candidateNameLabel": "Candidato",
     "positionLabel": "Posição atual",
@@ -551,7 +561,7 @@
       "accountCanNotBeWatch": "Você não pode votar com uma conta watch"
     }
   },
-  "voteNeo3Confirmation": {
+  "neo3VoteConfirmation": {
     "title": "Revisar e confirmar seu voto",
     "highlightLabel": "Como um detentor de token, você pode influenciar decisões importantes do protocolo para que a rede tenha um caminho de desenvolvimento que corresponda aos interesses da comunidade.",
     "detailsLabel": "A pesquisa detalhada de propostas e as práticas inteligentes de votação são muito importantes. O sistema usa verificação confiável e processos claros que permitem aos indivíduos contribuir significativamente para o crescimento e desenvolvimento do ecossistema NEO.",
@@ -582,7 +592,7 @@
       }
     }
   },
-  "voteNeo3Success": {
+  "neo3VoteSuccess": {
     "title": "Seu voto",
     "subtitle": "Seu voto foi registrado!",
     "votingDetailsLabel": "Seu voto",
@@ -652,7 +662,7 @@
     "parametersDetailsLabel": "Parâmetros de solicitação",
     "externalButtonLabel": "Ver no explorador"
   },
-  "voteNeo3Info": {
+  "neo3VoteInfo": {
     "title": "Como funciona?",
     "description": "O número de NEO que você possui equivale ao número de votos que você pode registrar para votar em um candidato.",
     "whyVoteLabel": "Por que votar?",

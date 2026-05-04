@@ -1,7 +1,7 @@
 import { cloneElement, useEffect, useMemo, useRef } from 'react'
 
 import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
-import type { TVoteServiceCandidate } from '@cityofzion/bs-neo3'
+import type { TBSNeo3Name, TVoteServiceCandidate } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -12,7 +12,7 @@ import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useVoteNeo3GetVoteDetailsByAddress } from '@renderer/hooks/useVoteNeo3'
+import { useNeo3VoteGetVoteDetailsByAddress } from '@renderer/hooks/useNeo3Vote'
 
 import MdCircle from '@renderer/assets/images/md-circle.svg?react'
 import TbPackages from '@renderer/assets/images/tb-packages.svg?react'
@@ -21,7 +21,7 @@ import type { TAccount } from '@shared/types/store'
 
 type TProps = {
   index: number
-  neo3Account?: TAccount
+  neo3Account?: TAccount<TBSNeo3Name>
   candidate: TVoteServiceCandidate
   votesTotalBn: BigNumber
   voteErrorMessage?: string
@@ -29,7 +29,7 @@ type TProps = {
   candidatesLength: number
 }
 
-export const VoteNeo3ListItem = ({
+export const Neo3VoteListItem = ({
   index,
   neo3Account,
   candidate,
@@ -38,15 +38,15 @@ export const VoteNeo3ListItem = ({
   canVote,
   candidatesLength,
 }: TProps) => {
-  const { t } = useTranslation('pages', { keyPrefix: 'voteNeo3.listItem' })
-  const voteDetailsByAddressQuery = useVoteNeo3GetVoteDetailsByAddress(neo3Account?.address || '')
+  const { t } = useTranslation('pages', { keyPrefix: 'neo3Vote.listItem' })
+  const voteDetailsByAddressQuery = useNeo3VoteGetVoteDetailsByAddress(neo3Account?.address || '')
   const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
   const ref = useRef<HTMLLIElement>(null)
 
   const { position, pubKey, votes } = candidate
 
   const currentCandidatePubKey = voteDetailsByAddressQuery.data?.candidatePubKey
-  const isCozCandidate = ConstantsHelper.voteNeo3CozPubKey === currentCandidatePubKey
+  const isCozCandidate = ConstantsHelper.neo3VoteCozPubKey === currentCandidatePubKey
   const isCurrentVote = pubKey === currentCandidatePubKey
   const isVoteDisabled = isCurrentVote || !canVote || voteDetailsByAddressQuery.isLoading
 
@@ -61,10 +61,10 @@ export const VoteNeo3ListItem = ({
     return `${percentage >= 0 ? percentage : 0}%`
   }, [votes, votesTotalBn])
 
-  const handleGoToVoteNeo3ConfirmationModal = () => {
+  const handleGoToNeo3VoteConfirmationModal = () => {
     if (isVoteDisabled || !neo3Account) return
 
-    modalNavigate('vote-neo3-confirmation', { state: { neo3Account, candidate } })
+    modalNavigate('neo3-vote-confirmation', { state: { neo3Account, candidate } })
   }
 
   useEffect(() => {
@@ -87,7 +87,7 @@ export const VoteNeo3ListItem = ({
           variant="text-slim"
           colorSchema="white"
           disabled={!neo3Account}
-          onClick={modalNavigateWrapper('vote-neo3-candidate-details', {
+          onClick={modalNavigateWrapper('neo3-vote-candidate-details', {
             state: { candidate, neo3Account: neo3Account!, candidateVotePercentage: votePercentage },
           })}
         >
@@ -178,7 +178,7 @@ export const VoteNeo3ListItem = ({
               flat
               disabled={isVoteDisabled}
               clickableProps={{ className: 'w-full' }}
-              onClick={handleGoToVoteNeo3ConfirmationModal}
+              onClick={handleGoToNeo3VoteConfirmationModal}
             />
           </Tooltip>
         </div>
