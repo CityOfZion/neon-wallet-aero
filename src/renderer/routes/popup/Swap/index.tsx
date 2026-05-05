@@ -135,10 +135,6 @@ export const SwapPage = () => {
 
   const hasExtraIdToReceive = !!actionData.selectedTokenToReceive.value?.hasExtraId
 
-  const isExtraIdToReceiveInvalid =
-    hasExtraIdToReceive &&
-    (!actionData.selectedExtraIdToReceive.valid || !actionData.selectedExtraIdToReceive.value?.trim())
-
   const isExtraIdToReceiveWrong = hasExtraIdToReceive && actionData.selectedExtraIdToReceive.valid === false
 
   const balanceQuery = useBalance(actionData.selectedAccountToUse.value || undefined)
@@ -327,7 +323,7 @@ export const SwapPage = () => {
       !actionData.selectedAddressToReceive.value ||
       !actionData.selectedAddressToReceive.valid ||
       !actionData.selectAmountToUseMinMax.value ||
-      isExtraIdToReceiveInvalid
+      isExtraIdToReceiveWrong
     )
       return
 
@@ -665,7 +661,7 @@ export const SwapPage = () => {
                       className="text-center text-white"
                       contentClassName="px-4 h-9"
                       containerClassName="w-42"
-                      error={actionData.selectedExtraIdToReceive.valid === false}
+                      error={isExtraIdToReceiveWrong}
                       value={actionData.selectedExtraIdToReceive.value || ''}
                       required
                       disabled={!actionData.selectedAccountToUse.value || isAddressesDisabled}
@@ -787,7 +783,7 @@ export const SwapPage = () => {
                 !actionData.selectedTokenToReceive.value ||
                 !actionData.selectedAccountToUse.value ||
                 !actionData.selectedAddressToReceive.value ||
-                isExtraIdToReceiveInvalid ||
+                isExtraIdToReceiveWrong ||
                 !service ||
                 (isCalculableFee(service) && !actionData.fee)
               }
