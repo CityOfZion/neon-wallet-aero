@@ -76,6 +76,7 @@ export const TokenListItem = ({ tokenBalance, isEditMode }: TProps) => {
             containerClassName={StyleHelper.mergeStyles('mt-0.5 size-4.5 min-size-4.5 max-size-4.5', {
               grayscale: isHiddenToken,
             })}
+            className="rounded-full"
           />
 
           <div className="flex min-w-0 flex-col gap-0.5">
