@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { BSBigNumber } from '@cityofzion/blockchain-service'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useTranslation } from 'react-i18next'
 import { RemoveScroll } from 'react-remove-scroll'
@@ -85,11 +85,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
       })
     }
 
-    filtered = filtered.sort((a, b) =>
-      BSBigNumberHelper.fromNumber(a.amount || 0)
-        .minus(b.amount || 0)
-        .toNumber()
-    )
+    filtered = filtered.sort((a, b) => new BSBigNumber(a.amount || 0).minus(b.amount || 0).toNumber())
 
     return filtered
   }, [tokens, balance, blockchain])

@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { BSNeo3Constants } from '@cityofzion/bs-neo3'
 import { useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
@@ -16,6 +15,7 @@ import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
+import { NumberHelper } from '@renderer/helpers/NumberHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -62,14 +62,14 @@ export const Neo3VoteConfirmationModal = () => {
   const [isSubmitting, startSubmit] = usePressOnce()
   const dispatch = useAppDispatch()
 
-  const feeBn = BSBigNumberHelper.fromNumber(calculateVoteFeeQuery.data || '0')
   const blockchainService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.neo3
   const exchangeQuery = useExchange([{ blockchain: 'neo3', tokens: [blockchainService.feeToken] }])
 
+  const fee = calculateVoteFeeQuery.data || '0'
   const isCurrentVote = voteDetailsByAddressQuery.data?.candidatePubKey === candidate.pubKey
   const isWatchAccount = neo3Account?.type === 'watch'
-  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
-  const hasNeoAmount = neoAmountBn.isGreaterThan(0)
+  const neoAmount = voteDetailsByAddressQuery.data?.neoBalance || 0
+  const hasNeoAmount = neoAmount > 0
 
   const isLoading =
     voteDetailsByAddressQuery.isLoading ||
@@ -83,22 +83,22 @@ export const Neo3VoteConfirmationModal = () => {
     isSubmitting ||
     !hasEnoughGasToPayFee ||
     !hasNeoAmount ||
-    feeBn.isLessThanOrEqualTo(0) ||
+    !fee ||
     voteDetailsByAddressQuery.data?.candidatePubKey === candidate.pubKey
 
   const feeFiatPrice = useMemo(
     () => {
-      let value = BSBigNumberHelper.fromNumber('0')
+      let value = 0
 
-      if (exchangeQuery.data && feeBn.isGreaterThan(0))
-        value = feeBn.multipliedBy(
+      if (exchangeQuery.data && fee)
+        value =
+          NumberHelper.number(fee) *
           ExchangeHelper.getExchangeConvertedPrice(blockchainService.feeToken.hash, 'neo3', exchangeQuery.data)
-        )
 
-      return CurrencyHelper.format(value.toFixed(), { currency, maximumFractionDigits: 4 })
+      return CurrencyHelper.format(value, { currency, maximumFractionDigits: 4 })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [exchangeQuery.data, feeBn, currency]
+    [exchangeQuery.data, fee, currency]
   )
 
   const errorMessage = match({ hasNeoAmount, isWatchAccount, hasEnoughGasToPayFee })
@@ -197,7 +197,7 @@ export const Neo3VoteConfirmationModal = () => {
               <li className="flex flex-col">
                 <p className="text-blue">{t('votesLabel')}</p>
                 <p className="mt-0.5">
-                  {neoAmountBn.toFixed()} {BSNeo3Constants.NEO_TOKEN.symbol}
+                  {neoAmount} {BSNeo3Constants.NEO_TOKEN.symbol}
                 </p>
               </li>
             </ul>
@@ -206,7 +206,7 @@ export const Neo3VoteConfirmationModal = () => {
               <span className="text-blue grow">{t('feeLabel')}</span>
               <div className="flex flex-col">
                 <span className="truncate text-right">
-                  {feeBn.toFixed()} {blockchainService.feeToken.symbol}
+                  {fee} {blockchainService.feeToken.symbol}
                 </span>
                 <span className="text-right text-gray-300">{feeFiatPrice}</span>
               </div>

@@ -7,7 +7,7 @@ import type {
   TSwapToken,
   TSwapValidateValue,
 } from '@cityofzion/blockchain-service'
-import { BSBigNumberHelper, isCalculableFee } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount, isCalculableFee } from '@cityofzion/blockchain-service'
 import { SimpleSwapOrchestrator } from '@cityofzion/bs-multichain'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -386,10 +386,10 @@ export const SwapPage = () => {
 
         setData({ fee })
 
-        let totalFeeAmount = BSBigNumberHelper.fromNumber(fee)
+        let totalFeeAmount = new BSBigHumanAmount(fee, service.feeToken.decimals)
 
         if (service.tokenService.predicateByHash(actionData.selectedTokenToUse.value.hash, service.feeToken)) {
-          totalFeeAmount = BSBigNumberHelper.fromNumber(actionData.selectedAmountToUse.value).plus(totalFeeAmount)
+          totalFeeAmount = totalFeeAmount.plus(actionData.selectedAmountToUse.value)
         }
 
         const feeBalanceNumber =
@@ -444,24 +444,20 @@ export const SwapPage = () => {
 
         if (decimals === undefined || decimals === null) return
 
-        const amountNumber = BSBigNumberHelper.fromDecimals(actionData.selectedAmountToUse.value, decimals)
+        const amountNumber = new BSBigHumanAmount(actionData.selectedAmountToUse.value, decimals)
 
         if (actionData.selectAmountToUseMinMax.value) {
-          const minNumber = BSBigNumberHelper.fromDecimals(actionData.selectAmountToUseMinMax.value?.min || 0, decimals)
+          const minNumber = new BSBigHumanAmount(actionData.selectAmountToUseMinMax.value?.min || 0, decimals)
 
           if (amountNumber.isLessThan(minNumber)) {
-            throw new AppError(
-              t('form.errors.amountMin', { amount: BSBigNumberHelper.format(minNumber, { decimals }) })
-            )
+            throw new AppError(t('form.errors.amountMin', { amount: minNumber.toFormatted() }))
           }
 
           if (actionData.selectAmountToUseMinMax.value?.max) {
-            const maxNumber = BSBigNumberHelper.fromDecimals(actionData.selectAmountToUseMinMax.value.max, decimals)
+            const maxNumber = new BSBigHumanAmount(actionData.selectAmountToUseMinMax.value.max, decimals)
 
             if (amountNumber.isGreaterThan(maxNumber)) {
-              throw new AppError(
-                t('form.errors.amountMax', { amount: BSBigNumberHelper.format(maxNumber, { decimals }) })
-              )
+              throw new AppError(t('form.errors.amountMax', { amount: maxNumber.toFormatted() }))
             }
           }
         }
@@ -470,10 +466,9 @@ export const SwapPage = () => {
           actionData.selectedAccountToUse.value &&
           actionData.selectedTokenToUse.value &&
           (!selectedTokenBalance ||
-            BSBigNumberHelper.fromDecimals(
-              selectedTokenBalance.amountNumber,
-              selectedTokenBalance.token.decimals
-            ).isLessThan(amountNumber))
+            new BSBigHumanAmount(selectedTokenBalance.amountNumber, selectedTokenBalance.token.decimals).isLessThan(
+              amountNumber
+            ))
         ) {
           throw new AppError(t('form.errors.insufficientFunds'))
         }
@@ -736,7 +731,10 @@ export const SwapPage = () => {
                 <span className="text-sm text-gray-200 italic">{t('form.balanceLabel')}</span>
                 <span className="text-sm text-gray-100 italic">
                   {selectedTokenBalance?.amount
-                    ? BSBigNumberHelper.fromNumber(selectedTokenBalance?.amount).toFixed()
+                    ? new BSBigHumanAmount(
+                        selectedTokenBalance?.amount,
+                        selectedTokenBalance.token.decimals
+                      ).toFormatted()
                     : t('form.balancePlaceholder')}
                 </span>
               </div>

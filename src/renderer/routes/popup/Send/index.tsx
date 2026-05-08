@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 
 import type { TTransferIntent } from '@cityofzion/blockchain-service'
-import { BSBigNumberHelper, isCalculableFee } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount, isCalculableFee } from '@cityofzion/blockchain-service'
 import lte from 'lodash/lte'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
@@ -166,7 +166,7 @@ const SendPage = () => {
         return
       }
 
-      const amountNumber = BSBigNumberHelper.fromNumber(recipient.amount)
+      const amountNumber = new BSBigHumanAmount(recipient.amount, recipient.token.token.decimals)
       const tokenHash = recipient.token?.token?.hash || ''
       const tokenBalance = balanceQuery.data?.tokensBalances?.find(tokenBalance =>
         service?.tokenService.predicateByHash(tokenBalance.token, tokenHash)
@@ -201,7 +201,7 @@ const SendPage = () => {
     else {
       try {
         handleUpdateRecipient(id, {
-          amount: BSBigNumberHelper.fromNumber(amount).toString(),
+          amount: new BSBigHumanAmount(amount).toString(),
         })
       } catch (error) {
         LoggerHelper.error(error, { where: 'SendPage', operation: 'handleUpdateRecipientAmount' })
@@ -239,7 +239,7 @@ const SendPage = () => {
     if (!isCalculableFee(service)) {
       handleUpdateRecipientAmount(
         recipient.id,
-        BSBigNumberHelper.fromNumber(recipient.token.amount)
+        new BSBigHumanAmount(recipient.token.amount, recipient.token.token.decimals)
           .minus(actionData.fee || '0')
           .toNumber()
       )
@@ -269,7 +269,7 @@ const SendPage = () => {
 
       handleUpdateRecipientAmount(
         recipient.id,
-        BSBigNumberHelper.fromNumber(recipient.token.amount).minus(fee).toNumber()
+        new BSBigHumanAmount(recipient.token.amount, recipient.token.token.decimals).minus(fee).toNumber()
       )
     } catch (error) {
       LoggerHelper.error(error, { where: 'SendPage', operation: 'handleMaxAmount' })
@@ -367,7 +367,7 @@ const SendPage = () => {
 
         setData({ fee })
 
-        let totalFeeAmount = BSBigNumberHelper.fromNumber(fee)
+        let totalFeeAmount = new BSBigHumanAmount(fee, fields.service.feeToken.decimals)
 
         fields.intents.forEach(intent => {
           if (!service?.tokenService.predicateByHash(intent.token, fields.service.feeToken)) return
@@ -423,8 +423,8 @@ const SendPage = () => {
       return
     }
 
-    let totalFiatPricesBn = BSBigNumberHelper.fromNumber('0')
-    let totalAmountsBn = BSBigNumberHelper.fromNumber(
+    let totalFiatPricesBn = new BSBigHumanAmount('0')
+    let totalAmountsBn = new BSBigHumanAmount(
       actionData.fee && service.tokenService.predicateByHash(service.feeToken, tipConfig.token) ? actionData.fee : '0'
     )
 
@@ -435,7 +435,7 @@ const SendPage = () => {
 
       if (!amount || !token) return
 
-      const amountBn = BSBigNumberHelper.fromNumber(BSBigNumberHelper.format(amount, { decimals: token.decimals }))
+      const amountBn = new BSBigHumanAmount(amount, token.decimals)
 
       totalFiatPricesBn = totalFiatPricesBn.plus(amountBn.multipliedBy(tokenBalance.exchangeConvertedPrice))
 

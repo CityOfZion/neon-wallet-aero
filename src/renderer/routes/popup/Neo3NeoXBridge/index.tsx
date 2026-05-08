@@ -1,13 +1,12 @@
 import { useEffect, useRef } from 'react'
 
-import type {
-  TBalanceResponse,
-  TBridgeToken,
-  TBridgeValidateValue,
-  TBridgeValue,
-  TBSBridgeName,
+import {
+  type TBalanceResponse,
+  type TBridgeToken,
+  type TBridgeValidateValue,
+  type TBridgeValue,
+  type TBSBridgeName,
 } from '@cityofzion/blockchain-service'
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { Neo3NeoXBridgeOrchestrator } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -530,9 +529,7 @@ export const Neo3NeoXBridgePage = () => {
                   <div className="flex w-full justify-between pt-2 pb-4 pl-6.5">
                     <span className="text-xs text-gray-200 italic">{t('form.tokenToUseBalanceStepTitle')}</span>
                     <span className="text-xs text-gray-100 italic">
-                      {actionData.tokenToUseBalance.value?.amount
-                        ? BSBigNumberHelper.fromNumber(actionData.tokenToUseBalance.value?.amount).toFixed()
-                        : t('form.tokenToUseBalancePlaceholder')}
+                      {actionData.tokenToUseBalance.value?.amount || t('form.tokenToUseBalancePlaceholder')}
                     </span>
                   </div>
 

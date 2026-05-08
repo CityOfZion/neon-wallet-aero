@@ -1,6 +1,5 @@
 import { useMemo, useRef } from 'react'
 
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import type { TBSNeo3Name } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
 import { match, P } from 'ts-pattern'
@@ -57,12 +56,8 @@ export const Neo3VoteList = ({ neo3Account, search, voteErrorMessage, canVote }:
     return candidates
   }, [candidates, search])
 
-  const votesTotalBn = useMemo(
-    () =>
-      candidates.reduce(
-        (accumulator, candidate) => accumulator.plus(candidate.votes),
-        BSBigNumberHelper.fromNumber('0')
-      ),
+  const votesTotal = useMemo(
+    () => candidates.reduce((accumulator, candidate) => accumulator + candidate.votes, 0),
     [candidates]
   )
 
@@ -106,7 +101,7 @@ export const Neo3VoteList = ({ neo3Account, search, voteErrorMessage, canVote }:
                   index={index}
                   neo3Account={neo3Account}
                   candidate={candidate}
-                  votesTotalBn={votesTotalBn}
+                  votesTotal={votesTotal}
                   voteErrorMessage={voteErrorMessage}
                   canVote={canVote}
                   candidatesLength={array.length}

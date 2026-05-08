@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount } from '@cityofzion/blockchain-service'
 import type { BSNeo3 } from '@cityofzion/bs-neo3'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -122,9 +122,7 @@ export const useNeo3VoteValidations = ({ balanceQuery, gasFee }: TUseNeo3VoteVal
 
     if (gasAmount === undefined || gasFee === undefined) return false
 
-    const bnGasAmount = BSBigNumberHelper.fromNumber(gasAmount)
-
-    return bnGasAmount.isGreaterThanOrEqualTo(gasFee)
+    return new BSBigHumanAmount(gasFee).isLessThanOrEqualTo(gasAmount)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [balanceQuery.data?.tokensBalances, gasFee])

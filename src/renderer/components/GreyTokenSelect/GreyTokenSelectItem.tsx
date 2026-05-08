@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react'
 
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount } from '@cityofzion/blockchain-service'
 
 import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
@@ -25,7 +25,7 @@ export const GreyTokenSelectItem = ({ token, blockchain, textClassName }: TProps
 
   const [img, setImg] = useState(defaultImageUrl)
 
-  const formattedAmount = BSBigNumberHelper.format(token.amount, { decimals: token.decimals })
+  const formattedAmount = new BSBigHumanAmount(token.amount, token.decimals).toFormatted()
 
   const handleError = () => {
     const tokenImageUrl = token.imageUrl

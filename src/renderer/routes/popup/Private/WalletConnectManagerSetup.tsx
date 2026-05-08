@@ -33,7 +33,9 @@ export const WalletConnectManagerSetup = () => {
         session,
         services: BlockchainServiceHelper.bsAggregator.blockchainServices,
       })
+
       const sessionAccount = accountsMapRef.current.get(AccountHelper.buildAccountKey(sessionDetails))
+      const serviceAccount = await BlockchainServiceHelper.getServiceAccount(sessionAccount!)
 
       async function handleReject(reason?: ErrorResponse) {
         await rendererApi
@@ -48,8 +50,6 @@ export const WalletConnectManagerSetup = () => {
 
       async function handleAccept() {
         try {
-          const serviceAccount = await BlockchainServiceHelper.getServiceAccount(sessionAccount!)
-
           const response = await WalletKitHelper.processRequest({
             account: serviceAccount,
             request,
@@ -80,6 +80,13 @@ export const WalletConnectManagerSetup = () => {
       }
 
       const method = request.params.request.method
+
+      try {
+        await WalletKitHelper.validateRequest({ account: serviceAccount, request, sessionDetails })
+      } catch (error: any) {
+        handleReject({ code: -32000, message: error.message })
+        return
+      }
 
       if (sessionDetails.service.walletConnectService.autoApproveMethods.includes(method)) {
         ToastHelper.loading({
