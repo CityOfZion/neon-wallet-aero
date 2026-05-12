@@ -1,4 +1,4 @@
-import { BSBigNumber, BSBigNumberHelper, type TBSToken } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount, BSBigNumber, type TBSToken } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -42,7 +42,7 @@ const StellarPersistTrustlines = () => {
 
     debounce(() => {
       setData({
-        limit: BSBigNumberHelper.format(limit, { decimals: actionData.token?.decimals }),
+        limit: new BSBigHumanAmount(limit, actionData.token?.decimals).toFormatted(),
         isLimitFormatting: false,
       })
     })

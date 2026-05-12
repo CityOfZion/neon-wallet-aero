@@ -1,4 +1,3 @@
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { BSNeo3Constants } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
 
@@ -22,7 +21,8 @@ export const Neo3VoteSuccessModal = () => {
   const { modalEraseWrapper } = useModalNavigate()
 
   const voteDetailsByAddressQuery = useNeo3VoteGetVoteDetailsByAddress(neo3Account?.address)
-  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
+
+  const neoAmount = voteDetailsByAddressQuery.data?.neoBalance || 0
 
   return (
     <BottomModalLayout heading={t('title')} hideBackButton>
@@ -60,7 +60,7 @@ export const Neo3VoteSuccessModal = () => {
           <li className="flex flex-col">
             <p className="text-blue">{t('votesLabel')}</p>
             <p className="mt-0.5">
-              {neoAmountBn.toFixed()} {BSNeo3Constants.NEO_TOKEN.symbol}
+              {neoAmount} {BSNeo3Constants.NEO_TOKEN.symbol}
             </p>
           </li>
         </ul>

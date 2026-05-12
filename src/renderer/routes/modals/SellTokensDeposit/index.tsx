@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 
 import type { TBSToken, TTransferIntent } from '@cityofzion/blockchain-service'
-import { BSBigNumberHelper, isCalculableFee } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount, isCalculableFee } from '@cityofzion/blockchain-service'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -156,7 +156,7 @@ export const SellTokensDepositModal = () => {
 
     debounceAmount(() => {
       const token = actionData.token
-      const nextValue = BSBigNumberHelper.format(value, { decimals: token?.token?.decimals })
+      const nextValue = new BSBigHumanAmount(value, token?.token?.decimals).toFormatted()
 
       setData({ amount: nextValue === '0' ? '' : nextValue, isAmountLoading: false })
     })
@@ -286,10 +286,11 @@ export const SellTokensDepositModal = () => {
 
         setData({ fee })
 
-        const amount = BSBigNumberHelper.fromNumber(intent.amount)
-        let feeTotal = BSBigNumberHelper.fromNumber(fee)
+        const decimals = actionData.token?.token?.decimals
+        const amount = new BSBigHumanAmount(intent.amount, decimals)
+        let feeTotal = new BSBigHumanAmount(fee, decimals)
 
-        if (service.tokenService.predicateByHash(service.feeToken, intent.token)) {
+        if (service.tokenService.predicateByHash(intent.token, service.feeToken)) {
           feeTotal = feeTotal.plus(intent.amount)
         }
 
@@ -436,7 +437,7 @@ export const SellTokensDepositModal = () => {
                       <p className="whitespace-nowrap">
                         {CurrencyHelper.format(
                           actionData.amount && actionData.token
-                            ? BSBigNumberHelper.fromNumber(actionData.amount)
+                            ? new BSBigHumanAmount(actionData.amount, actionData.token.token.decimals)
                                 .multipliedBy(actionData.token.exchangeConvertedPrice)
                                 .toFixed()
                             : 0,

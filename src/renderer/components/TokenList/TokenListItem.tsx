@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount } from '@cityofzion/blockchain-service'
 import { AnimatePresence, motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
@@ -111,7 +111,7 @@ export const TokenListItem = ({ tokenBalance, isEditMode }: TProps) => {
               'text-gray-100': isHiddenToken,
             })}
           >
-            {BSBigNumberHelper.format(tokenBalance.amountNumber, { decimals: tokenBalance.token.decimals })}
+            {new BSBigHumanAmount(tokenBalance.amountNumber, tokenBalance.token.decimals).toFormatted()}
           </p>
 
           <p

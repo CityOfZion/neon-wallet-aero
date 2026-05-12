@@ -1,6 +1,5 @@
 import { cloneElement, useEffect, useMemo, useRef } from 'react'
 
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import type { TBSNeo3Name, TVoteServiceCandidate } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
 
@@ -23,7 +22,7 @@ type TProps = {
   index: number
   neo3Account?: TAccount<TBSNeo3Name>
   candidate: TVoteServiceCandidate
-  votesTotalBn: BigNumber
+  votesTotal: number
   voteErrorMessage?: string
   canVote: boolean
   candidatesLength: number
@@ -33,7 +32,7 @@ export const Neo3VoteListItem = ({
   index,
   neo3Account,
   candidate,
-  votesTotalBn,
+  votesTotal,
   voteErrorMessage,
   canVote,
   candidatesLength,
@@ -53,13 +52,9 @@ export const Neo3VoteListItem = ({
   const icon = candidate.type === 'consensus' ? <TbPackages className="size-5" /> : <MdCircle className="size-3" />
 
   const votePercentage = useMemo(() => {
-    const percentage = Math.min(
-      100,
-      BSBigNumberHelper.fromNumber(votes).multipliedBy('100').div(votesTotalBn).decimalPlaces(2).toNumber()
-    )
-
+    const percentage = Math.min(100, Number(((votes * 100) / votesTotal).toFixed(2)))
     return `${percentage >= 0 ? percentage : 0}%`
-  }, [votes, votesTotalBn])
+  }, [votes, votesTotal])
 
   const handleGoToNeo3VoteConfirmationModal = () => {
     if (isVoteDisabled || !neo3Account) return

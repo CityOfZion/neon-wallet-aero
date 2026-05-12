@@ -1,4 +1,4 @@
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -60,7 +60,7 @@ export const Neo3NeoXBridgeConfirmationModal = () => {
       ? ExchangeHelper.getExchangeConvertedPrice(tokenToReceive.hash, tokenToReceive.blockchain, tokenExchange.data)
       : 0
 
-  const amountToReceiveFiatPrice = BSBigNumberHelper.fromNumber(amountToReceive)
+  const amountToReceiveFiatPrice = new BSBigHumanAmount(amountToReceive, tokenToReceive.decimals)
     .times(tokenToReceiveFiatPrice)
     .toString()
 

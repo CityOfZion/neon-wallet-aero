@@ -1,4 +1,4 @@
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount } from '@cityofzion/blockchain-service'
 import type { TBSNeo3Name } from '@cityofzion/bs-neo3'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
@@ -85,7 +85,7 @@ export const Neo3VotePage = () => {
     voteDetailsByAddressQuery.isLoading ||
     balanceQuery.isLoading
 
-  const neoAmountBn = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
+  const neoAmountBn = new BSBigHumanAmount(voteDetailsByAddressQuery.data?.neoBalance || 0)
   const hasNeoAmount = neoAmountBn.isGreaterThan(0)
   const hasNeo3Accounts = neo3Accounts.length > 0
   const isSearchDisabled = candidatesToVoteQuery.isLoading || !hasNeo3Accounts

@@ -1,5 +1,4 @@
-import type { TBSToken } from '@cityofzion/blockchain-service'
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount, type TBSToken } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { Checkbox } from '@renderer/components/Checkbox'
@@ -61,7 +60,7 @@ export const SendTip = ({
           }
         >
           <span className="uppercase">
-            {BSBigNumberHelper.format(amountBn, { decimals: token.decimals })} {token.symbol} (
+            {new BSBigHumanAmount(amountBn, token.decimals).toFormatted()} {token.symbol} (
             {CurrencyHelper.format(fiatPriceBn.toFixed(), { currency, maximumFractionDigits: 2 })} {currency.label})
           </span>
         </Skeleton.Root>{' '}

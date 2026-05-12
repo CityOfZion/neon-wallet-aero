@@ -1,6 +1,5 @@
 import { cloneElement } from 'react'
 
-import { BSBigNumberHelper } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 import { match, P } from 'ts-pattern'
 
@@ -45,8 +44,8 @@ export const Neo3VoteCandidateDetailsModal = () => {
   const { hasEnoughGasToPayFee } = useNeo3VoteValidations({ balanceQuery, gasFee: calculateVoteFeeQuery.data })
   const isCandidateCoz = ConstantsHelper.neo3VoteCozPubKey === pubKey
 
-  const neoAmount = BSBigNumberHelper.fromNumber(voteDetailsByAddressQuery.data?.neoBalance || 0)
-  const hasNeoAmount = neoAmount.isGreaterThan(0)
+  const neoAmount = voteDetailsByAddressQuery.data?.neoBalance || 0
+  const hasNeoAmount = neoAmount > 0
   const isLoading = voteDetailsByAddressQuery.isLoading || calculateVoteFeeQuery.isLoading || balanceQuery.isLoading
   const isCurrentVote = voteDetailsByAddressQuery.data?.candidatePubKey === pubKey
   const isWatchAccount = neo3Account?.type === 'watch'
@@ -131,7 +130,7 @@ export const Neo3VoteCandidateDetailsModal = () => {
 
         <Separator containerClassName="mt-2" />
 
-        <div className="flex w-full flex-grow flex-col gap-y-1">
+        <div className="flex w-full grow flex-col gap-y-1">
           <p className="font-semibold text-gray-100 uppercase">{t('descriptionLabel')}</p>
           <p className="mt-2 whitespace-pre-wrap">{description}</p>
         </div>
