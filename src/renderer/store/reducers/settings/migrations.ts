@@ -7,6 +7,8 @@ export const settingsMigrations = {
       ...state.data,
       selectedNetworkByBlockchain: {
         ...state.data.selectedNetworkByBlockchain,
+        ethereum: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.ethereum.defaultNetwork,
+        polygon: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.polygon.defaultNetwork,
         bitcoin: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.bitcoin.defaultNetwork,
         stellar: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.stellar.defaultNetwork,
       },
