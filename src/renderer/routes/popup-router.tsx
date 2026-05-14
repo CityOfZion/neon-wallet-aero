@@ -51,6 +51,7 @@ const Neo3NeoXBridgePage = lazy(() => import('./popup/Neo3NeoXBridge'))
 const Neo3VotePage = lazy(() => import('./popup/Neo3Vote'))
 const NotificationsPage = lazy(() => import('./popup/Notifications'))
 const StellarTrustlinesPage = lazy(() => import('./popup/StellarTrustlines'))
+const GeneralPage = lazy(() => import('./popup/General'))
 
 export const popupRouter = createHashRouter([
   {
@@ -152,6 +153,10 @@ export const popupRouter = createHashRouter([
                   },
                   { path: '', element: <Navigate to="settings/backup-and-restore/backup/1" replace /> },
                 ],
+              },
+              {
+                path: 'general',
+                element: <GeneralPage />,
               },
               {
                 path: 'release-notes',

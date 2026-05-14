@@ -75,7 +75,8 @@
   "loginKey": {
     "description": "輸入地址、金鑰或助記詞：",
     "inputPlaceholder": "輸入地址、金鑰或助記詞…",
-    "buttonContinueLabel": "繼續"
+    "buttonContinueLabel": "繼續",
+    "shouldConfirmActionKeyCheckboxLabel": "要求確認操作"
   },
   "forgottenPassword": {
     "title": "忘記密碼",
@@ -145,7 +146,8 @@
   "onboardingLoginNewWalletStep3": {
     "description": "您的錢包已建立！",
     "backupWarning": "請備份您的助記詞以完成設置。任何擁有此短語的人都可以存取您的錢包，因此請妥善保管。",
-    "backupAndOpenWallet": "備份並打開錢包"
+    "backupAndOpenWallet": "備份並打開錢包",
+    "shouldConfirmActionPasswordCheckboxLabel": "確認操作時要求輸入密碼"
   },
   "onboardingImportWallet": {
     "title": "匯入錢包",
@@ -172,7 +174,9 @@
     },
     "step5": {
       "title": "錢包匯入成功！",
-      "openWalletButtonLabel": "開啟您的錢包"
+      "openWalletButtonLabel": "開啟您的錢包",
+      "shouldConfirmActionPasswordCheckboxLabel": "確認操作時要求輸入密碼",
+      "shouldConfirmActionKeyCheckboxLabel": "要求確認操作"
     }
   },
   "help": {
@@ -208,6 +212,7 @@
     "currencyButtonLabel": "貨幣",
     "menuIconButtonAriaLabel": "選單",
     "migrateFromNeon2ButtonLabel": "從 Neon 2 遷移",
+    "generalButtonLabel": "一般",
     "settingsBackupWallet": {
       "title": "備份"
     },
@@ -262,6 +267,11 @@
     "releaseNotes": {
       "title": "發布說明",
       "learnMoreButtonLabel": "瞭解更多…"
+    },
+    "general": {
+      "shouldConfirmActionKeyCheckbox": "要求確認操作",
+      "shouldConfirmActionPasswordCheckbox": "確認操作時要求輸入密碼",
+      "title": "一般"
     }
   },
   "networkConfiguration": {

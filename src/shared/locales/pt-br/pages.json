@@ -75,7 +75,8 @@
   "loginKey": {
     "description": "Digite um endereço, chave ou palavras mnemônicas:",
     "inputPlaceholder": "Digite um endereço, chave ou mnemônico…",
-    "buttonContinueLabel": "Continuar"
+    "buttonContinueLabel": "Continuar",
+    "shouldConfirmActionKeyCheckboxLabel": "Solicitar confirmação de ações"
   },
   "forgottenPassword": {
     "title": "Esqueci minha senha",
@@ -145,7 +146,8 @@
   "onboardingLoginNewWalletStep3": {
     "description": "Sua carteira foi criada!",
     "backupWarning": "Por favor, faça backup de sua frase mnemônica para concluir a configuração. Qualquer pessoa com essa frase pode acessar sua carteira, então mantenha-a segura.",
-    "backupAndOpenWallet": "Fazer backup e abrir carteira"
+    "backupAndOpenWallet": "Fazer backup e abrir carteira",
+    "shouldConfirmActionPasswordCheckboxLabel": "Solicitar senha para confirmar ações"
   },
   "onboardingImportWallet": {
     "title": "Importar uma carteira",
@@ -172,7 +174,9 @@
     },
     "step5": {
       "title": "Carteira importada com sucesso!",
-      "openWalletButtonLabel": "Abrir sua carteira"
+      "openWalletButtonLabel": "Abrir sua carteira",
+      "shouldConfirmActionPasswordCheckboxLabel": "Solicitar senha para confirmar ações",
+      "shouldConfirmActionKeyCheckboxLabel": "Solicitar confirmação de ações"
     }
   },
   "help": {
@@ -208,6 +212,7 @@
     "currencyButtonLabel": "Moeda",
     "menuIconButtonAriaLabel": "Menu",
     "migrateFromNeon2ButtonLabel": "Migrar da Neon 2",
+    "generalButtonLabel": "Geral",
     "settingsBackupWallet": {
       "title": "Backup"
     },
@@ -262,6 +267,11 @@
     "releaseNotes": {
       "title": "Notas de versão",
       "learnMoreButtonLabel": "Saiba mais…"
+    },
+    "general": {
+      "shouldConfirmActionKeyCheckbox": "Solicitar confirmação de ações",
+      "shouldConfirmActionPasswordCheckbox": "Solicitar senha para confirmar ações",
+      "title": "Geral"
     }
   },
   "networkConfiguration": {

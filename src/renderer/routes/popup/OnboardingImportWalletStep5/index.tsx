@@ -5,12 +5,17 @@ import type { Location } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
 import { Button } from '@renderer/components/Button'
+import { Checkbox } from '@renderer/components/Checkbox'
 import { DownloadQRCodePasswordButton } from '@renderer/components/DownloadQRCodePasswordButton'
 
+import { useLoginSessionSelector, useShouldConfirmActionSelector } from '@renderer/hooks/useAuthSelector'
 import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import MdOutlineAutoAwesome from '@renderer/assets/images/md-outline-auto-awesome.svg?react'
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
+
+import { authReducerActions } from '@renderer/store/reducers/auth'
 
 type TLocationState = {
   password: string
@@ -20,6 +25,13 @@ export const OnboardingImportWalletStep5Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingImportWallet.step5' })
   const { state } = useLocation() as Location<TLocationState>
   const navigateReset = useNavigateReset()
+  const { shouldConfirmAction } = useShouldConfirmActionSelector()
+  const { loginSession } = useLoginSessionSelector()
+  const dispatch = useAppDispatch()
+
+  const handleIsShouldConfirmActionChange = (value: boolean) => {
+    dispatch(authReducerActions.setShouldConfirmAction(value))
+  }
 
   return (
     <Fragment>
@@ -40,6 +52,19 @@ export const OnboardingImportWalletStep5Page = () => {
           className="w-full"
           iconsOnEdge={false}
         />
+      </div>
+
+      <div className="flex items-center justify-center gap-2 pt-4 pb-2 text-white">
+        <Checkbox
+          id="should-confirm-action"
+          checked={shouldConfirmAction}
+          onCheckedChange={handleIsShouldConfirmActionChange}
+        />
+        <label htmlFor="should-confirm-action">
+          {loginSession?.type === 'password'
+            ? t('shouldConfirmActionPasswordCheckboxLabel')
+            : t('shouldConfirmActionKeyCheckboxLabel')}
+        </label>
       </div>
     </Fragment>
   )
