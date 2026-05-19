@@ -15,10 +15,10 @@ import { ScreenLayout } from './ScreenLayout'
 type TProps = {
   title: string
   children: React.ReactNode
-  hideBackButton?: boolean
+  withBack?: boolean
 }
 
-export const SettingsLayout = ({ children, title, hideBackButton }: TProps) => {
+export const SettingsLayout = ({ children, title, withBack = true }: TProps) => {
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { modalNavigateWrapper } = useModalNavigate()
   const navigate = useNavigate()
@@ -35,7 +35,7 @@ export const SettingsLayout = ({ children, title, hideBackButton }: TProps) => {
             'relative mt-2 mb-5 flex w-full flex-row items-center justify-end text-white'
           )}
         >
-          {!hideBackButton && (
+          {withBack && (
             <IconButton
               type="button"
               className="mr-auto"

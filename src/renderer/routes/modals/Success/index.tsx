@@ -10,8 +10,8 @@ export const SuccessModal = () => {
   const { heading, content, subtitle, footer, onErase } = useModalState<TModalState<'success'>>()
 
   return (
-    <BottomModalLayout heading={heading} hideBackButton onErase={onErase}>
-      <div className="flex min-h-0 flex-grow flex-col items-center">
+    <BottomModalLayout heading={heading} withBack={false} onErase={onErase}>
+      <div className="flex min-h-0 grow flex-col items-center">
         <div className="bg-asphalt flex size-28 items-center rounded-full p-2">
           <TbRosetteDiscountCheck aria-hidden className="text-blue size-24" />
         </div>

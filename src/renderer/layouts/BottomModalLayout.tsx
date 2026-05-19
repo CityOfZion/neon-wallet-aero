@@ -1,56 +1,76 @@
+import { useRef } from 'react'
+
 import type { ComponentProps } from 'react'
+import { useHotkeys } from 'react-hotkeys-hook'
 import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
+import { useClickOutside } from '@renderer/hooks/useClickOutside'
 import { useModalFocused, useModalHistories, useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { usePressOnce } from '@renderer/hooks/usePressOnce'
 import { useRemoveOverflowShift } from '@renderer/hooks/useRemoveOverflowShift'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 import TbX from '@renderer/assets/images/tb-x.svg?react'
 
-type TProps = {
+type TProps = ComponentProps<'div'> & {
   heading: string
-  hideBackButton?: boolean
+  contentClassName?: string
+  withBack?: boolean
+  closeOnEsc?: boolean
+  closeOnClickOutside?: boolean
   onClose?: () => Promise<void> | void
   onErase?: () => Promise<void> | void
-  contentClassName?: string
-} & ComponentProps<'div'>
+}
 
 export const BottomModalLayout = ({
-  children,
   heading,
   className,
-  hideBackButton = false,
+  contentClassName,
+  withBack = true,
+  closeOnEsc = true,
+  closeOnClickOutside = true,
   onClose,
   onErase,
-  contentClassName,
+  children,
   ...props
 }: TProps) => {
   const { t } = useTranslation('common')
   const { modalErase, modalNavigate } = useModalNavigate()
   const { histories } = useModalHistories()
   const isFocused = useModalFocused()
+  const layoutRef = useRef<HTMLDivElement>(null)
 
   const { ref } = useRemoveOverflowShift(isFocused)
 
-  const withBackButton = !hideBackButton && histories.filter(history => history.route.type === 'bottom').length > 1
+  const withBackButton = withBack && histories.filter(history => history.route.type === 'bottom').length > 1
 
-  const handleGoBack = () => {
-    onClose?.()
+  const [isGoingBack, handleGoBack] = usePressOnce(async () => {
+    await onClose?.()
+
     modalNavigate(-1)
-  }
+  })
 
-  const handleClose = async () => {
-    onClose?.()
-    onErase?.()
+  const [isClosing, handleClose] = usePressOnce(async () => {
+    await Promise.all([onClose?.(), onErase?.()])
+
     modalErase('bottom')
-  }
+  })
+
+  const canClose = isFocused && !isGoingBack && !isClosing
+
+  useHotkeys('esc', handleClose, { enabled: closeOnEsc && canClose })
+  useClickOutside(layoutRef, handleClose, { enabled: closeOnClickOutside && canClose })
 
   return (
-    <div className={StyleHelper.mergeStyles('flex h-full min-h-0 w-full flex-col text-white', className)} {...props}>
+    <div
+      {...props}
+      ref={layoutRef}
+      className={StyleHelper.mergeStyles('flex h-full min-h-0 w-full flex-col text-white', className)}
+    >
       <header className="relative mt-5 mb-5 flex w-full items-center justify-center px-4">
         {withBackButton && (
           <IconButton
@@ -73,7 +93,7 @@ export const BottomModalLayout = ({
 
       <main
         ref={ref}
-        className={StyleHelper.mergeStyles('flex flex-grow flex-col overflow-y-auto px-4 pb-5', contentClassName)}
+        className={StyleHelper.mergeStyles('flex grow flex-col overflow-y-auto px-4 pb-5', contentClassName)}
       >
         {children}
       </main>

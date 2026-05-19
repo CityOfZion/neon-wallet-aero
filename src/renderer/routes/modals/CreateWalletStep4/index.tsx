@@ -24,7 +24,7 @@ export const CreateWalletStep4Modal = () => {
   }
 
   return (
-    <BottomModalLayout heading={t('title')} hideBackButton className="overflow-y-auto">
+    <BottomModalLayout heading={t('title')} withBack={false} className="overflow-y-auto">
       <div className="flex flex-col items-center pb-5">
         <NeonWalletIcon className="text-neon my-6 w-18" aria-hidden />
         <h3 className="pb-2.5 text-lg">{t('subtitle')}</h3>

@@ -24,7 +24,7 @@ export const BackupAndRestorePage = () => {
 
   const [tab, setTab] = useState<TTab>(stateTab || 'backup')
 
-  const isBackDisabled = !location.pathname.includes('/1')
+  const withBack = location.pathname.includes('/1')
 
   const handleTabChange = (newTab: TTab) => {
     setTab(newTab)
@@ -38,14 +38,14 @@ export const BackupAndRestorePage = () => {
   }, [stateTab])
 
   return (
-    <SettingsLayout title={t('backupAndRestoreButtonLabel')} hideBackButton={isBackDisabled}>
+    <SettingsLayout title={t('backupAndRestoreButtonLabel')} withBack={withBack}>
       <Tabs.Root className="flex h-full flex-col" value={tab} onValueChange={newTab => handleTabChange(newTab as TTab)}>
         <Tabs.List>
-          <Tabs.Trigger disabled={isBackDisabled} value="backup">
+          <Tabs.Trigger disabled={!withBack} value="backup">
             {t('settingsBackupWallet.title')}
           </Tabs.Trigger>
 
-          <Tabs.Trigger disabled={isBackDisabled} value="restore">
+          <Tabs.Trigger disabled={!withBack} value="restore">
             {t('settingsRestoreWallet.title')}
           </Tabs.Trigger>
         </Tabs.List>
