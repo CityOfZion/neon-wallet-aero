@@ -101,7 +101,7 @@ export const useLogin = () => {
       const encryptedPassword = await EncryptionHelper.encryptedPassword(randomPassword)
 
       const loginSession: TLoginSession = {
-        type: 'key',
+        type: 'hardware',
         encryptedPassword,
       }
 
