@@ -238,11 +238,10 @@
       "buttonLabel": "遷移帳戶",
       "passwordError": "密碼無法識別！",
       "migrateError": "遷移時出現錯誤，請重試。",
-      "returnToSettingsButtonLabel": "返回設定",
       "success": {
         "title": "遷移成功",
         "subtitle": "您的 NEON 2 帳戶已成功遷移！",
-        "viewButtonLabel": "檢視您的投資組合"
+        "returnToSettingsButtonLabel": "返回設定"
       }
     }
   },

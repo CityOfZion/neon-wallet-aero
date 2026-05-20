@@ -5,7 +5,6 @@ import { match } from 'ts-pattern'
 import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
-import { Separator } from '@renderer/components/Separator'
 
 import { AppError } from '@renderer/helpers/ErrorHelper'
 
@@ -16,33 +15,22 @@ import { useNeonImportBackup } from '@renderer/hooks/useNeonBackup'
 
 import { SettingsLayout } from '@renderer/layouts/Settings'
 
-const SuccessFooter = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'migrateWallets.step4' })
-  const { modalErase } = useModalNavigate()
-  const navigate = useNavigate()
-
-  const handleView = () => {
-    modalErase('bottom')
-    navigate('/wallets', { replace: true })
-  }
-
-  return (
-    <div className="flex w-full grow flex-col items-center justify-end gap-7">
-      <Separator />
-      <Button variant="card" label={t('returnToSettingsButtonLabel')} onClick={handleView} className="w-full" />
-    </div>
-  )
-}
+import { MigrateFromNeon2SuccessFooter } from './MigrateFromNeon2SuccessFooter'
 
 export const MigrateFromNeon2Step2Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings.migrateFromNeon2.step2' })
   const { t: tConfirmPassword } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const { modalNavigate } = useModalNavigate()
+  const navigate = useNavigate()
   const { actionData, actionState, handleBrowse, handleAct } = useBackupOrMigrate()
   const { handleTryDecryptData, handleGenerateData, handleImportBackupData } = useNeonImportBackup()
 
   const handleSubmit = async (data: TUseBackupOrMigrateActionsData) => {
     if (!data.content || !data.path || !data.type) return
+
+    const handleOnEraseModal = () => {
+      navigate('/settings', { replace: true })
+    }
 
     if (data.type === 'migrate') {
       modalNavigate('migrate-from-neon2-3', { state: { content: data.content } })
@@ -66,7 +54,8 @@ export const MigrateFromNeon2Step2Page = () => {
               state: {
                 heading: tConfirmPassword('title'),
                 subtitle: tConfirmPassword('importSuccess'),
-                footer: <SuccessFooter />,
+                footer: <MigrateFromNeon2SuccessFooter />,
+                onErase: handleOnEraseModal,
               },
               replace: true,
             })

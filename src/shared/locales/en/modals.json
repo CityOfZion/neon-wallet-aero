@@ -238,11 +238,10 @@
       "buttonLabel": "Migrate accounts",
       "passwordError": "Password not recognised!",
       "migrateError": "There was an error trying to migrate. Please, try again.",
-      "returnToSettingsButtonLabel": "Return to Settings",
       "success": {
         "title": "Migration successful!",
         "subtitle": "Your NEON 2 accounts have been successfully migrated!",
-        "viewButtonLabel": "View your portfolio"
+        "returnToSettingsButtonLabel": "Return to settings"
       }
     }
   },
@@ -419,10 +418,7 @@
     "title": "Your bridge",
     "bridgeDetailsHeaderLabel": "Details",
     "bridgeStatusPanelLabel": "Status",
-    "bridgeStatusPanelSteps": [
-      "Sent",
-      "Complete"
-    ],
+    "bridgeStatusPanelSteps": ["Sent", "Complete"],
     "fromDetailsPanelLabel": "From",
     "fromAddressDetailsItemLabel": "Sending address",
     "fromTokenDetailsItemLabel": "Token",
@@ -523,11 +519,7 @@
   "swapDetails": {
     "title": "Your swap",
     "detailsHeaderLabel": "Details",
-    "statusPanelSteps": [
-      "Confirm",
-      "Exchange",
-      "Complete"
-    ],
+    "statusPanelSteps": ["Confirm", "Exchange", "Complete"],
     "routingPanelLabel": "Routing",
     "routingPanelTransactionFromLabel": "From",
     "routingPanelTransactionToLabel": "To",

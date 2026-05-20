@@ -28,7 +28,7 @@ export const BackupAndRestoreRestoreStep1Page = () => {
       return
     }
 
-    navigate('/settings/backup-and-restore/restore/2', { state: { data } })
+    navigate('/settings/backup-and-restore/restore/2', { state: { data }, replace: true })
   }
 
   return (

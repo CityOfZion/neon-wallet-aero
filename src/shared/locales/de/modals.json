@@ -238,11 +238,10 @@
       "buttonLabel": "Konten migrieren",
       "passwordError": "Passwort nicht erkannt!",
       "migrateError": "Beim Migrieren ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-      "returnToSettingsButtonLabel": "Zurück zu Einstellungen",
       "success": {
         "title": "Migration erfolgreich!",
         "subtitle": "Ihre NEON 2 Konten wurden erfolgreich migriert!",
-        "viewButtonLabel": "Ihr Portfolio ansehen"
+        "returnToSettingsButtonLabel": "Zurück zu Einstellungen"
       }
     }
   },

@@ -149,6 +149,7 @@ type TSuccessModalState = {
   subtitle?: string
   content?: JSX.Element
   footer?: JSX.Element
+  onErase?: () => void
 }
 
 type TErrorModalState = {
