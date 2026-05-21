@@ -36,6 +36,7 @@ export const HelpPage = () => {
           label={t('chatWithUsItemLabel')}
           to={ConstantsHelper.cozDiscordUrl}
           icon={<TbMessage aria-hidden className="text-yellow" />}
+          isExternal
         />
 
         <HelpLinkItem
