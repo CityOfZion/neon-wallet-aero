@@ -321,6 +321,10 @@ type TStellarPersistTrustlinesModalState = {
   limit?: string
 }
 
+type TSearchModalState = {
+  backToMenuOnErase?: boolean
+}
+
 export type TModalRouterRouteTypes = {
   menu: undefined
   'wallet-selection': TWalletSelectionModalState
@@ -379,7 +383,7 @@ export type TModalRouterRouteTypes = {
   'dapp-permission': TDappPermissionModalState
   'dapp-permission-signature-scope': TDappPermissionSignatureScopeModalState
   'dapp-permission-contract-details': TDappPermissionContractDetailsModalState
-  search: undefined
+  search: TSearchModalState
   'hide-fraudulent-token': THideFraudulentTokenModalState
   'support-ticket': undefined
   'export-transactions': TExportTransactionsModalState
