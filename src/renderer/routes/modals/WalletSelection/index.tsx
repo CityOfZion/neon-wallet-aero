@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
@@ -30,6 +30,70 @@ import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import type { TModalState } from '@shared/types/modal'
 import type { TWallet } from '@shared/types/store'
+
+type TWalletItemProps = {
+  wallet: TWallet
+  isSelected: boolean
+  editMode: boolean
+  isLast: boolean
+  isPasswordLogin: boolean
+  onSelect: (wallet: TWallet) => void
+  onEdit: (wallet: TWallet) => void
+}
+
+const WalletItem = ({ wallet, isSelected, editMode, isLast, isPasswordLogin, onSelect, onEdit }: TWalletItemProps) => {
+  const { t } = useTranslation('modals', { keyPrefix: 'walletSelection' })
+  const ref = useRef<HTMLLIElement>(null)
+
+  const handleClick = () => {
+    if (editMode) {
+      onEdit(wallet)
+      return
+    }
+
+    onSelect(wallet)
+  }
+
+  useEffect(() => {
+    if (!isSelected) return
+
+    ref.current?.scrollIntoView({ behavior: 'instant', block: 'start' })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <li ref={ref}>
+      <button
+        type="button"
+        aria-selected={isSelected}
+        onClick={handleClick}
+        className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 focus:bg-gray-300/15 active:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30 aria-selected:focus:bg-gray-300/30 aria-selected:active:bg-gray-300/15"
+      >
+        <p className={StyleHelper.mergeStyles('truncate text-sm text-white', { 'text-neon': editMode })}>
+          {wallet.name}
+        </p>
+
+        <div className="flex items-center gap-x-2">
+          {wallet.backupStatus === 'unsuccessful' && isPasswordLogin && (
+            <Tooltip
+              title={t('walletWithoutBackupLabel')}
+              contentProps={{ className: 'bg-asphalt' }}
+              arrowProps={{ className: 'fill-asphalt' }}
+              delayDuration={0}
+            >
+              <TbAlertTriangle className="text-yellow max-size-6 min-size-6 size-6" aria-hidden />
+            </Tooltip>
+          )}
+
+          <TbChevronRight className="max-size-6 min-size-6 size-6 text-gray-300" aria-hidden />
+        </div>
+      </button>
+
+      {!isLast && <Separator />}
+    </li>
+  )
+}
 
 export const WalletSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelection' })
@@ -105,35 +169,16 @@ export const WalletSelectionModal = () => {
 
       <ul className="my-2.5 min-h-0 overflow-y-auto rounded">
         {wallets.map((wallet, index, array) => (
-          <li key={wallet.id}>
-            <button
-              type="button"
-              aria-selected={selectedWallet?.id === wallet.id}
-              onClick={editMode ? handleEdit.bind(null, wallet) : handleSelect.bind(null, wallet)}
-              className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
-            >
-              <p className={StyleHelper.mergeStyles('truncate text-sm text-white', { 'text-neon': editMode })}>
-                {wallet.name}
-              </p>
-
-              <div className="flex items-center gap-x-2">
-                {wallet.backupStatus === 'unsuccessful' && isPasswordLogin && (
-                  <Tooltip
-                    title={t('walletWithoutBackupLabel')}
-                    contentProps={{ className: 'bg-asphalt' }}
-                    arrowProps={{ className: 'fill-asphalt' }}
-                    delayDuration={0}
-                  >
-                    <TbAlertTriangle className="text-yellow max-size-6 min-size-6 size-6" aria-hidden />
-                  </Tooltip>
-                )}
-
-                <TbChevronRight className="max-size-6 min-size-6 size-6 text-gray-300" aria-hidden />
-              </div>
-            </button>
-
-            {index + 1 !== array.length && <Separator />}
-          </li>
+          <WalletItem
+            key={wallet.id}
+            wallet={wallet}
+            isSelected={selectedWallet?.id === wallet.id}
+            editMode={editMode}
+            isLast={index + 1 === array.length}
+            isPasswordLogin={isPasswordLogin}
+            onSelect={handleSelect}
+            onEdit={handleEdit}
+          />
         ))}
       </ul>
 
