@@ -9,6 +9,10 @@
       "requestingPermission": "Aguardando confirmação do dispositivo físico…"
     },
     "accountTasksManagerSetup": {
+      "useBNeoShutdownNotificationProcess": {
+        "description": "O BNeo está encerrando em 1º de agosto de 2026. A distribuição de GAS já foi interrompida. Troque seus BNeo agora para não perder o acesso aos seus fundos.",
+        "title": "O BNeo está encerrando!"
+      },
       "useFraudulentTokensNotificationProcess": {
         "notificationTitle": "\"{{ value }}\" é um token fraudulento!",
         "notificationDescription": "Identificamos \"{{ value }}\" que foi sinalizado como token fraudulento pela comunidade. Sugerimos ocultá-lo e evitar qualquer outro tipo de interação com ele."

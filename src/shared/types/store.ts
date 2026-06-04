@@ -70,6 +70,11 @@ type TNotificationNavigateAction = {
     | {
         to: 'backup-wallet'
       }
+    | {
+        to: 'bneo-shutdown'
+        address: string
+        blockchain: TBlockchainServiceKey
+      }
 }
 
 export type TNotificationAction = TNotificationNavigateAction

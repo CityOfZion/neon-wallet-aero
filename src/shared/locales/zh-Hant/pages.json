@@ -9,6 +9,10 @@
       "requestingPermission": "等待硬體設備確認…"
     },
     "accountTasksManagerSetup": {
+      "useBNeoShutdownNotificationProcess": {
+        "description": "BNeo 將於 2026 年 8 月 1 日關閉。GAS 分發已停止。請立即兌換您的 BNeo，以避免失去對資金的存取權限。",
+        "title": "BNeo 即將關閉！"
+      },
       "useFraudulentTokensNotificationProcess": {
         "notificationTitle": "\"{{ value }}\"是一個詐騙代幣！",
         "notificationDescription": "我們發現\"{{ value }}\"被社群標記為詐騙代幣，建議將其隱藏，並避免與其進行任何其他互動。"
