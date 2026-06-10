@@ -16,7 +16,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
-import type { TAccountsToImport } from '@shared/types/blockchain'
+import type { TAccountsToImport, TBlockchainServiceKey } from '@shared/types/blockchain'
 
 export const LoginKeyPage = () => {
   const { loginWithKey } = useLogin()
@@ -79,11 +79,32 @@ export const LoginKeyPage = () => {
     dispatch(authReducerActions.setShouldConfirmAction(isShouldConfirmAction))
   }
 
+  const submitEncryptedKey = async (encryptedKey: string) => {
+    modalNavigate('blockchain-selection', {
+      state: {
+        heading: t('encryptedKey.title'),
+        description: t('encryptedKey.blockchainSelectionDescription'),
+        onSelect: ([blockchain]: TBlockchainServiceKey[]) => {
+          modalNavigate('decrypt-key', {
+            state: {
+              heading: t('encryptedKey.title'),
+              description: t('encryptedKey.decryptKeyDescription'),
+              encryptedKey,
+              blockchain,
+              onSubmit: submitKey,
+            },
+          })
+        },
+      },
+    })
+  }
+
   const { actionData, actionState, handleAct, handleSubmit, handleChange } = useImportActions(
     {
       key: submitKey,
       mnemonic: submitMnemonic,
       address: submitAddress,
+      encrypted: submitEncryptedKey,
     },
     { verifyIfAddressAlreadyExists: false }
   )
