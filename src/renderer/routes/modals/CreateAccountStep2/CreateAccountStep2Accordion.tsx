@@ -24,12 +24,11 @@ export const CreateAccountStep2Accordion = ({ selectedWallet, onSelect }: TProps
     return wallets.filter(wallet => !!wallet.encryptedMnemonic || wallet.type === 'hardware')
   }, [wallets])
 
-  const walletsId = useMemo(() => filteredWallets.map(wallet => wallet.id), [filteredWallets])
   return (
-    <Accordion.Root className="flex flex-col gap-y-3" type="multiple" defaultValue={walletsId}>
+    <Accordion.Root className="flex flex-col gap-y-3" type="multiple">
       <Accordion.Item value={selectedWallet?.id || 'not-selected'} className="bg-asphalt rounded">
-        <Accordion.Trigger className="flex flex-grow items-center gap-x-2 border-none px-4">
-          <h3 className="flex flex-grow items-center gap-x-2 text-sm text-white">
+        <Accordion.Trigger className="flex grow items-center gap-x-2 border-none px-4">
+          <h3 className="flex grow items-center gap-x-2 text-sm text-white">
             {selectedWallet?.name || t('defaultWalletLabel')}
           </h3>
         </Accordion.Trigger>
