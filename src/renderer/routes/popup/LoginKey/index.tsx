@@ -1,15 +1,21 @@
+import { useState } from 'react'
+
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
+import { Checkbox } from '@renderer/components/Checkbox'
 import { TemporaryLimitsBox } from '@renderer/components/TemporaryLimitsBox'
 import { Textarea } from '@renderer/components/Textarea'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
+import { useShouldConfirmActionSelector } from '@renderer/hooks/useAuthSelector'
 import { useImportActions } from '@renderer/hooks/useImportActions'
 import { useLogin } from '@renderer/hooks/useLogin'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { useAppDispatch } from '@renderer/hooks/useRedux'
 
+import { authReducerActions } from '@renderer/store/reducers/auth'
 import type { TAccountsToImport } from '@shared/types/blockchain'
 
 export const LoginKeyPage = () => {
@@ -17,6 +23,11 @@ export const LoginKeyPage = () => {
   const { modalNavigate } = useModalNavigate()
   const { t } = useTranslation('pages', { keyPrefix: 'loginKey' })
   const { t: tCommon } = useTranslation('common')
+  const { shouldConfirmAction } = useShouldConfirmActionSelector('key')
+
+  const dispatch = useAppDispatch()
+
+  const [isShouldConfirmAction, setIsShouldConfirmAction] = useState(shouldConfirmAction)
 
   const submitKey = async (value: string) => {
     modalNavigate('import-accounts-selection', {
@@ -27,6 +38,8 @@ export const LoginKeyPage = () => {
           const accounts: TAccountsToImport = selectedAccounts.map(account => ({ ...account, type: 'standard' }))
 
           await loginWithKey(accounts, { name: tCommon('wallet.importedWalletName'), type: 'standard' })
+
+          dispatch(authReducerActions.setShouldConfirmAction(isShouldConfirmAction))
         },
       },
     })
@@ -45,6 +58,8 @@ export const LoginKeyPage = () => {
             type: 'standard',
             mnemonic: value,
           })
+
+          dispatch(authReducerActions.setShouldConfirmAction(isShouldConfirmAction))
         },
       },
     })
@@ -60,6 +75,8 @@ export const LoginKeyPage = () => {
     }))
 
     await loginWithKey(accountsToImport, { name: tCommon('wallet.watchAccount'), type: 'standard' })
+
+    dispatch(authReducerActions.setShouldConfirmAction(isShouldConfirmAction))
   }
 
   const { actionData, actionState, handleAct, handleSubmit, handleChange } = useImportActions(
@@ -70,6 +87,10 @@ export const LoginKeyPage = () => {
     },
     { verifyIfAddressAlreadyExists: false }
   )
+
+  const handleIsShouldConfirmActionChange = (value: boolean) => {
+    setIsShouldConfirmAction(value)
+  }
 
   return (
     <form onSubmit={handleAct(handleSubmit)} className="flex w-full grow flex-col items-center">
@@ -87,6 +108,15 @@ export const LoginKeyPage = () => {
       />
 
       <TemporaryLimitsBox className="mt-auto w-full pt-4" />
+
+      <div className="flex items-center justify-center gap-2 pt-4 text-white">
+        <Checkbox
+          id="should-confirm-action"
+          checked={isShouldConfirmAction}
+          onCheckedChange={handleIsShouldConfirmActionChange}
+        />
+        <label htmlFor="should-confirm-action">{t('shouldConfirmActionKeyCheckboxLabel')}</label>
+      </div>
 
       <Button
         label={t('buttonContinueLabel')}

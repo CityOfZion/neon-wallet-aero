@@ -8,6 +8,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
 import BsCash from '@renderer/assets/images/bs-cash.svg?react'
+import MdOutlineLanguage from '@renderer/assets/images/md-outline-language.svg?react'
 import Tb3dCubeSphere from '@renderer/assets/images/tb-cube-3d-sphere.svg?react'
 import TbDeviceFloppy from '@renderer/assets/images/tb-device-floppy.svg?react'
 import TbLock from '@renderer/assets/images/tb-lock.svg?react'
@@ -24,6 +25,7 @@ export const SettingsPage = () => {
   const { loginSession } = useLoginSessionSelector()
 
   const isLoginSessionPassword = loginSession?.type === 'password'
+  const isLoginSessionHardware = loginSession?.type === 'hardware'
 
   return (
     <ScreenLayout className="bg-asphalt text-white">
@@ -45,6 +47,13 @@ export const SettingsPage = () => {
           label={t('changePasswordButtonLabel')}
           to="/settings/change-password"
           isDisabled={!isLoginSessionPassword}
+        />
+
+        <SettingsLinkNavigation
+          icon={<MdOutlineLanguage aria-hidden className="text-neon w-6" />}
+          label={t('generalButtonLabel')}
+          to="/settings/general"
+          isDisabled={isLoginSessionHardware}
         />
 
         <SettingsLinkNavigation

@@ -1,17 +1,19 @@
 import type { CaseReducerActions } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PersistConfig } from 'redux-persist'
-import { persistReducer } from 'redux-persist'
+import { createMigrate, persistReducer } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
 
 import type { TLoginSession, TLoginSessionType, TNotification, TWallet } from '@shared/types/store'
 
+import { authMigrations } from './migrations'
 import { authSliceReducers } from './reducers'
 
-type TApplicationDataByLoginType = {
+export type TApplicationDataByLoginType = {
   [K in TLoginSessionType]: {
     wallets: TWallet[]
     notifications: TNotification[]
+    shouldConfirmAction: boolean
   }
 }
 
@@ -33,9 +35,9 @@ export function getAuthReducer() {
     },
     data: {
       applicationDataByLoginType: {
-        password: { wallets: [], notifications: [] },
-        key: { wallets: [], notifications: [] },
-        hardware: { wallets: [], notifications: [] },
+        password: { wallets: [], notifications: [], shouldConfirmAction: true },
+        key: { wallets: [], notifications: [], shouldConfirmAction: true },
+        hardware: { wallets: [], notifications: [], shouldConfirmAction: false },
       },
     },
   }
@@ -44,6 +46,8 @@ export function getAuthReducer() {
     key: 'authReducer',
     storage: localStorage,
     blacklist: ['memoryData'],
+    version: 0,
+    migrate: createMigrate(authMigrations),
   }
 
   const authSlice = createSlice({

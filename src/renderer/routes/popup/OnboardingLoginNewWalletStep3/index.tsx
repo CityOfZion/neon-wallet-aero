@@ -2,11 +2,12 @@ import { useTranslation } from 'react-i18next'
 
 import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
+import { Checkbox } from '@renderer/components/Checkbox'
 
 import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 
-import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
+import { useLoginSessionSelector, useShouldConfirmActionSelector } from '@renderer/hooks/useAuthSelector'
 import { useExportMnemonic } from '@renderer/hooks/useExportMnemonic'
 import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
@@ -24,6 +25,11 @@ export const OnboardingLoginNewWalletStep3Page = () => {
   const { saveMnemonicToTextFile } = useExportMnemonic()
   const navigateReset = useNavigateReset()
   const dispatch = useAppDispatch()
+  const { shouldConfirmAction } = useShouldConfirmActionSelector()
+
+  const handleIsShouldConfirmActionChange = (value: boolean) => {
+    dispatch(authReducerActions.setShouldConfirmAction(value))
+  }
 
   const handleBackupAndOpenWallet = async () => {
     const decryptedMnemonic = await EncryptionHelper.decrypt(
@@ -53,12 +59,21 @@ export const OnboardingLoginNewWalletStep3Page = () => {
 
       <Button
         onClick={handleBackupAndOpenWallet}
-        className="w-full"
+        className="w-full pt-4"
         variant="card"
         rightIcon={<MdOutlineAutoAwesome aria-hidden />}
         label={t('backupAndOpenWallet')}
         iconsOnEdge={false}
       />
+
+      <div className="flex items-center justify-center gap-2 pt-4 pb-8 text-white">
+        <Checkbox
+          id="should-confirm-action"
+          checked={shouldConfirmAction}
+          onCheckedChange={handleIsShouldConfirmActionChange}
+        />
+        <label htmlFor="should-confirm-action">{t('shouldConfirmActionPasswordCheckboxLabel')}</label>
+      </div>
     </div>
   )
 }
