@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Outlet, useLocation } from 'react-router-dom'
 
-import { SettingsLayout } from '@renderer/layouts/Settings'
+import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
 export const ChangePasswordPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'changePassword' })

@@ -79,7 +79,7 @@ export const ConnectHardwareWalletPage = () => {
   }, [loginSession, type])
 
   return (
-    <ScreenLayout withBackButton={false} contentClassName="items-center justify-center">
+    <ScreenLayout withBack={false} contentClassName="items-center justify-center">
       <div className="flex max-h-154 w-full max-w-212 flex-grow flex-col items-center rounded-lg bg-gray-300/10 px-40 py-25">
         <NeonWalletFullIcon className="text-neon" aria-hidden />
 

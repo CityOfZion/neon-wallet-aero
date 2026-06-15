@@ -6,7 +6,6 @@ import { useLocation } from 'react-router-dom'
 import { match, P } from 'ts-pattern'
 
 import { Button } from '@renderer/components/Button'
-import { IconButton } from '@renderer/components/IconButton'
 import { Input } from '@renderer/components/Input'
 import { Tooltip } from '@renderer/components/Tooltip'
 
@@ -30,7 +29,6 @@ import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 import MdInfoOutline from '@renderer/assets/images/md-info-outline.svg?react'
 import MdSearch from '@renderer/assets/images/md-search.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
-import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 
 import type { TAccount, TWallet } from '@shared/types/store'
 
@@ -50,7 +48,6 @@ type TActionsData = {
 
 export const Neo3VotePage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'neo3Vote' })
-  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { state } = useLocation() as Location<TLocationState>
   const { modalNavigateWrapper, modalNavigate, modalErase } = useModalNavigate()
   const { selectedWallet } = useSelectedWalletSelector()
@@ -117,18 +114,7 @@ export const Neo3VotePage = () => {
   }
 
   return (
-    <ScreenLayout
-      heading={t('title')}
-      withBackButton={false}
-      rightComponent={
-        <IconButton
-          aria-label={tCommon('menuIconButtonAriaLabel')}
-          className="mb-0.5"
-          icon={<TbMenu2 aria-hidden />}
-          onClick={modalNavigateWrapper('menu')}
-        />
-      }
-    >
+    <ScreenLayout heading={t('title')}>
       <div className="flex min-h-0 flex-grow flex-col items-center text-sm text-white">
         <div className="flex w-full items-center justify-between gap-2 pb-9">
           <Button

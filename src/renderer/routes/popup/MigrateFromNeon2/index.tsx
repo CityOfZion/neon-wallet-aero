@@ -8,7 +8,7 @@ import { Button } from '@renderer/components/Button'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { SettingsLayout } from '@renderer/layouts/Settings'
+import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
 import MdLooks3 from '@renderer/assets/images/md-looks-3.svg?react'
 import MdLooks4 from '@renderer/assets/images/md-looks-4.svg?react'
@@ -46,7 +46,7 @@ export const MigrateFromNeon2Page = () => {
 
   return (
     <SettingsLayout title={t('title')}>
-      <div className="flex flex-grow flex-col">
+      <div className="flex grow flex-col">
         <p className="text-xs text-gray-100">{t('descriptionWhy')}</p>
         <h2 className="mt-8 text-xs font-bold text-gray-100 uppercase">{t('subtitleHow')}</h2>
 

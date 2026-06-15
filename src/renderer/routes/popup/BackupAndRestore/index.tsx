@@ -6,7 +6,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 import { Tabs } from '@renderer/components/Tabs'
 
-import { SettingsLayout } from '@renderer/layouts/Settings'
+import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
 type TTab = 'backup' | 'restore'
 

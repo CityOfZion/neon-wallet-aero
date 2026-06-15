@@ -2,23 +2,17 @@ import { Fragment } from 'react'
 
 import i18next from 'i18next'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 
-import { IconButton } from '@renderer/components/IconButton'
 import { Radio } from '@renderer/components/Radio'
 import { Separator } from '@renderer/components/Separator'
 
 import { LanguageHelper } from '@renderer/helpers/LanguageHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
-import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 
-import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
-
-import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
-import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
+import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 
@@ -28,11 +22,8 @@ type TActionsData = {
 
 export const LanguagePage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'language' })
-  const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
-  const { modalNavigateWrapper } = useModalNavigate()
   const { language } = useLanguageSelector()
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
 
   const {
     actionData: { selectedLanguage },
@@ -49,31 +40,8 @@ export const LanguagePage = () => {
     i18next.changeLanguage(value)
   }
 
-  const handleBack = () => {
-    navigate(-1)
-  }
-
   return (
-    <ScreenLayout className="bg-asphalt text-white">
-      <div className="flex w-full gap-9">
-        <header className="relative mt-2 mb-5 flex w-full flex-row items-center justify-between text-white">
-          <IconButton
-            type="button"
-            icon={<TbArrowLeft aria-hidden />}
-            onClick={handleBack}
-            aria-label={tCommonGeneral('back')}
-          />
-
-          <h1 className="w-full truncate text-center text-sm font-bold">{t('title')}</h1>
-
-          <IconButton
-            aria-label={t('menuIconButtonAriaLabel')}
-            className="mb-0.5"
-            icon={<TbMenu2 aria-hidden />}
-            onClick={modalNavigateWrapper('menu')}
-          />
-        </header>
-      </div>
+    <SettingsLayout title={t('title')}>
       <div className="flex flex-col">
         <Radio.Group
           className="flex flex-col gap-y-1"
@@ -99,7 +67,7 @@ export const LanguagePage = () => {
           ))}
         </Radio.Group>
       </div>
-    </ScreenLayout>
+    </SettingsLayout>
   )
 }
 

@@ -18,10 +18,9 @@ export type TMainLayoutProps = {
   heading?: string
   icon?: JSX.Element
   rightComponent?: JSX.Element
-  leftComponent?: JSX.Element
   contentClassName?: string
   headerClassName?: string
-  withBackButton?: boolean
+  withBack?: boolean
 } & ComponentProps<typeof motion.div>
 
 export const ScreenLayout = ({
@@ -32,8 +31,7 @@ export const ScreenLayout = ({
   headerClassName,
   className,
   rightComponent,
-  leftComponent,
-  withBackButton = true,
+  withBack = true,
   ...props
 }: TMainLayoutProps): JSX.Element => {
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
@@ -61,16 +59,15 @@ export const ScreenLayout = ({
       {heading && (
         <header
           className={StyleHelper.mergeStyles(
-            'relative mb-5 flex items-center justify-between text-white',
+            'relative mb-5 flex min-h-8 items-center justify-between text-white',
             headerClassName
           )}
         >
-          {leftComponent || (
+          {withBack && (
             <IconButton
               aria-label={tCommonGeneral('back')}
               type="button"
               icon={<TbArrowLeft aria-hidden />}
-              className={StyleHelper.mergeStyles({ invisible: !withBackButton })}
               onClick={handleBack}
             />
           )}
@@ -85,7 +82,7 @@ export const ScreenLayout = ({
             {heading}
           </h1>
 
-          {rightComponent}
+          {rightComponent && <div className="mr-0 ml-auto">{rightComponent}</div>}
         </header>
       )}
 
