@@ -70,7 +70,7 @@ export const BuyAndSellWrapperContent = ({
 
           {leftElement && (
             <Fragment>
-              <Separator className="h-7" containerClassName="w-px bg-gray-300/30" />
+              <Separator type="vertical" className="h-7" containerClassName="w-px bg-gray-300/30" />
 
               {leftElement}
             </Fragment>
@@ -117,7 +117,7 @@ export const BuyAndSellWrapperContent = ({
 
       {isLoading && <Loader className="text-neon mt-4 size-14" />}
 
-      <div className={StyleHelper.mergeStyles('flex min-h-0 w-full flex-grow', { hidden: isLoading })}>{children}</div>
+      <div className={StyleHelper.mergeStyles('flex min-h-0 w-full grow', { hidden: isLoading })}>{children}</div>
 
       <AnimatePresence>
         {!isLoading && isAccordionAccountsOpened && <BuyAndSellTokensAccordionAccounts account={account} />}

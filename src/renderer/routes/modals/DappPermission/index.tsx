@@ -138,7 +138,13 @@ export const DappPermissionModal = () => {
   const Content = CUSTOM_CONTENT_BY_REQUEST[blockchain]?.[request.params.request.method] || DappPermissionGenericContent
 
   return (
-    <BottomModalLayout heading={t('title')} contentClassName="px-0 flex flex-col pb-5 min-h-0" onClose={startReject}>
+    <BottomModalLayout
+      heading={t('title')}
+      contentClassName="px-0 flex flex-col pb-5 min-h-0"
+      closeOnEsc={false}
+      closeOnClickOutside={false}
+      onClose={startReject}
+    >
       <Content
         request={request}
         session={session}

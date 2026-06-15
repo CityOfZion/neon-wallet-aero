@@ -115,7 +115,7 @@ export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
                   <Select.Item value={account.id} className="justify-start gap-2.5">
                     <BlockchainIcon className="min-size-4 max-size-4 size-4" blockchain={account.blockchain} />
 
-                    <div className="flex min-w-0 flex-grow flex-col gap-0.5">
+                    <div className="flex min-w-0 grow flex-col gap-0.5">
                       <Select.ItemText>{StringHelper.truncateMiddle(account.address, 8)}</Select.ItemText>
 
                       <span className="text-1xs truncate text-left text-gray-100">

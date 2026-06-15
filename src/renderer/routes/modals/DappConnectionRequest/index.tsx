@@ -86,7 +86,13 @@ export const DappConnectionRequestModal = () => {
   }, 1000)
 
   return (
-    <BottomModalLayout heading={t('title')} contentClassName="items-center" onClose={startReject}>
+    <BottomModalLayout
+      heading={t('title')}
+      contentClassName="items-center"
+      closeOnEsc={false}
+      closeOnClickOutside={false}
+      onClose={startReject}
+    >
       {isMounting || !proposalDetails ? (
         <ScreenLoader />
       ) : (

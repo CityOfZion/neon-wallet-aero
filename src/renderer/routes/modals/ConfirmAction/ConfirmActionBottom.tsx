@@ -13,7 +13,13 @@ export const ConfirmActionBottomModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'confirmAction' })
 
   return (
-    <BottomModalLayout heading={t('heading')} className="overflow-y-auto" onClose={onCancel}>
+    <BottomModalLayout
+      heading={t('heading')}
+      className="overflow-y-auto"
+      closeOnEsc={false}
+      closeOnClickOutside={false}
+      onClose={onCancel}
+    >
       <ConfirmActionContent onSuccess={onSuccess} onCancel={onCancel} />
     </BottomModalLayout>
   )

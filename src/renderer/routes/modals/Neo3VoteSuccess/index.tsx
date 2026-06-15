@@ -25,7 +25,7 @@ export const Neo3VoteSuccessModal = () => {
   const neoAmount = voteDetailsByAddressQuery.data?.neoBalance || 0
 
   return (
-    <BottomModalLayout heading={t('title')} hideBackButton>
+    <BottomModalLayout heading={t('title')} withBack={false}>
       <div className="flex flex-col gap-y-6">
         <div className="flex flex-col items-center gap-y-6">
           <TbRosetteDiscountCheck aria-hidden className="text-blue size-21 stroke-1" />

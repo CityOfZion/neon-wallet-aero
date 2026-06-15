@@ -13,7 +13,14 @@ export const ConfirmActionSideModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'confirmAction' })
 
   return (
-    <SideModalLayout heading={t('heading')} className="overflow-y-auto" onClose={onCancel} contentClassName="h-full">
+    <SideModalLayout
+      heading={t('heading')}
+      className="overflow-y-auto"
+      contentClassName="h-full"
+      closeOnEsc={false}
+      closeOnClickOutside={false}
+      onClose={onCancel}
+    >
       <ConfirmActionContent onSuccess={onSuccess} onCancel={onCancel} />
     </SideModalLayout>
   )

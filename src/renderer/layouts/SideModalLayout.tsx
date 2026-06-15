@@ -1,13 +1,15 @@
-import { cloneElement } from 'react'
+import { cloneElement, useRef } from 'react'
 
 import type { ComponentProps, JSX } from 'react'
+import { useHotkeys } from 'react-hotkeys-hook'
 import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import { useModalHistories, useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { useClickOutside } from '@renderer/hooks/useClickOutside'
+import { useModalFocused, useModalHistories, useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 import TbX from '@renderer/assets/images/tb-x.svg?react'
@@ -15,24 +17,30 @@ import TbX from '@renderer/assets/images/tb-x.svg?react'
 type TProps = ComponentProps<'div'> & {
   heading: string
   icon?: JSX.Element
-  onClose?: () => void
   contentClassName?: string
+  closeOnEsc?: boolean
+  closeOnClickOutside?: boolean
+  onClose?: () => void
 }
 
 export const SideModalLayout = ({
-  children,
   heading,
   icon,
   className,
-  onClose,
   contentClassName,
+  closeOnEsc = true,
+  closeOnClickOutside = true,
+  onClose,
+  children,
   ...props
 }: TProps) => {
   const { t } = useTranslation('common')
   const { modalErase, modalNavigate } = useModalNavigate()
   const { histories } = useModalHistories()
+  const isFocused = useModalFocused()
+  const layoutRef = useRef<HTMLDivElement>(null)
 
-  const hasBackButton = histories.filter(({ route }) => route.type === 'side').length > 1
+  const withBackButton = histories.filter(({ route }) => route.type === 'side').length > 1
 
   const handleBack = () => {
     onClose?.()
@@ -46,16 +54,20 @@ export const SideModalLayout = ({
     modalErase('side')
   }
 
+  useHotkeys('esc', handleErase, { enabled: closeOnEsc && isFocused })
+  useClickOutside(layoutRef, handleErase, { enabled: closeOnClickOutside && isFocused })
+
   return (
     <div
       {...props}
+      ref={layoutRef}
       className={StyleHelper.mergeStyles(
-        'flex h-full min-h-0 w-full flex-col overflow-y-auto bg-gray-700 px-4 pt-5 pb-10 text-sm text-white',
+        'flex h-full min-h-0 w-full flex-col overflow-y-auto px-4 pt-5 pb-10 text-sm text-white',
         className
       )}
     >
       <header className="relative mt-2 mb-5 flex w-full flex-row items-center justify-center">
-        {hasBackButton && (
+        {withBackButton && (
           <IconButton
             aria-label={t('general.back')}
             className="absolute top-1/2 left-0 -translate-y-1/2"

@@ -16,8 +16,14 @@ export const DappPermissionSignatureScopeModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'dappPermissionSignatureScope' })
 
   return (
-    <BottomModalLayout heading={t('title')} contentClassName="px-0 flex flex-col pb-5 min-h-0" onErase={onReject}>
-      <div className="flex min-h-0 flex-grow flex-col overflow-y-auto pr-2 pl-5">
+    <BottomModalLayout
+      heading={t('title')}
+      contentClassName="px-0 flex flex-col pb-5 min-h-0"
+      closeOnEsc={false}
+      closeOnClickOutside={false}
+      onErase={onReject}
+    >
+      <div className="flex min-h-0 grow flex-col overflow-y-auto pr-2 pl-5">
         <DappHeader proposerUri={session.peer.metadata.icons[0]} proposerName={session.peer.metadata.name} />
 
         <Details.Root className="mt-5">

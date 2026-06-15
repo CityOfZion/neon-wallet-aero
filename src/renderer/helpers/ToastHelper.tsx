@@ -21,6 +21,7 @@ export class ToastHelper {
   private static Toast({ message, className, sonnerId, icon, closeable = true }: TToastHelperToastProps) {
     return (
       <div
+        data-toast-item
         className={StyleHelper.mergeStyles(
           'mx-auto flex w-(--width) items-center gap-5 rounded p-5 text-sm font-medium shadow-lg',
           className
