@@ -47,6 +47,7 @@ export const BackupAndRestoreBackupStep1Page = () => {
 
       navigate('/settings/backup-and-restore/backup/2', {
         state: { password: actionData.password },
+        replace: true,
       })
     } catch {
       ToastHelper.error({ message: t('error.unexpectedError') })

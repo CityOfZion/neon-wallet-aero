@@ -48,7 +48,7 @@ export const BackupAndRestoreRestoreStep2Page = () => {
       await handleImportBackupData(generatedData)
 
       await UtilsHelper.sleep(2000)
-      navigate('/settings/backup-and-restore/restore/3')
+      navigate('/settings/backup-and-restore/restore/3', { replace: true })
     } catch {
       reset()
       setError('password', t('passwordError'))

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
@@ -15,7 +16,7 @@ import type { TUseNeonMigrateAccountsSchema, TUseNeonMigrateDecryptedAccountSche
 import type { TModalState } from '@shared/types/modal'
 
 import { MigrateFromNeon2Password } from './MigrateFromNeon2Password'
-import { MigrateFromNeon2Success } from './MigrateFromNeon2Success'
+import { MigrateFromNeon2SuccessContent } from './MigrateFromNeon2SuccessContent'
 
 type TActionData = {
   decryptedAccounts: TUseNeonMigrateDecryptedAccountSchema[]
@@ -29,6 +30,7 @@ export const MigrateFromNeon2Step4Modal = () => {
   })
   const { handleTryDecryptAccount, handleGenerateData, handleImportBackupData } = useNeonImportMigrate()
   const { modalNavigate, modalErase } = useModalNavigate()
+  const navigate = useNavigate()
 
   const handlePasswordSubmit = async (accountToMigrate: TUseNeonMigrateAccountsSchema, password: string) => {
     const decryptedAccount = await handleTryDecryptAccount(accountToMigrate, password)
@@ -40,6 +42,11 @@ export const MigrateFromNeon2Step4Modal = () => {
 
   const handleMigrate = async (data: TActionData) => {
     const generatedData = handleGenerateData(content, data.decryptedAccounts)
+
+    const handleEraseModal = () => {
+      modalErase('bottom')
+      navigate('/settings', { replace: true })
+    }
 
     if (onDecrypt) {
       onDecrypt(generatedData)
@@ -53,7 +60,16 @@ export const MigrateFromNeon2Step4Modal = () => {
         state: {
           heading: t('step4.success.title'),
           subtitle: t('step4.success.subtitle'),
-          content: <MigrateFromNeon2Success accounts={accounts} />,
+          content: <MigrateFromNeon2SuccessContent accounts={accounts} />,
+          footer: (
+            <Button
+              label={t('step4.success.returnToSettingsButtonLabel')}
+              className="mt-4"
+              variant="card"
+              onClick={handleEraseModal}
+            />
+          ),
+          onErase: handleEraseModal,
         },
         replace: true,
       })

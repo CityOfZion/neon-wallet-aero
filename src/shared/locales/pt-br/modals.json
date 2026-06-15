@@ -238,11 +238,10 @@
       "buttonLabel": "Migrar contas",
       "passwordError": "Senha não reconhecida!",
       "migrateError": "Houve um erro ao tentar migrar. Por favor, tente novamente.",
-      "returnToSettingsButtonLabel": "Retornar para configurações",
       "success": {
         "title": "Migração bem-sucedida!",
         "subtitle": "Suas contas NEON 2 foram migradas com sucesso!",
-        "viewButtonLabel": "Ver seu portfólio"
+        "returnToSettingsButtonLabel": "Retornar para configurações"
       }
     }
   },

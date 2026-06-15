@@ -43,7 +43,7 @@ export const ChangePasswordStep1Page = () => {
       return
     }
 
-    navigate('/settings/change-password/2', { state: { newPassword: data.newPassword } })
+    navigate('/settings/change-password/2', { state: { newPassword: data.newPassword }, replace: true })
   }
 
   const handlePassword = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {

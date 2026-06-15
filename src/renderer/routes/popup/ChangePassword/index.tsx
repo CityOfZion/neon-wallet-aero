@@ -7,7 +7,8 @@ export const ChangePasswordPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'changePassword' })
   const location = useLocation()
 
-  const hideBackButton = location.pathname.endsWith('/change-password/3')
+  const hideBackButton =
+    location.pathname.endsWith('/change-password/2') || location.pathname.endsWith('/change-password/3')
 
   return (
     <SettingsLayout title={t('title')} hideBackButton={hideBackButton}>

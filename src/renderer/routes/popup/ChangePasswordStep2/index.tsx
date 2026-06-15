@@ -76,7 +76,7 @@ export const ChangePasswordStep2Page = () => {
 
       await signup(encryptedNewPassword, true)
 
-      navigate('/settings/change-password/3')
+      navigate('/settings/change-password/3', { replace: true })
     } catch (error) {
       LoggerHelper.error(error, { where: 'ChangePasswordStep2Page', operation: 'downloadPassword' })
       ToastHelper.error({ message: AppError.wrap(error, t('error')).message })
