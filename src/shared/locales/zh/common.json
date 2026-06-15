@@ -20,7 +20,8 @@
     "edit": "编辑",
     "cancel": "取消",
     "confirm": "确认",
-    "menu": "菜单"
+    "menu": "菜单",
+    "neo3NeoXBridge": "跨链桥"
   },
   "wallet": {
     "firstWalletName": "我的第一个钱包",

@@ -20,7 +20,8 @@
     "edit": "Bearbeiten",
     "cancel": "Abbrechen",
     "confirm": "Bestätigen",
-    "menu": "Menü"
+    "menu": "Menü",
+    "neo3NeoXBridge": "Bridge"
   },
   "wallet": {
     "firstWalletName": "Meine erste Wallet",
