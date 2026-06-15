@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Link } from '@renderer/components/Link'
 
-import { SettingsLayout } from '@renderer/layouts/Settings'
+import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
 import TbExternalLink from '@renderer/assets/images/tb-external-link.svg?react'
 

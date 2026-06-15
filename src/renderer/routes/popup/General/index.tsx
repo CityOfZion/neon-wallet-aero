@@ -5,7 +5,7 @@ import { Checkbox } from '@renderer/components/Checkbox'
 import { useLoginSessionSelector, useShouldConfirmActionSelector } from '@renderer/hooks/useAuthSelector'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 
-import { SettingsLayout } from '@renderer/layouts/Settings'
+import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
 

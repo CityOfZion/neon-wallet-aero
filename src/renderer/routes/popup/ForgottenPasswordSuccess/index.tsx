@@ -10,7 +10,7 @@ export const ForgottenPasswordSuccessPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'forgottenPasswordSuccess' })
 
   return (
-    <ForgottenPasswordLayout heading={t('title')} withBackButton={false}>
+    <ForgottenPasswordLayout heading={t('title')} withBack={false}>
       <div className="flex grow flex-col items-center gap-y-8 text-center">
         <TbRosetteDiscountCheck className="bg-asphalt text-blue mt-8 size-25 rounded-full stroke-1 p-1.5" aria-hidden />
 

@@ -47,7 +47,6 @@ import TbArrowsSort from '@renderer/assets/images/tb-arrows-sort.svg?react'
 import TbCoin from '@renderer/assets/images/tb-coin.svg?react'
 import TbDiamond from '@renderer/assets/images/tb-diamond.svg?react'
 import TbLock from '@renderer/assets/images/tb-lock.svg?react'
-import TbMenu2 from '@renderer/assets/images/tb-menu-2.svg?react'
 import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
@@ -75,7 +74,6 @@ const isBridgeValueValid = (value: TBridgeValue<any> | TBridgeValidateValue<any>
 
 export const Neo3NeoXBridgePage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'neo3NeoXBridge' })
-  const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
   const { modalNavigateWrapper, modalNavigate } = useModalNavigate()
   const { accountsMapRef } = useAccountsMapSelector()
   const { getBalance } = useLazyBalance()
@@ -351,14 +349,6 @@ export const Neo3NeoXBridgePage = () => {
     <ScreenLayout
       heading={t('title')}
       rightComponent={
-        <IconButton
-          aria-label={tCommon('menuIconButtonAriaLabel')}
-          className="mb-0.5"
-          icon={<TbMenu2 aria-hidden />}
-          onClick={modalNavigateWrapper('menu')}
-        />
-      }
-      leftComponent={
         <IconButton
           aria-label={t('form.restartButtonLabel')}
           icon={<MdRestartAlt aria-hidden />}

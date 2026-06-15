@@ -14,16 +14,10 @@ type TProps = {
   heading: string
   children?: ReactNode
   contentClassName?: string
-  withBackButton?: boolean
+  withBack?: boolean
 }
 
-export const ForgottenPasswordLayout = ({
-  heading,
-  contentClassName,
-  children,
-  withBackButton = true,
-  ...props
-}: TProps) => {
+export const ForgottenPasswordLayout = ({ heading, contentClassName, children, withBack = true, ...props }: TProps) => {
   const navigate = useNavigate()
 
   const handleBack = () => {
@@ -32,7 +26,7 @@ export const ForgottenPasswordLayout = ({
 
   return (
     <ScreenLayout contentClassName={StyleHelper.mergeStyles('items-center', contentClassName)} {...props}>
-      {withBackButton && (
+      {withBack && (
         <IconButton
           icon={<TbArrowLeft aria-hidden />}
           className="absolute top-5 left-5"

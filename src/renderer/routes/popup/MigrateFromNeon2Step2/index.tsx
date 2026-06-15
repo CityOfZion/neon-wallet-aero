@@ -13,7 +13,7 @@ import { useBackupOrMigrate } from '@renderer/hooks/useBackupOrMigrate'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useNeonImportBackup } from '@renderer/hooks/useNeonBackup'
 
-import { SettingsLayout } from '@renderer/layouts/Settings'
+import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
 import { MigrateFromNeon2SuccessFooter } from './MigrateFromNeon2SuccessFooter'
 

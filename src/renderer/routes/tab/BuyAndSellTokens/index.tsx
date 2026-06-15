@@ -83,7 +83,7 @@ export const BuyAndSellTokensPage = () => {
       heading={t('title')}
       headerClassName="mb-8"
       contentClassName="flex-row"
-      withBackButton={false}
+      withBack={false}
       icon={<TbShoppingBag aria-hidden />}
     >
       <div className="flex h-auto min-h-fit w-full pb-8">

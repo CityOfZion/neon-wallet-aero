@@ -4,7 +4,7 @@ import { Accordion } from '@renderer/components/Accordion'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
-import { SettingsLayout } from '@renderer/layouts/Settings'
+import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 

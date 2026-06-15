@@ -13,7 +13,7 @@ export const LoginPage = () => {
   const value = location.pathname.split('/')[2]
 
   return (
-    <LoginLayout withBackButton={false}>
+    <LoginLayout withBack={false}>
       <Tabs.Root className="my-10" value={value}>
         <Tabs.List>
           <Tabs.Trigger value="neon-account" onClick={() => navigate('/login/neon-account')}>

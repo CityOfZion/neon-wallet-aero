@@ -40,7 +40,7 @@ export const SideModalLayout = ({
   const isFocused = useModalFocused()
   const layoutRef = useRef<HTMLDivElement>(null)
 
-  const withBackButton = histories.filter(({ route }) => route.type === 'side').length > 1
+  const withBack = histories.filter(({ route }) => route.type === 'side').length > 1
 
   const handleBack = () => {
     onClose?.()
@@ -67,7 +67,7 @@ export const SideModalLayout = ({
       )}
     >
       <header className="relative mt-2 mb-5 flex w-full flex-row items-center justify-center">
-        {withBackButton && (
+        {withBack && (
           <IconButton
             aria-label={t('general.back')}
             className="absolute top-1/2 left-0 -translate-y-1/2"
