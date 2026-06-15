@@ -33,7 +33,7 @@ export const MenuModal = () => {
 
   const handleOpenSearchModal = async () => {
     modalErase('bottom')
-    modalNavigate('search')
+    modalNavigate('search', { state: { backToMenuOnErase: true } })
   }
 
   return (

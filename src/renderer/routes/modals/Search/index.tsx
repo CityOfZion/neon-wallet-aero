@@ -19,13 +19,15 @@ import { SynonymsHelper } from '@renderer/helpers/SynonymsHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
-import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import MdChevronRight from '@renderer/assets/images/md-chevron-right.svg?react'
 import TbHelp from '@renderer/assets/images/tb-help.svg?react'
 import TbSearch from '@renderer/assets/images/tb-search.svg?react'
+
+import type { TModalState } from '@shared/types/modal'
 
 import { functionsByActionId } from './functionsByActionId'
 
@@ -54,7 +56,9 @@ const SearchModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'search' })
   const { t: tSearch } = useTranslation('search')
   const modalActions = useModalNavigate()
+  const { modalNavigate } = modalActions
   const popupNavigate = useNavigate()
+  const { backToMenuOnErase } = useModalState<TModalState<'search'>>()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { actionData, setData } = useActions<TActionsData>({
@@ -180,8 +184,14 @@ const SearchModal = () => {
     }, 500)
   }, [])
 
+  const handleErase = () => {
+    if (backToMenuOnErase) {
+      modalNavigate('menu')
+    }
+  }
+
   return (
-    <BottomModalLayout heading={t('title')}>
+    <BottomModalLayout heading={t('title')} onErase={handleErase}>
       <Input
         name="search"
         id="search"
