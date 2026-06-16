@@ -16,6 +16,7 @@ import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useAddAccountHardwareWallet } from '@renderer/hooks/useHardwareWallet'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
+import { useSelectedWalletSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -40,13 +41,14 @@ export const CreateAccountStep2Modal = () => {
   const { createStandardAccount } = useBlockchainActions()
   const { addHardwareAccount } = useAddAccountHardwareWallet()
   const navigateReset = useNavigateReset()
+  const { selectedWallet: defaultSelectedWallet } = useSelectedWalletSelector()
 
   const {
     actionData: { selectedBlockchain, selectedWallet },
     actionState,
     setData,
     handleAct,
-  } = useActions<TActionsData>({ selectedBlockchain: undefined, selectedWallet: undefined })
+  } = useActions<TActionsData>({ selectedBlockchain: undefined, selectedWallet: defaultSelectedWallet })
 
   const isDisabled =
     actionState.isActing || !selectedWallet || (selectedWallet.type !== 'hardware' && !selectedBlockchain)
@@ -87,7 +89,7 @@ export const CreateAccountStep2Modal = () => {
 
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
-      <form className="mt-2 flex flex-grow flex-col" onSubmit={handleAct(handleSubmit)}>
+      <form className="mt-2 flex grow flex-col" onSubmit={handleAct(handleSubmit)}>
         <p className="mb-2 block text-xs font-bold text-gray-100 uppercase">{t('selectWalletLabel')}</p>
 
         <CreateAccountStep2Accordion onSelect={handleWallets} selectedWallet={selectedWallet} />
