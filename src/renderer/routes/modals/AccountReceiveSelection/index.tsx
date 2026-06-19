@@ -66,7 +66,7 @@ export const AccountReceiveSelectionModal = () => {
   const isDisabled = match(selectedTab)
     .with(
       'enter-address',
-      () => !actionData.address || !isValidAddressOrDomainAddress || isValidatingAddressOrDomainAddress
+      () => !actionData.address || isValidatingAddressOrDomainAddress || (blockchain && !isValidAddressOrDomainAddress)
     )
     .with('my-accounts', () => !actionData.account)
     .with('my-contacts', () => !actionData.contactAddress)
@@ -154,7 +154,7 @@ export const AccountReceiveSelectionModal = () => {
 
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-clip pb-4">
-      <div className="relative flex h-full flex-col items-center justify-between px-4 pb-3">
+      <div className="relative flex h-full flex-col items-center justify-between">
         <div className="flex size-full flex-col gap-4 text-sm text-white">
           <Tabs.Root
             className="flex h-full flex-col"
@@ -166,10 +166,10 @@ export const AccountReceiveSelectionModal = () => {
               <Tabs.Trigger className="bg-gray-300/15" value="enter-address">
                 {t('enterAddressLabel')}
               </Tabs.Trigger>
-              <Tabs.Trigger className="bg-gray-300/15" value="my-accounts">
+              <Tabs.Trigger className="bg-gray-300/15" value="my-accounts" disabled={!blockchain}>
                 {t('myAccountsLabel')}
               </Tabs.Trigger>
-              <Tabs.Trigger className="bg-gray-300/15" value="my-contacts">
+              <Tabs.Trigger className="bg-gray-300/15" value="my-contacts" disabled={!blockchain}>
                 {t('myContactsLabel')}
               </Tabs.Trigger>
             </Tabs.List>
@@ -203,7 +203,7 @@ export const AccountReceiveSelectionModal = () => {
                 </div>
               )}
             </Tabs.Content>
-            <Tabs.Content value="my-accounts" className="max-h-80 min-h-0 overflow-y-auto">
+            <Tabs.Content value="my-accounts" className="max-h-92 min-h-0 overflow-y-auto">
               {match(filteredAccounts.length)
                 .with(0, () => <p className="py-2.5 text-center text-xs text-gray-100">{t('noAccountsFound')}</p>)
                 .otherwise(() =>
@@ -245,7 +245,7 @@ export const AccountReceiveSelectionModal = () => {
                   })
                 )}
             </Tabs.Content>
-            <Tabs.Content value="my-contacts" className="max-h-80 min-h-0 overflow-y-auto">
+            <Tabs.Content value="my-contacts" className="max-h-92 min-h-0 overflow-y-auto">
               <Input
                 name="search-contact"
                 id="search-contact"
@@ -256,11 +256,13 @@ export const AccountReceiveSelectionModal = () => {
               />
 
               {groupedContactsByFirstLetter.length > 0 ? (
-                <ul className="flex min-h-0 w-full flex-grow basis-0 flex-col gap-y-5 overflow-y-auto pt-3 text-sm">
+                <ul className="flex min-h-0 w-full grow basis-0 flex-col gap-y-5 overflow-y-auto pt-3 text-sm">
                   {groupedContactsByFirstLetter.map(([letter, letterContacts]) => (
                     <li key={`letter-${letter}`}>
                       <div className="text-blue my-3.5 flex h-6 items-center pl-4 font-bold">{letter}</div>
+
                       <Separator />
+
                       {letterContacts.map((contact, index) => {
                         const addressesForBlockchain = contact.addresses.filter(addr => addr.blockchain === blockchain)
 
@@ -309,7 +311,7 @@ export const AccountReceiveSelectionModal = () => {
                   ))}
                 </ul>
               ) : (
-                <div className="flex flex-grow items-center justify-center pt-3">
+                <div className="flex grow items-center justify-center pt-3">
                   <p className="text-gray-400">{t('noContactsFound')}</p>
                 </div>
               )}
@@ -318,7 +320,7 @@ export const AccountReceiveSelectionModal = () => {
         </div>
 
         <Button
-          className="absolute right-4 bottom-0 left-4"
+          className="absolute right-2 bottom-0 left-2"
           variant="card"
           onClick={handleSubmit}
           disabled={isDisabled}

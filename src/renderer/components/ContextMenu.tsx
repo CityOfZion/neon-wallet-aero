@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
 
 import * as ContextMenuPrimitive from '@radix-ui/react-context-menu'
-import type { ComponentPropsWithoutRef, ComponentRef } from 'react'
 import type React from 'react'
+import type { ComponentPropsWithoutRef, ComponentRef } from 'react'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 

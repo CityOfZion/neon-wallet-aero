@@ -115,7 +115,7 @@ export const Neo3VotePage = () => {
 
   return (
     <ScreenLayout heading={t('title')}>
-      <div className="flex min-h-0 flex-grow flex-col items-center text-sm text-white">
+      <div className="flex min-h-0 grow flex-col items-center text-sm text-white">
         <div className="flex w-full items-center justify-between gap-2 pb-9">
           <Button
             leftIcon={<MdInfoOutline aria-hidden className="text-neon" />}

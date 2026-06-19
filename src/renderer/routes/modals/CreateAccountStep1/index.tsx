@@ -4,12 +4,14 @@ import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
 import { useActions } from '@renderer/hooks/useActions'
-import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import MdiInformationOutline from '@renderer/assets/images/mdi-information-outline.svg?react'
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
+
+import type { TModalState } from '@shared/types/modal'
 
 type TFormData = {
   accountName: string
@@ -18,7 +20,7 @@ type TFormData = {
 export const CreateAccountStep1Modal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'createAccountStep1' })
   const { modalNavigate, modalEraseWrapper } = useModalNavigate()
-
+  const { walletId } = useModalState<TModalState<'create-account-1'>>()
   const { actionData, actionState, setData, setError, handleAct } = useActions<TFormData>({ accountName: '' })
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +34,7 @@ export const CreateAccountStep1Modal = () => {
   const handlePressContinue = async () => {
     modalNavigate('create-account-2', {
       state: {
+        walletId,
         accountName: actionData.accountName.trim(),
       },
     })

@@ -18,7 +18,7 @@ export const LoginNeonAccountOnboardingPage = () => {
           <LoginNeonAccountOnboardingLink
             to="/onboarding-login-new-wallet"
             title={t('createNewWalletLink.title')}
-            icon={<TbWallet aria-hidden />}
+            icon={<TbWallet aria-hidden className="min-size-6" />}
             text={
               <Trans t={t} i18nKey="createNewWalletLink.text">
                 start
@@ -33,7 +33,7 @@ export const LoginNeonAccountOnboardingPage = () => {
           <LoginNeonAccountOnboardingLink
             to="/onboarding-import-wallet"
             title={t('importExternalWalletLink.title')}
-            icon={<TbFileImport aria-hidden />}
+            icon={<TbFileImport aria-hidden className="min-size-6" />}
             text={
               <Trans t={t} i18nKey="importExternalWalletLink.text">
                 start
@@ -49,7 +49,7 @@ export const LoginNeonAccountOnboardingPage = () => {
             to="/onboarding-import-wallet"
             state={{ isMigration: true }}
             title={t('migrateFromNeon2Link.title')}
-            icon={<TbPackageExport aria-hidden />}
+            icon={<TbPackageExport aria-hidden className="min-size-6" />}
             text={
               <Trans t={t} i18nKey="migrateFromNeon2Link.text">
                 start

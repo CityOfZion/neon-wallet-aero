@@ -124,6 +124,7 @@ export const AccountSelectionByBlockchainModal = () => {
       <Button
         className="mt-auto w-full"
         variant="card"
+        disabled={!selectedAccountInternal}
         label={submitButtonLabel || t('submitButtonLabel')}
         iconsOnEdge={false}
         onClick={handleSelect}

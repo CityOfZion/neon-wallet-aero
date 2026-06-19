@@ -276,7 +276,6 @@
   },
   "networkConfiguration": {
     "title": "网络配置",
-    "connectedNetworksLabel": "您已连接到某些网络",
     "currentNetwork": "网络",
     "urlSelection": "URL"
   },

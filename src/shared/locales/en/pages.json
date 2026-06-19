@@ -280,8 +280,7 @@
     }
   },
   "networkConfiguration": {
-    "title": "Network Configuration",
-    "connectedNetworksLabel": "You are connected in some networks",
+    "title": "Network configuration",
     "currentNetwork": "Network",
     "urlSelection": "URL"
   },

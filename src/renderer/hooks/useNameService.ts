@@ -24,6 +24,7 @@ export const useNameService = (debounceTime = 1000) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const validateAddressOrNSDebounce = useCallback(
+    // eslint-disable-next-line react-hooks/use-memo
     debounce(async (domainOrAddress: string, blockchain: TBlockchainServiceKey) => {
       let isValid = false
       let address: string | undefined

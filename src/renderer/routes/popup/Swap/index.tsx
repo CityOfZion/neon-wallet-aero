@@ -131,8 +131,6 @@ export const SwapPage = () => {
     !actionData.selectedAddressToReceive.value ||
     actionData.selectedAddressToReceive.valid === false
 
-  const isAccountsSelectionDisabled = !tokenToReceiveBlockchain ? true : !actionData.selectedAccountToUse.value
-
   const hasExtraIdToReceive = !!actionData.selectedTokenToReceive.value?.hasExtraId
 
   const isExtraIdToReceiveWrong = hasExtraIdToReceive && actionData.selectedExtraIdToReceive.valid === false
@@ -602,7 +600,7 @@ export const SwapPage = () => {
 
               <Separator />
 
-              <div className="mt-1 ml-1 flex w-full pr-0.5">
+              <div className="my-1 ml-1 flex w-full pr-0.5">
                 <div className="flex w-full items-center gap-1.5">
                   <VscCircleFilled aria-hidden className="mx-1 size-2 text-gray-300" />
                   <span className="text-sm text-white">{t('form.receiveHere')}</span>
@@ -613,7 +611,7 @@ export const SwapPage = () => {
                   address={
                     actionData.selectedAccountToReceive.value?.address || actionData.selectedAddressToReceive.value
                   }
-                  disabled={isAccountsSelectionDisabled}
+                  disabled={!actionData.selectedAccountToUse.value}
                   placeholder={t('form.receiverAddressPlaceholder')}
                   onClick={modalNavigateWrapper('account-receive-selection', {
                     state: {
@@ -743,8 +741,8 @@ export const SwapPage = () => {
 
               <ActionStep
                 title={
-                  <div className="text-sm">
-                    <span className="text-white">{t('form.amountToReceiveTitle')}</span>
+                  <div className="text-sm text-white">
+                    <span>{t('form.amountToReceiveTitle')}</span>
                     <span className="text-gray-100">{` ${t('form.amountToReceiveTitleComplement')}`}</span>
                   </div>
                 }

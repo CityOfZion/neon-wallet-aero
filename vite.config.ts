@@ -6,7 +6,6 @@ import { defineConfig, loadEnv } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import svgr from 'vite-plugin-svgr'
 import zip from 'vite-plugin-zip-pack'
-import tsconfigPaths from 'vite-tsconfig-paths'
 
 import manifest from './manifest.config'
 import { name, version } from './package.json'
@@ -28,13 +27,15 @@ export default defineConfig(({ mode }) => {
         origin: [/chrome-extension:\/\//],
       },
     },
+    resolve: {
+      tsconfigPaths: true,
+    },
     plugins: [
       tailwindcss(),
       nodePolyfills({
         include: ['crypto', 'stream', 'buffer', 'querystring'],
       }),
       react(),
-      tsconfigPaths(),
       svgr(),
       crx({ manifest }),
       zip({ outDir: 'release', outFileName: `${name}-${version}.zip` }),
@@ -42,6 +43,7 @@ export default defineConfig(({ mode }) => {
         org: env.SENTRY_ORG_NAME,
         project: env.SENTRY_PROJECT_NAME,
         authToken: env.SENTRY_AUTH_TOKEN,
+        telemetry: false,
         sourcemaps: {
           filesToDeleteAfterUpload: ['./**/*.map', '.*/**/public/**/*.map', './dist/**/client/**/*.map'],
         },

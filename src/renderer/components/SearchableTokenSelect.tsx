@@ -147,6 +147,7 @@ const Input = (props: ComponentProps<typeof Command.Input>) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearchChange = useCallback(
+    // eslint-disable-next-line react-hooks/use-memo
     debounce(async (text: string) => {
       try {
         const tokens = await onSearch?.(text)

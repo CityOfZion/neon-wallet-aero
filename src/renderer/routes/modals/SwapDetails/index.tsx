@@ -187,8 +187,8 @@ export const SwapDetailsModal = () => {
                                     <div className="flex items-center gap-2.5 text-sm">
                                       <BlockchainIcon blockchain={swapRecord.tokenTo.blockchain} />
 
-                                      <div className="flex shrink flex-wrap">
-                                        <span className="whitespace-nowrap text-white uppercase">
+                                      <div className="shrink uppercase">
+                                        <span className="whitespace-nowrap text-white">
                                           {swapRecord.tokenTo.symbol}
                                         </span>
                                         <span className="whitespace-nowrap text-gray-300">

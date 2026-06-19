@@ -1,12 +1,14 @@
-import { format } from 'date-fns'
 import { useTranslation } from 'react-i18next'
 import type zod from 'zod'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { DateHelper } from '@renderer/helpers/DateHelper'
 import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { NeonBackupHelper } from '@renderer/helpers/NeonBackupHelper'
+
+import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { neonBackupContentSchema, neonBackupDataSchema } from '@shared/schemas/neon-backup'
@@ -172,6 +174,7 @@ export const useNeonCreateBackup = () => {
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
   const { contacts } = useContactsSelector()
+  const { language } = useLanguageSelector()
   const { editWallet } = useBlockchainActions()
 
   const handleCreateBackupFormat = async () => {
@@ -262,7 +265,7 @@ export const useNeonCreateBackup = () => {
         }
       })
 
-      const fileName = `NEON-backup-${format(new Date(), 'yyyy-MM-dd')}.${NeonBackupHelper.fileExtension}`
+      const fileName = `NEON-backup-${DateHelper.formatLocalized(new Date(), { format: 'yyyy-MM-dd', language })}.${NeonBackupHelper.fileExtension}`
 
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
     } catch (error) {

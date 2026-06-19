@@ -14,7 +14,7 @@ export const ChangePasswordStep3Page = () => {
   }
 
   return (
-    <div className="flex size-full flex-col items-center justify-between px-5 pb-10">
+    <div className="flex size-full flex-col items-center justify-between pb-10">
       <div className="flex flex-col items-center gap-5">
         <div className="bg-asphalt flex size-36 items-center justify-center rounded-full">
           <TbRosetteDiscountCheck aria-hidden className="text-blue size-28" />

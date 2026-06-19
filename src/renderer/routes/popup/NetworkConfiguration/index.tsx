@@ -15,8 +15,6 @@ export const NetworkConfigurationPage = () => {
 
   return (
     <SettingsLayout title={t('title')}>
-      <p className="mb-7 text-sm">{t('connectedNetworksLabel')}</p>
-
       <Accordion.Root type="multiple" defaultValue={['neo3']} className="pb-8">
         {BlockchainServiceHelper.blockchainNames.map(blockchain => (
           <NetworkConfigurationBlockchainAccordion

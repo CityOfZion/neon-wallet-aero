@@ -152,7 +152,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
           ))}
       </Popover.Trigger>
 
-      <Popover.Content className="max-w-48 bg-transparent" align="end" sideOffset={sideOffset}>
+      <Popover.Content className="w-48 max-w-48 min-w-48 bg-transparent" align="end" sideOffset={sideOffset}>
         <RemoveScroll>
           <Command.Root shouldFilter={false}>
             <Command.Input value={filter} onValueChange={setFilter} />
@@ -167,7 +167,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
                   position: 'relative',
                 }}
               >
-                {rowVirtualizer.getVirtualItems().map((virtualItem, _, array) => {
+                {rowVirtualizer.getVirtualItems().map(virtualItem => {
                   const row = filteredTokensByText[virtualItem.index]
                   const value = `${row.symbol}-${row.hash}-${virtualItem.key}`
 
@@ -176,7 +176,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
                       key={virtualItem.key}
                       value={value}
                       onSelect={() => handleClickToken(row)}
-                      className="absolute top-0 left-0 h-10 w-full flex-col"
+                      className="group/item absolute top-0 left-0 h-10 w-full flex-col"
                       style={{
                         height: `${virtualItem.size}px`,
                         transform: `translateY(${virtualItem.start}px)`,
@@ -190,7 +190,7 @@ export const GreyTokenSelect = <T extends TGreyTokenSelectToken>({
                         />
                       </div>
 
-                      {virtualItem.index + 1 !== array.length && <Separator />}
+                      <Separator containerClassName="group-last/item:hidden" />
                     </Command.Item>
                   )
                 })}

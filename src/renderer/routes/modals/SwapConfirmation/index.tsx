@@ -6,7 +6,6 @@ import { Button } from '@renderer/components/Button'
 import { Details } from '@renderer/components/Details'
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
@@ -15,7 +14,6 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
-import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -32,7 +30,6 @@ export const SwapConfirmationModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'swapConfirmation' })
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { swapRecord, swapOrchestrator } = useModalState<TModalState<'swap-confirmation'>>()
-  const { currency } = useCurrencySelector()
   const { confirmAction } = useConfirmAction()
 
   const { modalNavigate } = useModalNavigate()
@@ -68,7 +65,7 @@ export const SwapConfirmationModal = () => {
   }
 
   return (
-    <BottomModalLayout heading={t('heading')} className="overflow-y-auto px-4">
+    <BottomModalLayout heading={t('heading')}>
       <div className="flex h-full flex-col justify-between gap-3">
         <div className="flex flex-col text-sm">
           <div className="flex w-full justify-center pb-8">
@@ -78,14 +75,17 @@ export const SwapConfirmationModal = () => {
           <p className="my-4 text-left">{t('description')}</p>
 
           <Details.Root className="my-6">
-            <Details.Header leftElement={<TbReceipt aria-hidden className="text-blue min-size-4 size-4" />}>
+            <Details.Header
+              className="mb-2"
+              leftElement={<TbReceipt aria-hidden className="text-blue min-size-4 size-4" />}
+            >
               {t('transactionDetails')}
             </Details.Header>
 
             <Details.Body>
               <Details.Panel>
                 <Details.Item className="px-0 py-3">
-                  <div className="flex flex-col">
+                  <div className="flex w-full flex-col">
                     <div className="flex w-full grow flex-col justify-center gap-3 px-2.5 pb-3 text-sm">
                       <p className="text-xs text-gray-100 uppercase">{t('youWantToSwap')}</p>
                       <div className="flex items-center text-sm">
@@ -94,8 +94,8 @@ export const SwapConfirmationModal = () => {
                           blockchain={swapRecord.tokenFrom.blockchain!}
                         />
 
-                        <div className="flex shrink flex-wrap">
-                          <span className="whitespace-nowrap text-white uppercase">{swapRecord.tokenFrom.symbol}</span>
+                        <div className="shrink uppercase">
+                          <span className="whitespace-nowrap text-white">{swapRecord.tokenFrom.symbol}</span>
                           {swapRecord.tokenFrom.blockchain && (
                             <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(swapRecord.tokenFrom.blockchain)}`}</span>
                           )}
@@ -105,8 +105,8 @@ export const SwapConfirmationModal = () => {
 
                         <BlockchainIcon className="mr-2.5 text-gray-300" blockchain={swapRecord.tokenTo.blockchain!} />
 
-                        <div className="flex shrink flex-wrap">
-                          <span className="whitespace-nowrap text-white uppercase">{swapRecord.tokenTo.symbol}</span>
+                        <div className="shrink uppercase">
+                          <span className="whitespace-nowrap text-white">{swapRecord.tokenTo.symbol}</span>
                           {swapRecord.tokenTo.blockchain && (
                             <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(swapRecord.tokenTo.blockchain)}`}</span>
                           )}
@@ -114,7 +114,7 @@ export const SwapConfirmationModal = () => {
                       </div>
                     </div>
 
-                    <p className="text-blue my-3 w-full bg-gray-300/15 pb-1 pl-2.5 text-sm">{t('swapFrom')}</p>
+                    <p className="text-blue my-3 w-full bg-gray-300/15 px-2.5 py-1 text-sm">{t('swapFrom')}</p>
 
                     <div className="flex min-h-14 w-full grow flex-col justify-center gap-3 px-2.5 py-3 text-sm">
                       <p className="text-xs text-gray-100 uppercase">{t('sendingAddress')}</p>
@@ -124,15 +124,9 @@ export const SwapConfirmationModal = () => {
                 </Details.Item>
 
                 <Details.Item className="px-0 py-3">
-                  <div className="flex flex-col">
+                  <div className="flex w-full flex-col">
                     <div className="flex min-h-14 w-full grow flex-col justify-center gap-3 px-2.5 py-3 text-sm">
-                      <div className="flex justify-between">
-                        <p className="text-xs text-gray-100 uppercase">{t('amount')}</p>
-
-                        <p className="text-sm text-gray-100">
-                          {CurrencyHelper.format(swapRecord.amountFrom, { currency })}
-                        </p>
-                      </div>
+                      <p className="text-xs text-gray-100 uppercase">{t('amount')}</p>
 
                       <div className="flex justify-between">
                         <div className="flex items-center text-sm">
@@ -141,8 +135,8 @@ export const SwapConfirmationModal = () => {
                             blockchain={swapRecord.tokenFrom.blockchain!}
                           />
 
-                          <div className="flex shrink flex-wrap">
-                            <span className="whitespace-nowrap text-white uppercase">{swapRecord.tokenFrom.name}</span>
+                          <div className="shrink uppercase">
+                            <span className="whitespace-nowrap text-white">{swapRecord.tokenFrom.name}</span>
                             {swapRecord.tokenFrom.blockchain && (
                               <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(swapRecord.tokenFrom.blockchain)}`}</span>
                             )}
@@ -153,7 +147,7 @@ export const SwapConfirmationModal = () => {
                       </div>
                     </div>
 
-                    <p className="text-blue my-3 w-full bg-gray-300/15 pb-1 pl-2.5 text-sm">{t('swapTo')}</p>
+                    <p className="text-blue my-3 w-full bg-gray-300/15 px-2.5 py-1 text-sm">{t('swapTo')}</p>
 
                     <div className="flex min-h-14 w-full grow flex-col justify-center gap-3 px-2.5 py-3 text-sm">
                       <p className="text-xs text-gray-100 uppercase">{t('receivingAddress')}</p>
@@ -165,13 +159,7 @@ export const SwapConfirmationModal = () => {
                 <Details.Item className="px-0 py-3">
                   <div className="flex w-full flex-col">
                     <div className="flex min-h-14 w-full grow flex-col justify-center gap-3 px-2.5 py-3 text-sm">
-                      <div className="flex justify-between">
-                        <p className="text-xs text-gray-100 uppercase">{t('amount')}</p>
-
-                        <p className="text-sm text-gray-100">
-                          {CurrencyHelper.format(swapRecord.amountTo, { currency })}
-                        </p>
-                      </div>
+                      <p className="text-xs text-gray-100 uppercase">{t('amount')}</p>
 
                       <div className="flex justify-between">
                         <div className="flex items-center text-sm">
@@ -180,8 +168,8 @@ export const SwapConfirmationModal = () => {
                             blockchain={swapRecord.tokenTo.blockchain!}
                           />
 
-                          <div className="flex shrink flex-wrap">
-                            <span className="whitespace-nowrap text-white uppercase">{swapRecord.tokenTo.name}</span>
+                          <div className="shrink uppercase">
+                            <span className="whitespace-nowrap text-white">{swapRecord.tokenTo.name}</span>
                             {swapRecord.tokenTo.blockchain && (
                               <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(swapRecord.tokenTo.blockchain)}`}</span>
                             )}

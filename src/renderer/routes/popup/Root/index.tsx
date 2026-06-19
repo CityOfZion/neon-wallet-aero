@@ -38,7 +38,9 @@ export const RootPage = () => {
     try {
       await EnvHelper.setup()
       await Promise.all([SentryHelper.setup(), I18nextHelper.setup(), BlockchainServiceHelper.setup()])
+
       ReduxHelper.setup()
+
       await ReduxHelper.waitForBootstrap()
 
       const loginSession = await rendererApi.send('login:get-session')

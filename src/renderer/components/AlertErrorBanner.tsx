@@ -1,7 +1,7 @@
 import { cloneElement } from 'react'
 
-import type { ComponentProps } from 'react'
 import type React from 'react'
+import type { ComponentProps } from 'react'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
