@@ -1,10 +1,14 @@
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash/cloneDeep'
 
+import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+
 import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
 import type { TAccount, TCurrency, TLanguage, TSelectedNetworks, TWallet } from '@shared/types/store'
 
 import type { TSettingsReducer } from './index'
+
+type TCustomNetworkParams = { blockchain: TBlockchainServiceKey; network: TNetwork }
 
 const setSelectedNetworkByBlockchain: CaseReducer<TSettingsReducer, PayloadAction<TSelectedNetworks>> = (
   state,
@@ -38,6 +42,34 @@ const setSelectedNetworkUrl: CaseReducer<
   state.data.selectedNetworkByBlockchain = cloneSelectedNetworkByBlockchain
 }
 
+const saveCustomNetwork: CaseReducer<TSettingsReducer, PayloadAction<TCustomNetworkParams>> = (state, action) => {
+  const { blockchain, network } = action.payload
+  const networks = state.data.customNetworks[blockchain]
+
+  const index = networks.findIndex(networkItem => networkItem.id === network.id)
+
+  if (index >= 0) {
+    networks[index] = network
+  } else {
+    networks.push(network)
+  }
+
+  if (state.data.selectedNetworkByBlockchain[blockchain].id === network.id) {
+    state.data.selectedNetworkByBlockchain[blockchain] = network
+  }
+}
+
+const deleteCustomNetwork: CaseReducer<TSettingsReducer, PayloadAction<TCustomNetworkParams>> = (state, action) => {
+  const { blockchain, network } = action.payload
+
+  state.data.customNetworks[blockchain] = state.data.customNetworks[blockchain].filter(({ id }) => id !== network.id)
+
+  if (state.data.selectedNetworkByBlockchain[blockchain].id === network.id) {
+    state.data.selectedNetworkByBlockchain[blockchain] =
+      BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain].defaultNetwork
+  }
+}
+
 const setLanguage: CaseReducer<TSettingsReducer, PayloadAction<TLanguage>> = (state, action) => {
   state.data.language = action.payload
 }
@@ -60,6 +92,8 @@ export const settingsSliceReducers = {
   setSelectedNetwork,
   setSelectedNetworkUrl,
   setSelectedNetworkByBlockchain,
+  saveCustomNetwork,
+  deleteCustomNetwork,
   setSelectedWallet,
   setSelectedAccount,
 }

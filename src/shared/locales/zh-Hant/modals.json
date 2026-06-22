@@ -365,7 +365,25 @@
   },
   "networkSelection": {
     "title": "網路",
-    "selectNetwork": "選擇網路"
+    "selectNetwork": "選擇網路",
+    "addCustomNetworkButtonLabel": "新增自訂網路",
+    "editCustomNetworkButtonLabel": "編輯自訂網路"
+  },
+  "saveCustomNetwork": {
+    "title": "自訂網路",
+    "nameLabel": "名稱",
+    "namePlaceholder": "輸入名稱",
+    "urlLabel": "URL",
+    "urlPlaceholder": "輸入 URL",
+    "urlHint": "RPC 範例：https://mainnet1.neo.coz.io:443",
+    "successUrl": "已成功連接到網路",
+    "deleteButtonLabel": "刪除網路",
+    "errors": {
+      "invalidURL": "請輸入有效的 URL",
+      "notConnect": "無法連接到此網路",
+      "nameIsRequired": "名稱為必填項",
+      "nameIsTooLong": "名稱過長"
+    }
   },
   "networkUrlSelection": {
     "title": "網路 URL 選擇",

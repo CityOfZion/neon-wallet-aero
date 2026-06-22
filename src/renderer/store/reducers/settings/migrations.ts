@@ -14,4 +14,22 @@ export const settingsMigrations = {
       },
     },
   }),
+  1: (state: any) => ({
+    ...state,
+    data: {
+      ...state.data,
+      customNetworks: {
+        neo3: [],
+        neoLegacy: [],
+        ethereum: [],
+        neox: [],
+        bitcoin: [],
+        polygon: [],
+        base: [],
+        arbitrum: [],
+        solana: [],
+        stellar: [],
+      },
+    },
+  }),
 }

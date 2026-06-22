@@ -117,6 +117,8 @@
     "nextYearButtonLabel": "Zu den nächsten Jahren"
   },
   "networkBanner": {
-    "testnetLabel": "Testnet-Netzwerk"
+    "testnetLabel": "Testnet-Netzwerk",
+    "customLabel": "Benutzerdefiniertes Netzwerk",
+    "testnetCustomLabel": "Testnet- + benutzerdefinierte Netzwerke"
   }
 }

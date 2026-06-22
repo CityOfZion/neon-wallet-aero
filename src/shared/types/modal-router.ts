@@ -14,7 +14,7 @@ import type { JSX } from 'react'
 
 import type { TBuyAndSellTokensDepositActions } from '@renderer/routes/tab/BuyAndSellTokens'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
 import type {
   TUseNeonMigrateAccountsSchema,
   TUseNeonMigrateGeneratedData,
@@ -206,6 +206,11 @@ type TNetworkUrlSelectionModalState = {
   blockchain: TBlockchainServiceKey
 }
 
+type TSaveCustomNetworkModalState = {
+  blockchain: TBlockchainServiceKey
+  network?: TNetwork
+}
+
 type TAccountReceiveSelectionModalState<N extends TBlockchainServiceKey = TBlockchainServiceKey> = {
   accountTypes?: 'standard' | 'hardware'
   blockchain?: N
@@ -368,6 +373,7 @@ export type TModalRouterRouteTypes = {
   'swap-confirmation': TSwapConfirmationModalState
   'network-selection': TNetworkSelectionModalState
   'network-url-selection': TNetworkUrlSelectionModalState
+  'save-custom-network': TSaveCustomNetworkModalState
   'account-receive-selection': TAccountReceiveSelectionModalState
   'neo3-neox-bridge-info': undefined
   'neo3-neox-bridge-confirmation': TNeo3NeoXBridgeConfirmationModalState

@@ -111,6 +111,8 @@
     "nextYearButtonLabel": "前往後幾年"
   },
   "networkBanner": {
-    "testnetLabel": "測試網絡"
+    "testnetLabel": "測試網絡",
+    "customLabel": "自訂網絡",
+    "testnetCustomLabel": "測試網絡 + 自訂網絡"
   }
 }

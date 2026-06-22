@@ -11,6 +11,18 @@ export class UtilsHelper {
     return uuid.v4()
   }
 
+  static validateURL(value: string) {
+    try {
+      const url = new URL(value)
+
+      return url.protocol === 'http:' || url.protocol === 'https:'
+    } catch {
+      /* empty */
+    }
+
+    return false
+  }
+
   static downloadSVGToPng(elementId: string) {
     return new Promise<void>((resolve, reject) => {
       const svg = document.getElementById(elementId)
