@@ -2,9 +2,21 @@
   "versionLabel": "Version v{{version}}",
   "notes": [
     {
+      "version": "0.9.1",
+      "date": "11 June 2026",
+      "changes": [
+        "Stellar Blockchain Support",
+        "Bitcoin Blockchain Support",
+        "Minor bugfixes"
+      ],
+      "url": "https://github.com/CityOfZion/neon-wallet-aero/releases/tag/v0.9.1"
+    },
+    {
       "version": "0.9.0",
       "date": "01 Dec 2025",
-      "changes": ["Initial Beta Release"],
+      "changes": [
+        "Initial Beta Release"
+      ],
       "url": "https://github.com/CityOfZion/neon-wallet-aero/releases/tag/v0.9.0"
     }
   ]
