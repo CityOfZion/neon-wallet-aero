@@ -17,8 +17,8 @@ export const ConfirmActionSideModal = () => {
       heading={t('heading')}
       className="overflow-y-auto"
       contentClassName="h-full"
-      closeOnEsc={false}
-      closeOnClickOutside={false}
+      eraseOnEsc={false}
+      eraseOnClickOutside={false}
       onClose={onCancel}
     >
       <ConfirmActionContent onSuccess={onSuccess} onCancel={onCancel} />

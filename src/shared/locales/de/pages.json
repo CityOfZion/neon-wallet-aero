@@ -187,7 +187,8 @@
   },
   "help": {
     "title": "Hilfe",
-    "chatWithUsItemLabel": "Chatten Sie mit uns",
+    "liveSupportItemLabel": "Live-Support",
+    "discordItemLabel": "Unserem Discord beitreten",
     "openSupportTicketItemLabel": "Support-Ticket öffnen"
   },
   "import": {
@@ -481,7 +482,7 @@
       "title": "Wie funktioniert es?",
       "description": "Kaufen und verkaufen Sie Token ohne auf eine Börse angewiesen zu sein! Neon bietet eine mühelose und sichere Möglichkeit, digitale Assets mit Fiat-Geld zu kaufen und zu verkaufen.",
       "observation": "Nachdem die Übertragung abgeschlossen wurde, dauert es einige Momente, bis Ihre neuen Token ankommen.",
-      "helpButtonLabel": "Hilfe? Chat mit uns",
+      "helpButtonLabel": "Hilfe? Live-Support",
       "processBuyTokens": {
         "text": "<1>Dieser Prozess verwendet ein eingebettetes Widget.</1> Beim Kauf von Token können einige persönliche Daten für KYC-Zwecke angefordert werden. <2>Größere Verkäufe erfordern eine größere Menge an KYC-Daten.</2>",
         "kyc": "<1>Sobald der KYC-Prozess abgeschlossen ist:</1> Sie müssen eine Zieladresse für Ihre Token angeben. Kopieren Sie aus dem Panel 'Wallets & Konten' die Zieladresse Ihres gewünschten Neon-Kontos.",
@@ -580,6 +581,7 @@
     }
   },
   "connectHardwareWallet": {
+    "pageTitle": "Hardware-Wallet verbinden",
     "title": "Suche nach Ihrer Hardware-Wallet",
     "searchUsbButtonLabel": "Verbundene Geräte suchen",
     "searchBluetoothButtonLabel": "Nach Geräten in der Nähe suchen",
@@ -591,5 +593,15 @@
     "title": "Trustlines",
     "emptyMessage": "Keine Trustlines gefunden",
     "addTrustlineButtonLabel": "Trustline hinzufügen"
+  },
+  "liveSupport": {
+    "title": "Live-Support",
+    "error": "Es gibt einen Fehler mit dem Live-Support, bitte versuche es erneut.",
+    "howItWorks": {
+      "title": "Live-Support",
+      "description": "Benötigen Sie Hilfe? Sie können <1>direkt und sicher</1> mit unserem Team direkt aus der Wallet heraus chatten – ohne die Wallet verlassen zu müssen. Stellen Sie gerne jede Frage zur Wallet und zu den Funktionen. <1>Teilen Sie niemals Ihre privaten Schlüssel, Mnemonics oder persönliche Daten</1> mit jemandem – auch nicht mit unserem Support-Team. Unser Team wird <1>niemals</1> nach diesen Informationen fragen. Ihre Sicherheit hat immer höchste Priorität.",
+      "takeCareAlert": "Unserem Discord beizutreten ist eine großartige Möglichkeit, in einem öffentlichen Chat zu kommunizieren und mit der Community zu interagieren. <1>Vorsicht jedoch vor Betrügern</1>, die private Nachrichten senden und dabei unser Team imitieren könnten. Unser Team wird Sie niemals per Direktnachricht kontaktieren und nach vertraulichen Informationen fragen.",
+      "discordLinkLabel": "Unserem Discord beitreten"
+    }
   }
 }

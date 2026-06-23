@@ -89,8 +89,8 @@ export const DappConnectionRequestModal = () => {
     <BottomModalLayout
       heading={t('title')}
       contentClassName="items-center"
-      closeOnEsc={false}
-      closeOnClickOutside={false}
+      eraseOnEsc={false}
+      eraseOnClickOutside={false}
       onClose={startReject}
     >
       {isMounting || !proposalDetails ? (

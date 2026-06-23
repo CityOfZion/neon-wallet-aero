@@ -24,14 +24,14 @@
     "neo3NeoXBridge": "Bridge"
   },
   "wallet": {
-    "firstWalletName": "Minha Primeira Carteira",
-    "mnemonicWalletName": "Carteira Mnemônica",
-    "watchAccount": "Conta Watch",
-    "watchWalletName": "Carteira Watch",
-    "importedWalletName": "Carteira Importada",
-    "encryptedName": "Carteira Criptografada",
-    "migratedWalletName": "Carteira Migrada",
-    "hardwareName": "Carteira Hardware {{blockchain}}"
+    "firstWalletName": "Minha primeira carteira",
+    "mnemonicWalletName": "Carteira mnemônica",
+    "watchAccount": "Conta watch",
+    "watchWalletName": "Carteira watch",
+    "importedWalletName": "Carteira importada",
+    "encryptedName": "Carteira criptografada",
+    "migratedWalletName": "Carteira migrada",
+    "hardwareName": "Carteira hardware {{blockchain}}"
   },
   "account": {
     "defaultName": "Conta {{accountNumber}}"

@@ -20,8 +20,8 @@ type TProps = ComponentProps<'div'> & {
   heading: string
   contentClassName?: string
   withBack?: boolean
-  closeOnEsc?: boolean
-  closeOnClickOutside?: boolean
+  eraseOnEsc?: boolean
+  eraseOnClickOutside?: boolean
   onClose?: () => Promise<void> | void
   onErase?: () => Promise<void> | void
 }
@@ -31,8 +31,8 @@ export const BottomModalLayout = ({
   className,
   contentClassName,
   withBack = true,
-  closeOnEsc = true,
-  closeOnClickOutside = true,
+  eraseOnEsc = true,
+  eraseOnClickOutside = true,
   onClose,
   onErase,
   children,
@@ -48,22 +48,22 @@ export const BottomModalLayout = ({
 
   const withBackButton = withBack && histories.filter(history => history.route.type === 'bottom').length > 1
 
-  const [isGoingBack, handleGoBack] = usePressOnce(async () => {
+  const [isClosing, handleClose] = usePressOnce(async () => {
     await onClose?.()
 
     modalNavigate(-1)
   })
 
-  const [isClosing, handleClose] = usePressOnce(async () => {
+  const [isErasing, handleErase] = usePressOnce(async () => {
     await Promise.all([onClose?.(), onErase?.()])
 
     modalErase('bottom')
   })
 
-  const canClose = isFocused && !isGoingBack && !isClosing
+  const canErase = isFocused && !isClosing && !isErasing
 
-  useHotkeys('esc', handleClose, { enabled: closeOnEsc && canClose })
-  useClickOutside(layoutRef, handleClose, { enabled: closeOnClickOutside && canClose })
+  useHotkeys('esc', handleErase, { enabled: eraseOnEsc && canErase })
+  useClickOutside(layoutRef, handleErase, { enabled: eraseOnClickOutside && canErase })
 
   return (
     <div
@@ -77,7 +77,8 @@ export const BottomModalLayout = ({
             aria-label={t('general.back')}
             className="absolute top-1/2 left-4 -translate-y-1/2"
             icon={<TbArrowLeft aria-hidden />}
-            onClick={handleGoBack}
+            disabled={!canErase}
+            onClick={handleClose}
           />
         )}
 
@@ -87,7 +88,8 @@ export const BottomModalLayout = ({
           aria-label={t('general.close')}
           className="absolute top-1/2 right-4 -translate-y-1/2"
           icon={<TbX aria-hidden />}
-          onClick={handleClose}
+          disabled={!canErase}
+          onClick={handleErase}
         />
       </header>
 

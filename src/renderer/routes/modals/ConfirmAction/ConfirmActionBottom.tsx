@@ -16,8 +16,8 @@ export const ConfirmActionBottomModal = () => {
     <BottomModalLayout
       heading={t('heading')}
       className="overflow-y-auto"
-      closeOnEsc={false}
-      closeOnClickOutside={false}
+      eraseOnEsc={false}
+      eraseOnClickOutside={false}
       onClose={onCancel}
     >
       <ConfirmActionContent onSuccess={onSuccess} onCancel={onCancel} />

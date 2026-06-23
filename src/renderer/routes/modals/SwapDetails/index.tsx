@@ -8,13 +8,10 @@ import { Accordion } from '@renderer/components/Accordion'
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
 import { Details } from '@renderer/components/Details'
-import { Link } from '@renderer/components/Link'
 import { Separator } from '@renderer/components/Separator'
 import type { TStepperCurrentState } from '@renderer/components/Stepper'
 import { Stepper } from '@renderer/components/Stepper'
 import { Tooltip } from '@renderer/components/Tooltip'
-
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 
 import { useContactByAddressSelector } from '@renderer/hooks/useContactSelector'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -25,12 +22,13 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import MdRefresh from '@renderer/assets/images/md-refresh.svg?react'
 import TbCircleX from '@renderer/assets/images/tb-circle-x.svg?react'
 import TbExternalLink from '@renderer/assets/images/tb-external-link.svg?react'
-import TbLifebuoy from '@renderer/assets/images/tb-lifebuoy.svg?react'
+import TbMessage from '@renderer/assets/images/tb-message.svg?react'
 import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
 import TbUsers from '@renderer/assets/images/tb-users.svg?react'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
+import { rendererApi } from '@shared/message-api/renderer'
 import type { TModalState } from '@shared/types/modal'
 import type { TSwapRecord } from '@shared/types/store'
 
@@ -264,14 +262,13 @@ export const SwapDetailsModal = () => {
             rightIcon={<TbExternalLink aria-hidden />}
           />
 
-          <Link
+          <Button
             label={t('helpButtonLabel')}
             className="grow"
-            target="_blank"
-            to={ConstantsHelper.cozDiscordUrl}
             variant="card"
             iconsOnEdge={false}
-            leftIcon={<TbLifebuoy aria-hidden />}
+            rightIcon={<TbMessage aria-hidden />}
+            onClick={() => rendererApi.send('tab:open', { href: '/live-support' })}
           />
         </div>
       </div>

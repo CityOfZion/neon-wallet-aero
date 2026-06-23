@@ -8,6 +8,7 @@ import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
+import { usePageTitle } from '@renderer/hooks/usePageTitle'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
@@ -70,13 +71,15 @@ export const BuyAndSellTokensPage = () => {
       actions.setData({ tab })
     }
 
-    const address = searchParams.get('account-address')
-    const blockchain = searchParams.get('account-blockchain') as TBlockchainServiceKey | null
+    const address = searchParams.get('address')
+    const blockchain = searchParams.get('blockchain') as TBlockchainServiceKey | null
 
     if (!address || !blockchain) return
 
     actions.setData({ account: accountsRef.current.find(AccountHelper.predicate({ address, blockchain })) })
   })
+
+  usePageTitle(t('title'))
 
   return (
     <ScreenLayout

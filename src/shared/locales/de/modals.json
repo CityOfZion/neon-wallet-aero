@@ -426,7 +426,7 @@
     "toAddressDetailsItemLabel": "Empfangsadresse",
     "toTokenDetailsItemLabel": "Token",
     "saveContactButtonLabel": "Kontakt speichern",
-    "helpButtonLabel": "Hilfe? Chat mit uns",
+    "helpButtonLabel": "Hilfe? Live-Support",
     "errorsByCode": {
       "FAILED_TO_GET_NONCE": "Nonce für diese Transaktion konnte nicht abgerufen werden",
       "INVALID_TRANSACTION": "Transaktion wurde nicht erfolgreich vom Netzwerk bestätigt",
@@ -529,7 +529,7 @@
     "receivePanelTokenLabel": "Token",
     "receivePanelAddressLabel": "Empfangsadresse",
     "extraIdToLabel": "Destination Tag/Memo",
-    "helpButtonLabel": "Hilfe? Chatten Sie mit uns",
+    "helpButtonLabel": "Hilfe? Live-Support",
     "swapLogButtonLabel": "Swap-Protokoll",
     "saveContactButtonLabel": "Kontakt speichern",
     "contactSavedTooltipLabel": "{{name}} wurde zu Ihren Kontakten hinzugefügt."

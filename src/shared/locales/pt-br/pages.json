@@ -60,7 +60,7 @@
     "title": "Bem-vindo a",
     "neonAccountTabLabel": "Conta Neon",
     "hardwareWalletTabLabel": "Hardware",
-    "addressOrKeyTabLabel": "Endereço ou Chave"
+    "addressOrKeyTabLabel": "Endereço ou chave"
   },
   "loginNeonAccountPassword": {
     "description": "Faça login em sua carteira",
@@ -181,7 +181,8 @@
   },
   "help": {
     "title": "Ajuda",
-    "chatWithUsItemLabel": "Converse conosco",
+    "liveSupportItemLabel": "Suporte ao vivo",
+    "discordItemLabel": "Entrar no nosso Discord",
     "openSupportTicketItemLabel": "Abrir ticket de suporte"
   },
   "import": {
@@ -475,7 +476,7 @@
       "title": "Como funciona?",
       "description": "Compre e venda tokens sem depender de uma exchange! A Neon oferece uma maneira fácil e segura de comprar e vender ativos digitais usando dinheiro fiduciário.",
       "observation": "Após a conclusão da transferência, seus novos tokens levarão alguns momentos para chegar.",
-      "helpButtonLabel": "Precisa de ajuda? Converse conosco",
+      "helpButtonLabel": "Precisa de ajuda? Suporte ao vivo",
       "processBuyTokens": {
         "text": "<1>Este processo usa um widget incorporado.</1> Ao comprar tokens, alguns dados pessoais podem ser solicitados para fins de KYC. <2>Vendas maiores exigem uma maior quantidade de dados de KYC.</2>",
         "kyc": "<1>Após a conclusão do processo de KYC:</1> Você precisará fornecer um endereço de destino para seus tokens. No painel 'Carteiras e contas', copie o endereço de destino de sua conta Neon desejada.",
@@ -575,6 +576,7 @@
     }
   },
   "connectHardwareWallet": {
+    "pageTitle": "Conectar carteira de hardware",
     "title": "Procurando sua carteira de hardware",
     "searchUsbButtonLabel": "Buscar dispositivos conectados",
     "searchBluetoothButtonLabel": "Buscar dispositivos próximos",
@@ -586,5 +588,15 @@
     "title": "Trustlines",
     "emptyMessage": "Nenhuma trustline encontrada",
     "addTrustlineButtonLabel": "Adicionar trustline"
+  },
+  "liveSupport": {
+    "title": "Suporte ao vivo",
+    "error": "Há um erro com o suporte ao vivo, por favor, tente novamente.",
+    "howItWorks": {
+      "title": "Suporte ao vivo",
+      "description": "Precisa de ajuda? Você pode conversar com nossa equipe <1>direta e seguramente</1> direto da carteira — sem precisar sair. Sinta-se à vontade para perguntar qualquer coisa sobre a carteira e os recursos. <1>Nunca compartilhe suas chaves privadas, mnemônicos ou dados pessoais</1> com ninguém — incluindo nossa equipe de suporte. Nossa equipe <1>nunca</1> solicitará essas informações. Sua segurança sempre vem em primeiro lugar.",
+      "takeCareAlert": "Entrar no nosso Discord é uma ótima maneira de conversar em um chat público e interagir com a comunidade. No entanto, <1>cuidado com golpistas</1> que podem enviar mensagens privadas se passando pela nossa equipe. Nossa equipe nunca entrará em contato por mensagem privada pedindo informações confidenciais.",
+      "discordLinkLabel": "Entrar no nosso Discord"
+    }
   }
 }

@@ -97,8 +97,8 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
     await rendererApi.send('tab:open', {
       href: '/buy-and-sell-tokens',
       query: {
-        'account-address': selectedAccount.address,
-        'account-blockchain': selectedAccount.blockchain,
+        address: selectedAccount.address,
+        blockchain: selectedAccount.blockchain,
       },
     })
   }

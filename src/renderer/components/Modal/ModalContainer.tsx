@@ -28,7 +28,7 @@ export const ModalContent = ({ children, className }: TProps) => (
 )
 
 export const ModalContainer = (props: TProps) => {
-  const rootElement = document.querySelector('#neon-root')!
+  const rootElement = document.querySelector('#root')!
 
   return createPortal(<ModalContent {...props} />, rootElement)
 }

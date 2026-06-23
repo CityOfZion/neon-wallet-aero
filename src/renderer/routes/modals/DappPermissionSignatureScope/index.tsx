@@ -19,8 +19,8 @@ export const DappPermissionSignatureScopeModal = () => {
     <BottomModalLayout
       heading={t('title')}
       contentClassName="px-0 flex flex-col pb-5 min-h-0"
-      closeOnEsc={false}
-      closeOnClickOutside={false}
+      eraseOnEsc={false}
+      eraseOnClickOutside={false}
       onErase={onReject}
     >
       <div className="flex min-h-0 grow flex-col overflow-y-auto pr-2 pl-5">

@@ -426,7 +426,7 @@
     "toAddressDetailsItemLabel": "接收地址",
     "toTokenDetailsItemLabel": "代币",
     "saveContactButtonLabel": "保存联系人",
-    "helpButtonLabel": "需要帮助？与我们聊天",
+    "helpButtonLabel": "需要帮助？在线支持",
     "errorsByCode": {
       "FAILED_TO_GET_NONCE": "无法获取该交易的随机数",
       "INVALID_TRANSACTION": "交易未被网络成功确认",
@@ -529,7 +529,7 @@
     "receivePanelTokenLabel": "代币",
     "receivePanelAddressLabel": "接收地址",
     "extraIdToLabel": "目标标签/备注",
-    "helpButtonLabel": "需要帮助？联系我们",
+    "helpButtonLabel": "需要帮助？在线支持",
     "swapLogButtonLabel": "兑换日志",
     "saveContactButtonLabel": "保存联系人",
     "contactSavedTooltipLabel": "{{name}} 已保存到您的联系人中。"

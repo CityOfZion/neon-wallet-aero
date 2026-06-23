@@ -16,6 +16,7 @@ import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useCreateHardwareWallet } from '@renderer/hooks/useHardwareWallet'
 import { useLogin } from '@renderer/hooks/useLogin'
+import { usePageTitle } from '@renderer/hooks/usePageTitle'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 
@@ -78,9 +79,11 @@ export const ConnectHardwareWalletPage = () => {
     }
   }, [loginSession, type])
 
+  usePageTitle(t('pageTitle'))
+
   return (
     <ScreenLayout withBack={false} contentClassName="items-center justify-center">
-      <div className="flex max-h-154 w-full max-w-212 flex-grow flex-col items-center rounded-lg bg-gray-300/10 px-40 py-25">
+      <div className="flex max-h-154 w-full max-w-212 grow flex-col items-center rounded-lg bg-gray-300/10 px-40 py-25">
         <NeonWalletFullIcon className="text-neon" aria-hidden />
 
         <div className="mt-12 flex flex-col items-center gap-2 text-center">

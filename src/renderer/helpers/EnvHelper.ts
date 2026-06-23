@@ -11,6 +11,7 @@ const envSchema = z.object({
   VITE_GA_MEASUREMENT_ID: z.string().nonempty(),
   VITE_GA_API_SECRET: z.string().nonempty(),
   VITE_SENTRY_DSN: z.string().nonempty(),
+  VITE_CRISP_WEBSITE_ID: z.string().nonempty(),
 })
 
 type EnvSchema = z.infer<typeof envSchema>
