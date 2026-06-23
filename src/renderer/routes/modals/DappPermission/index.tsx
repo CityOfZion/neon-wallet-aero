@@ -141,8 +141,8 @@ export const DappPermissionModal = () => {
     <BottomModalLayout
       heading={t('title')}
       contentClassName="px-0 flex flex-col pb-5 min-h-0"
-      closeOnEsc={false}
-      closeOnClickOutside={false}
+      eraseOnEsc={false}
+      eraseOnClickOutside={false}
       onClose={startReject}
     >
       <Content

@@ -4,13 +4,13 @@ import { Trans, useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
 
 import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
-import { Link } from '@renderer/components/Link'
+import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
-
 import MdInfoOutline from '@renderer/assets/images/md-info-outline.svg?react'
-import TbExternalLink from '@renderer/assets/images/tb-external-link.svg?react'
+import TbMessage from '@renderer/assets/images/tb-message.svg?react'
+
+import { rendererApi } from '@shared/message-api/renderer'
 
 import { BuyAndSellTokensAboutButton } from './BuyAndSellTokensAboutButton'
 import { EBuyAndSellTokensTab } from '.'
@@ -101,17 +101,16 @@ export const BuyAndSellTokensHowItWorks = ({ tab }: TProps) => {
 
       <p className="mt-6">{t('observation')}</p>
 
-      <div className="mt-12 flex w-full flex-grow items-end">
-        <Link
+      <div className="mt-12 flex w-full grow items-end">
+        <Button
           label={t('helpButtonLabel')}
-          to={ConstantsHelper.cozDiscordUrl}
-          target="_blank"
           className="mx-auto mb-5"
           variant="outlined"
           flat
           wide
           iconsOnEdge={false}
-          rightIcon={<TbExternalLink aria-hidden />}
+          rightIcon={<TbMessage aria-hidden />}
+          onClick={() => rendererApi.send('tab:open', { href: '/live-support' })}
         />
       </div>
     </div>

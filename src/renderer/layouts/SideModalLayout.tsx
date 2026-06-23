@@ -18,8 +18,8 @@ type TProps = ComponentProps<'div'> & {
   heading: string
   icon?: JSX.Element
   contentClassName?: string
-  closeOnEsc?: boolean
-  closeOnClickOutside?: boolean
+  eraseOnEsc?: boolean
+  eraseOnClickOutside?: boolean
   onClose?: () => void
 }
 
@@ -28,8 +28,8 @@ export const SideModalLayout = ({
   icon,
   className,
   contentClassName,
-  closeOnEsc = true,
-  closeOnClickOutside = true,
+  eraseOnEsc = true,
+  eraseOnClickOutside = true,
   onClose,
   children,
   ...props
@@ -40,7 +40,7 @@ export const SideModalLayout = ({
   const isFocused = useModalFocused()
   const layoutRef = useRef<HTMLDivElement>(null)
 
-  const withBack = histories.filter(({ route }) => route.type === 'side').length > 1
+  const withBackButton = histories.filter(({ route }) => route.type === 'side').length > 1
 
   const handleBack = () => {
     onClose?.()
@@ -54,8 +54,8 @@ export const SideModalLayout = ({
     modalErase('side')
   }
 
-  useHotkeys('esc', handleErase, { enabled: closeOnEsc && isFocused })
-  useClickOutside(layoutRef, handleErase, { enabled: closeOnClickOutside && isFocused })
+  useHotkeys('esc', handleErase, { enabled: eraseOnEsc && isFocused })
+  useClickOutside(layoutRef, handleErase, { enabled: eraseOnClickOutside && isFocused })
 
   return (
     <div
@@ -67,7 +67,7 @@ export const SideModalLayout = ({
       )}
     >
       <header className="relative mt-2 mb-5 flex w-full flex-row items-center justify-center">
-        {withBack && (
+        {withBackButton && (
           <IconButton
             aria-label={t('general.back')}
             className="absolute top-1/2 left-0 -translate-y-1/2"
@@ -94,7 +94,7 @@ export const SideModalLayout = ({
         />
       </header>
 
-      <div className={StyleHelper.mergeStyles('flex w-full flex-col gap-y-2', contentClassName)}>{children}</div>
+      <main className={StyleHelper.mergeStyles('flex w-full flex-col gap-y-2', contentClassName)}>{children}</main>
     </div>
   )
 }

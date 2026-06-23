@@ -181,7 +181,8 @@
   },
   "help": {
     "title": "帮助",
-    "chatWithUsItemLabel": "与我们聊天",
+    "liveSupportItemLabel": "在线支持",
+    "discordItemLabel": "加入我们的 Discord",
     "openSupportTicketItemLabel": "提交支持工单"
   },
   "import": {
@@ -475,7 +476,7 @@
       "title": "它是如何运作的？",
       "description": "无需依赖交易所即可买卖代币！Neon 提供了一种轻松且安全的方式，使用法币买卖数字资产。",
       "observation": "转账完成后，新代币将在短时间内到账。",
-      "helpButtonLabel": "需要帮助？与我们聊天",
+      "helpButtonLabel": "需要帮助？在线支持",
       "processBuyTokens": {
         "text": "<1>此流程使用嵌入式小部件。</1> 在购买代币时，可能会要求提供一些个人信息用于 KYC（身份验证）。<2>较大金额的交易需要更多的 KYC 数据。</2>",
         "kyc": "<1>完成 KYC 过程后：</1> 您需要提供一个用于接收代币的目标地址。请在“钱包和账户”面板中复制您希望接收代币的 Neon 账户地址。",
@@ -575,6 +576,7 @@
     }
   },
   "connectHardwareWallet": {
+    "pageTitle": "连接硬件钱包",
     "title": "正在查找您的硬件钱包",
     "searchUsbButtonLabel": "搜索已连接的设备",
     "searchBluetoothButtonLabel": "搜索附近的设备",
@@ -586,5 +588,15 @@
     "title": "信任线",
     "emptyMessage": "未找到信任线",
     "addTrustlineButtonLabel": "添加信任线"
+  },
+  "liveSupport": {
+    "title": "在线支持",
+    "error": "即时支持出现错误，请重试。",
+    "howItWorks": {
+      "title": "在线支持",
+      "description": "需要帮助？您可以<1>直接安全地</1>在钱包中与我们的团队聊天——无需离开。欢迎随时提问有关钱包和功能的任何问题。<1>切勿将私钥、助记词或个人数据</1>分享给任何人——包括我们的支持团队。我们的团队<1>绝不会</1>要求提供这些信息。您的安全始终是第一位的。",
+      "takeCareAlert": "加入我们的 Discord 是参与公开聊天并与社区互动的好方式。然而，<1>请警惕骗子</1>，他们可能会冒充我们团队发送私信。我们的团队绝不会私信向您索取敏感信息。",
+      "discordLinkLabel": "加入我们的 Discord"
+    }
   }
 }

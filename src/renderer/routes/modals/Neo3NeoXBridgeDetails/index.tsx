@@ -6,12 +6,10 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
 import { Details } from '@renderer/components/Details'
-import { Link } from '@renderer/components/Link'
 import { Stepper } from '@renderer/components/Stepper'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 
 import { useContactsSelector } from '@renderer/hooks/useContactSelector'
@@ -21,11 +19,12 @@ import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import MdRefresh from '@renderer/assets/images/md-refresh.svg?react'
-import TbLifeBuoy from '@renderer/assets/images/tb-lifebuoy.svg?react'
+import TbMessage from '@renderer/assets/images/tb-message.svg?react'
 import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
 import TbUsers from '@renderer/assets/images/tb-users.svg?react'
 
+import { rendererApi } from '@shared/message-api/renderer'
 import type { TModalState } from '@shared/types/modal'
 
 type TBridgeStatus = 'confirming' | 'complete' | 'error'
@@ -163,14 +162,13 @@ export const Neo3NeoXBridgeDetailsModal = () => {
           </Details.Root>
         </div>
 
-        <Link
+        <Button
           label={t('helpButtonLabel')}
           variant="card"
           className="w-full"
-          target="_blank"
-          to={ConstantsHelper.cozDiscordUrl}
-          leftIcon={<TbLifeBuoy aria-hidden />}
           iconsOnEdge={false}
+          rightIcon={<TbMessage aria-hidden />}
+          onClick={() => rendererApi.send('tab:open', { href: '/live-support' })}
         />
       </div>
     </BottomModalLayout>

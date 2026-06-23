@@ -118,8 +118,8 @@ export const DappPermissionContractDetailsModal = () => {
     <BottomModalLayout
       heading={t('title')}
       contentClassName="px-0 flex flex-col pb-5 min-h-0"
-      closeOnEsc={false}
-      closeOnClickOutside={false}
+      eraseOnEsc={false}
+      eraseOnClickOutside={false}
       onErase={onReject}
     >
       {contractQuery.isLoading ? (

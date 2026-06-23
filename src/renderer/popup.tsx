@@ -10,7 +10,7 @@ import '@renderer/assets/css/styles.css'
 
 chrome.runtime.connect({ name: 'popup' })
 
-createRoot(document.getElementById('neon-root')!, SentryHelper.options).render(
+createRoot(document.getElementById('root')!, SentryHelper.options).render(
   <StrictMode>
     <RouterProvider router={popupRouter} />
   </StrictMode>

@@ -24,14 +24,14 @@
     "neo3NeoXBridge": "Bridge"
   },
   "wallet": {
-    "firstWalletName": "My First Wallet",
-    "mnemonicWalletName": "Mnemonic Wallet",
-    "watchAccount": "Watch Account",
-    "watchWalletName": "Watch Wallet",
-    "importedWalletName": "Imported Wallet",
-    "encryptedName": "Encrypted Wallet",
-    "migratedWalletName": "Migrated Wallet",
-    "hardwareName": "{{blockchain}} Hardware Wallet"
+    "firstWalletName": "My first wallet",
+    "mnemonicWalletName": "Mnemonic wallet",
+    "watchAccount": "Watch account",
+    "watchWalletName": "Watch wallet",
+    "importedWalletName": "Imported wallet",
+    "encryptedName": "Encrypted wallet",
+    "migratedWalletName": "Migrated wallet",
+    "hardwareName": "{{blockchain}} hardware wallet"
   },
   "account": {
     "defaultName": "Account {{accountNumber}}"

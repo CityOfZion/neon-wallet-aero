@@ -426,7 +426,7 @@
     "toAddressDetailsItemLabel": "Endereço de recebimento",
     "toTokenDetailsItemLabel": "Token",
     "saveContactButtonLabel": "Salvar contato",
-    "helpButtonLabel": "Precisa de ajuda? Converse conosco",
+    "helpButtonLabel": "Precisa de ajuda? Suporte ao vivo",
     "errorsByCode": {
       "FAILED_TO_GET_NONCE": "Falha ao obter nonce para essa transação",
       "INVALID_TRANSACTION": "Transação não foi confirmada com sucesso pela rede",
@@ -529,7 +529,7 @@
     "receivePanelTokenLabel": "Token",
     "receivePanelAddressLabel": "Endereço de recebimento",
     "extraIdToLabel": "Tag de destino/memo",
-    "helpButtonLabel": "Precisa de ajuda? Converse conosco",
+    "helpButtonLabel": "Precisa de ajuda? Suporte ao vivo",
     "swapLogButtonLabel": "Log de troca",
     "saveContactButtonLabel": "Salvar contato",
     "contactSavedTooltipLabel": "{{name}} foi salvo em seus contatos."

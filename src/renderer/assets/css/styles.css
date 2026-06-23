@@ -123,7 +123,7 @@
     @apply h-full overflow-hidden bg-gray-950 antialiased;
   }
 
-  #neon-root {
+  #root {
     @apply overflow-hidden;
   }
 
