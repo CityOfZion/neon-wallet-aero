@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
@@ -30,6 +30,67 @@ import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
 import type { TModalState } from '@shared/types/modal'
 import type { TAccount } from '@shared/types/store'
+
+type TAccountItemProps = {
+  account: TAccount
+  isSelected: boolean
+  editMode: boolean
+  isLast: boolean
+  onSelect: (account: TAccount) => void
+  onEdit: (account: TAccount) => void
+}
+
+const AccountItem = ({ account, isSelected, editMode, isLast, onSelect, onEdit }: TAccountItemProps) => {
+  const ref = useRef<HTMLLIElement>(null)
+
+  const handleClick = () => {
+    if (editMode) {
+      onEdit(account)
+      return
+    }
+
+    onSelect(account)
+  }
+
+  useEffect(() => {
+    if (!isSelected) return
+
+    ref.current?.scrollIntoView({ behavior: 'instant', block: 'start' })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <li ref={ref}>
+      <button
+        type="button"
+        aria-selected={isSelected}
+        onClick={handleClick}
+        className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 focus:bg-gray-300/15 active:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30 aria-selected:focus:bg-gray-300/30 aria-selected:active:bg-gray-300/15"
+      >
+        <div className="min-w-0 text-left">
+          <div className="flex min-w-0 items-center gap-5">
+            <BlockchainIcon
+              blockchain={account.blockchain}
+              className={StyleHelper.mergeStyles('min-size-4 size-4 text-gray-100', { 'text-neon': editMode })}
+            />
+            <p className={StyleHelper.mergeStyles('truncate text-sm text-white', { 'text-neon': editMode })}>
+              {account.name}
+            </p>
+          </div>
+
+          <p className="mt-0.5 ml-9 truncate text-xs text-gray-400">
+            {StringHelper.truncateMiddle(account.address, 10)}
+          </p>
+        </div>
+
+        <TbChevronRight aria-hidden className="min-size-6 max-size-6 size-6 text-gray-300" />
+      </button>
+
+      {!isLast && <Separator />}
+    </li>
+  )
+}
 
 export const AccountSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'accountSelection' })
@@ -113,36 +174,15 @@ export const AccountSelectionModal = () => {
       {filteredAccounts && filteredAccounts.length > 0 ? (
         <ul className="my-2.5 min-h-0 overflow-y-auto rounded">
           {filteredAccounts.map((account, index, array) => (
-            <li key={account.id}>
-              <button
-                type="button"
-                aria-selected={selectedAccount?.id === account.id}
-                onClick={editMode ? handleEdit.bind(null, account) : handleSelect.bind(null, account)}
-                className="flex w-full cursor-pointer items-center justify-between gap-2.5 px-2.5 py-3.5 transition-colors hover:bg-gray-300/15 aria-selected:bg-gray-300/15 aria-selected:hover:bg-gray-300/30"
-              >
-                <div className="min-w-0 text-left">
-                  <div className="flex min-w-0 items-center gap-5">
-                    <BlockchainIcon
-                      blockchain={account.blockchain}
-                      className={StyleHelper.mergeStyles('min-size-4 size-4 text-gray-100', {
-                        'text-neon': editMode,
-                      })}
-                    />
-                    <p className={StyleHelper.mergeStyles('truncate text-sm text-white', { 'text-neon': editMode })}>
-                      {account.name}
-                    </p>
-                  </div>
-
-                  <p className="mt-0.5 ml-9 truncate text-xs text-gray-400">
-                    {StringHelper.truncateMiddle(account.address, 10)}
-                  </p>
-                </div>
-
-                <TbChevronRight aria-hidden className="min-size-6 max-size-6 size-6 text-gray-300" />
-              </button>
-
-              {index + 1 !== array.length && <Separator />}
-            </li>
+            <AccountItem
+              key={account.id}
+              account={account}
+              isSelected={selectedAccount?.id === account.id}
+              editMode={editMode}
+              isLast={index + 1 === array.length}
+              onSelect={handleSelect}
+              onEdit={handleEdit}
+            />
           ))}
         </ul>
       ) : (
