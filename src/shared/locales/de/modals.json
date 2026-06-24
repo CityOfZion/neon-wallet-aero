@@ -365,7 +365,25 @@
   },
   "networkSelection": {
     "title": "Netzwerk",
-    "selectNetwork": "Netzwerk auswählen"
+    "selectNetwork": "Netzwerk auswählen",
+    "addCustomNetworkButtonLabel": "Benutzerdefiniertes Netzwerk hinzufügen",
+    "editCustomNetworkButtonLabel": "Benutzerdefiniertes Netzwerk bearbeiten"
+  },
+  "saveCustomNetwork": {
+    "title": "Benutzerdefiniertes Netzwerk",
+    "nameLabel": "Name",
+    "namePlaceholder": "Namen eingeben",
+    "urlLabel": "URL",
+    "urlPlaceholder": "URL eingeben",
+    "urlHint": "RPC-Beispiel: https://mainnet1.neo.coz.io:443",
+    "successUrl": "Erfolgreich mit dem Netzwerk verbunden",
+    "deleteButtonLabel": "Netzwerk löschen",
+    "errors": {
+      "invalidURL": "Bitte geben Sie eine gültige URL ein",
+      "notConnect": "Verbindung zu diesem Netzwerk nicht möglich",
+      "nameIsRequired": "Name ist erforderlich",
+      "nameIsTooLong": "Name ist zu lang"
+    }
   },
   "networkUrlSelection": {
     "title": "Netzwerk-URL-Auswahl",

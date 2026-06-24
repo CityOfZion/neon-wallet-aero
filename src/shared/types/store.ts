@@ -146,6 +146,10 @@ export type TSelectedNetworks = {
   [K in TBlockchainServiceKey]: TNetwork
 }
 
+export type TCustomNetworks = {
+  [K in TBlockchainServiceKey]: TNetwork[]
+}
+
 export type TLastIndexesByWallet = Partial<Record<TBlockchainServiceKey, Record<string, number>>>
 
 export type THiddenTokenByBlockchain = Partial<Record<TBlockchainServiceKey, string[]>>

@@ -365,7 +365,25 @@
   },
   "networkSelection": {
     "title": "Rede",
-    "selectNetwork": "Selecione uma rede"
+    "selectNetwork": "Selecione uma rede",
+    "addCustomNetworkButtonLabel": "Adicionar rede personalizada",
+    "editCustomNetworkButtonLabel": "Editar rede personalizada"
+  },
+  "saveCustomNetwork": {
+    "title": "Rede personalizada",
+    "nameLabel": "Nome",
+    "namePlaceholder": "Insira um nome",
+    "urlLabel": "URL",
+    "urlPlaceholder": "Insira a URL",
+    "urlHint": "Exemplo de RPC: https://mainnet1.neo.coz.io:443",
+    "successUrl": "Conectado à rede com sucesso",
+    "deleteButtonLabel": "Excluir rede",
+    "errors": {
+      "invalidURL": "Insira uma URL válida",
+      "notConnect": "Não foi possível conectar a esta rede",
+      "nameIsRequired": "O nome é obrigatório",
+      "nameIsTooLong": "O nome é muito longo"
+    }
   },
   "networkUrlSelection": {
     "title": "Seleção de URL de rede",

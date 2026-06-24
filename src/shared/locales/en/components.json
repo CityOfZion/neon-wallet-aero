@@ -80,7 +80,7 @@
       "notFoundDescription": "Make a transaction and it'll appear here"
     }
   },
-   "searchableToken": {
+  "searchableToken": {
     "placeholder": "Search token…",
     "emptyMessage": "Type to search for a token",
     "notFoundMessage": "No tokens found"
@@ -117,6 +117,8 @@
     "nextYearButtonLabel": "Go to the next years"
   },
   "networkBanner": {
-    "testnetLabel": "Testnet network"
+    "testnetLabel": "Testnet network",
+    "customLabel": "Custom network",
+    "testnetCustomLabel": "Testnet + Custom networks"
   }
 }

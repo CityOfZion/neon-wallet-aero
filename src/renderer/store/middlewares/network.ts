@@ -16,6 +16,8 @@ export function getNetworkMiddleware() {
       settingsReducerActions.setSelectedNetworkByBlockchain.match(action) ||
       settingsReducerActions.setSelectedNetwork.match(action) ||
       settingsReducerActions.setSelectedNetworkUrl.match(action) ||
+      settingsReducerActions.saveCustomNetwork.match(action) ||
+      settingsReducerActions.deleteCustomNetwork.match(action) ||
       (action.type === REHYDRATE && action.key === 'settingsReducer'),
     effect: (_action, listenerApi) => {
       const state = listenerApi.getState() as TRootState

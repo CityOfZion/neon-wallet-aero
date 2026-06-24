@@ -10,7 +10,7 @@ import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { LanguageHelper } from '@renderer/helpers/LanguageHelper'
 
 import { settingsMigrations } from '@renderer/store/reducers/settings/migrations'
-import type { TAccount, TCurrency, TLanguage, TSelectedNetworks, TWallet } from '@shared/types/store'
+import type { TAccount, TCurrency, TCustomNetworks, TLanguage, TSelectedNetworks, TWallet } from '@shared/types/store'
 
 import { settingsSliceReducers } from './reducers'
 
@@ -23,6 +23,7 @@ export type TSettingsReducer = {
     currency: TCurrency
     language: TLanguage
     selectedNetworkByBlockchain: TSelectedNetworks
+    customNetworks: TCustomNetworks
   }
 }
 
@@ -45,13 +46,25 @@ export function getSettingsReducer() {
         solana: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.solana.defaultNetwork,
         stellar: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.stellar.defaultNetwork,
       },
+      customNetworks: {
+        neo3: [],
+        neoLegacy: [],
+        ethereum: [],
+        neox: [],
+        bitcoin: [],
+        polygon: [],
+        base: [],
+        arbitrum: [],
+        solana: [],
+        stellar: [],
+      },
     },
   }
 
   const settingsReducerConfig: PersistConfig<TSettingsReducer> = {
     key: 'settingsReducer',
     storage: localStorage,
-    version: 0,
+    version: 1,
     migrate: createMigrate(settingsMigrations),
   }
 

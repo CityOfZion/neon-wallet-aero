@@ -33,6 +33,7 @@ const MigrateFromNeon2Step3Modal = lazy(() => import('./modals/MigrateFromNeon2S
 const MigrateFromNeon2Step4Modal = lazy(() => import('./modals/MigrateFromNeon2Step4'))
 const NetworkUrlSelectionModal = lazy(() => import('./modals/NetworkUrlSelection'))
 const NetworkSelectionModal = lazy(() => import('./modals/NetworkSelection'))
+const SaveCustomNetworkModal = lazy(() => import('./modals/SaveCustomNetwork'))
 const SaveContactModal = lazy(() => import('./modals/SaveContact'))
 const SearchModal = lazy(() => import('./modals/Search'))
 const SuccessModal = lazy(() => import('./modals/Success'))
@@ -111,6 +112,7 @@ export const modalsRouter: TRoute[] = [
   { name: 'swap-confirmation', type: 'bottom', element: SwapConfirmationModal },
   { name: 'network-selection', type: 'bottom', element: NetworkSelectionModal },
   { name: 'network-url-selection', type: 'bottom', element: NetworkUrlSelectionModal },
+  { name: 'save-custom-network', type: 'bottom', element: SaveCustomNetworkModal },
   { name: 'account-receive-selection', type: 'bottom', element: AccountReceiveSelectionModal },
   { name: 'neo3-neox-bridge-info', type: 'bottom', element: Neo3NeoXBridgeInfoModal },
   { name: 'neo3-neox-bridge-confirmation', type: 'bottom', element: Neo3NeoXBridgeConfirmationModal },
