@@ -74,6 +74,13 @@ export const functionsByNotificationActionType: TFunctionsByNotificationActionTy
         modalActions.modalErase('side')
         popupNavigate('/settings/backup-and-restore/backup/1', { replace: true })
       })
+      .with({ to: 'bneo-shutdown' }, ({ address, blockchain }) => {
+        const account = getAccount({ address, blockchain })
+        const wallet = getWalletByAccount(account)
+
+        modalActions.modalErase('side')
+        popupNavigate('/wallets', { state: { wallet, account, tab: 'tokens' }, replace: true })
+      })
       .otherwise(() => {
         // No action needed for unhandled navigation types
       })

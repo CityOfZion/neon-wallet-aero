@@ -20,6 +20,7 @@ import type { TAccount, TNotification } from '@shared/types/store'
 const SETUP_PREFIX = 'pages:private.accountTasksManagerSetup'
 const VOTING_NOTIFICATION_PREFIX = `${SETUP_PREFIX}.useVotingNeo3NotificationProcess`
 const FRAUDULENT_NOTIFICATION_PREFIX = `${SETUP_PREFIX}.useFraudulentTokensNotificationProcess`
+const BNEO_SHUTDOWN_NOTIFICATION_PREFIX = `${SETUP_PREFIX}.useBNeoShutdownNotificationProcess`
 
 const useFraudulentTokensNotificationProcess = () => {
   const dispatch = useAppDispatch()
@@ -98,6 +99,63 @@ const useFraudulentTokensNotificationProcess = () => {
   return { process, processNotification, finish }
 }
 
+const useBNeoShutdownNotificationProcess = () => {
+  const dispatch = useAppDispatch()
+
+  const notificationsSetByAddressRef = useRef<Set<string>>(new Set())
+
+  const processNotification = (notification: TNotification) => {
+    try {
+      const payload = notification.action?.payload
+
+      if (payload?.to !== 'bneo-shutdown') return
+
+      notificationsSetByAddressRef.current.add(payload.address)
+    } catch (error) {
+      LoggerHelper.error(error, { where: 'useBNeoShutdownNotificationProcess', operation: 'processNotification' })
+    }
+  }
+
+  const process = (account: TAccount, balance: TBalance | undefined) => {
+    try {
+      if (!balance || account.blockchain !== 'neo3') return
+
+      const tokenBalance = balance.tokensBalancesMap.get(ConstantsHelper.bNeoTokenHash)
+      if (!tokenBalance || tokenBalance.amountNumber === 0) return
+
+      if (notificationsSetByAddressRef.current.has(account.address)) return
+
+      dispatch(
+        authReducerActions.saveNotification({
+          title: `${BNEO_SHUTDOWN_NOTIFICATION_PREFIX}.title`,
+          previewBody: `${BNEO_SHUTDOWN_NOTIFICATION_PREFIX}.description`,
+          priority: 'high',
+          action: {
+            type: 'navigate',
+            payload: {
+              to: 'bneo-shutdown',
+              address: balance.address,
+              blockchain: balance.blockchain,
+            },
+          },
+          related: {
+            address: balance.address,
+            blockchain: balance.blockchain,
+          },
+        })
+      )
+    } catch (error) {
+      LoggerHelper.error(error, { where: 'useBNeoShutdownNotificationProcess', operation: 'process' })
+    }
+  }
+
+  const finish = () => {
+    notificationsSetByAddressRef.current.clear()
+  }
+
+  return { process, processNotification, finish }
+}
+
 const useVotingNeo3NotificationProcess = () => {
   const dispatch = useAppDispatch()
   const { getVoteDetails } = useLazyNeo3VoteGetVoteDetailsByAddress()
@@ -171,6 +229,7 @@ const AccountTasksManagerSetup = () => {
   const { getBalance } = useLazyBalance()
 
   const fraudulentTokens = useFraudulentTokensNotificationProcess()
+  const bNeoShutdownProcess = useBNeoShutdownNotificationProcess()
   const votingNeo3 = useVotingNeo3NotificationProcess()
 
   const accountsAlreadyProcessedRef = useRef<Set<string>>(new Set())
@@ -180,6 +239,7 @@ const AccountTasksManagerSetup = () => {
       async () => {
         for (const notification of unreadNotificationsRef.current) {
           fraudulentTokens.processNotification(notification)
+          bNeoShutdownProcess.processNotification(notification)
           votingNeo3.processNotification(notification)
         }
 
@@ -191,10 +251,12 @@ const AccountTasksManagerSetup = () => {
           const balance = await getBalance(account, { showType: 'active' })
 
           fraudulentTokens.process(account, balance)
+          bNeoShutdownProcess.process(account, balance)
           await votingNeo3.process(account)
         }
 
         fraudulentTokens.finish()
+        bNeoShutdownProcess.finish()
         votingNeo3.finish()
       },
       { timeout: 15000 }
