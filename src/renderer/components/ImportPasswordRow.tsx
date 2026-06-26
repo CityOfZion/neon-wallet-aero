@@ -1,7 +1,5 @@
 import { Fragment } from 'react'
 
-import { useTranslation } from 'react-i18next'
-
 import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Input } from '@renderer/components/Input'
 
@@ -13,32 +11,34 @@ import MdCheck from '@renderer/assets/images/md-check.svg?react'
 import MdChevronRight from '@renderer/assets/images/md-chevron-right.svg?react'
 import TbAlertTriangle from '@renderer/assets/images/tb-alert-triangle.svg?react'
 
-import type { TUseNeonMigrateAccountsSchema } from '@shared/types/hooks'
+import type { TUseImportNep6Account } from '@shared/types/hooks'
 
 type TProps = {
-  accountToMigrate: TUseNeonMigrateAccountsSchema
-  onSubmit: (accountToMigrate: TUseNeonMigrateAccountsSchema, password: string) => Promise<void>
+  account: TUseImportNep6Account
+  inputLabel: string
+  inputPlaceholder: string
+  error: string
+  onSubmit: (account: TUseImportNep6Account, password: string) => Promise<void>
 }
 
-type TActionData = {
+type TActionsData = {
   password: string
 }
 
-export const MigrateFromNeon2Password = ({ accountToMigrate, onSubmit }: TProps) => {
-  const { t } = useTranslation('modals', { keyPrefix: 'migrateWallets.step4' })
-
+export const ImportPasswordRow = ({ account, inputLabel, inputPlaceholder, error, onSubmit }: TProps) => {
   const { actionData, actionState, setDataFromEventWrapper, setError, handleAct, clearErrors } =
-    useActions<TActionData>({
+    useActions<TActionsData>({
       password: '',
     })
 
-  const handleSubmit = async (data: TActionData) => {
+  const handleSubmit = async (data: TActionsData) => {
     await UtilsHelper.sleep(100)
+
     try {
-      await onSubmit(accountToMigrate, data.password)
+      await onSubmit(account, data.password)
       clearErrors('password')
     } catch {
-      setError('password', t('passwordError'))
+      setError('password', error)
     }
   }
 
@@ -48,16 +48,16 @@ export const MigrateFromNeon2Password = ({ accountToMigrate, onSubmit }: TProps)
         <MdChevronRight aria-hidden className="text-blue h-6 w-full" />
       </div>
 
-      <div className="flex min-w-0 flex-grow flex-col gap-1">
-        <p className="text-sm text-white">{accountToMigrate.label}</p>
-        <p className="truncate text-xs text-gray-300">{accountToMigrate.address}</p>
+      <div className="flex min-w-0 grow flex-col gap-1">
+        <p className="text-sm text-white">{account.label}</p>
+        <p className="truncate text-xs text-gray-300">{account.address}</p>
 
         <Input
           name="password"
           id="password"
-          label={t('inputLabel')}
+          label={inputLabel}
           containerClassName="mt-1.5"
-          placeholder={t('inputPlaceholder')}
+          placeholder={inputPlaceholder}
           type="password"
           value={actionData.password}
           onChange={setDataFromEventWrapper('password')}

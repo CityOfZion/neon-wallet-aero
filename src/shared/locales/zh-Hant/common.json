@@ -31,6 +31,7 @@
     "importedWalletName": "導入錢包",
     "encryptedName": "加密錢包",
     "migratedWalletName": "已遷移錢包",
+    "migratedAccountLabel": "已遷移帳戶",
     "hardwareName": "{{blockchain}} 硬體錢包"
   },
   "account": {

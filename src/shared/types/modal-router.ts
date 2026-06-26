@@ -16,9 +16,11 @@ import type { TBuyAndSellTokensDepositActions } from '@renderer/routes/tab/BuyAn
 
 import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
 import type {
-  TUseNeonMigrateAccountsSchema,
+  TUseImportNep6Account,
   TUseNeonMigrateGeneratedData,
   TUseNeonMigrateParsedContent,
+  TUseNep6GeneratedData,
+  TUseNep6ParsedContent,
   TUseTransactionsTransaction,
 } from '@shared/types/hooks'
 
@@ -144,9 +146,20 @@ type TMigrateFromNeon2Step3ModalState = {
 }
 
 type TMigrateFromNeon2Step4ModalState = {
-  selectedAccountsToMigrate: TUseNeonMigrateAccountsSchema[]
+  accounts: TUseImportNep6Account[]
   content: TUseNeonMigrateParsedContent
   onDecrypt?: (generatedData: TUseNeonMigrateGeneratedData) => void
+}
+
+type TNep6BackupImportStep3ModalState = {
+  content: TUseNep6ParsedContent
+  onDecrypt?: (generatedData: TUseNep6GeneratedData) => void
+}
+
+type TNep6BackupImportStep4ModalState = {
+  accounts: TUseImportNep6Account[]
+  content: TUseNep6ParsedContent
+  onDecrypt?: (generatedData: TUseNep6GeneratedData) => void
 }
 
 type TSuccessModalState = {
@@ -360,6 +373,8 @@ export type TModalRouterRouteTypes = {
   'export-mnemonic': TExportMnemonicModalState
   'migrate-from-neon2-3': TMigrateFromNeon2Step3ModalState
   'migrate-from-neon2-4': TMigrateFromNeon2Step4ModalState
+  'nep6-backup-import-step-3': TNep6BackupImportStep3ModalState
+  'nep6-backup-import-step-4': TNep6BackupImportStep4ModalState
   success: TSuccessModalState
   error: TErrorModalState
   'contact-details': TContactDetailsModalState

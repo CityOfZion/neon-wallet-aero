@@ -232,15 +232,15 @@
     },
     "settingsRestoreWallet": {
       "title": "Restaurar",
-      "description": "Em caso de perda de acesso à sua carteira, você pode importá-la de um arquivo de backup local. Localize seu arquivo de backup local e digite a senha que você usou ao criar o arquivo de backup e seu acesso será restaurado.",
+      "description": "Se você perdeu o acesso à sua carteira ou simplesmente deseja abrir uma a partir de um backup, pode importá-la de um arquivo de backup local — incluindo backups da Neon e NEP-6. Basta localizar o arquivo e digitar a senha que você definiu ao criá-lo.",
       "saveBackupLabel": "Localize seu arquivo de backup",
       "browse": "Procurar…",
       "backup": "Importar backup",
       "compatibleFile": "Arquivo compatível identificado!",
-      "nameExtension": "Arquivos de backup NEON"
+      "nameExtension": "Arquivos de backup Neon"
     },
     "confirmPasswordRecover": {
-      "title": "Importar backup NEON",
+      "title": "Importar backup Neon",
       "description": "Para importar seu arquivo de backup, forneça a senha que você usou ao criar o backup:",
       "subtitle": "Senha de backup",
       "passwordInputLabel": "Forneça sua senha de backup",
@@ -251,27 +251,27 @@
       "returnToSettings": "Retornar para configurações"
     },
     "migrateFromNeon2": {
-      "title": "Migrar da NEON 2.0",
-      "subtitleWhy": "Por que migrar para a NEON 3?",
-      "descriptionWhy": "Migrar sua carteira NEON 2 lhe dará acesso a uma gama mais ampla de ativos suportados e uma experiência de usuário mais elegante e melhorada que vai deixar a gestão dos seus ativos muito mais simples!",
-      "subtitleHow": "Como faço para migrar da NEON 2?",
-      "importButtonLabel": "Importar sua carteira NEON 2",
+      "title": "Migrar da Neon 2",
+      "subtitleWhy": "Por que migrar para a Neon?",
+      "descriptionWhy": "Migrar sua carteira Neon 2 lhe dará acesso a uma gama mais ampla de ativos suportados e uma experiência de usuário mais elegante e melhorada que vai deixar a gestão dos seus ativos muito mais simples!",
+      "subtitleHow": "Como faço para migrar da Neon 2?",
+      "importButtonLabel": "Importar sua carteira Neon 2",
       "migrateSteps": {
         "inNeon2": {
-          "label": "Na NEON 2",
-          "step1": "Exporte sua carteira NEON 2"
+          "label": "Na Neon 2",
+          "step1": "Exporte sua carteira Neon 2"
         },
-        "inNeon3": {
-          "label": "Na NEON 3",
-          "step2": "Importe suas contas NEON 2",
+        "inNeon": {
+          "label": "Na Neon",
+          "step2": "Importe suas contas Neon 2",
           "step3": "Escolha as contas para migrar",
           "step4": "Digite suas senhas de conta"
         }
       },
       "step2": {
-        "title": "Importe suas contas NEON 2",
-        "description": "Para completar o processo de migração NEON 2, por favor, localize seu arquivo de migração da carteira NEON 2:",
-        "inputLabel": "Localize seu arquivo de migração NEON 2",
+        "title": "Importe suas contas Neon 2",
+        "description": "Para completar o processo de migração Neon 2, por favor, localize seu arquivo de migração da carteira Neon 2:",
+        "inputLabel": "Localize seu arquivo de migração Neon 2",
         "buttonBrowseLabel": "Procurar…",
         "buttonImportLabel": "Importar",
         "buttonPlaceholder": "Procurar arquivos…",
@@ -316,7 +316,7 @@
       "error": "Houve um problema ao salvar as mudanças"
     },
     "step3": {
-      "subtitle": "Sua senha NEON 3 foi alterada com sucesso!",
+      "subtitle": "Sua senha Neon foi alterada com sucesso!",
       "buttonLabel": "Retornar para configurações"
     }
   },
@@ -442,7 +442,7 @@
       "title": "Como funciona?",
       "description1": "Transfira facilmente seus ativos criptográficos entre redes, sem nunca sair de sua carteira.",
       "description2": "As blockchains são independentes umas das outras e não podem interagir entre si - é aí que as bridges entram. Semelhante ao câmbio durante viagens para diferentes países, uma bridge permite transferir ativos entre várias blockchains.",
-      "description3": "Fazer bridge de tokens diretamente e imediatamente na NEON é conveniente e permite economizar tempo e pagar taxas mais baixas.",
+      "description3": "Fazer bridge de tokens diretamente e imediatamente na Neon é conveniente e permite economizar tempo e pagar taxas mais baixas.",
       "alert": "A COZ não é mantenedora deste processo de bridging - Neo Global Development é o mantenedor."
     },
     "form": {
@@ -576,7 +576,6 @@
       "title": "Nada para ver aqui",
       "description": "Ainda não há notificações"
     },
-
     "item": {
       "relatedAddressLabel": "Endereço: {{ address }}",
       "relatedAccountLabel": "Conta: {{ name }}",

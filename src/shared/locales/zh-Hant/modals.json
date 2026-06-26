@@ -219,14 +219,15 @@
     "error": "導出密鑰時出現問題，請稍後再試。"
   },
   "migrateWallets": {
-    "title": "從 NEON 2 遷移",
+    "title": "從 Neon 2 遷移",
     "instructionTitle": "說明",
     "step3": {
       "title": "選擇要遷移的帳戶",
       "selectTitle": "選擇您要匯入的帳戶",
       "selectLabel": "帳戶",
       "selectAllButtonLabel": "全選",
-      "selectedQuantity": "已選擇 {{selected}} 個，共 {{total}} 個帳戶",
+      "selectedQuantity_one": "已選擇 {{selected}} 個，共 {{count}} 個帳戶",
+      "selectedQuantity_other": "已選擇 {{selected}} 個，共 {{count}} 個帳戶",
       "alreadyImportedLabel": "已匯入",
       "buttonLabel": "選擇已選帳戶"
     },
@@ -240,7 +241,36 @@
       "migrateError": "遷移時出現錯誤，請重試。",
       "success": {
         "title": "遷移成功",
-        "subtitle": "您的 NEON 2 帳戶已成功遷移！",
+        "subtitle": "您的 Neon 2 帳戶已成功遷移！",
+        "returnToSettingsButtonLabel": "返回設定"
+      },
+      "useSamePasswordLabel": "對所有帳戶使用相同的密碼"
+    }
+  },
+  "nep6BackupImport": {
+    "title": "匯入錢包",
+    "step3": {
+      "title": "選擇要匯入的帳戶",
+      "selectTitle": "選擇您要匯入的帳戶",
+      "selectLabel": "帳戶",
+      "selectAllButtonLabel": "全選",
+      "selectedQuantity_one": "已選擇 {{selected}} 個，共 {{count}} 個帳戶",
+      "selectedQuantity_other": "已選擇 {{selected}} 個，共 {{count}} 個帳戶",
+      "alreadyImportedLabel": "已匯入",
+      "buttonLabel": "選擇已選帳戶"
+    },
+    "step4": {
+      "title": "輸入您的帳戶密碼",
+      "description": "為每個要匯入的帳戶輸入密碼",
+      "inputLabel": "密碼",
+      "inputPlaceholder": "輸入帳戶密碼…",
+      "buttonLabel": "匯入帳戶",
+      "passwordError": "密碼無法識別！",
+      "importError": "匯入時出現錯誤，請重試。",
+      "useSamePasswordLabel": "對所有帳戶使用相同的密碼",
+      "success": {
+        "title": "匯入成功",
+        "subtitle": "您的帳戶已匯入！",
         "returnToSettingsButtonLabel": "返回設定"
       }
     }
@@ -349,7 +379,7 @@
   "swapInfo": {
     "title": "這是如何運作的？",
     "description1": "在不使用交易所的情況下，跨鏈交換代幣。",
-    "description2": "在 NEON 中直接和立即交換代幣非常方便，並且可以節省時間和支付更低的費用。"
+    "description2": "在 Neon 中直接和立即交換代幣非常方便，並且可以節省時間和支付更低的費用。"
   },
   "swapConfirmation": {
     "heading": "交換確認",
@@ -416,7 +446,7 @@
     "title": "工作原理？",
     "description1": "輕鬆在網路之間橋接您的加密資產，無需離開您的錢包。",
     "description2": "區塊鏈彼此獨立，無法相互交互 - 這就是跨鏈橋的作用所在。其原理類似於在不同國家旅行時兌換貨幣，跨鏈橋允許您在各種區塊鏈之間轉移資產。",
-    "description3": "在NEON中直接即時橋接代幣既方便又能節省時間和費用。",
+    "description3": "在Neon中直接即時橋接代幣既方便又能節省時間和費用。",
     "alert": "COZ不是此橋接過程的維護者 - Neo全球開發是維護者。"
   },
   "neo3NeoXBridgeConfirmation": {
@@ -750,7 +780,7 @@
     }
   },
   "survey": {
-    "description": "我們很想聽聽您迄今為止對 NEON 的體驗。您的反饋幫助我們改進，如果您喜歡這款應用，在 Chrome 線上應用程式商店留下一條簡短的評價將大有幫助！",
+    "description": "我們很想聽聽您迄今為止對 Neon 的體驗。您的反饋幫助我們改進，如果您喜歡這款應用，在 Chrome 線上應用程式商店留下一條簡短的評價將大有幫助！",
     "descriptionFeedbackSubmitted": "非常感謝您的反饋！",
     "detailsInputLabel": "我們可以做得更好？",
     "detailsInputPlaceholder": "在此添加更多詳情…",

@@ -29,8 +29,8 @@ import { useContactsSelector } from './useContactSelector'
 import { useAppDispatch } from './useRedux'
 import { useWalletsSelector } from './useWalletSelector'
 
-export const useNeonImportBackup = () => {
-  const { t } = useTranslation('hooks', { keyPrefix: 'useNeonImportBackup' })
+export const useNeonBackupFile = () => {
+  const { t } = useTranslation('hooks', { keyPrefix: 'useNeonBackupFile' })
   const dispatch = useAppDispatch()
   const { createWallet, importAccounts, saveContacts } = useBlockchainActions()
   const { doesAccountExist } = useAccountUtils()
@@ -265,7 +265,7 @@ export const useNeonCreateBackup = () => {
         }
       })
 
-      const fileName = `NEON-backup-${DateHelper.formatLocalized(new Date(), { format: 'yyyy-MM-dd', language })}.${NeonBackupHelper.fileExtension}`
+      const fileName = `neon-backup-${DateHelper.formatLocalized(new Date(), { format: 'yyyy-MM-dd', language })}.${NeonBackupHelper.fileExtension}`
 
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
     } catch (error) {

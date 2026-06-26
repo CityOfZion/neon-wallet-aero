@@ -15,9 +15,9 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import type { TUseImportNep6Account } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
 
-export const MigrateFromNeon2Step3Modal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'migrateWallets.step3' })
-  const { content, onDecrypt } = useModalState<TModalState<'migrate-from-neon2-3'>>()
+export const Nep6BackupImportStep3Modal = () => {
+  const { t } = useTranslation('modals', { keyPrefix: 'nep6BackupImport.step3' })
+  const { content, onDecrypt } = useModalState<TModalState<'nep6-backup-import-step-3'>>()
   const { modalNavigateWrapper } = useModalNavigate()
   const { doesAccountExist } = useAccountUtils()
 
@@ -106,7 +106,7 @@ export const MigrateFromNeon2Step3Modal = () => {
         label={t('buttonLabel')}
         variant="card"
         disabled={accounts.length <= 0}
-        onClick={modalNavigateWrapper('migrate-from-neon2-4', {
+        onClick={modalNavigateWrapper('nep6-backup-import-step-4', {
           state: { accounts, content, onDecrypt },
         })}
       />
@@ -114,4 +114,4 @@ export const MigrateFromNeon2Step3Modal = () => {
   )
 }
 
-export default MigrateFromNeon2Step3Modal
+export default Nep6BackupImportStep3Modal

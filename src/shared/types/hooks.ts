@@ -93,26 +93,34 @@ export type TUseNeonBackupGeneratedData = {
   contacts?: TContact[]
 }
 
-export type TUseNeonMigrateAccountsSchema = {
+//* Backup and migrate types *//
+
+export type TUseImportNep6Account = {
   address: string
   label: string
   key: string
   blockchain: TBlockchainServiceKey
 }
 
-export type TUseNeonMigrateContactsSchema = {
+export type TUseNeonMigrateContacts = {
   addresses: { address: string; blockchain: TBlockchainServiceKey }[]
   name: string
 }
 
+export type TUseNep6ParsedContent = {
+  accounts: TUseImportNep6Account[]
+}
+
 export type TUseNeonMigrateParsedContent = {
-  accounts: TUseNeonMigrateAccountsSchema[]
-  contacts: TUseNeonMigrateContactsSchema[]
+  accounts: TUseImportNep6Account[]
+  contacts: TUseNeonMigrateContacts[]
 }
 
 export type TUseNeonMigrateData = { content: TUseNeonMigrateParsedContent; type: 'migrate' }
 
-export type TUseNeonMigrateDecryptedAccountSchema = TUseNeonMigrateAccountsSchema & {
+export type TUseNep6Data = { content: TUseNep6ParsedContent; type: 'nep6' }
+
+export type TUseImportNep6DecryptedAccount = TUseImportNep6Account & {
   decryptedKey: string
 }
 
@@ -120,6 +128,11 @@ export type TUseNeonMigrateGeneratedData = {
   walletToCreate: TWalletToCreate
   accountsToCreate: TAccountsToImport
   contactsToCreate: TContact[]
+}
+
+export type TUseNep6GeneratedData = {
+  walletToCreate: TWalletToCreate
+  accountsToCreate: TAccountsToImport
 }
 
 export type TUseNeo3VoteCalculateVoteFeeParams = {

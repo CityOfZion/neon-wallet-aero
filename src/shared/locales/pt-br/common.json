@@ -31,6 +31,7 @@
     "importedWalletName": "Carteira importada",
     "encryptedName": "Carteira criptografada",
     "migratedWalletName": "Carteira migrada",
+    "migratedAccountLabel": "Conta migrada",
     "hardwareName": "Carteira hardware {{blockchain}}"
   },
   "account": {

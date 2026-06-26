@@ -35,18 +35,18 @@
       "typeNotSupported": "提供的匯入類型不受支持"
     }
   },
-  "useBackupOrMigrate": {
-    "neon3BackupFileDetected": "偵測到 NEON3 備份檔案",
-    "neon2MigrateFileDetected": "偵測到 NEON2 遷移檔案",
+  "useImportFromFile": {
+    "neonBackupFileDetected": "偵測到 Neon 備份檔案",
+    "neon2MigrateFileDetected": "偵測到 Neon 2 遷移檔案",
     "filterName": "Neon 備份或遷移檔案",
     "error": "檔案無法識別",
-    "defaultAccountLabel": "已遷移帳戶",
-    "defaultContactName": "已遷移聯絡人"
+    "migratedContactName": "已遷移聯絡人",
+    "nep6BackupFileDetected": "偵測到 NEP-6 備份檔案"
   },
-  "useNeonImportBackup": {
+  "useNeonBackupFile": {
     "errors": {
       "wrongPassword": "密碼錯誤。請再試一次。",
-      "wrongVersion": "備份檔案版本不支援。請嘗試在最新 NEON 版本中產生新的備份。",
+      "wrongVersion": "備份檔案版本不支援。請嘗試在最新 Neon 版本中產生新的備份。",
       "importData": "匯入資料時發生錯誤（可能已部分匯入）。"
     }
   },

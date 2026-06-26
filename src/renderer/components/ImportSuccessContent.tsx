@@ -8,7 +8,7 @@ type TProps = {
   accounts: TAccount[]
 }
 
-export const MigrateFromNeon2SuccessContent = ({ accounts }: TProps) => (
+export const ImportSuccessContent = ({ accounts }: TProps) => (
   <ul className="mt-7 flex min-h-0 w-full flex-col gap-1.5 overflow-auto">
     {accounts.map(account => (
       <li key={account.id} className="flex items-center gap-x-2 rounded bg-gray-300/15 px-5 py-2">

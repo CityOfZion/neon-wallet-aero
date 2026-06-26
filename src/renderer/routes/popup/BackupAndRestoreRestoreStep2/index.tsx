@@ -9,7 +9,7 @@ import { Input } from '@renderer/components/Input'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
-import { useNeonImportBackup } from '@renderer/hooks/useNeonBackup'
+import { useNeonBackupFile } from '@renderer/hooks/useNeonBackupFile'
 
 import TbDeviceFloppy from '@renderer/assets/images/tb-device-floppy.svg?react'
 
@@ -26,7 +26,7 @@ type TLocationState = {
 export const BackupAndRestoreRestoreStep2Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const { state } = useLocation() as Location<TLocationState>
-  const { handleImportBackupData, handleTryDecryptData, handleGenerateData } = useNeonImportBackup()
+  const { handleImportBackupData, handleTryDecryptData, handleGenerateData } = useNeonBackupFile()
   const navigate = useNavigate()
 
   const { actionData, actionState, handleAct, setDataFromEventWrapper, setError, reset } = useActions<TFormData>({

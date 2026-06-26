@@ -1,5 +1,4 @@
-import { Fragment } from 'react'
-import { useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
@@ -14,15 +13,15 @@ import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelp
 import { AppError } from '@renderer/helpers/ErrorHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import type { TUseBackupOrMigrateActionsData } from '@renderer/hooks/useBackupOrMigrate'
-import { useBackupOrMigrate } from '@renderer/hooks/useBackupOrMigrate'
 import { useImportActions } from '@renderer/hooks/useImportActions'
+import type { TUseImportFromFileActionsData } from '@renderer/hooks/useImportFromFile'
+import { useImportFromFile } from '@renderer/hooks/useImportFromFile'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useNeonImportBackup } from '@renderer/hooks/useNeonBackup'
+import { useNeonBackupFile } from '@renderer/hooks/useNeonBackupFile'
 import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 
 import type { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@shared/types/blockchain'
-import type { TUseNeonMigrateGeneratedData } from '@shared/types/hooks'
+import type { TUseNeonMigrateGeneratedData, TUseNep6GeneratedData } from '@shared/types/hooks'
 
 type TLocationState = {
   password: string
@@ -37,7 +36,7 @@ export const OnboardingImportWalletStep3Page = () => {
   const navigate = useNavigate()
   const { state } = useLocation() as Location<TLocationState>
   const { lastIndexesByWalletRef } = useLastIndexesByWallet()
-  const { handleTryDecryptData, handleGenerateData } = useNeonImportBackup()
+  const { handleTryDecryptData, handleGenerateData } = useNeonBackupFile()
 
   const { modalNavigate, modalErase } = useModalNavigate()
 
@@ -126,25 +125,39 @@ export const OnboardingImportWalletStep3Page = () => {
     })
   }
 
-  const handleFileSubmit = async (data: TUseBackupOrMigrateActionsData) => {
+  const handleFileSubmit = async (data: TUseImportFromFileActionsData) => {
     if (!data.content || !data.path || !data.type) return
 
     if (data.type === 'migrate') {
-      modalNavigate('migrate-from-neon2-3', {
-        state: {
-          content: data.content,
-          onDecrypt: ({ accountsToCreate, contactsToCreate, walletToCreate }: TUseNeonMigrateGeneratedData) => {
-            modalErase('bottom')
-            navigate('/onboarding-import-wallet/4', {
-              state: {
-                wallets: [{ ...walletToCreate, accounts: accountsToCreate }],
-                password: state.password,
-                contacts: contactsToCreate,
-              },
-            })
+      const onDecrypt = (generatedData: TUseNeonMigrateGeneratedData) => {
+        modalErase('bottom')
+        navigate('/onboarding-import-wallet/4', {
+          state: {
+            wallets: [{ ...generatedData.walletToCreate, accounts: generatedData.accountsToCreate }],
+            password: state.password,
+            contacts: generatedData.contactsToCreate,
           },
-        },
-      })
+        })
+      }
+
+      modalNavigate('migrate-from-neon2-3', { state: { content: data.content, onDecrypt } })
+
+      return
+    }
+
+    if (data.type === 'nep6') {
+      const onDecrypt = (generatedData: TUseNep6GeneratedData) => {
+        modalErase('bottom')
+        navigate('/onboarding-import-wallet/4', {
+          state: {
+            wallets: [{ ...generatedData.walletToCreate, accounts: generatedData.accountsToCreate }],
+            password: state.password,
+          },
+        })
+      }
+
+      modalNavigate('nep6-backup-import-step-3', { state: { content: data.content, onDecrypt } })
+
       return
     }
 
@@ -196,7 +209,7 @@ export const OnboardingImportWalletStep3Page = () => {
     encrypted: submitEncryptedKey,
   })
 
-  const fileActions = useBackupOrMigrate()
+  const fileActions = useImportFromFile()
 
   const isImport = !state?.isMigration && importActions.actionData.text
   const handleSubmit = isImport
