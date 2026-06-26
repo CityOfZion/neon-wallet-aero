@@ -80,7 +80,12 @@
     "description": "Digite um endereço, chave ou palavras mnemônicas:",
     "inputPlaceholder": "Digite um endereço, chave ou mnemônico…",
     "buttonContinueLabel": "Continuar",
-    "shouldConfirmActionKeyCheckboxLabel": "Solicitar confirmação de ações"
+    "shouldConfirmActionKeyCheckboxLabel": "Solicitar confirmação de ações",
+    "encryptedKey": {
+      "title": "Importar chave criptografada",
+      "blockchainSelectionDescription": "Selecione o blockchain desejado para sua chave criptografada:",
+      "decryptKeyDescription": "Digite a senha para sua chave criptografada:"
+    }
   },
   "forgottenPassword": {
     "title": "Esqueci minha senha",

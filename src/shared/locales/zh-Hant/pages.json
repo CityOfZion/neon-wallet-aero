@@ -80,7 +80,12 @@
     "description": "輸入地址、金鑰或助記詞：",
     "inputPlaceholder": "輸入地址、金鑰或助記詞…",
     "buttonContinueLabel": "繼續",
-    "shouldConfirmActionKeyCheckboxLabel": "要求確認操作"
+    "shouldConfirmActionKeyCheckboxLabel": "要求確認操作",
+    "encryptedKey": {
+      "title": "匯入加密金鑰",
+      "blockchainSelectionDescription": "選擇您加密金鑰所用的區塊鏈：",
+      "decryptKeyDescription": "輸入您加密金鑰的密碼："
+    }
   },
   "forgottenPassword": {
     "title": "忘記密碼",

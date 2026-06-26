@@ -78,9 +78,14 @@
   },
   "loginKey": {
     "description": "Geben Sie eine Adresse, einen Schlüssel oder Mnemonic-Wörter ein:",
-    "inputPlaceholder": "Geben Sie eine Adresse, einen Schlüssel oder Mnemonic ein…",
+    "inputPlaceholder": "Adresse, Schlüssel oder Mnemonic eingeben…",
     "buttonContinueLabel": "Weiter",
-    "shouldConfirmActionKeyCheckboxLabel": "Aktionen bestätigen"
+    "shouldConfirmActionKeyCheckboxLabel": "Aktionen bestätigen",
+    "encryptedKey": {
+      "title": "Verschlüsselten Schlüssel importieren",
+      "blockchainSelectionDescription": "Wählen Sie die gewünschte Blockchain für Ihren verschlüsselten Schlüssel:",
+      "decryptKeyDescription": "Geben Sie das Passwort für Ihren verschlüsselten Schlüssel ein:"
+    }
   },
   "forgottenPassword": {
     "title": "Passwort vergessen",
