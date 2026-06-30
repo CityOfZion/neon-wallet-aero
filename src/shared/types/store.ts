@@ -75,6 +75,11 @@ type TNotificationNavigateAction = {
         address: string
         blockchain: TBlockchainServiceKey
       }
+    | {
+        to: 'neo-legacy-migration'
+        address: string
+        blockchain: TBlockchainServiceKey
+      }
 }
 
 export type TNotificationAction = TNotificationNavigateAction
