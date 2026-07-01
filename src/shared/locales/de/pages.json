@@ -17,6 +17,10 @@
         "notificationTitle": "\"{{ value }}\" ist ein betrügerisches Token!",
         "notificationDescription": "Wir haben \"{{ value }}\" identifiziert, das von der Community als betrügerisches Token markiert wurde. Wir empfehlen, es zu verbergen und jegliche weitere Interaktion zu vermeiden."
       },
+      "useNeoLegacyMigrationNotificationProcess": {
+        "description": "Die Neo Legacy Migration wird am 8. Juli 2026 um 08:00 UTC eingestellt. Migrieren Sie Ihr NEO und GAS jetzt zu Neo 3, um den Zugang zu Ihren Geldern nicht zu verlieren. Tippen Sie hier, um mehr zu erfahren.",
+        "title": "Die Neo Legacy Migration wird eingestellt!"
+      },
       "useVotingNeo3NotificationProcess": {
         "notificationTitle": "Sie verpassen kostenloses GAS!",
         "notificationDescription": "Tippen Sie hier und geben Sie heute Ihre Stimme ab."
