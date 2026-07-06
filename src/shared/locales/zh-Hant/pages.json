@@ -232,15 +232,15 @@
     },
     "settingsRestoreWallet": {
       "title": "恢復",
-      "description": "如果您失去對錢包的存取權限，可以從本機備份檔案匯入錢包。只需找到您的本機備份檔案，輸入建立備份檔案時使用的密碼，您的存取權限將被恢復。",
+      "description": "無論您是遺失了錢包存取權，還是只想從備份開啟錢包，都可以從本地備份檔案匯入——包括 Neon 和 NEP-6 備份。只需找到該檔案並輸入建立備份時設定的密碼即可。",
       "saveBackupLabel": "尋找您的備份檔案",
       "browse": "瀏覽…",
       "backup": "匯入備份",
       "compatibleFile": "已識別相容檔案！",
-      "nameExtension": "NEON 備份檔案"
+      "nameExtension": "Neon 備份檔案"
     },
     "confirmPasswordRecover": {
-      "title": "匯入 NEON 備份",
+      "title": "匯入 Neon 備份",
       "description": "為了匯入您的備份檔案，請提供您用於建立備份的密碼：",
       "subtitle": "備份密碼",
       "passwordInputLabel": "提供您的備份密碼",
@@ -251,27 +251,27 @@
       "returnToSettings": "返回設定"
     },
     "migrateFromNeon2": {
-      "title": "從 NEON 2.0 遷移",
-      "subtitleWhy": "為什麼要遷移到 NEON 3？",
-      "descriptionWhy": "遷移您的 NEON 2 錢包將讓您存取更廣泛的支援資產，以及更時尚、改進的使用者體驗，讓您的資產管理變得輕而易舉！",
+      "title": "從 Neon 2 遷移",
+      "subtitleWhy": "為什麼要遷移到 Neon？",
+      "descriptionWhy": "遷移您的 Neon 2 錢包將讓您存取更廣泛的支援資產，以及更時尚、改進的使用者體驗，讓您的資產管理變得輕而易舉！",
       "subtitleHow": "如何從 Neon 2 遷移？",
-      "importButtonLabel": "匯入您的 NEON 2 錢包",
+      "importButtonLabel": "匯入您的 Neon 2 錢包",
       "migrateSteps": {
         "inNeon2": {
-          "label": "在 NEON 2 中",
-          "step1": "匯出您的 NEON 2 錢包"
+          "label": "在 Neon 2 中",
+          "step1": "匯出您的 Neon 2 錢包"
         },
-        "inNeon3": {
-          "label": "在 NEON 3 中",
-          "step2": "匯入您的 NEON 2 帳戶",
+        "inNeon": {
+          "label": "在 Neon 中",
+          "step2": "匯入您的 Neon 2 帳戶",
           "step3": "選擇要遷移的帳戶",
           "step4": "輸入您的帳戶密碼"
         }
       },
       "step2": {
-        "title": "匯入您的 NEON 2 帳戶",
-        "description": "為了完成 NEON 2 遷移過程，請找到您的 NEON 2 錢包遷移檔案：",
-        "inputLabel": "找到您的 NEON 2 遷移檔案",
+        "title": "匯入您的 Neon 2 帳戶",
+        "description": "為了完成 Neon 2 遷移過程，請找到您的 Neon 2 錢包遷移檔案：",
+        "inputLabel": "找到您的 Neon 2 遷移檔案",
         "buttonBrowseLabel": "瀏覽…",
         "buttonImportLabel": "匯入",
         "buttonPlaceholder": "瀏覽檔案…",
@@ -316,7 +316,7 @@
       "error": "儲存變更時發生問題"
     },
     "step3": {
-      "subtitle": "您的 NEON 3 密碼已成功更改！",
+      "subtitle": "您的 Neon 密碼已成功更改！",
       "buttonLabel": "返回設定"
     }
   },
@@ -442,7 +442,7 @@
       "title": "工作原理？",
       "description1": "輕鬆在網路之間橋接您的加密資產，無需離開您的錢包。",
       "description2": "區塊鏈彼此獨立，無法相互交互 - 這就是跨鏈橋的作用所在。其原理類似於在不同國家旅行時兌換貨幣，跨鏈橋允許您在各種區塊鏈之間轉移資產。",
-      "description3": "在NEON中直接即時橋接代幣既方便又能節省時間和費用。",
+      "description3": "在Neon中直接即時橋接代幣既方便又能節省時間和費用。",
       "alert": "COZ不是此橋接過程的維護者 - Neo全球開發是維護者。"
     },
     "form": {
@@ -576,7 +576,6 @@
       "title": "這裡什麼都沒有",
       "description": "還沒有通知"
     },
-
     "item": {
       "relatedAddressLabel": "地址：{{ address }}",
       "relatedAccountLabel": "賬戶：{{ name }}",

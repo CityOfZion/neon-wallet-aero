@@ -219,14 +219,15 @@
     "error": "导出密钥时出现问题，请稍后再试。"
   },
   "migrateWallets": {
-    "title": "从 NEON 2 迁移",
+    "title": "从 Neon 2 迁移",
     "instructionTitle": "说明",
     "step3": {
       "title": "选择要迁移的账户",
       "selectTitle": "选择您要导入的账户",
       "selectLabel": "账户",
       "selectAllButtonLabel": "全选",
-      "selectedQuantity": "已选择 {{selected}} / {{total}} 个账户",
+      "selectedQuantity_one": "已选择 {{selected}} / {{count}} 个账户",
+      "selectedQuantity_other": "已选择 {{selected}} / {{count}} 个账户",
       "alreadyImportedLabel": "已导入",
       "buttonLabel": "选择所选账户"
     },
@@ -240,7 +241,36 @@
       "migrateError": "迁移时出错。请重试。",
       "success": {
         "title": "迁移成功",
-        "subtitle": "您的 NEON 2 账户已成功迁移！",
+        "subtitle": "您的 Neon 2 账户已成功迁移！",
+        "returnToSettingsButtonLabel": "返回设置"
+      },
+      "useSamePasswordLabel": "对所有账户使用相同的密码"
+    }
+  },
+  "nep6BackupImport": {
+    "title": "导入钱包",
+    "step3": {
+      "title": "选择要导入的账户",
+      "selectTitle": "选择您要导入的账户",
+      "selectLabel": "账户",
+      "selectAllButtonLabel": "全选",
+      "selectedQuantity_one": "已选择 {{selected}} / {{count}} 个账户",
+      "selectedQuantity_other": "已选择 {{selected}} / {{count}} 个账户",
+      "alreadyImportedLabel": "已导入",
+      "buttonLabel": "选择所选账户"
+    },
+    "step4": {
+      "title": "输入您的账户密码",
+      "description": "为您要导入的每个账户输入密码",
+      "inputLabel": "密码",
+      "inputPlaceholder": "输入账户密码…",
+      "buttonLabel": "导入账户",
+      "passwordError": "密码不正确！",
+      "importError": "导入时出错。请重试。",
+      "useSamePasswordLabel": "对所有账户使用相同的密码",
+      "success": {
+        "title": "导入成功",
+        "subtitle": "您的账户已导入！",
         "returnToSettingsButtonLabel": "返回设置"
       }
     }
@@ -349,7 +379,7 @@
   "swapInfo": {
     "title": "它是如何工作的？",
     "description1": "跨链交换代币，无需使用交易所。",
-    "description2": "在 NEON 中直接且即时交换代币既方便又能节省时间和降低手续费。"
+    "description2": "在 Neon 中直接且即时交换代币既方便又能节省时间和降低手续费。"
   },
   "swapConfirmation": {
     "heading": "交换确认",
@@ -416,7 +446,7 @@
     "title": "工作原理？",
     "description1": "轻松在网络之间桥接您的加密资产，无需离开您的钱包。",
     "description2": "区块链彼此独立，无法相互交互 - 这就是跨链桥的作用所在。其原理类似于在不同国家旅行时兑换货币，跨链桥允许您在各种区块链之间转移资产。",
-    "description3": "在NEON中直接即时桥接代币既方便又能节省时间和费用。",
+    "description3": "在Neon中直接即时桥接代币既方便又能节省时间和费用。",
     "alert": "COZ不是此桥接过程的维护者 - Neo全球开发是维护者。"
   },
   "neo3NeoXBridgeConfirmation": {
@@ -750,7 +780,7 @@
     }
   },
   "survey": {
-    "description": "我们很想听听您迄今为止对 NEON 的体验。您的反馈帮助我们改进，如果您喜欢这款应用，在 Chrome 网上应用店留下一条简短的评价将大有帮助！",
+    "description": "我们很想听听您迄今为止对 Neon 的体验。您的反馈帮助我们改进，如果您喜欢这款应用，在 Chrome 网上应用店留下一条简短的评价将大有帮助！",
     "descriptionFeedbackSubmitted": "非常感谢您的反馈！",
     "detailsInputLabel": "我们可以做得更好？",
     "detailsInputPlaceholder": "在此添加更多详情…",

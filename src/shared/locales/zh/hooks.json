@@ -35,18 +35,18 @@
       "typeNotSupported": "提供的导入类型不受支持"
     }
   },
-  "useBackupOrMigrate": {
-    "neon3BackupFileDetected": "检测到 NEON3 备份文件",
-    "neon2MigrateFileDetected": "检测到 NEON2 迁移文件",
+  "useImportFromFile": {
+    "neonBackupFileDetected": "检测到 Neon 备份文件",
+    "neon2MigrateFileDetected": "检测到 Neon 2 迁移文件",
     "filterName": "Neon 备份或迁移文件",
     "error": "无法识别的文件",
-    "defaultAccountLabel": "已迁移账户",
-    "defaultContactName": "已迁移联系人"
+    "migratedContactName": "已迁移联系人",
+    "nep6BackupFileDetected": "检测到 NEP-6 备份文件"
   },
-  "useNeonImportBackup": {
+  "useNeonBackupFile": {
     "errors": {
       "wrongPassword": "密码错误。请重试。",
-      "wrongVersion": "备份文件版本不受支持。请尝试在最新的 NEON 版本中生成新的备份。",
+      "wrongVersion": "备份文件版本不受支持。请尝试在最新的 Neon 版本中生成新的备份。",
       "importData": "导入数据时出错（可能已部分导入）。"
     }
   },

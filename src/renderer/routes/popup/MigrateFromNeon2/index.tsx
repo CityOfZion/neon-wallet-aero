@@ -60,26 +60,26 @@ export const MigrateFromNeon2Page = () => {
             aria-hidden
           />
 
-          <span className="text-blue mt-5 mb-1 block text-sm font-light">{t('migrateSteps.inNeon3.label')}</span>
+          <span className="text-blue mt-5 mb-1 block text-sm font-light">{t('migrateSteps.inNeon.label')}</span>
 
           <Step
             icon={<MdLooksTwo aria-hidden />}
             colorSchema="blue"
-            label={t('migrateSteps.inNeon3.step2')}
+            label={t('migrateSteps.inNeon.step2')}
             className="rounded-b-none"
             aria-hidden
           />
           <Step
             icon={<MdLooks3 aria-hidden />}
             colorSchema="blue"
-            label={t('migrateSteps.inNeon3.step3')}
+            label={t('migrateSteps.inNeon.step3')}
             className="rounded-none"
             aria-hidden
           />
           <Step
             icon={<MdLooks4 aria-hidden />}
             colorSchema="blue"
-            label={t('migrateSteps.inNeon3.step4')}
+            label={t('migrateSteps.inNeon.step4')}
             className="rounded-t-none"
             aria-hidden
           />

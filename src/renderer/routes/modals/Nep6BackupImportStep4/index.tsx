@@ -15,7 +15,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { useNeonMigrateFile } from '@renderer/hooks/useNeonMigrateFile'
+import { useNep6BackupFile } from '@renderer/hooks/useNep6BackupFile'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -26,13 +26,13 @@ type TActionsData = {
   decryptedAccounts: TUseImportNep6DecryptedAccount[]
 }
 
-export const MigrateFromNeon2Step4Modal = () => {
-  const { t } = useTranslation('modals', { keyPrefix: 'migrateWallets' })
-  const { accounts, content, onDecrypt } = useModalState<TModalState<'migrate-from-neon2-4'>>()
+export const Nep6BackupImportStep4Modal = () => {
+  const { t } = useTranslation('modals', { keyPrefix: 'nep6BackupImport' })
+  const { accounts, onDecrypt } = useModalState<TModalState<'nep6-backup-import-step-4'>>()
   const { actionData, actionState, setData, handleAct } = useActions<TActionsData>({
     decryptedAccounts: [],
   })
-  const { handleTryDecryptAccount, handleGenerateData, handleImportBackupData } = useNeonMigrateFile()
+  const { handleTryDecryptAccount, handleGenerateData, handleImportBackupData } = useNep6BackupFile()
   const { modalNavigate, modalErase } = useModalNavigate()
   const navigate = useNavigate()
 
@@ -74,8 +74,8 @@ export const MigrateFromNeon2Step4Modal = () => {
     setData(previousData => ({ ...previousData, decryptedAccounts: [] }))
   }
 
-  const handleMigrate = async (data: TActionsData) => {
-    const generatedData = handleGenerateData(content, data.decryptedAccounts)
+  const handleImport = async (data: TActionsData) => {
+    const generatedData = handleGenerateData(data.decryptedAccounts)
 
     const handleEraseModal = () => {
       modalErase('bottom')
@@ -108,7 +108,7 @@ export const MigrateFromNeon2Step4Modal = () => {
         replace: true,
       })
     } catch {
-      ToastHelper.error({ message: t('step4.migrateError') })
+      ToastHelper.error({ message: t('step4.importError') })
       modalErase('bottom')
     }
   }
@@ -154,7 +154,7 @@ export const MigrateFromNeon2Step4Modal = () => {
       <Button
         label={t('step4.buttonLabel')}
         variant="card"
-        onClick={handleAct(handleMigrate)}
+        onClick={handleAct(handleImport)}
         loading={actionState.isActing}
         disabled={isDisabled}
       />
@@ -162,4 +162,4 @@ export const MigrateFromNeon2Step4Modal = () => {
   )
 }
 
-export default MigrateFromNeon2Step4Modal
+export default Nep6BackupImportStep4Modal

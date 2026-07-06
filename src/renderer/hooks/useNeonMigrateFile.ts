@@ -1,15 +1,18 @@
-import { hasEncryption } from '@cityofzion/blockchain-service'
+import { hasNameService } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
+import { Nep6Helper } from '@renderer/helpers/Nep6Helper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import { neonMigrateSchemaWithTransform } from '@shared/schemas/neon-migrate'
+import { neonMigrateSchema } from '@shared/schemas/neon-migrate'
 import type { TAccountsToImport, TWalletToCreate } from '@shared/types/blockchain'
 import type {
-  TUseNeonMigrateAccountsSchema,
+  TUseImportNep6Account,
+  TUseImportNep6DecryptedAccount,
+  TUseNeonMigrateContacts,
   TUseNeonMigrateData,
-  TUseNeonMigrateDecryptedAccountSchema,
   TUseNeonMigrateGeneratedData,
   TUseNeonMigrateParsedContent,
 } from '@shared/types/hooks'
@@ -18,7 +21,37 @@ import type { TContact, TContactAddress } from '@shared/types/store'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useContactsSelector } from './useContactSelector'
 
-export const useNeonImportMigrate = () => {
+const { t } = I18nextHelper.get()
+
+const neonMigrateSchemaWithTransform = neonMigrateSchema.transform(data => {
+  const transformedAccounts = Nep6Helper.transformAccounts(data.accounts)
+
+  const transformedContacts = data.contacts.map<TUseNeonMigrateContacts>(contact => {
+    const transformedAddresses: TUseNeonMigrateContacts['addresses'] = []
+    const blockchainServices = Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName)
+
+    contact.addresses?.forEach(address => {
+      for (const service of blockchainServices) {
+        if (
+          (hasNameService(service) && service.validateNameServiceDomainFormat(address)) ||
+          service.validateAddress(address)
+        ) {
+          transformedAddresses.push({ address, blockchain: service.name })
+          return
+        }
+      }
+    })
+
+    return { name: contact.name || t('hooks:useImportFromFile.migratedContactName'), addresses: transformedAddresses }
+  })
+
+  return {
+    accounts: transformedAccounts,
+    contacts: transformedContacts,
+  }
+})
+
+export const useNeonMigrateFile = () => {
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'wallet' })
   const { contactsRef } = useContactsSelector()
   const { saveContacts, createWallet, importAccounts } = useBlockchainActions()
@@ -36,31 +69,18 @@ export const useNeonImportMigrate = () => {
     return undefined
   }
 
-  const handleTryDecryptAccount = async (
-    accountToMigrate: TUseNeonMigrateAccountsSchema,
-    password: string
-  ): Promise<TUseNeonMigrateDecryptedAccountSchema | undefined> => {
-    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[accountToMigrate.blockchain]
-
-    if (!hasEncryption(service)) return undefined
-
-    const decryptedAccount = await service.decrypt(accountToMigrate.key, password)
-
-    return {
-      ...accountToMigrate,
-      decryptedKey: decryptedAccount.key,
-    }
-  }
+  const handleTryDecryptAccount = (account: TUseImportNep6Account, password: string) =>
+    Nep6Helper.decryptAccount(account, password)
 
   const handleGenerateData = (
     content: TUseNeonMigrateParsedContent,
-    decryptedAccounts: TUseNeonMigrateDecryptedAccountSchema[]
+    decryptedAccounts: TUseImportNep6DecryptedAccount[]
   ): TUseNeonMigrateGeneratedData => {
     const contactsToCreate: TContact[] = []
     const walletToCreate: TWalletToCreate = { name: tCommon('migratedWalletName'), backupStatus: 'successful' }
     const accountsToCreate: TAccountsToImport = []
 
-    decryptedAccounts.map(({ address, blockchain, decryptedKey, label }) => {
+    decryptedAccounts.forEach(({ address, blockchain, decryptedKey, label }) => {
       if (!blockchain) return
 
       accountsToCreate.push({ address, blockchain, key: decryptedKey, type: 'standard', name: label })

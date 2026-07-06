@@ -219,14 +219,15 @@
     "error": "Beim Exportieren des Schlüssels ist ein Fehler aufgetreten, bitte versuchen Sie es später erneut."
   },
   "migrateWallets": {
-    "title": "Von NEON 2 migrieren",
+    "title": "Von Neon 2 migrieren",
     "instructionTitle": "Anweisungen",
     "step3": {
       "title": "Konten zur Migration auswählen",
       "selectTitle": "Wählen Sie aus, welche Konten Sie importieren möchten",
       "selectLabel": "Konten",
       "selectAllButtonLabel": "Alle auswählen",
-      "selectedQuantity": "{{selected}} von {{total}} Konten ausgewählt",
+      "selectedQuantity_one": "{{selected}} von {{count}} Konto ausgewählt",
+      "selectedQuantity_other": "{{selected}} von {{count}} Konten ausgewählt",
       "alreadyImportedLabel": "Importiert",
       "buttonLabel": "Ausgewählte Konten wählen"
     },
@@ -240,7 +241,36 @@
       "migrateError": "Beim Migrieren ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
       "success": {
         "title": "Migration erfolgreich!",
-        "subtitle": "Ihre NEON 2 Konten wurden erfolgreich migriert!",
+        "subtitle": "Ihre Neon 2 Konten wurden erfolgreich migriert!",
+        "returnToSettingsButtonLabel": "Zurück zu Einstellungen"
+      },
+      "useSamePasswordLabel": "Dasselbe Passwort für alle Konten verwenden"
+    }
+  },
+  "nep6BackupImport": {
+    "title": "Wallet importieren",
+    "step3": {
+      "title": "Konten zum Importieren auswählen",
+      "selectTitle": "Wählen Sie aus, welche Konten Sie importieren möchten",
+      "selectLabel": "Konten",
+      "selectAllButtonLabel": "Alle auswählen",
+      "selectedQuantity_one": "{{selected}} von {{count}} Konto ausgewählt",
+      "selectedQuantity_other": "{{selected}} von {{count}} Konten ausgewählt",
+      "alreadyImportedLabel": "Importiert",
+      "buttonLabel": "Ausgewählte Konten wählen"
+    },
+    "step4": {
+      "title": "Geben Sie Ihre Kontopasswörter ein",
+      "description": "Geben Sie Ihre Passwörter für jedes Konto ein, das Sie importieren möchten",
+      "inputLabel": "Passwort",
+      "inputPlaceholder": "Kontopasswort eingeben…",
+      "buttonLabel": "Konten importieren",
+      "passwordError": "Passwort nicht erkannt!",
+      "importError": "Beim Importieren ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+      "useSamePasswordLabel": "Dasselbe Passwort für alle Konten verwenden",
+      "success": {
+        "title": "Import erfolgreich!",
+        "subtitle": "Ihre Konten wurden importiert!",
         "returnToSettingsButtonLabel": "Zurück zu Einstellungen"
       }
     }
@@ -349,7 +379,7 @@
   "swapInfo": {
     "title": "Wie funktioniert es?",
     "description1": "Tauschen Sie Token gegen andere Token, über Chains hinweg, ohne eine Börse zu verwenden.",
-    "description2": "Das direkte und sofortige Tauschen von Token in NEON ist bequem und ermöglicht es Ihnen, Zeit zu sparen und niedrigere Gebühren zu zahlen."
+    "description2": "Das direkte und sofortige Tauschen von Token in Neon ist bequem und ermöglicht es Ihnen, Zeit zu sparen und niedrigere Gebühren zu zahlen."
   },
   "swapConfirmation": {
     "heading": "Swap-Bestätigung",
@@ -416,7 +446,7 @@
     "title": "Wie funktioniert es?",
     "description1": "Übertragen Sie Ihre Krypto-Assets einfach zwischen Netzwerken, ohne Ihre Wallet zu verlassen.",
     "description2": "Blockchains sind voneinander unabhängig und können nicht miteinander interagieren - hier kommen Bridges ins Spiel. Es ist im Prinzip ähnlich wie Geld beim Reisen in verschiedene Länder zu wechseln, eine Bridge ermöglicht es Ihnen, Assets über verschiedene Blockchains zu übertragen.",
-    "description3": "Das direkte und sofortige Bridging von Token in NEON ist bequem und ermöglicht es Ihnen, Zeit zu sparen und niedrigere Gebühren zu zahlen.",
+    "description3": "Das direkte und sofortige Bridging von Token in Neon ist bequem und ermöglicht es Ihnen, Zeit zu sparen und niedrigere Gebühren zu zahlen.",
     "alert": "COZ sind nicht die Betreuer dieses Bridging-Prozesses - Neo Global Development ist der Betreuer."
   },
   "neo3NeoXBridgeConfirmation": {
@@ -750,7 +780,7 @@
     }
   },
   "survey": {
-    "description": "Wir würden gerne hören, wie Ihre bisherige Erfahrung mit NEON war. Ihr Feedback hilft uns, uns zu verbessern, und wenn Ihnen die App gefällt, hilft eine kurze Bewertung im Chrome Web Store sehr!",
+    "description": "Wir würden gerne hören, wie Ihre bisherige Erfahrung mit Neon war. Ihr Feedback hilft uns, uns zu verbessern, und wenn Ihnen die App gefällt, hilft eine kurze Bewertung im Chrome Web Store sehr!",
     "descriptionFeedbackSubmitted": "Ihr Feedback wird sehr geschätzt!",
     "detailsInputLabel": "Was können wir besser machen?",
     "detailsInputPlaceholder": "Fügen Sie hier weitere Details hinzu…",

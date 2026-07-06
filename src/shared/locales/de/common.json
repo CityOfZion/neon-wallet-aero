@@ -31,6 +31,7 @@
     "importedWalletName": "Importierte Wallet",
     "encryptedName": "Verschlüsselte Wallet",
     "migratedWalletName": "Migrierte Wallet",
+    "migratedAccountLabel": "Migriertes Konto",
     "hardwareName": "{{blockchain}} Hardware-Wallet"
   },
   "account": {

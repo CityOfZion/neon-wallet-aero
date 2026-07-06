@@ -8,10 +8,10 @@ import { Input } from '@renderer/components/Input'
 
 import { AppError } from '@renderer/helpers/ErrorHelper'
 
-import type { TUseBackupOrMigrateActionsData } from '@renderer/hooks/useBackupOrMigrate'
-import { useBackupOrMigrate } from '@renderer/hooks/useBackupOrMigrate'
+import type { TUseImportFromFileActionsData } from '@renderer/hooks/useImportFromFile'
+import { useImportFromFile } from '@renderer/hooks/useImportFromFile'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useNeonImportBackup } from '@renderer/hooks/useNeonBackup'
+import { useNeonBackupFile } from '@renderer/hooks/useNeonBackupFile'
 
 import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
 
@@ -22,10 +22,10 @@ export const MigrateFromNeon2Step2Page = () => {
   const { t: tConfirmPassword } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const { modalNavigate } = useModalNavigate()
   const navigate = useNavigate()
-  const { actionData, actionState, handleBrowse, handleAct } = useBackupOrMigrate()
-  const { handleTryDecryptData, handleGenerateData, handleImportBackupData } = useNeonImportBackup()
+  const { actionData, actionState, handleBrowse, handleAct } = useImportFromFile()
+  const { handleTryDecryptData, handleGenerateData, handleImportBackupData } = useNeonBackupFile()
 
-  const handleSubmit = async (data: TUseBackupOrMigrateActionsData) => {
+  const handleSubmit = async (data: TUseImportFromFileActionsData) => {
     if (!data.content || !data.path || !data.type) return
 
     const handleOnEraseModal = () => {
@@ -34,6 +34,11 @@ export const MigrateFromNeon2Step2Page = () => {
 
     if (data.type === 'migrate') {
       modalNavigate('migrate-from-neon2-3', { state: { content: data.content } })
+      return
+    }
+
+    if (data.type === 'nep6') {
+      modalNavigate('nep6-backup-import-step-3', { state: { content: data.content } })
       return
     }
 

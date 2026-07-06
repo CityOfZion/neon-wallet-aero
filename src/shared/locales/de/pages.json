@@ -238,15 +238,15 @@
     },
     "settingsRestoreWallet": {
       "title": "Wiederherstellen",
-      "description": "Falls Sie den Zugriff auf Ihre Wallet verlieren, können Sie sie aus einer lokalen Backup-Datei importieren. Suchen Sie einfach Ihre lokale Backup-Datei und geben Sie das Passwort ein, das Sie beim Erstellen der Backup-Datei verwendet haben, und Ihr Zugriff wird wiederhergestellt.",
+      "description": "Ob Sie den Zugriff auf Ihr Wallet verloren haben oder einfach eines aus einer Sicherung öffnen möchten – Sie können es aus einer lokalen Sicherungsdatei importieren, einschließlich Neon- und NEP-6-Sicherungen. Suchen Sie einfach die Datei und geben Sie das Passwort ein, das Sie beim Erstellen festgelegt haben.",
       "saveBackupLabel": "Suchen Sie Ihre Backup-Datei",
       "browse": "Durchsuchen…",
       "backup": "Backup importieren",
       "compatibleFile": "Kompatible Datei erkannt!",
-      "nameExtension": "NEON Backup-Dateien"
+      "nameExtension": "Neon-Sicherungsdateien"
     },
     "confirmPasswordRecover": {
-      "title": "NEON Backup importieren",
+      "title": "Neon Backup importieren",
       "description": "Um Ihre Backup-Datei zu importieren, geben Sie bitte das Passwort ein, das Sie zum Erstellen des Backups verwendet haben:",
       "subtitle": "Backup-Passwort",
       "passwordInputLabel": "Geben Sie Ihr Backup-Passwort ein",
@@ -257,27 +257,27 @@
       "returnToSettings": "Zurück zu Einstellungen"
     },
     "migrateFromNeon2": {
-      "title": "Von NEON 2.0 migrieren",
-      "subtitleWhy": "Warum zu NEON 3 migrieren?",
-      "descriptionWhy": "Die Migration Ihrer NEON 2 Wallet gibt Ihnen Zugriff auf eine breitere Palette unterstützter Assets und eine schlankere, verbesserte Benutzererfahrung, die die Verwaltung Ihrer Assets zum Kinderspiel macht!",
+      "title": "Von Neon 2 migrieren",
+      "subtitleWhy": "Warum zu Neon migrieren?",
+      "descriptionWhy": "Die Migration Ihrer Neon 2 Wallet gibt Ihnen Zugriff auf eine breitere Palette unterstützter Assets und eine schlankere, verbesserte Benutzererfahrung, die die Verwaltung Ihrer Assets zum Kinderspiel macht!",
       "subtitleHow": "Wie migriere ich von Neon 2?",
-      "importButtonLabel": "Ihre NEON 2 Wallet importieren",
+      "importButtonLabel": "Ihre Neon 2 Wallet importieren",
       "migrateSteps": {
         "inNeon2": {
-          "label": "In NEON 2",
-          "step1": "Exportieren Sie Ihre NEON 2 Wallet"
+          "label": "In Neon 2",
+          "step1": "Exportieren Sie Ihre Neon 2 Wallet"
         },
-        "inNeon3": {
-          "label": "In NEON 3",
-          "step2": "Importieren Sie Ihre NEON 2 Konten",
+        "inNeon": {
+          "label": "In Neon",
+          "step2": "Importieren Sie Ihre Neon 2 Konten",
           "step3": "Wählen Sie die zu migrierenden Konten",
           "step4": "Geben Sie Ihre Kontopasswörter ein"
         }
       },
       "step2": {
-        "title": "Ihre NEON 2 Konten importieren",
-        "description": "Um den NEON 2 Migrationsprozess abzuschließen, suchen Sie bitte Ihre NEON 2 Wallet-Migrationsdatei:",
-        "inputLabel": "Suchen Sie Ihre NEON 2 Migrationsdatei",
+        "title": "Ihre Neon 2 Konten importieren",
+        "description": "Um den Neon 2 Migrationsprozess abzuschließen, suchen Sie bitte Ihre Neon 2 Wallet-Migrationsdatei:",
+        "inputLabel": "Suchen Sie Ihre Neon 2 Migrationsdatei",
         "buttonBrowseLabel": "Durchsuchen…",
         "buttonImportLabel": "Importieren",
         "buttonPlaceholder": "Dateien durchsuchen…",
@@ -322,7 +322,7 @@
       "error": "Beim Speichern der Änderungen ist ein Problem aufgetreten"
     },
     "step3": {
-      "subtitle": "Ihr NEON 3 Passwort wurde erfolgreich geändert!",
+      "subtitle": "Ihr Neon Passwort wurde erfolgreich geändert!",
       "buttonLabel": "Zurück zu Einstellungen"
     }
   },
@@ -448,7 +448,7 @@
       "title": "Wie funktioniert es?",
       "description1": "Übertragen Sie Ihre Krypto-Assets einfach zwischen Netzwerken, ohne Ihre Wallet zu verlassen.",
       "description2": "Blockchains sind voneinander unabhängig und können nicht miteinander interagieren - hier kommen Bridges ins Spiel. Es ist im Prinzip ähnlich wie Geld beim Reisen in verschiedene Länder zu wechseln, eine Bridge ermöglicht es Ihnen, Assets über verschiedene Blockchains zu übertragen.",
-      "description3": "Das direkte und sofortige Bridging von Token in NEON ist bequem und ermöglicht es Ihnen, Zeit zu sparen und niedrigere Gebühren zu zahlen.",
+      "description3": "Das direkte und sofortige Bridging von Token in Neon ist bequem und ermöglicht es Ihnen, Zeit zu sparen und niedrigere Gebühren zu zahlen.",
       "alert": "COZ sind nicht die Betreuer dieses Bridging-Prozesses - Neo Global Development ist der Betreuer."
     },
     "form": {

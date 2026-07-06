@@ -6,8 +6,8 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
-import type { TUseBackupOrMigrateActionsData } from '@renderer/hooks/useBackupOrMigrate'
-import { useBackupOrMigrate } from '@renderer/hooks/useBackupOrMigrate'
+import type { TUseImportFromFileActionsData } from '@renderer/hooks/useImportFromFile'
+import { useImportFromFile } from '@renderer/hooks/useImportFromFile'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
@@ -15,16 +15,21 @@ import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 export const BackupAndRestoreRestoreStep1Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'settings.settingsRestoreWallet' })
   const { t: tCommon } = useTranslation('common', { keyPrefix: 'general' })
-  const { actionData, actionState, handleBrowse, handleAct } = useBackupOrMigrate()
+  const { actionData, actionState, handleBrowse, handleAct } = useImportFromFile()
   const navigate = useNavigate()
   const { modalNavigate } = useModalNavigate()
   const isDisabled = !actionData.path || !!actionState.errors.path
 
-  const handleSubmit = async (data: TUseBackupOrMigrateActionsData) => {
+  const handleSubmit = async (data: TUseImportFromFileActionsData) => {
     if (!data.content || !data.path || !data.type || isDisabled) return
 
     if (data.type === 'migrate') {
       modalNavigate('migrate-from-neon2-3', { state: { content: data.content } })
+      return
+    }
+
+    if (data.type === 'nep6') {
+      modalNavigate('nep6-backup-import-step-3', { state: { content: data.content } })
       return
     }
 

@@ -31,6 +31,8 @@ const ImportAccountsSelectionModal = lazy(() => import('./modals/ImportAccountsS
 const MenuModal = lazy(() => import('./modals/Menu'))
 const MigrateFromNeon2Step3Modal = lazy(() => import('./modals/MigrateFromNeon2Step3'))
 const MigrateFromNeon2Step4Modal = lazy(() => import('./modals/MigrateFromNeon2Step4'))
+const Nep6BackupImportStep3Modal = lazy(() => import('./modals/Nep6BackupImportStep3'))
+const Nep6BackupImportStep4Modal = lazy(() => import('./modals/Nep6BackupImportStep4'))
 const NetworkUrlSelectionModal = lazy(() => import('./modals/NetworkUrlSelection'))
 const NetworkSelectionModal = lazy(() => import('./modals/NetworkSelection'))
 const SaveCustomNetworkModal = lazy(() => import('./modals/SaveCustomNetwork'))
@@ -93,6 +95,8 @@ export const modalsRouter: TRoute[] = [
   { name: 'export-key', type: 'bottom', element: ExportKeyModal },
   { name: 'migrate-from-neon2-3', type: 'bottom', element: MigrateFromNeon2Step3Modal },
   { name: 'migrate-from-neon2-4', type: 'bottom', element: MigrateFromNeon2Step4Modal },
+  { name: 'nep6-backup-import-step-3', type: 'bottom', element: Nep6BackupImportStep3Modal },
+  { name: 'nep6-backup-import-step-4', type: 'bottom', element: Nep6BackupImportStep4Modal },
   { name: 'success', type: 'bottom', element: SuccessModal },
   { name: 'error', type: 'bottom', element: ErrorModal },
   { name: 'contact-details', type: 'bottom', element: ContactDetailsModal },

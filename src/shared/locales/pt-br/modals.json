@@ -219,14 +219,15 @@
     "error": "Houve um erro ao exportar a chave, por favor, tente novamente mais tarde."
   },
   "migrateWallets": {
-    "title": "Migrar da NEON 2",
+    "title": "Migrar da Neon 2",
     "instructionTitle": "Instruções",
     "step3": {
       "title": "Escolha as contas para migrar",
       "selectTitle": "Selecione quais contas você deseja importar",
       "selectLabel": "Contas",
       "selectAllButtonLabel": "Selecionar tudo",
-      "selectedQuantity": "{{selected}} de {{total}} contas selecionadas",
+      "selectedQuantity_one": "{{selected}} de {{count}} conta selecionada",
+      "selectedQuantity_other": "{{selected}} de {{count}} contas selecionadas",
       "alreadyImportedLabel": "Importado",
       "buttonLabel": "Escolher contas selecionadas"
     },
@@ -240,7 +241,36 @@
       "migrateError": "Houve um erro ao tentar migrar. Por favor, tente novamente.",
       "success": {
         "title": "Migração bem-sucedida!",
-        "subtitle": "Suas contas NEON 2 foram migradas com sucesso!",
+        "subtitle": "Suas contas Neon 2 foram migradas com sucesso!",
+        "returnToSettingsButtonLabel": "Retornar para configurações"
+      },
+      "useSamePasswordLabel": "Usar a mesma senha para todas as contas"
+    }
+  },
+  "nep6BackupImport": {
+    "title": "Importar carteira",
+    "step3": {
+      "title": "Escolha as contas para importar",
+      "selectTitle": "Selecione quais contas você deseja importar",
+      "selectLabel": "Contas",
+      "selectAllButtonLabel": "Selecionar tudo",
+      "selectedQuantity_one": "{{selected}} de {{count}} conta selecionada",
+      "selectedQuantity_other": "{{selected}} de {{count}} contas selecionadas",
+      "alreadyImportedLabel": "Importado",
+      "buttonLabel": "Escolher contas selecionadas"
+    },
+    "step4": {
+      "title": "Digite suas senhas de conta",
+      "description": "Digite suas senhas para cada conta que deseja importar",
+      "inputLabel": "Senha",
+      "inputPlaceholder": "Digite a senha da conta…",
+      "buttonLabel": "Importar contas",
+      "passwordError": "Senha não reconhecida!",
+      "importError": "Houve um erro ao tentar importar. Por favor, tente novamente.",
+      "useSamePasswordLabel": "Usar a mesma senha para todas as contas",
+      "success": {
+        "title": "Importação bem-sucedida!",
+        "subtitle": "Suas contas foram importadas!",
         "returnToSettingsButtonLabel": "Retornar para configurações"
       }
     }
@@ -349,7 +379,7 @@
   "swapInfo": {
     "title": "Como funciona?",
     "description1": "Troque tokens por outros tokens, entre blockchains, sem usar uma exchange.",
-    "description2": "Trocar tokens diretamente e imediatamente na NEON é conveniente e permite economizar tempo e pagar taxas mais baixas."
+    "description2": "Trocar tokens diretamente e imediatamente na Neon é conveniente e permite economizar tempo e pagar taxas mais baixas."
   },
   "swapConfirmation": {
     "heading": "Confirmação de swap",
@@ -416,7 +446,7 @@
     "title": "Como funciona?",
     "description1": "Transfira facilmente seus ativos criptográficos entre redes, sem nunca sair de sua carteira.",
     "description2": "As blockchains são independentes umas das outras e não podem interagir entre si - é aí que as bridges entram. Semelhante ao câmbio durante viagens para diferentes países, uma bridge permite transferir ativos entre várias blockchains.",
-    "description3": "Fazer bridging de tokens diretamente e imediatamente na NEON é conveniente e permite economizar tempo e pagar taxas mais baixas.",
+    "description3": "Fazer bridging de tokens diretamente e imediatamente na Neon é conveniente e permite economizar tempo e pagar taxas mais baixas.",
     "alert": "COZ não são mantenedores deste processo de bridging - Neo Global Development é o mantenedor."
   },
   "neo3NeoXBridgeConfirmation": {
@@ -750,7 +780,7 @@
     }
   },
   "survey": {
-    "description": "Adoraríamos saber como tem sido sua experiência com a NEON até agora. Seu feedback nos ajuda a melhorar, e se você está gostando do aplicativo, uma rápida avaliação na Chrome Web Store faz uma grande diferença!",
+    "description": "Adoraríamos saber como tem sido sua experiência com a Neon até agora. Seu feedback nos ajuda a melhorar, e se você está gostando do aplicativo, uma rápida avaliação na Chrome Web Store faz uma grande diferença!",
     "descriptionFeedbackSubmitted": "Agradecemos pelo feedback!",
     "detailsInputLabel": "O que podemos melhorar?",
     "detailsInputPlaceholder": "Descreva em detalhes…",

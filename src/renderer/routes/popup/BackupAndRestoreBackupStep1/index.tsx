@@ -12,7 +12,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useLogin } from '@renderer/hooks/useLogin'
-import { useNeonCreateBackup } from '@renderer/hooks/useNeonBackup'
+import { useNeonCreateBackup } from '@renderer/hooks/useNeonBackupFile'
 
 import TbDeviceFloppy from '@renderer/assets/images/tb-device-floppy.svg?react'
 

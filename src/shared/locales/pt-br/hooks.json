@@ -35,18 +35,18 @@
       "typeNotSupported": "O tipo de importação fornecido não é compatível"
     }
   },
-  "useBackupOrMigrate": {
-    "neon3BackupFileDetected": "Arquivo de backup NEON3 detectado",
-    "neon2MigrateFileDetected": "Arquivo de migração NEON2 detectado",
+  "useImportFromFile": {
+    "neonBackupFileDetected": "Arquivo de backup Neon detectado",
+    "neon2MigrateFileDetected": "Arquivo de migração Neon 2 detectado",
     "filterName": "Arquivo de backup ou migração da Neon",
     "error": "Arquivo não reconhecido",
-    "defaultAccountLabel": "Conta migrada",
-    "defaultContactName": "Contato migrado"
+    "migratedContactName": "Contato migrado",
+    "nep6BackupFileDetected": "Arquivo de backup NEP-6 detectado"
   },
-  "useNeonImportBackup": {
+  "useNeonBackupFile": {
     "errors": {
       "wrongPassword": "A senha está incorreta. Por favor, tente novamente.",
-      "wrongVersion": "A versão do arquivo de backup não é suportada. Tente gerar um novo backup na versão mais recente da NEON.",
+      "wrongVersion": "A versão do arquivo de backup não é suportada. Tente gerar um novo backup na versão mais recente da Neon.",
       "importData": "Houve um erro ao importar os dados (pode ter sido importado parcialmente)."
     }
   },
