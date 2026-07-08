@@ -64,23 +64,31 @@ export const TransactionActivityListItemsUtxo = ({ transaction }: TProps) => {
 
       {hasNfts && (
         <ul className="flex w-full flex-col">
-          {nfts.map(nft => {
+          {nfts.map((nft, index) => {
             const { hash, name, explorerUri, collection } = nft
 
             return (
-              <li key={hash} className="flex h-14 max-h-14 min-h-14 w-full flex-col items-center">
+              <li key={`${hash}-${index}`} className="flex h-14 max-h-14 min-h-14 w-full flex-col items-center">
                 <div className="flex h-13.75 max-h-13.75 min-h-13.75 w-full grow items-center justify-between gap-x-2 bg-gray-700/60 px-2">
                   <TransactionActivityListItemsColumn
                     label={t('columns.tokenHashLabel')}
                     data={
-                      <TransactionActivityListTooltip data={hash}>
-                        <span className="inline-block">{StringHelper.truncateMiddle(hash, 8)}</span>
-                      </TransactionActivityListTooltip>
+                      !hash ? (
+                        tCommonGeneral('emptyColumn')
+                      ) : (
+                        <TransactionActivityListTooltip data={hash}>
+                          <span className="inline-block">{StringHelper.truncateMiddle(hash, 8)}</span>
+                        </TransactionActivityListTooltip>
+                      )
                     }
                     url={explorerUri}
                   />
 
-                  <TransactionActivityListItemsColumn label={t('columns.nameLabel')} data={name} url={explorerUri} />
+                  <TransactionActivityListItemsColumn
+                    label={t('columns.nameLabel')}
+                    data={name || tCommonGeneral('emptyColumn')}
+                    url={explorerUri}
+                  />
 
                   <TransactionActivityListItemsColumn
                     label={t('columns.collectionLabel')}
