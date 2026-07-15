@@ -2,7 +2,6 @@ import type { useNavigate } from 'react-router-dom'
 import { match } from 'ts-pattern'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
 
 import { selectAccounts } from '@renderer/hooks/useAccountSelector'
@@ -81,15 +80,6 @@ export const functionsByNotificationActionType: TFunctionsByNotificationActionTy
 
         modalActions.modalErase('side')
         popupNavigate('/wallets', { state: { wallet, account, tab: 'tokens' }, replace: true })
-      })
-      .with({ to: 'neo-legacy-migration' }, payload => {
-        const account = getAccount(payload)
-        const wallet = getWalletByAccount(account)
-
-        modalActions.modalErase('side')
-        popupNavigate('/wallets', { state: { wallet, account, tab: 'tokens' }, replace: true })
-
-        window.open(ConstantsHelper.ngdNeoLegacyMigrationPostUrl, '_blank')
       })
       .otherwise(() => {
         // No action needed for unhandled navigation types
