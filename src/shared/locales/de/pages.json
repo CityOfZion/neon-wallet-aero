@@ -363,7 +363,9 @@
       }
     },
     "sendTip": {
-      "supportLabel": "Ich möchte COZ mit einem Trinkgeld unterstützen von",
+      "customAmountLabel": "Betrag",
+      "supportLabel": "Ich möchte COZ mit einem {{percentage}} %-Trinkgeld unterstützen in Höhe von",
+      "supportCustomLabel": "Ich möchte COZ mit einem Trinkgeld unterstützen in Höhe von",
       "optionalLabel": "*Optional"
     },
     "sendSuccess": {
@@ -387,7 +389,7 @@
       "amountIsLessOrEqualZero": "Der Betrag ist kleiner oder gleich Null",
       "hardwareWalletShouldBeValid": "Um mit diesem Vorgang fortzufahren, stellen Sie bitte sicher, dass Ihre Hardware Wallet entsperrt ist",
       "noTokenToTip": "Kein Token zum Bezahlen des Trinkgelds",
-      "noAmountToTip": "Nicht genügend Betrag zum Bezahlen des Trinkgelds",
+      "noAmountToTip": "Unzureichendes Guthaben zum Bezahlen des Trinkgelds",
       "noFiatPriceToTip": "Fiat-Preis für das Trinkgeld nicht gefunden"
     }
   },

@@ -16,11 +16,29 @@ type TProps = {
   loading?: boolean
   className?: string
   inputClassName?: string
+  autoFocus?: boolean
+  placeholder?: string
+  'aria-label'?: string
   children?: ReactNode
 }
 
 export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
-  ({ onChange, value, disabled, loading, className, inputClassName, readOnly, children }, ref) => {
+  (
+    {
+      onChange,
+      value,
+      disabled,
+      loading,
+      className,
+      inputClassName,
+      readOnly,
+      autoFocus,
+      placeholder,
+      'aria-label': ariaLabel,
+      children,
+    },
+    ref
+  ) => {
     const { t } = useTranslation('components', { keyPrefix: 'greyAmountInput' })
     const isDisabled = loading || disabled
 
@@ -46,8 +64,10 @@ export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
                 onChange={event => onChange?.(event.target.value)}
                 value={value}
                 disabled={isDisabled}
-                placeholder={t('placeholder')}
+                placeholder={placeholder ?? t('placeholder')}
                 readOnly={readOnly}
+                autoFocus={autoFocus}
+                aria-label={ariaLabel}
               />
             </FieldActionsMenu>
 
