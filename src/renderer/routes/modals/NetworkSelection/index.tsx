@@ -43,23 +43,27 @@ export const NetworkSelectionModal = () => {
   const selectedNetwork = options.find(option => option.id === selectedNetworkId) || network
 
   const handleSave = async () => {
-    if (hasWalletConnect(service)) {
-      const sessions = await rendererApi.send('wallet-connect:get-sessions')
-      const filteredSessions = WalletKitHelper.filterSessions(Object.values(sessions), {
-        chains: [service.walletConnectService.chain],
-      })
+    if (selectedNetworkId !== network.id) {
+      if (hasWalletConnect(service)) {
+        const sessions = await rendererApi.send('wallet-connect:get-sessions')
 
-      Promise.allSettled(
-        filteredSessions.map(session =>
-          rendererApi.send('wallet-connect:disconnect', {
-            topic: session.topic,
-            reason: WalletKitHelper.getError('USER_DISCONNECTED'),
-          })
-        )
-      ).then(() => invalidateWalletConnectSessions())
+        const filteredSessions = WalletKitHelper.filterSessions(Object.values(sessions), {
+          chains: [service.walletConnectService.chain],
+        })
+
+        Promise.allSettled(
+          filteredSessions.map(session =>
+            rendererApi.send('wallet-connect:disconnect', {
+              topic: session.topic,
+              reason: WalletKitHelper.getError('USER_DISCONNECTED'),
+            })
+          )
+        ).then(() => invalidateWalletConnectSessions())
+      }
+
+      dispatch(settingsReducerActions.setSelectedNetwork({ blockchain, network: selectedNetwork }))
     }
 
-    dispatch(settingsReducerActions.setSelectedNetwork({ blockchain, network: selectedNetwork }))
     modalNavigate(-1)
   }
 

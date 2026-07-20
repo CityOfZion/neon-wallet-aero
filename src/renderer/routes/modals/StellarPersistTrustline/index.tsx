@@ -1,4 +1,5 @@
 import { BSBigHumanAmount, BSBigNumber, type TBSToken } from '@cityofzion/blockchain-service'
+import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -35,12 +36,15 @@ const StellarPersistTrustlines = () => {
     isLimitFormatting: false,
   })
 
-  const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const limit = event.target.value
+  const handleLimitChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const limit = event.target.value.trim()
+    const isLimitFormatting = !!limit
 
-    setData({ limit, isLimitFormatting: true })
+    setData({ limit, isLimitFormatting })
 
     debounce(() => {
+      if (!isLimitFormatting) return
+
       setData({
         limit: new BSBigHumanAmount(limit, actionData.token?.decimals).toFormatted(),
         isLimitFormatting: false,
@@ -94,22 +98,29 @@ const StellarPersistTrustlines = () => {
         </div>
 
         <Input
+          id="limit"
+          name="limit"
           label={t('limitLabel')}
           placeholder={t('limitPlaceholder')}
           type="text"
-          id="limit"
           inputMode="decimal"
-          name="limit"
-          compacted
-          contentClassName="bg-asphalt"
-          disabled={!actionData.token || actionState.isActing}
           value={actionData.limit}
-          onChange={handleLimitChange}
+          contentClassName="bg-asphalt"
           errorMessage={actionState.errors.limit}
+          compacted
+          disabled={!actionData.token || actionState.isActing}
           loading={actionData.isLimitFormatting}
+          onChange={handleLimitChange}
         />
 
-        <Button type="submit" className="mt-auto" label={t('saveButtonLabel')} loading={actionState.isActing} flat />
+        <Button
+          label={t('saveButtonLabel')}
+          type="submit"
+          className="mt-auto"
+          flat
+          loading={actionState.isActing}
+          disabled={!actionData.token || actionData.isLimitFormatting}
+        />
       </form>
     </BottomModalLayout>
   )

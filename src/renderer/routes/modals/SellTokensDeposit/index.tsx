@@ -149,16 +149,20 @@ export const SellTokensDepositModal = () => {
     })
   }
 
-  const handleChangeAmount = (value: string) => {
-    value = StringHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
+  const handleChangeAmount = (amount: string) => {
+    amount = amount.trim()
 
-    setData({ amount: value, isAmountLoading: !!value })
+    const isAmountLoading = !!amount
+
+    setData({ amount, isAmountLoading })
 
     debounceAmount(() => {
-      const token = actionData.token
-      const nextValue = new BSBigHumanAmount(value, token?.token?.decimals).toFormatted()
+      if (!isAmountLoading) return
 
-      setData({ amount: nextValue === '0' ? '' : nextValue, isAmountLoading: false })
+      setData({
+        amount: new BSBigHumanAmount(amount, actionData.token?.token?.decimals).toFormatted(),
+        isAmountLoading: false,
+      })
     })
   }
 
@@ -247,7 +251,7 @@ export const SellTokensDepositModal = () => {
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionData.address, actionData.account, service])
+  }, [actionData.address, actionData.account])
 
   useEffect(() => {
     const handleCalculateFee = async () => {
@@ -449,6 +453,7 @@ export const SellTokensDepositModal = () => {
                 >
                   <GreyAmountInput
                     value={actionData.amount}
+                    maxLength={18}
                     className="h-10 w-28 max-w-28 min-w-28"
                     disabled={isRecipientDisabled || !actionData.token}
                     onChange={handleChangeAmount}
