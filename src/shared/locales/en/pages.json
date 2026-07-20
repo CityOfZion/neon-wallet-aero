@@ -424,6 +424,10 @@
       "submitLabel": "Swap now",
       "max": "Max",
       "receiverAddressPlaceholder": "Select…",
+      "trustlineWarning": {
+        "source": "To swap {{token}} on Stellar, the source account must have an active trustline for this token.",
+        "receiver": "To receive {{token}} on Stellar, the receiving account must have an active trustline for this token, otherwise the swap will fail."
+      },
       "errors": {
         "invalidAddress": "Invalid address",
         "invalidExtraIdToReceive": "Invalid destination tag/memo",

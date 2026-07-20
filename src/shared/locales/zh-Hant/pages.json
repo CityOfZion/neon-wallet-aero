@@ -419,6 +419,10 @@
       "submitLabel": "立即交換",
       "max": "最大",
       "receiverAddressPlaceholder": "選擇…",
+      "trustlineWarning": {
+        "source": "若要在 Stellar 上兌換 {{token}}，來源帳戶必須為此代幣設定有效的信任線。",
+        "receiver": "若要在 Stellar 上接收 {{token}}，接收帳戶必須為此代幣設定有效的信任線，否則兌換將會失敗。"
+      },
       "errors": {
         "invalidAddress": "無效地址",
         "invalidExtraIdToReceive": "無效的目的地標籤/備註",

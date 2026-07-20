@@ -425,6 +425,10 @@
       "submitLabel": "Jetzt tauschen",
       "max": "Max",
       "receiverAddressPlaceholder": "Auswählen…",
+      "trustlineWarning": {
+        "source": "Um {{token}} auf Stellar zu tauschen, muss das Quellkonto über eine aktive Trustline für dieses Token verfügen.",
+        "receiver": "Um {{token}} auf Stellar zu empfangen, muss das empfangende Konto über eine aktive Trustline für dieses Token verfügen, andernfalls schlägt der Swap fehl."
+      },
       "errors": {
         "invalidAddress": "Ungültige Adresse",
         "invalidExtraIdToReceive": "Ungültiges Destination Tag/Memo",
