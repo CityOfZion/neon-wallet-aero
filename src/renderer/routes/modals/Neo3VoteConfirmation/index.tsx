@@ -12,7 +12,6 @@ import { Separator } from '@renderer/components/Separator'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
@@ -37,6 +36,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import TbCheckbox from '@renderer/assets/images/tb-checkbox.svg?react'
 
 import { thunks } from '@renderer/store/thunks'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 
 import { Neo3VoteConfirmationSkeleton } from './Neo3VoteConfirmationSkeleton'

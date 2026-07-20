@@ -3,14 +3,14 @@ import type zod from 'zod'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { NeonBackupHelper } from '@renderer/helpers/NeonBackupHelper'
 
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
+import { EncryptionHelper } from '@shared/helpers/EncryptionHelper'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import { neonBackupContentSchema, neonBackupDataSchema } from '@shared/schemas/neon-backup'
 import type { TAccountsToImport, TCreateWalletAndAccountParam } from '@shared/types/blockchain'
 import type {

@@ -48,11 +48,7 @@ async function handleMessage(message: any, sender: any, sendResponse: any) {
   }
 
   try {
-    const result = await handler({
-      args: message?.args,
-      sender,
-    })
-
+    const result = await handler({ args: message?.args, sender })
     return sendResponse(result)
   } catch (error: any) {
     return sendResponse({ error: error?.message })
@@ -60,7 +56,7 @@ async function handleMessage(message: any, sender: any, sendResponse: any) {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.from === 'renderer') {
+  if (message.from === 'renderer' || message.from === 'content-script') {
     handleMessage(message, sender, sendResponse)
     return true
   }

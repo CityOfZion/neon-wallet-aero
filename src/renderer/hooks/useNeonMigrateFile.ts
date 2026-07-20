@@ -2,10 +2,10 @@ import { hasNameService } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
 import { Nep6Helper } from '@renderer/helpers/Nep6Helper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 import { neonMigrateSchema } from '@shared/schemas/neon-migrate'
 import type { TAccountsToImport, TWalletToCreate } from '@shared/types/blockchain'
 import type {

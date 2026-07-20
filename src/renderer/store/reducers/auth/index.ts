@@ -4,18 +4,10 @@ import type { PersistConfig } from 'redux-persist'
 import { createMigrate, persistReducer } from 'redux-persist'
 import { localStorage } from 'redux-persist-webextension-storage'
 
-import type { TLoginSession, TLoginSessionType, TNotification, TWallet } from '@shared/types/store'
+import type { TApplicationDataByLoginType, TLoginSession } from '@shared/types/store'
 
 import { authMigrations } from './migrations'
 import { authSliceReducers } from './reducers'
-
-export type TApplicationDataByLoginType = {
-  [K in TLoginSessionType]: {
-    wallets: TWallet[]
-    notifications: TNotification[]
-    shouldConfirmAction: boolean
-  }
-}
 
 export type TAuthReducer = {
   memoryData: {

@@ -6,7 +6,6 @@ import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
 
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -28,6 +27,7 @@ import TbPlus from '@renderer/assets/images/tb-plus.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 import type { TAccount } from '@shared/types/store'
 

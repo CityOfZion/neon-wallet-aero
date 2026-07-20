@@ -1,4 +1,4 @@
-import { I18nextHelper } from './I18nextHelper'
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 
 export class SynonymsHelper {
   static #synonymsMap = new Map<string, string[]>()

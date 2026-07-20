@@ -1,9 +1,10 @@
 import axios from 'axios'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
+
 import { name, version } from '../../../package.json'
 import { EnvHelper } from './EnvHelper'
-import { AppError } from './ErrorHelper'
-import { I18nextHelper } from './I18nextHelper'
 import { LoggerHelper } from './LoggerHelper'
 import { UtilsHelper } from './UtilsHelper'
 

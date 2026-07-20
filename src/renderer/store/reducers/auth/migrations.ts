@@ -1,6 +1,4 @@
-import type { TLoginSessionType } from '@shared/types/store'
-
-import type { TApplicationDataByLoginType } from '.'
+import type { TApplicationDataByLoginType, TLoginSessionType } from '@shared/types/store'
 
 export const authMigrations = {
   0: (state: any) => {

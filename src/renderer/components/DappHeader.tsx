@@ -1,10 +1,11 @@
 import type { ComponentProps } from 'react'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import NeonWalletLogo from '@renderer/assets/images/neon-wallet-full.svg?react'
 import WalletConnectLogo from '@renderer/assets/images/wallet-connect.svg?react'
+
+import { ConstantsURLHelper } from '@shared/helpers/ConstantsURLHelper'
 
 import { ImageWithFallback } from './ImageWithFallback'
 
@@ -25,7 +26,7 @@ export const DappHeader = ({ proposerUri, proposerName, className, ...props }: T
         <ImageWithFallback
           src={proposerUri}
           alt={proposerName}
-          fallbackSrc={`${ConstantsHelper.neonIconsUrl}/dapps/default-dapp.png`}
+          fallbackSrc={`${ConstantsURLHelper.neonIconsUrl}/dapps/default-dapp.png`}
           className="size-full rounded-full object-contain"
           containerClassName="size-full"
         />

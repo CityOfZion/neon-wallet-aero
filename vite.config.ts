@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           tab: 'src/renderer/tab.html',
+          dapi: 'src/renderer/dapi.html',
         },
       },
     },
@@ -33,7 +34,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       tailwindcss(),
       nodePolyfills({
-        include: ['crypto', 'stream', 'buffer', 'querystring'],
+        include: ['crypto', 'stream', 'buffer', 'querystring', 'util'],
       }),
       react(),
       svgr(),

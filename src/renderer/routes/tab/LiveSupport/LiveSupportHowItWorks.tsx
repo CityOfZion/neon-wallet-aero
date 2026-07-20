@@ -4,10 +4,10 @@ import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Link } from '@renderer/components/Link'
 import { Separator } from '@renderer/components/Separator'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
-
 import MdInfoOutline from '@renderer/assets/images/md-info-outline.svg?react'
 import TbBrandDiscord from '@renderer/assets/images/tb-brand-discord.svg?react'
+
+import { ConstantsURLHelper } from '@shared/helpers/ConstantsURLHelper'
 
 export const LiveSupportHowItWorks = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'liveSupport.howItWorks' })
@@ -45,7 +45,7 @@ export const LiveSupportHowItWorks = () => {
       <div className="mt-12 flex w-full grow items-end">
         <Link
           label={t('discordLinkLabel')}
-          to={ConstantsHelper.cozDiscordUrl}
+          to={ConstantsURLHelper.cozDiscordUrl}
           className="mx-auto mb-4"
           target="_blank"
           variant="outlined"

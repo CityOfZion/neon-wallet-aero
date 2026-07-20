@@ -18,7 +18,6 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -40,6 +39,7 @@ import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
 import { thunks } from '@renderer/store/thunks'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 import type { TAccount } from '@shared/types/store'
 

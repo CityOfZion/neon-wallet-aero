@@ -7,12 +7,13 @@ import { Details } from '@renderer/components/Details'
 import { Loader } from '@renderer/components/Loader'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 
 import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
+
+import { AppError } from '@shared/helpers/ErrorHelper'
 
 import type { TDappPermissionProps } from '../index'
 

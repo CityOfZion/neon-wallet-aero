@@ -2,7 +2,6 @@ import type { TBSAccount } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -12,6 +11,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import type { TBlockchainAccounts } from '.'

@@ -17,8 +17,6 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 
 import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -40,6 +38,8 @@ import TbSend from '@renderer/assets/images/tb-send.svg?react'
 import TbStepOut from '@renderer/assets/images/tb-step-out.svg?react'
 
 import { thunks } from '@renderer/store/thunks'
+import { ConstantsHelper } from '@shared/helpers/ConstantsHelper'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TAccount } from '@shared/types/store'
 
 import type { TSendRecipient } from './SendRecipient'

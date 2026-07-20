@@ -1,8 +1,7 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { REHYDRATE } from 'redux-persist'
 
-import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
-
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 import type { TRootState } from '@shared/types/redux'
 
 import { settingsReducerActions } from '../reducers/settings'

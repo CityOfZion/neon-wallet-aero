@@ -10,7 +10,6 @@ import { ImportSharedPassword } from '@renderer/components/ImportSharedPassword'
 import { ImportSuccessContent } from '@renderer/components/ImportSuccessContent'
 import { Separator } from '@renderer/components/Separator'
 
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
@@ -19,6 +18,7 @@ import { useNep6BackupFile } from '@renderer/hooks/useNep6BackupFile'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TUseImportNep6Account, TUseImportNep6DecryptedAccount } from '@shared/types/hooks'
 import type { TModalState } from '@shared/types/modal'
 

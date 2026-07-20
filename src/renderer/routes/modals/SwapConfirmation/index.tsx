@@ -6,7 +6,6 @@ import { Button } from '@renderer/components/Button'
 import { Details } from '@renderer/components/Details'
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -24,6 +23,7 @@ import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { thunks } from '@renderer/store/thunks'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 
 export const SwapConfirmationModal = () => {

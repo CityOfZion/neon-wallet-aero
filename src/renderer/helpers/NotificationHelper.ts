@@ -1,8 +1,8 @@
 import { match } from 'ts-pattern'
 
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 import type { TNotification } from '@shared/types/store'
 
-import { I18nextHelper } from './I18nextHelper'
 import { UtilsHelper } from './UtilsHelper'
 
 const { t } = I18nextHelper.get()

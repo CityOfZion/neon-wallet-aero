@@ -139,7 +139,11 @@
   "onboardingLoginNewWallet": {
     "description": "Securing your new wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": ["Create Password", "Confirm Password", "Complete"]
+    "steps": [
+      "Create Password",
+      "Confirm Password",
+      "Complete"
+    ]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Enter password",
@@ -167,7 +171,13 @@
     "title": "Import a wallet",
     "description": "Please create a password to secure your wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": ["Create Password", "Confirm Password", "Add details or locate file", "Import", "Complete"],
+    "steps": [
+      "Create Password",
+      "Confirm Password",
+      "Add details or locate file",
+      "Import",
+      "Complete"
+    ],
     "migrationLabel": "Locate your migration file",
     "step3": {
       "formTitle": "Enter an address, encrypted key, private key, mnemonic or locate backup file",
@@ -605,6 +615,42 @@
       "description": "Need help? You can chat with our team <1>directly and securely</1> right from the wallet — no need to leave. Feel free to ask anything about the wallet and features. <1>Never share your private keys, mnemonics or personal data</1> with anyone — including our support team. Our team will <1>never</1> ask for this information. Your security always comes first.",
       "takeCareAlert": "Joining our Discord is a great way to talk in a public chat and interact with the community. However, <1>watch out for scammers</1> who may send private messages impersonating our team. Our team will never DM you asking for sensitive information.",
       "discordLinkLabel": "Join our Discord"
+    }
+  },
+  "dapiPermission": {
+    "title": "Allow dApp request",
+    "dappDetails": {
+      "dappLabel": "dApp"
+    },
+    "genericContent": {
+      "description": "Confirm that you’d like to allow this action",
+      "rejectButtonLabel": "Reject",
+      "acceptButtonLabel": "Accept",
+      "infosLabel": "Infos",
+      "currentNetworkLabel": "Current network",
+      "requestLabel": "Request",
+      "methodLabel": "Method"
+    },
+    "authenticateContent": {
+      "description": "Select an account to authenticate",
+      "rejectButtonLabel": "Cancel",
+      "acceptButtonLabel": "Confirm",
+      "networksLabel": "Networks",
+      "infosLabel": "Infos"
+    },
+    "pickAddressContent": {
+      "infosLabel": "Infos",
+      "chooseAddressLabel": "Choose an address",
+      "description": "dApp wants to pick an address",
+      "rejectButtonLabel": "Cancel",
+      "acceptButtonLabel": "Select"
+    },
+    "feeLabel": "Fee",
+    "feeOverridesMessage": "The dApp has overwritten the fees",
+    "errors": {
+      "expired": "The request has expired",
+      "cancelled": "Request cancelled",
+      "fee": "Error to calculate fee. The request was cancelled."
     }
   }
 }

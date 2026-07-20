@@ -7,7 +7,6 @@ import { Radio } from '@renderer/components/Radio'
 import { Separator } from '@renderer/components/Separator'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -22,6 +21,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbCheck from '@renderer/assets/images/tb-check.svg?react'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
 import type { TAccount, TWallet } from '@shared/types/store'

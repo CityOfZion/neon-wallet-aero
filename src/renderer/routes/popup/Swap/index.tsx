@@ -30,7 +30,6 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { SwapHelper } from '@renderer/helpers/SwapHelper'
@@ -56,6 +55,7 @@ import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import TbWand from '@renderer/assets/images/tb-wand.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccount, TSwapRecord } from '@shared/types/store'
 

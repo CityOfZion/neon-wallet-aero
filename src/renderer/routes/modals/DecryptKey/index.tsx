@@ -6,7 +6,6 @@ import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -15,6 +14,7 @@ import { useModalState } from '@renderer/hooks/useModalRouter'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 
 type TActionsData = {

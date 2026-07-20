@@ -4,10 +4,10 @@ import { BSKeychainHelper, type TBSAccount } from '@cityofzion/blockchain-servic
 import { useTranslation } from 'react-i18next'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { HardwareWalletHelper } from '@renderer/helpers/HardwareWalletHelper'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccount, TAccountWithWallet, TWallet } from '@shared/types/store'
 

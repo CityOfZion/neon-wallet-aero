@@ -1,12 +1,13 @@
 import type { SessionTypes } from '@walletconnect/types'
 import { useTranslation } from 'react-i18next'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
 
 import TbPlugX from '@renderer/assets/images/tb-plug-x.svg?react'
+
+import { ConstantsURLHelper } from '@shared/helpers/ConstantsURLHelper'
 
 import { IconButton } from '../IconButton'
 import { ImageWithFallback } from '../ImageWithFallback'
@@ -26,7 +27,7 @@ export const DappConnectionItem = ({ session, onDisconnect }: TProps) => {
       <ImageWithFallback
         src={session.peer.metadata.icons[0]}
         alt={session.peer.metadata.name}
-        fallbackSrc={`${ConstantsHelper.neonIconsUrl}/dapps/default-dapp.png`}
+        fallbackSrc={`${ConstantsURLHelper.neonIconsUrl}/dapps/default-dapp.png`}
         className="min-size-5 size-5 rounded-full bg-gray-300/15"
       />
 

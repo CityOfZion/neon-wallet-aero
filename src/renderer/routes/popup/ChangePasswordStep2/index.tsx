@@ -5,8 +5,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { DownloadQRCodePasswordButton } from '@renderer/components/DownloadQRCodePasswordButton'
 
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -21,6 +19,8 @@ import TbDownload from '@renderer/assets/images/tb-download.svg?react'
 import TbQrCode from '@renderer/assets/images/tb-qrcode.svg?react'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
+import { EncryptionHelper } from '@shared/helpers/EncryptionHelper'
+import { AppError } from '@shared/helpers/ErrorHelper'
 
 type TLocationState = {
   newPassword: string

@@ -1,5 +1,5 @@
 import type { Signer } from '@cityofzion/bs-neo3'
-import { BSNeo3NeonJsSingletonHelper } from '@cityofzion/bs-neo3'
+import { tx } from '@cityofzion/neon-core'
 import { useTranslation } from 'react-i18next'
 
 import { Details } from '@renderer/components/Details'
@@ -19,8 +19,6 @@ type TProps = {
 
 const resolveSigner = (scope: string | number) => {
   let witnessScope: string = scope.toString()
-
-  const { tx } = BSNeo3NeonJsSingletonHelper.getInstance()
 
   if (typeof scope === 'number') {
     witnessScope = tx.toString(scope)

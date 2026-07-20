@@ -6,7 +6,6 @@ import { Button } from '@renderer/components/Button'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -17,6 +16,7 @@ import { useLanguageSelector, useSelectedWalletSelector } from '@renderer/hooks/
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 import type { TAccount } from '@shared/types/store'
 
