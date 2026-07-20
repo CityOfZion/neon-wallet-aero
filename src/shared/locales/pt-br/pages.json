@@ -429,6 +429,10 @@
       "submitLabel": "Trocar agora",
       "max": "Máx.",
       "receiverAddressPlaceholder": "Selecionar…",
+      "stellarTrustlineWarnings": {
+        "source": "Para fazer swap de {{token}} na Stellar, a conta de origem deve ter uma Trustline ativa para este token. Caso contrário o swap falhará. Você pode cadastrar uma Trustline na tela de sua conta.",
+        "receiver": "Para receber {{token}} na Stellar, a conta de destino deve ter uma Trustline ativa para este token. Caso contrário o swap falhará. Você pode cadastrar uma Trustline na tela de sua conta."
+      },
       "errors": {
         "invalidAddress": "Endereço inválido",
         "invalidExtraIdToReceive": "Tag de destino/memo inválida",
