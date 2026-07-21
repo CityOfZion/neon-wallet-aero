@@ -7,7 +7,6 @@ import { Button } from '@renderer/components/Button'
 import { DashedSeparator } from '@renderer/components/DashedSeparator'
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
@@ -16,6 +15,7 @@ import { useNeo3VoteGetVoteDetailsByAddress } from '@renderer/hooks/useNeo3Vote'
 import MdCircle from '@renderer/assets/images/md-circle.svg?react'
 import TbPackages from '@renderer/assets/images/tb-packages.svg?react'
 
+import { ConstantsHelper } from '@shared/helpers/ConstantsHelper'
 import type { TAccount } from '@shared/types/store'
 
 type TProps = {

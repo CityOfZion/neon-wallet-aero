@@ -10,7 +10,7 @@ export const LoginPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const value = location.pathname.split('/')[2]
+  const value = location.pathname.split('/')[2] ?? 'neon-account'
 
   return (
     <LoginLayout withBack={false}>

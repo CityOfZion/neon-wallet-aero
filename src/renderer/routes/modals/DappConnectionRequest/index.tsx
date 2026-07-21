@@ -10,7 +10,6 @@ import { Details } from '@renderer/components/Details'
 import { ScreenLoader } from '@renderer/components/ScreenLoader'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { WalletConnectError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -23,6 +22,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import TbPlug from '@renderer/assets/images/tb-plug.svg?react'
 
+import { WalletConnectError } from '@shared/helpers/ErrorHelper'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { TModalState } from '@shared/types/modal'
 

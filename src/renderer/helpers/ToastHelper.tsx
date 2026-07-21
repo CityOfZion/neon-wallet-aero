@@ -10,9 +10,9 @@ import MdCheckCircleOutline from '@renderer/assets/images/md-check-circle-outlin
 import MdClose from '@renderer/assets/images/md-close.svg?react'
 import MdErrorOutline from '@renderer/assets/images/md-error-outline.svg?react'
 
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 import type { TToastHelperToastOptions, TToastHelperToastProps } from '@shared/types/helpers'
 
-import { I18nextHelper } from './I18nextHelper'
 import { StyleHelper } from './StyleHelper'
 
 const { t } = I18nextHelper.get()

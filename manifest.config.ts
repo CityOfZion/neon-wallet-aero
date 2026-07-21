@@ -26,6 +26,25 @@ export default defineManifest({
     service_worker: 'src/background/index.ts',
     type: 'module',
   },
+  content_scripts: [
+    {
+      matches: ['<all_urls>'],
+      js: ['src/content-script/index.ts'],
+      run_at: 'document_start',
+    },
+    {
+      matches: ['<all_urls>'],
+      js: ['src/content-script/neo3-injected-dapi-provider.iife.ts'],
+      world: 'MAIN',
+      run_at: 'document_start',
+    },
+  ],
+  web_accessible_resources: [
+    {
+      resources: ['src/renderer/dapi.html'],
+      matches: ['<all_urls>'],
+    },
+  ],
   permissions: [
     'storage',
     'unlimitedStorage',
@@ -35,6 +54,7 @@ export default defineManifest({
     'tabs',
     'activeTab',
     'notifications',
+    'windows',
   ],
   host_permissions: ['https://www.google-analytics.com/*'],
 })

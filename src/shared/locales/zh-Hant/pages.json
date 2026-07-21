@@ -134,7 +134,11 @@
   "onboardingLoginNewWallet": {
     "description": "正在保護您的新錢包",
     "goBackIconButtonLabel": "返回",
-    "steps": ["建立密碼", "確認密碼", "完成"]
+    "steps": [
+      "建立密碼",
+      "確認密碼",
+      "完成"
+    ]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "輸入您的新密碼",
@@ -162,7 +166,13 @@
     "title": "匯入錢包",
     "description": "請建立密碼以保護您的錢包",
     "goBackIconButtonLabel": "返回",
-    "steps": ["建立密碼", "確認密碼", "添加詳情或定位檔案", "匯入", "完成"],
+    "steps": [
+      "建立密碼",
+      "確認密碼",
+      "添加詳情或定位檔案",
+      "匯入",
+      "完成"
+    ],
     "migrationLabel": "定位您的遷移檔案",
     "step3": {
       "formTitle": "輸入地址、加密金鑰、私鑰、助記詞或定位備份檔案",
@@ -605,6 +615,42 @@
       "description": "需要幫助？您可以<1>直接且安全地</1>在錢包中與我們的團隊聊天——無需離開。歡迎隨時提問有關錢包和功能的任何問題。<1>切勿將私鑰、助記詞或個人資料</1>分享給任何人——包括我們的支援團隊。我們的團隊<1>絕不會</1>要求提供這些資訊。您的安全始終是第一位的。",
       "takeCareAlert": "加入我們的 Discord 是參與公開聊天並與社群互動的好方式。然而，<1>請警惕詐騙者</1>，他們可能會冒充我們的團隊發送私訊。我們的團隊絕不會私訊向您索取敏感資訊。",
       "discordLinkLabel": "加入我們的 Discord"
+    }
+  },
+  "dapiPermission": {
+    "title": "允許 dApp 請求",
+    "dappDetails": {
+      "dappLabel": "dApp"
+    },
+    "genericContent": {
+      "description": "確認您要允許此操作",
+      "rejectButtonLabel": "拒絕",
+      "acceptButtonLabel": "接受",
+      "infosLabel": "資訊",
+      "currentNetworkLabel": "目前網路",
+      "requestLabel": "請求",
+      "methodLabel": "方法"
+    },
+    "authenticateContent": {
+      "description": "選擇一個帳戶進行驗證",
+      "rejectButtonLabel": "取消",
+      "acceptButtonLabel": "確認",
+      "networksLabel": "網路",
+      "infosLabel": "資訊"
+    },
+    "pickAddressContent": {
+      "infosLabel": "資訊",
+      "chooseAddressLabel": "選擇一個地址",
+      "description": "dApp 想要選擇一個地址",
+      "rejectButtonLabel": "取消",
+      "acceptButtonLabel": "選擇"
+    },
+    "feeLabel": "手續費",
+    "feeOverridesMessage": "該 dApp 已覆寫手續費",
+    "errors": {
+      "expired": "請求已過期",
+      "cancelled": "請求已取消",
+      "fee": "計算手續費出錯。請求已取消。"
     }
   }
 }

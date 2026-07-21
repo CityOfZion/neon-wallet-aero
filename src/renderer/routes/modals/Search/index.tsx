@@ -13,7 +13,6 @@ import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 import { Loader } from '@renderer/components/Loader'
 
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { SynonymsHelper } from '@renderer/helpers/SynonymsHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -27,6 +26,7 @@ import MdChevronRight from '@renderer/assets/images/md-chevron-right.svg?react'
 import TbHelp from '@renderer/assets/images/tb-help.svg?react'
 import TbSearch from '@renderer/assets/images/tb-search.svg?react'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 
 import { functionsByActionId } from './functionsByActionId'

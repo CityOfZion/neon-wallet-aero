@@ -3,8 +3,8 @@ import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TUseImportActionInputType } from '@shared/types/hooks'
 
 import { useAccountUtils } from './useAccountUtils'

@@ -3,10 +3,10 @@ import { Fragment, useEffect, useState } from 'react'
 import { BSBigHumanAmount } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
+import { ConstantsURLHelper } from '@shared/helpers/ConstantsURLHelper'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { Tooltip } from '../Tooltip'
@@ -18,13 +18,13 @@ type TProps = {
   textClassName?: string
 }
 
-const defaultTokenImageUrl = `${ConstantsHelper.neonIconsUrl}/tokens/default-token.png`
+const defaultTokenImageUrl = `${ConstantsURLHelper.neonIconsUrl}/tokens/default-token.png`
 
 export const GreyTokenSelectItem = ({ token, blockchain, textClassName }: TProps) => {
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { network } = token
   const blockchainName = blockchain ? tCommonBlockchain(blockchain) : network
-  const defaultImageUrl = `${ConstantsHelper.neonIconsUrl}/tokens/${blockchain || network}/${token.hash}.png`
+  const defaultImageUrl = `${ConstantsURLHelper.neonIconsUrl}/tokens/${blockchain || network}/${token.hash}.png`
 
   const [img, setImg] = useState(defaultImageUrl)
 

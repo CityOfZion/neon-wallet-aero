@@ -5,7 +5,8 @@ import TransportWebBluetooth from '@ledgerhq/hw-transport-web-ble'
 import TransportWebHID from '@ledgerhq/hw-transport-webhid'
 import cloneDeep from 'lodash/cloneDeep'
 
-import { rendererApi } from '@shared/message-api/renderer'
+import { AppError } from '@shared/helpers/ErrorHelper'
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type {
   THardwareWalletHelperConnectionType,
@@ -15,11 +16,11 @@ import type {
 } from '@shared/types/helpers'
 
 import { BlockchainServiceHelper } from './BlockchainServiceHelper'
-import { AppError } from './ErrorHelper'
-import { I18nextHelper } from './I18nextHelper'
 import { LoggerHelper } from './LoggerHelper'
 
 const { t } = I18nextHelper.get()
+
+const HARDWARE_WALLET_TYPE_STORAGE_KEY = 'hardware-wallet-type'
 
 export class HardwareWalletHelper {
   static transport?: Transport
@@ -128,7 +129,7 @@ export class HardwareWalletHelper {
       throw new AppError(t('hardwareWallet.errors.accountsNotFound'))
     }
 
-    await rendererApi.send('hardware-wallet:save-type', type)
+    await chrome.storage.session.set({ [HARDWARE_WALLET_TYPE_STORAGE_KEY]: type })
 
     this.setTransport(transport)
 
@@ -140,7 +141,7 @@ export class HardwareWalletHelper {
       await this.transport.close()
     }
 
-    await rendererApi.send('hardware-wallet:save-type', undefined)
+    await chrome.storage.session.remove(HARDWARE_WALLET_TYPE_STORAGE_KEY)
     this.transport = undefined
   }
 
@@ -181,7 +182,8 @@ export class HardwareWalletHelper {
       return this.transport
     }
 
-    const type = await rendererApi.send('hardware-wallet:get-type')
+    const result = await chrome.storage.session.get(HARDWARE_WALLET_TYPE_STORAGE_KEY)
+    const type = result[HARDWARE_WALLET_TYPE_STORAGE_KEY] as THardwareWalletHelperConnectionType | undefined
     if (!type) {
       throw new AppError(t('hardwareWallet.errors.hardwareWalletNotFound'))
     }

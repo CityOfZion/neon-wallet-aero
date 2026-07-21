@@ -2,9 +2,9 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
 
-import type { WalletConnectError } from '@renderer/helpers/ErrorHelper'
-
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
+
+import type { WalletConnectError } from '@shared/helpers/ErrorHelper'
 
 type TProps = {
   error: WalletConnectError

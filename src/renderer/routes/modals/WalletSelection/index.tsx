@@ -7,7 +7,6 @@ import { IconButton } from '@renderer/components/IconButton'
 import { Separator } from '@renderer/components/Separator'
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -28,6 +27,7 @@ import TbReorder from '@renderer/assets/images/tb-reorder.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 
 import { settingsReducerActions } from '@renderer/store/reducers/settings'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 import type { TWallet } from '@shared/types/store'
 

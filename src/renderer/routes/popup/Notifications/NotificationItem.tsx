@@ -9,7 +9,6 @@ import { IconButton } from '@renderer/components/IconButton'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { DateHelper } from '@renderer/helpers/DateHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
@@ -26,6 +25,7 @@ import TbAlertSquare from '@renderer/assets/images/tb-alert-square.svg?react'
 import TbAlertTriangle from '@renderer/assets/images/tb-alert-triangle.svg?react'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TNotification, TNotificationPriority } from '@shared/types/store'
 
 import { functionsByNotificationActionType } from './functionsByNotificationActionType'

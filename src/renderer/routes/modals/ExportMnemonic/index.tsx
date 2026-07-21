@@ -6,7 +6,6 @@ import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
 
 import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
@@ -19,6 +18,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import TbPrinter from '@renderer/assets/images/tb-printer.svg?react'
 
+import { EncryptionHelper } from '@shared/helpers/EncryptionHelper'
 import type { TModalState } from '@shared/types/modal'
 
 export const ExportMnemonicModal = () => {

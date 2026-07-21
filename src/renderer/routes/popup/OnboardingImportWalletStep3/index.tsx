@@ -10,7 +10,6 @@ import { Button } from '@renderer/components/Button'
 import { Textarea } from '@renderer/components/Textarea'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useImportActions } from '@renderer/hooks/useImportActions'
@@ -20,6 +19,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useNeonBackupFile } from '@renderer/hooks/useNeonBackupFile'
 import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@shared/types/blockchain'
 import type { TUseNeonMigrateGeneratedData, TUseNep6GeneratedData } from '@shared/types/hooks'
 

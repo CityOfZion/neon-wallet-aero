@@ -9,7 +9,6 @@ import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 
 import { useAccountsByBlockchainsSelector } from '@renderer/hooks/useAccountSelector'
@@ -30,6 +29,7 @@ import MdInfoOutline from '@renderer/assets/images/md-info-outline.svg?react'
 import MdSearch from '@renderer/assets/images/md-search.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
 
+import { ConstantsHelper } from '@shared/helpers/ConstantsHelper'
 import type { TAccount, TWallet } from '@shared/types/store'
 
 import { Neo3VoteAvailableVotes } from './Neo3VoteAvailableVotes'

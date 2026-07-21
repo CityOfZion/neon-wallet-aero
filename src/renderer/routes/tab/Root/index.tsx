@@ -8,7 +8,6 @@ import { SplashScreen } from '@renderer/components/SplashScreen'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { EnvHelper } from '@renderer/helpers/EnvHelper'
-import { I18nextHelper } from '@renderer/helpers/I18nextHelper'
 import { ReactQueryHelper } from '@renderer/helpers/ReactQueryHelper'
 import { ReduxHelper } from '@renderer/helpers/ReduxHelper'
 import { SentryHelper } from '@renderer/helpers/SentryHelper'
@@ -19,6 +18,7 @@ import { modalsRouter } from '@renderer/routes/modals-router'
 
 import { ModalRouterProvider } from '@renderer/contexts/ModalRouterContext'
 import { authReducerActions } from '@renderer/store/reducers/auth'
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 import { rendererApi } from '@shared/message-api/renderer'
 
 const ToastProvider = lazy(() =>

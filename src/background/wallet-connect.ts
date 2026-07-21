@@ -3,8 +3,7 @@ import { WalletKit } from '@reown/walletkit'
 import { Core } from '@walletconnect/core'
 import type { ProposalTypes } from '@walletconnect/types'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
-
+import { ConstantsURLHelper } from '@shared/helpers/ConstantsURLHelper'
 import { backgroundApi } from '@shared/message-api/background'
 
 import pkg from '../../package.json'
@@ -22,8 +21,8 @@ async function setupWalletKit() {
     metadata: {
       name: pkg.name.charAt(0).toUpperCase() + pkg.name.slice(1),
       description: pkg.description,
-      url: ConstantsHelper.cozWebsiteUrl,
-      icons: [`${ConstantsHelper.neonIconsUrl}/neon-logo/128x128.png`],
+      url: ConstantsURLHelper.cozWebsiteUrl,
+      icons: [`${ConstantsURLHelper.neonIconsUrl}/neon-logo/128x128.png`],
     },
   })
 

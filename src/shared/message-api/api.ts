@@ -1,13 +1,15 @@
 import type { IWalletKit } from '@reown/walletkit'
 import type { PendingRequestTypes, ProposalTypes } from '@walletconnect/types'
 
-import type { THardwareWalletHelperConnectionType } from '@shared/types/helpers'
+import type { TDapiRequest } from '@shared/types/dapi'
 import type { TLoginSession } from '@shared/types/store'
 
-export type TMessageApiListener<T = any[], R = any> = (options: {
+export type TMessageApiListenerOptions<T = any[]> = {
   args: T
   sender: chrome.runtime.MessageSender
-}) => Promise<R> | R
+}
+
+export type TMessageApiListener<T = any[], R = any> = (options: TMessageApiListenerOptions<T>) => Promise<R> | R
 
 export type TMessageApiSendArgs<T> = T extends TMessageApiListener<infer U> ? U : never
 
@@ -37,9 +39,27 @@ export type TMessageBackgroundApi = {
   'wallet-connect:get-sessions': TMessageApiListener<undefined, TWalletConnectGetSessionsResponse>
   'wallet-connect:get-requests': TMessageApiListener<undefined, TWalletConnectGetRequestsResponse>
   'wallet-connect:respond-request': TMessageApiListener<TWalletConnectRespondRequestArgs, void>
-  'hardware-wallet:save-type': TMessageApiListener<THardwareWalletHelperConnectionType | undefined, void>
-  'hardware-wallet:get-type': TMessageApiListener<undefined, THardwareWalletHelperConnectionType | undefined>
   'popup:open': TMessageApiListener<undefined, void>
+
+  'dapi:neo3:get-accounts': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:get-network': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:get-balance': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:relay': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:get-block': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:get-block-count': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:get-transaction': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:get-application-log': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:get-storage': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:get-token-info': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:pick-address': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:authenticate': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:call': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:send': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:invoke': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:make-transaction': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:sign': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:sign-message': TMessageApiListener<TDapiRequest, void>
+  'dapi:neo3:approval-result': TMessageApiListener<{ request: TDapiRequest; response?: unknown; error?: unknown }, void>
 }
 
 export type TMessageRendererApi = {

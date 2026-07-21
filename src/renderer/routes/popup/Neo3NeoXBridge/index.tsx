@@ -25,7 +25,6 @@ import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeAct
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
@@ -51,6 +50,7 @@ import TbReplace2 from '@renderer/assets/images/tb-replace-2.svg?react'
 import TbWallet from '@renderer/assets/images/tb-wallet.svg?react'
 import VscCircleFilled from '@renderer/assets/images/vsc-circle-filled.svg?react'
 
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TAccount } from '@shared/types/store'
 
 type TActionsData = {

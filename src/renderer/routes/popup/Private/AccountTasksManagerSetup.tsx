@@ -2,7 +2,6 @@ import { useRef } from 'react'
 
 import intersection from 'lodash/intersection'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 
 import { useOwnAccountsSelector } from '@renderer/hooks/useAccountSelector'
@@ -13,6 +12,7 @@ import { useUnreadNotificationsSelector } from '@renderer/hooks/useNotifications
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
+import { ConstantsHelper } from '@shared/helpers/ConstantsHelper'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TBalance } from '@shared/types/query'
 import type { TAccount, TNotification } from '@shared/types/store'

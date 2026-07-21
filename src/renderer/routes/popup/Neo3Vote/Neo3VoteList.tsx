@@ -6,13 +6,13 @@ import { match, P } from 'ts-pattern'
 
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 
 import { useNeo3VoteGetCandidatesToVote } from '@renderer/hooks/useNeo3Vote'
 
 import TbAlertTriangle from '@renderer/assets/images/tb-alert-triangle.svg?react'
 
+import { ConstantsHelper } from '@shared/helpers/ConstantsHelper'
 import type { TAccount } from '@shared/types/store'
 
 import { Neo3VoteListItem } from './Neo3VoteListItem'

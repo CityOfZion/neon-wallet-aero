@@ -5,7 +5,6 @@ import { Button } from '@renderer/components/Button'
 import { Checkbox } from '@renderer/components/Checkbox'
 
 import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
-import { EncryptionHelper } from '@renderer/helpers/EncryptionHelper'
 
 import { useLoginSessionSelector, useShouldConfirmActionSelector } from '@renderer/hooks/useAuthSelector'
 import { useExportMnemonic } from '@renderer/hooks/useExportMnemonic'
@@ -17,6 +16,7 @@ import MdOutlineAutoAwesome from '@renderer/assets/images/md-outline-auto-awesom
 import TbRosetteDiscountCheck from '@renderer/assets/images/tb-rosette-discount-check.svg?react'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
+import { EncryptionHelper } from '@shared/helpers/EncryptionHelper'
 
 export const OnboardingLoginNewWalletStep3Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'onboardingLoginNewWalletStep3' })

@@ -134,7 +134,11 @@
   "onboardingLoginNewWallet": {
     "description": "Sichern Sie Ihre neue Wallet",
     "goBackIconButtonLabel": "Zurück",
-    "steps": ["Passwort erstellen", "Passwort bestätigen", "Abschließen"]
+    "steps": [
+      "Passwort erstellen",
+      "Passwort bestätigen",
+      "Abschließen"
+    ]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Passwort eingeben",
@@ -611,6 +615,42 @@
       "description": "Benötigen Sie Hilfe? Sie können <1>direkt und sicher</1> mit unserem Team direkt aus der Wallet heraus chatten – ohne die Wallet verlassen zu müssen. Stellen Sie gerne jede Frage zur Wallet und zu den Funktionen. <1>Teilen Sie niemals Ihre privaten Schlüssel, Mnemonics oder persönliche Daten</1> mit jemandem – auch nicht mit unserem Support-Team. Unser Team wird <1>niemals</1> nach diesen Informationen fragen. Ihre Sicherheit hat immer höchste Priorität.",
       "takeCareAlert": "Unserem Discord beizutreten ist eine großartige Möglichkeit, in einem öffentlichen Chat zu kommunizieren und mit der Community zu interagieren. <1>Vorsicht jedoch vor Betrügern</1>, die private Nachrichten senden und dabei unser Team imitieren könnten. Unser Team wird Sie niemals per Direktnachricht kontaktieren und nach vertraulichen Informationen fragen.",
       "discordLinkLabel": "Unserem Discord beitreten"
+    }
+  },
+  "dapiPermission": {
+    "title": "dApp-Anfrage erlauben",
+    "dappDetails": {
+      "dappLabel": "dApp"
+    },
+    "genericContent": {
+      "description": "Bestätigen Sie, dass Sie diese Aktion zulassen möchten",
+      "rejectButtonLabel": "Ablehnen",
+      "acceptButtonLabel": "Akzeptieren",
+      "infosLabel": "Infos",
+      "currentNetworkLabel": "Aktuelles Netzwerk",
+      "requestLabel": "Anfrage",
+      "methodLabel": "Methode"
+    },
+    "authenticateContent": {
+      "description": "Wählen Sie ein Konto zur Authentifizierung aus",
+      "rejectButtonLabel": "Abbrechen",
+      "acceptButtonLabel": "Bestätigen",
+      "networksLabel": "Netzwerke",
+      "infosLabel": "Infos"
+    },
+    "pickAddressContent": {
+      "infosLabel": "Infos",
+      "chooseAddressLabel": "Wählen Sie eine Adresse",
+      "description": "dApp möchte eine Adresse auswählen",
+      "rejectButtonLabel": "Abbrechen",
+      "acceptButtonLabel": "Auswählen"
+    },
+    "feeLabel": "Gebühr",
+    "feeOverridesMessage": "Die dApp hat die Gebühren überschrieben",
+    "errors": {
+      "expired": "Die Anfrage ist abgelaufen",
+      "cancelled": "Anfrage abgebrochen",
+      "fee": "Fehler bei der Gebührenberechnung. Die Anfrage wurde abgebrochen."
     }
   }
 }

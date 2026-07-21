@@ -160,3 +160,11 @@ export type TLastIndexesByWallet = Partial<Record<TBlockchainServiceKey, Record<
 export type THiddenTokenByBlockchain = Partial<Record<TBlockchainServiceKey, string[]>>
 
 export type TImportAccountsSelectionType = 'mnemonic' | 'key' | 'address'
+
+export type TApplicationDataByLoginType = {
+  [K in TLoginSessionType]: {
+    wallets: TWallet[]
+    notifications: TNotification[]
+    shouldConfirmAction: boolean
+  }
+}

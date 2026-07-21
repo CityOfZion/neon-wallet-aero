@@ -1,6 +1,5 @@
+import { EncryptionHelper } from '@shared/helpers/EncryptionHelper'
 import type { TContact, TContactAddress, TContactEncryptedAddress } from '@shared/types/store'
-
-import { EncryptionHelper } from './EncryptionHelper'
 
 export class ContactsHelper {
   static async encryptContact(

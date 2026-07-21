@@ -10,7 +10,6 @@ import { ImageWithFallback } from '@renderer/components/ImageWithFallback'
 import { Tooltip } from '@renderer/components/Tooltip'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { TokenHelper } from '@renderer/helpers/TokenHelper'
@@ -23,6 +22,7 @@ import TbEye from '@renderer/assets/images/tb-eye.svg?react'
 import TbEyeOff from '@renderer/assets/images/tb-eye-off.svg?react'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
+import { ConstantsURLHelper } from '@shared/helpers/ConstantsURLHelper'
 import type { TTokenBalance } from '@shared/types/query'
 
 type TProps = {
@@ -70,9 +70,9 @@ export const TokenListItem = ({ tokenBalance, isEditMode }: TProps) => {
       <div className={StyleHelper.mergeStyles('flex flex-1 flex-row items-center gap-x-3')}>
         <div className="flex min-w-0 flex-1 gap-2.5">
           <ImageWithFallback
-            src={`${ConstantsHelper.neonIconsUrl}/tokens/${tokenBalance.blockchain}/${tokenBalance.token.hash}.png`}
+            src={`${ConstantsURLHelper.neonIconsUrl}/tokens/${tokenBalance.blockchain}/${tokenBalance.token.hash}.png`}
             alt={tokenBalance.token.name || tokenBalance.token.symbol}
-            fallbackSrc={`${ConstantsHelper.neonIconsUrl}/tokens/default-token.png`}
+            fallbackSrc={`${ConstantsURLHelper.neonIconsUrl}/tokens/default-token.png`}
             containerClassName={StyleHelper.mergeStyles('mt-0.5 size-4.5 min-size-4.5 max-size-4.5', {
               grayscale: isHiddenToken,
             })}

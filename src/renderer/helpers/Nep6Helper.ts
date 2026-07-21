@@ -1,9 +1,9 @@
 import { hasEncryption } from '@cityofzion/blockchain-service'
 
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 import type { TUseImportNep6Account, TUseImportNep6DecryptedAccount } from '@shared/types/hooks'
 
 import { BlockchainServiceHelper } from './BlockchainServiceHelper'
-import { I18nextHelper } from './I18nextHelper'
 
 const { t } = I18nextHelper.get()
 

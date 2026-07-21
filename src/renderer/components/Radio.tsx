@@ -10,6 +10,7 @@ import { Separator } from './Separator'
 type ItemProps = ComponentPropsWithoutRef<typeof RadixRadio.Item> & {
   withSeparator?: boolean
   separatorClassName?: string
+  contentClassName?: string
 }
 
 const Group = forwardRef<ComponentRef<typeof RadixRadio.Root>, ComponentPropsWithoutRef<typeof RadixRadio.Root>>(
@@ -17,7 +18,7 @@ const Group = forwardRef<ComponentRef<typeof RadixRadio.Root>, ComponentPropsWit
 )
 
 const Item = forwardRef<ComponentRef<typeof RadixRadio.Item>, ItemProps>(
-  ({ className, separatorClassName, withSeparator = true, children, ...props }, ref) => (
+  ({ className, separatorClassName, contentClassName, withSeparator = true, children, ...props }, ref) => (
     <RadixRadio.Item
       {...props}
       ref={ref}
@@ -26,7 +27,14 @@ const Item = forwardRef<ComponentRef<typeof RadixRadio.Item>, ItemProps>(
         className
       )}
     >
-      <div className="flex size-full flex-row items-center justify-between gap-x-3 gap-y-1 px-3">{children}</div>
+      <div
+        className={StyleHelper.mergeStyles(
+          'flex size-full flex-row items-center justify-between gap-x-3 gap-y-1 px-3',
+          contentClassName
+        )}
+      >
+        {children}
+      </div>
 
       {withSeparator && <Separator containerClassName={StyleHelper.mergeStyles('w-full', separatorClassName)} />}
     </RadixRadio.Item>

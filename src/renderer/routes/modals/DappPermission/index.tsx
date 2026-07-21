@@ -7,7 +7,6 @@ import type { PendingRequestTypes, SessionTypes } from '@walletconnect/types'
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { WalletConnectError } from '@renderer/helpers/ErrorHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
@@ -18,6 +17,7 @@ import { useSelectedNetworkSelector } from '@renderer/hooks/useSettingsSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
+import { WalletConnectError } from '@shared/helpers/ErrorHelper'
 import { rendererApi } from '@shared/message-api/renderer'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'

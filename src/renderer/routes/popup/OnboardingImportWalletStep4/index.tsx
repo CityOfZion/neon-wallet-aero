@@ -7,7 +7,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { Progress } from '@renderer/components/Progress'
 
 import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
-import { AppError } from '@renderer/helpers/ErrorHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
@@ -20,6 +19,7 @@ import { useAppDispatch } from '@renderer/hooks/useRedux'
 import NeonWalletIcon from '@renderer/assets/images/neon-wallet-icon.svg?react'
 
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
+import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TCreateWalletAndAccountParam } from '@shared/types/blockchain'
 import type { TContact, TSwapRecord } from '@shared/types/store'
 

@@ -6,14 +6,14 @@ import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
-import { AppError } from '@renderer/helpers/ErrorHelper'
-
 import type { TUseImportFromFileActionsData } from '@renderer/hooks/useImportFromFile'
 import { useImportFromFile } from '@renderer/hooks/useImportFromFile'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useNeonBackupFile } from '@renderer/hooks/useNeonBackupFile'
 
 import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
+
+import { AppError } from '@shared/helpers/ErrorHelper'
 
 import { MigrateFromNeon2SuccessFooter } from './MigrateFromNeon2SuccessFooter'
 

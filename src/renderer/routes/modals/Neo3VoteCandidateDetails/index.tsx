@@ -7,7 +7,6 @@ import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Button } from '@renderer/components/Button'
 import { Separator } from '@renderer/components/Separator'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
@@ -24,6 +23,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import CozLogo from '@renderer/assets/images/coz-logo.svg?react'
 import TbCheckbox from '@renderer/assets/images/tb-checkbox.svg?react'
 
+import { ConstantsHelper } from '@shared/helpers/ConstantsHelper'
 import type { TModalState } from '@shared/types/modal'
 
 export const Neo3VoteCandidateDetailsModal = () => {

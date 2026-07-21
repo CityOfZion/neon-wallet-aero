@@ -1,12 +1,12 @@
 import { BSKeychainHelper, hasLedger, type TBSAccount } from '@cityofzion/blockchain-service'
 import { BSBitcoinConstants } from '@cityofzion/bs-bitcoin'
 
+import { EncryptionHelper } from '@shared/helpers/EncryptionHelper'
+import { AppError } from '@shared/helpers/ErrorHelper'
+import { I18nextHelper } from '@shared/helpers/I18nextHelper'
 import type { TBlockchainServiceKey, TBSAggregator } from '@shared/types/blockchain'
 import type { TAccount } from '@shared/types/store'
 
-import { EncryptionHelper } from './EncryptionHelper'
-import { AppError } from './ErrorHelper'
-import { I18nextHelper } from './I18nextHelper'
 import { ReduxHelper } from './ReduxHelper'
 
 const { t } = I18nextHelper.get()
@@ -74,6 +74,7 @@ export class BlockchainServiceHelper {
     this.bsAggregator = new BSAggregator(services)
     this.blockchainNames = services.map(service => service.name) as TBlockchainServiceKey[]
   }
+
   static async getServiceAccount<T extends TBlockchainServiceKey>(account: TAccount<T>): Promise<TBSAccount<T>> {
     if (!account.encryptedKey) {
       throw new AppError(t('common:errors.unexpectedError'))

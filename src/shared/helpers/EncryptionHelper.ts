@@ -4,6 +4,7 @@ import { AppError } from './ErrorHelper'
 import { I18nextHelper } from './I18nextHelper'
 
 const { t } = I18nextHelper.get()
+
 export class EncryptionHelper {
   static #arrayBufferToHex(buffer: any) {
     return [...new Uint8Array(buffer)].map(byte => byte.toString(16).padStart(2, '0')).join('')
