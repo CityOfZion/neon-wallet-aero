@@ -29,7 +29,7 @@ export default defineManifest({
   content_scripts: [
     {
       matches: ['<all_urls>'],
-      js: ['src/content-script/index.ts'],
+      js: ['src/content-script/dapi-bridge.ts'],
       run_at: 'document_start',
     },
     {
