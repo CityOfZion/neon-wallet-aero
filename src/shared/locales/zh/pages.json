@@ -429,6 +429,10 @@
       "submitLabel": "立即交换",
       "max": "最大",
       "receiverAddressPlaceholder": "选择…",
+      "trustlineWarning": {
+        "source": "要在 Stellar 上兑换 {{token}}，源账户必须为此代币设置有效的信任线。",
+        "receiver": "要在 Stellar 上接收 {{token}}，接收账户必须为此代币设置有效的信任线，否则兑换将失败。"
+      },
       "errors": {
         "invalidAddress": "地址无效",
         "invalidExtraIdToReceive": "目标标签/备注无效",
