@@ -9,7 +9,8 @@
     "exportButtonLabel": "Export",
     "exportWalletTitle": "Wallet exportieren",
     "exportError": "Fehler beim Exportieren der Wallet",
-    "walletWithoutBackupLabel": "Wallet ohne Backup"
+    "walletWithoutBackupLabel": "Wallet ohne Backup",
+    "backupButtonLabel": "Wallet sichern"
   },
   "stellarPersistTrustlines": {
     "title": "Trustline",

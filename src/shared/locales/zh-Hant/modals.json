@@ -9,7 +9,8 @@
     "exportButtonLabel": "匯出",
     "exportWalletTitle": "匯出錢包",
     "exportError": "匯出錢包時發生錯誤",
-    "walletWithoutBackupLabel": "未備份的錢包"
+    "walletWithoutBackupLabel": "未備份的錢包",
+    "backupButtonLabel": "備份錢包"
   },
   "stellarPersistTrustlines": {
     "title": "信任額度",
