@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@renderer/components/Button'
 import { IconButton } from '@renderer/components/IconButton'
@@ -44,6 +45,8 @@ type TWalletItemProps = {
 const WalletItem = ({ wallet, isSelected, editMode, isLast, isPasswordLogin, onSelect, onEdit }: TWalletItemProps) => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelection' })
   const ref = useRef<HTMLLIElement>(null)
+  const { modalErase } = useModalNavigate()
+  const navigate = useNavigate()
 
   const handleClick = () => {
     if (editMode) {
@@ -52,6 +55,12 @@ const WalletItem = ({ wallet, isSelected, editMode, isLast, isPasswordLogin, onS
     }
 
     onSelect(wallet)
+  }
+
+  const handleBackupClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    modalErase('bottom')
+    navigate('/settings/backup-and-restore/backup/1')
   }
 
   useEffect(() => {
@@ -82,7 +91,13 @@ const WalletItem = ({ wallet, isSelected, editMode, isLast, isPasswordLogin, onS
               arrowProps={{ className: 'fill-asphalt' }}
               delayDuration={0}
             >
-              <TbAlertTriangle className="text-yellow max-size-6 min-size-6 size-6" aria-hidden />
+              <button
+                type="button"
+                onClick={handleBackupClick}
+                className="flex cursor-pointer items-center justify-center"
+              >
+                <TbAlertTriangle className="text-yellow max-size-6 min-size-6 size-6" aria-hidden />
+              </button>
             </Tooltip>
           )}
 
