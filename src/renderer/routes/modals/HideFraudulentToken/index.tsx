@@ -7,7 +7,6 @@ import { Skeleton } from '@renderer/components/Skeleton'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -30,18 +29,17 @@ export const HideFraudulentTokenModal = () => {
   const dispatch = useAppDispatch()
 
   const blockchain = balanceQuery.data?.blockchain || account.blockchain
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
   const tokenBalance = useMemo(() => {
-    if (balanceQuery.isLoading || !blockchain) return undefined
-
-    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
+    if (balanceQuery.isLoading) return undefined
 
     return balanceQuery.data?.tokensBalances?.find(({ token }) =>
       service.tokenService.predicateByHash(tokenHash, token)
     )
-  }, [blockchain, balanceQuery.data?.tokensBalances, balanceQuery.isLoading, tokenHash])
+  }, [balanceQuery.isLoading, balanceQuery.data?.tokensBalances, service, tokenHash])
 
-  const isDisabled = TokenHelper.isNativeToken(tokenHash, blockchain) || !tokenBalance
+  const isDisabled = service.tokenService.isNativeToken(tokenHash) || !tokenBalance
 
   const [isHiding, startHide] = usePressOnce(() => {
     if (isDisabled) return

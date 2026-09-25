@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import intersection from 'lodash/intersection'
 
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
+import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
 import { useOwnAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useLazyBalance } from '@renderer/hooks/useBalances'
@@ -49,18 +50,24 @@ const useFraudulentTokensNotificationProcess = () => {
     try {
       if (!balance) return
 
-      const fraudulentHashes = ConstantsHelper.fraudulentTokenHashesByBlockchain.get(account.blockchain)
+      const { blockchain } = account
+      const fraudulentHashes = ConstantsHelper.fraudulentTokenHashesByBlockchain.get(blockchain)
 
       if (!fraudulentHashes) return
 
-      const fraudulentHashesOwned = new Set(intersection([...fraudulentHashes], [...balance.tokensBalancesMap.keys()]))
+      const fraudulentTokensOwned = new Set(
+        intersection(
+          [...fraudulentHashes].map(hash => TokenHelper.getKey(hash, blockchain)),
+          [...balance.tokensBalancesMap.keys()]
+        )
+      )
 
-      for (const fraudulentHash of fraudulentHashesOwned) {
-        const tokenBalance = balance.tokensBalancesMap.get(fraudulentHash)
+      for (const key of fraudulentTokensOwned) {
+        const tokenBalance = balance.tokensBalancesMap.get(key)
 
         if (!tokenBalance) continue
 
-        const notificationKey = generateNotificationKey(account.blockchain, account.address, tokenBalance.token.hash)
+        const notificationKey = generateNotificationKey(blockchain, account.address, tokenBalance.token.hash)
 
         if (notificationKeysRef.current.has(notificationKey)) continue
 
@@ -120,9 +127,11 @@ const useBNeoShutdownNotificationProcess = () => {
 
   const process = (account: TAccount, balance: TBalance | undefined) => {
     try {
-      if (!balance || account.blockchain !== 'neo3' || new Date() >= dateLimit) return
+      const { blockchain } = account
 
-      const tokenBalance = balance.tokensBalancesMap.get(ConstantsHelper.bNeoTokenHash)
+      if (!balance || blockchain !== 'neo3' || new Date() >= dateLimit) return
+
+      const tokenBalance = balance.tokensBalancesMap.get(TokenHelper.getKey(ConstantsHelper.bNeoTokenHash, blockchain))
       if (!tokenBalance || tokenBalance.amountNumber === 0) return
 
       if (notificationsSetByAddressRef.current.has(account.address)) return
@@ -250,7 +259,7 @@ const AccountTasksManagerSetup = () => {
 
           accountsAlreadyProcessedRef.current.add(account.id)
 
-          const balance = await getBalance(account, { showType: 'active' })
+          const balance = await getBalance(account)
 
           fraudulentTokens.process(account, balance)
           bNeoShutdownProcess.process(account, balance)

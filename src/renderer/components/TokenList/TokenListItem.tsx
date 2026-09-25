@@ -12,7 +12,6 @@ import { Tooltip } from '@renderer/components/Tooltip'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
@@ -39,21 +38,18 @@ export const TokenListItem = ({ tokenBalance, isEditMode }: TProps) => {
 
   const tokenHash = tokenBalance?.token?.hash
   const blockchain = tokenBalance?.blockchain
+  const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
 
   const isHiddenToken = useMemo(() => {
-    if (!tokenHash) return false
-
-    const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[blockchain]
-
-    if (!service) return false
+    if (!tokenHash || !service) return false
 
     const normalizedTokenHash = service.tokenService.normalizeHash(tokenHash)
     const hiddenTokens = hiddenTokensByBlockchain?.[blockchain] || []
 
     return hiddenTokens.some(token => service.tokenService.predicateByHash(token, normalizedTokenHash))
-  }, [blockchain, hiddenTokensByBlockchain, tokenHash])
+  }, [blockchain, hiddenTokensByBlockchain, service, tokenHash])
 
-  const isHideTokenDisabled = !tokenHash || !blockchain || TokenHelper.isNativeToken(tokenHash, blockchain)
+  const isHideTokenDisabled = !tokenHash || !blockchain || !service || service.tokenService.isNativeToken(tokenHash)
 
   const toggleHiddenToken = () => {
     if (!blockchain) return
