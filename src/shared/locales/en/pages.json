@@ -372,7 +372,9 @@
       }
     },
     "sendTip": {
-      "supportLabel": "I want to support COZ with a tip of",
+      "customAmountLabel": "Amount",
+      "supportLabel": "I want to support COZ with a {{percentage}}% tip of",
+      "supportCustomLabel": "I want to support COZ with a tip of",
       "optionalLabel": "*Optional"
     },
     "sendSuccess": {
@@ -396,7 +398,7 @@
       "amountIsLessOrEqualZero": "The amount is less than or equal to zero",
       "hardwareWalletShouldBeValid": "To proceed with this operation, please make sure your hardware wallet is unlocked",
       "noTokenToTip": "No token to pay the tip",
-      "noAmountToTip": "No enough amount to pay the tip",
+      "noAmountToTip": "Insufficient balance to pay the tip",
       "noFiatPriceToTip": "Fiat price not found to the tip"
     }
   },

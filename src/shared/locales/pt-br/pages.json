@@ -367,7 +367,9 @@
       }
     },
     "sendTip": {
-      "supportLabel": "Quero apoiar a COZ com uma gorjeta de",
+      "customAmountLabel": "Quantidade",
+      "supportLabel": "Quero apoiar a COZ com uma gorjeta de {{percentage}}% de",
+      "supportCustomLabel": "Quero apoiar a COZ com uma gorjeta de",
       "optionalLabel": "*Opcional"
     },
     "sendSuccess": {
@@ -391,7 +393,7 @@
       "amountIsLessOrEqualZero": "O valor é menor ou igual a zero",
       "hardwareWalletShouldBeValid": "Para prosseguir com esta operação, certifique-se de que sua carteira de hardware está desbloqueada",
       "noTokenToTip": "Nenhum token para pagar a gorjeta",
-      "noAmountToTip": "Quantidade insuficiente para pagar a gorjeta",
+      "noAmountToTip": "Saldo insuficiente para pagar a gorjeta",
       "noFiatPriceToTip": "Preço fiduciário não encontrado para a gorjeta"
     }
   },

@@ -367,7 +367,9 @@
       }
     },
     "sendTip": {
-      "supportLabel": "我想通过小费支持 COZ，金额为",
+      "customAmountLabel": "金额",
+      "supportLabel": "我想通过 {{percentage}}% 的小费支持 COZ，金额为",
+      "supportCustomLabel": "我想以小费支持 COZ，金额为",
       "optionalLabel": "*可选"
     },
     "sendSuccess": {
@@ -391,7 +393,7 @@
       "amountIsLessOrEqualZero": "金额小于或等于零",
       "hardwareWalletShouldBeValid": "请确保您的硬件钱包已解锁以继续操作",
       "noTokenToTip": "没有代币支付小费",
-      "noAmountToTip": "金额不足以支付小费",
+      "noAmountToTip": "余额不足以支付小费",
       "noFiatPriceToTip": "未找到法定货币价格以进行打赏"
     }
   },
