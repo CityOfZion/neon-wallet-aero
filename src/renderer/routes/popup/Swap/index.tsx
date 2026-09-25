@@ -18,6 +18,7 @@ import { ActionStep } from '@renderer/components/ActionStep'
 import { ActionStepSeparator } from '@renderer/components/ActionStepSeparator'
 import { AddressSelectionButton } from '@renderer/components/AddressSelectionButton'
 import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
+import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
 import { GreyAmountInput } from '@renderer/components/GreyAmountInput'
@@ -152,6 +153,32 @@ export const SwapPage = () => {
         : undefined,
     [actionData.selectedAccountToUse.value]
   )
+
+  const stellarTrustlineWarnings = useMemo(() => {
+    const stellarService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.stellar
+
+    const isNonNativeStellarToken = (token?: TSwapToken<TBlockchainServiceKey> | null) =>
+      !!token &&
+      token.blockchain === 'stellar' &&
+      !!token.hash &&
+      !stellarService.tokenService.predicateByHash(stellarService.feeToken, token.hash)
+
+    const warnings: string[] = []
+
+    if (isNonNativeStellarToken(actionData.selectedTokenToUse.value)) {
+      warnings.push(
+        t('form.trustlineWarning.source', { token: actionData.selectedTokenToUse.value!.symbol.toUpperCase() })
+      )
+    }
+
+    if (isNonNativeStellarToken(actionData.selectedTokenToReceive.value)) {
+      warnings.push(
+        t('form.trustlineWarning.receiver', { token: actionData.selectedTokenToReceive.value!.symbol.toUpperCase() })
+      )
+    }
+
+    return warnings
+  }, [actionData.selectedTokenToUse.value, actionData.selectedTokenToReceive.value, t])
 
   const selectedTokenBalance = useMemo(() => {
     if (!service || !balanceQuery.data || !actionData.selectedTokenToUse.value) return
@@ -751,6 +778,10 @@ export const SwapPage = () => {
                 <p className="text-right text-sm text-white">{actionData.selectedAmountToReceive.value || 0}</p>
               </ActionStep>
             </div>
+
+            {stellarTrustlineWarnings.map(message => (
+              <Banner key={message} type="warning" className="mt-2.5 w-full" message={message} />
+            ))}
 
             {errorMessage && <AlertErrorBanner className="mt-2.5 w-full" message={errorMessage} />}
 
