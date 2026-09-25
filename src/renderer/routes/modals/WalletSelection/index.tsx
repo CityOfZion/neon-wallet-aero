@@ -1,9 +1,11 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 
+import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
 import { IconButton } from '@renderer/components/IconButton'
+import { Link } from '@renderer/components/Link'
 import { Separator } from '@renderer/components/Separator'
 import { Tooltip } from '@renderer/components/Tooltip'
 
@@ -44,6 +46,7 @@ type TWalletItemProps = {
 const WalletItem = ({ wallet, isSelected, editMode, isLast, isPasswordLogin, onSelect, onEdit }: TWalletItemProps) => {
   const { t } = useTranslation('modals', { keyPrefix: 'walletSelection' })
   const ref = useRef<HTMLLIElement>(null)
+  const { modalErase } = useModalNavigate()
 
   const handleClick = () => {
     if (editMode) {
@@ -52,6 +55,11 @@ const WalletItem = ({ wallet, isSelected, editMode, isLast, isPasswordLogin, onS
     }
 
     onSelect(wallet)
+  }
+
+  const handleBackup = (event: MouseEvent) => {
+    event.stopPropagation()
+    modalErase('bottom')
   }
 
   useEffect(() => {
@@ -82,7 +90,15 @@ const WalletItem = ({ wallet, isSelected, editMode, isLast, isPasswordLogin, onS
               arrowProps={{ className: 'fill-asphalt' }}
               delayDuration={0}
             >
-              <TbAlertTriangle className="text-yellow max-size-6 min-size-6 size-6" aria-hidden />
+              <Link
+                aria-label={t('backupButtonLabel')}
+                to="/settings/backup-and-restore/backup/1"
+                variant="text-slim"
+                colorSchema="yellow"
+                iconsOnEdge={false}
+                leftIcon={<TbAlertTriangle className="max-size-6 min-size-6 size-6" aria-hidden />}
+                onClick={handleBackup}
+              />
             </Tooltip>
           )}
 
