@@ -3,11 +3,11 @@ import { useCallback, useMemo } from 'react'
 import type { QueryClient } from '@tanstack/react-query'
 import { useQueries, useQuery, useQueryClient } from '@tanstack/react-query'
 import cloneDeep from 'lodash/cloneDeep'
-import { match } from 'ts-pattern'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { ExchangeHelper } from '@renderer/helpers/ExchangeHelper'
 import { NumberHelper } from '@renderer/helpers/NumberHelper'
+import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
 import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
 import type {
@@ -71,7 +71,7 @@ const fetchBalance = async (
         const amountNumber = NumberHelper.number(balance.amount)
         const exchangeAmount = amountNumber * exchangeConvertedPrice
 
-        tokensBalancesMap.set(service.tokenService.normalizeHash(balance.token.hash), {
+        tokensBalancesMap.set(TokenHelper.getKey(balance.token.hash, param.blockchain), {
           ...balance,
           blockchain: param.blockchain,
           amount: balance.amount,
@@ -104,28 +104,20 @@ const fixBalanceResult = (
   const tokenBalancesMapClone = cloneDeep(result.tokensBalancesMap)
   const hiddenTokens = hiddenTokensByBlockchain[result.blockchain]
   const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[result.blockchain]
-  let tokensBalances: TTokenBalance[] = []
 
-  match(showType)
-    .with('active', () => {
-      hiddenTokens?.forEach(tokenHash => {
-        tokenBalancesMapClone.delete(service.tokenService.normalizeHash(tokenHash))
-      })
+  if (hiddenTokens && showType !== 'all') {
+    const keepHidden = showType === 'hidden'
 
-      tokensBalances = Array.from(tokenBalancesMapClone.values())
-    })
-    .with('hidden', () => {
-      hiddenTokens?.forEach(tokenHash => {
-        const tokenBalance = tokenBalancesMapClone.get(service.tokenService.normalizeHash(tokenHash))
+    for (const [key, { token }] of tokenBalancesMapClone) {
+      const isHidden = hiddenTokens.some(tokenHash => service.tokenService.predicateByHash(tokenHash, token.hash))
 
-        if (!tokenBalance) return
+      if (isHidden !== keepHidden) {
+        tokenBalancesMapClone.delete(key)
+      }
+    }
+  }
 
-        tokensBalances.push(tokenBalance)
-      })
-    })
-    .otherwise(() => {
-      tokensBalances = Array.from(tokenBalancesMapClone.values())
-    })
+  const tokensBalances = Array.from(tokenBalancesMapClone.values())
 
   return {
     address: result.address,
