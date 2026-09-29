@@ -1,7 +1,9 @@
 import { type ReactNode, useMemo } from 'react'
 
 import { DapiError, DapiErrorCode } from '@cityofzion/neon-dapi'
-import { isArray, isObject, mapValues } from 'lodash'
+import isArray from 'lodash/isArray'
+import isObject from 'lodash/isObject'
+import mapValues from 'lodash/mapValues'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'

@@ -1,5 +1,5 @@
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 
 import type { TContact, TContactEncryptedAddress } from '@shared/types/store'
 
