@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'

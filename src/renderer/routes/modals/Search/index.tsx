@@ -1,7 +1,8 @@
 import { type ChangeEvent, useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { search } from 'fast-fuzzy'
-import { debounce, orderBy } from 'lodash'
+import debounce from 'lodash/debounce'
+import orderBy from 'lodash/orderBy'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { removeStopwords } from 'stopword'

@@ -1,6 +1,6 @@
 import { Fragment, useMemo, useState } from 'react'
 
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'

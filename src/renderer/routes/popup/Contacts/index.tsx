@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash/cloneDeep'
 import { useTranslation } from 'react-i18next'
 
 import { ContactsList } from '@renderer/components/ContactsList'
