@@ -56,6 +56,7 @@ type TActionsData = {
   isTipChecked: boolean
   isTipDisabled: boolean
   tipAmountBn?: BSBigNumber
+  tipCustomAmountBn?: BSBigNumber
   tipFiatPriceBn?: BSBigNumber
   tipError?: string
 }
@@ -110,6 +111,18 @@ const SendPage = () => {
   const isAccountDisabled = !actionData.selectedAccount || isCalculatingForm
   const isAmountsLoading = actionData.recipients.some(recipient => !!recipient.isAmountLoading)
 
+  const isSubmitDisabled =
+    !actionState.isValid ||
+    actionState.isActing ||
+    !actionData.selectedAccount ||
+    !!actionState.errors.recipients ||
+    !service ||
+    isCalculatingForm ||
+    isFeeInvalid ||
+    !!actionData.tipError
+
+  const errorBannerMessage = actionData.tipError || actionState.errors.fee || actionState.errors.selectedAccount
+
   const getSendFields = async () => {
     if (
       !actionData.selectedAccount ||
@@ -127,8 +140,9 @@ const SendPage = () => {
       token: recipient.token!.token,
     }))
 
-    const { isTipChecked, isTipDisabled, tipAmountBn, tipFiatPriceBn } = actionData
-    if (isTipChecked && !isTipDisabled && tipAmountBn && tipFiatPriceBn && tipConfig) {
+    const { isTipChecked, isTipDisabled, tipAmountBn, tipFiatPriceBn, tipError } = actionData
+
+    if (isTipChecked && !isTipDisabled && !tipError && tipAmountBn && tipFiatPriceBn && tipConfig) {
       intents.push({
         amount: tipAmountBn.toFixed(),
         receiverAddress: tipConfig.address,
@@ -147,7 +161,7 @@ const SendPage = () => {
   }
 
   const handleSetRecipients = (setRecipients: (prevRecipients: TSendRecipient[]) => TSendRecipient[]) => {
-    setData({ isTipChecked: false })
+    handleToggleTip(false)
 
     let recipients: TSendRecipient[] = []
 
@@ -281,13 +295,29 @@ const SendPage = () => {
   }
 
   const handleToggleTip = (isTipChecked: boolean) => {
-    if (isTipChecked && actionData.tipError) {
-      ToastHelper.error({ id: 'send-tip-error', message: actionData.tipError })
+    setData({ isTipChecked, tipError: undefined })
+  }
+
+  const handleTipCustomAmountChange = (tipCustomAmount?: string) => {
+    if (!tipCustomAmount || !tipConfig) {
+      setData({ tipCustomAmountBn: undefined })
 
       return
     }
 
-    setData({ isTipChecked })
+    const tipCustomAmountBn = new BSBigHumanAmount(tipCustomAmount, tipConfig.token.decimals)
+
+    if (!tipCustomAmountBn.isGreaterThan('0')) {
+      setData({ tipCustomAmountBn: undefined })
+
+      return
+    }
+
+    setData({
+      tipCustomAmountBn: tipCustomAmountBn.isGreaterThanOrEqualTo(tipConfig.minBn)
+        ? tipCustomAmountBn
+        : tipConfig.minBn,
+    })
   }
 
   const handleReset = () => {
@@ -298,7 +328,7 @@ const SendPage = () => {
   const handleSubmit = async () => {
     const fields = await getSendFields()
 
-    if (!fields || isCalculatingForm || actionState.isActing || isFeeInvalid) return
+    if (!fields || isSubmitDisabled) return
 
     const { selectedAccount, serviceAccount, intents, service } = fields
 
@@ -402,7 +432,7 @@ const SendPage = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [actionData.recipients, balanceQuery.data, actionData.isTipChecked])
+  }, [balanceQuery.data, actionData.recipients, actionData.isTipChecked, actionData.tipAmountBn?.toFixed()])
 
   useEffect(() => {
     if (!service || !isMainnetNetwork || !tipConfig) {
@@ -410,6 +440,7 @@ const SendPage = () => {
         isTipChecked: false,
         isTipDisabled: true,
         tipAmountBn: undefined,
+        tipCustomAmountBn: undefined,
         tipFiatPriceBn: undefined,
         tipError: undefined,
       })
@@ -446,7 +477,13 @@ const SendPage = () => {
 
     const isTipDisabled = isFeeInvalid || !actionState.isValid || !!actionState.errors.recipients
 
-    if (totalFiatPricesBn.isLessThanOrEqualTo('0')) {
+    if (!actionData.isTipChecked && isTipDisabled) {
+      setData({ isTipDisabled, tipError: undefined })
+
+      return
+    }
+
+    if (actionData.isTipChecked && totalFiatPricesBn.isLessThanOrEqualTo('0')) {
       setData({
         isTipChecked: false,
         isTipDisabled,
@@ -462,7 +499,7 @@ const SendPage = () => {
       service.tokenService.predicateByHash(tokenBalance.token, tipConfig.token)
     )
 
-    if (!tipTokenBalance) {
+    if (actionData.isTipChecked && !tipTokenBalance) {
       setData({
         isTipChecked: false,
         isTipDisabled,
@@ -480,8 +517,16 @@ const SendPage = () => {
       exchangeQuery.data
     )
 
-    let tipFiatPriceBn = totalFiatPricesBn.multipliedBy(ConstantsHelper.tipPercentageBn)
-    let tipAmountBn = new BSBigHumanAmount(tipFiatPriceBn.toFixed(), tipConfig.token.decimals).dividedBy(tokenFiatPrice)
+    let tipFiatPriceBn: BSBigNumber
+    let tipAmountBn: BSBigNumber
+
+    if (actionData.tipCustomAmountBn) {
+      tipAmountBn = actionData.tipCustomAmountBn
+      tipFiatPriceBn = tipAmountBn.multipliedBy(tokenFiatPrice)
+    } else {
+      tipFiatPriceBn = totalFiatPricesBn.multipliedBy(ConstantsHelper.tipPercentageBn)
+      tipAmountBn = new BSBigHumanAmount(tipFiatPriceBn.toFixed(), tipConfig.token.decimals).dividedBy(tokenFiatPrice)
+    }
 
     if (tipAmountBn.isLessThan(tipConfig.minBn)) {
       tipFiatPriceBn = tipConfig.minBn.multipliedBy(tokenFiatPrice)
@@ -490,8 +535,13 @@ const SendPage = () => {
 
     totalAmountsBn = totalAmountsBn.plus(tipAmountBn)
 
-    if (totalAmountsBn.isGreaterThan(tipTokenBalance.amount)) {
-      setData({ isTipChecked: false, isTipDisabled, tipAmountBn, tipFiatPriceBn, tipError: t('errors.noAmountToTip') })
+    if (actionData.isTipChecked && tipTokenBalance && totalAmountsBn.isGreaterThan(tipTokenBalance.amount)) {
+      setData({
+        isTipDisabled,
+        tipAmountBn,
+        tipFiatPriceBn,
+        tipError: t('errors.noAmountToTip'),
+      })
 
       return
     }
@@ -501,7 +551,9 @@ const SendPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     actionData.fee,
+    actionData.isTipChecked,
     actionData.recipients,
+    actionData.tipCustomAmountBn,
     actionState.errors.recipients,
     actionState.isActing,
     actionState.isValid,
@@ -518,6 +570,7 @@ const SendPage = () => {
 
   useEffect(() => {
     handleSelectAccount(state?.account)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.account])
 
@@ -568,13 +621,13 @@ const SendPage = () => {
         </div>
 
         <Button
-          leftIcon={<TbPlus aria-hidden />}
           label={t('addRecipientButtonLabel')}
           variant="text"
           iconsOnEdge={false}
           disabled={isAccountDisabled}
           colorSchema={isAccountDisabled ? 'white' : 'neon'}
           className="mt-2 w-64"
+          leftIcon={<TbPlus aria-hidden />}
           onClick={handleAddRecipient}
         />
 
@@ -590,21 +643,18 @@ const SendPage = () => {
           <SendTip
             className="mt-2"
             amountBn={actionData.tipAmountBn}
+            customAmountBn={actionData.tipCustomAmountBn}
             fiatPriceBn={actionData.tipFiatPriceBn}
             token={tipConfig.token}
             isChecked={actionData.isTipChecked}
             isDisabled={actionData.isTipDisabled}
             isLoading={exchangeQuery.isLoading}
             onChange={handleToggleTip}
+            onCustomAmountChange={handleTipCustomAmountChange}
           />
         )}
 
-        {(actionState.errors.fee || actionState.errors.selectedAccount) && (
-          <AlertErrorBanner
-            className="mt-2 w-full"
-            message={actionState.errors.fee || actionState.errors.selectedAccount || ''}
-          />
-        )}
+        {errorBannerMessage && <AlertErrorBanner className="mt-2 w-full" message={errorBannerMessage} />}
 
         <Button
           label={t('sendTokensButtonLabel')}
@@ -612,14 +662,7 @@ const SendPage = () => {
           variant="text"
           iconsOnEdge={false}
           loading={actionState.isActing}
-          disabled={
-            !actionState.isValid ||
-            !actionData.selectedAccount ||
-            !!actionState.errors.recipients ||
-            !service ||
-            isCalculatingForm ||
-            isFeeInvalid
-          }
+          disabled={isSubmitDisabled}
           leftIcon={<TbSend className="text-neon" />}
           onClick={handleAct(handleSubmit)}
         />

@@ -16,7 +16,6 @@ import { Separator } from '@renderer/components/Separator'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
-import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
@@ -81,7 +80,8 @@ export const SendRecipient = ({
   } = useNameService()
 
   const isDisabled = !selectedAccount || isDisabledMaxAmount
-  const isAmountDisabled = isDisabled || !recipient.token || !recipient.address
+  const isReceiverAddressDisabled = isDisabled || !recipient.token
+  const isAmountDisabled = isReceiverAddressDisabled || !recipient.address
 
   const handleChangeAddress = (event: ChangeEvent<HTMLInputElement>) => {
     const address = StringHelper.removeSpecialCharacters(event.target.value, { allowSpaces: false, allowDots: true })
@@ -103,21 +103,21 @@ export const SendRecipient = ({
     onUpdateRecipient({ token: tokenBalance, amount: undefined })
   }
 
-  const handleChangeAmount = (value: string) => {
-    try {
-      value = StringHelper.removeSpecialCharacters(value, { allowSpaces: false, allowDots: true, allowCommas: true })
+  const handleChangeAmount = (amount: string) => {
+    amount = amount.trim()
 
-      onUpdateRecipient({ amount: value, isAmountLoading: true })
+    const isAmountLoading = !!amount
 
-      debounceAmount(() => {
-        onUpdateRecipient({
-          amount: new BSBigHumanAmount(value, recipient.token?.token?.decimals).toFormatted(),
-          isAmountLoading: false,
-        })
+    onUpdateRecipient({ amount, isAmountLoading })
+
+    debounceAmount(() => {
+      if (!isAmountLoading) return
+
+      onUpdateRecipient({
+        amount: new BSBigHumanAmount(amount, recipient.token?.token?.decimals).toFormatted(),
+        isAmountLoading: false,
       })
-    } catch (error) {
-      LoggerHelper.error(error, { where: 'SendRecipient', operation: 'handleChangeAmount' })
-    }
+    })
   }
 
   const handleSelectAccount = (account: TAccount) => {
@@ -131,12 +131,15 @@ export const SendRecipient = ({
 
   useEffect(() => {
     if (recipient.addressInput === undefined || !selectedAccount || !isPresent) return
+
     validateAddressOrNS(recipient.addressInput, selectedAccount.blockchain)
   }, [recipient.addressInput, selectedAccount, validateAddressOrNS, isPresent])
 
   useEffect(() => {
     if (!isPresent) return
+
     onUpdateRecipient({ address: validatedAddress })
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validatedAddress, isPresent])
 
@@ -146,9 +149,7 @@ export const SendRecipient = ({
       animate={removable ? { scale: 1, opacity: 1 } : undefined}
       exit={removable ? { scale: 0, opacity: 0 } : undefined}
       layout={order > 1}
-      style={{
-        zIndex: !isPresent ? 0 : 1,
-      }}
+      style={{ zIndex: !isPresent ? 0 : 1 }}
       transition={{ type: 'spring', stiffness: 900, damping: 40, opacity: { duration: 0.05 } }}
       className={StyleHelper.mergeStyles('w-full rounded bg-gray-300/15', {
         static: isPresent,
@@ -157,17 +158,17 @@ export const SendRecipient = ({
     >
       <div className="flex w-full flex-col items-center rounded px-3.5">
         <ActionStep
-          className="px-0"
           title={t('title', { order })}
-          leftIcon={<TbStepInto aria-hidden />}
           titleClassName="font-bold text-sm"
+          className="px-0"
+          leftIcon={<TbStepInto aria-hidden />}
         >
           {removable && order > 1 && (
             <IconButton
               aria-label={tCommon('general.remove')}
-              icon={<TbTrash aria-hidden className="text-pink" />}
               type="button"
               disabled={isDisabled}
+              icon={<TbTrash aria-hidden className="text-pink" />}
               onClick={() => onRemoveRecipient()}
             />
           )}
@@ -176,18 +177,18 @@ export const SendRecipient = ({
         <Separator />
 
         <ActionStep
-          className="px-0"
           title={t('tokenToReceiveLabel')}
+          className="px-0"
           leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
         >
           <GreyTokenSelect
-            tokens={balance?.data?.tokensBalances.map(tokenBalance => tokenBalance.token) || []}
+            className="text-sm"
             balance={balance?.data}
-            onSelect={handleSelectToken}
             selectedToken={recipient.token?.token}
+            tokens={balance?.data?.tokensBalances.map(tokenBalance => tokenBalance.token) || []}
             loading={balance?.isLoading}
             disabled={isDisabled}
-            className="text-sm"
+            onSelect={handleSelectToken}
           />
         </ActionStep>
 
@@ -200,29 +201,29 @@ export const SendRecipient = ({
           </div>
           <div className="flex w-full items-start gap-3">
             <Input
-              name="recipient-address"
               id="recipient-address"
-              value={recipient.addressInput || ''}
-              onChange={handleChangeAddress}
-              className="w-full"
+              name="recipient-address"
               placeholder={t('addressPlaceholder')}
+              className="w-full"
+              value={recipient.addressInput || ''}
+              errorMessage={isValidAddressOrDomainAddress === false ? t('errors.invalidAddress') : undefined}
               clearable={false}
               pastable
               loading={isValidatingAddressOrDomainAddress}
-              errorMessage={isValidAddressOrDomainAddress === false ? t('errors.invalidAddress') : undefined}
-              disabled={isDisabled}
+              disabled={isReceiverAddressDisabled}
+              onChange={handleChangeAddress}
             />
 
             <GreyAccountSelect
-              onSelect={handleSelectAccount}
-              withoutIndicator
               blockchains={selectedAccount ? [selectedAccount.blockchain] : undefined}
-              disabled={isDisabled}
+              withoutIndicator
+              disabled={isReceiverAddressDisabled}
+              onSelect={handleSelectAccount}
             >
               <Button
-                disabled={isDisabled}
-                variant="text"
                 label={t('myAccountButtonLabel')}
+                variant="text"
+                disabled={isReceiverAddressDisabled}
                 leftIcon={<TbWallet aria-hidden />}
               />
             </GreyAccountSelect>
@@ -234,28 +235,28 @@ export const SendRecipient = ({
         <Separator />
 
         <ActionStep
-          className="pt-1.5 pb-2.5"
           title={t('amountLabel')}
+          className="pt-1.5 pb-2.5"
           leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
         >
           <GreyAmountInput value={recipient.amount || ''} onChange={handleChangeAmount} disabled={isAmountDisabled}>
             <Button
               label={t('max')}
-              flat
               variant="text"
               colorSchema="neon"
               className="bg-asphalt h-full w-15 rounded-r"
-              clickableProps={{ className: 'h-full rounded-r rounded-l-none' }}
+              flat
               loading={isLoadingMaxAmount}
               disabled={isAmountDisabled}
+              clickableProps={{ className: 'h-full rounded-r rounded-l-none' }}
               onClick={() => onMaxAmount(recipient)}
             />
           </GreyAmountInput>
         </ActionStep>
 
-        <div className="flex w-full justify-between gap-x-4 pb-3 pl-6.5">
-          <span className="text-xs text-gray-200 italic">{t('balanceLabel')}</span>
-          <span className="truncate text-xs text-gray-100 italic">
+        <div className="flex w-full justify-between gap-x-4 pb-3 pl-6.5 text-xs text-gray-100 italic">
+          <span className="whitespace-nowrap">{t('balanceLabel')}</span>
+          <span className="truncate">
             {CurrencyHelper.format(
               recipient.amount && recipient.token
                 ? new BSBigHumanAmount(recipient.amount, recipient.token.token.decimals)

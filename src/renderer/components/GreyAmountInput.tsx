@@ -1,6 +1,6 @@
 import { forwardRef, Fragment } from 'react'
 
-import type { ReactNode } from 'react'
+import type { KeyboardEvent, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { FieldActionsMenu } from '@renderer/components/FieldActionsMenu'
@@ -9,18 +9,40 @@ import { Loader } from '@renderer/components/Loader'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 type TProps = {
-  value?: string
-  onChange?: (value: string) => void
-  disabled?: boolean
-  readOnly?: boolean
-  loading?: boolean
+  autoFocus?: boolean
+  'aria-label'?: string
+  placeholder?: string
   className?: string
   inputClassName?: string
+  value?: string
+  maxLength?: number
+  disabled?: boolean
+  loading?: boolean
+  readOnly?: boolean
+  onChange?: (value: string) => void
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
   children?: ReactNode
 }
 
 export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
-  ({ onChange, value, disabled, loading, className, inputClassName, readOnly, children }, ref) => {
+  (
+    {
+      autoFocus,
+      'aria-label': ariaLabel,
+      placeholder,
+      className,
+      inputClassName,
+      value,
+      maxLength,
+      disabled,
+      loading,
+      readOnly,
+      onKeyDown,
+      onChange,
+      children,
+    },
+    ref
+  ) => {
     const { t } = useTranslation('components', { keyPrefix: 'greyAmountInput' })
     const isDisabled = loading || disabled
 
@@ -38,16 +60,20 @@ export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
           <Fragment>
             <FieldActionsMenu value={value || ''} disabled={isDisabled} readOnly={readOnly} onChange={onChange}>
               <input
+                ref={ref}
+                autoFocus={autoFocus}
+                aria-label={ariaLabel}
+                placeholder={placeholder || t('placeholder')}
                 className={StyleHelper.mergeStyles(
                   'text-neon size-full [appearance:textfield] bg-transparent px-2 text-center outline-none disabled:cursor-not-allowed',
                   inputClassName
                 )}
-                ref={ref}
-                onChange={event => onChange?.(event.target.value)}
                 value={value}
+                maxLength={maxLength}
                 disabled={isDisabled}
-                placeholder={t('placeholder')}
                 readOnly={readOnly}
+                onKeyDown={onKeyDown}
+                onChange={event => onChange?.(event.target.value)}
               />
             </FieldActionsMenu>
 

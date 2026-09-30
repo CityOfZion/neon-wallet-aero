@@ -45,8 +45,7 @@ const setSelectedNetworkUrl: CaseReducer<
 const saveCustomNetwork: CaseReducer<TSettingsReducer, PayloadAction<TCustomNetworkParams>> = (state, action) => {
   const { blockchain, network } = action.payload
   const networks = state.data.customNetworks[blockchain]
-
-  const index = networks.findIndex(networkItem => networkItem.id === network.id)
+  const index = networks.findIndex(item => item.id === network.id)
 
   if (index >= 0) {
     networks[index] = network
@@ -54,8 +53,10 @@ const saveCustomNetwork: CaseReducer<TSettingsReducer, PayloadAction<TCustomNetw
     networks.push(network)
   }
 
-  if (state.data.selectedNetworkByBlockchain[blockchain].id === network.id) {
-    state.data.selectedNetworkByBlockchain[blockchain] = network
+  const selectedNetworkByBlockchain = state.data.selectedNetworkByBlockchain
+
+  if (selectedNetworkByBlockchain[blockchain].id === network.id) {
+    selectedNetworkByBlockchain[blockchain] = network
   }
 }
 
