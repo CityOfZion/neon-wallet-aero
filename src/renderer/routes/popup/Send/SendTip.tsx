@@ -13,7 +13,6 @@ import { Loader } from '@renderer/components/Loader'
 import { Skeleton } from '@renderer/components/Skeleton'
 import { Tooltip } from '@renderer/components/Tooltip'
 
-import { ConstantsHelper } from '@renderer/helpers/ConstantsHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
@@ -23,6 +22,8 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import TbDeviceFloppy from '@renderer/assets/images/tb-device-floppy.svg?react'
 import TbPencil from '@renderer/assets/images/tb-pencil.svg?react'
+
+import { ConstantsHelper } from '@shared/helpers/ConstantsHelper'
 
 type TProps = {
   className?: string
