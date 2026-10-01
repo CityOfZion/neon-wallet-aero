@@ -35,6 +35,7 @@ import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { SwapHelper } from '@renderer/helpers/SwapHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
+import { TokenHelper } from '@renderer/helpers/TokenHelper'
 
 import { useAccountsSelector } from '@renderer/hooks/useAccountSelector'
 import { useActions } from '@renderer/hooks/useActions'
@@ -153,35 +154,6 @@ export const SwapPage = () => {
         : undefined,
     [actionData.selectedAccountToUse.value]
   )
-
-  const stellarTrustlineWarnings = useMemo(() => {
-    const stellarService = BlockchainServiceHelper.bsAggregator.blockchainServicesByName.stellar
-
-    const isNonNativeStellarToken = (
-      token?: TSwapToken<TBlockchainServiceKey> | null
-    ): token is TSwapToken<'stellar'> =>
-      !!token &&
-      token.blockchain === 'stellar' &&
-      !!token.hash &&
-      !stellarService.tokenService.isNativeToken(token.hash)
-
-    const warnings: string[] = []
-
-    const tokenToUse = actionData.selectedTokenToUse.value
-    const tokenToReceive = actionData.selectedTokenToReceive.value
-
-    if (isNonNativeStellarToken(tokenToUse)) {
-      warnings.push(t('form.stellarTrustlineWarnings.source', { token: tokenToUse?.symbol || tokenToUse?.name }))
-    }
-
-    if (isNonNativeStellarToken(tokenToReceive)) {
-      warnings.push(
-        t('form.stellarTrustlineWarnings.receiver', { token: tokenToReceive?.symbol || tokenToReceive?.name })
-      )
-    }
-
-    return warnings
-  }, [actionData.selectedTokenToUse.value, actionData.selectedTokenToReceive.value, t])
 
   const selectedTokenBalance = useMemo(() => {
     if (!service || !balanceQuery.data || !actionData.selectedTokenToUse.value) return
@@ -782,14 +754,27 @@ export const SwapPage = () => {
               </ActionStep>
             </div>
 
-            {stellarTrustlineWarnings.map((message, index) => (
-              <Banner
-                key={`stellar-trustline-warning-${index}`}
-                type="warning"
-                className="mt-2.5 w-full"
-                message={message}
-              />
-            ))}
+            {!!actionData.selectedTokenToUse.value &&
+              TokenHelper.isNonNativeStellarToken(actionData.selectedTokenToUse.value) && (
+                <Banner
+                  type="warning"
+                  className="mt-2.5 w-full"
+                  message={t('form.stellarTrustlineWarnings.source', {
+                    token: actionData.selectedTokenToUse.value.symbol.toUpperCase(),
+                  })}
+                />
+              )}
+
+            {!!actionData.selectedTokenToReceive.value &&
+              TokenHelper.isNonNativeStellarToken(actionData.selectedTokenToReceive.value) && (
+                <Banner
+                  type="warning"
+                  className="mt-2.5 w-full"
+                  message={t('form.stellarTrustlineWarnings.receiver', {
+                    token: actionData.selectedTokenToReceive.value.symbol.toUpperCase(),
+                  })}
+                />
+              )}
 
             {errorMessage && <AlertErrorBanner className="mt-2.5 w-full" message={errorMessage} />}
 
@@ -798,6 +783,7 @@ export const SwapPage = () => {
                 fee={actionData.fee}
                 isCalculatingFee={actionData.isCalculatingFee}
                 service={service}
+                containerClassName="mt-2.5"
                 className="mt-1 text-white"
               />
             )}
