@@ -45,7 +45,7 @@ const selectUnreadNotifications = createAppSelector(
     if (!loginSession?.type) return SelectorHelper.fallbackToEmptyArray<TNotification>()
 
     return SelectorHelper.fallbackToEmptyArray(
-      applicationDataByLoginType[loginSession.type].notifications.filter(({ read }) => !read)
+      orderNotifications(applicationDataByLoginType[loginSession.type].notifications.filter(({ read }) => !read))
     )
   }
 )
