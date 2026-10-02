@@ -19,7 +19,7 @@
     },
     "failureNotification": {
       "title": "Claiming-Fehler",
-      "previewBody": "Wir konnten den Abschluss Ihres Claims nicht verifizieren"
+      "previewBody": "Wir konnten den Abschluss Ihres Claims nicht verifizieren."
     }
   },
   "useLogin": {
@@ -74,11 +74,11 @@
   "usePersistTrustlineMutation": {
     "errorToastMessage": "Trustline konnte nicht gespeichert werden",
     "failureNotification": {
-      "previewBody": "Wir konnten den Abschluss Ihrer Trustline nicht verifizieren",
+      "previewBody": "Wir konnten den Abschluss Ihrer Trustline nicht verifizieren.",
       "title": "Trustline-Änderung fehlgeschlagen"
     },
     "successNotification": {
-      "previewBody": "Ihre Trustline wurde erfolgreich geändert",
+      "previewBody": "Ihre Trustline wurde erfolgreich geändert.",
       "title": "Trustline-Änderung abgeschlossen"
     },
     "successToastMessage": "Trustline erfolgreich gespeichert"

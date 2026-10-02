@@ -19,7 +19,7 @@
     },
     "failureNotification": {
       "title": "Claim error",
-      "previewBody": "We couldn't verify the completion of your claim"
+      "previewBody": "We couldn't verify the completion of your claim."
     }
   },
   "useLogin": {
@@ -74,12 +74,12 @@
   "usePersistTrustlineMutation": {
     "errorToastMessage": "Failed to persist trustline",
     "failureNotification": {
-      "previewBody": "We couldn't verify the completion of your trustline",
-      "title": "Change Trustline failed"
+      "previewBody": "We couldn't verify the completion of your trustline.",
+      "title": "Change trustline failed"
     },
     "successNotification": {
-      "previewBody": "Your trustline has been changed successfully",
-      "title": "Change Trustline completed"
+      "previewBody": "Your trustline has been changed successfully.",
+      "title": "Change trustline completed"
     },
     "successToastMessage": "Trustline persisted successfully"
   }

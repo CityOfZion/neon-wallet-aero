@@ -19,7 +19,7 @@
     },
     "failureNotification": {
       "title": "领取错误",
-      "previewBody": "我们无法验证领取是否完成"
+      "previewBody": "我们无法验证领取是否完成。"
     }
   },
   "useLogin": {
@@ -74,11 +74,11 @@
   "usePersistTrustlineMutation": {
     "errorToastMessage": "保存信任线失败",
     "failureNotification": {
-      "previewBody": "我们无法验证您的信任线是否完成",
+      "previewBody": "我们无法验证您的信任线是否完成。",
       "title": "更改信任线失败"
     },
     "successNotification": {
-      "previewBody": "您的信任线已成功更改",
+      "previewBody": "您的信任线已成功更改。",
       "title": "更改信任线完成"
     },
     "successToastMessage": "信任线保存成功"

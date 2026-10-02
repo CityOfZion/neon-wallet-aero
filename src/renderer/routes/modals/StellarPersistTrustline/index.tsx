@@ -32,7 +32,7 @@ const StellarPersistTrustlines = () => {
 
   const { actionData, actionState, setData, setError, handleAct } = useActions<TActionsData>({
     token,
-    limit: limit || '',
+    limit: new BSBigHumanAmount(limit).isGreaterThan(0) ? limit! : '',
     isLimitFormatting: false,
   })
 
@@ -77,6 +77,7 @@ const StellarPersistTrustlines = () => {
           </span>
 
           <SearchableTokenSelect.Root
+            blockchain={stellarAccount.blockchain}
             value={actionData.token}
             onValueChange={token => setData({ token })}
             onSearch={getTrustlineTokens}
@@ -105,7 +106,7 @@ const StellarPersistTrustlines = () => {
           type="text"
           inputMode="decimal"
           value={actionData.limit}
-          contentClassName="bg-asphalt"
+          contentClassName="bg-asphalt px-2"
           errorMessage={actionState.errors.limit}
           compacted
           disabled={!actionData.token || actionState.isActing}

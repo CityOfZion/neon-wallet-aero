@@ -19,7 +19,7 @@
     },
     "failureNotification": {
       "title": "領取錯誤",
-      "previewBody": "我們無法驗證領取是否完成"
+      "previewBody": "我們無法驗證領取是否完成。"
     }
   },
   "useLogin": {
@@ -74,11 +74,11 @@
   "usePersistTrustlineMutation": {
     "errorToastMessage": "保存信任額度失敗",
     "failureNotification": {
-      "previewBody": "我們無法驗證您的信任額度是否完成",
+      "previewBody": "我們無法驗證您的信任額度是否完成。",
       "title": "更改信任額度失敗"
     },
     "successNotification": {
-      "previewBody": "您的信任額度已成功更改",
+      "previewBody": "您的信任額度已成功更改。",
       "title": "更改信任額度完成"
     },
     "successToastMessage": "信任額度保存成功"
