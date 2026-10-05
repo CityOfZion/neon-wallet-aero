@@ -78,7 +78,7 @@ export const Neo3DapiPermissionAuthenticateContent = ({ request, sendResult }: T
 
       <GreyAccountSelect
         triggerClassName="bg-gray-700 w-full max-w-none mt-5 aria-[disabled=false]:hover:bg-gray-800 aria-expanded:bg-gray-800"
-        contentClassName="bg-gray-800 w-full max-w-none"
+        contentClassName="bg-gray-800 w-(--radix-popper-anchor-width) max-w-none min-w-0"
         onSelect={setSelectedAccount}
         selectedAccount={selectedAccount}
         selectedAccountTruncateLength={16}

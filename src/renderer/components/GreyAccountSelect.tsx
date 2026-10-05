@@ -1,21 +1,32 @@
-import { Fragment, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
+import { useVirtualizer } from '@tanstack/react-virtual'
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
+import { RemoveScroll } from 'react-remove-scroll'
 import { match } from 'ts-pattern'
 
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useAccountsWithWalletSelector } from '@renderer/hooks/useAccountSelector'
-import { useWalletsSelector } from '@renderer/hooks/useWalletSelector'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccount, TAccountType, TAccountWithWallet } from '@shared/types/store'
 
 import { BlockchainIcon } from './BlockchainIcon'
+import { Command } from './Command'
 import { Loader } from './Loader'
-import { Select } from './Select'
+import { Popover, type TPopoverContentProps } from './Popover'
+import { Separator } from './Separator'
+import { Tooltip } from './Tooltip'
+
+type TPlacement = 'overlap' | 'dropdownEnd'
+
+const placementProps: Record<TPlacement, Pick<TPopoverContentProps, 'align' | 'sideOffset'>> = {
+  overlap: { align: 'end', sideOffset: -48 },
+  dropdownEnd: { align: 'end', sideOffset: 8 },
+}
 
 type TProps<N extends TBlockchainServiceKey> = {
   selectedAccount?: TAccount<N> | null
@@ -30,6 +41,7 @@ type TProps<N extends TBlockchainServiceKey> = {
   triggerClassName?: string
   contentClassName?: string
   accountTypes?: TAccountType[]
+  placement?: TPlacement
 }
 
 export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
@@ -39,17 +51,20 @@ export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
   blockchains,
   children,
   disabled = false,
-  withoutIndicator,
-  loading,
+  loading = false,
+  placeholder,
   triggerClassName,
   contentClassName,
   accountTypes = ['standard', 'hardware'],
+  placement = 'dropdownEnd',
 }: TProps<N>) => {
   const { accountsWithWallet } = useAccountsWithWalletSelector()
-  const { walletsRef } = useWalletsSelector()
   const { t } = useTranslation('components', { keyPrefix: 'greyAccountSelect' })
 
+  const [filter, setFilter] = useState('')
   const [open, setOpen] = useState(false)
+
+  const ref = useRef<HTMLDivElement>(null)
 
   const filteredAccounts = useMemo(() => {
     let filtered = accountsWithWallet.filter(account => (accountTypes ? accountTypes.includes(account.type) : true))
@@ -63,25 +78,54 @@ export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
 
   const isDisabled = loading || disabled || filteredAccounts.length === 0
 
-  const handleChangeValue = (value: string) => {
-    const account = accountsWithWallet.find(account => account.id === value)
-    if (!account) return
+  const filteredAccountsByText = useMemo(() => {
+    const newFilter = filter.toLowerCase().trim()
+    if (!newFilter) return filteredAccounts
 
-    onSelect(account as TAccountWithWallet<N>)
+    return filteredAccounts.filter(
+      account =>
+        account.name.toLowerCase().includes(newFilter) ||
+        account.address.toLowerCase().includes(newFilter) ||
+        account.blockchain.toLowerCase().includes(newFilter) ||
+        account.wallet.name.toLowerCase().includes(newFilter)
+    )
+  }, [filter, filteredAccounts])
+
+  const rowVirtualizer = useVirtualizer({
+    count: filteredAccountsByText.length,
+    getScrollElement: () => ref.current,
+    estimateSize: () => 50,
+  })
+
+  const handleAccountSelection = (account: TAccountWithWallet) => {
+    onSelect(account as unknown as TAccount<N>)
     setOpen(false)
   }
 
+  useEffect(() => {
+    if (!open) {
+      setFilter('')
+      return
+    }
+
+    // It is necessary to wait the popover to be opened to measure the height of the parent element
+    setTimeout(() => {
+      rowVirtualizer._willUpdate()
+    }, 0)
+  }, [open, rowVirtualizer])
+
   return (
-    <Select.Root open={open} onOpenChange={setOpen} value={selectedAccount?.id || ''} onValueChange={handleChangeValue}>
+    <Popover.Root open={open} onOpenChange={setOpen}>
       {children ? (
-        <Select.RawTrigger asChild disabled={isDisabled}>
+        <Popover.Trigger asChild disabled={isDisabled}>
           {children}
-        </Select.RawTrigger>
+        </Popover.Trigger>
       ) : (
-        <Select.Trigger
+        <Popover.Trigger
           disabled={isDisabled}
+          aria-disabled={isDisabled}
           className={StyleHelper.mergeStyles(
-            'bg-asphalt aria-expanded:bg-asphalt aria-[disabled=false]:hover:bg-asphalt/60 flex h-12 w-32 max-w-36 min-w-32 items-center justify-center px-2 aria-[disabled=false]:hover:cursor-pointer',
+            'bg-asphalt aria-expanded:bg-asphalt aria-[disabled=false]:hover:bg-asphalt/60 flex h-12 w-32 max-w-36 min-w-32 items-center justify-center px-2 text-sm aria-[disabled=false]:hover:cursor-pointer',
             {
               'aria-[disabled=false]:hover:bg-asphalt/60': !selectedAccount && !open && !isDisabled,
               'bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30': !isDisabled && !open && selectedAccount,
@@ -90,9 +134,9 @@ export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
             triggerClassName
           )}
         >
-          {match({ loading, isSelectedAccount: !!selectedAccount })
+          {match({ loading, hasSelectedAccount: !!selectedAccount })
             .with({ loading: true }, () => <Loader />)
-            .with({ isSelectedAccount: true }, () => (
+            .with({ hasSelectedAccount: true }, () => (
               <div className="flex min-w-0 items-center gap-x-2 whitespace-nowrap">
                 <BlockchainIcon blockchain={selectedAccount!.blockchain} />
 
@@ -102,45 +146,66 @@ export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
               </div>
             ))
             .otherwise(() => (
-              <span className="text-neon w-full text-center font-medium">{t('placeholder')}</span>
+              <span className="text-neon w-full text-center font-medium">{placeholder || t('placeholder')}</span>
             ))}
-        </Select.Trigger>
+        </Popover.Trigger>
       )}
 
-      <Select.Content
-        align="end"
+      <Popover.Content
         side="bottom"
-        className={StyleHelper.mergeStyles('max-h-54 max-w-48', contentClassName)}
-        isTriggerWidth={false}
+        className={StyleHelper.mergeStyles('w-48 max-w-48 min-w-48 bg-transparent', contentClassName)}
+        {...placementProps[placement]}
       >
-        {match(filteredAccounts.length)
-          .with(0, () => <p className="py-2.5 text-center text-xs text-gray-100">{t('empty')}</p>)
-          .otherwise(() =>
-            filteredAccounts.map((account, index) => {
-              const wallet = walletsRef.current?.find(wallet => wallet.id === account.idWallet)
+        <RemoveScroll>
+          <Command.Root shouldFilter={false}>
+            <Command.Input value={filter} onValueChange={setFilter} />
 
-              return (
-                <Fragment key={`grey-account-select-item-${account.id}`}>
-                  <Select.Item value={account.id} className="justify-start gap-2.5">
-                    <BlockchainIcon className="min-size-4 max-size-4 size-4" blockchain={account.blockchain} />
+            <Command.List ref={ref} className="max-h-44 overflow-y-auto">
+              <Command.Empty>{t('empty')}</Command.Empty>
 
-                    <div className="flex min-w-0 grow flex-col gap-0.5">
-                      <Select.ItemText>{StringHelper.truncateMiddle(account.address, 8)}</Select.ItemText>
+              <Command.Group className="relative w-full" style={{ height: `${rowVirtualizer.getTotalSize()}px` }}>
+                {rowVirtualizer.getVirtualItems().map(virtualItem => {
+                  const account = filteredAccountsByText[virtualItem.index]
 
-                      <span className="text-1xs truncate text-left text-gray-100">
-                        {`${account.name} | ${wallet?.name}`}
+                  return (
+                    <Command.Item
+                      key={virtualItem.key}
+                      value={`${account.id}-${virtualItem.key}`}
+                      onSelect={() => handleAccountSelection(account)}
+                      className="group/item absolute top-0 left-0 w-full cursor-pointer flex-col"
+                      style={{
+                        height: `${virtualItem.size}px`,
+                        transform: `translateY(${virtualItem.start}px)`,
+                      }}
+                    >
+                      <span className="flex size-full items-center gap-2.5 px-2">
+                        <BlockchainIcon
+                          className="min-size-4 max-size-4 size-4 text-gray-100"
+                          blockchain={account.blockchain}
+                        />
+
+                        <span className="flex min-w-0 grow flex-col gap-0.5">
+                          <Tooltip title={account.address}>
+                            <span className="w-fit text-sm text-white">
+                              {StringHelper.truncateMiddle(account.address, 8)}
+                            </span>
+                          </Tooltip>
+
+                          <span className="text-1xs truncate text-left text-gray-100">
+                            {`${account.name} | ${account.wallet.name}`}
+                          </span>
+                        </span>
                       </span>
-                    </div>
 
-                    {!withoutIndicator && <Select.ItemRadialIndicator />}
-                  </Select.Item>
-
-                  {index + 1 !== filteredAccounts.length && <Select.Separator />}
-                </Fragment>
-              )
-            })
-          )}
-      </Select.Content>
-    </Select.Root>
+                      <Separator className="group-last/item:hidden" />
+                    </Command.Item>
+                  )
+                })}
+              </Command.Group>
+            </Command.List>
+          </Command.Root>
+        </RemoveScroll>
+      </Popover.Content>
+    </Popover.Root>
   )
 }

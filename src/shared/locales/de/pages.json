@@ -356,7 +356,7 @@
     "sendRecipient": {
       "title": "Empfänger {{order}}",
       "addressPlaceholder": "Empfänger eingeben…",
-      "myAccountButtonLabel": "Mein Konto",
+      "myAccountsButtonLabel": "Meine Konten",
       "tokenToReceiveLabel": "Zu empfangender Token",
       "receivingAddressLabel": "Empfangsadresse",
       "amountLabel": "Betrag",
@@ -422,7 +422,6 @@
       "tokenToReceiveTitle": "Dies empfangen",
       "receiveHere": "Hier empfangen",
       "addressToReceivePlaceholder": "Adresse eingeben…",
-      "myAccountButtonLabel": "Mein Konto",
       "extraIdToReceive": "Destination Tag/Memo",
       "extraIdToReceivePlaceholder": "Tag/Memo eingeben…",
       "openSwapAboutExtraIdToReceiveModal": "Destination Tag/Memo Info-Modal öffnen",

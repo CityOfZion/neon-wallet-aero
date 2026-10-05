@@ -221,7 +221,7 @@ export const SendRecipient = ({
               onSelect={handleSelectAccount}
             >
               <Button
-                label={t('myAccountButtonLabel')}
+                label={t('myAccountsButtonLabel')}
                 variant="text"
                 disabled={isReceiverAddressDisabled}
                 leftIcon={<TbWallet aria-hidden />}
