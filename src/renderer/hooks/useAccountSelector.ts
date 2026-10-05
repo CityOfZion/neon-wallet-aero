@@ -51,7 +51,7 @@ const selectAccountsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
 
       return SelectorHelper.fallbackToEmptyArray(
         applicationDataByLoginType[loginSession.type].wallets
-          .flatMap(wallet => wallet.accounts)
+          .flatMap(wallet => AccountHelper.orderAccounts(wallet.accounts))
           .filter(account => blockchains.some(blockchain => blockchain === account.blockchain))
       )
     }
