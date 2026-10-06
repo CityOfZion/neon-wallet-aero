@@ -56,16 +56,15 @@ export const TokenList = ({ selectedAccount, showHiddenTokens, onToggleShowHidde
         <div className="flex h-12 max-h-12 min-h-12 items-center rounded-full bg-gray-300/15 px-4">
           <TbEyeOff aria-hidden className="text-blue mr-3 size-5.5" />
 
-          <Switch
-            label={t('showHiddenTokensLabel')}
-            labelClassName="text-sm text-gray-200"
-            className="flex-row-reverse gap-x-7"
-            name="show-hidden-tokens"
-            disabled={isActionsDisabled}
-            checked={showHiddenTokens}
-            id="show-hidden-tokens"
-            onCheckedChange={onToggleShowHiddenTokens}
-          />
+          <Switch.Root id="show-hidden-tokens" className="flex-row-reverse gap-x-7">
+            <Switch.Control
+              name="show-hidden-tokens"
+              disabled={isActionsDisabled}
+              checked={showHiddenTokens}
+              onCheckedChange={onToggleShowHiddenTokens}
+            />
+            <Switch.Label className="text-sm text-gray-200">{t('showHiddenTokensLabel')}</Switch.Label>
+          </Switch.Root>
         </div>
 
         <Tooltip

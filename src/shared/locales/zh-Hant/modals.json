@@ -658,6 +658,9 @@
     "unsupportedMethodError": "不支援的方法：{{method}}",
     "rejectButtonLabel": "拒絕",
     "acceptButtonLabel": "接受",
+    "antiMevDisableUrlNotFoundError": "無法停用防MEV：所選網路沒有可用的標準 RPC URL",
+    "antiMevEnableUrlNotFoundError": "無法啟用防MEV：所選網路沒有可用的防MEV RPC URL",
+    "antiMevSwitchLabel": "使用防MEV",
     "feeLabel": "手續費",
     "feeOverridesMessage": "該 dApp 已覆寫手續費設定",
     "errors": {
