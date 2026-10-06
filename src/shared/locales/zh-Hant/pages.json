@@ -356,7 +356,7 @@
     "sendRecipient": {
       "title": "收件人 {{order}}",
       "addressPlaceholder": "輸入收件人…",
-      "myAccountButtonLabel": "我的帳戶",
+      "myAccountsButtonLabel": "我的帳戶",
       "tokenToReceiveLabel": "接收的代幣",
       "receivingAddressLabel": "接收地址",
       "amountLabel": "金額",
@@ -422,7 +422,6 @@
       "tokenToReceiveTitle": "接收此代幣",
       "receiveHere": "在此接收",
       "addressToReceivePlaceholder": "輸入地址…",
-      "myAccountButtonLabel": "我的帳戶",
       "extraIdToReceive": "目的地標籤/備註",
       "extraIdToReceivePlaceholder": "輸入標籤/備註…",
       "openSwapAboutExtraIdToReceiveModal": "打開目的地標籤/備註說明",

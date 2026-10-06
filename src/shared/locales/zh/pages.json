@@ -356,7 +356,7 @@
     "sendRecipient": {
       "title": "收件人 {{order}}",
       "addressPlaceholder": "输入收件人…",
-      "myAccountButtonLabel": "我的账户",
+      "myAccountsButtonLabel": "我的账户",
       "tokenToReceiveLabel": "接收代币",
       "receivingAddressLabel": "接收地址",
       "amountLabel": "数量",
@@ -422,7 +422,6 @@
       "tokenToReceiveTitle": "接收此代币",
       "receiveHere": "在此接收",
       "addressToReceivePlaceholder": "输入地址…",
-      "myAccountButtonLabel": "我的账户",
       "extraIdToReceive": "目标标签/备注",
       "extraIdToReceivePlaceholder": "输入标签/备注…",
       "openSwapAboutExtraIdToReceiveModal": "打开目标标签/备注说明",

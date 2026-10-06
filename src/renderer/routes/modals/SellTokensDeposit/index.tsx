@@ -364,6 +364,7 @@ export const SellTokensDepositModal = () => {
               selectedAccount={actionData.account}
               triggerClassName="h-10 w-28 max-w-28 min-w-28 text-xs"
               onSelect={handleChangeAccount}
+              placement="overlap"
             />
           </ActionStep>
 

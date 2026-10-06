@@ -596,6 +596,7 @@ const SendPage = () => {
               selectedAccount={actionData.selectedAccount}
               disabled={isCalculatingForm}
               onSelect={handleSelectAccount}
+              placement="overlap"
             />
           </ActionStep>
 
