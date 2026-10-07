@@ -19,6 +19,7 @@ import TbArrowsSort from '@renderer/assets/images/tb-arrows-sort.svg?react'
 import TbCodeCircle from '@renderer/assets/images/tb-code-circle.svg?react'
 
 import type { TDappPermissionProps } from '../index'
+import { DappPermissionAntiMevSwitch } from './DappPermissionAntiMevSwitch'
 import { DappPermissionGenericContentFee } from './DappPermissionGenericContentFee'
 
 export const DappPermissionGenericContent = (props: TDappPermissionProps) => {
@@ -54,7 +55,10 @@ export const DappPermissionGenericContent = (props: TDappPermissionProps) => {
       <p className="mt-2 text-center text-sm text-gray-100">{t('description2')}</p>
 
       <Details.Root className="mt-5">
-        <Details.Header leftElement={<TbArrowsSort aria-hidden className="rotate-90" />}>
+        <Details.Header
+          leftElement={<TbArrowsSort aria-hidden className="rotate-90" />}
+          rightElement={<DappPermissionAntiMevSwitch blockchain={sessionDetails.blockchain} />}
+        >
           <span className="text-sm text-white capitalize">{request.params.request.method}</span>
         </Details.Header>
       </Details.Root>
@@ -84,7 +88,7 @@ export const DappPermissionGenericContent = (props: TDappPermissionProps) => {
             <Details.HeaderSeparator />
 
             <Details.Body className="mt-2.5">
-              <p className="rounded bg-gray-700/60 px-5 py-2.5 text-sm break-words whitespace-pre-wrap">
+              <p className="rounded bg-gray-700/60 px-5 py-2.5 text-sm wrap-break-word whitespace-pre-wrap">
                 {typeof value === 'string' ? value : JSON.stringify(value, null, 2)}
               </p>
             </Details.Body>
@@ -94,7 +98,7 @@ export const DappPermissionGenericContent = (props: TDappPermissionProps) => {
 
       {isCalculableMethod && <DappPermissionGenericContentFee {...props} />}
 
-      <div className="z-50 mt-5 flex gap-2.5">
+      <div className="z-50 mt-3 flex gap-2.5">
         <Button
           label={t('rejectButtonLabel')}
           loading={isRejecting}

@@ -658,6 +658,9 @@
     "unsupportedMethodError": "O método {{method}} não é suportado",
     "rejectButtonLabel": "Rejeitar",
     "acceptButtonLabel": "Aceitar",
+    "antiMevDisableUrlNotFoundError": "Não foi possível desativar o Anti-MEV: nenhuma URL de RPC padrão está disponível para a rede selecionada",
+    "antiMevEnableUrlNotFoundError": "Não foi possível ativar o Anti-MEV: nenhuma URL de RPC Anti-MEV está disponível para a rede selecionada",
+    "antiMevSwitchLabel": "Usar Anti-MEV",
     "feeLabel": "Taxa",
     "feeOverridesMessage": "O dApp substituiu as taxas",
     "errors": {

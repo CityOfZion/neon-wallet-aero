@@ -658,6 +658,9 @@
     "unsupportedMethodError": "Die Methode {{method}} wird nicht unterstützt",
     "rejectButtonLabel": "Ablehnen",
     "acceptButtonLabel": "Akzeptieren",
+    "antiMevDisableUrlNotFoundError": "Anti-MEV kann nicht deaktiviert werden: Für das ausgewählte Netzwerk ist keine Standard-RPC-URL verfügbar",
+    "antiMevEnableUrlNotFoundError": "Anti-MEV kann nicht aktiviert werden: Für das ausgewählte Netzwerk ist keine Anti-MEV-RPC-URL verfügbar",
+    "antiMevSwitchLabel": "Anti-MEV verwenden",
     "feeLabel": "Gebühr",
     "feeOverridesMessage": "Die dApp hat die Gebühren überschrieben",
     "errors": {

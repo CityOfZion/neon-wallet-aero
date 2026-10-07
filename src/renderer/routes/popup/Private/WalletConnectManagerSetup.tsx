@@ -70,7 +70,7 @@ export const WalletConnectManagerSetup = () => {
             response: WalletKitHelper.formatRequestError(request, { message: appError.message, code: -32000 }),
           })
 
-          throw appError
+          throw error
         }
       }
 

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { BSNeoXConstants } from '@cityofzion/bs-neox'
 import { useTranslation } from 'react-i18next'
 import { match, P } from 'ts-pattern'
 
@@ -10,6 +9,7 @@ import { Loader } from '@renderer/components/Loader'
 import { Radio } from '@renderer/components/Radio'
 import { Separator } from '@renderer/components/Separator'
 
+import { NetworkHelper } from '@renderer/helpers/NetworkHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -93,9 +93,11 @@ export const NetworkUrlSelectionModal = () => {
           ) : (
             <Radio.Group value={selectedUrl} onValueChange={handleSelectRadioItem}>
               {pingNetworksQuery.data?.map((currentNetwork, index, array) => {
-                const isNeoxAntiMev =
-                  blockchain === 'neox' &&
-                  BSNeoXConstants.ANTI_MEV_RPC_LIST_BY_NETWORK_ID[network.id].some(url => url === currentNetwork.url)
+                const isNeoxAntiMev = NetworkHelper.isNeoxAntiMev({
+                  blockchain,
+                  networkId: network.id,
+                  url: currentNetwork.url,
+                })
 
                 return (
                   <Radio.Item
