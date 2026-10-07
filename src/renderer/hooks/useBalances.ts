@@ -102,10 +102,10 @@ const fixBalanceResult = (
   hiddenTokensByBlockchain: THiddenTokenByBlockchain
 ): TBalance => {
   const tokenBalancesMapClone = cloneDeep(result.tokensBalancesMap)
-  const hiddenTokens = hiddenTokensByBlockchain[result.blockchain]
+  const hiddenTokens = hiddenTokensByBlockchain[result.blockchain] || []
   const service = BlockchainServiceHelper.bsAggregator.blockchainServicesByName[result.blockchain]
 
-  if (hiddenTokens && showType !== 'all') {
+  if (showType !== 'all') {
     const keepHidden = showType === 'hidden'
 
     for (const [key, { token }] of tokenBalancesMapClone) {
@@ -176,6 +176,7 @@ export function useBalances(params: TUseBalancesParams[], options?: TUseBalances
       if (!isLoading) {
         results.forEach(result => {
           if (!result.data) return
+
           data.push(fixBalanceResult(result.data, showType, hiddenTokensByBlockchain))
         })
 
@@ -229,6 +230,7 @@ export function useBalance(
 
   const data = useMemo(() => {
     if (!query.data) return undefined
+
     return fixBalanceResult(query.data, showType, hiddenTokensByBlockchain)
   }, [hiddenTokensByBlockchain, query.data, showType])
 
