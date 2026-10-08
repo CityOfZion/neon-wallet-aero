@@ -45,6 +45,12 @@
     "title": "总费用",
     "value": "数值"
   },
+  "transactionMemoActionStep": {
+    "title": "备注",
+    "optionalLabel": "可选",
+    "placeholder": "输入备注…",
+    "invalidMemo": "备注无效"
+  },
   "transactionActivityList": {
     "exportTransactionsButtonLabel": "导出交易记录",
     "items": {

@@ -394,7 +394,8 @@
       "hardwareWalletShouldBeValid": "请确保您的硬件钱包已解锁以继续操作",
       "noTokenToTip": "没有代币支付小费",
       "noAmountToTip": "余额不足以支付小费",
-      "noFiatPriceToTip": "未找到法定货币价格以进行打赏"
+      "noFiatPriceToTip": "未找到法定货币价格以进行打赏",
+      "memoRequired": "收款方需要备注，请填写备注字段后重试"
     }
   },
   "contacts": {

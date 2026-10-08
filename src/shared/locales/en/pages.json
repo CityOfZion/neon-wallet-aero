@@ -399,7 +399,8 @@
       "hardwareWalletShouldBeValid": "To proceed with this operation, please make sure your hardware wallet is unlocked",
       "noTokenToTip": "No token to pay the tip",
       "noAmountToTip": "Insufficient balance to pay the tip",
-      "noFiatPriceToTip": "Fiat price not found to the tip"
+      "noFiatPriceToTip": "Fiat price not found to the tip",
+      "memoRequired": "The recipient requires a memo, please fill in the memo field and try again"
     }
   },
   "contacts": {

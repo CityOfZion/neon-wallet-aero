@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 
 import type { BSBigNumber, TTransferIntent } from '@cityofzion/blockchain-service'
-import { BSBigHumanAmount, isCalculableFee } from '@cityofzion/blockchain-service'
+import { BSBigHumanAmount, BSError, hasMemo, isCalculableFee } from '@cityofzion/blockchain-service'
 import lte from 'lodash/lte'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
@@ -14,6 +14,8 @@ import { Button } from '@renderer/components/Button'
 import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
 import { IconButton } from '@renderer/components/IconButton'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
+import type { TTransactionMemo } from '@renderer/components/TransactionMemoActionStep'
+import { TransactionMemoActionStep } from '@renderer/components/TransactionMemoActionStep'
 
 import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
@@ -59,6 +61,7 @@ type TActionsData = {
   tipCustomAmountBn?: BSBigNumber
   tipFiatPriceBn?: BSBigNumber
   tipError?: string
+  memo?: TTransactionMemo
 }
 
 type TLocationState = {
@@ -119,7 +122,11 @@ const SendPage = () => {
     !service ||
     isCalculatingForm ||
     isFeeInvalid ||
-    !!actionData.tipError
+    !!actionData.tipError ||
+    (!!actionData.memo && !actionData.memo.isReady) ||
+    !!actionState.errors.memo
+
+  const tipAmount = actionData.tipAmountBn?.toFixed()
 
   const errorBannerMessage = actionData.tipError || actionState.errors.fee || actionState.errors.selectedAccount
 
@@ -151,12 +158,14 @@ const SendPage = () => {
     }
 
     const serviceAccount = await BlockchainServiceHelper.getServiceAccount(actionData.selectedAccount)
+    const memo = hasMemo(service) ? actionData.memo?.value : undefined
 
     return {
       service,
       serviceAccount,
       selectedAccount: actionData.selectedAccount,
       intents,
+      memo,
     }
   }
 
@@ -197,7 +206,7 @@ const SendPage = () => {
 
   const handleSelectAccount = (account?: TAccount) => {
     handleSetRecipients(() => [{ id: UtilsHelper.uuid() }])
-    setData({ selectedAccount: account })
+    setData({ selectedAccount: account, memo: undefined })
   }
 
   const handleRemoveRecipient = (id: string) => {
@@ -330,12 +339,12 @@ const SendPage = () => {
 
     if (!fields || isSubmitDisabled) return
 
-    const { selectedAccount, serviceAccount, intents, service } = fields
+    const { selectedAccount, serviceAccount, intents, service, memo } = fields
 
     await confirmAction({ account: selectedAccount })
 
     try {
-      const transactions = await service.transfer({ senderAccount: serviceAccount, intents })
+      const transactions = await service.transfer({ senderAccount: serviceAccount, intents, memo })
 
       const notificationPrefix = 'pages:send'
       const notificationSuccessPrefix = `${notificationPrefix}.successNotification`
@@ -363,11 +372,19 @@ const SendPage = () => {
 
       // TODO: Uncomment and it is published to chrome web store
       // modalNavigate('survey')
+
+      handleReset()
     } catch (error: any) {
       LoggerHelper.sentry(error, { where: 'SendPage', operation: 'handleSubmit' })
+
+      if (error instanceof BSError && error.code === 'MEMO_REQUIRED') {
+        setError('memo', t('errors.memoRequired'))
+        ToastHelper.error({ message: t('errors.memoRequired') })
+
+        return
+      }
+
       ToastHelper.error({ message: AppError.wrap(error, t('sendFail.toast')).message })
-    } finally {
-      handleReset()
     }
   }
 
@@ -393,6 +410,7 @@ const SendPage = () => {
         const fee = await fields.service.calculateTransferFee({
           senderAccount: fields.serviceAccount,
           intents: fields.intents,
+          memo: fields.memo,
         })
 
         setData({ fee })
@@ -432,7 +450,7 @@ const SendPage = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [balanceQuery.data, actionData.recipients, actionData.isTipChecked, actionData.tipAmountBn?.toFixed()])
+  }, [balanceQuery.data, actionData.recipients, actionData.isTipChecked, tipAmount, actionData.memo?.value])
 
   useEffect(() => {
     if (!service || !isMainnetNetwork || !tipConfig) {
@@ -631,6 +649,16 @@ const SendPage = () => {
           leftIcon={<TbPlus aria-hidden />}
           onClick={handleAddRecipient}
         />
+
+        {service && hasMemo(service) && (
+          <TransactionMemoActionStep
+            service={service}
+            memo={actionData.memo}
+            disabled={isAccountDisabled}
+            errorMessage={actionState.errors.memo}
+            onChange={memo => setData({ memo })}
+          />
+        )}
 
         {(!service || (service && isCalculableFee(service))) && (
           <TransactionFeeActionStep
