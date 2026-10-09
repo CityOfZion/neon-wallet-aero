@@ -281,6 +281,7 @@
     "description": "All transactions requested by a connected dApp will <strong>require your permission before being broadcast</strong> to the blockchain.",
     "disclaimer": "No actions that are initiated by the dApp will happen without your direct approval.",
     "inputPlaceholder": "Enter your URL here…",
+    "inputAriaLabel": "dApp connection URL",
     "buttonConnectLabel": "Connect",
     "errors": {
       "errorToConnect": "Oops! We've encountered an error. Try to generate a new URI and try again.",
@@ -734,6 +735,7 @@
     "descriptionPassword": "For your security, please confirm your action by entering your password.",
     "descriptionNoPassword": "For your security, please confirm your action.",
     "inputPlaceholder": "Enter your password…",
+    "inputAriaLabel": "Password",
     "passwordError": "Password not recognised!",
     "confirmButtonLabel": "Confirm",
     "cancelButtonLabel": "Cancel"
@@ -742,6 +744,7 @@
     "title": "Search Neon",
     "closeButtonLabel": "Close",
     "inputPlaceholder": "Enter your search…",
+    "inputAriaLabel": "Search",
     "idleResultDescription": "Looking for something?",
     "emptyResultDescription": "Nothing found!",
     "resultDescription": "You may be interested in these topics:",

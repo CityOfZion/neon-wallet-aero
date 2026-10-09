@@ -281,6 +281,7 @@
     "description": "所有由已連接 dApp 請求的交易在廣播到區塊鏈之前都<strong>需要您的許可</strong>。",
     "disclaimer": "沒有您的直接批准，dApp 發起的任何操作都不會發生。",
     "inputPlaceholder": "在此輸入您的 URL…",
+    "inputAriaLabel": "dApp 連線 URL",
     "buttonConnectLabel": "連接",
     "errors": {
       "errorToConnect": "糟糕！我們遇到了一個錯誤。請嘗試生成新的 URI 並重試。",
@@ -734,6 +735,7 @@
     "descriptionPassword": "為了您的安全，請輸入密碼以確認此操作。",
     "descriptionNoPassword": "為了您的安全，請確認您的操作。",
     "inputPlaceholder": "輸入您的密碼…",
+    "inputAriaLabel": "密碼",
     "passwordError": "密碼不正確！",
     "confirmButtonLabel": "確認",
     "cancelButtonLabel": "取消"
@@ -742,6 +744,7 @@
     "title": "搜尋 Neon",
     "closeButtonLabel": "關閉",
     "inputPlaceholder": "輸入您的搜尋…",
+    "inputAriaLabel": "搜尋",
     "idleResultDescription": "在找什麼嗎？",
     "emptyResultDescription": "未找到任何結果！",
     "resultDescription": "您可能對這些主題感興趣：",

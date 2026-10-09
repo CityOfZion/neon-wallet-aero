@@ -119,6 +119,7 @@ export const LoginKeyPage = () => {
 
       <Textarea
         id="login-key-value"
+        aria-label={t('inputAriaLabel')}
         autoFocus
         containerClassName="mt-5"
         placeholder={t('inputPlaceholder')}

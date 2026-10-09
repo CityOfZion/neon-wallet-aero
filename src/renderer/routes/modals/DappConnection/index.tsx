@@ -72,6 +72,7 @@ export const DappConnectionModal = () => {
         <Input
           name="url"
           id="url"
+          aria-label={t('inputAriaLabel')}
           placeholder={t('inputPlaceholder')}
           pastable
           clearable

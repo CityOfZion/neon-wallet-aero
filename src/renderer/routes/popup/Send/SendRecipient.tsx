@@ -203,6 +203,7 @@ export const SendRecipient = ({
             <Input
               id="recipient-address"
               name="recipient-address"
+              aria-label={t('receivingAddressLabel')}
               placeholder={t('addressPlaceholder')}
               className="w-full"
               value={recipient.addressInput || ''}
@@ -239,7 +240,12 @@ export const SendRecipient = ({
           className="pt-1.5 pb-2.5"
           leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
         >
-          <GreyAmountInput value={recipient.amount || ''} onChange={handleChangeAmount} disabled={isAmountDisabled}>
+          <GreyAmountInput
+            aria-label={t('amountLabel')}
+            value={recipient.amount || ''}
+            onChange={handleChangeAmount}
+            disabled={isAmountDisabled}
+          >
             <Button
               label={t('max')}
               variant="text"

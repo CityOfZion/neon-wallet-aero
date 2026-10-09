@@ -163,6 +163,7 @@ export const Neo3VotePage = () => {
           containerClassName="w-full max-w-96"
           id="neo3-vote-search-input"
           name="neo3-vote-search-input"
+          aria-label={t('searchAriaLabel')}
           maxLength={100}
           value={search}
           disabled={isSearchDisabled}
