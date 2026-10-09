@@ -493,8 +493,8 @@
     "alertLabel": "A COZ não armazena nenhum de seus dados!",
     "sumbsubText": "Seus dados KYC são criptografados e usados por nosso parceiro KYC:",
     "sumbsubLinkLabel": "Sobre o serviço Sumsub",
-    "unlimitText": "Todos os outros dados são manipulados por nosso parceiro on/off ramp:",
-    "unlimitLinkLabel": "Sobre o serviço Unlimit"
+    "mercuryoText": "Todos os outros dados são manipulados por nosso parceiro on/off ramp:",
+    "mercuryoLinkLabel": "Sobre o serviço Mercuryo"
   },
   "sellTokensDeposit": {
     "title": "Fazer depósito",

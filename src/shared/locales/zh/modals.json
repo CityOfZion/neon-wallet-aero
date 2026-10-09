@@ -493,8 +493,8 @@
     "alertLabel": "COZ 不存储您的任何数据！",
     "sumbsubText": "您的 KYC 数据已加密，并由我们的 KYC 合作伙伴使用：",
     "sumbsubLinkLabel": "关于 Sumsub 的服务",
-    "unlimitText": "所有其他数据由我们的上下车合作伙伴处理：",
-    "unlimitLinkLabel": "关于 Unlimit 的服务"
+    "mercuryoText": "所有其他数据由我们的上下车合作伙伴处理：",
+    "mercuryoLinkLabel": "关于 Mercuryo 的服务"
   },
   "sellTokensDeposit": {
     "title": "进行存款",

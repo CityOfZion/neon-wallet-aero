@@ -522,6 +522,9 @@
       "walletsAndAccountsClosedLabel": "Wallets & Konten Akkordeon ist geschlossen",
       "restartButtonLabel": "Neu starten"
     },
+    "buyContent": {
+      "iframeError": "Beim Kaufen von Tokens ist ein Fehler aufgetreten, bitte versuchen Sie es erneut."
+    },
     "sellContent": {
       "depositButtonLabel": "Einzahlung vornehmen",
       "iframeError": "Es gibt einen Fehler mit Token verkaufen, bitte versuchen Sie es erneut."

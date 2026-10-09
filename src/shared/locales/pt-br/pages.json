@@ -522,6 +522,9 @@
       "walletsAndAccountsClosedLabel": "Acordeão de carteiras e contas está fechado",
       "restartButtonLabel": "Reiniciar"
     },
+    "buyContent": {
+      "iframeError": "Ocorreu um erro ao comprar tokens, por favor, tente novamente."
+    },
     "sellContent": {
       "depositButtonLabel": "Fazer depósito",
       "iframeError": "Há um erro com Vender Tokens, por favor, tente novamente."

@@ -527,6 +527,9 @@
       "walletsAndAccountsClosedLabel": "Wallets & accounts accordion is closed",
       "restartButtonLabel": "Restart"
     },
+    "buyContent": {
+      "iframeError": "There is an error with Buy Tokens, please, try again."
+    },
     "sellContent": {
       "depositButtonLabel": "Make deposit",
       "iframeError": "There is an error with Sell Tokens, please, try again."

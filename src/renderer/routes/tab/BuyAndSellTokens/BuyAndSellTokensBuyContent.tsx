@@ -1,10 +1,10 @@
-import { useRef, useState } from 'react'
-
 import type { ComponentProps } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { BuyAndSellTokensHelper } from '@renderer/helpers/BuyAndSellTokensHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import { useMountUnsafe } from '@renderer/hooks/useMount'
+import { useActions } from '@renderer/hooks/useActions'
 import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import type { TAccount } from '@shared/types/store'
@@ -12,7 +12,11 @@ import type { TAccount } from '@shared/types/store'
 import type { EBuyAndSellTokensTab, TBuyAndSellTokensOnTabChange } from '.'
 import { BuyAndSellWrapperContent } from './BuyAndSellWrapperContent'
 
-const IFRAME_CONTAINER_ID = 'buy-tokens-iframe'
+type TActionsData = {
+  iframeId: string
+  isIframeLoading: boolean
+  hasIframeError: boolean
+}
 
 type TProps = ComponentProps<'div'> & {
   tab: EBuyAndSellTokensTab
@@ -21,31 +25,38 @@ type TProps = ComponentProps<'div'> & {
 }
 
 export const BuyAndSellTokensBuyContent = ({ tab, onTabChange, account, ...props }: TProps) => {
+  const { t } = useTranslation('pages', { keyPrefix: 'buyAndSellTokens.buyContent' })
   const { currency } = useCurrencySelector()
 
-  const [isIframeLoading, setIsIframeLoading] = useState(true)
+  const {
+    actionData: { iframeId, isIframeLoading, hasIframeError },
+    setData,
+  } = useActions<TActionsData>({
+    iframeId: UtilsHelper.uuid(),
+    isIframeLoading: true,
+    hasIframeError: false,
+  })
 
-  const destroySdkCallbackRef = useRef<() => void>(undefined)
-
-  const initIframe = async () => {
-    setIsIframeLoading(true)
-
-    if (destroySdkCallbackRef.current) {
-      destroySdkCallbackRef.current()
-    }
-
-    destroySdkCallbackRef.current = await BuyAndSellTokensHelper.initBuy({ account, currency, id: IFRAME_CONTAINER_ID })
-
-    setIsIframeLoading(false)
-  }
+  const url = BuyAndSellTokensHelper.buildUrl({
+    type: 'buy',
+    currency,
+    refundAddress: account?.address,
+    merchantTransactionId: iframeId,
+  })
 
   const handleRestart = () => {
-    initIframe()
+    setData({ iframeId: UtilsHelper.uuid(), isIframeLoading: true, hasIframeError: false })
   }
 
-  useMountUnsafe(() => {
-    initIframe()
-  })
+  const handleLoad = async () => {
+    await UtilsHelper.sleep(500)
+
+    setData({ isIframeLoading: false })
+  }
+
+  const handleError = () => {
+    setData({ hasIframeError: true, isIframeLoading: false })
+  }
 
   return (
     <BuyAndSellWrapperContent
@@ -56,7 +67,19 @@ export const BuyAndSellTokensBuyContent = ({ tab, onTabChange, account, ...props
       onTabChange={onTabChange}
       onRestart={handleRestart}
     >
-      <div id={IFRAME_CONTAINER_ID} className="buy-and-sell-tokens-iframe-container mx-auto my-4" />
+      <div className="buy-and-sell-tokens-iframe-container mx-auto my-4">
+        {hasIframeError ? (
+          <p className="mx-auto text-center text-xl">{t('iframeError')}</p>
+        ) : (
+          <iframe
+            key={iframeId}
+            src={url}
+            allow="clipboard-read; clipboard-write; payment; camera"
+            onLoad={handleLoad}
+            onError={handleError}
+          />
+        )}
+      </div>
     </BuyAndSellWrapperContent>
   )
 }

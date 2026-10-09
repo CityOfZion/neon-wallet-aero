@@ -522,6 +522,9 @@
       "walletsAndAccountsClosedLabel": "錢包與帳戶面板已收起",
       "restartButtonLabel": "重新開始"
     },
+    "buyContent": {
+      "iframeError": "購買代幣時發生錯誤，請重試。"
+    },
     "sellContent": {
       "depositButtonLabel": "進行存款",
       "iframeError": "出售代幣時出錯，請重試。"
