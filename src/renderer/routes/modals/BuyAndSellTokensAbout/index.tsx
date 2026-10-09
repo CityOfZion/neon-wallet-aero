@@ -7,9 +7,9 @@ import { BuyAndSellTokensHelper } from '@renderer/helpers/BuyAndSellTokensHelper
 
 import { SideModalLayout } from '@renderer/layouts/SideModalLayout'
 
+import MercuryoLogo from '@renderer/assets/images/mercuryo-logo.svg?react'
 import SumsubLogo from '@renderer/assets/images/sumsub-logo.svg?react'
 import TbHelp from '@renderer/assets/images/tb-help.svg?react'
-import UnlimitLogo from '@renderer/assets/images/unlimit-logo.svg?react'
 
 import { BuyAndSellTokensAboutListItem } from './BuyAndSellTokensAboutListItem'
 
@@ -30,10 +30,10 @@ export const BuyAndSellTokensAboutModal = () => {
           />
 
           <BuyAndSellTokensAboutListItem
-            text={t('unlimitText')}
-            linkLabel={t('unlimitLinkLabel')}
-            link={BuyAndSellTokensHelper.unlimitUseTermsUrl}
-            image={<UnlimitLogo aria-hidden />}
+            text={t('mercuryoText')}
+            linkLabel={t('mercuryoLinkLabel')}
+            link={BuyAndSellTokensHelper.mercuryoTermsUrl}
+            image={<MercuryoLogo aria-hidden />}
           />
         </ul>
 

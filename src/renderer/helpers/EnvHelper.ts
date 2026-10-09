@@ -2,9 +2,7 @@
 import { z } from 'zod'
 
 const envSchema = z.object({
-  VITE_UNLIMIT_MERCHANT_ID: z.string().nonempty(),
-  VITE_UNLIMIT_BUY_TOKENS_IFRAME_URL: z.url(),
-  VITE_UNLIMIT_SELL_TOKENS_IFRAME_URL: z.url(),
+  VITE_MERCURYO_WIDGET_ID: z.string().nonempty(),
   VITE_CLICK_UP_LIST_ID: z.string().nonempty(),
   VITE_CLICK_UP_ASSIGNEE_ID: z.string().nonempty(),
   VITE_CLICK_UP_KEY: z.string().nonempty(),
