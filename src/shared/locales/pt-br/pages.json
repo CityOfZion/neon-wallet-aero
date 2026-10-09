@@ -394,7 +394,8 @@
       "hardwareWalletShouldBeValid": "Para prosseguir com esta operação, certifique-se de que sua carteira de hardware está desbloqueada",
       "noTokenToTip": "Nenhum token para pagar a gorjeta",
       "noAmountToTip": "Saldo insuficiente para pagar a gorjeta",
-      "noFiatPriceToTip": "Preço fiduciário não encontrado para a gorjeta"
+      "noFiatPriceToTip": "Preço fiduciário não encontrado para a gorjeta",
+      "memoRequired": "O destinatário exige um memo, preencha o campo de memo e tente novamente"
     }
   },
   "contacts": {

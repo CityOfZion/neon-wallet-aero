@@ -51,6 +51,12 @@
     "title": "Gesamtgebühr",
     "value": "Wert"
   },
+  "transactionMemoActionStep": {
+    "title": "Memo",
+    "optionalLabel": "Optional",
+    "placeholder": "Memo eingeben…",
+    "invalidMemo": "Ungültiges Memo"
+  },
   "transactionActivityList": {
     "exportTransactionsButtonLabel": "Transaktionen exportieren",
     "items": {
