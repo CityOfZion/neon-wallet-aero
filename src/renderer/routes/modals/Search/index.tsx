@@ -197,6 +197,7 @@ const SearchModal = () => {
       <Input
         name="search"
         id="search"
+        aria-label={t('inputAriaLabel')}
         leftIcon={<TbSearch aria-hidden className="text-neon size-6" />}
         onChange={handleChange}
         value={actionData.search}

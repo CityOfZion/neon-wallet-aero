@@ -79,6 +79,7 @@
   "loginKey": {
     "description": "Geben Sie eine Adresse, einen Schlüssel oder Mnemonic-Wörter ein:",
     "inputPlaceholder": "Adresse, Schlüssel oder Mnemonic eingeben…",
+    "inputAriaLabel": "Adresse, Schlüssel oder Mnemonic",
     "buttonContinueLabel": "Weiter",
     "shouldConfirmActionKeyCheckboxLabel": "Aktionen bestätigen",
     "encryptedKey": {
@@ -539,6 +540,7 @@
     "title": "Abstimmung",
     "howDoesItWorkButtonLabel": "Wie funktioniert es?",
     "searchPlaceholder": "Nach einem Kandidaten suchen…",
+    "searchAriaLabel": "Kandidaten suchen",
     "changeAccountButtonLabel": "Wechseln",
     "selectAccountButtonLabel": "Konto auswählen",
     "voteErrorMessages": {

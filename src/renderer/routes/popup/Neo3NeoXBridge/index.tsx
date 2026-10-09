@@ -495,6 +495,7 @@ export const Neo3NeoXBridgePage = () => {
                   >
                     <div className="flex gap-2.5">
                       <GreyAmountInput
+                        aria-label={t('form.amountToUseTitle')}
                         className="w-36"
                         value={actionData.amountToUse.value || ''}
                         onChange={handleChangeAmountToUse}
@@ -535,6 +536,7 @@ export const Neo3NeoXBridgePage = () => {
                     leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
                   >
                     <GreyAmountInput
+                      aria-label={t('form.amountToReceiveTitle')}
                       readOnly
                       className="w-28 bg-transparent"
                       inputClassName="text-right"

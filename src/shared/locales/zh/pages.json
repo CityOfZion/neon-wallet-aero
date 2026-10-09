@@ -79,6 +79,7 @@
   "loginKey": {
     "description": "请输入地址、密钥或助记词：",
     "inputPlaceholder": "输入地址、密钥或助记词…",
+    "inputAriaLabel": "地址、密钥或助记词",
     "buttonContinueLabel": "继续",
     "shouldConfirmActionKeyCheckboxLabel": "要求确认操作",
     "encryptedKey": {
@@ -539,6 +540,7 @@
     "title": "投票",
     "howDoesItWorkButtonLabel": "它是如何工作的？",
     "searchPlaceholder": "搜索候选人…",
+    "searchAriaLabel": "搜索候选人",
     "changeAccountButtonLabel": "更改",
     "selectAccountButtonLabel": "选择账户",
     "voteErrorMessages": {

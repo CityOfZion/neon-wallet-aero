@@ -63,6 +63,7 @@ export const ChangePasswordStep1Page = () => {
               <Input
                 name="new-password"
                 id="new-password"
+                aria-label={t('titleInput1')}
                 type="password"
                 placeholder={t('inputNewPasswordPlaceholder')}
                 onChange={handlePassword}
@@ -81,6 +82,7 @@ export const ChangePasswordStep1Page = () => {
               <Input
                 name="password"
                 id="password"
+                aria-label={t('titleInput2')}
                 type="password"
                 placeholder={t('inputCurrentPasswordPlaceholder')}
                 onChange={setDataFromEventWrapper('currentPassword')}
