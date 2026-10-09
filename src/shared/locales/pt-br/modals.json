@@ -281,6 +281,7 @@
     "description": "Todas as transações solicitadas por um dApp conectado <strong>exigirão sua permissão antes de serem transmitidas</strong> a blockchain.",
     "disclaimer": "Nenhuma ação iniciada pelo dApp acontecerá sem sua aprovação direta.",
     "inputPlaceholder": "Digite sua URL aqui…",
+    "inputLabel": "URL de conexão do dApp",
     "buttonConnectLabel": "Conectar",
     "errors": {
       "errorToConnect": "Ops! Encontramos um erro. Tente gerar um novo URI e tente novamente.",
@@ -431,7 +432,8 @@
     "enterAddressLabel": "Digite o endereço",
     "myAccountsLabel": "Minhas contas",
     "myContactsLabel": "Meus contatos",
-    "enterRecipientAddressPlaceholder": "Digite o endereço do destinatário…",
+    "recipientAddressLabel": "Endereço do destinatário",
+    "recipientAddressPlaceholder": "Digite o endereço do destinatário…",
     "noContactsFound": "Nenhum contato encontrado",
     "noAccountsFound": "Nenhuma conta encontrada",
     "useThisAddressButtonLabel": "Usar este endereço",
@@ -734,6 +736,7 @@
     "descriptionPassword": "Para sua segurança, confirme sua ação digitando sua senha.",
     "descriptionNoPassword": "Para sua segurança, confirme sua ação.",
     "inputPlaceholder": "Digite sua senha…",
+    "inputLabel": "Senha",
     "passwordError": "Senha não reconhecida!",
     "confirmButtonLabel": "Confirmar",
     "cancelButtonLabel": "Cancelar"
@@ -742,6 +745,7 @@
     "title": "Buscar na Neon",
     "closeButtonLabel": "Fechar",
     "inputPlaceholder": "Digite sua busca",
+    "inputLabel": "Busca",
     "idleResultDescription": "Procurando por algo?",
     "emptyResultDescription": "Nenhum resultado encontrado!",
     "resultDescription": "Você pode estar interessado nesses tópicos:",

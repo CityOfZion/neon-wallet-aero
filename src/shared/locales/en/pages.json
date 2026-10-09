@@ -79,6 +79,7 @@
   "loginKey": {
     "description": "Enter an address, key or mnemonic words:",
     "inputPlaceholder": "Enter an address, key or mnemonic…",
+    "inputLabel": "Address, key or mnemonic",
     "buttonContinueLabel": "Continue",
     "shouldConfirmActionKeyCheckboxLabel": "Ask to confirm actions",
     "encryptedKey": {
@@ -312,9 +313,9 @@
     "title": "Change Password",
     "step1": {
       "subtitle": "If you’d like to create a new password, simply change it here and confirm the change with your current password!",
-      "titleInput1": "New password",
+      "inputNewPasswordLabel": "New password",
       "inputNewPasswordPlaceholder": "Enter a new password…",
-      "titleInput2": "Current Neon password",
+      "inputCurrentPasswordLabel": "Current password",
       "inputCurrentPasswordPlaceholder": "Enter your current password…",
       "generatePassword": "Generate password",
       "buttonContinue": "Continue",
@@ -544,6 +545,7 @@
     "title": "Voting",
     "howDoesItWorkButtonLabel": "How does it work?",
     "searchPlaceholder": "Search for a candidate…",
+    "searchLabel": "Search candidates",
     "changeAccountButtonLabel": "Change",
     "selectAccountButtonLabel": "Select account",
     "voteErrorMessages": {
