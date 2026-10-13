@@ -6,7 +6,7 @@ import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 // If you need to add more constants, please verify if they fit better in other helper or in your own helper.
 export class ConstantsHelper {
   static readonly fraudulentTokenHashesByBlockchain: Map<TBlockchainServiceKey, Set<string>> = new Map([
-    ['neo3', new Set(['0x42e6b0379e39a428362e08cf9d7e40903cdb0fe7'])],
+    ['neo3', new Set(['0x42e6b0379e39a428362e08cf9d7e40903cdb0fe7', '0x90591dbfddd3c5a8e8fd0b5c8eb4a904e13a4c32'])],
   ])
 
   static readonly bNeoTokenHash = BSNeo3Constants.EXTRA_TOKENS_BY_NETWORK_ID.mainnet!.find(
