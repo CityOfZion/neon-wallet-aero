@@ -51,6 +51,12 @@
     "title": "Total fee",
     "value": "Value"
   },
+  "transactionMemoActionStep": {
+    "title": "Memo",
+    "optionalLabel": "Optional",
+    "placeholder": "Enter a memo…",
+    "invalidMemo": "Invalid memo"
+  },
   "transactionActivityList": {
     "exportTransactionsButtonLabel": "Export transactions",
     "items": {

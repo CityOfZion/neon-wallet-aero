@@ -51,6 +51,12 @@
     "title": "Taxa total",
     "value": "Valor"
   },
+  "transactionMemoActionStep": {
+    "title": "Memo",
+    "optionalLabel": "Opcional",
+    "placeholder": "Insira um memo…",
+    "invalidMemo": "Memo inválido"
+  },
   "transactionActivityList": {
     "exportTransactionsButtonLabel": "Exportar transações",
     "items": {

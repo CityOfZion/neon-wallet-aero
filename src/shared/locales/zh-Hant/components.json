@@ -45,6 +45,12 @@
     "title": "總手續費",
     "value": "數值"
   },
+  "transactionMemoActionStep": {
+    "title": "備註",
+    "optionalLabel": "可選",
+    "placeholder": "輸入備註…",
+    "invalidMemo": "備註無效"
+  },
   "transactionActivityList": {
     "exportTransactionsButtonLabel": "匯出交易記錄",
     "items": {

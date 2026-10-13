@@ -394,7 +394,8 @@
       "hardwareWalletShouldBeValid": "Um mit diesem Vorgang fortzufahren, stellen Sie bitte sicher, dass Ihre Hardware Wallet entsperrt ist",
       "noTokenToTip": "Kein Token zum Bezahlen des Trinkgelds",
       "noAmountToTip": "Unzureichendes Guthaben zum Bezahlen des Trinkgelds",
-      "noFiatPriceToTip": "Fiat-Preis für das Trinkgeld nicht gefunden"
+      "noFiatPriceToTip": "Fiat-Preis für das Trinkgeld nicht gefunden",
+      "memoRequired": "Der Empfänger benötigt ein Memo. Bitte füllen Sie das Memo-Feld aus und versuchen Sie es erneut"
     }
   },
   "contacts": {
