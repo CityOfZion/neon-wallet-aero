@@ -180,8 +180,9 @@ export const AccountReceiveSelectionModal = () => {
                 onChange={handleInputAddressChange}
                 name="address"
                 id="address"
+                aria-label={t('recipientAddressLabel')}
                 className="placeholder:text-neon w-full"
-                placeholder={t('enterRecipientAddressPlaceholder')}
+                placeholder={t('recipientAddressPlaceholder')}
                 clearable
                 pastable
                 containerClassName="p-1"

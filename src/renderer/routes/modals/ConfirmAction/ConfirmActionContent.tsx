@@ -68,6 +68,7 @@ export const ConfirmActionContent = ({ onSuccess, onCancel }: TConfirmActionModa
             <Input
               name="password"
               id="password"
+              aria-label={t('inputLabel')}
               placeholder={t('inputPlaceholder')}
               error={!!actionState.errors.password}
               value={actionData.password}

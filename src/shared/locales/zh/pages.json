@@ -79,6 +79,7 @@
   "loginKey": {
     "description": "请输入地址、密钥或助记词：",
     "inputPlaceholder": "输入地址、密钥或助记词…",
+    "inputLabel": "地址、密钥或助记词",
     "buttonContinueLabel": "继续",
     "shouldConfirmActionKeyCheckboxLabel": "要求确认操作",
     "encryptedKey": {
@@ -307,9 +308,9 @@
     "title": "更改密码",
     "step1": {
       "subtitle": "如果您想创建新密码，只需在此更改并用当前密码确认即可！",
-      "titleInput1": "新密码",
+      "inputNewPasswordLabel": "新密码",
       "inputNewPasswordPlaceholder": "输入新密码…",
-      "titleInput2": "当前 Neon 密码",
+      "inputCurrentPasswordLabel": "当前密码",
       "inputCurrentPasswordPlaceholder": "输入当前密码…",
       "generatePassword": "生成密码",
       "buttonContinue": "继续",
@@ -540,6 +541,7 @@
     "title": "投票",
     "howDoesItWorkButtonLabel": "它是如何工作的？",
     "searchPlaceholder": "搜索候选人…",
+    "searchLabel": "搜索候选人",
     "changeAccountButtonLabel": "更改",
     "selectAccountButtonLabel": "选择账户",
     "voteErrorMessages": {

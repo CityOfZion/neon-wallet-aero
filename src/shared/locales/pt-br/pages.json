@@ -79,6 +79,7 @@
   "loginKey": {
     "description": "Digite um endereço, chave ou palavras mnemônicas:",
     "inputPlaceholder": "Digite um endereço, chave ou mnemônico…",
+    "inputLabel": "Endereço, chave ou mnemônico",
     "buttonContinueLabel": "Continuar",
     "shouldConfirmActionKeyCheckboxLabel": "Solicitar confirmação de ações",
     "encryptedKey": {
@@ -307,9 +308,9 @@
     "title": "Mudar senha",
     "step1": {
       "subtitle": "Se você gostaria de criar uma nova senha, simplesmente mude-a aqui e confirme a mudança com sua senha atual!",
-      "titleInput1": "Nova senha",
+      "inputNewPasswordLabel": "Nova senha",
       "inputNewPasswordPlaceholder": "Digite uma nova senha…",
-      "titleInput2": "Senha atual da Neon",
+      "inputCurrentPasswordLabel": "Senha atual",
       "inputCurrentPasswordPlaceholder": "Digite sua senha atual…",
       "generatePassword": "Gerar senha",
       "buttonContinue": "Continuar",
@@ -540,6 +541,7 @@
     "title": "Votar",
     "howDoesItWorkButtonLabel": "Como funciona?",
     "searchPlaceholder": "Pesquisar um candidato…",
+    "searchLabel": "Pesquisar candidatos",
     "changeAccountButtonLabel": "Mudar",
     "selectAccountButtonLabel": "Selecionar conta",
     "voteErrorMessages": {

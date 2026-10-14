@@ -704,6 +704,7 @@ export const SwapPage = () => {
                     contentProps={{ side: 'top', className: 'text-center' }}
                   >
                     <GreyAmountInput
+                      aria-label={t('form.amountToUseTitle')}
                       className="w-36"
                       ref={amountInputRef}
                       value={actionData.selectedAmountToUse.value || ''}

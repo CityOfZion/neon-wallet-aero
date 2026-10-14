@@ -453,6 +453,7 @@ export const SellTokensDepositModal = () => {
                   }
                 >
                   <GreyAmountInput
+                    aria-label={t('form.amountLabel')}
                     value={actionData.amount}
                     maxLength={18}
                     className="h-10 w-28 max-w-28 min-w-28"

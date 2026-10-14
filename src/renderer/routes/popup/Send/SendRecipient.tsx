@@ -197,7 +197,9 @@ export const SendRecipient = ({
         <div className="my-5 flex w-full flex-col">
           <div className="flex w-full items-center gap-1.5 pb-5">
             <VscCircleFilled aria-hidden className="mx-1 size-2 text-gray-300" />
-            <span className="text-sm text-white">{t('receivingAddressLabel')}</span>
+            <label htmlFor="recipient-address" className="text-sm text-white">
+              {t('receivingAddressLabel')}
+            </label>
           </div>
           <div className="flex w-full items-start gap-3">
             <Input
@@ -239,7 +241,12 @@ export const SendRecipient = ({
           className="pt-1.5 pb-2.5"
           leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
         >
-          <GreyAmountInput value={recipient.amount || ''} onChange={handleChangeAmount} disabled={isAmountDisabled}>
+          <GreyAmountInput
+            aria-label={t('amountLabel')}
+            value={recipient.amount || ''}
+            onChange={handleChangeAmount}
+            disabled={isAmountDisabled}
+          >
             <Button
               label={t('max')}
               variant="text"

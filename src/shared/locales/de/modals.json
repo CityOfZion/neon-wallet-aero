@@ -281,6 +281,7 @@
     "description": "Alle von einer verbundenen dApp angeforderten Transaktionen <strong>erfordern Ihre Genehmigung, bevor sie</strong> an die Blockchain gesendet werden.",
     "disclaimer": "Keine von der dApp initiierten Aktionen werden ohne Ihre direkte Zustimmung ausgeführt.",
     "inputPlaceholder": "Geben Sie hier Ihre URL ein…",
+    "inputLabel": "URL der dApp-Verbindung",
     "buttonConnectLabel": "Verbinden",
     "errors": {
       "errorToConnect": "Hoppla! Wir sind auf einen Fehler gestoßen. Versuchen Sie, eine neue URI zu generieren und es erneut zu versuchen.",
@@ -431,7 +432,8 @@
     "enterAddressLabel": "Adresse eingeben",
     "myAccountsLabel": "Meine Konten",
     "myContactsLabel": "Meine Kontakte",
-    "enterRecipientAddressPlaceholder": "Empfängeradresse eingeben…",
+    "recipientAddressLabel": "Empfängeradresse",
+    "recipientAddressPlaceholder": "Empfängeradresse eingeben…",
     "noContactsFound": "Keine Kontakte gefunden",
     "noAccountsFound": "Keine Konten gefunden",
     "useThisAddressButtonLabel": "Diese Adresse verwenden",
@@ -734,6 +736,7 @@
     "descriptionPassword": "Zu Ihrer Sicherheit bestätigen Sie bitte Ihre Aktion durch Eingabe Ihres Passworts.",
     "descriptionNoPassword": "Zu Ihrer Sicherheit bestätigen Sie bitte Ihre Aktion.",
     "inputPlaceholder": "Geben Sie Ihr Passwort ein…",
+    "inputLabel": "Passwort",
     "passwordError": "Passwort nicht erkannt!",
     "confirmButtonLabel": "Bestätigen",
     "cancelButtonLabel": "Abbrechen"
@@ -742,6 +745,7 @@
     "title": "Neon durchsuchen",
     "closeButtonLabel": "Schließen",
     "inputPlaceholder": "Geben Sie Ihre Suche ein…",
+    "inputLabel": "Suche",
     "idleResultDescription": "Suchen Sie nach etwas?",
     "emptyResultDescription": "Nichts gefunden!",
     "resultDescription": "Diese Themen könnten Sie interessieren:",

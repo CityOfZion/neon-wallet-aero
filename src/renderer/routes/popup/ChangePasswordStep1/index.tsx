@@ -58,7 +58,9 @@ export const ChangePasswordStep1Page = () => {
         <span className="mb-6 text-sm">{t('subtitle')}</span>
         <div className="flex size-full flex-col justify-between">
           <div className="flex h-full flex-col">
-            <span className="mb-2 text-xs font-bold text-gray-100 uppercase">{t('titleInput1')}</span>
+            <label htmlFor="new-password" className="mb-2 text-xs font-bold text-gray-100 uppercase">
+              {t('inputNewPasswordLabel')}
+            </label>
             <div className="mb-5 flex flex-col items-center">
               <Input
                 name="new-password"
@@ -75,7 +77,9 @@ export const ChangePasswordStep1Page = () => {
             </div>
             <Separator />
             <div className="mt-5 mb-2 flex w-full">
-              <span className="text-xs font-bold text-gray-100 uppercase">{t('titleInput2')}</span>
+              <label htmlFor="password" className="text-xs font-bold text-gray-100 uppercase">
+                {t('inputCurrentPasswordLabel')}
+              </label>
             </div>
             <div className="mb-5 flex flex-col items-center">
               <Input
