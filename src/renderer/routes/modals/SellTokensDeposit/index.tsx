@@ -365,6 +365,7 @@ export const SellTokensDepositModal = () => {
               triggerClassName="h-10 w-28 max-w-28 min-w-28 text-xs"
               onSelect={handleChangeAccount}
               placement="overlap"
+              popoverContentProps={{ sideOffset: -40 }}
             />
           </ActionStep>
 
