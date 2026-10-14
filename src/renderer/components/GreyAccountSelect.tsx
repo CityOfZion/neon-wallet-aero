@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { type ComponentProps, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useVirtualizer } from '@tanstack/react-virtual'
 import type { JSX } from 'react'
@@ -17,13 +17,13 @@ import type { TAccount, TAccountType, TAccountWithWallet } from '@shared/types/s
 import { BlockchainIcon } from './BlockchainIcon'
 import { Command } from './Command'
 import { Loader } from './Loader'
-import { Popover, type TPopoverContentProps } from './Popover'
+import { Popover } from './Popover'
 import { Separator } from './Separator'
 import { Tooltip } from './Tooltip'
 
 type TPlacement = 'overlap' | 'dropdownEnd'
 
-const placementProps: Record<TPlacement, Pick<TPopoverContentProps, 'align' | 'sideOffset'>> = {
+const placementProps: Record<TPlacement, Pick<ComponentProps<typeof Popover.Content>, 'align' | 'sideOffset'>> = {
   overlap: { align: 'end', sideOffset: -48 },
   dropdownEnd: { align: 'end', sideOffset: 8 },
 }
@@ -42,6 +42,7 @@ type TProps<N extends TBlockchainServiceKey> = {
   contentClassName?: string
   accountTypes?: TAccountType[]
   placement?: TPlacement
+  popoverContentProps?: ComponentProps<typeof Popover.Content>
 }
 
 export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
@@ -57,6 +58,7 @@ export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
   contentClassName,
   accountTypes = ['standard', 'hardware'],
   placement = 'dropdownEnd',
+  popoverContentProps,
 }: TProps<N>) => {
   const { accountsWithWallet } = useAccountsWithWalletSelector()
   const { t } = useTranslation('components', { keyPrefix: 'greyAccountSelect' })
@@ -125,7 +127,7 @@ export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
           disabled={isDisabled}
           aria-disabled={isDisabled}
           className={StyleHelper.mergeStyles(
-            'bg-asphalt aria-expanded:bg-asphalt aria-[disabled=false]:hover:bg-asphalt/60 flex h-12 w-32 max-w-36 min-w-32 items-center justify-center px-2 text-sm aria-[disabled=false]:hover:cursor-pointer',
+            'bg-asphalt aria-expanded:bg-asphalt aria-[disabled=false]:hover:bg-asphalt/60 flex h-12 w-32 max-w-36 min-w-32 items-center justify-center rounded px-2 text-sm aria-[disabled=false]:hover:cursor-pointer',
             {
               'aria-[disabled=false]:hover:bg-asphalt/60': !selectedAccount && !open && !isDisabled,
               'bg-gray-300/15 aria-[disabled=false]:hover:bg-gray-300/30': !isDisabled && !open && selectedAccount,
@@ -155,6 +157,7 @@ export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
         side="bottom"
         className={StyleHelper.mergeStyles('w-48 max-w-48 min-w-48 bg-transparent', contentClassName)}
         {...placementProps[placement]}
+        {...popoverContentProps}
       >
         <RemoveScroll>
           <Command.Root shouldFilter={false}>

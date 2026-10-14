@@ -1,6 +1,7 @@
+import type { ComponentProps } from 'react'
+
 import type { TCalendarProps } from './Calendar'
 import { Calendar } from './Calendar'
-import type { TPopoverContentProps } from './Popover'
 import { Popover } from './Popover'
 
 const Root = Popover.Root
@@ -8,7 +9,7 @@ const Root = Popover.Root
 const Trigger = Popover.Trigger
 
 type TPickerProps = TCalendarProps & {
-  popoverContentProps?: TPopoverContentProps
+  popoverContentProps?: ComponentProps<typeof Popover.Content>
 }
 
 const Picker = ({ popoverContentProps, ...props }: TPickerProps) => (
