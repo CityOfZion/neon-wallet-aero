@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import cloneDeep from 'lodash/cloneDeep'
 import { useTranslation } from 'react-i18next'
 
@@ -35,8 +37,12 @@ export const SwapConfirmationModal = () => {
   const { modalNavigate } = useModalNavigate()
   const dispatch = useAppDispatch()
 
+  const [isConfirming, setIsConfirming] = useState(false)
+
   const handleConfirm = async () => {
     if (!swapOrchestrator) return
+
+    setIsConfirming(true)
 
     try {
       await confirmAction({ account: swapRecord.account })
@@ -61,6 +67,8 @@ export const SwapConfirmationModal = () => {
     } catch (error: any) {
       LoggerHelper.sentry(error, { where: 'SwapConfirmation', operation: 'submitSwap' })
       ToastHelper.error({ message: AppError.wrap(error).message })
+    } finally {
+      setIsConfirming(false)
     }
   }
 
@@ -195,6 +203,8 @@ export const SwapConfirmationModal = () => {
           leftIcon={<TbCheck aria-hidden />}
           iconsOnEdge={false}
           onClick={handleConfirm}
+          loading={isConfirming}
+          disabled={isConfirming}
         />
       </div>
     </BottomModalLayout>
