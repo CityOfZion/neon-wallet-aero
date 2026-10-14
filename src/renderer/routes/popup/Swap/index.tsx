@@ -520,7 +520,7 @@ export const SwapPage = () => {
       }
     >
       <div className="flex min-h-0 grow flex-col items-center pr-2 text-sm text-white">
-        <div className="flex w-full items-center justify-between gap-2 pb-3">
+        <div className="flex w-full items-center justify-between gap-2">
           <Button
             leftIcon={
               <div className="flex w-full items-center gap-1.5">
@@ -535,282 +535,280 @@ export const SwapPage = () => {
           />
         </div>
 
-        <div className="flex w-full grow flex-col items-center pt-2">
-          <div className="mx-auto flex w-full max-w-xl flex-col items-center pt-2 pb-12">
-            <div className="flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
-              <ActionStep title={t('form.assets')} leftIcon={<TbDiamond aria-hidden />} className="font-bold" />
+        <div className="mx-auto flex w-full max-w-xl grow flex-col items-center pt-6 pb-12">
+          <div className="flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
+            <ActionStep title={t('form.assets')} leftIcon={<TbDiamond aria-hidden />} className="font-bold" />
 
-              <Separator />
+            <Separator />
 
-              <ActionStep
-                title={t('form.tokenToUseTitle')}
-                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
-              >
-                <GreyTokenSelect
-                  tokens={actionData.availableTokensToUse.value || []}
-                  loading={actionData.availableTokensToUse.loading || actionData.selectedTokenToUse.loading}
-                  onSelect={handleSelectTokenToUse}
-                  selectedToken={actionData.selectedTokenToUse.value || undefined}
-                  balance={balanceQuery.data}
-                  blockchain={actionData.selectedAccountToUse.value?.blockchain}
-                />
-              </ActionStep>
-
-              <Separator />
-
-              <ActionStep
-                title={t('form.tokenToReceiveTitle')}
-                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
-                className="mb-2"
-              >
-                <GreyTokenSelect
-                  tokens={actionData.availableTokensToReceive.value || []}
-                  loading={actionData.availableTokensToReceive.loading}
-                  onSelect={handleSelectTokenToReceive}
-                  selectedToken={actionData.selectedTokenToReceive.value || undefined}
-                  disabled={!actionData.selectedTokenToUse.value}
-                />
-              </ActionStep>
-            </div>
-
-            <ActionStepSeparator />
-
-            <div className="mt-2.5 flex w-full flex-col items-center rounded bg-gray-300/15 px-4 pb-4">
-              <ActionStep
-                title={t('form.source')}
-                leftIcon={<TbWallet aria-hidden className="min-size-6 size-6" />}
-                className="font-bold"
+            <ActionStep
+              title={t('form.tokenToUseTitle')}
+              leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
+            >
+              <GreyTokenSelect
+                tokens={actionData.availableTokensToUse.value || []}
+                loading={actionData.availableTokensToUse.loading || actionData.selectedTokenToUse.loading}
+                onSelect={handleSelectTokenToUse}
+                selectedToken={actionData.selectedTokenToUse.value || undefined}
+                balance={balanceQuery.data}
+                blockchain={actionData.selectedAccountToUse.value?.blockchain}
               />
+            </ActionStep>
 
-              <Separator />
+            <Separator />
 
-              <ActionStep
-                title={t('form.accountToUseTitle')}
-                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
-              >
-                <GreyAccountSelect
-                  selectedAccount={actionData.selectedAccountToUse.value}
-                  onSelect={handleSelectAccountToUse}
-                  blockchains={
-                    actionData.selectedTokenToUse.value?.blockchain
-                      ? [actionData.selectedTokenToUse.value.blockchain]
-                      : (Object.keys(swapChainsByServiceName) as TBlockchainServiceKey[])
-                  }
-                  disabled={isAddressesDisabled}
-                />
-              </ActionStep>
+            <ActionStep
+              title={t('form.tokenToReceiveTitle')}
+              leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
+              className="mb-2"
+            >
+              <GreyTokenSelect
+                tokens={actionData.availableTokensToReceive.value || []}
+                loading={actionData.availableTokensToReceive.loading}
+                onSelect={handleSelectTokenToReceive}
+                selectedToken={actionData.selectedTokenToReceive.value || undefined}
+                disabled={!actionData.selectedTokenToUse.value}
+              />
+            </ActionStep>
+          </div>
 
-              <Separator />
+          <ActionStepSeparator />
 
-              <div className="my-1 ml-1 flex w-full pr-0.5">
-                <div className="flex w-full items-center gap-1.5">
-                  <VscCircleFilled aria-hidden className="mx-1 size-2 text-gray-300" />
-                  <span className="text-sm text-white">{t('form.receiveHere')}</span>
-                </div>
+          <div className="mt-2.5 flex w-full flex-col items-center rounded bg-gray-300/15 px-4 pb-4">
+            <ActionStep
+              title={t('form.source')}
+              leftIcon={<TbWallet aria-hidden className="min-size-6 size-6" />}
+              className="font-bold"
+            />
 
-                <AddressSelectionButton
-                  blockchain={tokenToReceiveBlockchain}
-                  address={
-                    actionData.selectedAccountToReceive.value?.address || actionData.selectedAddressToReceive.value
-                  }
-                  disabled={!actionData.selectedAccountToUse.value}
-                  placeholder={t('form.receiverAddressPlaceholder')}
-                  onClick={modalNavigateWrapper('account-receive-selection', {
-                    state: {
-                      selectedAccount: actionData.selectedAccountToReceive.value || undefined,
-                      selectedAddress: actionData.selectedAddressToReceive.value || undefined,
-                      handleChangeAccount: handleSelectAccountToReceive,
-                      handleChangeAddress: handleChangeAddressToReceive,
-                      blockchain: tokenToReceiveBlockchain,
-                    },
-                  })}
-                />
+            <Separator />
+
+            <ActionStep
+              title={t('form.accountToUseTitle')}
+              leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
+            >
+              <GreyAccountSelect
+                selectedAccount={actionData.selectedAccountToUse.value}
+                onSelect={handleSelectAccountToUse}
+                blockchains={
+                  actionData.selectedTokenToUse.value?.blockchain
+                    ? [actionData.selectedTokenToUse.value.blockchain]
+                    : (Object.keys(swapChainsByServiceName) as TBlockchainServiceKey[])
+                }
+                disabled={isAddressesDisabled}
+              />
+            </ActionStep>
+
+            <Separator />
+
+            <div className="my-1 ml-1 flex w-full pr-0.5">
+              <div className="flex w-full items-center gap-1.5">
+                <VscCircleFilled aria-hidden className="mx-1 size-2 text-gray-300" />
+                <span className="text-sm text-white">{t('form.receiveHere')}</span>
               </div>
 
-              {hasExtraIdToReceive && (
-                <Fragment>
-                  <Separator />
-
-                  <ActionStep
-                    title={
-                      <div className="flex items-center gap-2">
-                        <p>{t('form.extraIdToReceive')}</p>
-
-                        <IconButton
-                          aria-label={t('form.openSwapAboutExtraIdToReceiveModal')}
-                          colorSchema="neon"
-                          type="button"
-                          icon={<TbHelp aria-hidden className="min-size-5 size-5" />}
-                          onClick={modalNavigateWrapper('swap-about-extra-id-to-receive')}
-                        />
-                      </div>
-                    }
-                    leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
-                  >
-                    <Input
-                      name="extra-id"
-                      id="extra-id"
-                      aria-label={t('form.extraIdToReceive')}
-                      placeholder={t('form.extraIdToReceivePlaceholder')}
-                      compacted
-                      className="text-center text-white"
-                      contentClassName="px-4 h-9"
-                      containerClassName="w-42"
-                      error={isExtraIdToReceiveWrong}
-                      value={actionData.selectedExtraIdToReceive.value || ''}
-                      required
-                      disabled={!actionData.selectedAccountToUse.value || isAddressesDisabled}
-                      onChange={handleChangeExtraIdToReceive}
-                    />
-                  </ActionStep>
-                </Fragment>
-              )}
+              <AddressSelectionButton
+                blockchain={tokenToReceiveBlockchain}
+                address={
+                  actionData.selectedAccountToReceive.value?.address || actionData.selectedAddressToReceive.value
+                }
+                disabled={!actionData.selectedAccountToUse.value}
+                placeholder={t('form.receiverAddressPlaceholder')}
+                onClick={modalNavigateWrapper('account-receive-selection', {
+                  state: {
+                    selectedAccount: actionData.selectedAccountToReceive.value || undefined,
+                    selectedAddress: actionData.selectedAddressToReceive.value || undefined,
+                    handleChangeAccount: handleSelectAccountToReceive,
+                    handleChangeAddress: handleChangeAddressToReceive,
+                    blockchain: tokenToReceiveBlockchain,
+                  },
+                })}
+              />
             </div>
 
-            <ActionStepSeparator />
+            {hasExtraIdToReceive && (
+              <Fragment>
+                <Separator />
 
-            <div className="mt-2.5 flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
-              <ActionStep
-                title={t('form.amounts')}
-                className="font-bold"
-                leftIcon={<TbStepInto aria-hidden className="min-size-6 size-6" />}
-              />
+                <ActionStep
+                  title={
+                    <div className="flex items-center gap-2">
+                      <p>{t('form.extraIdToReceive')}</p>
 
-              <Separator />
-
-              <ActionStep
-                title={
-                  <Tooltip title={actionData.selectAmountToUseMinMax.value?.min || '0'}>
-                    <div>
-                      <p>{t('form.amountToUseTitle')}</p>
-                      <span className="w-full text-left text-sm text-gray-200 italic">
-                        {t('form.minimumAmountToUseLabel', {
-                          amount: StringHelper.truncate(
-                            actionData.selectAmountToUseMinMax.value?.min || t('form.minimumAmountToUsePlaceholder'),
-                            8
-                          ),
-                        })}
-                      </span>
-                    </div>
-                  </Tooltip>
-                }
-                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Tooltip
-                    title={t('form.amountToUseTooltipLabel')}
-                    icon={<TbWand aria-hidden className="text-blue size-6" />}
-                    open={isAmountInputFocused}
-                    contentProps={{ side: 'top', className: 'text-center' }}
-                  >
-                    <GreyAmountInput
-                      aria-label={t('form.amountToUseTitle')}
-                      className="w-36"
-                      ref={amountInputRef}
-                      value={actionData.selectedAmountToUse.value || ''}
-                      onChange={handleChangeAmountToUse}
-                      disabled={isAmountsDisabled}
-                      loading={actionData.selectedAmountToUse.loading}
-                    >
-                      <Button
-                        label={t('form.max')}
-                        flat
-                        variant="text"
+                      <IconButton
+                        aria-label={t('form.openSwapAboutExtraIdToReceiveModal')}
                         colorSchema="neon"
-                        className="bg-asphalt h-full w-16 rounded-r"
-                        clickableProps={{ className: 'h-full rounded-r rounded-l-none' }}
-                        loading={actionData.selectAmountToUseMinMax.loading}
-                        disabled={isAmountsDisabled}
-                        onClick={handleMaxAmount}
+                        type="button"
+                        icon={<TbHelp aria-hidden className="min-size-5 size-5" />}
+                        onClick={modalNavigateWrapper('swap-about-extra-id-to-receive')}
                       />
-                    </GreyAmountInput>
-                  </Tooltip>
-                </div>
-              </ActionStep>
+                    </div>
+                  }
+                  leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
+                >
+                  <Input
+                    name="extra-id"
+                    id="extra-id"
+                    aria-label={t('form.extraIdToReceive')}
+                    placeholder={t('form.extraIdToReceivePlaceholder')}
+                    compacted
+                    className="text-center text-white"
+                    contentClassName="px-4 h-9"
+                    containerClassName="w-42"
+                    error={isExtraIdToReceiveWrong}
+                    value={actionData.selectedExtraIdToReceive.value || ''}
+                    required
+                    disabled={!actionData.selectedAccountToUse.value || isAddressesDisabled}
+                    onChange={handleChangeExtraIdToReceive}
+                  />
+                </ActionStep>
+              </Fragment>
+            )}
+          </div>
 
-              <div className="flex w-full justify-between pb-4 pl-6.5">
-                <span className="text-sm text-gray-200 italic">{t('form.balanceLabel')}</span>
-                <span className="text-sm text-gray-100 italic">
-                  {selectedTokenBalance?.amount
-                    ? new BSBigHumanAmount(
-                        selectedTokenBalance?.amount,
-                        selectedTokenBalance.token.decimals
-                      ).toFormatted()
-                    : t('form.balancePlaceholder')}
-                </span>
-              </div>
+          <ActionStepSeparator />
 
-              <Separator />
+          <div className="mt-2.5 flex w-full flex-col items-center rounded bg-gray-300/15 px-4">
+            <ActionStep
+              title={t('form.amounts')}
+              className="font-bold"
+              leftIcon={<TbStepInto aria-hidden className="min-size-6 size-6" />}
+            />
 
-              <ActionStep
-                title={
-                  <div className="text-sm text-white">
-                    <span>{t('form.amountToReceiveTitle')}</span>
-                    <span className="text-gray-100">{` ${t('form.amountToReceiveTitleComplement')}`}</span>
+            <Separator />
+
+            <ActionStep
+              title={
+                <Tooltip title={actionData.selectAmountToUseMinMax.value?.min || '0'}>
+                  <div>
+                    <p>{t('form.amountToUseTitle')}</p>
+                    <span className="w-full text-left text-sm text-gray-200 italic">
+                      {t('form.minimumAmountToUseLabel', {
+                        amount: StringHelper.truncate(
+                          actionData.selectAmountToUseMinMax.value?.min || t('form.minimumAmountToUsePlaceholder'),
+                          8
+                        ),
+                      })}
+                    </span>
                   </div>
-                }
-                leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
-              >
-                <p className="text-right text-sm text-white">{actionData.selectedAmountToReceive.value || 0}</p>
-              </ActionStep>
+                </Tooltip>
+              }
+              leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
+            >
+              <div className="flex items-center gap-2.5">
+                <Tooltip
+                  title={t('form.amountToUseTooltipLabel')}
+                  icon={<TbWand aria-hidden className="text-blue size-6" />}
+                  open={isAmountInputFocused}
+                  contentProps={{ side: 'top', className: 'text-center' }}
+                >
+                  <GreyAmountInput
+                    aria-label={t('form.amountToUseTitle')}
+                    className="w-36"
+                    ref={amountInputRef}
+                    value={actionData.selectedAmountToUse.value || ''}
+                    onChange={handleChangeAmountToUse}
+                    disabled={isAmountsDisabled}
+                    loading={actionData.selectedAmountToUse.loading}
+                  >
+                    <Button
+                      label={t('form.max')}
+                      flat
+                      variant="text"
+                      colorSchema="neon"
+                      className="bg-asphalt h-full w-16 rounded-r"
+                      clickableProps={{ className: 'h-full rounded-r rounded-l-none' }}
+                      loading={actionData.selectAmountToUseMinMax.loading}
+                      disabled={isAmountsDisabled}
+                      onClick={handleMaxAmount}
+                    />
+                  </GreyAmountInput>
+                </Tooltip>
+              </div>
+            </ActionStep>
+
+            <div className="flex w-full justify-between pb-4 pl-6.5">
+              <span className="text-sm text-gray-200 italic">{t('form.balanceLabel')}</span>
+              <span className="text-sm text-gray-100 italic">
+                {selectedTokenBalance?.amount
+                  ? new BSBigHumanAmount(
+                      selectedTokenBalance?.amount,
+                      selectedTokenBalance.token.decimals
+                    ).toFormatted()
+                  : t('form.balancePlaceholder')}
+              </span>
             </div>
 
-            {!!actionData.selectedTokenToUse.value &&
-              TokenHelper.isNonNativeStellarToken(actionData.selectedTokenToUse.value) && (
-                <Banner
-                  type="warning"
-                  className="mt-2.5 w-full"
-                  message={t('form.stellarTrustlineWarnings.source', {
-                    token: actionData.selectedTokenToUse.value.symbol.toUpperCase(),
-                  })}
-                />
-              )}
+            <Separator />
 
-            {!!actionData.selectedTokenToReceive.value &&
-              TokenHelper.isNonNativeStellarToken(actionData.selectedTokenToReceive.value) && (
-                <Banner
-                  type="warning"
-                  className="mt-2.5 w-full"
-                  message={t('form.stellarTrustlineWarnings.receiver', {
-                    token: actionData.selectedTokenToReceive.value.symbol.toUpperCase(),
-                  })}
-                />
-              )}
+            <ActionStep
+              title={
+                <div className="text-sm text-white">
+                  <span>{t('form.amountToReceiveTitle')}</span>
+                  <span className="text-gray-100">{` ${t('form.amountToReceiveTitleComplement')}`}</span>
+                </div>
+              }
+              leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}
+            >
+              <p className="text-right text-sm text-white">{actionData.selectedAmountToReceive.value || 0}</p>
+            </ActionStep>
+          </div>
 
-            {errorMessage && <AlertErrorBanner className="mt-2.5 w-full" message={errorMessage} />}
-
-            {(!service || (service && isCalculableFee(service))) && (
-              <TransactionFeeActionStep
-                fee={actionData.fee}
-                isCalculatingFee={actionData.isCalculatingFee}
-                service={service}
-                containerClassName="mt-2.5"
-                className="mt-1 text-white"
+          {!!actionData.selectedTokenToUse.value &&
+            TokenHelper.isNonNativeStellarToken(actionData.selectedTokenToUse.value) && (
+              <Banner
+                type="warning"
+                className="mt-2.5 w-full"
+                message={t('form.stellarTrustlineWarnings.source', {
+                  token: actionData.selectedTokenToUse.value.symbol.toUpperCase(),
+                })}
               />
             )}
 
-            <Button
-              className="mt-8 w-full max-w-[20rem]"
-              iconsOnEdge={false}
-              onClick={handleAct(handleSubmit)}
-              label={t('form.submitLabel')}
-              loading={actionState.isActing}
-              leftIcon={<TbReplace aria-hidden />}
-              disabled={
-                !actionState.isValid ||
-                !actionData.selectAmountToUseMinMax.value ||
-                !actionData.selectedAmountToUse.value ||
-                !actionData.selectedAmountToReceive.value ||
-                !actionData.selectedTokenToUse.value ||
-                !actionData.selectedTokenToReceive.value ||
-                !actionData.selectedAccountToUse.value ||
-                !actionData.selectedAddressToReceive.value ||
-                isExtraIdToReceiveWrong ||
-                !service ||
-                (isCalculableFee(service) && !actionData.fee)
-              }
+          {!!actionData.selectedTokenToReceive.value &&
+            TokenHelper.isNonNativeStellarToken(actionData.selectedTokenToReceive.value) && (
+              <Banner
+                type="warning"
+                className="mt-2.5 w-full"
+                message={t('form.stellarTrustlineWarnings.receiver', {
+                  token: actionData.selectedTokenToReceive.value.symbol.toUpperCase(),
+                })}
+              />
+            )}
+
+          {errorMessage && <AlertErrorBanner className="mt-2.5 w-full" message={errorMessage} />}
+
+          {(!service || (service && isCalculableFee(service))) && (
+            <TransactionFeeActionStep
+              fee={actionData.fee}
+              isCalculatingFee={actionData.isCalculatingFee}
+              service={service}
+              containerClassName="mt-2.5"
+              className="mt-1 text-white"
             />
-          </div>
+          )}
+
+          <Button
+            className="mt-8 w-full max-w-[20rem]"
+            iconsOnEdge={false}
+            onClick={handleAct(handleSubmit)}
+            label={t('form.submitLabel')}
+            loading={actionState.isActing}
+            leftIcon={<TbReplace aria-hidden />}
+            disabled={
+              !actionState.isValid ||
+              !actionData.selectAmountToUseMinMax.value ||
+              !actionData.selectedAmountToUse.value ||
+              !actionData.selectedAmountToReceive.value ||
+              !actionData.selectedTokenToUse.value ||
+              !actionData.selectedTokenToReceive.value ||
+              !actionData.selectedAccountToUse.value ||
+              !actionData.selectedAddressToReceive.value ||
+              isExtraIdToReceiveWrong ||
+              !service ||
+              (isCalculableFee(service) && !actionData.fee)
+            }
+          />
         </div>
       </div>
     </ScreenLayout>

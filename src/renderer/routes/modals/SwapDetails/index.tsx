@@ -110,8 +110,8 @@ export const SwapDetailsModal = () => {
 
   return (
     <BottomModalLayout heading={t('title')}>
-      <div className="flex w-full flex-col items-center">
-        <div className="flex size-28 items-center p-2">
+      <div className="flex w-full grow flex-col items-center">
+        <div className="mb-2 flex size-24 items-center justify-center">
           {swapRecord.swapStatus === 'failed' || swapRecord.swapStatus === 'refunded' ? (
             <TbCircleX aria-hidden className="text-pink size-20 stroke-1" />
           ) : (
@@ -119,9 +119,9 @@ export const SwapDetailsModal = () => {
           )}
         </div>
 
-        <Accordion.Root type="multiple" className="w-full" defaultChecked>
+        <Accordion.Root type="multiple" className="mb-6 w-full" defaultChecked>
           <Accordion.Item value="details">
-            <Details.Root>
+            <Details.Root className="py-4">
               <Details.Header leftElement={<TbReceipt aria-hidden className="min-size-4 size-4" />}>
                 {t('detailsHeaderLabel')}
               </Details.Header>
@@ -146,18 +146,21 @@ export const SwapDetailsModal = () => {
             </Details.Root>
 
             <Accordion.Content asChild>
-              <Details.Root className="mt-5">
+              <Details.Root className="mt-2 pt-4 pb-0">
                 <Details.Body>
                   <Details.Panel label={t('routingPanelTransactionFromLabel')}>
                     {swapRecord.txFrom && swapRecord.tokenFrom.blockchain && (
                       <Fragment>
                         <Details.Item label={t('sentPanelTokenLabel')} contentClassName="flex w-full justify-between">
-                          <div className="flex items-center text-sm">
+                          <div className="flex items-center gap-2.5 text-sm">
                             <BlockchainIcon blockchain={swapRecord.tokenFrom.blockchain} />
 
-                            <span className="whitespace-nowrap text-gray-300">
-                              {` | ${tCommonBlockchain(swapRecord.tokenFrom.blockchain)}`}
-                            </span>
+                            <div className="shrink uppercase">
+                              <span className="whitespace-nowrap text-white">{swapRecord.tokenFrom.symbol}</span>
+                              <span className="whitespace-nowrap text-gray-300">
+                                {` | ${tCommonBlockchain(swapRecord.tokenFrom.blockchain)}`}
+                              </span>
+                            </div>
                           </div>
 
                           <p className="text-sm">{swapRecord.amountFrom}</p>
@@ -221,7 +224,6 @@ export const SwapDetailsModal = () => {
                                 title={contact ? `${t('contactSavedTooltipLabel', { name: contact.name })}` : ''}
                               >
                                 <Button
-                                  clickableProps={{ className: 'px-0' }}
                                   leftIcon={<TbUsers aria-hidden />}
                                   variant="text"
                                   disabled={!!contact}
@@ -252,7 +254,7 @@ export const SwapDetailsModal = () => {
           </Accordion.Item>
         </Accordion.Root>
 
-        <div className="mt-8 flex w-full items-center gap-2">
+        <div className="mt-auto flex w-full items-center gap-3">
           <Button
             label={t('swapLogButtonLabel')}
             className="w-40"

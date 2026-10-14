@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
+import { BSUtilsHelper } from '@cityofzion/blockchain-service'
 import cloneDeep from 'lodash/cloneDeep'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import { BlockchainIcon } from '@renderer/components/BlockchainIcon'
 import { Button } from '@renderer/components/Button'
@@ -15,6 +17,7 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
+import { useWalletByIdSelector } from '@renderer/hooks/useWalletSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
@@ -32,9 +35,11 @@ export const SwapConfirmationModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'swapConfirmation' })
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
   const { swapRecord, swapOrchestrator } = useModalState<TModalState<'swap-confirmation'>>()
+  const { wallet } = useWalletByIdSelector(swapRecord.account.idWallet)
   const { confirmAction } = useConfirmAction()
-
   const { modalNavigate } = useModalNavigate()
+
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
   const [isConfirming, setIsConfirming] = useState(false)
@@ -64,6 +69,10 @@ export const SwapConfirmationModal = () => {
       dispatch(utilityReducerActions.persistSwapRecord(newSwapRecord))
 
       modalNavigate('swap-details', { state: { swapRecord: newSwapRecord }, replace: true })
+
+      BSUtilsHelper.wait(1000).then(() => {
+        navigate('/wallets', { state: { wallet, account: newSwapRecord.account, tab: 'transactions' }, replace: true })
+      })
     } catch (error: any) {
       LoggerHelper.sentry(error, { where: 'SwapConfirmation', operation: 'submitSwap' })
       ToastHelper.error({ message: AppError.wrap(error).message })
@@ -74,15 +83,15 @@ export const SwapConfirmationModal = () => {
 
   return (
     <BottomModalLayout heading={t('heading')}>
-      <div className="flex h-full flex-col justify-between gap-3">
+      <div className="flex h-full flex-col justify-between">
         <div className="flex flex-col text-sm">
           <div className="flex w-full justify-center pb-8">
             <TbTransform aria-hidden className="text-blue size-20" />
           </div>
 
-          <p className="my-4 text-left">{t('description')}</p>
+          <p className="text-left">{t('description')}</p>
 
-          <Details.Root className="my-6">
+          <Details.Root className="my-6 pt-4 pb-0">
             <Details.Header
               className="mb-2"
               leftElement={<TbReceipt aria-hidden className="text-blue min-size-4 size-4" />}
