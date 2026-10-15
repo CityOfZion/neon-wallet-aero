@@ -510,13 +510,16 @@ export const SwapPage = () => {
     <ScreenLayout
       heading={t('title')}
       rightComponent={
-        <IconButton
-          className="pr-2"
-          onClick={initializeOrRestartSwapService}
-          colorSchema={isRestartDisabled ? 'gray' : 'neon'}
-          disabled={isRestartDisabled}
-          icon={<MdRestartAlt aria-hidden className="text-neon size-6" />}
-        />
+        <Tooltip title={t('form.restart')}>
+          <IconButton
+            aria-label={t('form.restart')}
+            className="pr-2"
+            onClick={initializeOrRestartSwapService}
+            colorSchema={isRestartDisabled ? 'gray' : 'neon'}
+            disabled={isRestartDisabled}
+            icon={<MdRestartAlt aria-hidden className="text-neon size-6" />}
+          />
+        </Tooltip>
       }
     >
       <div className="flex min-h-0 grow flex-col items-center pr-2 text-sm text-white">
@@ -635,13 +638,15 @@ export const SwapPage = () => {
                     <div className="flex items-center gap-2">
                       <p>{t('form.extraIdToReceive')}</p>
 
-                      <IconButton
-                        aria-label={t('form.openSwapAboutExtraIdToReceiveModal')}
-                        colorSchema="neon"
-                        type="button"
-                        icon={<TbHelp aria-hidden className="min-size-5 size-5" />}
-                        onClick={modalNavigateWrapper('swap-about-extra-id-to-receive')}
-                      />
+                      <Tooltip title={t('form.openSwapAboutExtraIdToReceiveModal')}>
+                        <IconButton
+                          aria-label={t('form.openSwapAboutExtraIdToReceiveModal')}
+                          colorSchema="neon"
+                          type="button"
+                          icon={<TbHelp aria-hidden className="min-size-5 size-5" />}
+                          onClick={modalNavigateWrapper('swap-about-extra-id-to-receive')}
+                        />
+                      </Tooltip>
                     </div>
                   }
                   leftIcon={<VscCircleFilled aria-hidden className="size-2 text-gray-300" />}

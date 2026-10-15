@@ -10,6 +10,7 @@ import MdContentPasteGo from '@renderer/assets/images/md-content-paste-go.svg?re
 
 import { FieldActionsMenu } from './FieldActionsMenu'
 import { IconButton } from './IconButton'
+import { Tooltip } from './Tooltip'
 
 type TProps = React.ComponentProps<'textarea'> & {
   containerClassName?: string
@@ -136,17 +137,28 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
           </FieldActionsMenu>
 
           {pastable && (
-            <IconButton
-              aria-label={tCommonGeneral('pasteFromClipboard')}
-              type="button"
-              colorSchema="neon"
-              disabled={props.disabled}
-              icon={<MdContentPasteGo aria-hidden className="text-neon" />}
-              onClick={handlePaste}
-            />
+            <Tooltip title={tCommonGeneral('pasteFromClipboard')}>
+              <IconButton
+                aria-label={tCommonGeneral('pasteFromClipboard')}
+                type="button"
+                colorSchema="neon"
+                disabled={props.disabled}
+                icon={<MdContentPasteGo aria-hidden className="text-neon" />}
+                onClick={handlePaste}
+              />
+            </Tooltip>
           )}
 
-          {clearable && <IconButton icon={<MdCancel aria-hidden />} type="button" onClick={clear} />}
+          {clearable && (
+            <Tooltip title={tCommonGeneral('clear')}>
+              <IconButton
+                aria-label={tCommonGeneral('clear')}
+                icon={<MdCancel aria-hidden />}
+                type="button"
+                onClick={clear}
+              />
+            </Tooltip>
+          )}
         </div>
 
         {errorMessage && <span className="text-pink mt-1 block text-xs">{errorMessage}</span>}

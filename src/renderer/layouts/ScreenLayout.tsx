@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { IconButton } from '@renderer/components/IconButton'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
@@ -64,12 +65,14 @@ export const ScreenLayout = ({
           )}
         >
           {withBack && (
-            <IconButton
-              aria-label={tCommonGeneral('back')}
-              type="button"
-              icon={<TbArrowLeft aria-hidden />}
-              onClick={handleBack}
-            />
+            <Tooltip title={tCommonGeneral('back')}>
+              <IconButton
+                aria-label={tCommonGeneral('back')}
+                type="button"
+                icon={<TbArrowLeft aria-hidden />}
+                onClick={handleBack}
+              />
+            </Tooltip>
           )}
 
           <h1 className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center gap-x-2 text-sm font-bold">
