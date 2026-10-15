@@ -1,7 +1,7 @@
+import { BSUtilsHelper } from '@cityofzion/blockchain-service'
+
 import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Input } from '@renderer/components/Input'
-
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 
@@ -23,7 +23,7 @@ export const ImportSharedPassword = ({ inputLabel, inputPlaceholder, error, onSu
     })
 
   const handleSubmit = async (data: TActionsData) => {
-    await UtilsHelper.sleep(100)
+    await BSUtilsHelper.wait(100)
 
     try {
       await onSubmit(data.password)

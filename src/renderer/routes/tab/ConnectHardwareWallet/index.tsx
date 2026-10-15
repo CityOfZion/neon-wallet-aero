@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect } from 'react'
 
+import { BSUtilsHelper } from '@cityofzion/blockchain-service'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
@@ -11,7 +12,6 @@ import { BorderLoader } from '@renderer/components/BorderLoader'
 import { Button } from '@renderer/components/Button'
 
 import { HardwareWalletHelper } from '@renderer/helpers/HardwareWalletHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useCreateHardwareWallet } from '@renderer/hooks/useHardwareWallet'
@@ -48,12 +48,12 @@ export const ConnectHardwareWalletPage = () => {
       await HardwareWalletHelper.disconnect()
 
       // Prevent a UI freeze when connecting the hardware wallet
-      await UtilsHelper.sleep(1000)
+      await BSUtilsHelper.wait(1000)
 
       const accounts = await HardwareWalletHelper.connect({ lastIndexesByWallet, type: connectionType })
 
       // Improve the UX
-      await UtilsHelper.sleep(1000)
+      await BSUtilsHelper.wait(1000)
 
       if (type === 'login') {
         await loginWithHardwareWallet(accounts)
@@ -67,7 +67,7 @@ export const ConnectHardwareWalletPage = () => {
   useEffect(() => {
     if (!hardwareWalletConnectionMutation.isSuccess) return
 
-    UtilsHelper.sleep(2000).then(async () => {
+    BSUtilsHelper.wait(2000).then(async () => {
       await rendererApi.send('tab:close-all')
       await rendererApi.send('popup:open')
     })

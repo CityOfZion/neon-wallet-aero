@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { BSUtilsHelper } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { Separator } from '@renderer/components/Separator'
@@ -7,7 +8,6 @@ import { Skeleton } from '@renderer/components/Skeleton'
 
 import { CrispHelper } from '@renderer/helpers/CrispHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { usePageTitle } from '@renderer/hooks/usePageTitle'
 
@@ -23,7 +23,7 @@ export default () => {
   const [hasError, setHasError] = useState(false)
 
   const handleLoad = async () => {
-    await UtilsHelper.sleep(4000)
+    await BSUtilsHelper.wait(4000)
 
     setIsLoading(false)
   }

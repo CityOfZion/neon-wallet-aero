@@ -1,3 +1,4 @@
+import { BSUtilsHelper } from '@cityofzion/blockchain-service'
 import type { ComponentProps } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -53,7 +54,7 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
   }
 
   const handleLoad = async () => {
-    await UtilsHelper.sleep(4000)
+    await BSUtilsHelper.wait(4000)
 
     setData({ isIframeLoading: false })
   }
