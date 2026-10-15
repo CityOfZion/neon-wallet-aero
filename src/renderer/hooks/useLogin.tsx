@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import type { TBSAccount } from '@cityofzion/blockchain-service'
+import { BSUtilsHelper, type TBSAccount } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 
 import { HardwareWalletHelper } from '@renderer/helpers/HardwareWalletHelper'
@@ -88,7 +88,7 @@ export const useLogin = () => {
         wallet,
       })
 
-      await UtilsHelper.sleep(1000)
+      await BSUtilsHelper.wait(1000)
 
       navigateReset('/wallets')
     },
@@ -110,7 +110,7 @@ export const useLogin = () => {
       dispatch(authReducerActions.setLoginSession(loginSession))
 
       // Prevent the login session from being not set within createHardwareWallet
-      await UtilsHelper.sleep(500)
+      await BSUtilsHelper.wait(500)
 
       await createHardwareWallet(accounts)
     },

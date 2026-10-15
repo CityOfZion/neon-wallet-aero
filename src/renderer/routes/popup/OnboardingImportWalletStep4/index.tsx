@@ -1,5 +1,6 @@
 import { Fragment, useRef, useState } from 'react'
 
+import { BSUtilsHelper } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -8,7 +9,6 @@ import { Progress } from '@renderer/components/Progress'
 
 import { AnalyticsHelper } from '@renderer/helpers/AnalyticsHelper'
 import { ToastHelper } from '@renderer/helpers/ToastHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useSignup } from '@renderer/hooks/useLogin'
@@ -58,7 +58,7 @@ export const OnboardingImportWalletStep4Page = () => {
       if (swapRecords) swapRecords.forEach(swapRecord => dispatch(utilityReducerActions.persistSwapRecord(swapRecord)))
       if (contacts) saveContacts(contacts)
 
-      await UtilsHelper.sleep(250)
+      await BSUtilsHelper.wait(250)
 
       setProgress(progress => progress + progressByStep)
 
@@ -67,16 +67,16 @@ export const OnboardingImportWalletStep4Page = () => {
 
         await importAccounts({ accounts, wallet })
 
-        await UtilsHelper.sleep(250)
+        await BSUtilsHelper.wait(250)
 
         setProgress(progress => progress + progressByStep)
       }
 
-      await UtilsHelper.sleep(250)
+      await BSUtilsHelper.wait(250)
 
       setProgress(progress => progress + progressByStep)
 
-      await UtilsHelper.sleep(250)
+      await BSUtilsHelper.wait(250)
 
       AnalyticsHelper.logEvent('onboarding_completed')
 

@@ -1,3 +1,4 @@
+import { BSUtilsHelper } from '@cityofzion/blockchain-service'
 import fingerprint from '@fingerprintjs/fingerprintjs'
 import { GateFiDisplayModeEnum, GateFiEventTypes, type GateFiLangEnum, GateFiSDK } from '@gatefi/js-sdk'
 
@@ -9,7 +10,6 @@ import type { TAvailableCurrency } from '@shared/types/store'
 
 import { EnvHelper } from './EnvHelper'
 import { StyleHelper } from './StyleHelper'
-import { UtilsHelper } from './UtilsHelper'
 
 export class BuyAndSellTokensHelper {
   static readonly sumsubTermsAndConditionsUrl = 'https://sumsub.com/terms-and-conditions'
@@ -67,7 +67,7 @@ export class BuyAndSellTokensHelper {
       })
 
       sdk.subscribe(GateFiEventTypes.onLoad, async () => {
-        await UtilsHelper.sleep(500)
+        await BSUtilsHelper.wait(500)
 
         resolve(() => {
           sdk.destroy()

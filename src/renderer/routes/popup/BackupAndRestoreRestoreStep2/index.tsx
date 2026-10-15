@@ -1,3 +1,4 @@
+import { BSUtilsHelper } from '@cityofzion/blockchain-service'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -5,8 +6,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
-
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useNeonBackupFile } from '@renderer/hooks/useNeonBackupFile'
@@ -47,7 +46,7 @@ export const BackupAndRestoreRestoreStep2Page = () => {
 
       await handleImportBackupData(generatedData)
 
-      await UtilsHelper.sleep(2000)
+      await BSUtilsHelper.wait(2000)
       navigate('/settings/backup-and-restore/restore/3', { replace: true })
     } catch {
       reset()
@@ -58,7 +57,7 @@ export const BackupAndRestoreRestoreStep2Page = () => {
   return (
     <form className="flex h-full flex-col" onSubmit={handleAct(handleSubmit)}>
       <p className="text-sm text-gray-100">{t('description')}</p>
-      <div className="flex flex-grow flex-col justify-between">
+      <div className="flex grow flex-col justify-between">
         <div className="flex flex-col">
           <Input
             name="password"

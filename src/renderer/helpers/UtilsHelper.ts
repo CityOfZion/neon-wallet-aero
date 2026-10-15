@@ -3,10 +3,6 @@ import * as uuid from 'uuid'
 import { DateHelper } from '@renderer/helpers/DateHelper'
 
 export class UtilsHelper {
-  static sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
-
   static uuid() {
     return uuid.v4()
   }
