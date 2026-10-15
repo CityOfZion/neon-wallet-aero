@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { IconButton } from '@renderer/components/IconButton'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 
@@ -31,12 +32,14 @@ export const SettingsLayout = ({ children, title, withBack = true, backUrl }: TP
     <ScreenLayout className="bg-asphalt text-white">
       <header className="relative mt-2 mb-5 flex min-h-8 w-full flex-row items-center text-white">
         {withBack && (
-          <IconButton
-            type="button"
-            icon={<TbArrowLeft aria-hidden />}
-            onClick={handleBack}
-            aria-label={tCommonGeneral('back')}
-          />
+          <Tooltip title={tCommonGeneral('back')}>
+            <IconButton
+              type="button"
+              icon={<TbArrowLeft aria-hidden />}
+              onClick={handleBack}
+              aria-label={tCommonGeneral('back')}
+            />
+          </Tooltip>
         )}
 
         <h1 className="absolute top-1/2 left-1/2 w-[82%] -translate-x-1/2 -translate-y-1/2 truncate text-center text-sm font-bold">

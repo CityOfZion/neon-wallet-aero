@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom'
 
 import { IconButton } from '@renderer/components/IconButton'
 import { IconLink } from '@renderer/components/IconLink'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
@@ -161,11 +162,13 @@ export const WalletsPage = () => {
             }
           />
 
-          <IconButton
-            aria-label={t('ariaLabels.menuIconButton')}
-            icon={<TbMenu2 aria-hidden />}
-            onClick={modalNavigateWrapper('menu')}
-          />
+          <Tooltip title={t('ariaLabels.menuIconButton')}>
+            <IconButton
+              aria-label={t('ariaLabels.menuIconButton')}
+              icon={<TbMenu2 aria-hidden />}
+              onClick={modalNavigateWrapper('menu')}
+            />
+          </Tooltip>
         </div>
       </div>
 

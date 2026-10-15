@@ -5,6 +5,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
@@ -68,12 +69,14 @@ export const SideModalLayout = ({
     >
       <header className="relative mt-2 mb-5 flex w-full flex-row items-center justify-center">
         {withBackButton && (
-          <IconButton
-            aria-label={t('general.back')}
-            className="absolute top-1/2 left-0 -translate-y-1/2"
-            icon={<TbArrowLeft aria-hidden />}
-            onClick={handleBack}
-          />
+          <Tooltip title={t('general.back')}>
+            <IconButton
+              aria-label={t('general.back')}
+              className="absolute top-1/2 left-0 -translate-y-1/2"
+              icon={<TbArrowLeft aria-hidden />}
+              onClick={handleBack}
+            />
+          </Tooltip>
         )}
 
         <h2 className="flex w-full max-w-[70%] items-center justify-center gap-x-2 text-center text-sm font-bold">
@@ -86,12 +89,14 @@ export const SideModalLayout = ({
           <span className="truncate">{heading}</span>
         </h2>
 
-        <IconButton
-          aria-label={t('general.close')}
-          className="absolute top-1/2 right-0 -translate-y-1/2"
-          icon={<TbX aria-hidden />}
-          onClick={handleErase}
-        />
+        <Tooltip title={t('general.close')}>
+          <IconButton
+            aria-label={t('general.close')}
+            className="absolute top-1/2 right-0 -translate-y-1/2"
+            icon={<TbX aria-hidden />}
+            onClick={handleErase}
+          />
+        </Tooltip>
       </header>
 
       <main className={StyleHelper.mergeStyles('flex w-full flex-col gap-y-2', contentClassName)}>{children}</main>

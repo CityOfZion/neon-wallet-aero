@@ -5,6 +5,7 @@ import { useHotkeys } from 'react-hotkeys-hook'
 import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
@@ -73,24 +74,28 @@ export const BottomModalLayout = ({
     >
       <header className="relative mt-5 mb-5 flex w-full items-center justify-center px-4">
         {withBackButton && (
-          <IconButton
-            aria-label={t('general.back')}
-            className="absolute top-1/2 left-4 -translate-y-1/2"
-            icon={<TbArrowLeft aria-hidden />}
-            disabled={!canErase}
-            onClick={handleClose}
-          />
+          <Tooltip title={canErase ? t('general.back') : ''}>
+            <IconButton
+              aria-label={t('general.back')}
+              className="absolute top-1/2 left-4 -translate-y-1/2"
+              icon={<TbArrowLeft aria-hidden />}
+              disabled={!canErase}
+              onClick={handleClose}
+            />
+          </Tooltip>
         )}
 
         <h2 className="w-full max-w-[75%] truncate text-center text-sm font-bold">{heading}</h2>
 
-        <IconButton
-          aria-label={t('general.close')}
-          className="absolute top-1/2 right-4 -translate-y-1/2"
-          icon={<TbX aria-hidden />}
-          disabled={!canErase}
-          onClick={handleErase}
-        />
+        <Tooltip title={canErase ? t('general.close') : ''}>
+          <IconButton
+            aria-label={t('general.close')}
+            className="absolute top-1/2 right-4 -translate-y-1/2"
+            icon={<TbX aria-hidden />}
+            disabled={!canErase}
+            onClick={handleErase}
+          />
+        </Tooltip>
       </header>
 
       <main

@@ -16,6 +16,7 @@ import MdVisibilityOff from '@renderer/assets/images/md-visibility-off.svg?react
 import { FieldActionsMenu } from './FieldActionsMenu'
 import { IconButton } from './IconButton'
 import { Loader } from './Loader'
+import { Tooltip } from './Tooltip'
 
 export type TInputProps = Omit<ComponentProps<'input'>, 'type' | 'ref' | 'id'> & {
   containerClassName?: string
@@ -57,6 +58,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
       loading,
       label,
       buttons,
+      disabled,
       ...props
     },
     ref
@@ -70,6 +72,8 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
     const internalRef = useRef<HTMLInputElement>(null)
 
     const realType = isTypePassword ? (hidden ? 'password' : 'text') : type
+
+    const toggleHiddenButtonLabel = hidden ? t('showPasswordIconButtonLabel') : t('hidePasswordIconButtonLabel')
 
     const toggleHidden: React.MouseEventHandler<HTMLButtonElement> = event => {
       event.stopPropagation()
@@ -133,7 +137,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
         )}
 
         <div
-          aria-disabled={props.disabled}
+          aria-disabled={disabled}
           className={StyleHelper.mergeStyles(
             'flex w-full cursor-text items-center gap-x-2 rounded bg-gray-800 px-5 font-medium text-white ring-2 ring-transparent transition-colors outline-none placeholder:text-white/50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
             {
@@ -163,7 +167,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
 
           <FieldActionsMenu
             value={['string', 'number'].includes(typeof props.value) ? props.value!.toString() : ''}
-            disabled={props.disabled}
+            disabled={disabled}
             readOnly={readOnly}
             onChange={setValue}
           >
@@ -180,6 +184,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
               spellCheck="false"
               autoComplete="off"
               readOnly={readOnly}
+              disabled={disabled}
               {...props}
             />
           </FieldActionsMenu>
@@ -189,49 +194,57 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
               {loading && <Loader className="mr-1 size-4" />}
 
               {isTypePassword && (
-                <IconButton
-                  aria-label={hidden ? t('showPasswordIconButtonLabel') : t('hidePasswordIconButtonLabel')}
-                  icon={hidden ? <MdVisibility aria-hidden /> : <MdVisibilityOff aria-hidden />}
-                  onClick={toggleHidden}
-                  type="button"
-                  disabled={props.disabled}
-                  size="sm"
-                />
+                <Tooltip title={disabled ? '' : toggleHiddenButtonLabel}>
+                  <IconButton
+                    aria-label={toggleHiddenButtonLabel}
+                    icon={hidden ? <MdVisibility aria-hidden /> : <MdVisibilityOff aria-hidden />}
+                    onClick={toggleHidden}
+                    type="button"
+                    disabled={disabled}
+                    size="sm"
+                  />
+                </Tooltip>
               )}
 
               {pastable && (
-                <IconButton
-                  aria-label={t('pasteIconButtonLabel')}
-                  icon={<MdContentPasteGo aria-hidden />}
-                  onClick={handlePaste}
-                  colorSchema="neon"
-                  type="button"
-                  disabled={props.disabled}
-                  size={compacted ? 'xs' : 'sm'}
-                />
+                <Tooltip title={disabled ? '' : t('pasteIconButtonLabel')}>
+                  <IconButton
+                    aria-label={t('pasteIconButtonLabel')}
+                    icon={<MdContentPasteGo aria-hidden />}
+                    onClick={handlePaste}
+                    colorSchema="neon"
+                    type="button"
+                    disabled={disabled}
+                    size={compacted ? 'xs' : 'sm'}
+                  />
+                </Tooltip>
               )}
 
               {copyable && (
-                <IconButton
-                  aria-label={t('copyIconButtonLabel')}
-                  icon={<MdContentCopy aria-hidden />}
-                  onClick={ClipboardHelper.write.bind(null, internalRef.current?.value || '')}
-                  colorSchema="neon"
-                  type="button"
-                  disabled={props.disabled}
-                  size="sm"
-                />
+                <Tooltip title={disabled ? '' : t('copyIconButtonLabel')}>
+                  <IconButton
+                    aria-label={t('copyIconButtonLabel')}
+                    icon={<MdContentCopy aria-hidden />}
+                    onClick={ClipboardHelper.write.bind(null, internalRef.current?.value || '')}
+                    colorSchema="neon"
+                    type="button"
+                    disabled={disabled}
+                    size="sm"
+                  />
+                </Tooltip>
               )}
 
               {clearable && (
-                <IconButton
-                  aria-label={t('clearIconButtonLabel')}
-                  icon={<MdCancel aria-hidden />}
-                  type="button"
-                  onClick={clear}
-                  disabled={props.disabled}
-                  size="sm"
-                />
+                <Tooltip title={disabled ? '' : t('clearIconButtonLabel')}>
+                  <IconButton
+                    aria-label={t('clearIconButtonLabel')}
+                    icon={<MdCancel aria-hidden />}
+                    type="button"
+                    onClick={clear}
+                    disabled={disabled}
+                    size="sm"
+                  />
+                </Tooltip>
               )}
 
               {buttons}
