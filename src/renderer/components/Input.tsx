@@ -16,6 +16,7 @@ import MdVisibilityOff from '@renderer/assets/images/md-visibility-off.svg?react
 import { FieldActionsMenu } from './FieldActionsMenu'
 import { IconButton } from './IconButton'
 import { Loader } from './Loader'
+import { Tooltip } from './Tooltip'
 
 export type TInputProps = Omit<ComponentProps<'input'>, 'type' | 'ref' | 'id'> & {
   containerClassName?: string
@@ -189,49 +190,57 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(
               {loading && <Loader className="mr-1 size-4" />}
 
               {isTypePassword && (
-                <IconButton
-                  aria-label={hidden ? t('showPasswordIconButtonLabel') : t('hidePasswordIconButtonLabel')}
-                  icon={hidden ? <MdVisibility aria-hidden /> : <MdVisibilityOff aria-hidden />}
-                  onClick={toggleHidden}
-                  type="button"
-                  disabled={props.disabled}
-                  size="sm"
-                />
+                <Tooltip title={hidden ? t('showPasswordIconButtonLabel') : t('hidePasswordIconButtonLabel')}>
+                  <IconButton
+                    aria-label={hidden ? t('showPasswordIconButtonLabel') : t('hidePasswordIconButtonLabel')}
+                    icon={hidden ? <MdVisibility aria-hidden /> : <MdVisibilityOff aria-hidden />}
+                    onClick={toggleHidden}
+                    type="button"
+                    disabled={props.disabled}
+                    size="sm"
+                  />
+                </Tooltip>
               )}
 
               {pastable && (
-                <IconButton
-                  aria-label={t('pasteIconButtonLabel')}
-                  icon={<MdContentPasteGo aria-hidden />}
-                  onClick={handlePaste}
-                  colorSchema="neon"
-                  type="button"
-                  disabled={props.disabled}
-                  size={compacted ? 'xs' : 'sm'}
-                />
+                <Tooltip title={t('pasteIconButtonLabel')}>
+                  <IconButton
+                    aria-label={t('pasteIconButtonLabel')}
+                    icon={<MdContentPasteGo aria-hidden />}
+                    onClick={handlePaste}
+                    colorSchema="neon"
+                    type="button"
+                    disabled={props.disabled}
+                    size={compacted ? 'xs' : 'sm'}
+                  />
+                </Tooltip>
               )}
 
               {copyable && (
-                <IconButton
-                  aria-label={t('copyIconButtonLabel')}
-                  icon={<MdContentCopy aria-hidden />}
-                  onClick={ClipboardHelper.write.bind(null, internalRef.current?.value || '')}
-                  colorSchema="neon"
-                  type="button"
-                  disabled={props.disabled}
-                  size="sm"
-                />
+                <Tooltip title={t('copyIconButtonLabel')}>
+                  <IconButton
+                    aria-label={t('copyIconButtonLabel')}
+                    icon={<MdContentCopy aria-hidden />}
+                    onClick={ClipboardHelper.write.bind(null, internalRef.current?.value || '')}
+                    colorSchema="neon"
+                    type="button"
+                    disabled={props.disabled}
+                    size="sm"
+                  />
+                </Tooltip>
               )}
 
               {clearable && (
-                <IconButton
-                  aria-label={t('clearIconButtonLabel')}
-                  icon={<MdCancel aria-hidden />}
-                  type="button"
-                  onClick={clear}
-                  disabled={props.disabled}
-                  size="sm"
-                />
+                <Tooltip title={t('clearIconButtonLabel')}>
+                  <IconButton
+                    aria-label={t('clearIconButtonLabel')}
+                    icon={<MdCancel aria-hidden />}
+                    type="button"
+                    onClick={clear}
+                    disabled={props.disabled}
+                    size="sm"
+                  />
+                </Tooltip>
               )}
 
               {buttons}

@@ -13,6 +13,7 @@ import { GreyTokenSelect } from '@renderer/components/GreyTokenSelect'
 import { IconButton } from '@renderer/components/IconButton'
 import { Input } from '@renderer/components/Input'
 import { Separator } from '@renderer/components/Separator'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
@@ -164,13 +165,15 @@ export const SendRecipient = ({
           leftIcon={<TbStepInto aria-hidden />}
         >
           {removable && order > 1 && (
-            <IconButton
-              aria-label={tCommon('general.remove')}
-              type="button"
-              disabled={isDisabled}
-              icon={<TbTrash aria-hidden className="text-pink" />}
-              onClick={() => onRemoveRecipient()}
-            />
+            <Tooltip title={tCommon('general.remove')}>
+              <IconButton
+                aria-label={tCommon('general.remove')}
+                type="button"
+                disabled={isDisabled}
+                icon={<TbTrash aria-hidden className="text-pink" />}
+                onClick={() => onRemoveRecipient()}
+              />
+            </Tooltip>
           )}
         </ActionStep>
 

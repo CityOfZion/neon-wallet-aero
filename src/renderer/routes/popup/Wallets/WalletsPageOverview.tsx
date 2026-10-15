@@ -127,25 +127,29 @@ export const WalletsPageOverview = ({ selectedAccount, selectedWallet, defaultTa
               </p>
             </Tooltip>
 
-            <IconButton
-              aria-label={t('ariaLabels.copyIconButton')}
-              colorSchema="neon"
-              size="sm"
-              icon={<MdContentCopy aria-hidden />}
-              onClick={ClipboardHelper.write.bind(null, selectedAccount.address)}
-            />
+            <Tooltip title={t('ariaLabels.copyIconButton')}>
+              <IconButton
+                aria-label={t('ariaLabels.copyIconButton')}
+                colorSchema="neon"
+                size="sm"
+                icon={<MdContentCopy aria-hidden />}
+                onClick={ClipboardHelper.write.bind(null, selectedAccount.address)}
+              />
+            </Tooltip>
           </div>
         </div>
 
-        <IconButton
-          aria-label={t('ariaLabels.refreshIconButton')}
-          icon={<TbRefresh aria-hidden />}
-          variant="contained"
-          colorSchema="neon"
-          size="md"
-          onClick={handleRefetch}
-          loading={balanceQuery.isRefetching || unclaimedQuery.isRefetching}
-        />
+        <Tooltip title={t('ariaLabels.refreshIconButton')}>
+          <IconButton
+            aria-label={t('ariaLabels.refreshIconButton')}
+            icon={<TbRefresh aria-hidden />}
+            variant="contained"
+            colorSchema="neon"
+            size="md"
+            onClick={handleRefetch}
+            loading={balanceQuery.isRefetching || unclaimedQuery.isRefetching}
+          />
+        </Tooltip>
       </div>
 
       <div className="mt-3 flex flex-col gap-2">

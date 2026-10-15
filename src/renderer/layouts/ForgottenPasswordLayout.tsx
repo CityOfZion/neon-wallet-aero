@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { IconButton } from '@renderer/components/IconButton'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
@@ -18,6 +20,7 @@ type TProps = {
 }
 
 export const ForgottenPasswordLayout = ({ heading, contentClassName, children, withBack = true, ...props }: TProps) => {
+  const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const navigate = useNavigate()
 
   const handleBack = () => {
@@ -27,12 +30,15 @@ export const ForgottenPasswordLayout = ({ heading, contentClassName, children, w
   return (
     <ScreenLayout contentClassName={StyleHelper.mergeStyles('items-center', contentClassName)} {...props}>
       {withBack && (
-        <IconButton
-          icon={<TbArrowLeft aria-hidden />}
-          className="absolute top-5 left-5"
-          size="md"
-          onClick={handleBack}
-        />
+        <Tooltip title={tCommonGeneral('back')}>
+          <IconButton
+            aria-label={tCommonGeneral('back')}
+            icon={<TbArrowLeft aria-hidden />}
+            className="absolute top-5 left-5"
+            size="md"
+            onClick={handleBack}
+          />
+        </Tooltip>
       )}
 
       <NeonWalletFullImage className="mt-16 h-11" aria-hidden="true" />

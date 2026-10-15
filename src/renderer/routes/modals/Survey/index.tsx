@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@renderer/components/Button'
 import { IconButton } from '@renderer/components/IconButton'
 import { Textarea } from '@renderer/components/Textarea'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { StoreReviewHelper } from '@renderer/helpers/StoreReviewHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
@@ -69,40 +70,44 @@ export const SurveyModal = () => {
         <Fragment>
           <p className="my-6 text-sm">{t('description')}</p>
           <div className="mb-6 flex justify-center gap-x-8">
-            <IconButton
-              aria-label={t('likeButtonLabel')}
-              icon={
-                actionData.rating === 'up' ? (
-                  <TbFilledThumbUp aria-hidden className="text-neon size-10" />
-                ) : (
-                  <TbThumbUp
-                    aria-hidden
-                    className={StyleHelper.mergeStyles('size-10', {
-                      'text-gray-400': actionData.rating === 'down',
-                      'text-neon': actionData.rating !== 'down',
-                    })}
-                  />
-                )
-              }
-              onClick={handlePressThumbsUp}
-            />
-            <IconButton
-              aria-label={t('dislikeButtonLabel')}
-              icon={
-                actionData.rating === 'down' ? (
-                  <TbFilledThumbDown aria-hidden className="text-pink size-10" />
-                ) : (
-                  <TbThumbDown
-                    aria-hidden
-                    className={StyleHelper.mergeStyles('size-10', {
-                      'text-gray-400': actionData.rating === 'up',
-                      'text-pink': actionData.rating !== 'up',
-                    })}
-                  />
-                )
-              }
-              onClick={() => setData({ rating: 'down' })}
-            />
+            <Tooltip title={t('likeButtonLabel')}>
+              <IconButton
+                aria-label={t('likeButtonLabel')}
+                icon={
+                  actionData.rating === 'up' ? (
+                    <TbFilledThumbUp aria-hidden className="text-neon size-10" />
+                  ) : (
+                    <TbThumbUp
+                      aria-hidden
+                      className={StyleHelper.mergeStyles('size-10', {
+                        'text-gray-400': actionData.rating === 'down',
+                        'text-neon': actionData.rating !== 'down',
+                      })}
+                    />
+                  )
+                }
+                onClick={handlePressThumbsUp}
+              />
+            </Tooltip>
+            <Tooltip title={t('dislikeButtonLabel')}>
+              <IconButton
+                aria-label={t('dislikeButtonLabel')}
+                icon={
+                  actionData.rating === 'down' ? (
+                    <TbFilledThumbDown aria-hidden className="text-pink size-10" />
+                  ) : (
+                    <TbThumbDown
+                      aria-hidden
+                      className={StyleHelper.mergeStyles('size-10', {
+                        'text-gray-400': actionData.rating === 'up',
+                        'text-pink': actionData.rating !== 'up',
+                      })}
+                    />
+                  )
+                }
+                onClick={() => setData({ rating: 'down' })}
+              />
+            </Tooltip>
           </div>
 
           {actionData.rating === 'down' ? (

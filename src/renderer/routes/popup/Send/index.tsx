@@ -13,6 +13,7 @@ import { AlertErrorBanner } from '@renderer/components/AlertErrorBanner'
 import { Button } from '@renderer/components/Button'
 import { GreyAccountSelect } from '@renderer/components/GreyAccountSelect'
 import { IconButton } from '@renderer/components/IconButton'
+import { Tooltip } from '@renderer/components/Tooltip'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 import type { TTransactionMemo } from '@renderer/components/TransactionMemoActionStep'
 import { TransactionMemoActionStep } from '@renderer/components/TransactionMemoActionStep'
@@ -596,12 +597,14 @@ const SendPage = () => {
     <ScreenLayout heading={t('title')} className="text-white">
       <div className="relative flex flex-col items-center justify-center">
         <div className="absolute top-0 right-0 z-10 -mt-13 flex justify-end">
-          <IconButton
-            icon={<MdRestart className="text-neon" />}
-            aria-label={tCommon('general.reset')}
-            type="button"
-            onClick={handleReset}
-          />
+          <Tooltip title={tCommon('general.reset')}>
+            <IconButton
+              icon={<MdRestart className="text-neon" />}
+              aria-label={tCommon('general.reset')}
+              type="button"
+              onClick={handleReset}
+            />
+          </Tooltip>
         </div>
         <div className="flex w-full flex-col">
           <ActionStep
