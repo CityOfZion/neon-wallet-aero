@@ -7,6 +7,7 @@ import { match, P } from 'ts-pattern'
 
 import { IconButton } from '@renderer/components/IconButton'
 import { Loader } from '@renderer/components/Loader'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { ClipboardHelper } from '@renderer/helpers/ClipboardHelper'
 
@@ -51,12 +52,14 @@ export const SwapDetailsLogModal = () => {
             <div className="flex w-full items-center justify-between gap-2">
               <p className="text-sm font-medium text-gray-300">{t('copySwapLogLabel')}</p>
 
-              <IconButton
-                aria-label={tCommon('copy')}
-                size="sm"
-                icon={<MdContentCopy aria-hidden className="text-neon" />}
-                onClick={ClipboardHelper.write.bind(null, log!)}
-              />
+              <Tooltip title={tCommon('copy')}>
+                <IconButton
+                  aria-label={tCommon('copy')}
+                  size="sm"
+                  icon={<MdContentCopy aria-hidden className="text-neon" />}
+                  onClick={ClipboardHelper.write.bind(null, log!)}
+                />
+              </Tooltip>
             </div>
 
             <div className="mt-4 w-full flex-grow overflow-y-auto rounded bg-gray-900/75 p-4 break-words whitespace-pre-wrap">

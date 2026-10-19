@@ -21,6 +21,7 @@ import { GreyAmountInput } from '@renderer/components/GreyAmountInput'
 import { GreyTokenSelect } from '@renderer/components/GreyTokenSelect'
 import { IconButton } from '@renderer/components/IconButton'
 import { Separator } from '@renderer/components/Separator'
+import { Tooltip } from '@renderer/components/Tooltip'
 import { TransactionFeeActionStep } from '@renderer/components/TransactionFeeActionStep'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
@@ -349,13 +350,15 @@ export const Neo3NeoXBridgePage = () => {
     <ScreenLayout
       heading={t('title')}
       rightComponent={
-        <IconButton
-          aria-label={t('form.restartButtonLabel')}
-          icon={<MdRestartAlt aria-hidden />}
-          colorSchema={isRestartDisabled ? 'gray' : 'neon'}
-          disabled={isRestartDisabled}
-          onClick={initializeOrRestartBridgeService}
-        />
+        <Tooltip title={isRestartDisabled ? '' : t('form.restartButtonLabel')}>
+          <IconButton
+            aria-label={t('form.restartButtonLabel')}
+            icon={<MdRestartAlt aria-hidden />}
+            colorSchema={isRestartDisabled ? 'gray' : 'neon'}
+            disabled={isRestartDisabled}
+            onClick={initializeOrRestartBridgeService}
+          />
+        </Tooltip>
       }
     >
       <div>
@@ -393,14 +396,16 @@ export const Neo3NeoXBridgePage = () => {
                   </ActionStep>
 
                   <div className="relative z-10 w-full">
-                    <IconButton
-                      aria-label={t('form.switchTokensButtonLabel')}
-                      onClick={handleSwitchTokens}
-                      size="sm"
-                      className="hover:bg-neon/60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-                      clickableProps={{ className: 'p-1.5 rounded-full text-black bg-neon' }}
-                      icon={<TbArrowsSort aria-hidden />}
-                    />
+                    <Tooltip title={t('form.switchTokensButtonLabel')}>
+                      <IconButton
+                        aria-label={t('form.switchTokensButtonLabel')}
+                        onClick={handleSwitchTokens}
+                        size="sm"
+                        className="hover:bg-neon/60 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+                        clickableProps={{ className: 'p-1.5 rounded-full text-black bg-neon' }}
+                        icon={<TbArrowsSort aria-hidden />}
+                      />
+                    </Tooltip>
 
                     <Separator />
                   </div>
