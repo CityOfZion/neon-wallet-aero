@@ -102,10 +102,11 @@ export const ImportPage = () => {
         value,
         type: 'mnemonic',
         onSubmit: async selectedAccounts => {
-          const accountsToImport: TAccountsToImport = selectedAccounts.map(({ address, blockchain, key }) => ({
+          const accountsToImport: TAccountsToImport = selectedAccounts.map(({ address, blockchain, key, order }) => ({
             address,
             blockchain,
             key,
+            order,
             type: 'standard',
           }))
 

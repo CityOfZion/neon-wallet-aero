@@ -10,14 +10,12 @@ import { Button } from '@renderer/components/Button'
 import { Textarea } from '@renderer/components/Textarea'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useImportActions } from '@renderer/hooks/useImportActions'
 import type { TUseImportFromFileActionsData } from '@renderer/hooks/useImportFromFile'
 import { useImportFromFile } from '@renderer/hooks/useImportFromFile'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useNeonBackupFile } from '@renderer/hooks/useNeonBackupFile'
-import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 
 import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@shared/types/blockchain'
@@ -35,7 +33,6 @@ export const OnboardingImportWalletStep3Page = () => {
   const { t: tConfirmPassword } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const navigate = useNavigate()
   const { state } = useLocation() as Location<TLocationState>
-  const { lastIndexesByWalletRef } = useLastIndexesByWallet()
   const { handleTryDecryptData, handleGenerateData } = useNeonBackupFile()
 
   const { modalNavigate, modalErase } = useModalNavigate()
@@ -54,52 +51,35 @@ export const OnboardingImportWalletStep3Page = () => {
     navigate('/onboarding-import-wallet/4', { state: { wallets: [{ ...wallet, accounts }], password: state.password } })
   }
 
-  const submitKey = async (key: string) => {
-    const accounts: TAccountsToImport = []
+  const openAccountsSelection = (value: string, type: 'key' | 'mnemonic', wallet: TWalletToCreate) => {
+    modalNavigate('import-accounts-selection', {
+      state: {
+        value,
+        type,
+        showSuccessToast: false,
+        onSubmit: async selectedAccounts => {
+          const accounts: TAccountsToImport = selectedAccounts.map(({ address, blockchain, key, order }) => ({
+            address,
+            blockchain,
+            key,
+            order,
+            type: 'standard',
+          }))
 
-    await UtilsHelper.promiseAll(
-      Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName),
-      async service => {
-        const account = await service.generateAccountFromKey(key)
-
-        accounts.push({ address: account.address, blockchain: service.name, key, type: 'standard' })
-      }
-    )
-
-    const wallet: TWalletToCreate = {
-      name: tCommon('wallet.encryptedName'),
-    }
-
-    navigate('/onboarding-import-wallet/4', {
-      state: { wallets: [{ ...wallet, accounts }], password: state.password },
+          navigate('/onboarding-import-wallet/4', {
+            state: { wallets: [{ ...wallet, accounts }], password: state.password },
+          })
+        },
+      },
     })
   }
 
+  const submitKey = async (key: string) => {
+    openAccountsSelection(key, 'key', { name: tCommon('wallet.encryptedName') })
+  }
+
   const submitMnemonic = async (mnemonic: string) => {
-    const mnemonicAccounts = await BlockchainServiceHelper.bsAggregator.generateAccountsFromMnemonic(
-      mnemonic,
-      lastIndexesByWalletRef.current
-    )
-
-    const accounts = Array.from(mnemonicAccounts.entries())
-      .map<TAccountsToImport>(([blockchain, accounts]) => {
-        return accounts.map(account => ({
-          address: account.address,
-          blockchain,
-          key: account.key,
-          type: 'standard',
-        }))
-      })
-      .flat()
-
-    const wallet: TWalletToCreate = {
-      name: tCommon('wallet.mnemonicWalletName'),
-      mnemonic,
-    }
-
-    navigate('/onboarding-import-wallet/4', {
-      state: { wallets: [{ ...wallet, accounts }], password: state.password },
-    })
+    openAccountsSelection(mnemonic, 'mnemonic', { name: tCommon('wallet.mnemonicWalletName'), mnemonic })
   }
 
   const submitEncryptedKey = async (encryptedKey: string) => {
@@ -114,10 +94,7 @@ export const OnboardingImportWalletStep3Page = () => {
               description: tDecryptKey('description'),
               encryptedKey,
               blockchain,
-              onSubmit: async (key: string) => {
-                await submitKey(key)
-                modalErase('bottom')
-              },
+              onSubmit: submitKey,
             },
           })
         },

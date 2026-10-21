@@ -96,7 +96,9 @@
     "subtitle": "Selecione o(s) endereço(s) que deseja importar:",
     "form": {
       "submitButtonLabel": "Importar",
-      "notFoundLabel": "Nenhuma conta encontrada ou já existe, verifique sua entrada e tente novamente mais tarde, por favor."
+      "notFoundLabel": "Nenhuma conta encontrada ou já existe, verifique sua entrada e tente novamente mais tarde, por favor.",
+      "selectAllButtonLabel": "Selecionar tudo",
+      "deselectAllButtonLabel": "Desmarcar tudo"
     },
     "accordionItem": {
       "accountsSizeLabel": "{{ size }} endereço(s) encontrado(s)",
@@ -117,9 +119,7 @@
   },
   "decryptKey": {
     "title": "Importar",
-    "description": "Digite uma frase de segurança para sua chave criptografada:",
-    "inputPlaceholder": "Digite sua frase de segurança…",
-    "buttonContinueLabel": "Importar",
+    "description": "Digite a senha para sua chave criptografada:",
     "passwordLabel": "Senha",
     "passwordPlaceholder": "Digite a senha",
     "nextButtonLabel": "Próximo",
@@ -227,6 +227,7 @@
       "selectTitle": "Selecione quais contas você deseja importar",
       "selectLabel": "Contas",
       "selectAllButtonLabel": "Selecionar tudo",
+      "deselectAllButtonLabel": "Desmarcar tudo",
       "selectedQuantity_one": "{{selected}} de {{count}} conta selecionada",
       "selectedQuantity_other": "{{selected}} de {{count}} contas selecionadas",
       "alreadyImportedLabel": "Importado",
@@ -255,6 +256,7 @@
       "selectTitle": "Selecione quais contas você deseja importar",
       "selectLabel": "Contas",
       "selectAllButtonLabel": "Selecionar tudo",
+      "deselectAllButtonLabel": "Desmarcar tudo",
       "selectedQuantity_one": "{{selected}} de {{count}} conta selecionada",
       "selectedQuantity_other": "{{selected}} de {{count}} contas selecionadas",
       "alreadyImportedLabel": "Importado",

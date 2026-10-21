@@ -1,10 +1,4 @@
-import type {
-  IBlockchainService,
-  TBridgeToken,
-  TBSAccount,
-  TBSBridgeName,
-  TBSToken,
-} from '@cityofzion/blockchain-service'
+import type { IBlockchainService, TBridgeToken, TBSBridgeName, TBSToken } from '@cityofzion/blockchain-service'
 import type { SimpleSwapOrchestrator, TWalletKitHelperSessionDetails } from '@cityofzion/bs-multichain'
 import type { TBSNeo3Name, TVoteServiceCandidate } from '@cityofzion/bs-neo3'
 import type { TBSStellarName } from '@cityofzion/bs-stellar'
@@ -12,6 +6,7 @@ import type { ErrorResponse } from '@walletconnect/jsonrpc-utils'
 import type { PendingRequestTypes, ProposalTypes, SessionTypes } from '@walletconnect/types'
 import type { JSX } from 'react'
 
+import type { TImportAccountsSelectionAccount } from '@renderer/routes/modals/ImportAccountsSelection'
 import type { TBuyAndSellTokensDepositActions } from '@renderer/routes/tab/BuyAndSellTokens'
 
 import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
@@ -79,7 +74,8 @@ type TAccountSelectionByBlockchainModalState = {
 type TImportAccountsSelectionModalState = {
   value: string
   type: TImportAccountsSelectionType
-  onSubmit: (selectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => Promise<void>
+  showSuccessToast?: boolean
+  onSubmit: (selectedAccounts: TImportAccountsSelectionAccount[]) => Promise<void>
 }
 
 type TBlockchainSelectionModalState = {

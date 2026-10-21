@@ -55,6 +55,7 @@ export const ImportAccountsSelectionAccordionItem = ({
         <ul className="flex flex-col gap-y-3 px-4 py-3">
           {accounts.map(account => {
             const isDisabled = doesAccountExist(account)
+            const checkboxId = `import-accounts-selection-${blockchainName}-${account.address}`
 
             const onCheckedChange = (isChecked: boolean) => {
               if (isDisabled) return
@@ -67,17 +68,28 @@ export const ImportAccountsSelectionAccordionItem = ({
                 key={AccountHelper.buildAccountKey(account)}
                 className="flex w-full items-center justify-between gap-x-2 text-sm text-white"
               >
-                <div className="flex w-full max-w-[86%] flex-col gap-y-0.5">
-                  <p className={StyleHelper.mergeStyles('block min-w-0 truncate', { 'text-gray-300': isDisabled })}>
-                    {account.address}
-                  </p>
+                <label
+                  htmlFor={checkboxId}
+                  className={StyleHelper.mergeStyles('flex min-w-0 grow cursor-pointer flex-col gap-y-0.5', {
+                    'cursor-not-allowed': isDisabled,
+                  })}
+                >
+                  <Tooltip title={account.address} contentProps={{ className: 'break-all' }}>
+                    <span
+                      className={StyleHelper.mergeStyles('block min-w-0 truncate', { 'text-gray-300': isDisabled })}
+                    >
+                      {account.address}
+                    </span>
+                  </Tooltip>
 
-                  {account.bipPath && <p className="block min-w-0 truncate text-xs text-gray-300">{account.bipPath}</p>}
-                </div>
+                  {account.bipPath && (
+                    <span className="block min-w-0 truncate text-xs text-gray-300">{account.bipPath}</span>
+                  )}
+                </label>
 
                 <Tooltip title={isDisabled ? t('accountAlreadyExistsLabel') : ''} delayDuration={0}>
                   <Checkbox
-                    aria-label={account.address}
+                    id={checkboxId}
                     checked={selectedAccounts.some(AccountHelper.predicate(account))}
                     disabled={isDisabled}
                     onCheckedChange={onCheckedChange}

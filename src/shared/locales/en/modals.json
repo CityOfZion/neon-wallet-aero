@@ -96,7 +96,9 @@
     "subtitle": "Select the address(es) you’d like to import:",
     "form": {
       "submitButtonLabel": "Import",
-      "notFoundLabel": "No accounts found or already exist, check your input and try again later, please."
+      "notFoundLabel": "No accounts found or already exist, check your input and try again later, please.",
+      "selectAllButtonLabel": "Select all",
+      "deselectAllButtonLabel": "Deselect all"
     },
     "accordionItem": {
       "accountsSizeLabel": "{{ size }} address(es) found",
@@ -117,9 +119,7 @@
   },
   "decryptKey": {
     "title": "Import",
-    "description": "Enter a pass phrase for your encrypted key:",
-    "inputPlaceholder": "Enter your pass phrase…",
-    "buttonContinueLabel": "Import",
+    "description": "Enter the password for your encrypted key:",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Enter the password",
     "nextButtonLabel": "Next",
@@ -227,6 +227,7 @@
       "selectTitle": "Select which accounts you want to import",
       "selectLabel": "Accounts",
       "selectAllButtonLabel": "Select all",
+      "deselectAllButtonLabel": "Deselect all",
       "selectedQuantity_one": "{{selected}} of {{count}} account selected",
       "selectedQuantity_other": "{{selected}} of {{count}} accounts selected",
       "alreadyImportedLabel": "Imported",
@@ -255,6 +256,7 @@
       "selectTitle": "Select which accounts you want to import",
       "selectLabel": "Accounts",
       "selectAllButtonLabel": "Select all",
+      "deselectAllButtonLabel": "Deselect all",
       "selectedQuantity_one": "{{selected}} of {{count}} account selected",
       "selectedQuantity_other": "{{selected}} of {{count}} accounts selected",
       "alreadyImportedLabel": "Imported",

@@ -96,7 +96,9 @@
     "subtitle": "Wählen Sie die Adresse(n) aus, die Sie importieren möchten:",
     "form": {
       "submitButtonLabel": "Importieren",
-      "notFoundLabel": "Keine Konten gefunden oder bereits vorhanden, bitte überprüfen Sie Ihre Eingabe und versuchen Sie es später erneut."
+      "notFoundLabel": "Keine Konten gefunden oder bereits vorhanden, bitte überprüfen Sie Ihre Eingabe und versuchen Sie es später erneut.",
+      "selectAllButtonLabel": "Alle auswählen",
+      "deselectAllButtonLabel": "Alle abwählen"
     },
     "accordionItem": {
       "accountsSizeLabel": "{{ size }} Adresse(n) gefunden",
@@ -117,9 +119,7 @@
   },
   "decryptKey": {
     "title": "Importieren",
-    "description": "Geben Sie eine Passphrase für Ihren verschlüsselten Schlüssel ein:",
-    "inputPlaceholder": "Geben Sie Ihre Passphrase ein…",
-    "buttonContinueLabel": "Importieren",
+    "description": "Geben Sie das Passwort für Ihren verschlüsselten Schlüssel ein:",
     "passwordLabel": "Passwort",
     "passwordPlaceholder": "Geben Sie das Passwort ein",
     "nextButtonLabel": "Weiter",
@@ -227,6 +227,7 @@
       "selectTitle": "Wählen Sie aus, welche Konten Sie importieren möchten",
       "selectLabel": "Konten",
       "selectAllButtonLabel": "Alle auswählen",
+      "deselectAllButtonLabel": "Alle abwählen",
       "selectedQuantity_one": "{{selected}} von {{count}} Konto ausgewählt",
       "selectedQuantity_other": "{{selected}} von {{count}} Konten ausgewählt",
       "alreadyImportedLabel": "Importiert",
@@ -255,6 +256,7 @@
       "selectTitle": "Wählen Sie aus, welche Konten Sie importieren möchten",
       "selectLabel": "Konten",
       "selectAllButtonLabel": "Alle auswählen",
+      "deselectAllButtonLabel": "Alle abwählen",
       "selectedQuantity_one": "{{selected}} von {{count}} Konto ausgewählt",
       "selectedQuantity_other": "{{selected}} von {{count}} Konten ausgewählt",
       "alreadyImportedLabel": "Importiert",
