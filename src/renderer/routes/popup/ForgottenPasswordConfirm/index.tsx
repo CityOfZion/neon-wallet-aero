@@ -42,7 +42,7 @@ export const ForgottenPasswordConfirmPage = () => {
     <ForgottenPasswordLayout heading={t('title')}>
       <div className="flex w-full flex-grow flex-col items-center">
         <div className="flex h-full flex-col justify-center gap-8">
-          <p className="text-center text-white">{t('text')}</p>
+          <p className="text-center text-sm text-white">{t('text')}</p>
           <Banner type="warning" message={t('alertCard.text')} textClassName="py-4" iconClassName="text-pink" />
         </div>
 
