@@ -85,7 +85,7 @@
     "encryptedKey": {
       "title": "导入加密密钥",
       "blockchainSelectionDescription": "选择您加密密钥所用的区块链：",
-      "decryptKeyDescription": "输入您加密密钥的密码："
+      "decryptKeyDescription": "请输入您的加密密钥的密码："
     }
   },
   "forgottenPassword": {

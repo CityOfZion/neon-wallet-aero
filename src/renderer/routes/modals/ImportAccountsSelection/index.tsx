@@ -15,19 +15,25 @@ import { ImportAccountsSelectionMnemonic } from './ImportAccountsSelectionMnemon
 
 export type TBlockchainAccounts = Partial<Record<TBlockchainServiceKey, TBSAccount<TBlockchainServiceKey>[]>>
 
+export type TImportAccountsSelectionAccount = TBSAccount<TBlockchainServiceKey> & { order?: number }
+
 export const ImportAccountsSelectionModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection' })
-  const { value, type, onSubmit } = useModalState<TModalState<'import-accounts-selection'>>()
+  const { value, type, showSuccessToast = true, onSubmit } = useModalState<TModalState<'import-accounts-selection'>>()
 
   return (
     <BottomModalLayout heading={t('title')} className="overflow-y-auto">
       <h2 className="mt-2 mb-5 text-center">{t('subtitle')}</h2>
 
       {match(type)
-        .with('mnemonic', () => <ImportAccountsSelectionMnemonic value={value} onSubmit={onSubmit} />)
-        .with('key', () => <ImportAccountsSelectionKey value={value} onSubmit={onSubmit} />)
+        .with('mnemonic', () => (
+          <ImportAccountsSelectionMnemonic value={value} showSuccessToast={showSuccessToast} onSubmit={onSubmit} />
+        ))
+        .with('key', () => (
+          <ImportAccountsSelectionKey value={value} showSuccessToast={showSuccessToast} onSubmit={onSubmit} />
+        ))
         .otherwise(() => (
-          <ImportAccountsSelectionAddress value={value} onSubmit={onSubmit} />
+          <ImportAccountsSelectionAddress value={value} showSuccessToast={showSuccessToast} onSubmit={onSubmit} />
         ))}
     </BottomModalLayout>
   )

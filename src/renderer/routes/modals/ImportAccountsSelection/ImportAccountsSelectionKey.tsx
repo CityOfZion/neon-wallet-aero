@@ -24,10 +24,11 @@ type TActionsData = {
 
 type TProps = {
   value: string
+  showSuccessToast: boolean
   onSubmit: (selectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => Promise<void>
 }
 
-export const ImportAccountsSelectionKey = ({ value, onSubmit }: TProps) => {
+export const ImportAccountsSelectionKey = ({ value, showSuccessToast, onSubmit }: TProps) => {
   const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection' })
 
   const { modalErase } = useModalNavigate()
@@ -53,7 +54,7 @@ export const ImportAccountsSelectionKey = ({ value, onSubmit }: TProps) => {
     try {
       await onSubmit(selectedAccounts)
 
-      ToastHelper.success({ message: t('successes.accountsImported') })
+      if (showSuccessToast) ToastHelper.success({ message: t('successes.accountsImported') })
 
       modalErase('bottom')
     } catch (error) {
@@ -75,8 +76,6 @@ export const ImportAccountsSelectionKey = ({ value, onSubmit }: TProps) => {
     })
 
     setData({ blockchainAccounts: newBlockchainAccounts })
-
-    handleSelectAccounts(Object.values(newBlockchainAccounts).flat())
   }, 500)
 
   return (

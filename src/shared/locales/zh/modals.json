@@ -96,7 +96,9 @@
     "subtitle": "请选择您要导入的地址：",
     "form": {
       "submitButtonLabel": "导入",
-      "notFoundLabel": "未找到账户或账户已存在，请检查您的输入并稍后再试。"
+      "notFoundLabel": "未找到账户或账户已存在，请检查您的输入并稍后再试。",
+      "selectAllButtonLabel": "全选",
+      "deselectAllButtonLabel": "取消全选"
     },
     "accordionItem": {
       "accountsSizeLabel": "找到 {{ size }} 个地址",
@@ -117,9 +119,7 @@
   },
   "decryptKey": {
     "title": "导入",
-    "description": "为您的加密密钥输入密码：",
-    "inputPlaceholder": "输入您的密码…",
-    "buttonContinueLabel": "导入",
+    "description": "请输入您的加密密钥的密码：",
     "passwordLabel": "密码",
     "passwordPlaceholder": "请输入密码",
     "nextButtonLabel": "下一步",
@@ -227,6 +227,7 @@
       "selectTitle": "选择您要导入的账户",
       "selectLabel": "账户",
       "selectAllButtonLabel": "全选",
+      "deselectAllButtonLabel": "取消全选",
       "selectedQuantity_one": "已选择 {{selected}} / {{count}} 个账户",
       "selectedQuantity_other": "已选择 {{selected}} / {{count}} 个账户",
       "alreadyImportedLabel": "已导入",
@@ -255,6 +256,7 @@
       "selectTitle": "选择您要导入的账户",
       "selectLabel": "账户",
       "selectAllButtonLabel": "全选",
+      "deselectAllButtonLabel": "取消全选",
       "selectedQuantity_one": "已选择 {{selected}} / {{count}} 个账户",
       "selectedQuantity_other": "已选择 {{selected}} / {{count}} 个账户",
       "alreadyImportedLabel": "已导入",

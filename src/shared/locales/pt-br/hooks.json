@@ -32,7 +32,7 @@
       "empty": "Por favor, digite algum valor",
       "invalidMnemonic": "Mnemônico inválido",
       "mnemonicIncomplete": "Mnemônico incompleto",
-      "typeNotSupported": "O tipo de importação fornecido não é compatível"
+      "typeNotSupported": "O tipo de importação fornecido não é compatível ou já existe"
     }
   },
   "useImportFromFile": {

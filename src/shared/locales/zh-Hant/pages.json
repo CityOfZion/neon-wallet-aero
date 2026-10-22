@@ -85,7 +85,7 @@
     "encryptedKey": {
       "title": "匯入加密金鑰",
       "blockchainSelectionDescription": "選擇您加密金鑰所用的區塊鏈：",
-      "decryptKeyDescription": "輸入您加密金鑰的密碼："
+      "decryptKeyDescription": "請輸入您的加密金鑰密碼："
     }
   },
   "forgottenPassword": {

@@ -7,6 +7,8 @@ import { Button } from '@renderer/components/Button'
 import { Checkbox } from '@renderer/components/Checkbox'
 import { Separator } from '@renderer/components/Separator'
 
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
+
 import { useAccountUtils } from '@renderer/hooks/useAccountUtils'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 
@@ -27,21 +29,24 @@ export const Nep6BackupImportStep3Modal = () => {
 
   const handleToggleAccount = (account: TUseImportNep6Account) => {
     setAccounts(previousAccounts => {
-      const index = previousAccounts.findIndex(previousAccount => previousAccount.address === account.address)
+      const index = previousAccounts.findIndex(AccountHelper.predicate(account))
 
       if (index === -1) {
         return [...previousAccounts, account]
       }
 
-      return previousAccounts.filter(previousAccount => previousAccount.address !== account.address)
+      return previousAccounts.filter(AccountHelper.predicateNot(account))
     })
   }
 
-  const handleSelectAllAccounts = () => {
-    setAccounts(selectableAccounts)
-  }
-
   const isDisabled = selectableAccounts.length === 0
+
+  const areAllAccountsSelected =
+    !isDisabled && selectableAccounts.every(account => accounts.some(AccountHelper.predicate(account)))
+
+  const handleToggleAllAccounts = () => {
+    setAccounts(areAllAccountsSelected ? [] : selectableAccounts)
+  }
 
   return (
     <BottomModalLayout heading={t('title')}>
@@ -52,10 +57,10 @@ export const Nep6BackupImportStep3Modal = () => {
           <p className="font-bold text-gray-100 uppercase">{t('selectLabel')}</p>
 
           <Button
-            label={t('selectAllButtonLabel')}
+            label={areAllAccountsSelected ? t('deselectAllButtonLabel') : t('selectAllButtonLabel')}
             variant="text-slim"
             flat
-            onClick={handleSelectAllAccounts}
+            onClick={handleToggleAllAccounts}
             disabled={isDisabled}
           />
         </div>
@@ -63,7 +68,7 @@ export const Nep6BackupImportStep3Modal = () => {
         <ul className="mt-1 flex min-h-0 w-full grow flex-col overflow-y-auto pr-2">
           {content.accounts.map((account, index) => {
             const isExistingAccount = doesAccountExist(account)
-            const isChecked = accounts.some(selectAccount => selectAccount.address === account.address)
+            const isChecked = accounts.some(AccountHelper.predicate(account))
 
             return (
               <li key={account.address} className="flex w-full flex-col">

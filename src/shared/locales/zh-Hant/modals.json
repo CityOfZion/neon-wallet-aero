@@ -96,7 +96,9 @@
     "subtitle": "選擇您想要匯入的地址：",
     "form": {
       "submitButtonLabel": "匯入",
-      "notFoundLabel": "未找到帳戶或已存在，請檢查您的輸入並稍後再試。"
+      "notFoundLabel": "未找到帳戶或已存在，請檢查您的輸入並稍後再試。",
+      "selectAllButtonLabel": "全選",
+      "deselectAllButtonLabel": "取消全選"
     },
     "accordionItem": {
       "accountsSizeLabel": "找到 {{ size }} 個地址",
@@ -117,9 +119,7 @@
   },
   "decryptKey": {
     "title": "匯入",
-    "description": "為您的加密金鑰輸入密碼：",
-    "inputPlaceholder": "輸入您的密碼…",
-    "buttonContinueLabel": "匯入",
+    "description": "請輸入您的加密金鑰密碼：",
     "passwordLabel": "密碼",
     "passwordPlaceholder": "輸入密碼",
     "nextButtonLabel": "下一步",
@@ -227,6 +227,7 @@
       "selectTitle": "選擇您要匯入的帳戶",
       "selectLabel": "帳戶",
       "selectAllButtonLabel": "全選",
+      "deselectAllButtonLabel": "取消全選",
       "selectedQuantity_one": "已選擇 {{selected}} 個，共 {{count}} 個帳戶",
       "selectedQuantity_other": "已選擇 {{selected}} 個，共 {{count}} 個帳戶",
       "alreadyImportedLabel": "已匯入",
@@ -255,6 +256,7 @@
       "selectTitle": "選擇您要匯入的帳戶",
       "selectLabel": "帳戶",
       "selectAllButtonLabel": "全選",
+      "deselectAllButtonLabel": "取消全選",
       "selectedQuantity_one": "已選擇 {{selected}} 個，共 {{count}} 個帳戶",
       "selectedQuantity_other": "已選擇 {{selected}} 個，共 {{count}} 個帳戶",
       "alreadyImportedLabel": "已匯入",

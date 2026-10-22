@@ -8,6 +8,8 @@ import { match } from 'ts-pattern'
 import { Button } from '@renderer/components/Button'
 import { Loader } from '@renderer/components/Loader'
 
+import { AccountHelper } from '@renderer/helpers/AccountHelper'
+
 import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
@@ -38,7 +40,16 @@ export const ImportAccountsSelectionForm = ({
 }: TImportAccountsSelectionFormProps) => {
   const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection.form' })
 
-  const hasBlockchainAccounts = useMemo(() => Object.values(blockchainAccounts).flat().length > 0, [blockchainAccounts])
+  const selectableAccounts = useMemo(() => Object.values(blockchainAccounts).flat(), [blockchainAccounts])
+  const hasBlockchainAccounts = selectableAccounts.length > 0
+
+  const areAllAccountsSelected = selectableAccounts.every(account =>
+    selectedAccounts.some(AccountHelper.predicate(account))
+  )
+
+  const handleToggleAllAccounts = () => {
+    onSelect(areAllAccountsSelected ? [] : selectableAccounts)
+  }
 
   return match({ isMounting, hasBlockchainAccounts })
     .with({ isMounting: true }, () => <Loader containerClassName="mt-6" className="size-8" />)
@@ -46,7 +57,16 @@ export const ImportAccountsSelectionForm = ({
       <p className="mt-4 px-8 text-center text-sm text-gray-100">{t('notFoundLabel')}</p>
     ))
     .otherwise(() => (
-      <form className="flex flex-grow flex-col gap-y-4" onSubmit={onSubmit}>
+      <form className="flex grow flex-col gap-y-4" onSubmit={onSubmit}>
+        <Button
+          className="self-end"
+          type="button"
+          label={areAllAccountsSelected ? t('deselectAllButtonLabel') : t('selectAllButtonLabel')}
+          variant="text-slim"
+          flat
+          onClick={handleToggleAllAccounts}
+        />
+
         <ImportAccountsSelectionAccordion
           blockchainAccounts={blockchainAccounts}
           selectedAccounts={selectedAccounts}
@@ -55,7 +75,7 @@ export const ImportAccountsSelectionForm = ({
 
         {children}
 
-        <div className="mt-6 flex flex-grow flex-col justify-end">
+        <div className="mt-6 flex grow flex-col justify-end">
           <Button
             label={t('submitButtonLabel')}
             type="submit"

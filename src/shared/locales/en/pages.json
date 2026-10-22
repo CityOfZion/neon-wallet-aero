@@ -140,11 +140,7 @@
   "onboardingLoginNewWallet": {
     "description": "Securing your new wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": [
-      "Create Password",
-      "Confirm Password",
-      "Complete"
-    ]
+    "steps": ["Create Password", "Confirm Password", "Complete"]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Enter password",
@@ -172,13 +168,7 @@
     "title": "Import a wallet",
     "description": "Please create a password to secure your wallet",
     "goBackIconButtonLabel": "Go back",
-    "steps": [
-      "Create Password",
-      "Confirm Password",
-      "Add details or locate file",
-      "Import",
-      "Complete"
-    ],
+    "steps": ["Create Password", "Confirm Password", "Add details or locate file", "Import", "Complete"],
     "migrationLabel": "Locate your migration file",
     "step3": {
       "formTitle": "Enter an address, encrypted key, private key, mnemonic or locate backup file",
@@ -186,7 +176,7 @@
       "inputPlaceholder": "Enter an address, key or mnemonic…",
       "importEncryptedDescription": "Select the desired blockchain for your new account",
       "importEncryptedTitle": "Import a wallet",
-      "importEncryptedSubtitle": "Your encrypted key has been recognised, please complete the below fields to continue.",
+      "importEncryptedSubtitle": "Your encrypted key has been recognised, please select your account's blockchain and enter your password to continue",
       "invalidAddress": "Invalid address",
       "unexpectedError": "Unexpected error",
       "locateFileButtonLabel": "Locate file…",

@@ -32,7 +32,7 @@
       "empty": "Please enter some value",
       "invalidMnemonic": "Invalid mnemonic",
       "mnemonicIncomplete": "Mnemonic incomplete",
-      "typeNotSupported": "The provided import type is not supported"
+      "typeNotSupported": "The provided import type is not supported or already exists"
     }
   },
   "useImportFromFile": {

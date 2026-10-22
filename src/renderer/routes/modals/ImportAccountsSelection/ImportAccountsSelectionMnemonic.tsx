@@ -14,20 +14,21 @@ import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
-import type { TBlockchainAccounts } from '.'
+import type { TBlockchainAccounts, TImportAccountsSelectionAccount } from '.'
 import { ImportAccountsSelectionForm } from './ImportAccountsSelectionForm'
 
 type TActionsData = {
   blockchainAccounts: TBlockchainAccounts
-  selectedAccounts: TBSAccount<TBlockchainServiceKey>[]
+  selectedAccounts: TImportAccountsSelectionAccount[]
 }
 
 type TProps = {
   value: string
-  onSubmit: (selectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => Promise<void>
+  showSuccessToast: boolean
+  onSubmit: (selectedAccounts: TImportAccountsSelectionAccount[]) => Promise<void>
 }
 
-export const ImportAccountsSelectionMnemonic = ({ value, onSubmit }: TProps) => {
+export const ImportAccountsSelectionMnemonic = ({ value, showSuccessToast, onSubmit }: TProps) => {
   const { t } = useTranslation('modals', { keyPrefix: 'importAccountsSelection' })
   const { modalErase } = useModalNavigate()
   const { doesAccountExist } = useAccountUtils()
@@ -52,7 +53,7 @@ export const ImportAccountsSelectionMnemonic = ({ value, onSubmit }: TProps) => 
     try {
       await onSubmit(selectedAccounts)
 
-      ToastHelper.success({ message: t('successes.accountsImported') })
+      if (showSuccessToast) ToastHelper.success({ message: t('successes.accountsImported') })
 
       modalErase('bottom')
     } catch (error) {
@@ -70,7 +71,10 @@ export const ImportAccountsSelectionMnemonic = ({ value, onSubmit }: TProps) => 
     const newBlockchainAccounts: TBlockchainAccounts = mappedBlockchainAccounts
       .entries()
       .reduce((result, [blockchainName, accounts]) => {
-        const nextAccounts = accounts.filter(account => !doesAccountExist(account))
+        // The position in the generated list is the derivation index, so it must be captured before filtering
+        const nextAccounts = accounts
+          .map((account, order) => ({ ...account, order }))
+          .filter(account => !doesAccountExist(account))
 
         if (nextAccounts.length === 0) return result
 
@@ -78,8 +82,6 @@ export const ImportAccountsSelectionMnemonic = ({ value, onSubmit }: TProps) => 
       }, {})
 
     setData({ blockchainAccounts: newBlockchainAccounts })
-
-    handleSelectAccounts(Object.values(newBlockchainAccounts).flat())
   }, 500)
 
   return (
