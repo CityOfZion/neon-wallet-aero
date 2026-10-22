@@ -154,7 +154,7 @@
     "errors": {
       "passwordsDoNotMatch": "As senhas não correspondem"
     },
-    "blockchainSelectionModalDescription": "Selecione as blockchains para as quais você deseja criar uma conta",
+    "blockchainSelectionModalDescription": "Selecione as blockchains para as quais você deseja criar uma conta:",
     "blockchainSelectionModalTitle": "Selecione blockchains"
   },
   "onboardingLoginNewWalletStep3": {

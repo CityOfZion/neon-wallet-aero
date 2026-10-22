@@ -33,7 +33,7 @@ export const BlockchainSelectionModal = () => {
 
   return (
     <BottomModalLayout heading={heading} className="overflow-y-auto">
-      <form className="mt-2 flex flex-grow flex-col" onSubmit={handleAct(handleSubmit)}>
+      <form className="mt-2 flex grow flex-col" onSubmit={handleAct(handleSubmit)}>
         <h2 className="mb-5 text-center text-sm">{description}</h2>
 
         <BlockchainList

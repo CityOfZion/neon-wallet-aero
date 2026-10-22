@@ -14,8 +14,8 @@ export const ForgottenPasswordSuccessPage = () => {
       <div className="flex grow flex-col items-center gap-y-8 text-center">
         <TbRosetteDiscountCheck className="bg-asphalt text-blue mt-8 size-25 rounded-full stroke-1 p-1.5" aria-hidden />
 
-        <p className="text-white">{t('text')}</p>
-        <p className="grow text-sm text-gray-300">{t('description')}</p>
+        <p className="text-sm text-white">{t('text')}</p>
+        <p className="mx-auto max-w-xs grow text-sm text-gray-300">{t('description')}</p>
 
         <Link
           to="/login/neon-account/onboarding"

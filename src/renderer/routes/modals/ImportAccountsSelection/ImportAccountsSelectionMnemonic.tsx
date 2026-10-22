@@ -71,7 +71,6 @@ export const ImportAccountsSelectionMnemonic = ({ value, showSuccessToast, onSub
     const newBlockchainAccounts: TBlockchainAccounts = mappedBlockchainAccounts
       .entries()
       .reduce((result, [blockchainName, accounts]) => {
-        // The position in the generated list is the derivation index, so it must be captured before filtering
         const nextAccounts = accounts
           .map((account, order) => ({ ...account, order }))
           .filter(account => !doesAccountExist(account))
