@@ -6,6 +6,8 @@ import type { ErrorResponse } from '@walletconnect/jsonrpc-utils'
 import type { PendingRequestTypes, ProposalTypes, SessionTypes } from '@walletconnect/types'
 import type { JSX } from 'react'
 
+import type { TButtonProps } from '@renderer/components/Button'
+
 import type { TImportAccountsSelectionAccount } from '@renderer/routes/modals/ImportAccountsSelection'
 import type { TBuyAndSellTokensDepositActions } from '@renderer/routes/tab/BuyAndSellTokens'
 
@@ -82,7 +84,8 @@ type TBlockchainSelectionModalState = {
   heading: string
   description: string
   isMulti?: boolean
-  onSelect: (blockchains: TBlockchainServiceKey[]) => void
+  submitButtonProps?: TButtonProps
+  onSelect: (blockchains: TBlockchainServiceKey[]) => void | Promise<void>
 }
 
 type TDecryptKeyModalState = {

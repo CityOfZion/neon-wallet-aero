@@ -115,7 +115,9 @@
     }
   },
   "blockchainSelection": {
-    "nextButtonLabel": "下一步"
+    "nextButtonLabel": "下一步",
+    "selectAllButtonLabel": "全选",
+    "deselectAllButtonLabel": "取消全选"
   },
   "decryptKey": {
     "title": "导入",
@@ -156,6 +158,9 @@
     "walletNameText": "为您的钱包取一个容易记住的名字，例如“投资”或“交易钱包”等。",
     "cancelButtonLabel": "取消",
     "createNewWalletButtonLabel": "创建新钱包",
+    "nextButtonLabel": "下一步",
+    "blockchainSelectionModalTitle": "选择区块链",
+    "blockchainSelectionModalDescription": "选择您想要创建账户的区块链：",
     "walletNameLabel": "钱包名称",
     "errors": {
       "walletNameEmpty": "请输入钱包名称"

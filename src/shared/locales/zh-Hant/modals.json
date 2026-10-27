@@ -115,7 +115,9 @@
     }
   },
   "blockchainSelection": {
-    "nextButtonLabel": "下一步"
+    "nextButtonLabel": "下一步",
+    "selectAllButtonLabel": "全選",
+    "deselectAllButtonLabel": "取消全選"
   },
   "decryptKey": {
     "title": "匯入",
@@ -156,6 +158,9 @@
     "walletNameText": "請為您的錢包取一個容易記住的名稱，例如「投資」或「交易錢包」等。",
     "cancelButtonLabel": "取消",
     "createNewWalletButtonLabel": "建立新錢包",
+    "nextButtonLabel": "下一步",
+    "blockchainSelectionModalTitle": "選擇區塊鏈",
+    "blockchainSelectionModalDescription": "選擇您想要建立帳戶的區塊鏈：",
     "walletNameLabel": "錢包名稱",
     "errors": {
       "walletNameEmpty": "請輸入錢包名稱"

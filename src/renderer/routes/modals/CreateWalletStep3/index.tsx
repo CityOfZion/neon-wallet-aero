@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
-import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-
 import { useActions } from '@renderer/hooks/useActions'
 import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -12,8 +10,10 @@ import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import MdiNumeric3Box from '@renderer/assets/images/mdi-numeric-3-box.svg?react'
+import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 import TbWand from '@renderer/assets/images/tb-wand.svg?react'
 
+import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
 
 type TFormData = {
@@ -37,13 +37,13 @@ export const CreateWalletStep3Modal = () => {
     }
   }
 
-  const handlePressContinue = async () => {
+  const handleSelectBlockchains = async (blockchains: TBlockchainServiceKey[]) => {
     const wallet = await createWallet({
       name: actionData.walletName.trim(),
       mnemonic: mnemonic.join(' '),
     })
 
-    const promises = BlockchainServiceHelper.blockchainNames.map(blockchain =>
+    const promises = blockchains.map(blockchain =>
       createStandardAccount({
         wallet,
         blockchain,
@@ -57,6 +57,22 @@ export const CreateWalletStep3Modal = () => {
       replace: true,
       state: {
         selectedWallet: wallet,
+      },
+    })
+  }
+
+  const handlePressContinue = () => {
+    modalNavigate('blockchain-selection', {
+      state: {
+        heading: t('blockchainSelectionModalTitle'),
+        description: t('blockchainSelectionModalDescription'),
+        isMulti: true,
+        submitButtonProps: {
+          label: t('createNewWalletButtonLabel'),
+          iconsOnEdge: false,
+          leftIcon: <TbWand aria-hidden className="size-5" />,
+        },
+        onSelect: handleSelectBlockchains,
       },
     })
   }
@@ -101,12 +117,11 @@ export const CreateWalletStep3Modal = () => {
           <Button
             className="w-full"
             variant="card"
-            label={t('createNewWalletButtonLabel')}
-            leftIcon={<TbWand aria-hidden className="w-5" />}
+            label={t('nextButtonLabel')}
+            rightIcon={<TbArrowLeft aria-hidden className="rotate-180" />}
             iconsOnEdge={false}
             type="submit"
             disabled={actionState.isActing || !actionState.isValid}
-            loading={actionState.isActing}
           />
         </div>
       </form>
