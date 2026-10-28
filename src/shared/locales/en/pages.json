@@ -156,7 +156,8 @@
       "passwordsDoNotMatch": "Passwords do not match"
     },
     "blockchainSelectionModalDescription": "Select the blockchains which you want to create an account for:",
-    "blockchainSelectionModalTitle": "Select blockchains"
+    "blockchainSelectionModalTitle": "Select blockchains",
+    "createNewWalletButtonLabel": "Create new wallet"
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Your wallet is now created!",

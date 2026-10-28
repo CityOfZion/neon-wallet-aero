@@ -13,6 +13,8 @@ import { useSignup } from '@renderer/hooks/useLogin'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 
+import TbWand from '@renderer/assets/images/tb-wand.svg?react'
+
 import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 type TFormData = {
@@ -58,6 +60,11 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
         heading: t('blockchainSelectionModalTitle'),
         description: t('blockchainSelectionModalDescription'),
         isMulti: true,
+        submitButtonProps: {
+          label: t('createNewWalletButtonLabel'),
+          iconsOnEdge: false,
+          leftIcon: <TbWand aria-hidden className="size-5" />,
+        },
         onSelect: async (blockchains: TBlockchainServiceKey[]) => {
           await signup(data.confirmPassword)
 
@@ -87,7 +94,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
   }
 
   return (
-    <form className="flex w-full flex-grow flex-col justify-between" onSubmit={handleAct(handleSubmit)}>
+    <form className="flex w-full grow flex-col justify-between" onSubmit={handleAct(handleSubmit)}>
       <Input
         name="password"
         id="name"

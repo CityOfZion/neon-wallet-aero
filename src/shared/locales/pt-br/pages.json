@@ -155,7 +155,8 @@
       "passwordsDoNotMatch": "As senhas não correspondem"
     },
     "blockchainSelectionModalDescription": "Selecione as blockchains para as quais você deseja criar uma conta:",
-    "blockchainSelectionModalTitle": "Selecione blockchains"
+    "blockchainSelectionModalTitle": "Selecione blockchains",
+    "createNewWalletButtonLabel": "Criar nova carteira"
   },
   "onboardingLoginNewWalletStep3": {
     "description": "Sua carteira foi criada!",

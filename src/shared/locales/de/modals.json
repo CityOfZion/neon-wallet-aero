@@ -115,7 +115,9 @@
     }
   },
   "blockchainSelection": {
-    "nextButtonLabel": "Weiter"
+    "nextButtonLabel": "Weiter",
+    "selectAllButtonLabel": "Alle auswählen",
+    "deselectAllButtonLabel": "Alle abwählen"
   },
   "decryptKey": {
     "title": "Importieren",
@@ -156,6 +158,9 @@
     "walletNameText": "Geben Sie Ihrer Wallet einen einprägsamen Namen. Es könnte hilfreich sein, sie nach dem Verwendungszweck zu benennen (z.B. 'Investitionen' oder 'Trading Wallet').",
     "cancelButtonLabel": "Abbrechen",
     "createNewWalletButtonLabel": "Neue Wallet erstellen",
+    "nextButtonLabel": "Weiter",
+    "blockchainSelectionModalTitle": "Blockchains auswählen",
+    "blockchainSelectionModalDescription": "Wählen Sie die Blockchains, für die Sie ein Konto erstellen möchten:",
     "walletNameLabel": "Wallet-Name",
     "errors": {
       "walletNameEmpty": "Bitte geben Sie einen Wallet-Namen ein"

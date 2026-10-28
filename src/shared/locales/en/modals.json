@@ -115,7 +115,9 @@
     }
   },
   "blockchainSelection": {
-    "nextButtonLabel": "Next"
+    "nextButtonLabel": "Next",
+    "selectAllButtonLabel": "Select all",
+    "deselectAllButtonLabel": "Deselect all"
   },
   "decryptKey": {
     "title": "Import",
@@ -156,6 +158,9 @@
     "walletNameText": "Give your wallet a memorable name, it could be helpful to name it with a label related to what you want to use the wallet for (such as ‘Investments’ or ‘Trading Wallet’).",
     "cancelButtonLabel": "Cancel",
     "createNewWalletButtonLabel": "Create new wallet",
+    "nextButtonLabel": "Next",
+    "blockchainSelectionModalTitle": "Select blockchains",
+    "blockchainSelectionModalDescription": "Select the blockchains which you want to create an account for:",
     "walletNameLabel": "Wallet name",
     "errors": {
       "walletNameEmpty": "Please enter a wallet name"
