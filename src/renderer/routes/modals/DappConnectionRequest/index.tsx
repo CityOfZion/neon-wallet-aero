@@ -73,7 +73,7 @@ export const DappConnectionRequestModal = () => {
 
       rendererApi.send('wallet-connect:reject-proposal', {
         id: proposal.id,
-        reason: WalletKitHelper.getError('UNSUPPORTED_NAMESPACE_KEY'),
+        reason: { code: 5104, message: WalletConnectError.toDappError(error).message },
       })
 
       ToastHelper.error({

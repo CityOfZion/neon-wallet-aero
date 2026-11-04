@@ -110,7 +110,8 @@
   "walletConnect": {
     "errorsByCode": {
       "UNEXPECTED_ERROR": "一個未預期的錯誤發生了。請再試一次或聯繫客服。",
-      "NO_SERVICE": ".apps想要連接到選擇不同的區塊鏈或網路"
+      "NO_SERVICE": ".apps想要連接到選擇不同的區塊鏈或網路",
+      "NO_ACCOUNTS": "找不到此連線的帳戶。請選擇有效的帳戶後重試。"
     }
   }
 }

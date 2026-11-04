@@ -110,7 +110,8 @@
   "walletConnect": {
     "errorsByCode": {
       "UNEXPECTED_ERROR": "一个意外错误发生了。请重新尝试或联系支持。",
-      "NO_SERVICE": "对dApp正在尝试连接到已选择的区块链或网络之外。"
+      "NO_SERVICE": "对dApp正在尝试连接到已选择的区块链或网络之外。",
+      "NO_ACCOUNTS": "未找到此连接的账户。请选择有效的账户后重试。"
     }
   }
 }

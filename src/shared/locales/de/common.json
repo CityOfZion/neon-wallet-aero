@@ -110,7 +110,8 @@
   "walletConnect": {
     "errorsByCode": {
       "UNEXPECTED_ERROR": "Ein unerwarteter Fehler trat auf. Bitte versuchen Sie erneut oder kontaktieren Sie den Support.",
-      "NO_SERVICE": "Das DApp versucht, eine andere Blockchain oder Netzwerk zu verbinden als das ausgewählte."
+      "NO_SERVICE": "Das DApp versucht, eine andere Blockchain oder Netzwerk zu verbinden als das ausgewählte.",
+      "NO_ACCOUNTS": "Für diese Verbindung wurde kein Konto gefunden. Bitte wählen Sie ein gültiges Konto aus und versuchen Sie es erneut."
     }
   }
 }

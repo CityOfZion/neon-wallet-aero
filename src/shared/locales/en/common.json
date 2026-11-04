@@ -82,7 +82,8 @@
   "walletConnect": {
     "errorsByCode": {
       "UNEXPECTED_ERROR": "An unexpected error occurred. Please try again or contact support.",
-      "NO_SERVICE": "The dApp is trying to connect to a different blockchain or network than the one selected."
+      "NO_SERVICE": "The dApp is trying to connect to a different blockchain or network than the one selected.",
+      "NO_ACCOUNTS": "No account was found for this connection. Please select a valid account and try again."
     }
   },
   "synonyms": {
