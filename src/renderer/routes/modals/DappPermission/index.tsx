@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 
 import type { TWalletKitHelperSessionDetails } from '@cityofzion/bs-multichain'
-import type { ErrorResponse } from '@walletconnect/jsonrpc-utils'
 import type { PendingRequestTypes, SessionTypes } from '@walletconnect/types'
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -34,7 +33,7 @@ export type TDappPermissionProps = {
   sessionDetails: TWalletKitHelperSessionDetails
   sessionAccount: TAccount
   onAccept: () => void
-  onReject: (reason?: ErrorResponse, toastMessage?: string) => void
+  onReject: (error?: unknown, toastMessage?: string) => void
   isAccepting: boolean
   isRejecting: boolean
 }
@@ -59,8 +58,8 @@ export const DappPermissionModal = () => {
 
   const { network } = useSelectedNetworkSelector(blockchain)
 
-  const [isRejecting, startReject] = usePressOnce(async (reason?: ErrorResponse, toastMessage?: string) => {
-    await onReject(reason)
+  const [isRejecting, startReject] = usePressOnce(async (error?: unknown, toastMessage?: string) => {
+    await onReject(error)
     modalErase('bottom')
     ToastHelper.error({ message: toastMessage || t('errors.cancelled'), id: 'dapp-permission-cancel' })
   })

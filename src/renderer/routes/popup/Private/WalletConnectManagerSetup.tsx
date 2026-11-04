@@ -1,5 +1,4 @@
 import { WalletKitHelper } from '@cityofzion/bs-multichain'
-import type { ErrorResponse } from '@walletconnect/jsonrpc-utils'
 import type { PendingRequestTypes } from '@walletconnect/types'
 import { useTranslation } from 'react-i18next'
 
@@ -13,7 +12,7 @@ import { useLoginSessionSelector } from '@renderer/hooks/useAuthSelector'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
-import { AppError } from '@shared/helpers/ErrorHelper'
+import { AppError, WalletConnectError } from '@shared/helpers/ErrorHelper'
 import { rendererApi } from '@shared/message-api/renderer'
 
 export const WalletConnectManagerSetup = () => {
@@ -37,11 +36,14 @@ export const WalletConnectManagerSetup = () => {
       const sessionAccount = accountsMapRef.current.get(AccountHelper.buildAccountKey(sessionDetails))
       const serviceAccount = await BlockchainServiceHelper.getServiceAccount(sessionAccount!)
 
-      async function handleReject(reason?: ErrorResponse) {
+      // Without an error, the request is rejected by the user. Otherwise, the error is sent to the dApp in English
+      async function handleReject(error?: unknown) {
+        const reason = error ? WalletConnectError.toDappError(error) : WalletKitHelper.getError('USER_REJECTED')
+
         await rendererApi
           .send('wallet-connect:respond-request', {
             topic: request.topic,
-            response: WalletKitHelper.formatRequestError(request, reason || WalletKitHelper.getError('USER_REJECTED')),
+            response: WalletKitHelper.formatRequestError(request, reason),
           })
           .catch(error =>
             LoggerHelper.error(error, { where: 'WalletConnectManagerSetup', operation: 'manualRejectRequest' })
@@ -62,13 +64,10 @@ export const WalletConnectManagerSetup = () => {
           })
 
           return response
-        } catch (error: any) {
-          const appError = AppError.wrap(error, error.message)
+        } catch (error) {
+          LoggerHelper.error(error, { where: 'WalletConnectManagerSetup', operation: 'manualAcceptRequest' })
 
-          await rendererApi.send('wallet-connect:respond-request', {
-            topic: request.topic,
-            response: WalletKitHelper.formatRequestError(request, { message: appError.message, code: -32000 }),
-          })
+          await handleReject(error)
 
           throw error
         }
@@ -83,8 +82,8 @@ export const WalletConnectManagerSetup = () => {
 
       try {
         await WalletKitHelper.validateRequest({ account: serviceAccount, request, sessionDetails })
-      } catch (error: any) {
-        handleReject({ code: -32000, message: error.message })
+      } catch (error) {
+        handleReject(error)
         return
       }
 
