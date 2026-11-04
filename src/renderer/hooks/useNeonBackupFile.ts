@@ -6,8 +6,6 @@ import { DateHelper } from '@renderer/helpers/DateHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { NeonBackupHelper } from '@renderer/helpers/NeonBackupHelper'
 
-import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
-
 import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { EncryptionHelper } from '@shared/helpers/EncryptionHelper'
 import { AppError } from '@shared/helpers/ErrorHelper'
@@ -174,7 +172,6 @@ export const useNeonCreateBackup = () => {
   const { wallets } = useWalletsSelector()
   const { accounts } = useAccountsSelector()
   const { contacts } = useContactsSelector()
-  const { language } = useLanguageSelector()
   const { editWallet } = useBlockchainActions()
 
   const handleCreateBackupFormat = async () => {
@@ -265,7 +262,7 @@ export const useNeonCreateBackup = () => {
         }
       })
 
-      const fileName = `neon-backup-${DateHelper.formatLocalized(new Date(), { format: 'yyyy-MM-dd', language })}.${NeonBackupHelper.fileExtension}`
+      const fileName = `neon-backup-${DateHelper.getCurrentFullDateString()}.${NeonBackupHelper.fileExtension}`
 
       FileHelper.download(JSON.stringify(backupFile), { type: 'application/json' }, fileName)
     } catch (error) {

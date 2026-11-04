@@ -38,7 +38,7 @@ export function getAuthReducer() {
     key: 'authReducer',
     storage: localStorage,
     blacklist: ['memoryData'],
-    version: 0,
+    version: 1,
     migrate: createMigrate(authMigrations),
   }
 
