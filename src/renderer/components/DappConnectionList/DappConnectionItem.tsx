@@ -33,7 +33,9 @@ export const DappConnectionItem = ({ session, onDisconnect }: TProps) => {
 
       <p className="min-w-30 text-white">{session.peer.metadata.name}</p>
 
-      <p className="min-w-30 text-gray-100">{DateHelper.formatLocalized(session.expiry, { format: 'Pp', language })}</p>
+      <p className="min-w-30 text-gray-100">
+        {DateHelper.formatLocalized(session.expiry * 1000, { format: 'Pp', language })}
+      </p>
 
       <div className="flex w-full items-center justify-end">
         <Tooltip title={t('disconnectButtonLabel')}>

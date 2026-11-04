@@ -38,7 +38,7 @@ export class UtilsHelper {
 
       const img = new Image()
 
-      const fileName = `neon-qr-code-${DateHelper.getNowUnix()}.png`
+      const fileName = `neon-qr-code-${DateHelper.getCurrentFullDateString()}.png`
 
       img.onload = () => {
         canvas.width = img.width

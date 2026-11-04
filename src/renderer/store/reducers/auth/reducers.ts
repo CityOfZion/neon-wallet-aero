@@ -1,6 +1,5 @@
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 
-import { DateHelper } from '@renderer/helpers/DateHelper'
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
 import { NotificationHelper } from '@renderer/helpers/NotificationHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
@@ -52,7 +51,7 @@ const saveNotification: CaseReducer<TAuthReducer, PayloadAction<TSaveNotificatio
 
   const notification: TNotification = {
     id: UtilsHelper.uuid(),
-    date: DateHelper.getNowUnix(),
+    date: new Date().toJSON(),
     read: false,
     priority: 'low',
     provider: 'system',
