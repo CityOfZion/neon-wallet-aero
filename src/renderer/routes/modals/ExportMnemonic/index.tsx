@@ -86,7 +86,7 @@ export const ExportMnemonicModal = () => {
                 <Loader className="size-8" />
               ) : (
                 walletMnemonic.split(' ').map((word, index) => (
-                  <span className="text-lg text-white" key={`${word}-${index}`}>
+                  <span key={`${word}-${index}`} className="text-lg text-white">
                     {index + 1}. {word}
                   </span>
                 ))
