@@ -76,3 +76,7 @@ Type-safe bidirectional messaging between background and renderers, defined in `
 - **JSX**: boolean props without `={true}`, no unnecessary curly braces around string props
 - **Tailwind CSS v4**: class sorting via `prettier-plugin-tailwindcss`
 - SVGs imported as React components via `vite-plugin-svgr`
+
+## ClickUp Tasks
+
+Follow the `clickup-task` skill (`.claude/skills/clickup-task/SKILL.md`) when creating or editing ClickUp tasks.
