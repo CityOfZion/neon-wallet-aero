@@ -1,13 +1,14 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
 
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { match } from 'ts-pattern'
 
 import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
+import { IconButton } from '@renderer/components/IconButton'
 import { Textarea } from '@renderer/components/Textarea'
+import { Tooltip } from '@renderer/components/Tooltip'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
@@ -16,6 +17,9 @@ import type { TUseImportFromFileActionsData } from '@renderer/hooks/useImportFro
 import { useImportFromFile } from '@renderer/hooks/useImportFromFile'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useNeonBackupFile } from '@renderer/hooks/useNeonBackupFile'
+
+import MdClose from '@renderer/assets/images/md-close.svg?react'
+import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 
 import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@shared/types/blockchain'
@@ -188,7 +192,13 @@ export const OnboardingImportWalletStep3Page = () => {
 
   const fileActions = useImportFromFile()
 
+  const fileName = useMemo(
+    () => fileActions.actionData.path?.split(/[\\/]/).filter(Boolean).pop(),
+    [fileActions.actionData.path]
+  )
+
   const isImport = !state?.isMigration && importActions.actionData.text
+
   const handleSubmit = isImport
     ? importActions.handleAct(importActions.handleSubmit)
     : fileActions.handleAct(handleFileSubmit)
@@ -214,64 +224,76 @@ export const OnboardingImportWalletStep3Page = () => {
   return (
     <Fragment>
       <p className="text-center text-sm text-white">{!state.isMigration ? t('formTitle') : t('migrationFormTitle')}</p>
-      <form
-        className="mt-4 -mb-3.5 flex w-full grow-1 flex-col items-center justify-between pb-4"
-        onSubmit={handleSubmit}
-      >
-        <div className="flex w-full flex-col items-center gap-2">
+
+      <form className="mt-4 -mb-3.5 flex w-full grow flex-col items-center pb-4" onSubmit={handleSubmit}>
+        <div className="flex w-full flex-col items-center gap-5">
           {!state.isMigration && (
             <Textarea
               id="import-value"
               autoFocus
               aria-label={t('inputPlaceholder')}
               placeholder={t('inputPlaceholder')}
-              containerClassName="mb-2.5"
               value={importActions.actionData.text}
               onChange={importActions.handleChange}
               pastable
               clearable
               multiline={importActions.actionData.inputType === 'mnemonic'}
               errorMessage={importActions.actionState.errors.text}
+              disabled={!!fileName}
             />
           )}
 
-          <Button
-            label={t('locateFileButtonLabel')}
-            type="button"
-            className="w-64"
-            variant="outlined"
-            clickableProps={{
-              className: 'px-5',
-            }}
-            onClick={fileActions.handleBrowse}
-          />
+          {fileName ? (
+            <div className="bg-asphalt ring-neon/40 flex w-full items-center justify-between gap-2 rounded p-3 ring-1">
+              <div className="flex min-w-0 items-center gap-2">
+                <div className="bg-neon/10 flex size-9 shrink-0 items-center justify-center rounded">
+                  <TbFileImport aria-hidden className="text-neon size-5" />
+                </div>
+
+                <div className="flex min-w-0 flex-col">
+                  <Tooltip title={fileName}>
+                    <span className="truncate text-sm font-medium text-white">{fileName}</span>
+                  </Tooltip>
+
+                  <span className="text-xs text-gray-300">{t('fileSelected')}</span>
+                </div>
+              </div>
+
+              <Tooltip title={tCommon('general.remove')}>
+                <IconButton
+                  aria-label={tCommon('general.remove')}
+                  type="button"
+                  icon={<MdClose aria-hidden />}
+                  onClick={fileActions.reset}
+                />
+              </Tooltip>
+            </div>
+          ) : (
+            <Button
+              label={t('locateFileButtonLabel')}
+              type="button"
+              className="w-64"
+              variant="outlined"
+              clickableProps={{ className: 'px-5' }}
+              onClick={fileActions.handleBrowse}
+            />
+          )}
         </div>
 
-        {state &&
-          match({
-            hasPath: !!fileActions.actionData.path,
-            hasError: !!fileActions.actionState.errors.path,
-            isMigration: !!state.isMigration,
-          })
-            .with({ hasPath: true, hasError: false }, () => (
-              <Banner type="success" message={t('importSuccess')} className="mt-2" textClassName="py-4" />
-            ))
-            .with({ hasPath: false, hasError: false, isMigration: true }, () => (
-              <Banner type="warning" message={t('neon2Warning')} className="mt-2" textClassName="py-4" />
-            ))
-            .with({ hasError: true }, () => (
-              <Banner type="warning" message={t('importError')} className="mt-2" textClassName="py-4" />
-            ))
-            .otherwise(() => null)}
+        {state?.isMigration && !fileActions.actionData.path && !fileActions.actionState.errors.path && (
+          <Banner type="warning" message={t('neon2Warning')} className="mt-5" textClassName="py-4" />
+        )}
 
-        <Button
-          label={tCommon('general.next')}
-          className="mt-4 w-full"
-          type="submit"
-          variant="card"
-          disabled={importActions.actionData.text ? !importActions.actionState.isValid : !fileActions.actionData.path}
-          loading={importActions.actionState.isActing}
-        />
+        <div className="mt-auto flex w-full justify-center">
+          <Button
+            label={tCommon('general.next')}
+            className="mt-5 w-full"
+            type="submit"
+            variant="card"
+            disabled={importActions.actionData.text ? !importActions.actionState.isValid : !fileActions.actionData.path}
+            loading={importActions.actionState.isActing}
+          />
+        </div>
       </form>
     </Fragment>
   )

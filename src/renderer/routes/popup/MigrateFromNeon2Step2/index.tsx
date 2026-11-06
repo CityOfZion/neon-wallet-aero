@@ -1,8 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { match } from 'ts-pattern'
 
-import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
@@ -22,7 +20,7 @@ export const MigrateFromNeon2Step2Page = () => {
   const { t: tConfirmPassword } = useTranslation('pages', { keyPrefix: 'settings.confirmPasswordRecover' })
   const { modalNavigate } = useModalNavigate()
   const navigate = useNavigate()
-  const { actionData, actionState, handleBrowse, handleAct } = useImportFromFile()
+  const { actionData, handleBrowse, handleAct } = useImportFromFile()
   const { handleTryDecryptData, handleGenerateData, handleImportBackupData } = useNeonBackupFile()
 
   const handleSubmit = async (data: TUseImportFromFileActionsData) => {
@@ -98,11 +96,6 @@ export const MigrateFromNeon2Step2Page = () => {
               className="h-fit w-30"
             />
           </div>
-
-          {match({ hasPath: !!actionData.path, hasError: !!actionState.errors.path })
-            .with({ hasPath: true, hasError: false }, () => <Banner type="success" message={t('compatibleFile')} />)
-            .with({ hasError: true }, () => <Banner type="error" message={actionState.errors.path} />)
-            .otherwise(() => null)}
         </div>
 
         <Button variant="card" type="submit" disabled={!actionData.path || !actionData.content}>

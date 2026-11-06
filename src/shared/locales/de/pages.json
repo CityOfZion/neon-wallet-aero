@@ -187,8 +187,7 @@
       "unexpectedError": "Unerwarteter Fehler",
       "locateFileButtonLabel": "Datei suchen…",
       "neon2Warning": "Diese Datei wird während des Migrationsprozesses in Ihrer Neon 2 Wallet erstellt. Starten Sie den Prozess in Neon 2, um die Datei zu erstellen.",
-      "importSuccess": "Kompatible Datei erkannt!",
-      "importError": "Kompatible Datei nicht erkannt"
+      "fileSelected": "Datei ausgewählt"
     },
     "step4": {
       "title": "Bitte haben Sie Geduld, wir richten jetzt Ihre Wallet ein"
@@ -336,6 +335,7 @@
       "step1": {
         "description": "Um Ihre Backup-Datei zu erstellen, geben Sie bitte Ihr Neon-Passwort unten ein:",
         "passwordInputLabel": "Aktuelles Neon-Passwort",
+        "passwordInputPlaceholder": "Geben Sie Ihr aktuelles Passwort ein…",
         "backup": "Backup",
         "warning": "Sie benötigen dieses Passwort, um Ihre Wallet wiederherzustellen. <1>Bitte bewahren Sie es sicher auf!</1>",
         "error": {

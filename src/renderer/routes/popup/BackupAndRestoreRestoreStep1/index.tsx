@@ -1,8 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { match } from 'ts-pattern'
 
-import { Banner } from '@renderer/components/Banner'
 import { Button } from '@renderer/components/Button'
 import { Input } from '@renderer/components/Input'
 
@@ -61,11 +59,6 @@ export const BackupAndRestoreRestoreStep1Page = () => {
             className="h-fit w-30"
           />
         </div>
-
-        {match({ hasPath: !!actionData.path, hasError: !!actionState.errors.path })
-          .with({ hasPath: true, hasError: false }, () => <Banner type="success" message={t('compatibleFile')} />)
-          .with({ hasError: true }, () => <Banner type="error" message={actionState.errors.path} />)
-          .otherwise(() => null)}
       </div>
 
       <Button
