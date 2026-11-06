@@ -38,8 +38,6 @@ export const useImportFromFile = () => {
     const backupContent = await neonBackupFileActions.validateAndParseFile(file.name, file.content)
 
     if (backupContent) {
-      ToastHelper.success({ message: t('neonBackupFileDetected') })
-
       setData({ path: file.name, ...backupContent })
       return
     }
@@ -47,8 +45,6 @@ export const useImportFromFile = () => {
     const nep6Content = await nep6BackupFileActions.validateAndParseFile(file.content)
 
     if (nep6Content) {
-      ToastHelper.success({ message: t('nep6BackupFileDetected') })
-
       setData({ path: file.name, ...nep6Content })
       return
     }
@@ -56,8 +52,6 @@ export const useImportFromFile = () => {
     const migrateContent = await neonMigrateFileActions.validateAndParseFile(file.content)
 
     if (migrateContent) {
-      ToastHelper.success({ message: t('neon2MigrateFileDetected') })
-
       setData({ path: file.name, ...migrateContent })
       return
     }

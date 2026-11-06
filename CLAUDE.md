@@ -10,7 +10,7 @@ Neon Wallet Aero is a self-custodial, open-source multi-chain blockchain wallet 
 
 ```bash
 npm run dev         # Start Vite dev server (load dist/ as unpacked extension in Chrome)
-npm run build       # Lint + typecheck + production build
+npm run build       # Lint + typecheck + .env check (scripts/check-env.ts) + production build
 npm run lint        # ESLint
 npm run typecheck   # TypeScript type checking (tsc --noEmit)
 npm run translate   # Translate changed English locale keys to other languages (Claude skill)

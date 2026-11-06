@@ -187,8 +187,7 @@
       "unexpectedError": "意外錯誤",
       "locateFileButtonLabel": "定位檔案…",
       "neon2Warning": "此檔案是在 Neon 2 錢包的遷移過程中建立的。在 Neon 2 中啟動該過程以建立檔案。",
-      "importSuccess": "兼容檔案已識別！",
-      "importError": "未識別兼容檔案"
+      "fileSelected": "已選擇檔案"
     },
     "step4": {
       "title": "請耐心等待，我們正在設置您的錢包"
@@ -336,6 +335,7 @@
       "step1": {
         "description": "為了建立備份檔案，請在下方提供您的 Neon 密碼：",
         "passwordInputLabel": "目前的 Neon 密碼",
+        "passwordInputPlaceholder": "輸入您目前的密碼…",
         "backup": "備份",
         "warning": "您需要此密碼來還原您的錢包。<1>請妥善保管！</1>",
         "error": {

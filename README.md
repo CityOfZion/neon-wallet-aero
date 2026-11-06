@@ -34,6 +34,7 @@ Run:
 ```
 npm run build
 ```
+_The build validates the `.env` variables first (`scripts/check-env.ts`)._
 
 ## Lint and typecheck
 Run:
@@ -41,10 +42,10 @@ Run:
 npm run lint && npm run typecheck
 ```
 
-## Download SVGs
-Run:
+## Translate
+After changing English locale files (`src/shared/locales/en`), run (requires [Claude Code](https://claude.com/claude-code)):
 ```
-npm run icon
+npm run translate
 ```
 
 ## Technologies used
