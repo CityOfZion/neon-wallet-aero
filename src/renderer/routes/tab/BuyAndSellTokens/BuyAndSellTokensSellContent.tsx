@@ -45,7 +45,12 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
     hasIframeError: false,
   })
 
-  const url = BuyAndSellTokensHelper.buildSellUrl({ currency, account })
+  const url = BuyAndSellTokensHelper.buildUrl({
+    type: 'sell',
+    currency,
+    refundAddress: account?.address,
+    merchantTransactionId: iframeId,
+  })
 
   const handleRestart = () => {
     depositActions.reset()
@@ -60,7 +65,7 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
   }
 
   const handleError = () => {
-    setData({ hasIframeError: true })
+    setData({ hasIframeError: true, isIframeLoading: false })
   }
 
   return (
@@ -89,8 +94,9 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
           <p className="mx-auto text-center text-xl">{t('iframeError')}</p>
         ) : (
           <iframe
-            src={`${url}&redirectUrl=${url}&confirmRedirectUrl${url}&reloadId=${iframeId}`}
-            allow="clipboard-read; clipboard-write; payment"
+            key={iframeId}
+            src={url}
+            allow="clipboard-read; clipboard-write; payment; camera"
             onLoad={handleLoad}
             onError={handleError}
           />
