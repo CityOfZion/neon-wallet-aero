@@ -36,12 +36,9 @@
     }
   },
   "useImportFromFile": {
-    "neonBackupFileDetected": "Neon Backup-Datei erkannt",
-    "neon2MigrateFileDetected": "Neon 2 Migrations-Datei erkannt",
     "filterName": "Neon Backup- oder Migrations-Datei",
     "error": "Datei nicht erkannt",
-    "migratedContactName": "Migrierter Kontakt",
-    "nep6BackupFileDetected": "NEP-6 Backup-Datei erkannt"
+    "migratedContactName": "Migrierter Kontakt"
   },
   "useNeonBackupFile": {
     "errors": {

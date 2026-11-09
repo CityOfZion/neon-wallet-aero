@@ -24,9 +24,11 @@ export const BackupAndRestoreBackupStep1Page = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'backupAndRestore.backup.step1' })
   const navigate = useNavigate()
   const { handleCreateBackup } = useNeonCreateBackup()
+
   const { handleAct, actionState, actionData, setError, setDataFromEventWrapper } = useActions<TFormData>({
     password: '',
   })
+
   const { loginSessionRef } = useLoginSessionSelector()
   const { encryptPassword } = useLogin()
 
@@ -60,11 +62,12 @@ export const BackupAndRestoreBackupStep1Page = () => {
     <form className="flex size-full flex-col" onSubmit={handleAct(handleSubmitCreateBackup)}>
       <p className="mb-7 text-sm">{t('description')}</p>
 
-      <div className="flex flex-grow flex-col gap-y-4">
+      <div className="flex grow flex-col gap-y-4">
         <Input
           name="password"
           id="password"
           label={t('passwordInputLabel')}
+          placeholder={t('passwordInputPlaceholder')}
           value={actionData.password}
           onChange={setDataFromEventWrapper('password')}
           error={!!actionState.errors.password}

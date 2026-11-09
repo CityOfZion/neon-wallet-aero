@@ -187,8 +187,7 @@
       "unexpectedError": "Erro inesperado",
       "locateFileButtonLabel": "Localizar arquivo…",
       "neon2Warning": "Este arquivo é criado durante o processo de migração em sua carteira Neon 2. Inicie o processo na Neon 2 para criar o arquivo.",
-      "importSuccess": "Arquivo compatível identificado!",
-      "importError": "Arquivo compatível não reconhecido"
+      "fileSelected": "Arquivo selecionado"
     },
     "step4": {
       "title": "Por favor aguarde, estamos configurando sua carteira"
@@ -336,6 +335,7 @@
       "step1": {
         "description": "Para criar seu arquivo de backup, por favor, digite sua senha Neon abaixo:",
         "passwordInputLabel": "Senha Neon atual",
+        "passwordInputPlaceholder": "Digite sua senha atual…",
         "backup": "Backup",
         "warning": "Você precisará dessa senha para restaurar sua carteira. <1>Por favor, mantenha-a segura!</1>",
         "error": {

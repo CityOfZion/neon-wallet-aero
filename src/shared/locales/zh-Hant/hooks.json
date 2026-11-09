@@ -36,12 +36,9 @@
     }
   },
   "useImportFromFile": {
-    "neonBackupFileDetected": "偵測到 Neon 備份檔案",
-    "neon2MigrateFileDetected": "偵測到 Neon 2 遷移檔案",
     "filterName": "Neon 備份或遷移檔案",
     "error": "檔案無法識別",
-    "migratedContactName": "已遷移聯絡人",
-    "nep6BackupFileDetected": "偵測到 NEP-6 備份檔案"
+    "migratedContactName": "已遷移聯絡人"
   },
   "useNeonBackupFile": {
     "errors": {

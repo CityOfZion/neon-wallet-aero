@@ -152,11 +152,12 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TProps>(
           )}
 
           {clearable && (
-            <Tooltip title={tCommonGeneral('clear')}>
+            <Tooltip title={disabled ? '' : tCommonGeneral('clear')}>
               <IconButton
                 aria-label={tCommonGeneral('clear')}
                 icon={<MdCancel aria-hidden />}
                 type="button"
+                disabled={disabled}
                 onClick={clear}
               />
             </Tooltip>
