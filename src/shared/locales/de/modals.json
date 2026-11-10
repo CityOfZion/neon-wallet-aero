@@ -552,28 +552,6 @@
     "errorMessageLabel": "Fehlermeldung",
     "unknownError": "Unbekannter Fehler"
   },
-  "supportTicket": {
-    "cancelButtonLabel": "Abbrechen",
-    "descriptionLabel": "Beschreibung",
-    "descriptionPlaceholder": "Beschreiben Sie Ihr Problem…",
-    "emailLabel": "E-Mail",
-    "emailPlaceholder": "Geben Sie Ihre E-Mail ein…",
-    "errors": {
-      "emailRequired": "E-Mail ist erforderlich",
-      "nameRequired": "Name ist erforderlich",
-      "descriptionRequired": "Beschreibung ist erforderlich",
-      "submitError": "Beim Absenden Ihres Tickets ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
-    },
-    "nameLabel": "Name",
-    "namePlaceholder": "Geben Sie Ihren Namen ein…",
-    "submitTicketButtonLabel": "Ticket absenden",
-    "successContent": {
-      "description": "Wir haben Ihr Support-Ticket erhalten und melden uns in Kürze bei Ihnen.",
-      "title": "Ticket erfolgreich eingereicht!",
-      "closeButtonLabel": "Schließen"
-    },
-    "title": "Support-Ticket öffnen"
-  },
   "swapDetails": {
     "title": "Ihr Swap",
     "detailsHeaderLabel": "Details",
