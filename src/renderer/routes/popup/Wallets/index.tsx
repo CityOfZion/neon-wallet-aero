@@ -58,12 +58,16 @@ export const WalletsPage = () => {
     modalNavigate('wallet-selection', {
       state: {
         selectedWallet,
+        shouldPersistSelection: false,
         onSelect: wallet => {
           modalNavigate('account-selection', {
             state: {
               walletId: wallet.id,
               selectedAccount,
-              onSelect: () => modalErase('bottom'),
+              onSelect: () => {
+                dispatch(settingsReducerActions.setSelectedWallet(wallet))
+                modalErase('bottom')
+              },
             },
           })
         },
