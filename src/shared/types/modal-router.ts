@@ -409,7 +409,6 @@ export type TModalRouterRouteTypes = {
   'dapp-permission-contract-details': TDappPermissionContractDetailsModalState
   search: TSearchModalState
   'hide-fraudulent-token': THideFraudulentTokenModalState
-  'support-ticket': undefined
   'export-transactions': TExportTransactionsModalState
   survey: undefined
   'stellar-persist-trustline': TStellarPersistTrustlinesModalState

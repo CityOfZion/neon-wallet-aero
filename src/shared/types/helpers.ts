@@ -28,12 +28,6 @@ export type THardwareWalletHelperEnsureConnectionParams = {
 
 export type THardwareWalletHelperConnectionType = 'usb' | 'bluetooth'
 
-export type TClickupHelperCreateSupportTicketParams = {
-  name: string
-  email: string
-  description: string
-}
-
 export type TBuyAndSellTokensHelperGetSellUrlParams = {
   account?: TAccount
   currency: TCurrency

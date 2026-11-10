@@ -202,8 +202,7 @@
   "help": {
     "title": "Ajuda",
     "liveSupportItemLabel": "Suporte ao vivo",
-    "discordItemLabel": "Entrar no nosso Discord",
-    "openSupportTicketItemLabel": "Abrir ticket de suporte"
+    "discordItemLabel": "Entrar no nosso Discord"
   },
   "import": {
     "title": "Importar",

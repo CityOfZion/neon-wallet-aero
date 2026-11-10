@@ -65,7 +65,6 @@ const AccountSelectionByBlockchainModal = lazy(() => import('./modals/AccountSel
 const ConfirmActionBottomModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionBottom'))
 const ConfirmActionSideModal = lazy(() => import('./modals/ConfirmAction/ConfirmActionSide'))
 const HideFraudulentTokenModal = lazy(() => import('./modals/HideFraudulentToken'))
-const SupportTicketModal = lazy(() => import('./modals/SupportTicket'))
 const ExportTransactionsModal = lazy(() => import('./modals/ExportTransactions'))
 const SurveyModal = lazy(() => import('./modals/Survey'))
 const StellarPersistTrustlineModal = lazy(() => import('./modals/StellarPersistTrustline'))
@@ -133,7 +132,6 @@ export const modalsRouter: TRoute[] = [
   { name: 'neo3-vote-success', type: 'bottom', element: Neo3VoteSuccessModal },
   { name: 'search', type: 'bottom', element: SearchModal },
   { name: 'hide-fraudulent-token', type: 'bottom', element: HideFraudulentTokenModal },
-  { name: 'support-ticket', type: 'bottom', element: SupportTicketModal },
   { name: 'export-transactions', type: 'bottom', element: ExportTransactionsModal },
   { name: 'survey', type: 'bottom', element: SurveyModal },
   { name: 'stellar-persist-trustline', type: 'bottom', element: StellarPersistTrustlineModal },

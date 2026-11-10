@@ -197,8 +197,7 @@
   "help": {
     "title": "Help",
     "liveSupportItemLabel": "Live support",
-    "discordItemLabel": "Join our Discord",
-    "openSupportTicketItemLabel": "Open support ticket"
+    "discordItemLabel": "Join our Discord"
   },
   "import": {
     "title": "Import",

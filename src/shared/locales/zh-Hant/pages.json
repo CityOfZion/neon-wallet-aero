@@ -202,8 +202,7 @@
   "help": {
     "title": "幫助",
     "liveSupportItemLabel": "即時支援",
-    "discordItemLabel": "加入我們的 Discord",
-    "openSupportTicketItemLabel": "提交支援工單"
+    "discordItemLabel": "加入我們的 Discord"
   },
   "import": {
     "title": "匯入",
