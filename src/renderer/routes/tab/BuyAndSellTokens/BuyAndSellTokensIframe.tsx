@@ -32,7 +32,7 @@ export const BuyAndSellTokensIframe = ({ type, id, hasError, account, onLoad, on
   })
 
   const handleLoad = async () => {
-    await BSUtilsHelper.wait(4000)
+    await BSUtilsHelper.wait(2000)
 
     onLoad()
   }
