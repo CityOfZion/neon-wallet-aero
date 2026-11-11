@@ -34,8 +34,6 @@
     "@dnd-kit/modifiers": "~9.0.0",
     "@dnd-kit/sortable": "~10.0.0",
     "@dnd-kit/utilities": "~3.2.2",
-    "@fingerprintjs/fingerprintjs": "~5.2.0",
-    "@gatefi/js-sdk": "~1.2.0",
     "@ledgerhq/devices": "^8.14.1",
     "@ledgerhq/hw-transport": "^6.35.1",
     "@ledgerhq/hw-transport-web-ble": "^6.34.1",

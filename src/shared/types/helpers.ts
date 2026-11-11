@@ -3,7 +3,7 @@ import type { JSX, ReactNode } from 'react'
 import type { ToastT } from 'sonner'
 
 import type { TBlockchainServiceKey } from './blockchain'
-import type { TAccount, TCurrency, TLanguage, TLastIndexesByWallet } from './store'
+import type { TCurrency, TLanguage, TLastIndexesByWallet } from './store'
 
 export type TAccountHelperPredicateParams = {
   address: string
@@ -28,15 +28,14 @@ export type THardwareWalletHelperEnsureConnectionParams = {
 
 export type THardwareWalletHelperConnectionType = 'usb' | 'bluetooth'
 
-export type TBuyAndSellTokensHelperGetSellUrlParams = {
-  account?: TAccount
-  currency: TCurrency
-}
+export type TBuyAndSellTokensHelperType = 'buy' | 'sell'
 
-export type TBuyAndSellTokensHelperInitBuyParams = {
-  account?: TAccount
+export type TBuyAndSellTokensHelperBuildUrlParams = {
+  type: TBuyAndSellTokensHelperType
   currency: TCurrency
-  id: string
+  merchantTransactionId: string
+  address?: string
+  refundAddress?: string
 }
 
 export type TCurrencyHelperFormatOptions = {

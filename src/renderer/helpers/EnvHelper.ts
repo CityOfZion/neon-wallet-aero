@@ -2,13 +2,12 @@
 import { z } from 'zod'
 
 const envSchema = z.object({
-  VITE_UNLIMIT_MERCHANT_ID: z.string().nonempty(),
-  VITE_UNLIMIT_BUY_TOKENS_IFRAME_URL: z.url(),
-  VITE_UNLIMIT_SELL_TOKENS_IFRAME_URL: z.url(),
+  VITE_MERCURYO_WIDGET_ID: z.string().nonempty(),
   VITE_GA_MEASUREMENT_ID: z.string().nonempty(),
   VITE_GA_API_SECRET: z.string().nonempty(),
   VITE_SENTRY_DSN: z.string().nonempty(),
   VITE_CRISP_WEBSITE_ID: z.string().nonempty(),
+  VITE_PUBLIC_KEY: z.string().nonempty(),
 })
 
 type EnvSchema = z.infer<typeof envSchema>

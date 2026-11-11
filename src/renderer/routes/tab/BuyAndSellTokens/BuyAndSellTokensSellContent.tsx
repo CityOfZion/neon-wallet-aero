@@ -1,27 +1,25 @@
-import { BSUtilsHelper } from '@cityofzion/blockchain-service'
 import type { ComponentProps } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
 
-import { BuyAndSellTokensHelper } from '@renderer/helpers/BuyAndSellTokensHelper'
 import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
-import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import MdChevronRight from '@renderer/assets/images/md-chevron-right.svg?react'
 
 import type { TAccount } from '@shared/types/store'
 
 import type { EBuyAndSellTokensTab, TBuyAndSellTokensDepositActions, TBuyAndSellTokensOnTabChange } from '.'
+import { BuyAndSellTokensIframe } from './BuyAndSellTokensIframe'
 import { BuyAndSellWrapperContent } from './BuyAndSellWrapperContent'
 
 type TActionsData = {
-  iframeId: string
-  isIframeLoading: boolean
-  hasIframeError: boolean
+  id: string
+  isLoading: boolean
+  hasError: boolean
 }
 
 type TProps = ComponentProps<'div'> & {
@@ -33,40 +31,35 @@ type TProps = ComponentProps<'div'> & {
 
 export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, account, ...props }: TProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'buyAndSellTokens.sellContent' })
-  const { currency } = useCurrencySelector()
   const { modalNavigateWrapper } = useModalNavigate()
 
   const {
-    actionData: { iframeId, isIframeLoading, hasIframeError },
+    actionData: { id, isLoading, hasError },
     setData,
   } = useActions<TActionsData>({
-    iframeId: UtilsHelper.uuid(),
-    isIframeLoading: true,
-    hasIframeError: false,
+    id: UtilsHelper.uuid(),
+    isLoading: true,
+    hasError: false,
   })
-
-  const url = BuyAndSellTokensHelper.buildSellUrl({ currency, account })
 
   const handleRestart = () => {
     depositActions.reset()
 
-    setData({ iframeId: UtilsHelper.uuid(), isIframeLoading: true, hasIframeError: false })
+    setData({ id: UtilsHelper.uuid(), isLoading: true, hasError: false })
   }
 
-  const handleLoad = async () => {
-    await BSUtilsHelper.wait(4000)
-
-    setData({ isIframeLoading: false })
+  const handleLoad = () => {
+    setData({ isLoading: false })
   }
 
   const handleError = () => {
-    setData({ hasIframeError: true })
+    setData({ hasError: true, isLoading: false })
   }
 
   return (
     <BuyAndSellWrapperContent
       {...props}
-      isLoading={isIframeLoading}
+      isLoading={isLoading}
       account={account}
       tab={tab}
       onTabChange={onTabChange}
@@ -74,8 +67,8 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
         <Button
           label={t('depositButtonLabel')}
           variant="text-slim"
-          colorSchema={isIframeLoading ? 'gray' : 'neon'}
-          disabled={isIframeLoading}
+          colorSchema={isLoading ? 'gray' : 'neon'}
+          disabled={isLoading}
           rightIcon={<MdChevronRight aria-hidden className="min-size-5 max-size-5 size-5" />}
           onClick={modalNavigateWrapper('sell-tokens-deposit', {
             state: { account, depositActions },
@@ -84,18 +77,14 @@ export const BuyAndSellTokensSellContent = ({ depositActions, tab, onTabChange, 
       }
       onRestart={handleRestart}
     >
-      <div className="buy-and-sell-tokens-iframe-container mx-auto my-4">
-        {hasIframeError ? (
-          <p className="mx-auto text-center text-xl">{t('iframeError')}</p>
-        ) : (
-          <iframe
-            src={`${url}&redirectUrl=${url}&confirmRedirectUrl${url}&reloadId=${iframeId}`}
-            allow="clipboard-read; clipboard-write; payment"
-            onLoad={handleLoad}
-            onError={handleError}
-          />
-        )}
-      </div>
+      <BuyAndSellTokensIframe
+        type="sell"
+        id={id}
+        hasError={hasError}
+        account={account}
+        onLoad={handleLoad}
+        onError={handleError}
+      />
     </BuyAndSellWrapperContent>
   )
 }

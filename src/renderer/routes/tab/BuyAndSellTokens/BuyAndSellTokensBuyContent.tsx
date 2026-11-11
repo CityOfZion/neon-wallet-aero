@@ -1,18 +1,20 @@
-import { useRef, useState } from 'react'
-
 import type { ComponentProps } from 'react'
 
-import { BuyAndSellTokensHelper } from '@renderer/helpers/BuyAndSellTokensHelper'
+import { UtilsHelper } from '@renderer/helpers/UtilsHelper'
 
-import { useMountUnsafe } from '@renderer/hooks/useMount'
-import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
+import { useActions } from '@renderer/hooks/useActions'
 
 import type { TAccount } from '@shared/types/store'
 
 import type { EBuyAndSellTokensTab, TBuyAndSellTokensOnTabChange } from '.'
+import { BuyAndSellTokensIframe } from './BuyAndSellTokensIframe'
 import { BuyAndSellWrapperContent } from './BuyAndSellWrapperContent'
 
-const IFRAME_CONTAINER_ID = 'buy-tokens-iframe'
+type TActionsData = {
+  id: string
+  isLoading: boolean
+  hasError: boolean
+}
 
 type TProps = ComponentProps<'div'> & {
   tab: EBuyAndSellTokensTab
@@ -21,42 +23,44 @@ type TProps = ComponentProps<'div'> & {
 }
 
 export const BuyAndSellTokensBuyContent = ({ tab, onTabChange, account, ...props }: TProps) => {
-  const { currency } = useCurrencySelector()
-
-  const [isIframeLoading, setIsIframeLoading] = useState(true)
-
-  const destroySdkCallbackRef = useRef<() => void>(undefined)
-
-  const initIframe = async () => {
-    setIsIframeLoading(true)
-
-    if (destroySdkCallbackRef.current) {
-      destroySdkCallbackRef.current()
-    }
-
-    destroySdkCallbackRef.current = await BuyAndSellTokensHelper.initBuy({ account, currency, id: IFRAME_CONTAINER_ID })
-
-    setIsIframeLoading(false)
-  }
+  const {
+    actionData: { id, isLoading, hasError },
+    setData,
+  } = useActions<TActionsData>({
+    id: UtilsHelper.uuid(),
+    isLoading: true,
+    hasError: false,
+  })
 
   const handleRestart = () => {
-    initIframe()
+    setData({ id: UtilsHelper.uuid(), isLoading: true, hasError: false })
   }
 
-  useMountUnsafe(() => {
-    initIframe()
-  })
+  const handleLoad = () => {
+    setData({ isLoading: false })
+  }
+
+  const handleError = () => {
+    setData({ hasError: true, isLoading: false })
+  }
 
   return (
     <BuyAndSellWrapperContent
       {...props}
-      isLoading={isIframeLoading}
+      isLoading={isLoading}
       account={account}
       tab={tab}
       onTabChange={onTabChange}
       onRestart={handleRestart}
     >
-      <div id={IFRAME_CONTAINER_ID} className="buy-and-sell-tokens-iframe-container mx-auto my-4" />
+      <BuyAndSellTokensIframe
+        type="buy"
+        id={id}
+        hasError={hasError}
+        account={account}
+        onLoad={handleLoad}
+        onError={handleError}
+      />
     </BuyAndSellWrapperContent>
   )
 }
