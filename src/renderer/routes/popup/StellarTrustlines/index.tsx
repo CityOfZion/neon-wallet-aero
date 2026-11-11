@@ -17,6 +17,8 @@ import TbPencil from '@renderer/assets/images/tb-pencil.svg?react'
 
 import type { TAccount } from '@shared/types/store'
 
+import { StellarTrustlinesRecommendedButtons } from './StellarTrustlinesRecommendedButtons'
+
 type TLocationState = {
   stellarAccount: TAccount<TBSStellarName>
 }
@@ -24,7 +26,7 @@ type TLocationState = {
 const StellarTrustlinesPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'stellarTrustlines' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
-  const { modalNavigateWrapper } = useModalNavigate()
+  const { modalNavigate, modalNavigateWrapper } = useModalNavigate()
 
   const location = useLocation() as Location<TLocationState>
   const { stellarAccount } = location.state
@@ -65,6 +67,14 @@ const StellarTrustlinesPage = () => {
             </ul>
           ))}
       </div>
+
+      <StellarTrustlinesRecommendedButtons
+        stellarAccount={stellarAccount}
+        trustlines={trustlinesQuery.data}
+        onAddToken={token => {
+          modalNavigate('stellar-persist-trustline', { state: { stellarAccount, token } })
+        }}
+      />
 
       <Button
         label={t('addTrustlineButtonLabel')}
