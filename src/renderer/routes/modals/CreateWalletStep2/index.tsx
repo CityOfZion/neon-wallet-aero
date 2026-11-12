@@ -90,19 +90,19 @@ export const CreateWalletStep2Modal = () => {
 
       <div className="flex flex-col items-center rounded py-2">
         <div className="grid w-full grid-cols-3 items-center justify-center gap-2 text-center text-lg">
-          {shuffledWords.map((item, index) => {
+          {shuffledWords.map((word, index) => {
             const isWordPressed = wordWasAlreadyPressed(index)
             return (
               <Button
+                key={`${word}-${index}`}
                 className={StyleHelper.mergeStyles({
                   'rounded-sm bg-gray-100': isWordPressed,
                 })}
                 onClick={handlePressWord.bind(null, index)}
-                label={item}
+                label={word}
                 colorSchema={isWordPressed ? 'asphalt' : 'neon'}
                 variant={isWordPressed ? 'text' : 'outlined'}
                 aria-selected={isWordPressed}
-                key={`${item}-${index}`}
               />
             )
           })}
