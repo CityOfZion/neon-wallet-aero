@@ -1,3 +1,4 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { Accordion } from '@renderer/components/Accordion'
@@ -5,8 +6,6 @@ import { Accordion } from '@renderer/components/Accordion'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
 import { SettingsLayout } from '@renderer/layouts/SettingsLayout'
-
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { NetworkConfigurationBlockchainAccordion } from './NetworkConfigurationBlockchainAccordion'
 
@@ -19,7 +18,7 @@ export const NetworkConfigurationPage = () => {
         {BlockchainServiceHelper.blockchainNames.map(blockchain => (
           <NetworkConfigurationBlockchainAccordion
             key={`blockchain-network-${blockchain}`}
-            blockchain={blockchain as TBlockchainServiceKey}
+            blockchain={blockchain as TBSServiceName}
           />
         ))}
       </Accordion.Root>

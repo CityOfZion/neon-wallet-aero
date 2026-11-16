@@ -6,7 +6,6 @@ import { DateHelper } from '@renderer/helpers/DateHelper'
 import { FileHelper } from '@renderer/helpers/FileHelper'
 import { NeonBackupHelper } from '@renderer/helpers/NeonBackupHelper'
 
-import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { EncryptionHelper } from '@shared/helpers/EncryptionHelper'
 import { AppError } from '@shared/helpers/ErrorHelper'
 import { neonBackupContentSchema, neonBackupDataSchema } from '@shared/schemas/neon-backup'
@@ -17,19 +16,17 @@ import type {
   TUseNeonBackupDataSchema,
   TUseNeonBackupGeneratedData,
 } from '@shared/types/hooks'
-import type { TContact, TContactAddress, TSwapRecord } from '@shared/types/store'
+import type { TContact, TContactAddress } from '@shared/types/store'
 
 import { useAccountsSelector } from './useAccountSelector'
 import { useAccountUtils } from './useAccountUtils'
 import { useLoginSessionSelector } from './useAuthSelector'
 import { useBlockchainActions } from './useBlockchainActions'
 import { useContactsSelector } from './useContactSelector'
-import { useAppDispatch } from './useRedux'
 import { useWalletsSelector } from './useWalletSelector'
 
 export const useNeonBackupFile = () => {
   const { t } = useTranslation('hooks', { keyPrefix: 'useNeonBackupFile' })
-  const dispatch = useAppDispatch()
   const { createWallet, importAccounts, saveContacts } = useBlockchainActions()
   const { doesAccountExist } = useAccountUtils()
 
@@ -71,29 +68,7 @@ export const useNeonBackupFile = () => {
 
   const handleGenerateData = (data: zod.infer<typeof neonBackupDataSchema>): TUseNeonBackupGeneratedData => {
     const contactsToCreate: TContact[] = []
-    const swapRecordsToCreate: TSwapRecord[] = []
     const walletsToCreate: TCreateWalletAndAccountParam[] = []
-
-    data.swapRecords?.forEach(swap => {
-      const account = NeonBackupHelper.fixAccountProperties(swap.account)
-      if (!account) return
-
-      swapRecordsToCreate.push({
-        addressTo: swap.addressTo,
-        extraIdTo: swap.extraIdTo,
-        amountFrom: swap.amountFrom,
-        amountTo: swap.amountTo,
-        fee: swap.fee,
-        swapId: swap.swapId,
-        swapProvider: swap.swapProvider,
-        tokenFrom: swap.tokenFrom,
-        tokenTo: swap.tokenTo,
-        txFrom: swap.txFrom,
-        swapStatus: swap.swapStatus,
-        txTo: swap.txTo,
-        account,
-      })
-    })
 
     data.contacts.forEach(contact => {
       const addresses: TContactAddress[] = []
@@ -135,16 +110,11 @@ export const useNeonBackupFile = () => {
     return {
       wallets: walletsToCreate,
       contacts: contactsToCreate,
-      swapRecords: swapRecordsToCreate,
     }
   }
 
   const handleImportBackupData = async (generatedData: TUseNeonBackupGeneratedData) => {
     try {
-      generatedData.swapRecords?.forEach(swap => {
-        dispatch(utilityReducerActions.persistSwapRecord(swap))
-      })
-
       if (generatedData.contacts) await saveContacts(generatedData.contacts)
 
       const promises = generatedData.wallets.map(async walletData => {

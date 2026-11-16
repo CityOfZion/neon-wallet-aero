@@ -437,7 +437,9 @@
         "amountMin": "Amount is too low. Minimum amount is {{amount}}",
         "amountMax": "Amount is too high. Maximum amount is {{amount}}",
         "insufficientFunds": "You don't have enough balance",
-        "insufficientFundsFee": "You don't have enough balance to pay the fee"
+        "insufficientFundsFee": "You don't have enough balance to pay the fee",
+        "amountZero": "Amount must be greater than zero",
+        "noQuotesAvailable": "No quotes available for this swap, try a different amount or token"
       },
       "hints": {
         "enterValidAddress": "Enter a valid address"

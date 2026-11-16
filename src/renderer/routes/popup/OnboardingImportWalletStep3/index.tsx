@@ -1,5 +1,6 @@
 import { Fragment, useEffect } from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -22,7 +23,7 @@ import MdClose from '@renderer/assets/images/md-close.svg?react'
 import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 
 import { AppError } from '@shared/helpers/ErrorHelper'
-import type { TAccountsToImport, TBlockchainServiceKey, TWalletToCreate } from '@shared/types/blockchain'
+import type { TAccountsToImport, TWalletToCreate } from '@shared/types/blockchain'
 import type { TUseNeonMigrateGeneratedData, TUseNep6GeneratedData } from '@shared/types/hooks'
 
 type TLocationState = {
@@ -91,7 +92,7 @@ export const OnboardingImportWalletStep3Page = () => {
       state: {
         heading: t('importEncryptedTitle'),
         description: t('importEncryptedSubtitle'),
-        onSelect: ([blockchain]: TBlockchainServiceKey[]) => {
+        onSelect: ([blockchain]: TBSServiceName[]) => {
           modalNavigate('decrypt-key', {
             state: {
               heading: tDecryptKey('title'),
@@ -160,7 +161,7 @@ export const OnboardingImportWalletStep3Page = () => {
               mnemonic: wallet.mnemonic,
               accounts: wallet.accounts.map(account => ({
                 address: account.address,
-                blockchain: account.blockchain as TBlockchainServiceKey,
+                blockchain: account.blockchain as TBSServiceName,
                 key: account.key,
                 type: account.type as 'standard' | 'watch' | 'hardware' | 'ledger',
               })),

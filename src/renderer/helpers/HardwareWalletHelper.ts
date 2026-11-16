@@ -1,4 +1,5 @@
 import { BSKeychainHelper, hasLedger, type TBSAccount } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { getBluetoothServiceUuids, ledgerUSBVendorId } from '@ledgerhq/devices'
 import type Transport from '@ledgerhq/hw-transport'
 import TransportWebBluetooth from '@ledgerhq/hw-transport-web-ble'
@@ -7,7 +8,6 @@ import cloneDeep from 'lodash/cloneDeep'
 
 import { AppError } from '@shared/helpers/ErrorHelper'
 import { I18nextHelper } from '@shared/helpers/I18nextHelper'
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type {
   THardwareWalletHelperConnectionType,
   THardwareWalletHelperConnectParams,
@@ -110,7 +110,7 @@ export class HardwareWalletHelper {
 
     const services = Object.values(BlockchainServiceHelper.bsAggregator.blockchainServicesByName)
 
-    const accounts: TBSAccount<TBlockchainServiceKey>[] = []
+    const accounts: TBSAccount<TBSServiceName>[] = []
 
     for (const service of services) {
       try {

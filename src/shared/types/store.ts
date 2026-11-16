@@ -1,6 +1,6 @@
-import type { TSwapServiceStatusResponse, TSwapToken } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 
-import type { TBlockchainServiceKey, TNetwork } from './blockchain'
+import type { TNetwork } from './blockchain'
 import type { Optional } from './generics'
 
 export type TAvailableLanguages = 'English' | 'Deutsch' | 'Português (BR)' | '简体中文' | '繁體中文'
@@ -12,12 +12,12 @@ export type TLanguage = {
 
 export type TContactEncryptedAddress = {
   encryptedAddress: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 export type TContactAddress = {
   address: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 export type TContact<A = TContactAddress> = {
@@ -26,46 +26,29 @@ export type TContact<A = TContactAddress> = {
   addresses: A[]
 }
 
-export type TSwapRecord = {
-  account: TAccount
-  txFrom?: string
-  txTo?: string
-  swapProvider: 'simpleswap'
-  swapId?: string
-  swapStatus: TSwapServiceStatusResponse['status']
-  tokenFrom: TSwapToken<TBlockchainServiceKey>
-  tokenTo: TSwapToken<TBlockchainServiceKey>
-  amountFrom: string
-  amountTo: string
-  addressTo: string
-  extraIdTo?: string
-  fee?: string
-  log?: string
-}
-
 type TNotificationNavigateAction = {
   type: 'navigate'
   payload:
     | {
         to: 'account-transactions'
         address: string
-        blockchain: TBlockchainServiceKey
+        blockchain: TBSServiceName
       }
     | {
         to: 'account-tokens'
         address: string
-        blockchain: TBlockchainServiceKey
+        blockchain: TBSServiceName
       }
     | {
         to: 'hide-fraudulent-token'
         address: string
-        blockchain: TBlockchainServiceKey
+        blockchain: TBSServiceName
         tokenHash: string
       }
     | {
         to: 'neo3-vote'
         address: string
-        blockchain: TBlockchainServiceKey
+        blockchain: TBSServiceName
       }
     | {
         to: 'backup-wallet'
@@ -73,7 +56,7 @@ type TNotificationNavigateAction = {
     | {
         to: 'bneo-shutdown'
         address: string
-        blockchain: TBlockchainServiceKey
+        blockchain: TBSServiceName
       }
 }
 
@@ -94,7 +77,7 @@ export type TNotification = {
   provider: 'system'
   action?: TNotificationAction
   related?: {
-    blockchain: TBlockchainServiceKey
+    blockchain: TBSServiceName
     address?: string
   }
 }
@@ -105,7 +88,7 @@ export type TAccountType = 'standard' | 'watch' | 'hardware'
 
 export type TWalletType = 'standard' | 'hardware'
 
-export type TAccount<N extends TBlockchainServiceKey = TBlockchainServiceKey> = N extends TBlockchainServiceKey
+export type TAccount<N extends TBSServiceName = TBSServiceName> = N extends TBSServiceName
   ? {
       id: string
       address: string
@@ -129,7 +112,7 @@ export type TWallet = {
   backupStatus: TWalletBackupStatus
 }
 
-export type TAccountWithWallet<N extends TBlockchainServiceKey = TBlockchainServiceKey> = TAccount<N> & {
+export type TAccountWithWallet<N extends TBSServiceName = TBSServiceName> = TAccount<N> & {
   wallet: TWallet
 }
 
@@ -148,16 +131,16 @@ export type TCurrency = {
 }
 
 export type TSelectedNetworks = {
-  [K in TBlockchainServiceKey]: TNetwork
+  [K in TBSServiceName]: TNetwork
 }
 
 export type TCustomNetworks = {
-  [K in TBlockchainServiceKey]: TNetwork[]
+  [K in TBSServiceName]: TNetwork[]
 }
 
-export type TLastIndexesByWallet = Partial<Record<TBlockchainServiceKey, Record<string, number>>>
+export type TLastIndexesByWallet = Partial<Record<TBSServiceName, Record<string, number>>>
 
-export type THiddenTokenByBlockchain = Partial<Record<TBlockchainServiceKey, string[]>>
+export type THiddenTokenByBlockchain = Partial<Record<TBSServiceName, string[]>>
 
 export type TImportAccountsSelectionType = 'mnemonic' | 'key' | 'address'
 

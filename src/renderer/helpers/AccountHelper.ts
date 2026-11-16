@@ -1,6 +1,6 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import orderBy from 'lodash/orderBy'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccountHelperPredicateParams } from '@shared/types/helpers'
 import type { TAccount } from '@shared/types/store'
 
@@ -15,7 +15,7 @@ export class AccountHelper {
     return (account: TAccountHelperPredicateParams) => address !== account.address || blockchain !== account.blockchain
   }
 
-  static getNextOrderOrMissing(accounts: TAccount[], blockchain: TBlockchainServiceKey) {
+  static getNextOrderOrMissing(accounts: TAccount[], blockchain: TBSServiceName) {
     const orders = accounts.filter(account => account.blockchain === blockchain).map(({ order }) => order)
 
     if (orders.length === 0) return 0

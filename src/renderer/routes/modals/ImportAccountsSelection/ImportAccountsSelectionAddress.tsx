@@ -1,4 +1,5 @@
 import type { TBSAccount } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { Banner } from '@renderer/components/Banner'
@@ -13,20 +14,19 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 
 import { AppError } from '@shared/helpers/ErrorHelper'
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import type { TBlockchainAccounts } from '.'
 import { ImportAccountsSelectionForm } from './ImportAccountsSelectionForm'
 
 type TActionsData = {
   blockchainAccounts: TBlockchainAccounts
-  selectedAccounts: TBSAccount<TBlockchainServiceKey>[]
+  selectedAccounts: TBSAccount<TBSServiceName>[]
 }
 
 type TProps = {
   value: string
   showSuccessToast: boolean
-  onSubmit: (selectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => Promise<void>
+  onSubmit: (selectedAccounts: TBSAccount<TBSServiceName>[]) => Promise<void>
 }
 
 export const ImportAccountsSelectionAddress = ({ value, showSuccessToast, onSubmit }: TProps) => {
@@ -43,7 +43,7 @@ export const ImportAccountsSelectionAddress = ({ value, showSuccessToast, onSubm
 
   const isDisabled = actionState.isActing || !actionState.isValid || selectedAccounts.length === 0
 
-  const handleSelectAccounts = (newSelectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => {
+  const handleSelectAccounts = (newSelectedAccounts: TBSAccount<TBSServiceName>[]) => {
     setData({ selectedAccounts: newSelectedAccounts })
   }
 

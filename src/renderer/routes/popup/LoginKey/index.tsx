@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -16,7 +17,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
-import type { TAccountsToImport, TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TAccountsToImport } from '@shared/types/blockchain'
 
 export const LoginKeyPage = () => {
   const { loginWithKey } = useLogin()
@@ -84,7 +85,7 @@ export const LoginKeyPage = () => {
       state: {
         heading: t('encryptedKey.title'),
         description: t('encryptedKey.blockchainSelectionDescription'),
-        onSelect: ([blockchain]: TBlockchainServiceKey[]) => {
+        onSelect: ([blockchain]: TBSServiceName[]) => {
           modalNavigate('decrypt-key', {
             state: {
               heading: t('encryptedKey.title'),

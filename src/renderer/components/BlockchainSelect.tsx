@@ -1,18 +1,17 @@
 import { Fragment } from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-
 import { BlockchainIcon } from './BlockchainIcon'
 import { Select } from './Select'
 
 type TProps = {
-  value?: TBlockchainServiceKey
-  onSelect?: (blockchain: TBlockchainServiceKey) => void
+  value?: TBSServiceName
+  onSelect?: (blockchain: TBSServiceName) => void
 }
 
 export const BlockchainSelect = ({ value, onSelect }: TProps) => {

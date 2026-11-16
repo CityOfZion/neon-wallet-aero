@@ -1,3 +1,4 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { Fragment } from 'react/jsx-runtime'
 import { useTranslation } from 'react-i18next'
 
@@ -22,14 +23,13 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 import TbCheck from '@renderer/assets/images/tb-check.svg?react'
 
 import { AppError } from '@shared/helpers/ErrorHelper'
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
 import type { TAccount, TWallet } from '@shared/types/store'
 
 import { CreateAccountStep2Accordion } from './CreateAccountStep2Accordion'
 
 type TActionsData = {
-  selectedBlockchain?: TBlockchainServiceKey
+  selectedBlockchain?: TBSServiceName
   selectedWallet?: TWallet
 }
 
@@ -53,7 +53,7 @@ export const CreateAccountStep2Modal = () => {
   const isDisabled =
     actionState.isActing || !selectedWallet || (selectedWallet.type !== 'hardware' && !selectedBlockchain)
 
-  const handleSelectBlockchain = (blockchain: TBlockchainServiceKey) => {
+  const handleSelectBlockchain = (blockchain: TBSServiceName) => {
     setData({ selectedBlockchain: blockchain })
   }
 

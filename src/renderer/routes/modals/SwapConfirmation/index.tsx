@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 
 import { BSUtilsHelper } from '@cityofzion/blockchain-service'
-import cloneDeep from 'lodash/cloneDeep'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,7 +15,6 @@ import { ToastHelper } from '@renderer/helpers/ToastHelper'
 
 import { useConfirmAction } from '@renderer/hooks/useConfirmAction'
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
-import { useAppDispatch } from '@renderer/hooks/useRedux'
 import { useWalletByIdSelector } from '@renderer/hooks/useWalletSelector'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
@@ -26,60 +24,64 @@ import TbCheck from '@renderer/assets/images/tb-check.svg?react'
 import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 import TbTransform from '@renderer/assets/images/tb-transform.svg?react'
 
-import { utilityReducerActions } from '@renderer/store/reducers/utility'
-import { thunks } from '@renderer/store/thunks'
 import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TModalState } from '@shared/types/modal'
 
 export const SwapConfirmationModal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'swapConfirmation' })
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
-  const { swapRecord, swapOrchestrator } = useModalState<TModalState<'swap-confirmation'>>()
-  const { wallet } = useWalletByIdSelector(swapRecord.account.idWallet)
+  const { account, swapOrchestrator } = useModalState<TModalState<'swap-confirmation'>>()
+  const { wallet } = useWalletByIdSelector(account.idWallet)
   const { confirmAction } = useConfirmAction()
   const { modalNavigate } = useModalNavigate()
 
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
 
   const [isConfirming, setIsConfirming] = useState(false)
 
-  const handleConfirm = async () => {
-    if (!swapOrchestrator) return
+  const state = useSyncExternalStore(swapOrchestrator.store.subscribe, swapOrchestrator.store.getState)
 
+  const tokenToUse = state.tokenToUse.value
+  const tokenToReceive = state.tokenToReceive.value
+  const amountToUse = state.amountToUse.value
+  const amountToReceive = state.quote.value?.amountToReceive
+  const addressToReceive = state.addressToReceive.value
+
+  const handleConfirm = async () => {
     setIsConfirming(true)
 
     try {
-      await confirmAction({ account: swapRecord.account })
+      await confirmAction({ account })
 
-      const swapResponse = await swapOrchestrator.swap()
+      const { swapId: orderId } = await swapOrchestrator.createOrder()
 
-      if (swapResponse.transaction) {
-        dispatch(thunks.waitPendingTransaction({ pendingTransaction: swapResponse.transaction }))
-      }
+      swapOrchestrator
+        .executeOrder()
+        .then(swapResult => {
+          if (swapResult.status !== 'failed') return
 
-      const txId = swapResponse.transaction?.txId
-      const newSwapRecord = cloneDeep(swapRecord)
+          LoggerHelper.sentry(new Error(swapResult.log), { where: 'SwapConfirmation', operation: 'executeOrder' })
+          ToastHelper.error({ message: AppError.wrap(new Error(swapResult.log)).message })
+        })
+        .catch(error => {
+          LoggerHelper.sentry(error, { where: 'SwapConfirmation', operation: 'executeOrder' })
+          ToastHelper.error({ message: AppError.wrap(error).message })
+        })
 
-      newSwapRecord.swapId = swapResponse.id
-      newSwapRecord.txFrom = txId
-      newSwapRecord.log = swapResponse.log
-      newSwapRecord.swapStatus = txId ? newSwapRecord.swapStatus : 'refunded'
-
-      dispatch(utilityReducerActions.persistSwapRecord(newSwapRecord))
-
-      modalNavigate('swap-details', { state: { swapRecord: newSwapRecord }, replace: true })
+      modalNavigate('swap-details', { state: { orderId }, replace: true })
 
       BSUtilsHelper.wait(1000).then(() => {
-        navigate('/wallets', { state: { wallet, account: newSwapRecord.account, tab: 'transactions' }, replace: true })
+        navigate('/wallets', { state: { wallet, account, tab: 'transactions' }, replace: true })
       })
-    } catch (error: any) {
+    } catch (error) {
       LoggerHelper.sentry(error, { where: 'SwapConfirmation', operation: 'submitSwap' })
       ToastHelper.error({ message: AppError.wrap(error).message })
     } finally {
       setIsConfirming(false)
     }
   }
+
+  if (!tokenToUse || !tokenToReceive || !amountToUse || !amountToReceive || !addressToReceive) return null
 
   return (
     <BottomModalLayout heading={t('heading')}>
@@ -106,26 +108,23 @@ export const SwapConfirmationModal = () => {
                     <div className="flex w-full grow flex-col justify-center gap-3 px-2.5 pb-3 text-sm">
                       <p className="text-xs text-gray-100 uppercase">{t('youWantToSwap')}</p>
                       <div className="flex items-center text-sm">
-                        <BlockchainIcon
-                          className="mr-2.5 text-gray-300"
-                          blockchain={swapRecord.tokenFrom.blockchain!}
-                        />
+                        <BlockchainIcon className="mr-2.5 text-gray-300" blockchain={tokenToUse.blockchain!} />
 
                         <div className="shrink uppercase">
-                          <span className="whitespace-nowrap text-white">{swapRecord.tokenFrom.symbol}</span>
-                          {swapRecord.tokenFrom.blockchain && (
-                            <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(swapRecord.tokenFrom.blockchain)}`}</span>
+                          <span className="whitespace-nowrap text-white">{tokenToUse.symbol}</span>
+                          {tokenToUse.blockchain && (
+                            <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(tokenToUse.blockchain)}`}</span>
                           )}
                         </div>
 
                         <TbArrowLeft aria-hidden className="text-orange mx-3.5 rotate-180" />
 
-                        <BlockchainIcon className="mr-2.5 text-gray-300" blockchain={swapRecord.tokenTo.blockchain!} />
+                        <BlockchainIcon className="mr-2.5 text-gray-300" blockchain={tokenToReceive.blockchain!} />
 
                         <div className="shrink uppercase">
-                          <span className="whitespace-nowrap text-white">{swapRecord.tokenTo.symbol}</span>
-                          {swapRecord.tokenTo.blockchain && (
-                            <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(swapRecord.tokenTo.blockchain)}`}</span>
+                          <span className="whitespace-nowrap text-white">{tokenToReceive.symbol}</span>
+                          {tokenToReceive.blockchain && (
+                            <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(tokenToReceive.blockchain)}`}</span>
                           )}
                         </div>
                       </div>
@@ -135,7 +134,7 @@ export const SwapConfirmationModal = () => {
 
                     <div className="flex min-h-14 w-full grow flex-col justify-center gap-3 px-2.5 py-3 text-sm">
                       <p className="text-xs text-gray-100 uppercase">{t('sendingAddress')}</p>
-                      <p className="text-sm break-all">{swapRecord.account.address}</p>
+                      <p className="text-sm break-all">{account.address}</p>
                     </div>
                   </div>
                 </Details.Item>
@@ -147,20 +146,17 @@ export const SwapConfirmationModal = () => {
 
                       <div className="flex justify-between">
                         <div className="flex items-center text-sm">
-                          <BlockchainIcon
-                            className="mr-2.5 text-gray-300"
-                            blockchain={swapRecord.tokenFrom.blockchain!}
-                          />
+                          <BlockchainIcon className="mr-2.5 text-gray-300" blockchain={tokenToUse.blockchain!} />
 
                           <div className="shrink uppercase">
-                            <span className="whitespace-nowrap text-white">{swapRecord.tokenFrom.name}</span>
-                            {swapRecord.tokenFrom.blockchain && (
-                              <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(swapRecord.tokenFrom.blockchain)}`}</span>
+                            <span className="whitespace-nowrap text-white">{tokenToUse.name}</span>
+                            {tokenToUse.blockchain && (
+                              <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(tokenToUse.blockchain)}`}</span>
                             )}
                           </div>
                         </div>
 
-                        <p className="text-sm text-white">{swapRecord.amountFrom}</p>
+                        <p className="text-sm text-white">{amountToUse}</p>
                       </div>
                     </div>
 
@@ -168,7 +164,7 @@ export const SwapConfirmationModal = () => {
 
                     <div className="flex min-h-14 w-full grow flex-col justify-center gap-3 px-2.5 py-3 text-sm">
                       <p className="text-xs text-gray-100 uppercase">{t('receivingAddress')}</p>
-                      <p className="text-sm break-all">{swapRecord.addressTo}</p>
+                      <p className="text-sm break-all">{addressToReceive}</p>
                     </div>
                   </div>
                 </Details.Item>
@@ -180,21 +176,18 @@ export const SwapConfirmationModal = () => {
 
                       <div className="flex justify-between">
                         <div className="flex items-center text-sm">
-                          <BlockchainIcon
-                            className="mr-2.5 text-gray-300"
-                            blockchain={swapRecord.tokenTo.blockchain!}
-                          />
+                          <BlockchainIcon className="mr-2.5 text-gray-300" blockchain={tokenToReceive.blockchain!} />
 
                           <div className="shrink uppercase">
-                            <span className="whitespace-nowrap text-white">{swapRecord.tokenTo.name}</span>
-                            {swapRecord.tokenTo.blockchain && (
-                              <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(swapRecord.tokenTo.blockchain)}`}</span>
+                            <span className="whitespace-nowrap text-white">{tokenToReceive.name}</span>
+                            {tokenToReceive.blockchain && (
+                              <span className="whitespace-nowrap text-gray-300">{` | ${tCommonBlockchain(tokenToReceive.blockchain)}`}</span>
                             )}
                           </div>
                         </div>
 
-                        <Tooltip title={swapRecord.amountTo}>
-                          <p className="text-sm text-white">{StringHelper.truncate(swapRecord.amountTo, 15)}</p>
+                        <Tooltip title={amountToReceive}>
+                          <p className="text-sm text-white">{StringHelper.truncate(amountToReceive, 15)}</p>
                         </Tooltip>
                       </div>
                     </div>

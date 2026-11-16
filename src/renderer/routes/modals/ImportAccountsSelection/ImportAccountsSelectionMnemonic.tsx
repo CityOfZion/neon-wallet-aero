@@ -1,4 +1,5 @@
 import type { TBSAccount } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
@@ -12,7 +13,6 @@ import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useLastIndexesByWallet } from '@renderer/hooks/useUtilitySelector'
 
 import { AppError } from '@shared/helpers/ErrorHelper'
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import type { TBlockchainAccounts, TImportAccountsSelectionAccount } from '.'
 import { ImportAccountsSelectionForm } from './ImportAccountsSelectionForm'
@@ -43,7 +43,7 @@ export const ImportAccountsSelectionMnemonic = ({ value, showSuccessToast, onSub
 
   const isDisabled = actionState.isActing || !actionState.isValid || selectedAccounts.length === 0
 
-  const handleSelectAccounts = (newSelectedAccounts: TBSAccount<TBlockchainServiceKey>[]) => {
+  const handleSelectAccounts = (newSelectedAccounts: TBSAccount<TBSServiceName>[]) => {
     setData({ selectedAccounts: newSelectedAccounts })
   }
 

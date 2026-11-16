@@ -1,4 +1,5 @@
 import { hasNeo3NeoXBridge } from '@cityofzion/blockchain-service'
+import type { TSwapApiOrderSummary } from '@cityofzion/bs-multichain'
 import type React from 'react'
 import type { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -14,7 +15,6 @@ import { StringHelper } from '@renderer/helpers/StringHelper'
 import { useAccountsMapSelector } from '@renderer/hooks/useAccountSelector'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
-import { useSwapRecordByHashSelector } from '@renderer/hooks/useUtilitySelector'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 import TbChevronRight from '@renderer/assets/images/tb-chevron-right.svg?react'
@@ -30,12 +30,12 @@ import { TransactionActivityListTooltip } from './TransactionActivityListTooltip
 
 type TProps = {
   transaction: TUseTransactionsTransaction
+  swapOrders: TSwapApiOrderSummary[]
 }
 
-export const TransactionActivityListItemsHeaderContent = ({ transaction }: TProps) => {
+export const TransactionActivityListItemsHeaderContent = ({ transaction, swapOrders }: TProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'transactionActivityList.items' })
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
-  const { swapRecord } = useSwapRecordByHashSelector(transaction.txId)
   const { modalNavigate } = useModalNavigate()
   const { language } = useLanguageSelector()
   const { accountsMap } = useAccountsMapSelector()
@@ -51,9 +51,12 @@ export const TransactionActivityListItemsHeaderContent = ({ transaction }: TProp
     event.stopPropagation()
   }
 
+  const swapOrder = swapOrders.find(({ sourceTxHash }) => sourceTxHash && sourceTxHash === transaction.txId)
+
   const handleGoToSwapDetails = () => {
-    if (!swapRecord) return
-    modalNavigate('swap-details', { state: { swapRecord } })
+    if (!swapOrder) return
+
+    modalNavigate('swap-details', { state: { orderId: swapOrder.orderId } })
   }
 
   const handleGoToNeo3NeoXBridgeDetails = () => {
@@ -124,9 +127,9 @@ export const TransactionActivityListItemsHeaderContent = ({ transaction }: TProp
       </div>
 
       <div className="flex items-center gap-x-2 truncate whitespace-nowrap">
-        {(swapRecord || bridgeData) && (
+        {(swapOrder || bridgeData) && (
           <div className="flex items-center gap-x-2" onClick={handleCancelBubbleEvent}>
-            {swapRecord && (
+            {swapOrder && (
               <TransactionActivityListItemsHeaderContentDetails
                 role="button"
                 tabIndex={0}

@@ -568,7 +568,8 @@
     "helpButtonLabel": "Precisa de ajuda? Suporte ao vivo",
     "swapLogButtonLabel": "Log de troca",
     "saveContactButtonLabel": "Salvar contato",
-    "contactSavedTooltipLabel": "{{name}} foi salvo em seus contatos."
+    "contactSavedTooltipLabel": "{{name}} foi salvo em seus contatos.",
+    "notFound": "Não foi possível carregar os detalhes deste swap"
   },
   "swapDetailsLog": {
     "title": "Log de swap",

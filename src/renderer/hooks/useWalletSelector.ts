@@ -1,11 +1,11 @@
 import { useRef } from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useSelector } from 'react-redux'
 
 import { AccountHelper } from '@renderer/helpers/AccountHelper'
 import { SelectorHelper } from '@renderer/helpers/SelectorHelper'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TRootState } from '@shared/types/redux'
 import type { TWallet } from '@shared/types/store'
 
@@ -41,7 +41,7 @@ export const selectWalletById = (walletId: string) =>
     }
   )
 
-const selectWalletsByBlockchains = (blockchains: TBlockchainServiceKey[]) =>
+const selectWalletsByBlockchains = (blockchains: TBSServiceName[]) =>
   createAppSelector(
     [({ auth }) => auth.data.applicationDataByLoginType, ({ auth }) => auth.memoryData.loginSession],
     (applicationDataByLoginType, loginSession) => {
@@ -73,7 +73,7 @@ export const useWalletByIdSelector = (walletId: string) => {
   }
 }
 
-export const useWalletsByBlockchainsSelector = (blockchains: TBlockchainServiceKey[]) => {
+export const useWalletsByBlockchainsSelector = (blockchains: TBSServiceName[]) => {
   const { value: walletsByBlockchains, ref: walletsByBlockchainsRef } = useAppSelector(
     selectWalletsByBlockchains(blockchains)
   )

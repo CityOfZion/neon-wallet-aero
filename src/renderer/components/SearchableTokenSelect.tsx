@@ -10,6 +10,7 @@ import {
 } from 'react'
 
 import type { TBSToken } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import debounce from 'lodash/debounce'
 import { useTranslation } from 'react-i18next'
@@ -20,8 +21,6 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import MdSearch from '@renderer/assets/images/md-search.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-
 import { Command } from './Command'
 import { Loader } from './Loader'
 import { Popover } from './Popover'
@@ -29,7 +28,7 @@ import { Separator } from './Separator'
 import { TokenItem } from './TokenItem'
 
 type TSearchableTokenContext = {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   tokens: TBSToken[]
   isLoading: boolean
   filter: string
@@ -57,7 +56,7 @@ const useSearchableTokenContext = () => {
 }
 
 type TRootProps = ComponentProps<typeof Popover.Root> & {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   value?: TBSToken
   onValueChange?: (value: TBSToken) => void
   onSearch: (value: string) => Promise<TBSToken[]>

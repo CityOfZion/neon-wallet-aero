@@ -1,5 +1,6 @@
 import { cloneElement } from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { ComponentProps, JSX, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -8,8 +9,6 @@ import { ElementHelper } from '@renderer/helpers/ElementHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
-
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { BlockchainIcon } from './BlockchainIcon'
 import { IconButton } from './IconButton'
@@ -138,7 +137,7 @@ const Item = ({ label, children, copyable, className, contentClassName, rightEle
 }
 
 type TTokenProps = {
-  blockchain?: TBlockchainServiceKey
+  blockchain?: TBSServiceName
   symbol: string
   amount?: string
 } & ComponentProps<'div'>

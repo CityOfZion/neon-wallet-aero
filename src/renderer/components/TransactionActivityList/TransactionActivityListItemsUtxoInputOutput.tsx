@@ -1,4 +1,5 @@
 import { BSBigHumanAmount, type TTransactionUtxoInputOutput } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { IconButton } from '@renderer/components/IconButton'
@@ -17,8 +18,6 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import MdContentCopy from '@renderer/assets/images/md-content-copy.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-
 import { TransactionActivityListItemsColumn } from './TransactionActivityListItemsColumn'
 import { TransactionActivityListItemsColumnDataAddress } from './TransactionActivityListItemsColumnDataAddress'
 import { TransactionActivityListTooltip } from './TransactionActivityListTooltip'
@@ -26,7 +25,7 @@ import { TransactionActivityListTooltip } from './TransactionActivityListTooltip
 type TProps = {
   input?: TTransactionUtxoInputOutput
   output?: TTransactionUtxoInputOutput
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   index: number
   contentClassName?: string
 }

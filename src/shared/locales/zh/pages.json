@@ -135,11 +135,7 @@
   "onboardingLoginNewWallet": {
     "description": "正在保护您的新钱包",
     "goBackIconButtonLabel": "返回",
-    "steps": [
-      "创建密码",
-      "确认密码",
-      "完成"
-    ]
+    "steps": ["创建密码", "确认密码", "完成"]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "输入您的新密码",
@@ -168,13 +164,7 @@
     "title": "导入钱包",
     "description": "请创建密码以保护您的钱包",
     "goBackIconButtonLabel": "返回",
-    "steps": [
-      "创建密码",
-      "确认密码",
-      "添加详情或定位文件",
-      "导入",
-      "完成"
-    ],
+    "steps": ["创建密码", "确认密码", "添加详情或定位文件", "导入", "完成"],
     "migrationLabel": "定位您的迁移文件",
     "step3": {
       "formTitle": "输入地址、加密密钥、私钥、助记词或定位备份文件",
@@ -442,7 +432,9 @@
         "amountMin": "数量太低。最小数量为 {{amount}}",
         "amountMax": "数量太高。最大数量为 {{amount}}",
         "insufficientFunds": "余额不足",
-        "insufficientFundsFee": "余额不足以支付手续费"
+        "insufficientFundsFee": "余额不足以支付手续费",
+        "amountZero": "数量必须大于零",
+        "noQuotesAvailable": "此兑换没有可用报价，请尝试其他数量或代币"
       },
       "hints": {
         "enterValidAddress": "请输入有效地址"

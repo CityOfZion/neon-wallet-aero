@@ -19,17 +19,6 @@ const selectHasClaimPendingTransaction = (account: TAccount) =>
     )
   })
 
-const selectSwapRecordByHash = (hash: string) =>
-  createAppSelector([state => state.utility.data.swapRecords], swapRecords =>
-    swapRecords.find(({ txFrom, account }) => {
-      const service = account
-        ? BlockchainServiceHelper.bsAggregator.blockchainServicesByName[account.blockchain]
-        : undefined
-
-      return !!txFrom && !!service && service.tokenService.predicateByHash(hash, txFrom)
-    })
-  )
-
 export const usePendingTransactionsSelector = () => {
   const { value, ref } = useAppSelector(state => state.utility.memoryData.pendingTransactions)
 
@@ -64,12 +53,6 @@ export const useHiddenTokensByBlockchainSelector = () => {
     hiddenTokensByBlockchain: value,
     hiddenTokensByBlockchainRef: ref,
   }
-}
-
-export const useSwapRecordByHashSelector = (hash: string) => {
-  const { value: swapRecord, ref: swapRecordRef } = useAppSelector(selectSwapRecordByHash(hash))
-
-  return { swapRecord, swapRecordRef }
 }
 
 export const useLoginControlSelector = () => {

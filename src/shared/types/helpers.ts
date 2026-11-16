@@ -1,13 +1,13 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { Event } from '@sentry/react'
 import type { JSX, ReactNode } from 'react'
 import type { ToastT } from 'sonner'
 
-import type { TBlockchainServiceKey } from './blockchain'
 import type { TCurrency, TLanguage, TLastIndexesByWallet } from './store'
 
 export type TAccountHelperPredicateParams = {
   address: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 export type THardwareWalletHelperConnectParams = {
@@ -17,11 +17,11 @@ export type THardwareWalletHelperConnectParams = {
 
 export type THardwareWalletHelperGetAccountParams = {
   index: number
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 export type THardwareWalletHelperEnsureConnectionParams = {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   address: string
   bipPath?: string
 }
@@ -106,7 +106,7 @@ export type TSentryHelperOptions = TLoggerHelperOptions & {
 }
 
 export type TNetworkHelperIsNeoxAntiMevParams = {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   networkId: string
   url: string
 }

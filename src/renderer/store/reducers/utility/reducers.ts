@@ -1,17 +1,16 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash/cloneDeep'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TUseTransactionsTransaction } from '@shared/types/hooks'
-import type { TSwapRecord } from '@shared/types/store'
 
 import type { TUtilityReducer } from './index'
 
 type THiddenTokenParams = {
   tokenHash: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 // Pending Transaction Reducers
@@ -38,7 +37,7 @@ const saveLastIndexByWallet: CaseReducer<
   PayloadAction<{
     index: number
     firstAccountAddress: string
-    blockchain: TBlockchainServiceKey
+    blockchain: TBSServiceName
   }>
 > = (state, action) => {
   const { firstAccountAddress, index, blockchain } = action.payload
@@ -46,25 +45,6 @@ const saveLastIndexByWallet: CaseReducer<
     ...state.data.lastIndexesByWallet[blockchain],
     [firstAccountAddress]: index,
   }
-}
-
-// Swap Reducers
-const persistSwapRecord: CaseReducer<TUtilityReducer, PayloadAction<TSwapRecord>> = (state, action) => {
-  const swapRecord = cloneDeep(action.payload)
-
-  // We don't want to save this long information in the storage
-  swapRecord.log = undefined
-
-  const index = state.data.swapRecords.findIndex(
-    swap => swap.swapId === swapRecord.swapId && swap.swapProvider === swapRecord.swapProvider
-  )
-
-  if (index === -1) {
-    state.data.swapRecords = [...state.data.swapRecords, swapRecord]
-    return
-  }
-
-  state.data.swapRecords[index] = swapRecord
 }
 
 // Hidden Tokens Reducers
@@ -98,6 +78,5 @@ export const utilitySliceReducers = {
   removePendingTransaction,
   saveLastIndexByWallet,
   setEncryptedLoginControl,
-  persistSwapRecord,
   toggleHiddenToken,
 }

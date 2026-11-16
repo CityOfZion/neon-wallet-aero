@@ -135,11 +135,7 @@
   "onboardingLoginNewWallet": {
     "description": "正在保護您的新錢包",
     "goBackIconButtonLabel": "返回",
-    "steps": [
-      "建立密碼",
-      "確認密碼",
-      "完成"
-    ]
+    "steps": ["建立密碼", "確認密碼", "完成"]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "輸入您的新密碼",
@@ -168,13 +164,7 @@
     "title": "匯入錢包",
     "description": "請建立密碼以保護您的錢包",
     "goBackIconButtonLabel": "返回",
-    "steps": [
-      "建立密碼",
-      "確認密碼",
-      "添加詳情或定位檔案",
-      "匯入",
-      "完成"
-    ],
+    "steps": ["建立密碼", "確認密碼", "添加詳情或定位檔案", "匯入", "完成"],
     "migrationLabel": "定位您的遷移檔案",
     "step3": {
       "formTitle": "輸入地址、加密金鑰、私鑰、助記詞或定位備份檔案",
@@ -442,7 +432,9 @@
         "amountMin": "金額過低。最低金額為 {{amount}}",
         "amountMax": "金額過高。最高金額為 {{amount}}",
         "insufficientFunds": "餘額不足",
-        "insufficientFundsFee": "餘額不足以支付手續費"
+        "insufficientFundsFee": "餘額不足以支付手續費",
+        "amountZero": "金額必須大於零",
+        "noQuotesAvailable": "此兌換沒有可用報價，請嘗試其他金額或代幣"
       },
       "hints": {
         "enterValidAddress": "輸入有效地址"

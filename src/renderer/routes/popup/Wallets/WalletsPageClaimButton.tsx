@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import type { IBlockchainService, IBSWithClaim } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -9,12 +10,11 @@ import { Skeleton } from '@renderer/components/Skeleton'
 import { useBalance } from '@renderer/hooks/useBalances'
 import { useUnclaimed, useUnclaimedMutation } from '@renderer/hooks/useUnclaimedQuery'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccount } from '@shared/types/store'
 
 type TProps = {
   selectAccount: TAccount
-  blockchainService: IBlockchainService<TBlockchainServiceKey> & IBSWithClaim<TBlockchainServiceKey>
+  blockchainService: IBlockchainService<TBSServiceName> & IBSWithClaim<TBSServiceName>
 }
 
 export const WalletPageClaimButton = ({ selectAccount, blockchainService }: TProps) => {
