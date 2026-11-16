@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { hasWalletConnect } from '@cityofzion/blockchain-service'
+import { BSKeychainHelper, hasWalletConnect } from '@cityofzion/blockchain-service'
 import { WalletKitHelper } from '@cityofzion/bs-multichain'
 import cloneDeep from 'lodash/cloneDeep'
 import { useTranslation } from 'react-i18next'
@@ -60,7 +60,10 @@ export function useBlockchainActions() {
       let encryptedMnemonic: string | undefined
 
       if (mnemonic) {
-        encryptedMnemonic = await EncryptionHelper.encrypt(mnemonic, loginSessionRef.current.encryptedPassword)
+        encryptedMnemonic = await EncryptionHelper.encrypt(
+          BSKeychainHelper.normalizeMnemonic(mnemonic),
+          loginSessionRef.current.encryptedPassword
+        )
       }
 
       const newWallet: TWallet = {
@@ -295,7 +298,10 @@ export function useBlockchainActions() {
       let encryptedMnemonic = wallet.encryptedMnemonic
 
       if (data.mnemonic) {
-        encryptedMnemonic = await EncryptionHelper.encrypt(data.mnemonic, loginSessionRef.current.encryptedPassword)
+        encryptedMnemonic = await EncryptionHelper.encrypt(
+          BSKeychainHelper.normalizeMnemonic(data.mnemonic),
+          loginSessionRef.current.encryptedPassword
+        )
 
         delete data.mnemonic
       }
