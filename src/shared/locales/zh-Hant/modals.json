@@ -568,7 +568,8 @@
     "helpButtonLabel": "需要幫助？即時支援",
     "swapLogButtonLabel": "兌換紀錄",
     "saveContactButtonLabel": "保存聯絡人",
-    "contactSavedTooltipLabel": "{{name}} 已被保存到您的聯絡人中。"
+    "contactSavedTooltipLabel": "{{name}} 已被保存到您的聯絡人中。",
+    "notFound": "我們無法載入此兌換的詳情"
   },
   "swapDetailsLog": {
     "title": "兌換紀錄",

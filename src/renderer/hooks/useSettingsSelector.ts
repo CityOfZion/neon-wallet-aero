@@ -1,4 +1,5 @@
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
+
 import type { TSelectedNetworks } from '@shared/types/store'
 
 import { useAppSelector } from './useRedux'
@@ -12,7 +13,7 @@ export const useSelectedNetworkByBlockchainSelector = () => {
   }
 }
 
-export const useSelectedNetworkSelector = <T extends TBlockchainServiceKey>(blockchain: T) => {
+export const useSelectedNetworkSelector = <T extends TBSServiceName>(blockchain: T) => {
   const { value, ref } = useAppSelector(
     state => state.settings.data.selectedNetworkByBlockchain[blockchain] as TSelectedNetworks[T]
   )
@@ -23,7 +24,7 @@ export const useSelectedNetworkSelector = <T extends TBlockchainServiceKey>(bloc
   }
 }
 
-export const useCustomNetworksByBlockchainSelector = (blockchain: TBlockchainServiceKey) => {
+export const useCustomNetworksByBlockchainSelector = (blockchain: TBSServiceName) => {
   const { value, ref } = useAppSelector(state => state.settings.data.customNetworks[blockchain])
 
   return {

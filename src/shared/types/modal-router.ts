@@ -1,5 +1,5 @@
 import type { IBlockchainService, TBridgeToken, TBSBridgeName, TBSToken } from '@cityofzion/blockchain-service'
-import type { SimpleSwapOrchestrator, TWalletKitHelperSessionDetails } from '@cityofzion/bs-multichain'
+import type { ISwapOrchestrator, TBSServiceName, TWalletKitHelperSessionDetails } from '@cityofzion/bs-multichain'
 import type { TBSNeo3Name, TVoteServiceCandidate } from '@cityofzion/bs-neo3'
 import type { TBSStellarName } from '@cityofzion/bs-stellar'
 import type { PendingRequestTypes, ProposalTypes, SessionTypes } from '@walletconnect/types'
@@ -10,7 +10,7 @@ import type { TButtonProps } from '@renderer/components/Button'
 import type { TImportAccountsSelectionAccount } from '@renderer/routes/modals/ImportAccountsSelection'
 import type { TBuyAndSellTokensDepositActions } from '@renderer/routes/tab/BuyAndSellTokens'
 
-import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import type { TNetwork } from '@shared/types/blockchain'
 import type {
   TUseImportNep6Account,
   TUseNeonMigrateGeneratedData,
@@ -20,15 +20,7 @@ import type {
   TUseTransactionsTransaction,
 } from '@shared/types/hooks'
 
-import type {
-  TAccount,
-  TAccountType,
-  TContact,
-  TContactAddress,
-  TImportAccountsSelectionType,
-  TSwapRecord,
-  TWallet,
-} from './store'
+import type { TAccount, TAccountType, TContact, TContactAddress, TImportAccountsSelectionType, TWallet } from './store'
 
 type TWalletSelectionModalState = {
   selectedWallet?: TWallet
@@ -66,7 +58,7 @@ type TAccountEditModalState = {
 type TAccountSelectionByBlockchainModalState = {
   description?: string
   submitButtonLabel?: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   selectedWallet: TWallet
   selectedAccount?: TAccount
   onSelect(account: TAccount, wallet: TWallet): void
@@ -84,14 +76,14 @@ type TBlockchainSelectionModalState = {
   description: string
   isMulti?: boolean
   submitButtonProps?: TButtonProps
-  onSelect: (blockchains: TBlockchainServiceKey[]) => void | Promise<void>
+  onSelect: (blockchains: TBSServiceName[]) => void | Promise<void>
 }
 
 type TDecryptKeyModalState = {
   heading: string
   description: string
   encryptedKey: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   onSubmit: (key: string) => Promise<void>
 }
 
@@ -201,28 +193,28 @@ type TDeleteContactAddressModalState = {
 }
 
 type TSwapDetailsModalState = {
-  swapRecord: TSwapRecord
+  orderId: string
 }
 
 type TSwapConfirmationModalState = {
-  swapRecord: TSwapRecord
-  swapOrchestrator: SimpleSwapOrchestrator
+  account: TAccount
+  swapOrchestrator: ISwapOrchestrator
 }
 
 type TNetworkSelectionModalState = {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 type TNetworkUrlSelectionModalState = {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 type TSaveCustomNetworkModalState = {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   network?: TNetwork
 }
 
-type TAccountReceiveSelectionModalState<N extends TBlockchainServiceKey = TBlockchainServiceKey> = {
+type TAccountReceiveSelectionModalState<N extends TBSServiceName = TBSServiceName> = {
   accountTypes?: 'standard' | 'hardware'
   blockchain?: N
   selectedAccount?: TAccount<N>
@@ -267,7 +259,7 @@ type TSellTokensDepositErrorModalState = {
 }
 
 type TSwapDetailsLogModalState = {
-  swapRecord: TSwapRecord
+  orderId: string
 }
 
 type TNeo3VoteCandidateDetailsModalState = {
@@ -319,7 +311,7 @@ type TDappPermissionContractDetailsModalState = {
   session: SessionTypes.Struct
   hash: string
   operation: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   values: any[]
   onReject: () => void
 }

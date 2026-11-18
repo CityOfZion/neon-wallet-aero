@@ -1,5 +1,6 @@
 import { type ComponentProps, useEffect, useMemo, useRef, useState } from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import type { JSX } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,7 +12,6 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useAccountsWithWalletSelector } from '@renderer/hooks/useAccountSelector'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TAccount, TAccountType, TAccountWithWallet } from '@shared/types/store'
 
 import { BlockchainIcon } from './BlockchainIcon'
@@ -28,7 +28,7 @@ const placementProps: Record<TPlacement, Pick<ComponentProps<typeof Popover.Cont
   dropdownEnd: { align: 'end', sideOffset: 8 },
 }
 
-type TProps<N extends TBlockchainServiceKey> = {
+type TProps<N extends TBSServiceName> = {
   selectedAccount?: TAccount<N> | null
   selectedAccountTruncateLength?: number
   onSelect: (account: TAccount<N>) => void
@@ -45,7 +45,7 @@ type TProps<N extends TBlockchainServiceKey> = {
   popoverContentProps?: ComponentProps<typeof Popover.Content>
 }
 
-export const GreyAccountSelect = <N extends TBlockchainServiceKey>({
+export const GreyAccountSelect = <N extends TBSServiceName>({
   onSelect,
   selectedAccount,
   selectedAccountTruncateLength,

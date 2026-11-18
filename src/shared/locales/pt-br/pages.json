@@ -135,11 +135,7 @@
   "onboardingLoginNewWallet": {
     "description": "Protegendo sua nova carteira",
     "goBackIconButtonLabel": "Voltar",
-    "steps": [
-      "Criar senha",
-      "Confirmar senha",
-      "Completo"
-    ]
+    "steps": ["Criar senha", "Confirmar senha", "Completo"]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Digite a senha",
@@ -168,13 +164,7 @@
     "title": "Importar uma carteira",
     "description": "Por favor, crie uma senha para proteger sua carteira",
     "goBackIconButtonLabel": "Voltar",
-    "steps": [
-      "Criar senha",
-      "Confirmar senha",
-      "Adicionar detalhes",
-      "Importar",
-      "Completo"
-    ],
+    "steps": ["Criar senha", "Confirmar senha", "Adicionar detalhes", "Importar", "Completo"],
     "migrationLabel": "Localize seu arquivo de migração",
     "step3": {
       "formTitle": "Digite um endereço, chave criptografada, chave privada, mnemônico ou localize arquivo de backup",
@@ -442,7 +432,9 @@
         "amountMin": "Quantidade muito baixa. Quantidade mínima é {{amount}}",
         "amountMax": "Quantidade muito alta. Quantidade máxima é {{amount}}",
         "insufficientFunds": "Você não tem saldo suficiente",
-        "insufficientFundsFee": "Você não tem saldo suficiente para pagar a taxa"
+        "insufficientFundsFee": "Você não tem saldo suficiente para pagar a taxa",
+        "amountZero": "A quantidade deve ser maior que zero",
+        "noQuotesAvailable": "Nenhuma cotação disponível para este swap, tente uma quantidade ou token diferente"
       },
       "hints": {
         "enterValidAddress": "Digite um endereço válido"

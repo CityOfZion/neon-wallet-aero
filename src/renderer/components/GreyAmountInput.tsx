@@ -1,4 +1,4 @@
-import { forwardRef, Fragment } from 'react'
+import { forwardRef } from 'react'
 
 import type { KeyboardEvent, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -44,7 +44,6 @@ export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
     ref
   ) => {
     const { t } = useTranslation('components', { keyPrefix: 'greyAmountInput' })
-    const isDisabled = loading || disabled
 
     return (
       <div
@@ -52,34 +51,33 @@ export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
           'flex h-12 w-36 items-center justify-center rounded bg-gray-300/15 text-sm aria-disabled:cursor-not-allowed aria-disabled:opacity-50',
           className
         )}
-        aria-disabled={isDisabled}
+        aria-disabled={disabled}
       >
-        {loading ? (
-          <Loader />
-        ) : (
-          <Fragment>
-            <FieldActionsMenu value={value || ''} disabled={isDisabled} readOnly={readOnly} onChange={onChange}>
-              <input
-                ref={ref}
-                autoFocus={autoFocus}
-                aria-label={ariaLabel}
-                placeholder={placeholder || t('placeholder')}
-                className={StyleHelper.mergeStyles(
-                  'text-neon size-full [appearance:textfield] bg-transparent px-2 text-center outline-none disabled:cursor-not-allowed',
-                  inputClassName
-                )}
-                value={value}
-                maxLength={maxLength}
-                disabled={isDisabled}
-                readOnly={readOnly}
-                onKeyDown={onKeyDown}
-                onChange={event => onChange?.(event.target.value)}
-              />
-            </FieldActionsMenu>
+        <FieldActionsMenu value={value || ''} disabled={disabled} readOnly={readOnly} onChange={onChange}>
+          <input
+            ref={ref}
+            autoFocus={autoFocus}
+            aria-label={ariaLabel}
+            placeholder={placeholder || t('placeholder')}
+            className={StyleHelper.mergeStyles(
+              'text-neon size-full [appearance:textfield] bg-transparent px-2 text-center outline-none disabled:cursor-not-allowed',
+              inputClassName
+            )}
+            value={value}
+            maxLength={maxLength}
+            disabled={disabled}
+            readOnly={readOnly}
+            onMouseDown={event => {
+              if (readOnly) event.preventDefault()
+            }}
+            onKeyDown={onKeyDown}
+            onChange={event => onChange?.(event.target.value)}
+          />
+        </FieldActionsMenu>
 
-            {children}
-          </Fragment>
-        )}
+        {loading && <Loader containerClassName="w-auto" className="mr-1 size-4" />}
+
+        {children}
       </div>
     )
   }

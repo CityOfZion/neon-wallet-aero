@@ -1,13 +1,13 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
+
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
-
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { BlockchainIcon } from './BlockchainIcon'
 import { Button } from './Button'
 
 type TProps = {
-  blockchain?: TBlockchainServiceKey
+  blockchain?: TBSServiceName
   address?: string | null
   disabled?: boolean
   placeholder: string

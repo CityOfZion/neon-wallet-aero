@@ -1,5 +1,7 @@
 import React from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
+
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import ArbitrumIcon from '@renderer/assets/images/blockchains/arbitrum.svg?react'
@@ -13,13 +15,11 @@ import PolygonIcon from '@renderer/assets/images/blockchains/polygon.svg?react'
 import SolanaIcon from '@renderer/assets/images/blockchains/solana.svg?react'
 import StellarIcon from '@renderer/assets/images/blockchains/stellar.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-
 type Props = React.SVGProps<SVGSVGElement> & {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
-const ICONS_BY_BLOCKCHAIN: Record<TBlockchainServiceKey, React.FC<React.SVGProps<SVGSVGElement>>> = {
+const ICONS_BY_BLOCKCHAIN: Record<TBSServiceName, React.FC<React.SVGProps<SVGSVGElement>>> = {
   neo3: Neo3Icon,
   neoLegacy: NeoLegacyIcon,
   ethereum: EthereumIcon,

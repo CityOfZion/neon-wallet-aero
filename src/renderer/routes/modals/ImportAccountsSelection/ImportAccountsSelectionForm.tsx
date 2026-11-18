@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import type { TBSAccount } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { FormEvent, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { match } from 'ts-pattern'
@@ -12,8 +13,6 @@ import { AccountHelper } from '@renderer/helpers/AccountHelper'
 
 import TbFileImport from '@renderer/assets/images/tb-file-import.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-
 import type { TBlockchainAccounts } from '.'
 import { ImportAccountsSelectionAccordion } from './ImportAccountsSelectionAccordion'
 
@@ -22,8 +21,8 @@ export type TImportAccountsSelectionFormProps = {
   isSubmitting: boolean
   isDisabled: boolean
   blockchainAccounts: TBlockchainAccounts
-  selectedAccounts: TBSAccount<TBlockchainServiceKey>[]
-  onSelect(newSelectedAccounts: TBSAccount<TBlockchainServiceKey>[]): void
+  selectedAccounts: TBSAccount<TBSServiceName>[]
+  onSelect(newSelectedAccounts: TBSAccount<TBSServiceName>[]): void
   onSubmit(event: FormEvent | MouseEvent): void
   children?: ReactNode
 }

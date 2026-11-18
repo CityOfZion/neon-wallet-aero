@@ -4,9 +4,9 @@ import type {
   TPingNetworkResponse,
   TTokenPricesResponse,
 } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { QueryKey, UseQueryOptions } from '@tanstack/react-query'
 
-import type { TBlockchainServiceKey } from './blockchain'
 import type { Optional } from './generics'
 
 export type TBaseOptions<T = unknown> = Omit<UseQueryOptions<T, unknown, T, QueryKey>, 'queryKey' | 'queryFn'>
@@ -15,7 +15,7 @@ export type TExchange = TTokenPricesResponse & {
   convertedPrice: number
 }
 
-export type TMultiExchange = Record<TBlockchainServiceKey, Map<string, TExchange>>
+export type TMultiExchange = Record<TBSServiceName, Map<string, TExchange>>
 
 export type TUseExchangeResult = {
   data?: TMultiExchange
@@ -28,7 +28,7 @@ export type TUseCurrencyRatioResult = {
 }
 
 export type TTokenBalance = TBalanceResponse & {
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   amountNumber: number
   exchangeConvertedPrice: number
   exchangeAmount: number
@@ -36,7 +36,7 @@ export type TTokenBalance = TBalanceResponse & {
 
 export type TBalance = {
   address: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   tokensBalances: TTokenBalance[]
   tokensBalancesMap: Map<string, TTokenBalance>
   exchangeTotal: number
@@ -44,7 +44,7 @@ export type TBalance = {
 
 export type TUseBalancesFetchResult = {
   address: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
   tokensBalancesMap: Map<string, TTokenBalance>
 }
 
@@ -65,7 +65,7 @@ export type TUseBalanceResult = {
 
 export type TUseBalancesParams = {
   address: string
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 export type TUseBalanceOptionShowType = 'hidden' | 'active' | 'all'
@@ -77,7 +77,7 @@ export type TUseBalancesOptions = {
 
 export type TUseExchangeParams = {
   tokens: TBSToken[]
-  blockchain: TBlockchainServiceKey
+  blockchain: TBSServiceName
 }
 
 export type TUseUnclaimedResult = {

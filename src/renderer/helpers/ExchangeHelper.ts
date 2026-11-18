@@ -1,4 +1,5 @@
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
+
 import type { TExchange } from '@shared/types/query'
 
 import { BlockchainServiceHelper } from './BlockchainServiceHelper'
@@ -6,7 +7,7 @@ import { BlockchainServiceHelper } from './BlockchainServiceHelper'
 export class ExchangeHelper {
   static getExchangeConvertedPrice(
     hash: string,
-    blockchain: TBlockchainServiceKey,
+    blockchain: TBSServiceName,
     multiExchange?: {
       [x: string]: Map<string, TExchange | undefined>
     }

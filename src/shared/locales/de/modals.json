@@ -568,7 +568,8 @@
     "helpButtonLabel": "Hilfe? Live-Support",
     "swapLogButtonLabel": "Swap-Protokoll",
     "saveContactButtonLabel": "Kontakt speichern",
-    "contactSavedTooltipLabel": "{{name}} wurde zu Ihren Kontakten hinzugefügt."
+    "contactSavedTooltipLabel": "{{name}} wurde zu Ihren Kontakten hinzugefügt.",
+    "notFound": "Wir konnten die Details dieses Swaps nicht laden"
   },
   "swapDetailsLog": {
     "title": "Swap-Protokoll",

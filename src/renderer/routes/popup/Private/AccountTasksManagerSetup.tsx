@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import intersection from 'lodash/intersection'
 
 import { LoggerHelper } from '@renderer/helpers/LoggerHelper'
@@ -14,7 +15,6 @@ import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import { authReducerActions } from '@renderer/store/reducers/auth'
 import { ConstantsHelper } from '@shared/helpers/ConstantsHelper'
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TBalance } from '@shared/types/query'
 import type { TAccount, TNotification } from '@shared/types/store'
 
@@ -28,7 +28,7 @@ const useFraudulentTokensNotificationProcess = () => {
 
   const notificationKeysRef = useRef<Set<string>>(new Set())
 
-  const generateNotificationKey = (blockchain: TBlockchainServiceKey, address: string, tokenHash: string) => {
+  const generateNotificationKey = (blockchain: TBSServiceName, address: string, tokenHash: string) => {
     return `${blockchain}:${address}:${tokenHash}`
   }
 
@@ -173,7 +173,7 @@ const useVotingNeo3NotificationProcess = () => {
 
   const notificationKeysRef = useRef<Set<string>>(new Set())
 
-  const generateNotificationKey = (blockchain: TBlockchainServiceKey, address: string) => {
+  const generateNotificationKey = (blockchain: TBSServiceName, address: string) => {
     return `${blockchain}:${address}`
   }
 

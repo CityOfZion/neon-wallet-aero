@@ -5,7 +5,7 @@ import persistReducer from 'redux-persist/es/persistReducer'
 import { localStorage } from 'redux-persist-webextension-storage'
 
 import type { TUseTransactionsTransaction } from '@shared/types/hooks'
-import type { THiddenTokenByBlockchain, TLastIndexesByWallet, TSwapRecord } from '@shared/types/store'
+import type { THiddenTokenByBlockchain, TLastIndexesByWallet } from '@shared/types/store'
 
 import { utilitySliceReducers } from './reducers'
 
@@ -15,7 +15,6 @@ export type TUtilityReducer = {
   }
   data: {
     encryptedLoginControl?: string
-    swapRecords: TSwapRecord[]
     lastIndexesByWallet: TLastIndexesByWallet
     hiddenTokensByBlockchain: THiddenTokenByBlockchain
   }
@@ -30,7 +29,6 @@ export function getUtilityReducer() {
     },
     data: {
       encryptedLoginControl: undefined,
-      swapRecords: [],
       lastIndexesByWallet: {},
       hiddenTokensByBlockchain: {},
     },

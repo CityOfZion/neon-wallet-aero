@@ -14,6 +14,7 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 import { useActions } from '@renderer/hooks/useActions'
 import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
+import { useSwapOrdersByAddresses } from '@renderer/hooks/useSwapOrdersByAddresses'
 import { useTransactionsQuery } from '@renderer/hooks/useTransactionsQuery'
 import { useInfiniteScrollVirtualization, useVirtualization } from '@renderer/hooks/useVirtualization'
 
@@ -58,11 +59,14 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
     dateTo: dateNow,
   })
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useTransactionsQuery({
+  const transactionsQuery = useTransactionsQuery({
     account: selectedAccount,
     ...actionData,
   })
 
+  const swapOrdersByAddressesQuery = useSwapOrdersByAddresses({ addresses: [selectedAccount.address] })
+
+  const isLoading = transactionsQuery.isLoading || swapOrdersByAddressesQuery.isLoading
   const { dateFrom, dateTo } = actionData
   const isDateDisabled = isLoading ? true : { after: dateNow }
 
@@ -70,10 +74,10 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
 
   const { virtualizer } = useVirtualization({
     contentRef,
-    count: data.length,
+    count: transactionsQuery.data.length,
     gap: heights.DATE_GAP,
     estimateSize: index => {
-      const { transactions } = data[index] // Get the transactions for the current date group
+      const { transactions } = transactionsQuery.data[index] // Get the transactions for the current date group
       const transactionsLength = transactions.length // Number of transactions in this group
 
       // Base height includes date label and separator
@@ -124,16 +128,13 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
 
   useInfiniteScrollVirtualization({
     virtualizer,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    data,
+    ...transactionsQuery,
   })
 
   return (
     <div
       className={StyleHelper.mergeStyles('flex min-h-0 w-full flex-col gap-y-6 text-sm', {
-        'gap-y-2': isLoading || data.length === 0,
+        'gap-y-2': isLoading || transactionsQuery.data.length === 0,
       })}
     >
       {hasFullTransactionsService && (
@@ -163,7 +164,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
         </div>
       )}
 
-      {match({ isLoading, data })
+      {match({ isLoading, data: transactionsQuery.data })
         .with({ isLoading: true }, () => <TransactionActivityListSkeleton />)
         .with({ data: [] }, () => <TransactionActivityListEmpty />)
         .otherwise(() => (
@@ -174,7 +175,7 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
             ref={contentRef}
           >
             {virtualizer.getVirtualItems().map(virtualItem => {
-              const { date, transactions } = data[virtualItem.index]
+              const { date, transactions } = transactionsQuery.data[virtualItem.index]
               const hasTransactions = transactions.length > 0
 
               return (
@@ -195,7 +196,11 @@ export const TransactionActivityList = ({ selectedAccount }: TProps) => {
                   {hasTransactions && (
                     <ul className="flex flex-col gap-y-2">
                       {transactions.map(transaction => (
-                        <TransactionActivityListItems key={transaction.txId} transaction={transaction} />
+                        <TransactionActivityListItems
+                          key={transaction.txId}
+                          transaction={transaction}
+                          swapOrders={swapOrdersByAddressesQuery.data || []}
+                        />
                       ))}
                     </ul>
                   )}

@@ -135,11 +135,7 @@
   "onboardingLoginNewWallet": {
     "description": "Sichern Sie Ihre neue Wallet",
     "goBackIconButtonLabel": "Zurück",
-    "steps": [
-      "Passwort erstellen",
-      "Passwort bestätigen",
-      "Abschließen"
-    ]
+    "steps": ["Passwort erstellen", "Passwort bestätigen", "Abschließen"]
   },
   "onboardingLoginNewWalletStep1": {
     "passwordInputLabel": "Passwort eingeben",
@@ -442,7 +438,9 @@
         "amountMin": "Betrag ist zu niedrig. Mindestbetrag ist {{amount}}",
         "amountMax": "Betrag ist zu hoch. Maximalbetrag ist {{amount}}",
         "insufficientFunds": "Sie haben nicht genügend Guthaben",
-        "insufficientFundsFee": "Sie haben nicht genügend Guthaben, um die Gebühr zu bezahlen"
+        "insufficientFundsFee": "Sie haben nicht genügend Guthaben, um die Gebühr zu bezahlen",
+        "amountZero": "Betrag muss größer als null sein",
+        "noQuotesAvailable": "Keine Angebote für diesen Swap verfügbar, versuchen Sie einen anderen Betrag oder Token"
       },
       "hints": {
         "enterValidAddress": "Geben Sie eine gültige Adresse ein"

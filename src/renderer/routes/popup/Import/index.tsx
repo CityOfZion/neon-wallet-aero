@@ -1,3 +1,4 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,7 +14,7 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 
 import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
-import type { TAccountsToImport, TBlockchainServiceKey } from '@shared/types/blockchain'
+import type { TAccountsToImport } from '@shared/types/blockchain'
 
 export const ImportPage = () => {
   const { t } = useTranslation('pages', { keyPrefix: 'import' })
@@ -81,7 +82,7 @@ export const ImportPage = () => {
       state: {
         heading: t('title'),
         description: t('blockchainSelectionDescription'),
-        onSelect: ([blockchain]: TBlockchainServiceKey[]) => {
+        onSelect: ([blockchain]: TBSServiceName[]) => {
           modalNavigate('decrypt-key', {
             state: {
               heading: t('title'),

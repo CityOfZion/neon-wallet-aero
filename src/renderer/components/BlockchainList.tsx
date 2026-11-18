@@ -1,24 +1,23 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-
 import { BlockchainIcon } from './BlockchainIcon'
 import { Checkbox } from './Checkbox'
 
 type TProps = {
-  selectedBlockchains?: TBlockchainServiceKey[]
+  selectedBlockchains?: TBSServiceName[]
   isMulti?: boolean
   className?: string
-  onSelect: (blockchains: TBlockchainServiceKey[]) => void
+  onSelect: (blockchains: TBSServiceName[]) => void
 }
 
 export const BlockchainList = ({ onSelect, selectedBlockchains = [], isMulti = false, className }: TProps) => {
   const { t: tCommonBlockchain } = useTranslation('common', { keyPrefix: 'blockchain' })
 
-  const handleSelect = (blockchain: TBlockchainServiceKey) => {
+  const handleSelect = (blockchain: TBSServiceName) => {
     if (isMulti) {
       onSelect(
         selectedBlockchains.includes(blockchain)

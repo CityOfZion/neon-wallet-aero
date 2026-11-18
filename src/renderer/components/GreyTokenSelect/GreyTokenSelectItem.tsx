@@ -1,20 +1,20 @@
 import { Fragment, useEffect, useState } from 'react'
 
 import { BSBigHumanAmount } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { ConstantsURLHelper } from '@shared/helpers/ConstantsURLHelper'
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { Tooltip } from '../Tooltip'
 import type { TGreyTokenSelectToken } from '.'
 
 type TProps = {
   token: TGreyTokenSelectToken
-  blockchain?: TBlockchainServiceKey
+  blockchain?: TBSServiceName
   textClassName?: string
 }
 

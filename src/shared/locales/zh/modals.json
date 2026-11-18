@@ -568,7 +568,8 @@
     "helpButtonLabel": "需要帮助？在线支持",
     "swapLogButtonLabel": "兑换日志",
     "saveContactButtonLabel": "保存联系人",
-    "contactSavedTooltipLabel": "{{name}} 已保存到您的联系人中。"
+    "contactSavedTooltipLabel": "{{name}} 已保存到您的联系人中。",
+    "notFound": "我们无法加载此兑换的详情"
   },
   "swapDetailsLog": {
     "title": "兑换日志",

@@ -14,18 +14,15 @@ import { useBlockchainActions } from '@renderer/hooks/useBlockchainActions'
 import { useSignup } from '@renderer/hooks/useLogin'
 import { useMountUnsafe } from '@renderer/hooks/useMount'
 import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
-import { useAppDispatch } from '@renderer/hooks/useRedux'
 
 import NeonWalletIcon from '@renderer/assets/images/neon-wallet-icon.svg?react'
 
-import { utilityReducerActions } from '@renderer/store/reducers/utility'
 import { AppError } from '@shared/helpers/ErrorHelper'
 import type { TCreateWalletAndAccountParam } from '@shared/types/blockchain'
-import type { TContact, TSwapRecord } from '@shared/types/store'
+import type { TContact } from '@shared/types/store'
 
 type TLocationState = {
   wallets: TCreateWalletAndAccountParam[]
-  swapRecords?: TSwapRecord[]
   contacts?: TContact[]
   password: string
 }
@@ -37,7 +34,6 @@ export const OnboardingImportWalletStep4Page = () => {
   const { createWallet, importAccounts, saveContacts } = useBlockchainActions()
   const { signup } = useSignup()
   const navigateReset = useNavigateReset()
-  const dispatch = useAppDispatch()
 
   const [progress, setProgress] = useState(0)
 
@@ -48,14 +44,13 @@ export const OnboardingImportWalletStep4Page = () => {
     isImporting.current = true
 
     try {
-      const { wallets, contacts, password, swapRecords } = state
+      const { wallets, contacts, password } = state
       const progressByStep = 100 / (wallets.length + 3)
 
       await signup(password)
 
       setProgress(progress => progress + progressByStep)
 
-      if (swapRecords) swapRecords.forEach(swapRecord => dispatch(utilityReducerActions.persistSwapRecord(swapRecord)))
       if (contacts) saveContacts(contacts)
 
       await BSUtilsHelper.wait(250)

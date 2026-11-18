@@ -1,3 +1,4 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 
@@ -14,7 +15,6 @@ import { ScreenLayout } from '@renderer/layouts/ScreenLayout'
 
 import TbShoppingBag from '@renderer/assets/images/tb-shopping-bag.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TTokenBalance } from '@shared/types/query'
 import type { TAccount } from '@shared/types/store'
 
@@ -72,7 +72,7 @@ export const BuyAndSellTokensPage = () => {
     }
 
     const address = searchParams.get('address')
-    const blockchain = searchParams.get('blockchain') as TBlockchainServiceKey | null
+    const blockchain = searchParams.get('blockchain') as TBSServiceName | null
 
     if (!address || !blockchain) return
 

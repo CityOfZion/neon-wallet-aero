@@ -1,3 +1,4 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@renderer/components/Button'
@@ -13,7 +14,6 @@ import MdiNumeric3Box from '@renderer/assets/images/mdi-numeric-3-box.svg?react'
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 import TbWand from '@renderer/assets/images/tb-wand.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
 
 type TFormData = {
@@ -37,7 +37,7 @@ export const CreateWalletStep3Modal = () => {
     }
   }
 
-  const handleSelectBlockchains = async (blockchains: TBlockchainServiceKey[]) => {
+  const handleSelectBlockchains = async (blockchains: TBSServiceName[]) => {
     const wallet = await createWallet({
       name: actionData.walletName.trim(),
       mnemonic: mnemonic.join(' '),

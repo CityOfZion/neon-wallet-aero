@@ -1,3 +1,4 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { BlockchainList } from '@renderer/components/BlockchainList'
@@ -10,11 +11,10 @@ import { useModalState } from '@renderer/hooks/useModalRouter'
 
 import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 import type { TModalState } from '@shared/types/modal'
 
 type TActionsData = {
-  selectedBlockchains: TBlockchainServiceKey[]
+  selectedBlockchains: TBSServiceName[]
 }
 
 export const BlockchainSelectionModal = () => {
@@ -35,7 +35,7 @@ export const BlockchainSelectionModal = () => {
     actionData.selectedBlockchains.includes(blockchain)
   )
 
-  const handleSelect = (blockchains: TBlockchainServiceKey[]) => {
+  const handleSelect = (blockchains: TBSServiceName[]) => {
     setData({ selectedBlockchains: blockchains })
   }
 

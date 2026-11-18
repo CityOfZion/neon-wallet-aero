@@ -1,15 +1,14 @@
 import { useCallback, useState } from 'react'
 
 import { hasNameService } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { Query } from '@tanstack/react-query'
 import { useQueryClient } from '@tanstack/react-query'
 import debounce from 'lodash/debounce'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-
-function buildQueryKey(blockchain: TBlockchainServiceKey, domain: string) {
+function buildQueryKey(blockchain: TBSServiceName, domain: string) {
   return ['nameService', blockchain, domain]
 }
 
@@ -25,7 +24,7 @@ export const useNameService = (debounceTime = 1000) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const validateAddressOrNSDebounce = useCallback(
     // eslint-disable-next-line react-hooks/use-memo
-    debounce(async (domainOrAddress: string, blockchain: TBlockchainServiceKey) => {
+    debounce(async (domainOrAddress: string, blockchain: TBSServiceName) => {
       let isValid = false
       let address: string | undefined
       let isNS = false
@@ -69,7 +68,7 @@ export const useNameService = (debounceTime = 1000) => {
   )
 
   const validateAddressOrNS = useCallback(
-    (domainOrAddress?: string, blockchain?: TBlockchainServiceKey) => {
+    (domainOrAddress?: string, blockchain?: TBSServiceName) => {
       setIsValidatingAddressOrDomainAddress(true)
 
       if (domainOrAddress === undefined || !blockchain) {

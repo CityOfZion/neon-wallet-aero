@@ -1,4 +1,5 @@
 import { BSKeychainHelper } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { ChangeEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Location } from 'react-router-dom'
@@ -14,8 +15,6 @@ import { useModalNavigate } from '@renderer/hooks/useModalRouter'
 import { useNavigateReset } from '@renderer/hooks/useNavigateReset'
 
 import TbWand from '@renderer/assets/images/tb-wand.svg?react'
-
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 type TFormData = {
   confirmPassword: string
@@ -65,7 +64,7 @@ export const OnboardingLoginNewWalletStep2Page = ({ onSubmit }: TProps) => {
           iconsOnEdge: false,
           leftIcon: <TbWand aria-hidden className="size-5" />,
         },
-        onSelect: async (blockchains: TBlockchainServiceKey[]) => {
+        onSelect: async (blockchains: TBSServiceName[]) => {
           await signup(data.confirmPassword)
 
           const mnemonic = BSKeychainHelper.generateMnemonic()

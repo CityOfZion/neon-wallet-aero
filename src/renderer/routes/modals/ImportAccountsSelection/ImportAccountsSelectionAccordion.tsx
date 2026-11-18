@@ -1,12 +1,11 @@
 import { useMemo } from 'react'
 
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import orderBy from 'lodash/orderBy'
 
 import { Accordion } from '@renderer/components/Accordion'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
-
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
 
 import { ImportAccountsSelectionAccordionItem } from './ImportAccountsSelectionAccordionItem'
 import type { TImportAccountsSelectionFormProps } from './ImportAccountsSelectionForm'
@@ -19,7 +18,7 @@ export const ImportAccountsSelectionAccordion = ({ blockchainAccounts, selectedA
       orderBy(
         Object.entries(blockchainAccounts)
           .filter(([_key, accounts]) => accounts.length > 0)
-          .map(([key]) => key) as TBlockchainServiceKey[],
+          .map(([key]) => key) as TBSServiceName[],
         [blockchain => BlockchainServiceHelper.blockchainNames.indexOf(blockchain), 'order']
       ),
     [blockchainAccounts]

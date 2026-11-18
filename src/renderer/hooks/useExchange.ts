@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
 import type { TBSToken, TTokenPricesResponse } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { Query, QueryClient } from '@tanstack/react-query'
 import { useQueries, useQueryClient } from '@tanstack/react-query'
 import assign from 'lodash/assign'
@@ -8,14 +9,14 @@ import uniqBy from 'lodash/uniqBy'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
-import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import type { TNetwork } from '@shared/types/blockchain'
 import type { TExchange, TMultiExchange, TUseExchangeParams, TUseExchangeResult } from '@shared/types/query'
 import type { TCurrency } from '@shared/types/store'
 
 import { useCurrencyRatio } from './useCurrencyRatio'
 import { useCurrencySelector, useSelectedNetworkByBlockchainSelector } from './useSettingsSelector'
 
-function buildQueryKey(blockchain: TBlockchainServiceKey, currency: TCurrency, network: TNetwork, token?: TBSToken) {
+function buildQueryKey(blockchain: TBSServiceName, currency: TCurrency, network: TNetwork, token?: TBSToken) {
   const queryKey = ['exchange', blockchain, currency, network]
 
   if (token) {
@@ -28,7 +29,7 @@ function buildQueryKey(blockchain: TBlockchainServiceKey, currency: TCurrency, n
 }
 
 function buildExchangeByBlockchainQueryKey(
-  blockchain: TBlockchainServiceKey,
+  blockchain: TBSServiceName,
   network: TNetwork,
   currency: TCurrency,
   hasCurrencyRatio: boolean
@@ -37,7 +38,7 @@ function buildExchangeByBlockchainQueryKey(
 }
 
 export async function fetchExchange(
-  blockchain: TBlockchainServiceKey,
+  blockchain: TBSServiceName,
   tokens: TBSToken[],
   network: TNetwork,
   queryClient: QueryClient,
@@ -132,13 +133,13 @@ export function useExchange(params: TUseExchangeParams[]): TUseExchangeResult {
 
         return acc
       },
-      {} as Record<TBlockchainServiceKey, TBSToken[]>
+      {} as Record<TBSServiceName, TBSToken[]>
     )
   }, [params])
 
   return useQueries({
     queries: Object.entries(tokensToFetchByBlockchain || {}).map(([key, tokens]) => {
-      const blockchain = key as TBlockchainServiceKey
+      const blockchain = key as TBSServiceName
       const network = selectedNetworkByBlockchain[blockchain]
 
       return {

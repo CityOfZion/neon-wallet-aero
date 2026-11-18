@@ -1,4 +1,5 @@
 import type { IBlockchainService } from '@cityofzion/blockchain-service'
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import { useTranslation } from 'react-i18next'
 
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
@@ -11,15 +12,13 @@ import { useCurrencySelector } from '@renderer/hooks/useSettingsSelector'
 
 import TbReceipt from '@renderer/assets/images/tb-receipt.svg?react'
 
-import type { TBlockchainServiceKey } from '@shared/types/blockchain'
-
 import { ActionStep } from './ActionStep'
 import { Loader } from './Loader'
 
 type TProps = {
   fee?: string
   isCalculatingFee: boolean
-  service?: IBlockchainService<TBlockchainServiceKey>
+  service?: IBlockchainService<TBSServiceName>
   className?: string
   containerClassName?: string
   titleClassName?: string

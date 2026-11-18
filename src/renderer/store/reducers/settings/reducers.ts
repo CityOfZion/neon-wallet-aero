@@ -1,14 +1,15 @@
+import type { TBSServiceName } from '@cityofzion/bs-multichain'
 import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash/cloneDeep'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 
-import type { TBlockchainServiceKey, TNetwork } from '@shared/types/blockchain'
+import type { TNetwork } from '@shared/types/blockchain'
 import type { TAccount, TCurrency, TLanguage, TSelectedNetworks, TWallet } from '@shared/types/store'
 
 import type { TSettingsReducer } from './index'
 
-type TCustomNetworkParams = { blockchain: TBlockchainServiceKey; network: TNetwork }
+type TCustomNetworkParams = { blockchain: TBSServiceName; network: TNetwork }
 
 const setSelectedNetworkByBlockchain: CaseReducer<TSettingsReducer, PayloadAction<TSelectedNetworks>> = (
   state,
@@ -17,7 +18,7 @@ const setSelectedNetworkByBlockchain: CaseReducer<TSettingsReducer, PayloadActio
   state.data.selectedNetworkByBlockchain = action.payload
 }
 
-const setSelectedNetwork = <T extends TBlockchainServiceKey>(
+const setSelectedNetwork = <T extends TBSServiceName>(
   state: TSettingsReducer,
   action: PayloadAction<{ blockchain: T; network: TNetwork }>
 ) => {
@@ -31,7 +32,7 @@ const setSelectedNetwork = <T extends TBlockchainServiceKey>(
 
 const setSelectedNetworkUrl: CaseReducer<
   TSettingsReducer,
-  PayloadAction<{ blockchain: TBlockchainServiceKey; url: string; isAutomatic?: boolean }>
+  PayloadAction<{ blockchain: TBSServiceName; url: string; isAutomatic?: boolean }>
 > = (state, action) => {
   const { blockchain, url, isAutomatic } = action.payload
 
