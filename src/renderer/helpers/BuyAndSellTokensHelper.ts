@@ -1,7 +1,6 @@
+import { EnvHelper } from '@shared/helpers/EnvHelper'
 import type { TBuyAndSellTokensHelperBuildUrlParams, TBuyAndSellTokensHelperType } from '@shared/types/helpers'
 import type { TAvailableCurrency } from '@shared/types/store'
-
-import { EnvHelper } from './EnvHelper'
 
 export class BuyAndSellTokensHelper {
   static readonly #defaultCurrencyLabel: TAvailableCurrency = 'USD'

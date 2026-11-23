@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
     "composite": false,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node", "vite/client"],
+    "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["scripts/**/*.ts", "src/renderer/helpers/EnvHelper.ts"]
+  "include": ["scripts/**/*.ts", "src/shared/helpers/EnvHelper.ts"]
 }

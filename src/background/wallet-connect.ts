@@ -4,6 +4,7 @@ import { Core } from '@walletconnect/core'
 import type { ProposalTypes } from '@walletconnect/types'
 
 import { ConstantsURLHelper } from '@shared/helpers/ConstantsURLHelper'
+import { EnvHelper } from '@shared/helpers/EnvHelper'
 import { backgroundApi } from '@shared/message-api/background'
 
 import pkg from '../../package.json'
@@ -12,7 +13,7 @@ let walletKit: IWalletKit
 
 async function setupWalletKit() {
   const core = new Core({
-    projectId: '1531da330101557460594663b324bc4f',
+    projectId: EnvHelper.VITE_WALLET_CONNECT_PROJECT_ID,
     logger: 'silent',
   })
 
