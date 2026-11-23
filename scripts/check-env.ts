@@ -1,6 +1,6 @@
 import { config } from 'dotenv'
 
-import { EnvHelper } from '../src/renderer/helpers/EnvHelper'
+import { EnvHelper } from '../src/shared/helpers/EnvHelper'
 
 config()
 

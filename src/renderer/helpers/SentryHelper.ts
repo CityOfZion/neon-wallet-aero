@@ -1,9 +1,8 @@
 import * as Sentry from '@sentry/react'
 import type { RootOptions } from 'react-dom/client'
 
+import { EnvHelper } from '@shared/helpers/EnvHelper'
 import type { TSentryHelperOptions } from '@shared/types/helpers'
-
-import { EnvHelper } from './EnvHelper'
 
 export class SentryHelper {
   static readonly options: RootOptions = {

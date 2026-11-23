@@ -1,4 +1,4 @@
-import { EnvHelper } from '@renderer/helpers/EnvHelper'
+import { EnvHelper } from '@shared/helpers/EnvHelper'
 
 export class CrispHelper {
   static get url() {

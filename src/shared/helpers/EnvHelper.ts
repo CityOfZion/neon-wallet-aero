@@ -8,6 +8,7 @@ const envSchema = z.object({
   VITE_SENTRY_DSN: z.string().nonempty(),
   VITE_CRISP_WEBSITE_ID: z.string().nonempty(),
   VITE_PUBLIC_KEY: z.string().nonempty(),
+  VITE_WALLET_CONNECT_PROJECT_ID: z.string().nonempty(),
 })
 
 type EnvSchema = z.infer<typeof envSchema>
