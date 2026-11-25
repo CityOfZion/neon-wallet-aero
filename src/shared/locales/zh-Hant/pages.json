@@ -534,24 +534,24 @@
   },
   "neo3Vote": {
     "title": "投票",
-    "howDoesItWorkButtonLabel": "它是如何运作的？",
-    "searchPlaceholder": "搜索候选人…",
+    "howDoesItWorkButtonLabel": "它是如何運作的？",
+    "searchPlaceholder": "搜尋候選人…",
     "searchLabel": "搜尋候選人",
     "changeAccountButtonLabel": "更改",
-    "selectAccountButtonLabel": "选择账户",
+    "selectAccountButtonLabel": "選擇帳戶",
     "voteErrorMessages": {
-      "thereIsNoNeoLabel": "您的 Neo 3 账户应具有 NEO",
-      "accountCanNotBeWatchLabel": "您的 Neo 3 账户处于观察模式",
-      "shouldHaveEnoughGasToPayFeeLabel": "您没有足够的 GAS 来支付费用",
-      "selectNeo3AccountLabel": "选择一个 Neo 3 账户"
+      "thereIsNoNeoLabel": "您的 Neo 3 帳戶應持有 NEO",
+      "accountCanNotBeWatchLabel": "您的 Neo 3 帳戶處於觀察模式",
+      "shouldHaveEnoughGasToPayFeeLabel": "您沒有足夠的 GAS 來支付費用",
+      "selectNeo3AccountLabel": "選擇一個 Neo 3 帳戶"
     },
     "availableVotes": {
       "availableVotesLabel": "可用投票",
-      "noAvailableVotesLabel": "没有投票"
+      "noAvailableVotesLabel": "沒有投票"
     },
     "list": {
       "positionColumnLabel": "位置",
-      "nameColumnLabel": "候选人",
+      "nameColumnLabel": "候選人",
       "castVoteColumnLabel": "投票"
     },
     "listItem": {
@@ -559,12 +559,12 @@
       "yourVoteButtonLabel": "您的投票"
     },
     "notFound": {
-      "title": "没有候选人可供显示",
-      "text": "没有候选人可供投票，或者获取候选人时出现问题。请验证您的 Neo 3 网络，然后重试。"
+      "title": "沒有候選人可供顯示",
+      "text": "沒有候選人可供投票，或取得候選人時發生問題。請確認您的 Neo 3 網路，然後重試。"
     },
     "accountSelectionByBlockchain": {
-      "description": "您的 NEO 钱包和账户：",
-      "submitButtonLabel": "使用此账户投票"
+      "description": "您的 NEO 錢包和帳戶：",
+      "submitButtonLabel": "使用此帳戶投票"
     }
   },
   "loginHardware": {

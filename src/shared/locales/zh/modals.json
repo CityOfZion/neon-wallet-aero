@@ -414,9 +414,9 @@
     "namePlaceholder": "输入名称",
     "urlLabel": "URL",
     "urlPlaceholder": "输入 URL",
-    "urlHint": "RPC 示例：https://mainnet1.neo.coz.io:443",
+    "urlHint": "URL 示例（RPC）：https://mainnet1.neo.coz.io:443",
     "successUrl": "已成功连接到网络",
-    "deleteButtonLabel": "删除网络",
+    "deleteNetworkButtonLabel": "删除网络",
     "errors": {
       "invalidURL": "请输入有效的 URL",
       "notConnect": "无法连接到此网络",

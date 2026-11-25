@@ -3,6 +3,7 @@ import type { CaseReducer, PayloadAction } from '@reduxjs/toolkit'
 import cloneDeep from 'lodash/cloneDeep'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { NetworkHelper } from '@renderer/helpers/NetworkHelper'
 
 import type { TNetwork } from '@shared/types/blockchain'
 import type { TAccount, TCurrency, TLanguage, TSelectedNetworks, TWallet } from '@shared/types/store'
@@ -45,6 +46,9 @@ const setSelectedNetworkUrl: CaseReducer<
 
 const saveCustomNetwork: CaseReducer<TSettingsReducer, PayloadAction<TCustomNetworkParams>> = (state, action) => {
   const { blockchain, network } = action.payload
+
+  if (NetworkHelper.isDefaultCustomNetwork(network)) return
+
   const networks = state.data.customNetworks[blockchain]
   const index = networks.findIndex(item => item.id === network.id)
 
@@ -63,6 +67,8 @@ const saveCustomNetwork: CaseReducer<TSettingsReducer, PayloadAction<TCustomNetw
 
 const deleteCustomNetwork: CaseReducer<TSettingsReducer, PayloadAction<TCustomNetworkParams>> = (state, action) => {
   const { blockchain, network } = action.payload
+
+  if (NetworkHelper.isDefaultCustomNetwork(network)) return
 
   state.data.customNetworks[blockchain] = state.data.customNetworks[blockchain].filter(({ id }) => id !== network.id)
 

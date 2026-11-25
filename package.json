@@ -1,5 +1,5 @@
 {
-  "name": "Neon",
+  "name": "neon",
   "description": "Your self-custodial and open-source blockchain wallet as browser extension.",
   "homepage": "https://github.com/CityOfZion/neon-wallet-aero",
   "author": "COZ",
@@ -61,7 +61,7 @@
     "cmdk": "~1.1.1",
     "date-fns": "~4.4.0",
     "fast-fuzzy": "^1.12.0",
-    "i18next": "~26.3.1",
+    "i18next": "26.3.4",
     "lodash": "~4.18.1",
     "motion": "~12.38.0",
     "qrcode.react": "~4.2.0",
@@ -86,7 +86,7 @@
     "zod": "~4.3.6"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "~2.7.0",
+    "@crxjs/vite-plugin": "~3.0.0",
     "@eslint/js": "~9.39.4",
     "@sentry/vite-plugin": "^5.3.0",
     "@types/chrome": "~0.1.40",
@@ -98,7 +98,7 @@
     "@types/w3c-web-hid": "^1.0.7",
     "@vitejs/plugin-react": "~6.0.1",
     "@walletconnect/types": "~2.23.9",
-    "baseline-browser-mapping": "^2.10.38",
+    "baseline-browser-mapping": "2.11.0",
     "dotenv": "^17.4.2",
     "eslint": "~9.39.4",
     "eslint-config-prettier": "~10.1.8",
@@ -115,7 +115,7 @@
     "typed-emitter": "~2.1.0",
     "typescript": "~6.0.3",
     "typescript-eslint": "~8.59.1",
-    "vite": "~8.0.16",
+    "vite": "8.3.3",
     "vite-plugin-node-polyfills": "^0.28.0",
     "vite-plugin-svgr": "~5.2.0",
     "vite-plugin-zip-pack": "~1.2.4"

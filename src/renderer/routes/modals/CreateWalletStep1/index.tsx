@@ -18,17 +18,19 @@ import MdiNumeric1Box from '@renderer/assets/images/mdi-numeric-1-box.svg?react'
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 import TbPrinter from '@renderer/assets/images/tb-printer.svg?react'
 
-type TActionData = {
+type TActionsData = {
   mnemonic: string[]
 }
 
 export const CreateWalletStep1Modal = () => {
   const { t } = useTranslation('modals', { keyPrefix: 'createWalletStep1' })
+
   const {
     actionData: { mnemonic },
     actionState,
     setData,
-  } = useActions<TActionData>({ mnemonic: [] })
+  } = useActions<TActionsData>({ mnemonic: [] })
+
   const { modalNavigateWrapper, modalEraseWrapper } = useModalNavigate()
 
   const isDisabled = actionState.isActing || mnemonic.length === 0
@@ -48,8 +50,7 @@ export const CreateWalletStep1Modal = () => {
   }
 
   const { isMounting } = useMountUnsafe(async () => {
-    const walletMnemonic = BSKeychainHelper.generateMnemonic()
-    setData({ mnemonic: walletMnemonic.split(' ') })
+    setData({ mnemonic: BSKeychainHelper.generateMnemonic().split(' ') })
   }, 500)
 
   return (

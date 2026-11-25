@@ -8,7 +8,7 @@ import svgr from 'vite-plugin-svgr'
 import zip from 'vite-plugin-zip-pack'
 
 import manifest from './manifest.config'
-import { name, version } from './package.json'
+import pkg from './package.json'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
   return {
     build: {
       sourcemap: 'hidden',
-      rollupOptions: {
+      rolldownOptions: {
         input: {
           tab: 'src/renderer/tab.html',
           dapi: 'src/renderer/dapi.html',
@@ -34,19 +34,19 @@ export default defineConfig(({ mode }) => {
     plugins: [
       tailwindcss(),
       nodePolyfills({
-        include: ['crypto', 'stream', 'buffer', 'querystring', 'util'],
+        include: ['crypto', 'stream', 'buffer', 'querystring', 'util', 'https', 'http', 'vm'],
       }),
       react(),
       svgr(),
       crx({ manifest }),
-      zip({ outDir: 'release', outFileName: `${name}-${version}.zip` }),
+      zip({ outDir: 'release', outFileName: `${pkg.name}-${pkg.version}.zip` }),
       sentryVitePlugin({
         org: env.SENTRY_ORG_NAME,
         project: env.SENTRY_PROJECT_NAME,
         authToken: env.SENTRY_AUTH_TOKEN,
         telemetry: false,
         sourcemaps: {
-          filesToDeleteAfterUpload: ['./**/*.map', '.*/**/public/**/*.map', './dist/**/client/**/*.map'],
+          filesToDeleteAfterUpload: ['./dist/**/*.map'],
         },
       }),
     ],

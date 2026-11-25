@@ -44,11 +44,12 @@ type TSearchableTokenContext = {
 
 const SearchableTokenContext = createContext<TSearchableTokenContext | null>(null)
 
-const useSearchableTokenContext = () => {
+const useSearchableToken = () => {
   const context = useContext(SearchableTokenContext)
+
   if (!context) {
     throw new Error(
-      'SearchableTokenContext compound components cannot be rendered outside the SearchableTokenContext.Root component'
+      'Searchable token compound components cannot be rendered outside the SearchableTokenContext.Root component'
     )
   }
 
@@ -115,7 +116,7 @@ const Trigger = ({ className, disabled, ...props }: ComponentProps<typeof Popove
 
 const Value = () => {
   const { t } = useTranslation('components', { keyPrefix: 'searchableToken' })
-  const { value, blockchain } = useSearchableTokenContext()
+  const { value, blockchain } = useSearchableToken()
 
   if (!value) {
     return (
@@ -145,7 +146,7 @@ const Content = ({ className, children, ...props }: ComponentProps<typeof Popove
 }
 
 const Input = (props: ComponentProps<typeof Command.Input>) => {
-  const { onSearch, onLoadingChange, onTokensChange, filter, onFilterChange } = useSearchableTokenContext()
+  const { onSearch, onLoadingChange, onTokensChange, filter, onFilterChange } = useSearchableToken()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearchChange = useCallback(
@@ -175,7 +176,7 @@ const Input = (props: ComponentProps<typeof Command.Input>) => {
 type TListProps = ComponentProps<typeof Command.List>
 const List = ({ className, ...props }: TListProps) => {
   const { t } = useTranslation('components', { keyPrefix: 'searchableToken' })
-  const { blockchain, isOpen, isLoading, tokens, filter, onValueChange, onOpenChange } = useSearchableTokenContext()
+  const { blockchain, isOpen, isLoading, tokens, filter, onValueChange, onOpenChange } = useSearchableToken()
 
   const parentRef = useRef<HTMLDivElement>(null)
 

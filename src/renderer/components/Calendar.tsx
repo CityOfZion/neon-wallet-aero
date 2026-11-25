@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 
 import { differenceInCalendarDays } from 'date-fns'
 import type React from 'react'
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import { DateHelper } from '@renderer/helpers/DateHelper'
 import { ElementHelper } from '@renderer/helpers/ElementHelper'
+import { StringHelper } from '@renderer/helpers/StringHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useLanguageSelector } from '@renderer/hooks/useSettingsSelector'
@@ -30,33 +31,23 @@ type TDisplayYears = {
   to: number
 }
 
-type TNavProps = {
-  className?: string
+type TCalendarContext = {
   navView: TNavView
-  startMonth?: Date
-  endMonth?: Date
+  setNavView: React.Dispatch<React.SetStateAction<TNavView>>
   displayYears: TDisplayYears
   setDisplayYears: React.Dispatch<React.SetStateAction<TDisplayYears>>
+  showYearSwitcher?: boolean
+  startMonth?: Date
+  endMonth?: Date
   onPrevClick?: (date: Date) => void
   onNextClick?: (date: Date) => void
 }
 
-type TCaptionLabelProps = {
-  showYearSwitcher?: boolean
-  navView: TNavView
-  setNavView: React.Dispatch<React.SetStateAction<TNavView>>
-  displayYears: TDisplayYears
-} & React.ComponentProps<'span'>
+type TNavProps = React.ComponentProps<'nav'>
 
-type TMonthGridProps = {
-  className?: string
-  children: React.ReactNode
-  displayYears: TDisplayYears
-  startMonth?: Date
-  endMonth?: Date
-  navView: TNavView
-  setNavView: React.Dispatch<React.SetStateAction<TNavView>>
-} & React.ComponentProps<'table'>
+type TCaptionLabelProps = React.ComponentProps<'span'>
+
+type TMonthGridProps = React.ComponentProps<'table'>
 
 type TYearGridProps = {
   className?: string
@@ -67,16 +58,12 @@ type TYearGridProps = {
   navView: TNavView
 } & React.ComponentProps<'div'>
 
-const Nav = ({
-  className,
-  navView,
-  startMonth,
-  endMonth,
-  displayYears,
-  setDisplayYears,
-  onPrevClick,
-  onNextClick,
-}: TNavProps) => {
+const CalendarContext = createContext<TCalendarContext>({} as TCalendarContext)
+
+const useCalendar = () => useContext(CalendarContext)
+
+const Nav = ({ className, ...props }: TNavProps) => {
+  const { navView, startMonth, endMonth, displayYears, setDisplayYears, onPrevClick, onNextClick } = useCalendar()
   const { nextMonth, previousMonth, goToMonth } = useDayPicker()
   const { t } = useTranslation('components', { keyPrefix: 'calendar' })
 
@@ -92,10 +79,13 @@ const Nav = ({
       (endMonth && differenceInCalendarDays(new Date(displayYears.to + 1, 0, 1), endMonth) > 0)
     : !nextMonth
 
-  const previousButtonLabel = isYearsView ? t('previousYearButtonLabel') : labelPrevious(previousMonth)
+  const previousButtonLabel = isYearsView
+    ? t('previousYearButtonLabel')
+    : StringHelper.capitalize(labelPrevious(previousMonth), { preserveRest: false })
+
   const nextButtonLabel = isYearsView
     ? t('nextYearButtonLabel', { years: displayYears.to - displayYears.from + 1 })
-    : labelNext(nextMonth)
+    : StringHelper.capitalize(labelNext(nextMonth), { preserveRest: false })
 
   const handlePreviousClick = () => {
     if (!previousMonth) return
@@ -133,12 +123,12 @@ const Nav = ({
   }
 
   return (
-    <nav className={StyleHelper.mergeStyles('flex items-start', className)}>
+    <nav className={StyleHelper.mergeStyles('flex items-start', className)} {...props}>
       <Tooltip title={isPreviousDisabled ? '' : previousButtonLabel}>
         <IconButton
           aria-label={previousButtonLabel}
           type="button"
-          className="absolute left-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100"
+          className="absolute left-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100 focus:opacity-100"
           size="xs"
           tabIndex={isPreviousDisabled ? undefined : -1}
           disabled={isPreviousDisabled}
@@ -151,7 +141,7 @@ const Nav = ({
         <IconButton
           aria-label={nextButtonLabel}
           type="button"
-          className="absolute right-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100"
+          className="absolute right-0 size-7 bg-transparent p-0 opacity-80 hover:opacity-100 focus:opacity-100"
           size="xs"
           tabIndex={isNextDisabled ? undefined : -1}
           disabled={isNextDisabled}
@@ -163,15 +153,9 @@ const Nav = ({
   )
 }
 
-const CaptionLabel = ({
-  children,
-  showYearSwitcher,
-  navView,
-  setNavView,
-  displayYears,
-  className,
-  ...props
-}: TCaptionLabelProps) => {
+const CaptionLabel = ({ children, className, ...props }: TCaptionLabelProps) => {
+  const { showYearSwitcher, navView, setNavView, displayYears } = useCalendar()
+
   if (!showYearSwitcher)
     return (
       <span className={StyleHelper.mergeStyles('truncate text-sm font-medium', className)} {...props}>
@@ -197,16 +181,9 @@ const CaptionLabel = ({
   )
 }
 
-const MonthGrid = ({
-  className,
-  children,
-  displayYears,
-  startMonth,
-  endMonth,
-  navView,
-  setNavView,
-  ...props
-}: TMonthGridProps) => {
+const MonthGrid = ({ className, children, ...props }: TMonthGridProps) => {
+  const { displayYears, startMonth, endMonth, navView, setNavView } = useCalendar()
+
   if (navView === 'years') {
     return (
       <YearGrid
@@ -268,6 +245,10 @@ export const Calendar = ({
   yearRange = 12,
   numberOfMonths,
   components,
+  startMonth,
+  endMonth,
+  onNextClick,
+  onPrevClick,
   ...props
 }: TCalendarProps) => {
   const { language } = useLanguageSelector()
@@ -282,76 +263,60 @@ export const Calendar = ({
     }
   })
 
-  const { onNextClick, onPrevClick, startMonth, endMonth } = props
-
   const columnsDisplayed = navView === 'years' ? 1 : numberOfMonths
 
+  const value = useMemo<TCalendarContext>(
+    () => ({
+      navView,
+      setNavView,
+      displayYears,
+      setDisplayYears,
+      showYearSwitcher,
+      startMonth,
+      endMonth,
+      onPrevClick,
+      onNextClick,
+    }),
+    [navView, displayYears, showYearSwitcher, startMonth, endMonth, onPrevClick, onNextClick]
+  )
+
   return (
-    <DayPicker
-      locale={DateHelper.dateFnsLocaleByLanguage[language.value]}
-      showOutsideDays={showOutsideDays}
-      className={StyleHelper.mergeStyles('p-3', className)}
-      classNames={{
-        months: 'relative flex',
-        month_caption: 'relative mx-10 flex h-7 items-center justify-center',
-        weekdays: 'flex flex-row',
-        weekday: 'w-9 text-sm font-normal text-gray-300',
-        month: 'w-full',
-        caption: 'relative flex items-center justify-center pt-1',
-        week: 'mt-2 flex w-max items-start',
-        day: 'flex size-9 flex-1 items-center justify-center p-0 text-sm',
-        day_button:
-          'text-white enabled:hover:bg-gray-300/15 enabled:cursor-pointer size-8 rounded p-0 font-normal transition-none aria-selected:opacity-100',
-        range_start: 'day-range-start rounded bg-neon [&>button]:bg-neon [&>button]:hover:neon [&>button]:hover:neon',
-        range_middle:
-          'bg-gray-100/10 !text-white [&>button]:!bg-transparent [&>button]:!text-white [&>button]:hover:!bg-transparent [&>button]:hover:!text-white',
-        range_end: 'day-range-end rounded bg-neon [&>button]:bg-neon [&>button]:hover:neon [&>button]:hover:neon',
-        selected: '[&>button]:!bg-neon [&>button]:!text-asphalt',
-        today:
-          '[&>button]:bg-gray-300/10 [&>button]:data-[selected=true]:bg-neon [&>button]:data-[selected=true]:[not(:disabled)]:text-asphalt',
-        outside: 'day-outside opacity-50',
-        disabled: '[&>button]:text-gray-300 !opacity-30',
-        hidden: 'invisible flex-1',
-      }}
-      components={{
-        Nav: ({ className }) => (
-          <Nav
-            className={className}
-            displayYears={displayYears}
-            navView={navView}
-            setDisplayYears={setDisplayYears}
-            startMonth={startMonth}
-            endMonth={endMonth}
-            onPrevClick={onPrevClick}
-            onNextClick={onNextClick}
-          />
-        ),
-        CaptionLabel: props => (
-          <CaptionLabel
-            showYearSwitcher={showYearSwitcher}
-            navView={navView}
-            setNavView={setNavView}
-            displayYears={displayYears}
-            {...props}
-          />
-        ),
-        MonthGrid: ({ className, children, ...props }) => (
-          <MonthGrid
-            className={className}
-            displayYears={displayYears}
-            startMonth={startMonth}
-            endMonth={endMonth}
-            navView={navView}
-            setNavView={setNavView}
-            {...props}
-          >
-            {children}
-          </MonthGrid>
-        ),
-        ...components,
-      }}
-      numberOfMonths={columnsDisplayed}
-      {...props}
-    />
+    <CalendarContext.Provider value={value}>
+      <DayPicker
+        locale={DateHelper.dateFnsLocaleByLanguage[language.value]}
+        showOutsideDays={showOutsideDays}
+        className={StyleHelper.mergeStyles('p-3', className)}
+        classNames={{
+          months: 'relative flex',
+          month_caption: 'relative mx-10 flex h-7 items-center justify-center',
+          weekdays: 'flex flex-row',
+          weekday: 'w-9 text-sm font-normal text-gray-300',
+          month: 'w-full',
+          caption: 'relative flex items-center justify-center pt-1',
+          week: 'mt-2 flex w-max items-start',
+          day: 'flex size-9 flex-1 items-center justify-center p-0 text-sm',
+          day_button:
+            'text-white enabled:hover:bg-gray-300/15 enabled:cursor-pointer size-8 rounded p-0 font-normal transition-none aria-selected:opacity-100',
+          range_start: 'day-range-start rounded bg-neon [&>button]:bg-neon [&>button]:hover:neon [&>button]:hover:neon',
+          range_middle:
+            'bg-gray-100/10 !text-white [&>button]:!bg-transparent [&>button]:!text-white [&>button]:hover:!bg-transparent [&>button]:hover:!text-white',
+          range_end: 'day-range-end rounded bg-neon [&>button]:bg-neon [&>button]:hover:neon [&>button]:hover:neon',
+          selected: '[&>button]:!bg-neon [&>button]:!text-asphalt',
+          today:
+            '[&>button]:bg-gray-300/10 [&>button]:data-[selected=true]:bg-neon [&>button]:data-[selected=true]:[not(:disabled)]:text-asphalt',
+          outside: 'day-outside opacity-50',
+          disabled: '[&>button]:text-gray-300 !opacity-30',
+          hidden: 'invisible flex-1',
+        }}
+        components={{
+          ...components,
+          Nav,
+          CaptionLabel,
+          MonthGrid,
+        }}
+        numberOfMonths={columnsDisplayed}
+        {...props}
+      />
+    </CalendarContext.Provider>
   )
 }

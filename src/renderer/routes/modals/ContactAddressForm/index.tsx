@@ -20,7 +20,7 @@ import { BottomModalLayout } from '@renderer/layouts/BottomModalLayout'
 
 import type { TModalState } from '@shared/types/modal'
 
-type TActionData = {
+type TActionsData = {
   address: string
   blockchain?: TBSServiceName
 }
@@ -40,7 +40,7 @@ export const ContactAddressFormModal = () => {
     validatedAddress,
   } = useNameService()
 
-  const { actionData, setData, handleAct } = useActions<TActionData>({
+  const { actionData, setData, handleAct } = useActions<TActionsData>({
     address: initialAddress?.address || '',
     blockchain: initialAddress?.blockchain,
   })
@@ -61,7 +61,7 @@ export const ContactAddressFormModal = () => {
     if (address) validateAddressOrNS(address, blockchain)
   }
 
-  const handleSubmit = ({ blockchain, address }: TActionData) => {
+  const handleSubmit = ({ blockchain, address }: TActionsData) => {
     if (!blockchain || !address) return
 
     onSaveAddress({ blockchain, address })

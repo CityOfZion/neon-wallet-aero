@@ -7,7 +7,15 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 const SwitchContext = createContext<{ id?: string }>({})
 
-const useSwitch = () => useContext(SwitchContext)
+const useSwitch = () => {
+  const context = useContext(SwitchContext)
+
+  if (!context) {
+    throw new Error('Switch compound components cannot be rendered outside the Switch.Root component')
+  }
+
+  return context
+}
 
 type TRootProps = ComponentProps<'div'> & {
   id?: string

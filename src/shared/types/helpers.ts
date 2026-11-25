@@ -83,6 +83,10 @@ export type TStringHelperRemoveSpecialCharacterOptions = {
   trimText?: boolean
 }
 
+export type TStringHelperCapitalizeOptions = {
+  preserveRest?: boolean
+}
+
 export type TToastHelperToastProps = {
   message: ReactNode
   className?: string

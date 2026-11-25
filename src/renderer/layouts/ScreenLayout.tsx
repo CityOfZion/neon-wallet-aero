@@ -14,7 +14,7 @@ import { useRemoveOverflowShift } from '@renderer/hooks/useRemoveOverflowShift'
 
 import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 
-export type TMainLayoutProps = {
+export type TScreenLayoutProps = {
   children?: ReactNode
   heading?: string
   icon?: JSX.Element
@@ -34,7 +34,7 @@ export const ScreenLayout = ({
   rightComponent,
   withBack = true,
   ...props
-}: TMainLayoutProps): JSX.Element => {
+}: TScreenLayoutProps): JSX.Element => {
   const { t: tCommonGeneral } = useTranslation('common', { keyPrefix: 'general' })
   const { ref } = useRemoveOverflowShift<HTMLDivElement>()
   const navigate = useNavigate()

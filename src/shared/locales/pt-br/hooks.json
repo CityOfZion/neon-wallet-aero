@@ -66,7 +66,7 @@
     "unauthorizedAction": "Não autorizado. Por favor, tente novamente ou entre em contato com o suporte."
   },
   "useExportMnemonic": {
-    "fileTemplate": "Importante: Mantenha este arquivo seguro e nunca o compartilhe com ninguém! Qualquer pessoa com este mnemônico poderá acessar seus ativos.\n\n--- FRASE MNEMÔNICA ---\n\n{{mnemonic}}\n\n-----------------------\n\n{{generatedAt}}"
+    "fileTemplate": "Importante: Mantenha este arquivo seguro e nunca o compartilhe com ninguém! Qualquer pessoa com este mnemônico poderá acessar seus ativos.\n\n--- Mnemônico ---\n\n{{mnemonic}}\n\n-----------------------\n\n{{generatedAt}}"
   },
   "usePersistTrustlineMutation": {
     "errorToastMessage": "Falha ao persistir trustline",

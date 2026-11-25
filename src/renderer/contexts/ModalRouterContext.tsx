@@ -81,6 +81,7 @@ export const ModalRouterProvider = ({ routes, children }: TModalRouterProviderPr
   useEffect(() => {
     const names = routes.map(route => route.name)
     const uniqueNames = new Set(names)
+
     if (names.length !== uniqueNames.size) {
       throw new Error('Route names must be unique')
     }

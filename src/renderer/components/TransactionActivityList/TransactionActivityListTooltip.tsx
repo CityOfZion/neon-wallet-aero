@@ -21,7 +21,7 @@ export const TransactionActivityListTooltip = ({ data, className, children }: TP
       title={title}
       delayDuration={0}
       contentProps={{
-        className: StyleHelper.mergeStyles('text-center inline-block max-w-44 wrap-break-word', className),
+        className: StyleHelper.mergeStyles('inline-block max-w-44', className),
       }}
     >
       {children}

@@ -117,8 +117,7 @@
     "nextYearButtonLabel": "前往后几年"
   },
   "networkBanner": {
-    "testnetLabel": "测试网络",
-    "customLabel": "自定义网络",
-    "testnetCustomLabel": "测试网络 + 自定义网络"
+    "nonMainnetLabel_one": "非主网网络",
+    "nonMainnetLabel_other": "非主网网络"
   }
 }

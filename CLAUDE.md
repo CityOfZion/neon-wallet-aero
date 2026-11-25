@@ -28,12 +28,16 @@ The extension has three entry points:
 - **Popup** (`src/renderer/popup.tsx` / `popup.html`) — the main UI opened from the browser toolbar
 - **Tab** (`src/renderer/tab.tsx` / `tab.html`) — full-page views (buy/sell tokens, hardware wallet connection)
 
+Build is Vite 8 (Rolldown) + `@crxjs/vite-plugin` v3 (`vite.config.ts`, manifest in `manifest.config.ts`). Use `build.rolldownOptions`, not `rollupOptions`. Node built-ins needed by blockchain libs are polyfilled via `vite-plugin-node-polyfills` `include` list — add modules there if a dependency fails on a missing Node built-in.
+
 ### State Management
 
 - **Redux Toolkit** with **Redux Persist** (synced to webextension storage, survives extension reload)
 - Store slices in `src/renderer/store/reducers/`: `auth`, `contact`, `settings`, `utility`
 - `auth` slice has `memoryData.loginSession` (not persisted) and `data.applicationDataByLoginType` (wallets & notifications per login method)
 - **React Query** for server state caching (balances, transactions)
+- When changing the shape or defaults of a persisted slice (e.g. `settings.data.customNetworks`), add a migration in `store/reducers/<slice>/migrations.ts` and bump `version` in its persist config so existing users' data is preserved
+- Neo3 ships a default custom network (`NetworkHelper.defaultCozNeo3CustomNetwork`, COZ RPC) that is always the first custom network and can't be edited or deleted (guarded in `saveCustomNetwork`/`deleteCustomNetwork` reducers and hidden from edit in `NetworkSelection` modal)
 
 ### Routing
 

@@ -19,7 +19,7 @@ import TbArrowLeft from '@renderer/assets/images/tb-arrow-left.svg?react'
 
 import type { TModalState } from '@shared/types/modal'
 
-type TActionData = {
+type TActionsData = {
   pressedWordsIndex: number[]
 }
 
@@ -34,7 +34,7 @@ export const CreateWalletStep2Modal = () => {
     actionData: { pressedWordsIndex },
     actionState,
     setData,
-  } = useActions<TActionData>({
+  } = useActions<TActionsData>({
     pressedWordsIndex: [],
   })
 
