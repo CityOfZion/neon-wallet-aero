@@ -411,12 +411,12 @@
   "saveCustomNetwork": {
     "title": "Rede personalizada",
     "nameLabel": "Nome",
-    "namePlaceholder": "Insira um nome",
+    "namePlaceholder": "Insira o nome",
     "urlLabel": "URL",
     "urlPlaceholder": "Insira a URL",
-    "urlHint": "Exemplo de RPC: https://mainnet1.neo.coz.io:443",
+    "urlHint": "Exemplo de URL (RPC): https://mainnet1.neo.coz.io:443",
     "successUrl": "Conectado à rede com sucesso",
-    "deleteButtonLabel": "Excluir rede",
+    "deleteNetworkButtonLabel": "Excluir rede",
     "errors": {
       "invalidURL": "Insira uma URL válida",
       "notConnect": "Não foi possível conectar a esta rede",

@@ -66,7 +66,7 @@
     "unauthorizedAction": "未授權。請重試或聯繫支持。"
   },
   "useExportMnemonic": {
-    "fileTemplate": "重要：请保持此文件安全，切勿与任何人分享！任何拥有此助记词的人都可以访问您的资产。\n\n--- 助记词 ---\n\n{{mnemonic}}\n\n-----------------------\n\n{{generatedAt}}"
+    "fileTemplate": "重要：請妥善保管此檔案，切勿與任何人分享！任何擁有此助記詞的人都可以存取您的資產。\n\n--- 助記詞 ---\n\n{{mnemonic}}\n\n-----------------------\n\n{{generatedAt}}"
   },
   "usePersistTrustlineMutation": {
     "errorToastMessage": "保存信任額度失敗",

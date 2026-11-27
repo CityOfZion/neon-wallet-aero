@@ -414,9 +414,9 @@
     "namePlaceholder": "Namen eingeben",
     "urlLabel": "URL",
     "urlPlaceholder": "URL eingeben",
-    "urlHint": "RPC-Beispiel: https://mainnet1.neo.coz.io:443",
+    "urlHint": "URL-Beispiel (RPC): https://mainnet1.neo.coz.io:443",
     "successUrl": "Erfolgreich mit dem Netzwerk verbunden",
-    "deleteButtonLabel": "Netzwerk löschen",
+    "deleteNetworkButtonLabel": "Netzwerk löschen",
     "errors": {
       "invalidURL": "Bitte geben Sie eine gültige URL ein",
       "notConnect": "Verbindung zu diesem Netzwerk nicht möglich",

@@ -8,6 +8,7 @@ import { localStorage } from 'redux-persist-webextension-storage'
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
 import { CurrencyHelper } from '@renderer/helpers/CurrencyHelper'
 import { LanguageHelper } from '@renderer/helpers/LanguageHelper'
+import { NetworkHelper } from '@renderer/helpers/NetworkHelper'
 
 import { settingsMigrations } from '@renderer/store/reducers/settings/migrations'
 import type { TAccount, TCurrency, TCustomNetworks, TLanguage, TSelectedNetworks, TWallet } from '@shared/types/store'
@@ -47,7 +48,7 @@ export function getSettingsReducer() {
         stellar: BlockchainServiceHelper.bsAggregator.blockchainServicesByName.stellar.defaultNetwork,
       },
       customNetworks: {
-        neo3: [],
+        neo3: [NetworkHelper.defaultCozNeo3CustomNetwork],
         neoLegacy: [],
         ethereum: [],
         neox: [],
@@ -64,7 +65,7 @@ export function getSettingsReducer() {
   const settingsReducerConfig: PersistConfig<TSettingsReducer> = {
     key: 'settingsReducer',
     storage: localStorage,
-    version: 1,
+    version: 2,
     migrate: createMigrate(settingsMigrations),
   }
 

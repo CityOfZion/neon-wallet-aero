@@ -75,7 +75,7 @@ export const GreyAmountInput = forwardRef<HTMLInputElement, TProps>(
           />
         </FieldActionsMenu>
 
-        {loading && <Loader containerClassName="w-auto" className="mr-1 size-4" />}
+        {loading && <Loader containerClassName="w-auto" className="mr-2 size-4" />}
 
         {children}
       </div>

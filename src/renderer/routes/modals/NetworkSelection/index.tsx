@@ -9,6 +9,7 @@ import { Radio } from '@renderer/components/Radio'
 import { Separator } from '@renderer/components/Separator'
 
 import { BlockchainServiceHelper } from '@renderer/helpers/BlockchainServiceHelper'
+import { NetworkHelper } from '@renderer/helpers/NetworkHelper'
 import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import { useModalNavigate, useModalState } from '@renderer/hooks/useModalRouter'
@@ -70,31 +71,36 @@ export const NetworkSelectionModal = () => {
   return (
     <BottomModalLayout heading={t('title')}>
       <div className="min-h-0 grow overflow-auto">
-        <p className="mb-5 block px-4 text-sm text-gray-300">{t('selectNetwork')}</p>
+        <p className="mb-2 block px-4 text-sm text-gray-300">{t('selectNetwork')}</p>
 
         <Radio.Group value={selectedNetwork.id} onValueChange={setSelectedNetworkId}>
-          {options.map((network, index, array) => (
-            <Radio.Item key={network.id} value={network.id} withSeparator={index !== array.length - 1}>
-              <div className="flex items-center gap-4 text-sm">
-                <div
-                  className={StyleHelper.mergeStyles('min-size-1.5 size-1.5 rounded-full', {
-                    'bg-purple': network.type === 'testnet',
-                    'bg-neon': network.type === 'mainnet',
-                    'bg-pink': network.type === 'custom',
-                  })}
-                />
-                <label>{network.name}</label>
-              </div>
+          {options.map((network, index, array) => {
+            const isDefaultCustomNetwork = NetworkHelper.isDefaultCustomNetwork(network)
 
-              <Radio.Indicator />
-            </Radio.Item>
-          ))}
+            return (
+              <Radio.Item key={network.id} value={network.id} withSeparator={index !== array.length - 1}>
+                <div className="flex items-center gap-4 text-sm">
+                  <div
+                    className={StyleHelper.mergeStyles('min-size-1.5 size-1.5 rounded-full', {
+                      'bg-purple': network.type === 'testnet',
+                      'bg-neon': network.type === 'mainnet',
+                      'bg-blue': isDefaultCustomNetwork,
+                      'bg-pink': network.type === 'custom' && !isDefaultCustomNetwork,
+                    })}
+                  />
+                  <label>{network.name}</label>
+                </div>
+
+                <Radio.Indicator />
+              </Radio.Item>
+            )
+          })}
         </Radio.Group>
       </div>
 
       {service.isCustomNetworkSupported && (
-        <div className="mt-3 flex flex-col gap-y-3">
-          {selectedNetwork.type === 'custom' && (
+        <div className="mt-5 flex flex-col gap-y-3">
+          {selectedNetwork.type === 'custom' && !NetworkHelper.isDefaultCustomNetwork(selectedNetwork) && (
             <Button
               label={t('editCustomNetworkButtonLabel')}
               variant="outlined"
@@ -120,8 +126,8 @@ export const NetworkSelectionModal = () => {
         </div>
       )}
 
-      <div className="flex flex-col gap-y-5">
-        <Separator className="mt-4" />
+      <div className="mt-5 flex flex-col gap-y-5">
+        <Separator />
 
         <div className="flex gap-x-3">
           <Button

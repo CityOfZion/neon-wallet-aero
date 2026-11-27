@@ -4,10 +4,10 @@ import { StyleHelper } from '@renderer/helpers/StyleHelper'
 
 import NeonWalletFullImage from '@renderer/assets/images/neon-wallet-full.svg?react'
 
-import type { TMainLayoutProps } from './ScreenLayout'
+import type { TScreenLayoutProps } from './ScreenLayout'
 import { ScreenLayout } from './ScreenLayout'
 
-export const LoginLayout = ({ contentClassName, children, ...props }: TMainLayoutProps) => {
+export const LoginLayout = ({ contentClassName, children, ...props }: TScreenLayoutProps) => {
   const { t } = useTranslation('pages', { keyPrefix: 'login' })
 
   return (

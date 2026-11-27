@@ -123,8 +123,7 @@
     "nextYearButtonLabel": "Go to the next years"
   },
   "networkBanner": {
-    "testnetLabel": "Testnet network",
-    "customLabel": "Custom network",
-    "testnetCustomLabel": "Testnet + Custom networks"
+    "nonMainnetLabel_one": "Non-mainnet network",
+    "nonMainnetLabel_other": "Non-mainnet networks"
   }
 }

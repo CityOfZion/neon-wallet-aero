@@ -382,7 +382,7 @@
     },
     "where": {
       "title": "我在哪裡可以找到我的目的地標籤/備註？",
-      "description": "它通常是一个唯一的标识字符串，可以在您的收款人账户信息中找到。"
+      "description": "它通常是一個唯一的識別字串，可以在您的收款人帳戶資訊中找到。"
     }
   },
   "swapInfo": {
@@ -414,9 +414,9 @@
     "namePlaceholder": "輸入名稱",
     "urlLabel": "URL",
     "urlPlaceholder": "輸入 URL",
-    "urlHint": "RPC 範例：https://mainnet1.neo.coz.io:443",
+    "urlHint": "URL 範例（RPC）：https://mainnet1.neo.coz.io:443",
     "successUrl": "已成功連接到網路",
-    "deleteButtonLabel": "刪除網路",
+    "deleteNetworkButtonLabel": "刪除網路",
     "errors": {
       "invalidURL": "請輸入有效的 URL",
       "notConnect": "無法連接到此網路",
@@ -703,12 +703,12 @@
   },
   "neo3VoteInfo": {
     "title": "它是如何工作的？",
-    "description": "您持有的 NEO 数量等于您可以投票支持候选人的票数。",
-    "whyVoteLabel": "为什么要投票？",
-    "whyVoteResponseLabel": "通过投票，您积极参与 NEO 生态系统，并因此有资格作为持有者获得 GAS 奖励。",
+    "description": "您持有的 NEO 數量等於您可以投票支持候選人的票數。",
+    "whyVoteLabel": "為什麼要投票？",
+    "whyVoteResponseLabel": "透過投票，您積極參與 NEO 生態系統，並因此有資格作為持有者獲得 GAS 獎勵。",
     "noteLabel": "注意：",
-    "noteResponseLabel": "如果您不投票，您将失去这一好处。",
-    "alertDescription": "如果您出售您的 NEO，您的投票将减少您出售的数量，您的 GAS 奖励也将相应减少。"
+    "noteResponseLabel": "如果您不投票，您將失去這項好處。",
+    "alertDescription": "如果您出售您的 NEO，您的投票將減少您出售的數量，您的 GAS 獎勵也將相應減少。"
   },
   "accountSelectionByBlockchain": {
     "title": "更改帳戶",
